@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8QTRE4CGNE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8QTRE4CGNE');
+    </script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    
+    <title id="seo-title">Learn Korean Game: 1,000+ Word Quiz (FREE)</title>
+    <meta id="seo-desc" name="description" content="Master Korean through fun interactive games! Challenge yourself with over 1,000 Korean Word quizzes. Perfect for K-Drama fans and learners worldwide.">
+    <meta name="keywords" content="Learn Korean, Korean Quiz, K-Drama Phrases, Basic Korean, Korean Vocabulary">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="quiz-app">
+    <div id="top-open-btn" class="top-window-notice" onclick="forceExternalBrowser()">
+        🔗 FB.TikTok / Sound Problem? >> Click here to open in New Window
+    </div>
+
+    <h1 id="main-header" class="header">Learn Korean Game: 1,000+ Word Quiz</h1>
+ 
+    <div class="content-area">
+        
+        <div id="menu-screen" class="screen active">
+            <div style="text-align: center; padding: 20px 0 10px 0;">
+                <div class="big-korea-badge" style="font-size: 3.5rem; margin-bottom: 5px;">🇰🇷</div>
+                <div class="logo" style="font-size: 2rem; font-weight: 900; color: var(--primary);">Real-Life Words</div>
+                <p style="margin: 5px 0 0 0; color: #64748b; font-weight: 500;">Korean Words Used in Daily Life</p>
+                <p style="margin-top: 10px; font-weight: bold; color: #4285f4; font-size: 1.1rem;">
+                    🌐 Practice Korean in your language!
+                </p>
+            </div>
+
+            <div id="category-screen" style="margin-bottom: 20px;">
+                <div id="guide-box" onclick="showGuide()" style="cursor:pointer; background:#ffffff; border:2px solid #4285f4; border-radius:10px; padding:10px 15px; margin:5px auto; max-width:92%; text-align:center; box-shadow: 0 3px 6px rgba(0,0,0,0.1);">
+                    <div style="font-weight:bold; color:#4285f4; font-size:1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span>🌐</span> Translation Guide <span style="font-size:0.8rem; color:#999; font-weight:normal;">(Click)</span>
+                    </div>
+                </div>
+
+                <div id="guide-content" onclick="hideGuide()" style="display:none; cursor:pointer; background:#ffffff; border:2px solid #4285f4; border-radius:10px; padding:15px; margin:5px auto; max-width:92%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                    <div style="font-weight:bold; color:#4285f4; font-size:1.1rem; text-align:center; margin-bottom:10px;">
+                        🌐 Translation Guide
+                    </div>
+                    <div style="font-size:1rem; color:#333; line-height:1.5; border-top:1px solid #eee; padding-top:10px; text-align: left;">
+                        <p style="margin: 5px 0;"><strong>1.</strong> Tap the <b>[ ⋮ ] 3-dot menu</b> or <b>[Aa]</b> at the top of your phone.</p>
+                        <p style="margin: 5px 0;"><strong>2.</strong> Select <b>'Translate'</b> to see the meanings.</p>
+                        <p style="margin: 10px 0 0 0; color:#d93025; font-size:0.9rem; font-weight: bold;">※ Korean text remains the same.</p>
+                        <div style="text-align:right; font-size:0.8rem; color:#999; margin-top:8px;">(Tap to close)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-intro" style="text-align: center; margin-bottom: 15px;">
+                <h2>Can you guess this Korean word?</h2>
+            </div>
+
+            <div id="today-quiz-section" class="game-ad-bar" onclick="expandTodayQuiz()" style="width: 100%; max-width: 550px; padding: 20px; cursor: pointer; margin: 0 auto 30px auto; transition: all 0.3s; box-sizing: border-box;">
+                <div class="korea-badge">🎁</div>
+                <div id="today-title" style="font-weight: 900; color: var(--primary); margin-bottom: 0px; font-size: 1.5rem; text-align: center;"> 
+                    TODAY'S QUIZ 
+                </div>
+                
+                <div id="today-quiz-content" style="display: none; margin-top: 15px; border-top: 1px dashed #ccc; padding-top: 15px;">
+                    <div class="tip-container" style="background: #fff9db; border-radius: 15px; padding: 20px; border-left: 8px solid #fcc419; text-align: left;">
+                        <div class="tip-title" style="font-size: 1.2rem; margin-bottom: 10px; font-weight: bold; color: #925211;">👩‍🏫 Teacher's Tip</div>
+                        <div id="teacher-tip-text" style="font-size: 1.3rem; color: #5f3e07; line-height: 1.5; font-weight: 800;">
+                            Loading tip...
+                        </div>
+                    </div>
+
+                    <div class="kr-text notranslate" id="today-kr" translate="no" style="font-size: 1.8rem; margin-top: 15px; text-align: center;">---</div>
+                    <div class="rom-text notranslate" id="today-rom" translate="no" style="font-size: 1.5rem; margin-bottom: 15px; text-align: center;">---</div>
+                    
+                    <div class="control-group" style="scale: 0.9; display: flex; justify-content: center; gap: 10px;">
+                        <button class="btn-main" onclick="event.stopPropagation(); todaySpeak();">
+                            <span class="icon">🔊</span><span>LISTEN</span>
+                        </button>
+                        <button class="btn-main" id="today-mic-btn" onclick="event.stopPropagation(); startTodayRecognition();">
+                            <span class="icon">🎤</span><span>SPEAK</span>
+                        </button>
+                    </div>
+
+                    <div id="today-feedback" style="height: 30px; font-weight: 900; font-size: 1.1rem; margin: 10px 0; text-align: center;"></div>
+                    <div class="options-container" id="today-options" style="gap: 8px;"></div>
+                    
+                    <button class="back-link hint-btn" style="width: 100%; margin-top: 15px; box-sizing: border-box;" onclick="event.stopPropagation(); showTodayAnswer();">💡 Answer</button>
+                    <button class="back-link" style="width: 100%; margin-top: 10px; background-color: #f1f5f9; color: #64748b; box-sizing: border-box;" onclick="event.stopPropagation(); closeTodayQuiz();">✖ Close</button>         
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 15px;">
+                <p style="font-size: 1.1rem; font-weight: 700; color: #64748b; letter-spacing: 1px; text-transform: uppercase; margin: 0;">Category</p>
+            </div>
+            
+            <div id="category-list" class="category-grid"></div>
+            
+            <br>
+            <div style="text-align: center; font-size: 0.9rem; font-weight: bold; color: #64748b;">
+                1,000+ Essential Korean sentences / free
+            </div>
+            <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
+        </div>
+
+        <div id="quiz-screen" class="quiz-screen">
+            <div class="situation-tag" id="situation">---</div>
+
+            <div id="category-tip-container" style="background: #fff9db; border-radius: 12px; padding: 15px; margin: 10px 0; border-left: 8px solid #fcc419; text-align: left;">
+                <div style="font-weight: bold; color: #925211; font-size: 0.9rem; margin-bottom: 5px;">👩‍🏫 Teacher's Tip</div>
+                <div id="category-tip-text" style="font-size: 1.4rem; font-weight: 800; color: #5f3e07; line-height: 1.4;">
+                    Tap to start learning!
+                </div>
+            </div>
+
+            <div class="kr-text notranslate" id="korean-sentence" translate="no">---</div>
+            <div class="rom-text notranslate" id="romanization" translate="no">---</div>
+            
+            <div class="control-group">
+                <button class="btn-main" onclick="speak()">
+                    <span class="icon">🔊</span><span>LISTEN</span>
+                </button>
+                <button class="btn-main" id="mic-btn" onclick="startSpeechRecognition()">
+                    <span class="icon">🎤</span><span>SPEAK</span>
+                </button>
+                <button class="btn-main" style="background:#e0e7ff; color:var(--primary);" onclick="nextQuiz()">
+                    <span class="icon">⏭️</span><span>NEXT</span>
+                </button>
+            </div>
+            
+            <div id="feedback" style="height: 35px; font-weight: 900; font-size: 1.4rem; margin-bottom: 10px; text-align: center;"></div>
+            <div class="options-container" id="options-container"></div>
+
+            <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: 25px;">
+                <button class="back-link" style="margin-top: 0;" onclick="goHome()">🏠 HOME</button>
+                <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
+            </div>
+            
+            <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
+                <div class="game-ad-bar">
+                    <div class="korea-badge">🇰🇷</div>
+                    <a href="https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g" target="_blank" class="esim-btn-link">Get Korea eSIM</a>
+                    <div class="ad-moving-text" id="ad-content">No internet in Korea? You'll need data!</div>
+                    <div class="ad-fixed-small">+ Available in 200 countries</div>
+                </div>
+                <br>
+                <div style="font-size: 0.9rem; font-weight: bold; color: #64748b;">1,000+ Essential Korean sentences / free</div>
+                <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="bottom-menu">
+    <button onclick="shareApp()" class="menu-item">
+        <span class="menu-emoji">📤</span>
+        <span class="menu-label">Share</span>
+    </button>
+    <button onclick="visitFacebook()" class="menu-item">
+        <span class="menu-emoji">📱</span>
+        <span class="menu-label">Facebook</span>
+    </button>
+    <button onclick="addToHome()" class="menu-item">
+        <span class="menu-emoji">🏠</span>
+        <span class="menu-label">Save App</span>
+    </button>
+    <button onclick="sendEmail()" class="menu-item">
+        <span class="menu-emoji">📧</span>
+        <span class="menu-label">E-mail</span>
+    </button>
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
