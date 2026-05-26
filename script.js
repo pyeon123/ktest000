@@ -1,3 +1,12 @@
+const gaScript = document.createElement('script');
+gaScript.async = true;
+gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-LVXKNBELZQ";
+document.head.appendChild(gaScript);
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-LVXKNBELZQ');
 let currentIdx = 0;
 let activeCatId = "";
 let activeCategoryName = ""; 
@@ -115,19 +124,48 @@ function forceExternalBrowser() {
         window.open(window.location.href, '_blank', 'width=900,height=1050');
     }
 }
-
 function initMenu() {
     const list = document.getElementById('category-list');
     if (!list) return;
 
+    const fileMapping = {
+        "cat_01": "family.html",
+        "cat_02": "food.html",
+        "cat_03": "places.html",
+        "cat_04": "transport.html",
+        "cat_05": "animals.html",
+        "cat_06": "clothes.html",
+        "cat_07": "nature.html",
+        "cat_08": "hobbies.html",
+        "cat_09": "body.html",
+        "cat_10": "Jobs.html",
+        "cat_11": "emotions.html",
+        "cat_12": "kitchen.html",
+        "cat_13": "electronics.html",
+        "cat_14": "health.html",
+        "cat_15": "fruits.html",
+        "cat_16": "colors.html",
+        "cat_17": "school.html",
+        "cat_18": "time.html",
+        "cat_19": "sports.html",
+        "cat_20": "furniture.html",
+        "cat_21": "buildings.html",
+        "cat_22": "landscapes.html",
+        "cat_23": "word.html",
+        "cat_24": "vocabulary.html",
+    };
+
     let html = "";
     Object.keys(allQuizData).forEach(catId => {
         const cat = allQuizData[catId];
+        const targetUrl = fileMapping[catId] || "index.html"; 
+
+        // 💡 핵심: onclick 속성을 아예 제거하고 오직 href로만 이동하게 함
         html += `
-            <div class="cat-btn" onclick="startQuiz('${catId}', true)">
+            <a href="${targetUrl}" class="cat-btn" style="text-decoration:none; color:inherit; display:block;">
                 <span class="emoji">${cat.emoji}</span>
                 <span>${cat.name}</span>
-            </div>`;
+            </a>`;
     });
     list.innerHTML = html;
 }
@@ -187,6 +225,7 @@ function loadQuiz(autoSpeak = false) {
     if (autoSpeak) { setTimeout(speak, 1000); }
 }
 
+// ---------------- 💡 수정된 checkAnswer 부분 ----------------
 function checkAnswer(isCorrect, quiz) {
     if (isCorrect) {
         document.getElementById('quiz-screen').classList.remove('active');
@@ -199,32 +238,98 @@ function checkAnswer(isCorrect, quiz) {
             document.querySelector('.content-area').appendChild(detailArea);
         }
 
-        detailArea.innerHTML = `
-            <div class="result-container" style="padding: 20px; text-align: left; width: 100%; max-width: 600px; margin: 0 auto;">
-                <h2 style="text-align: center; color: var(--primary);">⭕ Correct!</h2>
-                <div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 12px; background: #f8fafc;">
-                    <p style="margin: 5px 0; font-size: 1.1rem; line-height: 1.5;"><strong>Context:</strong> ${quiz.situation}</p>
-                    <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${quiz.forms.casual || quiz.kr}</p>
-                    <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${quiz.forms.polite || quiz.kr}</p>
-                </div>
-                <h3 style="margin-top: 20px; color: #1e293b;">📚 Key Sentences</h3>
-                <ul style="list-style: none; padding: 0;">
-                    ${(quiz.examples || []).map(ex => `
+        // 1. 랜덤 추천 데이터 준비
+        const allIds = Object.keys(allQuizData);
+        const others = allIds.filter(id => id !== activeCatId);
+        let randomCat = "";
+        let catData = null;
+        let recHtml = "";
+
+        if (others.length > 0) {
+            randomCat = others[Math.floor(Math.random() * others.length)];
+            catData = allQuizData[randomCat];
+            recHtml = `
+                <div style="margin: 20px 0;">
+                    <button id="rec-btn" style="width: 100%; padding: 12px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: bold;">
+                        🔄 Try another: ${catData.emoji} ${catData.name}
+                    </button>
+                </div>`;
+        }
+
+        // 2. 💡 예문 렌더링에 듣기/말하기 버튼 추가
+        let examplesHtml = "";
+        if (quiz.examples && Array.isArray(quiz.examples)) {
+            examplesHtml = `
+                <h3 style="margin-top: 25px; color: #1e293b;">📚 Key Sentences</h3>
+                <ul style="list-style: none; padding: 0; margin-bottom: 20px;">
+                    ${quiz.examples.map((ex, idx) => `
                         <li style="margin-bottom: 15px; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                             <strong style="font-size: 1.3rem; display: block; margin-bottom: 5px; color: #1e293b;">${ex.kr}</strong>
                             <span style="font-size: 1.1rem; color: #64748b; display: block; margin-bottom: 5px;">${ex.en}</span>
-                            <em style="color: var(--primary); font-size: 1rem;">${ex.rom}</em>
+                            <em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${ex.rom}</em>
+                            
+                            <div class="control-group" style="scale: 0.85; margin: 10px 0 0 0; justify-content: center; gap: 10px;">
+                                <button class="btn-main" onclick="event.stopPropagation(); speakExampleText('${ex.kr.replace(/'/g, "\\'")}')">
+                                    <span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span>
+                                </button>
+                                <button class="btn-main" id="ex-mic-btn-${idx}" onclick="event.stopPropagation(); startExampleRecognition('${ex.kr.replace(/'/g, "\\'")}', ${idx})">
+                                    <span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span>
+                                </button>
+                            </div>
+                            <div id="ex-feedback-${idx}" style="height: 25px; font-weight: 900; font-size: 1.1rem; margin-top: 5px; text-align: center;"></div>
                         </li>
                     `).join('')}
                 </ul>
-                <button class="esim-btn-link" style="width: 100%; margin-top: 20px; border: none; cursor: pointer; text-align: center;" onclick="goToQuiz()">Next Quiz ⏭️</button>
+            `;
+        }
+
+        // 3. 레이아웃 렌더링
+        detailArea.innerHTML = `
+            <div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;">
+                <h2 style="text-align: center; color: var(--primary);">⭕ Correct!</h2>
+                <div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;">
+                    <p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${quiz.situation}</p>
+                    <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${quiz.forms.casual || quiz.kr}</p>
+                    <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${quiz.forms.polite || quiz.kr}</p>
+                </div>
+                ${examplesHtml}
+                ${recHtml}
+                <div style="margin-top: 20px;">
+                    <button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭️</button>
+                    <button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button>
+                </div>
             </div>
         `;
         detailArea.classList.add('active');
+        window.scrollTo(0, 0);
+
+        // 4. 이벤트 강제 바인딩
+        document.getElementById('next-btn').onclick = nextQuiz;
+        document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
+        
+        const recBtn = document.getElementById('rec-btn');
+        if (recBtn) {
+            recBtn.onclick = () => {
+                const fileMapping = {
+                    "cat_01": "family.html", "cat_02": "food.html", "cat_03": "places.html",
+                    "cat_04": "transport.html", "cat_05": "animals.html", "cat_06": "clothes.html",
+                    "cat_07": "nature.html", "cat_08": "hobbies.html", "cat_09": "body.html",
+                    "cat_10": "Jobs.html", "cat_11": "emotions.html", "cat_12": "kitchen.html",
+                    "cat_13": "electronics.html", "cat_14": "health.html", "cat_15": "fruits.html",
+                    "cat_16": "colors.html", "cat_17": "school.html", "cat_18": "time.html",
+                    "cat_19": "sports.html", "cat_20": "furniture.html", "cat_21": "buildings.html",
+                    "cat_22": "landscapes.html", "cat_23": "word.html", "cat_24": "vocabulary.html"
+                };
+                
+                const targetFile = fileMapping[randomCat] || "index.html";
+                window.location.href = targetFile;
+            };
+        }
     } else {
         alert("Try Again! ❌");
     }
 }
+// ----------------------------------------------------
 
 function goToQuiz() {
     nextQuiz(); 
@@ -301,18 +406,23 @@ function speak() {
 
 function goHome() {
     resetRecognitionState();
+
+    if (typeof CURRENT_CAT !== 'undefined') {
+        window.location.href = 'index.html'; 
+        return;
+    }
+
     document.getElementById('menu-screen').classList.add('active');
     document.getElementById('quiz-screen').classList.remove('active');
     document.getElementById('top-open-btn').style.display = 'none';
     
     window.history.pushState({}, '', window.location.pathname);
-    updateSEOData(null); // 홈 메인 SEO로 복원
+    updateSEOData(null); 
     
     closeTodayQuiz();
     hideGuide();
 }
 
-// 광고 영역 텍스트 애니메이션
 const adTexts = [
     "No internet in Korea? You'll need data!",
     "Maps won't work without internet",
@@ -343,7 +453,6 @@ function showCorrectAnswer() {
     speak();
 }
 
-// ---------------- 오늘의 퀴즈 기능 유지 ----------------
 function expandTodayQuiz() {
     const content = document.getElementById('today-quiz-content');
     const title = document.getElementById('today-title');
@@ -490,7 +599,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// 📌 애플리케이션 초기화 (라우팅 탑재)
 document.addEventListener('DOMContentLoaded', () => {
     const userAgent = navigator.userAgent.toLowerCase();
     const isInApp = /kakaotalk|fbav|instagram|line|naver|snapchat|zum|tistory/i.test(userAgent);
@@ -500,12 +608,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (openBtn) openBtn.style.display = 'block';
     }
 
-    // 1. 개별 HTML에서 설정한 CURRENT_CAT 변수가 있는지 먼저 확인 (우선순위 높음)
     if (typeof CURRENT_CAT !== 'undefined' && allQuizData[CURRENT_CAT]) {
-        // 물리적인 개별 페이지이므로 해당 카테고리 퀴즈 즉시 시작
         startQuiz(CURRENT_CAT, false); 
     } 
-    // 2. 만약 변수가 없다면 기존처럼 URL 파라미터(?cat=...) 확인
     else {
         const params = new URLSearchParams(window.location.search);
         const category = params.get('cat'); 
@@ -513,9 +618,71 @@ document.addEventListener('DOMContentLoaded', () => {
         if (category && allQuizData[category]) {
             startQuiz(category, false);
         } else {
-            // 아무것도 없으면 메뉴 화면 초기화
             initMenu();
             updateSEOData(null); 
         }
     }
 });
+
+// ---------------- 💡 예문 전용 추가 함수 ----------------
+function speakExampleText(text) {
+    window.speechSynthesis.cancel();
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = 'ko-KR'; 
+    msg.rate = 0.8; 
+    window.speechSynthesis.speak(msg);
+}
+
+function startExampleRecognition(targetText, idx) {
+    if (!recognition) {
+        alert("Speech recognition is not supported in this browser.");
+        return;
+    }
+    
+    resetRecognitionState(); 
+    
+    const micBtn = document.getElementById(`ex-mic-btn-${idx}`);
+    const feedback = document.getElementById(`ex-feedback-${idx}`);
+    
+    micBtn.classList.add('recording');
+    feedback.textContent = "Please speak now...";
+    feedback.style.color = "#4f46e5";
+    
+    recognition.start();
+    
+    silenceTimer = setTimeout(() => {
+        resetRecognitionState();
+        micBtn.classList.remove('recording');
+        feedback.textContent = "No voice detected. Try again!";
+        feedback.style.color = "#ef4444";
+    }, 4200);
+
+    recognition.onresult = (event) => {
+        clearTimeout(silenceTimer);
+        const speech = event.results[0][0].transcript;
+        
+        const target = targetText.replace(/[?!\s~,.]/g,'');
+        const voiced = speech.replace(/[?!\s~,.]/g,'');
+        
+        if (voiced.includes(target) || target.includes(voiced)) {
+            feedback.textContent = "Excellent! 🎉";
+            feedback.style.color = "#22c55e";
+        } else {
+            feedback.textContent = "Try Again! ❌";
+            feedback.style.color = "#ef4444";
+        }
+        micBtn.classList.remove('recording');
+    };
+    
+    recognition.onerror = () => {
+        clearTimeout(silenceTimer);
+        resetRecognitionState();
+        micBtn.classList.remove('recording');
+        feedback.textContent = "Error occurred. Try again.";
+        feedback.style.color = "#ef4444";
+    };
+    
+    recognition.onend = () => {
+        micBtn.classList.remove('recording');
+    };
+}
