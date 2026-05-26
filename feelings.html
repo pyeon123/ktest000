@@ -187,7 +187,7 @@
   window.allQuizData = window.allQuizData || {};
   window.CURRENT_CAT = 'cat_feelings';
 
-  // Feelings 카테고리 데이터 주입
+  // Feelings 카테고리 데이터 주입 (엔진 규격에 완벽 일치)
   window.allQuizData["cat_feelings"] = {
       "id": "feelings",
       "emoji": "😊",
@@ -251,21 +251,41 @@
 <script src="script.js"></script>
 
 <script>
-  // 어떤 이유로든 퀴즈가 즉시 시작되지 않았다면, 0.05초 만에 강제로 구동시킵니다.
-  window.addEventListener('load', function() {
-      if (document.getElementById('menu-screen') && document.getElementById('menu-screen').classList.contains('active')) {
+  (function() {
+      function fixDisplayLock() {
+          const menuScreen = document.getElementById('menu-screen');
+          const quizScreen = document.getElementById('quiz-screen');
+          
+          // 메인 화면을 화면에서 완전히 지워버려서 뒤에 켜진 퀴즈 화면이 드러나게 만듭니다.
+          if (menuScreen) {
+              menuScreen.classList.remove('active');
+              menuScreen.style.setProperty('display', 'none', 'important');
+          }
+          
+          if (quizScreen) {
+              quizScreen.classList.add('active');
+              quizScreen.style.setProperty('display', 'block', 'important');
+              
+              // 혹시라도 로드가 안 풀렸을 경우를 대비해 엔진의 첫 문제 로드를 강제 갱신합니다.
+              if (typeof loadQuiz === 'function') {
+                  loadQuiz(true);
+              }
+          }
+      }
+
+      // 페이지 로드 즉시 실행하고, 지각 변동을 막기 위해 0.1초 뒤에 한 번 더 쐐기를 박습니다.
+      window.addEventListener('load', function() {
+          fixDisplayLock();
+          setTimeout(fixDisplayLock, 100);
+      });
+
+      // index.html로 강제 리셋되는 버그 원천 봉쇄
+      window.goHome = function() {
           if (typeof startQuiz === 'function') {
               startQuiz('cat_feelings', false);
           }
-      }
-  });
-
-  // index.html로 튕기는 강제 리셋 로직 원천 봉쇄
-  window.goHome = function() {
-      if (typeof startQuiz === 'function') {
-          startQuiz('cat_feelings', false);
-      }
-  };
+      };
+  })();
 </script>
 
 </body>
