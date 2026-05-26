@@ -608,6 +608,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (openBtn) openBtn.style.display = 'block';
     }
 
+    // 🔥 [오직 feelings.html에서만 기존 기능을 유지하며 문을 열어주는 안전장치]
+    if (window.location.pathname.includes('feelings.html')) {
+        window.CURRENT_CAT = 'cat_feelings';
+    }
+
     if (typeof CURRENT_CAT !== 'undefined' && allQuizData[CURRENT_CAT]) {
         startQuiz(CURRENT_CAT, false); 
     } 
