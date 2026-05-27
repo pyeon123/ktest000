@@ -181,107 +181,106 @@
     </button>
 </div>
 <script src="data.js"></script>
+<script src="script.js"></script>
 
 <script>
-  // 1) 엔진이 정상 작동할 수 있도록 전역 공간에 데이터 미리 주입
-  window.allQuizData = window.allQuizData || {};
-  window.CURRENT_CAT = 'cat_feelings';
-
-  window.allQuizData["cat_feelings"] = {
-      "id": "feelings",
-      "emoji": "😊",
-      "name": "Feelings/Verbs",
-      "data": [
-          {
-              "kr": "좋아하다",
-              "rom": "Jo-a-ha-da",
-              "en": "To like",
-              "tip": "Used to express preference or affection for someone/something.",
-              "situation": "When you want to share what you enjoy.",
-              "forms": { "present": "좋아해요 (Jo-a-hae-yo)", "past": "좋아했어요 (Jo-a-haess-eo-yo)", "future": "좋아할 거예요 (Jo-a-hal geo-ye-yo)" },
-              "examples": [
-                  { "kr": "저는 한국 음식을 좋아해요.", "en": "I like Korean food.", "rom": "Jeo-neun han-guk eum-sig-eul jo-a-hae-yo." },
-                  { "kr": "그를 좋아하기 시작했어요.", "en": "I started to like him.", "rom": "Geu-reul jo-a-ha-gi si-jak-haess-eo-yo." }
-              ],
-              "options": [
-                  { "kr": "사랑하다", "en": "To love", "rom": "Sa-rang-ha-da" },
-                  { "kr": "싫어하다", "en": "To dislike", "rom": "Sil-eo-ha-da" },
-                  { "kr": "관심 있다", "en": "To be interested", "rom": "Gwan-sim it-da" }
-              ]
-          },
-          {
-              "kr": "사랑하다",
-              "rom": "Sa-rang-ha-da",
-              "en": "To love",
-              "tip": "A deeper level of affection than 'liking'.",
-              "situation": "When you feel deep attachment to someone.",
-              "forms": { "present": "사랑해요 (Sa-rang-hae-yo)", "past": "사랑했어요 (Sa-rang-haess-eo-yo)", "future": "사랑할 거예요 (Sa-rang-hal geo-ye-yo)" },
-              "examples": [
-                  { "kr": "당신을 사랑해요.", "en": "I love you.", "rom": "Dang-sin-eul sa-rang-hae-yo." },
-                  { "kr": "서로 사랑하고 있어요.", "en": "We are loving each other.", "rom": "Seo-ro sa-rang-ha-go iss-eo-yo." }
-              ],
-              "options": [
-                  { "kr": "좋아하다", "en": "To like", "rom": "Jo-a-ha-da" },
-                  { "kr": "그리워하다", "en": "To miss", "rom": "Geu-ri-wo-ha-da" },
-                  { "kr": "아끼다", "en": "To cherish", "rom": "A-kki-da" }
-              ]
-          },
-          {
-              "kr": "싫어하다",
-              "rom": "Sil-eo-ha-da",
-              "en": "To dislike",
-              "tip": "The opposite of 'liking'.",
-              "situation": "When you want to express disapproval or lack of interest.",
-              "forms": { "present": "싫어해요 (Sil-eo-hae-yo)", "past": "싫어했어요 (Sil-eo-haess-eo-yo)", "future": "싫어할 거예요 (Sil-eo-hal geo-ye-yo)" },
-              "examples": [
-                  { "kr": "저는 매운 음식을 싫어해요.", "en": "I dislike spicy food.", "rom": "Jeo-neun mae-un eum-sig-eul sil-eo-hae-yo." },
-                  { "kr": "거짓말을 싫어해요.", "en": "I dislike lies.", "rom": "Geo-jit-mal-eul sil-eo-hae-yo." }
-              ],
-              "options": [
-                  { "kr": "좋아하다", "en": "To like", "rom": "Jo-a-ha-da" },
-                  { "kr": "미워하다", "en": "To hate", "rom": "Mi-wo-ha-da" },
-                  { "kr": "싫다", "en": "To be unpleasant", "rom": "Sil-ta" }
-              ]
-          }
-      ]
-  };
-
-  // 2) [핵심] script.js가 DOMContentLoaded 이벤트를 등록할 때 타이밍을 강제로 나꿔챕니다.
-  const originalAddEventListener = document.addEventListener;
-  document.addEventListener = function(type, listener, options) {
-      if (type === 'DOMContentLoaded') {
-          const originalListener = listener;
-          listener = function(event) {
-              // 엔진이 변수를 체크하기 직전에 완벽하게 세팅 고정
-              window.CURRENT_CAT = 'cat_feelings';
-              
-              // 원본 script.js의 초기화 코드 실행
-              originalListener(event);
-              
-              // CSS 미세 오차로 화면이 안 가려지는 현상 최종 방어
-              const menu = document.getElementById('menu-screen');
-              const quiz = document.getElementById('quiz-screen');
-              if (menu) menu.classList.remove('active');
-              if (quiz) quiz.classList.add('active');
-          };
-      }
-      originalAddEventListener.call(this, type, listener, options);
-  };
-
-  // 3) 만약 브라우저가 이벤트를 씹었을 경우를 대비한 2중 최종 안전장치
-  window.addEventListener('load', function() {
-      setTimeout(() => {
-          const menu = document.getElementById('menu-screen');
-          if (menu && (menu.classList.contains('active') || menu.style.display !== 'none')) {
-              if (typeof startQuiz === 'function') {
-                  startQuiz('cat_feelings', false);
+  try {
+      // 엔진이 생성한 오리지널 allQuizData 배열에 feelings 데이터를 안전하게 강제 주입합니다.
+      window.allQuizData = window.allQuizData || {};
+      window.allQuizData["cat_feelings"] = {
+          "id": "feelings",
+          "emoji": "😊",
+          "name": "Feelings/Verbs",
+          "data": [
+              {
+                  "kr": "좋아하다",
+                  "rom": "Jo-a-ha-da",
+                  "en": "To like",
+                  "tip": "Used to express preference or affection for someone/something.",
+                  "situation": "When you want to share what you enjoy.",
+                  "forms": { "present": "좋아해요 (Jo-a-hae-yo)", "past": "좋아했어요 (Jo-a-haess-eo-yo)", "future": "좋아할 거예요 (Jo-a-hal geo-ye-yo)" },
+                  "examples": [
+                      { "kr": "저는 한국 음식을 좋아해요.", "en": "I like Korean food.", "rom": "Jeo-neun han-guk eum-sig-eul jo-a-hae-yo." },
+                      { "kr": "그를 좋아하기 시작했어요.", "en": "I started to like him.", "rom": "Geu-reul jo-a-ha-gi si-jak-haess-eo-yo." }
+                  ],
+                  "options": [
+                      { "kr": "사랑하다", "en": "To love", "rom": "Sa-rang-ha-da" },
+                      { "kr": "싫어하다", "en": "To dislike", "rom": "Sil-eo-ha-da" },
+                      { "kr": "관심 있다", "en": "To be interested", "rom": "Gwan-sim it-da" }
+                  ]
+              },
+              {
+                  "kr": "사랑하다",
+                  "rom": "Sa-rang-ha-da",
+                  "en": "To love",
+                  "tip": "A deeper level of affection than 'liking'.",
+                  "situation": "When you feel deep attachment to someone.",
+                  "forms": { "present": "사랑해요 (Sa-rang-hae-yo)", "past": "사랑했어요 (Sa-rang-haess-eo-yo)", "future": "사랑할 거예요 (Sa-rang-hal geo-ye-yo)" },
+                  "examples": [
+                      { "kr": "당신을 사랑해요.", "en": "I love you.", "rom": "Dang-sin-eul sa-rang-hae-yo." },
+                      { "kr": "서로 사랑하고 있어요.", "en": "We are loving each other.", "rom": "Seo-ro sa-rang-ha-go iss-eo-yo." }
+                  ],
+                  "options": [
+                      { "kr": "좋아하다", "en": "To like", "rom": "Jo-a-ha-da" },
+                      { "kr": "그리워하다", "en": "To miss", "rom": "Geu-ri-wo-ha-da" },
+                      { "kr": "아끼다", "en": "To cherish", "rom": "A-kki-da" }
+                  ]
+              },
+              {
+                  "kr": "싫어하다",
+                  "rom": "Sil-eo-ha-da",
+                  "en": "To dislike",
+                  "tip": "The opposite of 'liking'.",
+                  "situation": "When you want to express disapproval or lack of interest.",
+                  "forms": { "present": "싫어해요 (Sil-eo-hae-yo)", "past": "싫어했어요 (Sil-eo-haess-eo-yo)", "future": "싫어할 거예요 (Sil-eo-hal geo-ye-yo)" },
+                  "examples": [
+                      { "kr": "저는 매운 음식을 싫어해요.", "en": "I dislike spicy food.", "rom": "Jeo-neun mae-un eum-sig-eul sil-eo-hae-yo." },
+                      { "kr": "거짓말을 싫어해요.", "en": "I dislike lies.", "rom": "Geo-jit-mal-eul sil-eo-hae-yo." }
+                  ],
+                  "options": [
+                      { "kr": "좋아하다", "en": "To like", "rom": "Jo-a-ha-da" },
+                      { "kr": "미워하다", "en": "To hate", "rom": "Mi-wo-ha-da" },
+                      { "kr": "싫다", "en": "To be unpleasant", "rom": "Sil-ta" }
+                  ]
               }
-          }
-      }, 80);
-  });
-</script>
+          ]
+      };
 
-<script src="script.js"></script>
+      // 카테고리 전역 고정
+      window.CURRENT_CAT = 'cat_feelings';
+
+      // 대기 화면을 강제로 격파하고 원본 퀴즈 엔진을 다이렉트로 실행하는 마스터 함수
+      function forceLaunchQuiz() {
+          if (typeof startQuiz === 'function') {
+              // 1. 엔진 고유의 퀴즈 스타트 기능 작동 (마이크, 오디오, 에모지 등 원본 기능 100% 보존)
+              startQuiz('cat_feelings', false);
+              
+              // 2. 만에 하나 대기 화면이 걷히지 않았을 경우를 대비해 물리적으로 화면 교체 확인
+              const menuScreen = document.getElementById('menu-screen');
+              const quizScreen = document.getElementById('quiz-screen');
+              if (menuScreen) menuScreen.classList.remove('active');
+              if (quizScreen) quizScreen.classList.add('active');
+          }
+      }
+
+      // 엔진 로드 즉시 실행
+      forceLaunchQuiz();
+
+      // 브라우저가 화면 인터페이스 처리를 완벽히 끝마친 시점(로드 완료)에 한 번 더 확실하게 쐐기를 박습니다.
+      window.addEventListener('load', forceLaunchQuiz);
+      document.addEventListener('DOMContentLoaded', forceLaunchQuiz);
+
+  } catch (error) {
+      console.log("Bypass logic configuration error:", error);
+  }
+
+  // 홈으로 가기 버튼을 눌렀을 때 index.html로 튕기거나 메인 화면으로 리셋되는 현상 철저 방어
+  window.goHome = function() {
+      if (typeof startQuiz === 'function') {
+          startQuiz('cat_feelings', false);
+      }
+  };
+</script>
 
 </body>
 </html>
