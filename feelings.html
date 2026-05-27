@@ -183,11 +183,10 @@
 <script src="data.js"></script>
 
 <script>
-  // 엔진이 시작될 때 이 변수를 즉시 읽을 수 있도록 엔진 위쪽에 배치합니다.
+  // 1) 엔진이 정상 작동할 수 있도록 전역 공간에 데이터 미리 주입
   window.allQuizData = window.allQuizData || {};
   window.CURRENT_CAT = 'cat_feelings';
 
-  // Feelings 카테고리 데이터 주입 (엔진 규격에 완벽 일치)
   window.allQuizData["cat_feelings"] = {
       "id": "feelings",
       "emoji": "😊",
@@ -246,47 +245,43 @@
           }
       ]
   };
+
+  // 2) [핵심] script.js가 DOMContentLoaded 이벤트를 등록할 때 타이밍을 강제로 나꿔챕니다.
+  const originalAddEventListener = document.addEventListener;
+  document.addEventListener = function(type, listener, options) {
+      if (type === 'DOMContentLoaded') {
+          const originalListener = listener;
+          listener = function(event) {
+              // 엔진이 변수를 체크하기 직전에 완벽하게 세팅 고정
+              window.CURRENT_CAT = 'cat_feelings';
+              
+              // 원본 script.js의 초기화 코드 실행
+              originalListener(event);
+              
+              // CSS 미세 오차로 화면이 안 가려지는 현상 최종 방어
+              const menu = document.getElementById('menu-screen');
+              const quiz = document.getElementById('quiz-screen');
+              if (menu) menu.classList.remove('active');
+              if (quiz) quiz.classList.add('active');
+          };
+      }
+      originalAddEventListener.call(this, type, listener, options);
+  };
+
+  // 3) 만약 브라우저가 이벤트를 씹었을 경우를 대비한 2중 최종 안전장치
+  window.addEventListener('load', function() {
+      setTimeout(() => {
+          const menu = document.getElementById('menu-screen');
+          if (menu && (menu.classList.contains('active') || menu.style.display !== 'none')) {
+              if (typeof startQuiz === 'function') {
+                  startQuiz('cat_feelings', false);
+              }
+          }
+      }, 80);
+  });
 </script>
 
 <script src="script.js"></script>
-
-<script>
-  (function() {
-      function fixDisplayLock() {
-          const menuScreen = document.getElementById('menu-screen');
-          const quizScreen = document.getElementById('quiz-screen');
-          
-          // 메인 화면을 화면에서 완전히 지워버려서 뒤에 켜진 퀴즈 화면이 드러나게 만듭니다.
-          if (menuScreen) {
-              menuScreen.classList.remove('active');
-              menuScreen.style.setProperty('display', 'none', 'important');
-          }
-          
-          if (quizScreen) {
-              quizScreen.classList.add('active');
-              quizScreen.style.setProperty('display', 'block', 'important');
-              
-              // 혹시라도 로드가 안 풀렸을 경우를 대비해 엔진의 첫 문제 로드를 강제 갱신합니다.
-              if (typeof loadQuiz === 'function') {
-                  loadQuiz(true);
-              }
-          }
-      }
-
-      // 페이지 로드 즉시 실행하고, 지각 변동을 막기 위해 0.1초 뒤에 한 번 더 쐐기를 박습니다.
-      window.addEventListener('load', function() {
-          fixDisplayLock();
-          setTimeout(fixDisplayLock, 100);
-      });
-
-      // index.html로 강제 리셋되는 버그 원천 봉쇄
-      window.goHome = function() {
-          if (typeof startQuiz === 'function') {
-              startQuiz('cat_feelings', false);
-          }
-      };
-  })();
-</script>
 
 </body>
 </html>
