@@ -247,23 +247,48 @@ function checkAnswer(isCorrect, quiz) {
             }
         }
 
-        // 🔄 다른 카테고리 추천 버튼 시스템 (디자인 최적화)
-        const allIds = Object.keys(allQuizData);
-        const others = allIds.filter(id => id !== activeCatId);
-        let randomCat = "";
-        let catData = null;
-        let recHtml = "";
+        // 🔄 [독립형 추천 시스템] 데이터 공백 에러 차단 및 100% 출력 보장 리스트
+        const recommendList = [
+            { id: "cat_01", name: "Family", emoji: "👨‍👩‍👧‍👦", file: "family.html" },
+            { id: "cat_02", name: "Food", emoji: "🍔", file: "food.html" },
+            { id: "cat_03", name: "Places", emoji: "📍", file: "places.html" },
+            { id: "cat_04", name: "Transport", emoji: "🚌", file: "transport.html" },
+            { id: "cat_05", name: "Animals", emoji: "🦁", file: "animals.html" },
+            { id: "cat_06", name: "Clothes", emoji: "👕", file: "clothes.html" },
+            { id: "cat_07", name: "Nature", emoji: "🌿", file: "nature.html" },
+            { id: "cat_08", name: "Hobbies", emoji: "🎸", file: "hobbies.html" },
+            { id: "cat_09", name: "Body", emoji: "💪", file: "body.html" },
+            { id: "cat_10", name: "Jobs", emoji: "💼", file: "Jobs.html" },
+            { id: "cat_11", name: "Emotions", emoji: "😊", file: "emotions.html" },
+            { id: "cat_12", name: "Kitchen", emoji: "🍳", file: "kitchen.html" },
+            { id: "cat_13", name: "Electronics", emoji: "📱", file: "electronics.html" },
+            { id: "cat_14", name: "Health", emoji: "🏥", file: "health.html" },
+            { id: "cat_15", name: "Fruits", emoji: "🍎", file: "fruits.html" },
+            { id: "cat_16", name: "Colors", emoji: "🎨", file: "colors.html" },
+            { id: "cat_17", name: "School", emoji: "🏫", file: "school.html" },
+            { id: "cat_18", name: "Time", emoji: "⏰", file: "time.html" },
+            { id: "cat_19", name: "Sports", emoji: "⚽", file: "sports.html" },
+            { id: "cat_20", name: "Furniture", emoji: "🪑", file: "furniture.html" },
+            { id: "cat_21", name: "Buildings", emoji: "🏢", file: "buildings.html" },
+            { id: "cat_22", name: "Landscapes", emoji: "🏔️", file: "landscapes.html" },
+            { id: "cat_23", name: "Word", emoji: "📝", file: "word.html" },
+            { id: "cat_24", name: "Vocabulary", emoji: "📖", file: "vocabulary.html" }
+        ];
 
-        if (others.length > 0) {
-            randomCat = others[Math.floor(Math.random() * others.length)];
-            catData = allQuizData[randomCat];
-            recHtml = `
-                <div style="margin-bottom: 15px;">
-                    <button id="rec-btn" style="width: 100%; padding: 14px; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 10px; cursor: pointer; font-size: 1.05rem; font-weight: bold; color: #475569;">
-                        🔄 Try another: ${catData.emoji || ''} ${catData.name}
-                    </button>
-                </div>`;
-        }
+        // 현재 웹페이지 파일명을 감지하여 자기 자신은 추천에서 제외
+        const currentFileName = window.location.pathname.split("/").pop();
+        const filteredCats = recommendList.filter(c => c.file !== currentFileName && c.id !== activeCatId);
+        
+        // 제외하고 남은 카테고리 중 랜덤 하나 선택 (방어코드로 빈 배열일 경우 첫 번째 요소 선택)
+        const chosenCat = filteredCats[Math.floor(Math.random() * filteredCats.length)] || recommendList[0];
+
+        // Next Quiz 바로 위에 깔끔한 점선 박스로 바인딩
+        const recHtml = `
+            <div style="margin-bottom: 15px;">
+                <button id="rec-btn" data-target="${chosenCat.file}" style="width: 100%; padding: 14px; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 10px; cursor: pointer; font-size: 1.05rem; font-weight: bold; color: #475569;">
+                    🔄 Try another: ${chosenCat.emoji} ${chosenCat.name}
+                </button>
+            </div>`;
 
         // 📚 핵심 예문 출력 영역 (🔊 LISTEN / 🎤 SPEAK / 손 이모지 기능 완벽 유지)
         let examplesHtml = "";
@@ -295,14 +320,12 @@ function checkAnswer(isCorrect, quiz) {
         // ✨ [핵심 알고리즘] 데이터 포맷 유연성 확보 (Present/Past/Future vs Casual/Polite 자동 판별)
         let formsHtml = "";
         if (quiz.forms && (quiz.forms.present || quiz.forms.past || quiz.forms.future)) {
-            // 구조 A: 동사/단어형 (Present, Past, Future)
             formsHtml = `
                 <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #10b981;"><strong>Present:</strong> ${quiz.forms.present || '---'}</p>
                 <p style="margin: 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Past:</strong> ${quiz.forms.past || '---'}</p>
                 <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Future:</strong> ${quiz.forms.future || '---'}</p>
             `;
         } else {
-            // 구조 B: 회화/문장형 (Casual, Polite 구조이거나 껍데기만 있을 때 방어 추출)
             const casualText = (quiz.forms && quiz.forms.casual) || quiz.casual || quiz.kr || "---";
             const politeText = (quiz.forms && quiz.forms.polite) || quiz.polite || quiz.kr || "---";
             formsHtml = `
@@ -313,7 +336,7 @@ function checkAnswer(isCorrect, quiz) {
 
         const situationText = quiz.situation || "No context provided.";
 
-        // 화면 렌더링 주입 (${recHtml}을 하단 하이라이트 버튼 박스 내부, Next Quiz 바로 위로 이동)
+        // 화면 렌더링 주입 (${recHtml}을 Next Quiz 바로 위 위치에 고정)
         detailArea.innerHTML = `
             <div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;">
                 <h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2>
@@ -324,7 +347,8 @@ function checkAnswer(isCorrect, quiz) {
                 ${examplesHtml}
                 
                 <div style="margin-top: 25px;">
-                    ${recHtml} <button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭️</button>
+                    ${recHtml} 
+                    <button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭️</button>
                     <button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button>
                 </div>
             </div>
@@ -339,20 +363,11 @@ function checkAnswer(isCorrect, quiz) {
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
         
+        // 랜덤 추천 카테고리 클릭 시 데이터 링크로 즉시 이동
         const recBtn = document.getElementById('rec-btn');
         if (recBtn) {
             recBtn.onclick = () => {
-                const fileMapping = {
-                    "cat_01": "family.html", "cat_02": "food.html", "cat_03": "places.html",
-                    "cat_04": "transport.html", "cat_05": "animals.html", "cat_06": "clothes.html",
-                    "cat_07": "nature.html", "cat_08": "hobbies.html", "cat_09": "body.html",
-                    "cat_10": "Jobs.html", "cat_11": "emotions.html", "cat_12": "kitchen.html",
-                    "cat_13": "electronics.html", "cat_14": "health.html", "cat_15": "fruits.html",
-                    "cat_16": "colors.html", "cat_17": "school.html", "cat_18": "time.html",
-                    "cat_19": "sports.html", "cat_20": "furniture.html", "cat_21": "buildings.html",
-                    "cat_22": "landscapes.html", "cat_23": "word.html", "cat_24": "vocabulary.html"
-                };
-                const targetFile = fileMapping[randomCat] || "index.html";
+                const targetFile = recBtn.getAttribute('data-target') || "index.html";
                 window.location.href = targetFile;
             };
         }
