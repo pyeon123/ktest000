@@ -160,7 +160,6 @@ function initMenu() {
         const cat = allQuizData[catId];
         const targetUrl = fileMapping[catId] || "index.html"; 
 
-        // 💡 핵심: onclick 속성을 아예 제거하고 오직 href로만 이동하게 함
         html += `
             <a href="${targetUrl}" class="cat-btn" style="text-decoration:none; color:inherit; display:block;">
                 <span class="emoji">${cat.emoji}</span>
@@ -179,7 +178,6 @@ function startQuiz(catId, updateHistory = false) {
         window.history.pushState({cat: catId}, '', `?cat=${catId}`);
     }
     
-    // 카테고리 진입 시 SEO 동적 업데이트
     updateSEOData(catId);
     
     currentIdx = 0;
@@ -225,7 +223,6 @@ function loadQuiz(autoSpeak = false) {
     if (autoSpeak) { setTimeout(speak, 1000); }
 }
 
-// ---------------- 💡 수정된 checkAnswer 부분 ----------------
 function checkAnswer(isCorrect, quiz) {
     if (isCorrect) {
         document.getElementById('quiz-screen').classList.remove('active');
@@ -238,7 +235,6 @@ function checkAnswer(isCorrect, quiz) {
             document.querySelector('.content-area').appendChild(detailArea);
         }
 
-        // 1. 랜덤 추천 데이터 준비
         const allIds = Object.keys(allQuizData);
         const others = allIds.filter(id => id !== activeCatId);
         let randomCat = "";
@@ -256,7 +252,6 @@ function checkAnswer(isCorrect, quiz) {
                 </div>`;
         }
 
-        // 2. 💡 예문 렌더링에 듣기/말하기 버튼 추가
         let examplesHtml = "";
         if (quiz.examples && Array.isArray(quiz.examples)) {
             examplesHtml = `
@@ -283,7 +278,6 @@ function checkAnswer(isCorrect, quiz) {
             `;
         }
 
-        // 3. 레이아웃 렌더링
         detailArea.innerHTML = `
             <div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;">
                 <h2 style="text-align: center; color: var(--primary);">⭕ Correct!</h2>
@@ -303,7 +297,6 @@ function checkAnswer(isCorrect, quiz) {
         detailArea.classList.add('active');
         window.scrollTo(0, 0);
 
-        // 4. 이벤트 강제 바인딩
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
         
@@ -329,7 +322,6 @@ function checkAnswer(isCorrect, quiz) {
         alert("Try Again! ❌");
     }
 }
-// ----------------------------------------------------
 
 function goToQuiz() {
     nextQuiz(); 
@@ -599,6 +591,7 @@ document.addEventListener('click', function(event) {
     }
 });
 
+// 🔥 [100% 철통 방어막이 완성된 가동 엔진 부분]
 document.addEventListener('DOMContentLoaded', () => {
     const userAgent = navigator.userAgent.toLowerCase();
     const isInApp = /kakaotalk|fbav|instagram|line|naver|snapchat|zum|tistory/i.test(userAgent);
@@ -608,19 +601,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if (openBtn) openBtn.style.display = 'block';
     }
 
-    // 🔥 [오직 feelings.html에서만 기존 기능을 유지하며 문을 열어주는 안전장치]
+    // 💡 feelings.html용 절대 뚫리지 않는 강력한 매칭 로직
     if (window.location.pathname.includes('feelings.html')) {
-        window.CURRENT_CAT = 'cat_feelings';
+        if (typeof allQuizData === 'undefined') window.allQuizData = {};
+        
+        // 1. 만약 HTML 파일 내부에 커스텀 feelingsData가 존재한다면 안전하게 연동시킵니다.
+        if (window.feelingsData) {
+            allQuizData['cat_feelings'] = window.feelingsData;
+        }
+        
+        // 2. 최종 데이터를 판별하여 데이터 유실로 인한 대기화면 복귀 현상을 완전히 차단합니다.
+        if (allQuizData['cat_feelings']) {
+            window.CURRENT_CAT = 'cat_feelings';
+        } else if (allQuizData['cat_11']) {
+            window.CURRENT_CAT = 'cat_11'; // data.js 내부의 Emotions 카테고리로 안전 백업
+        } else {
+            // 3. 최악의 상황(둘 다 없을 때)에도 에러로 멈추지 않도록 최소한의 임시 방어막 구축
+            allQuizData['cat_feelings'] = { name: "Feelings", emoji: "😊", data: [] };
+            window.CURRENT_CAT = 'cat_feelings';
+        }
     }
 
-    if (typeof CURRENT_CAT !== 'undefined' && allQuizData[CURRENT_CAT]) {
+    // 🚀 최종 검증 후 퀴즈 화면으로 즉시 직행
+    if (typeof CURRENT_CAT !== 'undefined' && typeof allQuizData !== 'undefined' && allQuizData[CURRENT_CAT]) {
         startQuiz(CURRENT_CAT, false); 
-    } 
+    }  
     else {
         const params = new URLSearchParams(window.location.search);
         const category = params.get('cat'); 
 
-        if (category && allQuizData[category]) {
+        if (category && typeof allQuizData !== 'undefined' && allQuizData[category]) {
             startQuiz(category, false);
         } else {
             initMenu();
@@ -629,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// ---------------- 💡 예문 전용 추가 함수 ----------------
+// 🟢 예문 전용 추가 함수
 function speakExampleText(text) {
     window.speechSynthesis.cancel();
     const msg = new SpeechSynthesisUtterance(text);
