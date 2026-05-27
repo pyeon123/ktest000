@@ -290,6 +290,42 @@ function checkAnswer(isCorrect, quiz) {
                 </button>
             </div>`;
 
+        // ✨ [핵심 알고리즘] 데이터 포맷 유연성 확보 (Present/Past/Future vs Casual/Polite 자동 판별)
+        let formsHtml = "";
+        if (quiz.forms && (quiz.forms.present || quiz.forms.past || quiz.forms.future)) {
+            formsHtml = `
+                <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #10b981;"><strong>Present:</strong> ${quiz.forms.present || '---'}</p>
+                <p style="margin: 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Past:</strong> ${quiz.forms.past || '---'}</p>
+                <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Future:</strong> ${quiz.forms.future || '---'}</p>
+            `;
+        } else {
+            const casualText = (quiz.forms && quiz.forms.casual) || quiz.casual || quiz.kr || "---";
+            const politeText = (quiz.forms && quiz.forms.polite) || quiz.polite || quiz.kr || "---";
+            formsHtml = `
+                <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${casualText}</p>
+                <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${politeText}</p>
+            `;
+        }
+
+        // 💡 [신규 추가] 비슷한 단어 / 확장 단어 (options 리스트 추출 시스템)
+        let optionsHtml = "";
+        if (quiz.options && Array.isArray(quiz.options)) {
+            optionsHtml = `
+                <h3 style="margin-top: 25px; color: #1e293b;">💡 Related Words</h3>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                    ${quiz.options.map(opt => `
+                        <div style="padding: 12px 15px; background: #f1f5f9; border-radius: 10px; border-left: 4px solid #64748b; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong style="font-size: 1.2rem; color: #1e293b;">${opt.kr}</strong>
+                                <span style="font-size: 0.95rem; color: #64748b; margin-left: 6px;">(${opt.rom})</span>
+                            </div>
+                            <span style="font-size: 1.05rem; font-weight: bold; color: #475569;">${opt.en}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
         // 📚 핵심 예문 출력 영역 (🔊 LISTEN / 🎤 SPEAK / 손 이모지 기능 완벽 유지)
         let examplesHtml = "";
         if (quiz.examples && Array.isArray(quiz.examples)) {
@@ -317,26 +353,9 @@ function checkAnswer(isCorrect, quiz) {
             `;
         }
 
-        // ✨ [핵심 알고리즘] 데이터 포맷 유연성 확보 (Present/Past/Future vs Casual/Polite 자동 판별)
-        let formsHtml = "";
-        if (quiz.forms && (quiz.forms.present || quiz.forms.past || quiz.forms.future)) {
-            formsHtml = `
-                <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #10b981;"><strong>Present:</strong> ${quiz.forms.present || '---'}</p>
-                <p style="margin: 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Past:</strong> ${quiz.forms.past || '---'}</p>
-                <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Future:</strong> ${quiz.forms.future || '---'}</p>
-            `;
-        } else {
-            const casualText = (quiz.forms && quiz.forms.casual) || quiz.casual || quiz.kr || "---";
-            const politeText = (quiz.forms && quiz.forms.polite) || quiz.polite || quiz.kr || "---";
-            formsHtml = `
-                <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${casualText}</p>
-                <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${politeText}</p>
-            `;
-        }
-
         const situationText = quiz.situation || "No context provided.";
 
-        // 화면 렌더링 주입 (${recHtml}을 Next Quiz 바로 위 위치에 고정)
+        // 화면 렌더링 주입 (Context -> Forms -> Related Words -> Key Sentences 구조)
         detailArea.innerHTML = `
             <div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;">
                 <h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2>
@@ -344,6 +363,7 @@ function checkAnswer(isCorrect, quiz) {
                     <p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>
                     ${formsHtml}
                 </div>
+                ${optionsHtml}
                 ${examplesHtml}
                 
                 <div style="margin-top: 25px;">
