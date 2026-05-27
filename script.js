@@ -225,6 +225,7 @@ function loadQuiz(autoSpeak = false) {
 
 function checkAnswer(isCorrect, quiz) {
     if (isCorrect) {
+        // 기존 퀴즈 화면 숨기기
         document.getElementById('quiz-screen').classList.remove('active');
         
         let detailArea = document.getElementById('detail-area');
@@ -235,6 +236,7 @@ function checkAnswer(isCorrect, quiz) {
             document.querySelector('.content-area').appendChild(detailArea);
         }
 
+        // 추천 카테고리 로직 (기존 기능 유지)
         const allIds = Object.keys(allQuizData);
         const others = allIds.filter(id => id !== activeCatId);
         let randomCat = "";
@@ -252,6 +254,7 @@ function checkAnswer(isCorrect, quiz) {
                 </div>`;
         }
 
+        // 📚 예문 리스트 생성 로직 (기존 기능 및 🔊 LISTEN, 🎤 SPEAK 완벽 유지)
         let examplesHtml = "";
         if (quiz.examples && Array.isArray(quiz.examples)) {
             examplesHtml = `
@@ -261,7 +264,7 @@ function checkAnswer(isCorrect, quiz) {
                         <li style="margin-bottom: 15px; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                             <strong style="font-size: 1.3rem; display: block; margin-bottom: 5px; color: #1e293b;">${ex.kr}</strong>
                             <span style="font-size: 1.1rem; color: #64748b; display: block; margin-bottom: 5px;">${ex.en}</span>
-                            <em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${ex.rom}</em>
+                            <em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${ex.rom || ''}</em>
                             
                             <div class="control-group" style="scale: 0.85; margin: 10px 0 0 0; justify-content: center; gap: 10px;">
                                 <button class="btn-main" onclick="event.stopPropagation(); speakExampleText('${ex.kr.replace(/'/g, "\\'")}')">
@@ -278,13 +281,19 @@ function checkAnswer(isCorrect, quiz) {
             `;
         }
 
+        // 🔥 [수정 포인트] 데이터 구조 유연성 확보 (quiz.forms가 없어도 에러 차단)
+        const situationText = quiz.situation || "No context provided.";
+        const casualText = (quiz.forms && quiz.forms.casual) || quiz.casual || quiz.kr || "";
+        const politeText = (quiz.forms && quiz.forms.polite) || quiz.polite || quiz.kr || "";
+
+        // 결과 화면 HTML 주입
         detailArea.innerHTML = `
             <div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;">
                 <h2 style="text-align: center; color: var(--primary);">⭕ Correct!</h2>
                 <div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;">
-                    <p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${quiz.situation}</p>
-                    <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${quiz.forms.casual || quiz.kr}</p>
-                    <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${quiz.forms.polite || quiz.kr}</p>
+                    <p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>
+                    <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${casualText}</p>
+                    <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${politeText}</p>
                 </div>
                 ${examplesHtml}
                 ${recHtml}
@@ -294,9 +303,12 @@ function checkAnswer(isCorrect, quiz) {
                 </div>
             </div>
         `;
+        
+        // 화면 활성화 및 상단 스크롤
         detailArea.classList.add('active');
         window.scrollTo(0, 0);
 
+        // 이벤트 바인딩 (기존 기능 유지)
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
         
@@ -319,6 +331,7 @@ function checkAnswer(isCorrect, quiz) {
             };
         }
     } else {
+        // 오답일 때 (기존 기능 유지)
         alert("Try Again! ❌");
     }
 }
