@@ -415,15 +415,32 @@ function startSpeechRecognition() {
 }
 
 function nextQuiz() {
+    // 1. 다음 문제로 인덱스 이동
     currentIdx++;
-    if (currentIdx < currentCategoryData.length) {
-        const detailArea = document.getElementById('detail-area');
-        if (detailArea) detailArea.classList.remove('active');
+    
+    // 2. 현재 카테고리에 풀 문제가 남아있는지 검증
+    if (currentCategoryData && currentIdx < currentCategoryData.length) {
         
-        document.getElementById('quiz-screen').classList.add('active');
+        // [UI 싱크] 열려 있던 결과 상세창을 확실하게 닫아줍니다.
+        const detailArea = document.getElementById('detail-area');
+        if (detailArea) {
+            detailArea.classList.remove('active');
+            detailArea.style.display = 'none'; // display 속성까지 완벽 차단!
+        }
+        
+        // 퀴즈 화면 다시 켜기
+        const quizScreen = document.getElementById('quiz-screen');
+        if (quizScreen) {
+            quizScreen.classList.add('active');
+            quizScreen.style.display = 'block';
+        }
+        
+        // 3. 다음 문제 데이터 바인딩 로드
         loadQuiz(true);
+        
     } else {
-        alert("🎉 모든 퀴즈를 완료했습니다! 수고하셨습니다!");
+        // 4. 3개 문제를 모두 완료했을 때 알림 (설정하신 영문 가이드라인 적용!)
+        alert("🎉 You've mastered all the quizzes in this category! Excellent job! 👏");
         goHome(); 
     }
 }
