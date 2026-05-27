@@ -225,18 +225,29 @@ function loadQuiz(autoSpeak = false) {
 
 function checkAnswer(isCorrect, quiz) {
     if (isCorrect) {
-        // 기존 퀴즈 화면 숨기기
-        document.getElementById('quiz-screen').classList.remove('active');
+        // 1. 기존 퀴즈 화면 확실하게 가리기
+        const quizScreen = document.getElementById('quiz-screen');
+        if (quizScreen) {
+            quizScreen.classList.remove('active');
+            quizScreen.style.display = 'none';
+        }
         
+        // 2. 결과 상세창 생성 및 조율
         let detailArea = document.getElementById('detail-area');
         if (!detailArea) {
             detailArea = document.createElement('div');
             detailArea.id = 'detail-area';
             detailArea.className = 'screen';
-            document.querySelector('.content-area').appendChild(detailArea);
+            
+            const contentArea = document.querySelector('.content-area');
+            if (contentArea) {
+                contentArea.appendChild(detailArea);
+            } else {
+                document.body.appendChild(detailArea);
+            }
         }
 
-        // 추천 카테고리 로직 (기존 기능 유지)
+        // 🔄 다른 카테고리 추천 버튼 시스템
         const allIds = Object.keys(allQuizData);
         const others = allIds.filter(id => id !== activeCatId);
         let randomCat = "";
@@ -254,7 +265,7 @@ function checkAnswer(isCorrect, quiz) {
                 </div>`;
         }
 
-        // 📚 예문 리스트 생성 로직 (기존 기능 및 🔊 LISTEN, 🎤 SPEAK 완벽 유지)
+        // 📚 핵심 예문 출력 영역 (🔊 LISTEN / 🎤 SPEAK / 손 이모지 기능 완벽 유지)
         let examplesHtml = "";
         if (quiz.examples && Array.isArray(quiz.examples)) {
             examplesHtml = `
@@ -281,19 +292,34 @@ function checkAnswer(isCorrect, quiz) {
             `;
         }
 
-        // 🔥 [수정 포인트] 데이터 구조 유연성 확보 (quiz.forms가 없어도 에러 차단)
-        const situationText = quiz.situation || "No context provided.";
-        const casualText = (quiz.forms && quiz.forms.casual) || quiz.casual || quiz.kr || "";
-        const politeText = (quiz.forms && quiz.forms.polite) || quiz.polite || quiz.kr || "";
+        // ✨ [핵심 알고리즘] 데이터 포맷 유연성 확보 (Present/Past/Future vs Casual/Polite 자동 판별)
+        let formsHtml = "";
+        if (quiz.forms && (quiz.forms.present || quiz.forms.past || quiz.forms.future)) {
+            // 구조 A: 동사/단어형 (Present, Past, Future)
+            formsHtml = `
+                <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #10b981;"><strong>Present:</strong> ${quiz.forms.present || '---'}</p>
+                <p style="margin: 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Past:</strong> ${quiz.forms.past || '---'}</p>
+                <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Future:</strong> ${quiz.forms.future || '---'}</p>
+            `;
+        } else {
+            // 구조 B: 회화/문장형 (Casual, Polite 구조이거나 껍데기만 있을 때 방어 추출)
+            const casualText = (quiz.forms && quiz.forms.casual) || quiz.casual || quiz.kr || "---";
+            const politeText = (quiz.forms && quiz.forms.polite) || quiz.polite || quiz.kr || "---";
+            formsHtml = `
+                <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${casualText}</p>
+                <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${politeText}</p>
+            `;
+        }
 
-        // 결과 화면 HTML 주입
+        const situationText = quiz.situation || "No context provided.";
+
+        // 화면 렌더링 주입
         detailArea.innerHTML = `
             <div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;">
-                <h2 style="text-align: center; color: var(--primary);">⭕ Correct!</h2>
+                <h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2>
                 <div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;">
                     <p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>
-                    <p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${casualText}</p>
-                    <p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${politeText}</p>
+                    ${formsHtml}
                 </div>
                 ${examplesHtml}
                 ${recHtml}
@@ -304,11 +330,12 @@ function checkAnswer(isCorrect, quiz) {
             </div>
         `;
         
-        // 화면 활성화 및 상단 스크롤
+        // 3. 결과창 화면 켜기 및 최상단 스크롤
         detailArea.classList.add('active');
+        detailArea.style.display = 'block';
         window.scrollTo(0, 0);
 
-        // 이벤트 바인딩 (기존 기능 유지)
+        // 기능 작동 인터페이스 바인딩
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
         
@@ -325,13 +352,11 @@ function checkAnswer(isCorrect, quiz) {
                     "cat_19": "sports.html", "cat_20": "furniture.html", "cat_21": "buildings.html",
                     "cat_22": "landscapes.html", "cat_23": "word.html", "cat_24": "vocabulary.html"
                 };
-                
                 const targetFile = fileMapping[randomCat] || "index.html";
                 window.location.href = targetFile;
             };
         }
     } else {
-        // 오답일 때 (기존 기능 유지)
         alert("Try Again! ❌");
     }
 }
