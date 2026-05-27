@@ -180,14 +180,15 @@
         <span class="menu-label">E-mail</span>
     </button>
 </div>
-<script src="data.js"></script>
-<script src="script.js"></script>
-
 <script>
-  try {
-      // 엔진이 생성한 오리지널 allQuizData 배열에 feelings 데이터를 안전하게 강제 주입합니다.
-      window.allQuizData = window.allQuizData || {};
-      window.allQuizData["cat_feelings"] = {
+  (function() {
+      // 1. [주소창 속이기] 엔진이 로드되기 전에 주소창 가짜 파라미터를 심어 ?cat=cat_feelings로 인식하게 만듭니다.
+      if (!window.location.search.includes('cat=')) {
+          history.replaceState(null, '', '?cat=cat_feelings');
+      }
+
+      // 2. Feelings 카테고리 데이터 정의
+      const feelingsData = {
           "id": "feelings",
           "emoji": "😊",
           "name": "Feelings/Verbs",
@@ -219,7 +220,7 @@
                   "examples": [
                       { "kr": "당신을 사랑해요.", "en": "I love you.", "rom": "Dang-sin-eul sa-rang-hae-yo." },
                       { "kr": "서로 사랑하고 있어요.", "en": "We are loving each other.", "rom": "Seo-ro sa-rang-ha-go iss-eo-yo." }
-                  ],
+              ],
                   "options": [
                       { "kr": "좋아하다", "en": "To like", "rom": "Jo-a-ha-da" },
                       { "kr": "그리워하다", "en": "To miss", "rom": "Geu-ri-wo-ha-da" },
@@ -246,41 +247,65 @@
           ]
       };
 
-      // 카테고리 전역 고정
-      window.CURRENT_CAT = 'cat_feelings';
+      // 3. [변수 잠금] CURRENT_CAT을 'cat_feelings'로 영원히 고정 (script.js가 절대 못 바꿈)
+      Object.defineProperty(window, 'CURRENT_CAT', {
+          get() { return 'cat_feelings'; },
+          set() { },
+          configurable: false
+      });
 
-      // 대기 화면을 강제로 격파하고 원본 퀴즈 엔진을 다이렉트로 실행하는 마스터 함수
-      function forceLaunchQuiz() {
-          if (typeof startQuiz === 'function') {
-              // 1. 엔진 고유의 퀴즈 스타트 기능 작동 (마이크, 오디오, 에모지 등 원본 기능 100% 보존)
-              startQuiz('cat_feelings', false);
-              
-              // 2. 만에 하나 대기 화면이 걷히지 않았을 경우를 대비해 물리적으로 화면 교체 확인
-              const menuScreen = document.getElementById('menu-screen');
-              const quizScreen = document.getElementById('quiz-screen');
-              if (menuScreen) menuScreen.classList.remove('active');
-              if (quizScreen) quizScreen.classList.add('active');
+      // 4. [데이터 보호막] script.js가 전역 변수를 {}로 밀어버려도 Feelings 데이터가 무조건 살아남도록 인터셉트 덫을 놓습니다.
+      let safeDataStore = { 'cat_feelings': feelingsData };
+      Object.defineProperty(window, 'allQuizData', {
+          get() { return safeDataStore; },
+          set(newValue) {
+              if (newValue && typeof newValue === 'object') {
+                  Object.assign(safeDataStore, newValue);
+                  safeDataStore['cat_feelings'] = feelingsData; // 강제 병합 및 유지 보장
+              }
+          },
+          configurable: false
+      });
+
+      // 5. [강제 화면 분쇄 루프] 0.05초 간격으로 대기 화면을 지우고 퀴즈 화면을 강제로 끄집어냅니다.
+      let executionTicks = 0;
+      const forceEngineLoop = setInterval(() => {
+          executionTicks++;
+          const menu = document.getElementById('menu-screen');
+          const quiz = document.getElementById('quiz-screen');
+
+          if (menu) {
+              menu.classList.remove('active');
+              menu.style.setProperty('display', 'none', 'important');
           }
-      }
+          if (quiz) {
+              quiz.classList.add('active');
+              quiz.style.setProperty('display', 'block', 'important');
+          }
 
-      // 엔진 로드 즉시 실행
-      forceLaunchQuiz();
+          // 원본 엔진 함수 강제 기동
+          if (typeof startQuiz === 'function') {
+              try { startQuiz('cat_feelings', false); } catch(e){}
+          }
+          if (typeof loadQuiz === 'function') {
+              try { loadQuiz(true); } catch(e){}
+          }
 
-      // 브라우저가 화면 인터페이스 처리를 완벽히 끝마친 시점(로드 완료)에 한 번 더 확실하게 쐐기를 박습니다.
-      window.addEventListener('load', forceLaunchQuiz);
-      document.addEventListener('DOMContentLoaded', forceLaunchQuiz);
+          // 확실하게 화면이 전환되면 감시 루프 종료 (최대 3초간 실행)
+          if (executionTicks > 60 || (quiz && quiz.classList.contains('active') && (!menu || !menu.classList.contains('active')))) {
+              clearInterval(forceEngineLoop);
+          }
+      }, 50);
 
-  } catch (error) {
-      console.log("Bypass logic configuration error:", error);
-  }
-
-  // 홈으로 가기 버튼을 눌렀을 때 index.html로 튕기거나 메인 화면으로 리셋되는 현상 철저 방어
-  window.goHome = function() {
-      if (typeof startQuiz === 'function') {
-          startQuiz('cat_feelings', false);
-      }
-  };
+      // 홈으로 가기 리셋 원천 차단
+      window.goHome = function() {
+          if (typeof startQuiz === 'function') startQuiz('cat_feelings', false);
+      };
+  })();
 </script>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
