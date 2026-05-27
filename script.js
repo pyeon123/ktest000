@@ -247,7 +247,7 @@ function checkAnswer(isCorrect, quiz) {
             }
         }
 
-        // 🔄 다른 카테고리 추천 버튼 시스템
+        // 🔄 다른 카테고리 추천 버튼 시스템 (디자인 최적화)
         const allIds = Object.keys(allQuizData);
         const others = allIds.filter(id => id !== activeCatId);
         let randomCat = "";
@@ -258,9 +258,9 @@ function checkAnswer(isCorrect, quiz) {
             randomCat = others[Math.floor(Math.random() * others.length)];
             catData = allQuizData[randomCat];
             recHtml = `
-                <div style="margin: 20px 0;">
-                    <button id="rec-btn" style="width: 100%; padding: 12px; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: bold;">
-                        🔄 Try another: ${catData.emoji} ${catData.name}
+                <div style="margin-bottom: 15px;">
+                    <button id="rec-btn" style="width: 100%; padding: 14px; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 10px; cursor: pointer; font-size: 1.05rem; font-weight: bold; color: #475569;">
+                        🔄 Try another: ${catData.emoji || ''} ${catData.name}
                     </button>
                 </div>`;
         }
@@ -313,7 +313,7 @@ function checkAnswer(isCorrect, quiz) {
 
         const situationText = quiz.situation || "No context provided.";
 
-        // 화면 렌더링 주입
+        // 화면 렌더링 주입 (${recHtml}을 하단 하이라이트 버튼 박스 내부, Next Quiz 바로 위로 이동)
         detailArea.innerHTML = `
             <div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;">
                 <h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2>
@@ -322,9 +322,9 @@ function checkAnswer(isCorrect, quiz) {
                     ${formsHtml}
                 </div>
                 ${examplesHtml}
-                ${recHtml}
-                <div style="margin-top: 20px;">
-                    <button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭️</button>
+                
+                <div style="margin-top: 25px;">
+                    ${recHtml} <button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭️</button>
                     <button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button>
                 </div>
             </div>
