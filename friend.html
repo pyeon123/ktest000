@@ -182,8 +182,25 @@
 
 <script>
   (function() {
-      // 1. [주소창 설정] 엔진이 로드되기 전에 주소창 파라미터를 ?cat=cat_friend로 인식하게 만듭니다.
-      if (!window.location.search.includes('cat=')) {
+      // [주소창 강제 가로채기 해킹 차단 및 고정]
+      // 다른 외부 script.js 파일이 주소창을 cat_feelings로 바꾸려고 시도하면 강제로 cat_friend로 변경해버립니다.
+      const interceptAndForceFriend = (url) => {
+          if (!url || typeof url !== 'string') return url;
+          return url.replace(/cat_feelings/g, 'cat_friend');
+      };
+
+      const originalReplaceState = history.replaceState;
+      history.replaceState = function(state, title, url) {
+          return originalReplaceState.apply(this, [state, title, interceptAndForceFriend(url)]);
+      };
+
+      const originalPushState = history.pushState;
+      history.pushState = function(state, title, url) {
+          return originalPushState.apply(this, [state, title, interceptAndForceFriend(url)]);
+      };
+
+      // 첫 진입 시 주소창 기본 파라미터 세팅
+      if (!window.location.search.includes('cat=cat_friend')) {
           history.replaceState(null, '', '?cat=cat_friend');
       }
 
@@ -283,14 +300,20 @@
           configurable: false
       });
 
-      // 4. [데이터 보호막] Friend 데이터가 무조건 유지되도록 프록시 인터셉트 설정
-      let safeDataStore = { 'cat_friend': friendData };
+      // 4. [2중 데이터 보호막] 외부 script.js가 'cat_friend'나 'cat_feelings' 어떤 것을 찾더라도
+      // 완벽하게 명사(friendData)를 리턴할 수 있도록 두 공간 모두에 명사 데이터를 밀어넣습니다.
+      let safeDataStore = { 
+          'cat_friend': friendData,
+          'cat_feelings': friendData 
+      };
+      
       Object.defineProperty(window, 'allQuizData', {
           get() { return safeDataStore; },
           set(newValue) {
               if (newValue && typeof newValue === 'object') {
                   Object.assign(safeDataStore, newValue);
-                  safeDataStore['cat_friend'] = friendData; // 강제 병합 및 유지 보장
+                  safeDataStore['cat_friend'] = friendData;
+                  safeDataStore['cat_feelings'] = friendData; // 강제 병합 및 유지 보장
               }
           },
           configurable: false
@@ -314,7 +337,9 @@
 
           // 원본 엔진 함수 강제 기동
           if (typeof startQuiz === 'function') {
-              try { startQuiz('cat_friend', false); } catch(e){}
+              try { startQuiz('cat_friend', false); } catch(e){
+                  try { startQuiz('cat_feelings', false); } catch(err){}
+              }
           }
           if (typeof loadQuiz === 'function') {
               try { loadQuiz(true); } catch(e){}
