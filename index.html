@@ -143,11 +143,10 @@
                 <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
             </div>
             
-            <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
-                <div class="game-ad-bar">
-                    <div class="korea-badge">🇰🇷</div>
-                    <a href="https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g" target="_blank" class="esim-btn-link">Get Korea eSIM</a>
-                    <div class="ad-moving-text" id="ad-content">No internet in Korea? You'll need data!</div>
+            <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; relative; z-index: 1000;">
+                <div class="game-ad-bar" id="esim-ad-container" style="cursor: pointer; transition: all 0.3s ease;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
+                    <div class="korea-badge" id="ad-flag">🇰🇷</div>
+                    <div class="ad-moving-text" id="ad-content" style="font-weight: 800;">Get Korea eSIM</div>
                     <div class="ad-fixed-small">+ Available in 200 countries</div>
                 </div>
                 <br>
@@ -178,7 +177,6 @@
     </button>
 </div>
     
-
 <script src="data.js"></script>
 <script src="script.js"></script>
 </body>
