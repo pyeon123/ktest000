@@ -191,36 +191,7 @@
     
 <script src="data.js"></script>
 <script src="script.js"></script>
-
-<!-- 🚨 어떠한 에러와 방해도 무시하고 작동하는 독립 자바스크립트 -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var rotationItems = [
-        { f: "🇰🇷", t: "Get Korea eSIM" },
-        { f: "🇯🇵", t: "Get Japan eSIM" },
-        { f: "🇺🇸", t: "Get USA eSIM" },
-        { f: "🗺️", t: "Global eSIM - 200+ Countries" }
-    ];
-    
-    var step = 0;
-
-    setInterval(function() {
-        step = (step + 1) % rotationItems.length;
-        var currentData = rotationItems[step];
-
-        // 1. 국기 요소들 찾아서 순수 텍스트만 교체
-        var flagElements = document.querySelectorAll('.my-rolling-flag');
-        for (var i = 0; i < flagElements.length; i++) {
-            flagElements[i].textContent = currentData.f;
-        }
-
-        // 2. 메인 문구 요소들 찾아서 순수 텍스트만 교체
-        var textElements = document.querySelectorAll('.my-rolling-text');
-        for (var j = 0; j < textElements.length; j++) {
-            textElements[j].textContent = currentData.t;
-        }
-    }, 3000);
-});
-</script>
 </body>
+</html>
+
 </html>
