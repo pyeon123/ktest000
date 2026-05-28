@@ -734,7 +734,30 @@ function startExampleRecognition(targetText, idx) {
         feedback.style.color = "#ef4444";
     };
     
-    recognition.onend = () => {
+   recognition.onend = () => {
         micBtn.classList.remove('recording');
     };
 }
+
+// 🌐 [배너 자동 롤링 시스템] 페이지 로딩 후 3초마다 순환
+(function() {
+    const esimRotationData = [
+        { f: "🇰🇷", t: "Get Korea eSIM" },
+        { f: "🇯🇵", t: "Get Japan eSIM" },
+        { f: "🇺🇸", t: "Get USA eSIM" },
+        { f: "🗺️", t: "Global eSIM - 200+ Countries" }
+    ];
+    let adIdx = 0;
+
+    function updateBanners() {
+        adIdx = (adIdx + 1) % esimRotationData.length;
+        const item = esimRotationData[adIdx];
+
+        document.querySelectorAll('.my-rolling-flag').forEach(el => el.textContent = item.f);
+        document.querySelectorAll('.my-rolling-text').forEach(el => el.textContent = item.t);
+    }
+
+    window.addEventListener('load', () => {
+        setInterval(updateBanners, 3000);
+    });
+})();
