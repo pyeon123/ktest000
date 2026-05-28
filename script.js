@@ -463,8 +463,8 @@ function goHome() {
     hideGuide();
 }
 
-// 🌐 배너 자동 롤링 시스템 (오류 방어 로직 적용)
-(function() {
+// 🌐 배너 자동 롤링 시스템 (가장 확실한 버전)
+window.addEventListener('load', function() {
     const esimRotationData = [
         { f: "🇰🇷", t: "Get Korea eSIM" },
         { f: "🇯🇵", t: "Get Japan eSIM" },
@@ -474,24 +474,22 @@ function goHome() {
     let adIdx = 0;
 
     setInterval(function() {
-        try {
-            adIdx = (adIdx + 1) % esimRotationData.length;
-            const item = esimRotationData[adIdx];
+        adIdx = (adIdx + 1) % esimRotationData.length;
+        const item = esimRotationData[adIdx];
 
-            const allFlags = document.querySelectorAll('.my-rolling-flag');
-            const allTexts = document.querySelectorAll('.my-rolling-text');
+        // 1. 페이지 내의 모든 대상 요소를 다시 찾음
+        const allFlags = document.querySelectorAll('.my-rolling-flag');
+        const allTexts = document.querySelectorAll('.my-rolling-text');
 
-            allFlags.forEach(function(el) {
-                if (el) el.textContent = item.f;
-            });
-            allTexts.forEach(function(el) {
-                if (el) el.textContent = item.t;
-            });
-        } catch (err) {
-            console.error("Banner rolling error:", err);
+        // 2. 루프를 돌며 내용 강제 교체
+        for (let i = 0; i < allFlags.length; i++) {
+            allFlags[i].textContent = item.f;
+        }
+        for (let i = 0; i < allTexts.length; i++) {
+            allTexts[i].textContent = item.t;
         }
     }, 3000);
-})();
+});
 
 function expandTodayQuiz() {
     const content = document.getElementById('today-quiz-content');
