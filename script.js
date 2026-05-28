@@ -505,7 +505,7 @@ function goHome() {
     hideGuide();
 }
 
-// 🌐 [교정 완료된 다국어 eSIM 롤링 타이머 시스템]
+// 🌐 [100% 강제 구동] 다국어 eSIM 롤링 타이머 시스템
 const esimRotationData = [
     { f: "🇰🇷", t: "Get Korea eSIM" },
     { f: "🇯🇵", t: "Get Japan eSIM" },
@@ -518,21 +518,20 @@ setInterval(() => {
     adIdx = (adIdx + 1) % esimRotationData.length;
     const item = esimRotationData[adIdx];
 
-    // 메인화면과 퀴즈화면 하단 배너 클래스들을 모두 추출하여 순회 업데이트
-    const flags = document.querySelectorAll('.original-ad-flag-1, .original-ad-flag-2');
-    const texts = document.querySelectorAll('.original-ad-text-1, .original-ad-text-2');
+    // HTML에 들어있는 모든 플래그와 텍스트 클래스를 강제로 묶어서 잡아옵니다.
+    const allFlags = document.querySelectorAll('[class*="ad-flag"]');
+    const allTexts = document.querySelectorAll('[class*="ad-text"]');
 
-    flags.forEach(el => {
-        if (el) el.innerHTML = item.f;
+    // 1. 이모지 아이콘 일괄 변경
+    allFlags.forEach(el => {
+        if (el) el.textContent = item.f;
     });
 
-    texts.forEach(el => {
-        if (el) {
-            el.innerHTML = item.t;
-            el.style.setProperty('display', 'inline-block', 'important');
-        }
+    // 2. 광고 텍스트 문구 일괄 변경
+    allTexts.forEach(el => {
+        if (el) el.textContent = item.t;
     });
-}, 3000);
+}, 3000); // 3초마다 확실하게 문구 체인지!
 
 function expandTodayQuiz() {
     const content = document.getElementById('today-quiz-content');
