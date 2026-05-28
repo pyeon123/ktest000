@@ -474,7 +474,7 @@ function nextQuiz() {
         loadQuiz(true);
         
     } else {
-        // 4. 3개 문제를 모두 완료했을 때 알림 (설정하신 영문 가이드라인 적용!)
+        // 4. 모든 문제를 완료했을 때 알림
         alert("🎉 You've mastered all the quizzes in this category! Excellent job! 👏");
         goHome(); 
     }
@@ -505,35 +505,34 @@ function goHome() {
     hideGuide();
 }
 
-const adTexts = [
-    "No internet in Korea? You'll need data!",
-    "Maps won't work without internet",
-    "Travel Korea stress-free with eSIM",
-    "Instant internet access in Korea"
+// 🌐 [교정 완료된 다국어 eSIM 롤링 타이머 시스템]
+const esimRotationData = [
+    { f: "🇰🇷", t: "Get Korea eSIM" },
+    { f: "🇯🇵", t: "Get Japan eSIM" },
+    { f: "🇺🇸", t: "Get USA eSIM" },
+    { f: "🗺️", t: "Global eSIM - 200+ Countries" }
 ];
 let adIdx = 0;
-setInterval(() => {
-    adIdx = (adIdx + 1) % adTexts.length;
-    const el = document.getElementById("ad-content");
-    if(el) {
-        el.style.animation = 'none';
-        el.offsetHeight; 
-        el.style.animation = 'fadeMove 0.6s ease-out';
-        el.innerText = adTexts[adIdx];
-    }
-}, 4500);
 
-function showCorrectAnswer() {
-    const quiz = currentCategoryData[currentIdx];
-    const feedback = document.getElementById('feedback');
-    feedback.innerHTML = "";
-    
-    const answerSpan = document.createElement('span');
-    answerSpan.className = "answer-text";
-    answerSpan.innerText = quiz.en; 
-    feedback.appendChild(answerSpan);
-    speak();
-}
+setInterval(() => {
+    adIdx = (adIdx + 1) % esimRotationData.length;
+    const item = esimRotationData[adIdx];
+
+    // 메인화면과 퀴즈화면 하단 배너 클래스들을 모두 추출하여 순회 업데이트
+    const flags = document.querySelectorAll('.original-ad-flag-1, .original-ad-flag-2');
+    const texts = document.querySelectorAll('.original-ad-text-1, .original-ad-text-2');
+
+    flags.forEach(el => {
+        if (el) el.innerHTML = item.f;
+    });
+
+    texts.forEach(el => {
+        if (el) {
+            el.innerHTML = item.t;
+            el.style.setProperty('display', 'inline-block', 'important');
+        }
+    });
+}, 3000);
 
 function expandTodayQuiz() {
     const content = document.getElementById('today-quiz-content');
