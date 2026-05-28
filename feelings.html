@@ -143,8 +143,10 @@
 
             <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: 25px;">
                 <button class="back-link" style="margin-top: 0;" onclick="goHome()">🏠 HOME</button>
-                <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
-            </div>
+                <button class="back-link hint-btn" style="margin-top: 0;" onclick="window.location.href='https://kstudy.netlify.app/detail.html?word=' + encodeURIComponent(feelingsData.data[currentIdx].kr)">
+        💡 Answer
+    </button>
+</div>
             
          <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
     
