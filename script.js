@@ -463,33 +463,6 @@ function goHome() {
     hideGuide();
 }
 
-// 🌐 배너 자동 롤링 시스템 (가장 확실한 버전)
-window.addEventListener('load', function() {
-    const esimRotationData = [
-        { f: "🇰🇷", t: "Get Korea eSIM" },
-        { f: "🇯🇵", t: "Get Japan eSIM" },
-        { f: "🇺🇸", t: "Get USA eSIM" },
-        { f: "🗺️", t: "Global eSIM - 200+ Countries" }
-    ];
-    let adIdx = 0;
-
-    setInterval(function() {
-        adIdx = (adIdx + 1) % esimRotationData.length;
-        const item = esimRotationData[adIdx];
-
-        // 1. 페이지 내의 모든 대상 요소를 다시 찾음
-        const allFlags = document.querySelectorAll('.my-rolling-flag');
-        const allTexts = document.querySelectorAll('.my-rolling-text');
-
-        // 2. 루프를 돌며 내용 강제 교체
-        for (let i = 0; i < allFlags.length; i++) {
-            allFlags[i].textContent = item.f;
-        }
-        for (let i = 0; i < allTexts.length; i++) {
-            allTexts[i].textContent = item.t;
-        }
-    }, 3000);
-});
 
 function expandTodayQuiz() {
     const content = document.getElementById('today-quiz-content');
@@ -739,7 +712,7 @@ function startExampleRecognition(targetText, idx) {
     };
 }
 
-// 🌐 [배너 자동 롤링 시스템] 페이지 로딩 후 3초마다 순환
+// 🌐 최종 수정: 배너 강제 롤링 시스템
 (function() {
     const esimRotationData = [
         { f: "🇰🇷", t: "Get Korea eSIM" },
@@ -752,12 +725,17 @@ function startExampleRecognition(targetText, idx) {
     function updateBanners() {
         adIdx = (adIdx + 1) % esimRotationData.length;
         const item = esimRotationData[adIdx];
-
-        document.querySelectorAll('.my-rolling-flag').forEach(el => el.textContent = item.f);
-        document.querySelectorAll('.my-rolling-text').forEach(el => el.textContent = item.t);
+        
+        const flags = document.querySelectorAll('.my-rolling-flag');
+        const texts = document.querySelectorAll('.my-rolling-text');
+        
+        flags.forEach(el => el.textContent = item.f);
+        texts.forEach(el => el.textContent = item.t);
     }
 
-    window.addEventListener('load', () => {
-        setInterval(updateBanners, 3000);
-    });
+    // 3초마다 무조건 실행
+    setInterval(updateBanners, 3000);
+    
+    // 초기 실행 (로딩 기다리지 않음)
+    updateBanners();
 })();
