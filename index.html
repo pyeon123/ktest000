@@ -110,9 +110,9 @@
             
             <div class="main-ad-panel" style="text-align: center; margin: 15px auto; width: 100%; max-width: 600px;">
                 <div class="game-ad-bar" style="cursor: pointer;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
-                    <div class="korea-badge original-ad-flag-1">🇰🇷</div>
+                    <div class="korea-badge esim-flag">🇰🇷</div>
                     <div class="ad-moving-text" style="font-weight: 800; display: inline-block !important;">
-                        <span class="original-ad-text-1">Get Korea eSIM</span>
+                        <span class="esim-text">Get Korea eSIM</span>
                     </div>
                     <div class="ad-fixed-small">+ Available in 200 countries</div>
                 </div>
@@ -155,9 +155,9 @@
             
             <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
                 <div class="game-ad-bar" style="cursor: pointer;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
-                    <div class="korea-badge original-ad-flag-2">🇰🇷</div>
+                    <div class="korea-badge esim-flag">🇰🇷</div>
                     <div class="ad-moving-text" style="font-weight: 800; display: inline-block !important;">
-                        <span class="original-ad-text-2">Get Korea eSIM</span>
+                        <span class="esim-text">Get Korea eSIM</span>
                     </div>
                     <div class="ad-fixed-small">+ Available in 200 countries</div>
                 </div>
@@ -208,8 +208,9 @@
                 index = (index + 1) % esimRotationData.length;
                 const item = esimRotationData[index];
 
-                const flags = document.querySelectorAll('.original-ad-flag-1, .original-ad-flag-2');
-                const texts = document.querySelectorAll('.original-ad-text-1, .original-ad-text-2');
+                // 단 하나의 클래스명으로 메인과 퀴즈 화면 배너를 동시에 정조준합니다.
+                const flags = document.querySelectorAll('.esim-flag');
+                const texts = document.querySelectorAll('.esim-text');
 
                 flags.forEach(el => {
                     if (el) el.innerHTML = item.f;
@@ -224,10 +225,11 @@
                     }
                 });
             } catch (e) {
-                console.log("Timer handled safely.");
+                console.log("Timer error bypassed.");
             }
         }
 
+        // 3초마다 확실하게 업데이트 구동 보장
         setInterval(forceBannerUpdate, 3000);
     })();
 </script>
