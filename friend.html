@@ -206,93 +206,192 @@
 
       // 2. Friend 카테고리 데이터 정의
       const friendData = {
-        "id": "friend",
-        "emoji": "👥",
-        "name": "People (Nouns)",
-        "data": [
-            {
-                "kr": "친구",
-                "rom": "chin-gu",
-                "en": "Friend",
-                "tip": "A person you know well and trust.",
-                "situation": "When talking about someone close to you.",
-                "forms": {
-                    "casual": "친구야 (chin-gu-ya)",
-                    "polite": "친구예요 / 친구입니다 (chin-gu-ye-yo / chin-gu-im-ni-da)"
-                },
-                "examples": [
-                    { "kr": "그는 내 친구야.", "en": "He is my friend.", "rom": "Geu-neun nae chin-gu-ya." },
-                    { "kr": "저는 좋은 친구예요.", "en": "I am a good friend.", "rom": "Jeo-neun jo-eun chin-gu-ye-yo." }
-                ],
-                "options": [
-                    { "kr": "동료", "en": "Colleague", "rom": "dong-ryo" },
-                    { "kr": "가족", "en": "Family", "rom": "ga-jok" },
-                    { "kr": "선생님", "en": "Teacher", "rom": "seon-saeng-nim" }
-                ]
-            },
-            {
-                "kr": "동료",
-                "rom": "dong-ryo",
-                "en": "Colleague",
-                "tip": "People you work with.",
-                "situation": "When talking about coworkers or team members.",
-                "forms": {
-                    "casual": "동료야 (dong-ryo-ya)",
-                    "polite": "동료예요 / 동료입니다 (dong-ryo-ye-yo / dong-ryo-im-ni-da)"
-                },
-                "examples": [
-                    { "kr": "그는 내 동료야.", "en": "He is my colleague.", "rom": "Geu-neun nae dong-ryo-ya." },
-                    { "kr": "우리는 좋은 동료예요.", "en": "We are good colleagues.", "rom": "U-ri-neun jo-eun dong-ryo-ye-yo." }
-                ],
-                "options": [
-                    { "kr": "친구", "en": "Friend", "rom": "chin-gu" },
-                    { "kr": "상사", "en": "Boss", "rom": "sang-sa" },
-                    { "kr": "직원", "en": "Employee", "rom": "jik-won" }
-                ]
-            },
-            {
-                "kr": "가족",
-                "rom": "ga-jok",
-                "en": "Family",
-                "tip": "People related to you by blood or marriage.",
-                "situation": "When talking about parents, siblings, relatives.",
-                "forms": {
-                    "casual": "가족이야 (ga-jok-i-ya)",
-                    "polite": "가족이에요 / 가족입니다 (ga-jok-i-e-yo / ga-jok-im-ni-da)"
-                },
-                "examples": [
-                    { "kr": "그들은 내 가족이야.", "en": "They are my family.", "rom": "Geu-deul-eun nae ga-jok-i-ya." },
-                    { "kr": "가족을 사랑해요.", "en": "I love my family.", "rom": "Ga-jok-eul sa-rang-hae-yo." }
-                ],
-                "options": [
-                    { "kr": "친구", "en": "Friend", "rom": "chin-gu" },
-                    { "kr": "친척", "en": "Relatives", "rom": "chin-cheok" },
-                    { "kr": "동료", "en": "Colleague", "rom": "dong-ryo" }
-                ]
-            },
-            {
-                "kr": "선생님",
-                "rom": "seon-saeng-nim",
-                "en": "Teacher",
-                "tip": "A person who teaches you.",
-                "situation": "When talking about school or learning.",
-                "forms": {
-                    "casual": "선생님이야 (seon-saeng-nim-i-ya)",
-                    "polite": "선생님이에요 / 선생님입니다 (seon-saeng-nim-i-e-yo / seon-saeng-nim-im-ni-da)"
-                },
-                "examples": [
-                    { "kr": "그분은 내 선생님이야.", "en": "That person is my teacher.", "rom": "Geu-bun-eun nae seon-saeng-nim-i-ya." },
-                    { "kr": "선생님을 존경해요.", "en": "I respect my teacher.", "rom": "Seon-saeng-nim-eul jon-gyeong-hae-yo." }
-                ],
-                "options": [
-                    { "kr": "학생", "en": "Student", "rom": "hak-saeng" },
-                    { "kr": "친구", "en": "Friend", "rom": "chin-gu" },
-                    { "kr": "동료", "en": "Colleague", "rom": "dong-ryo" }
-                ]
-            }
-        ]
-      };
 
+"id": "friend",
+
+"emoji": "👥",
+
+"name": "People (Nouns)",
+
+"data": [
+
+{
+
+"kr": "친구",
+
+"rom": "chin-gu",
+
+"en": "Friend",
+
+"tip": "When you think of someone you text often or eat with, this word comes to mind. In Korean daily life, it refers to a very close relationship you interact with regularly.",
+
+"situation": "In Korean culture, a friend is not just someone you know casually but someone you share your daily life with. People often meet friends at school, academies, or workplaces and naturally eat together and chat frequently. Regular communication through messaging apps like KakaoTalk is considered an important part of friendship. Emotional sharing and everyday interaction define this relationship.",
+
+"forms": {
+
+"casual": "친구야 (chin-gu-ya)",
+
+"polite": "친구예요 / 친구입니다 (chin-gu-ye-yo / chin-gu-im-ni-da)"
+
+},
+
+"examples": [
+
+{ "kr": "친구 만났어", "en": "I met a friend", "rom": "chin-gu man-nat-eo" },
+
+{ "kr": "친구랑 밥 먹었어", "en": "I ate with a friend", "rom": "chin-gu-rang bap meok-eo" },
+
+{ "kr": "친구랑 연락했어", "en": "I contacted a friend", "rom": "chin-gu-rang yeon-rak-haess-eo" }
+
+],
+
+"options": [
+
+{ "kr": "동료", "en": "Colleague", "rom": "dong-ryo" },
+
+{ "kr": "가족", "en": "Family", "rom": "ga-jok" },
+
+{ "kr": "선생님", "en": "Teacher", "rom": "seon-saeng-nim" }
+
+]
+
+},
+
+
+
+{
+
+"kr": "동료",
+
+"rom": "dong-ryo",
+
+"en": "Colleague",
+
+"tip": "When you think of people you work or attend meetings with, this word appears. It is strongly associated with workplace interaction and teamwork.",
+
+"situation": "In Korean workplace culture, a colleague is not just someone who works at the same company but someone who shares tasks, responsibilities, and goals within a team. Meetings, reports, and project collaboration are common daily activities. Teamwork is highly valued, so colleagues often rely on each other closely. In many cases, people spend more time with colleagues than with friends during weekdays.",
+
+"forms": {
+
+"casual": "동료야 (dong-ryo-ya)",
+
+"polite": "동료예요 / 동료입니다 (dong-ryo-ye-yo / dong-ryo-im-ni-da)"
+
+},
+
+"examples": [
+
+{ "kr": "동료 만났어", "en": "I met a colleague", "rom": "dong-ryo man-nat-eo" },
+
+{ "kr": "동료랑 일했어", "en": "I worked with a colleague", "rom": "dong-ryo-rang il-haess-eo" },
+
+{ "kr": "동료랑 점심 먹었어", "en": "I had lunch with a colleague", "rom": "dong-ryo-rang jeom-sim meok-eo" }
+
+],
+
+"options": [
+
+{ "kr": "친구", "en": "Friend", "rom": "chin-gu" },
+
+{ "kr": "상사", "en": "Boss", "rom": "sang-sa" },
+
+{ "kr": "직원", "en": "Employee", "rom": "jik-won" }
+
+]
+
+},
+
+
+
+{
+
+"kr": "가족",
+
+"rom": "ga-jok",
+
+"en": "Family",
+
+"tip": "When you think of home, parents, or people you live with, this word appears. It represents the closest emotional bond in daily life.",
+
+"situation": "In Korean culture, family is considered the most important social unit and emotional foundation. People usually live with parents or visit them frequently, and families gather during national holidays like Lunar New Year and Chuseok. Family opinions often influence major life decisions. It is a relationship built on responsibility, care, and emotional stability.",
+
+"forms": {
+
+"casual": "가족이야 (ga-jok-i-ya)",
+
+"polite": "가족이에요 / 가족입니다 (ga-jok-i-e-yo / ga-jok-im-ni-da)"
+
+},
+
+"examples": [
+
+{ "kr": "가족 만났어", "en": "I met my family", "rom": "ga-jok man-nat-eo" },
+
+{ "kr": "가족이랑 밥 먹었어", "en": "I ate with my family", "rom": "ga-jok-i-rang bap meok-eo" },
+
+{ "kr": "가족 보고 싶어", "en": "I miss my family", "rom": "ga-jok bo-go si-peo" }
+
+],
+
+"options": [
+
+{ "kr": "친구", "en": "Friend", "rom": "chin-gu" },
+
+{ "kr": "친척", "en": "Relatives", "rom": "chin-cheok" },
+
+{ "kr": "동료", "en": "Colleague", "rom": "dong-ryo" }
+
+]
+
+},
+
+
+
+{
+
+"kr": "선생님",
+
+"rom": "seon-saeng-nim",
+
+"en": "Teacher",
+
+"tip": "When you think of school, studying, or someone explaining things, this word comes to mind. It is strongly linked to learning situations.",
+
+"situation": "In Korean society, a teacher is regarded as a highly respected figure who not only teaches knowledge but also influences students’ attitudes and growth. The term is used in schools, academies, and private tutoring environments. Students are expected to show respect and politeness toward teachers. Teachers play a central role in education and learning culture.",
+
+"forms": {
+
+"casual": "선생님이야 (seon-saeng-nim-i-ya)",
+
+"polite": "선생님이에요 / 선생님입니다 (seon-saeng-nim-i-e-yo / seon-saeng-nim-im-ni-da)"
+
+},
+
+"examples": [
+
+{ "kr": "선생님 만났어", "en": "I met a teacher", "rom": "seon-saeng-nim man-nat-eo" },
+
+{ "kr": "선생님 설명 들었어", "en": "I heard the teacher's explanation", "rom": "seon-saeng-nim seol-myeong deul-eo-sseo" },
+
+{ "kr": "선생님 질문했어", "en": "I asked the teacher", "rom": "seon-saeng-nim jil-mun-haess-eo" }
+
+],
+
+"options": [
+
+{ "kr": "학생", "en": "Student", "rom": "hak-saeng" },
+
+{ "kr": "친구", "en": "Friend", "rom": "chin-gu" },
+
+{ "kr": "동료", "en": "Colleague", "rom": "dong-ryo" }
+
+]
+
+}
+
+]
+
+};
       // 3. [변수 고정] CURRENT_CAT을 'cat_friend'로 영원히 고정
       Object.defineProperty(window, 'CURRENT_CAT', {
           get() { return 'cat_friend'; },
