@@ -200,29 +200,31 @@
         let index = 0;
 
         function forceBannerUpdate() {
-            index = (index + 1) % esimRotationData.length;
-            const item = esimRotationData[index];
+            try {
+                index = (index + 1) % esimRotationData.length;
+                const item = esimRotationData[index];
 
-            // style.css가 폰트 크기나 정렬을 억누르고 있어도 강제로 덮어쓰도록 유도
-            const flags = document.querySelectorAll('.original-ad-flag-1, .original-ad-flag-2');
-            const texts = document.querySelectorAll('.original-ad-text-1, .original-ad-text-2');
+                const flags = document.querySelectorAll('.original-ad-flag-1, .original-ad-flag-2');
+                const texts = document.querySelectorAll('.original-ad-text-1, .original-ad-text-2');
 
-            flags.forEach(el => {
-                if (el) el.innerHTML = item.f;
-            });
+                flags.forEach(el => {
+                    if (el) el.innerHTML = item.f;
+                });
 
-            texts.forEach(el => {
-                if (el) {
-                    el.innerHTML = item.t;
-                    // 기존 CSS가 display:none 등을 줄 수 없도록 강제 제정의
-                    el.style.setProperty('display', 'inline-block', 'important');
-                    el.style.setProperty('visibility', 'visible', 'important');
-                    el.style.setProperty('opacity', '1', 'important');
-                }
-            });
+                texts.forEach(el => {
+                    if (el) {
+                        el.innerHTML = item.t;
+                        el.style.setProperty('display', 'inline-block', 'important');
+                        el.style.setProperty('visibility', 'visible', 'important');
+                        el.style.setProperty('opacity', '1', 'important');
+                    }
+                });
+            } catch (e) {
+                console.log("Timer handled safely.");
+            }
         }
 
-        // 브라우저 로드가 끝나든 중간이든 무관하게 무조건 3초마다 강제 동적 교환 실행
+        // 다른 js 에러가 있어도 타이머가 끊기지 않도록 확실하게 독립 실행 보장
         setInterval(forceBannerUpdate, 3000);
     })();
 </script>
