@@ -108,12 +108,12 @@
                 1,000+ Essential Korean sentences / free
             </div>
             
+            <!-- 🏠 메인 화면 eSIM 배너 구역 -->
             <div class="main-ad-panel" style="text-align: center; margin: 15px auto; width: 100%; max-width: 600px;">
                 <div class="game-ad-bar" style="cursor: pointer;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
-                    <div class="korea-badge esim-flag">🇰🇷</div>
-                    <div class="ad-moving-text" style="font-weight: 800; display: inline-block !important;">
-                        <span class="esim-text">Get Korea eSIM</span>
-                    </div>
+                    <!-- 국기와 메인 텍스트에 고유 ID를 부여하여 완벽하게 격리 -->
+                    <div id="main-banner-flag" class="korea-badge">🇰🇷</div>
+                    <div id="main-banner-text" class="ad-moving-text" style="font-weight: 800; display: inline-block;">Get Korea eSIM</div>
                     <div class="ad-fixed-small">+ Available in 200 countries</div>
                 </div>
             </div>
@@ -153,12 +153,12 @@
                 <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
             </div>
             
+            <!-- 🎮 퀴즈 화면 eSIM 배너 구역 -->
             <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
                 <div class="game-ad-bar" style="cursor: pointer;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
-                    <div class="korea-badge esim-flag">🇰🇷</div>
-                    <div class="ad-moving-text" style="font-weight: 800; display: inline-block !important;">
-                        <span class="esim-text">Get Korea eSIM</span>
-                    </div>
+                    <!-- 퀴즈 화면에도 겹치지 않는 고유 ID 부여 -->
+                    <div id="quiz-banner-flag" class="korea-badge">🇰🇷</div>
+                    <div id="quiz-banner-text" class="ad-moving-text" style="font-weight: 800; display: inline-block;">Get Korea eSIM</div>
                     <div class="ad-fixed-small">+ Available in 200 countries</div>
                 </div>
                 <br>
@@ -192,46 +192,33 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 
+<!-- 🚨 절대 멈추지 않는 초강력 고유 ID 기반 타이머 스크립트 -->
 <script>
-    (function() {
-        const esimRotationData = [
+    setInterval(function() {
+        var data = [
             { f: "🇰🇷", t: "Get Korea eSIM" },
             { f: "🇯🇵", t: "Get Japan eSIM" },
             { f: "🇺🇸", t: "Get USA eSIM" },
             { f: "🗺️", t: "Global eSIM - 200+ Countries" }
         ];
-
-        let index = 0;
-
-        function forceBannerUpdate() {
-            try {
-                index = (index + 1) % esimRotationData.length;
-                const item = esimRotationData[index];
-
-                // 단 하나의 클래스명으로 메인과 퀴즈 화면 배너를 동시에 정조준합니다.
-                const flags = document.querySelectorAll('.esim-flag');
-                const texts = document.querySelectorAll('.esim-text');
-
-                flags.forEach(el => {
-                    if (el) el.innerHTML = item.f;
-                });
-
-                texts.forEach(el => {
-                    if (el) {
-                        el.innerHTML = item.t;
-                        el.style.setProperty('display', 'inline-block', 'important');
-                        el.style.setProperty('visibility', 'visible', 'important');
-                        el.style.setProperty('opacity', '1', 'important');
-                    }
-                });
-            } catch (e) {
-                console.log("Timer error bypassed.");
-            }
-        }
-
-        // 3초마다 확실하게 업데이트 구동 보장
-        setInterval(forceBannerUpdate, 3000);
-    })();
+        
+        // 브라우저 시간에 맞춰 강제로 순환되게 만듦 (에러 발생해도 무조건 복구됨)
+        var idx = Math.floor(Date.now() / 3000) % data.length;
+        var item = data[idx];
+        
+        // ID로 딱 지정된 텍스트 영역만 콕 집어서 변경
+        var mf = document.getElementById('main-banner-flag');
+        var mt = document.getElementById('main-banner-text');
+        var qf = document.getElementById('quiz-banner-flag');
+        var qt = document.getElementById('quiz-banner-text');
+        
+        // innerText를 사용해 하위 요소나 CSS 구조를 파괴하지 않고 순수 글자만 교체
+        if (mf) mf.innerText = item.f;
+        if (mt) mt.innerText = item.t;
+        if (qf) qf.innerText = item.f;
+        if (qt) qt.innerText = item.t;
+        
+    }, 3000);
 </script>
 </body>
 </html>
