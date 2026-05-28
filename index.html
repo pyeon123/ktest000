@@ -17,6 +17,37 @@
     <meta name="keywords" content="Learn Korean, Korean Quiz, K-Drama Phrases, Basic Korean, Korean Vocabulary">
 
     <link rel="stylesheet" href="style.css">
+
+    <!-- 🎨 자바스크립트 충돌을 피하기 위한 100% 보장형 CSS 배너 롤링 애니메이션 -->
+    <style>
+        .esim-ad-content-wrapper {
+            display: inline-block;
+            position: relative;
+            height: 24px;
+            overflow: hidden;
+            vertical-align: middle;
+        }
+        .esim-ad-rotator {
+            display: block;
+            animation: esimRotate 12s infinite ease-in-out;
+        }
+        .esim-line {
+            height: 24px;
+            line-height: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            font-weight: 800;
+        }
+        @keyframes esimRotate {
+            0%, 20% { transform: translateY(0); }
+            25%, 45% { transform: translateY(-24px); }
+            50%, 70% { transform: translateY(-48px); }
+            75%, 95% { transform: translateY(-72px); }
+            100% { transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
 
@@ -108,11 +139,18 @@
                 1,000+ Essential Korean sentences / free
             </div>
             
+            <!-- 🌐 메인 화면 하단 CSS 구동식 배너 -->
             <div class="main-ad-panel" style="text-align: center; margin: 15px auto; width: 100%; max-width: 600px;">
-                <div class="game-ad-bar esim-ad-container" style="cursor: pointer; transition: all 0.3s ease;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
-                    <div class="korea-badge ad-flag">🇰🇷</div>
-                    <div class="ad-moving-text ad-content" style="font-weight: 800;">Get Korea eSIM</div>
-                    <div class="ad-fixed-small">+ Available in 200 countries</div>
+                <div class="game-ad-bar" style="cursor: pointer; padding: 12px 20px;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
+                    <div class="esim-ad-content-wrapper">
+                        <div class="esim-ad-rotator">
+                            <div class="esim-line"><span>🇰🇷</span> Get Korea eSIM</div>
+                            <div class="esim-line"><span>🇯🇵</span> Get Japan eSIM</div>
+                            <div class="esim-line"><span>🇺🇸</span> Get USA eSIM</div>
+                            <div class="esim-line"><span>🗺️</span> Global eSIM - 200+ Countries</div>
+                        </div>
+                    </div>
+                    <div class="ad-fixed-small" style="margin-top: 2px;">+ Available in 200 countries</div>
                 </div>
             </div>
             <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
@@ -151,11 +189,18 @@
                 <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
             </div>
             
+            <!-- 🌐 퀴즈 화면 하단 CSS 구동식 배너 -->
             <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
-                <div class="game-ad-bar esim-ad-container" style="cursor: pointer; transition: all 0.3s ease;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
-                    <div class="korea-badge ad-flag">🇰🇷</div>
-                    <div class="ad-moving-text ad-content" style="font-weight: 800;">Get Korea eSIM</div>
-                    <div class="ad-fixed-small">+ Available in 200 countries</div>
+                <div class="game-ad-bar" style="cursor: pointer; padding: 12px 20px;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
+                    <div class="esim-ad-content-wrapper">
+                        <div class="esim-ad-rotator">
+                            <div class="esim-line"><span>🇰🇷</span> Get Korea eSIM</div>
+                            <div class="esim-line"><span>🇯🇵</span> Get Japan eSIM</div>
+                            <div class="esim-line"><span>🇺🇸</span> Get USA eSIM</div>
+                            <div class="esim-line"><span>🗺️</span> Global eSIM - 200+ Countries</div>
+                        </div>
+                    </div>
+                    <div class="ad-fixed-small" style="margin-top: 2px;">+ Available in 200 countries</div>
                 </div>
                 <br>
                 <div style="font-size: 0.9rem; font-weight: bold; color: #64748b;">1,000+ Essential Korean sentences / free</div>
@@ -188,39 +233,5 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 
-<script>
-    (function() {
-        const esimAdData = [
-            { flag: "🇰🇷", text: "Get Korea eSIM" },
-            { flag: "🇯🇵", text: "Get Japan eSIM" },
-            { flag: "🇺🇸", text: "Get USA eSIM" },
-            { flag: "🗺️", text: "Global eSIM - 200+ Countries" }
-        ];
-
-        let currentEsimIndex = 0;
-
-        function rotateEsimAd() {
-            currentEsimIndex = (currentEsimIndex + 1) % esimAdData.length;
-            const nextData = esimAdData[currentEsimIndex];
-
-            // 메인 화면과 퀴즈 화면에 분산되어 있는 모든 배너 요소를 한꺼번에 찾아내어 동기화 변경
-            const flags = document.querySelectorAll('.ad-flag');
-            const contents = document.querySelectorAll('.ad-content');
-
-            flags.forEach(el => { el.textContent = nextData.flag; });
-            contents.forEach(el => { el.textContent = nextData.text; });
-        }
-
-        // 앱이 로딩되자마자 즉시 인터벌 구동 시작
-        document.addEventListener("DOMContentLoaded", function() {
-            setInterval(rotateEsimAd, 3000);
-        });
-        
-        // 예외 방지용 백업 구동 트리거
-        setTimeout(function() {
-            setInterval(rotateEsimAd, 3000);
-        }, 1000);
-    })();
-</script>
 </body>
 </html>
