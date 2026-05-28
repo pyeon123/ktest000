@@ -463,33 +463,35 @@ function goHome() {
     hideGuide();
 }
 
-// 🌐 [100% 동기화 완료] 다국어 eSIM 롤링 타이머 시스템
-const esimRotationData = [
-    { f: "🇰🇷", t: "Get Korea eSIM" },
-    { f: "🇯🇵", t: "Get Japan eSIM" },
-    { f: "🇺🇸", t: "Get USA eSIM" },
-    { f: "🗺️", t: "Global eSIM - 200+ Countries" }
-];
-let adIdx = 0;
+// 🌐 배너 자동 롤링 시스템 (오류 방어 로직 적용)
+(function() {
+    const esimRotationData = [
+        { f: "🇰🇷", t: "Get Korea eSIM" },
+        { f: "🇯🇵", t: "Get Japan eSIM" },
+        { f: "🇺🇸", t: "Get USA eSIM" },
+        { f: "🗺️", t: "Global eSIM - 200+ Countries" }
+    ];
+    let adIdx = 0;
 
-setInterval(() => {
-    adIdx = (adIdx + 1) % esimRotationData.length;
-    const item = esimRotationData[adIdx];
+    setInterval(function() {
+        try {
+            adIdx = (adIdx + 1) % esimRotationData.length;
+            const item = esimRotationData[adIdx];
 
-    // 무결점 HTML 구조에 정의된 정확한 클래스 선택자로 매칭 완료!
-    const allFlags = document.querySelectorAll('.my-rolling-flag');
-    const allTexts = document.querySelectorAll('.my-rolling-text');
+            const allFlags = document.querySelectorAll('.my-rolling-flag');
+            const allTexts = document.querySelectorAll('.my-rolling-text');
 
-    // 1. 이모지 아이콘 일괄 변경
-    allFlags.forEach(el => {
-        if (el) el.textContent = item.f;
-    });
-
-    // 2. 광고 텍스트 문구 일괄 변경
-    allTexts.forEach(el => {
-        if (el) el.textContent = item.t;
-    });
-}, 3000); 
+            allFlags.forEach(function(el) {
+                if (el) el.textContent = item.f;
+            });
+            allTexts.forEach(function(el) {
+                if (el) el.textContent = item.t;
+            });
+        } catch (err) {
+            console.error("Banner rolling error:", err);
+        }
+    }, 3000);
+})();
 
 function expandTodayQuiz() {
     const content = document.getElementById('today-quiz-content');
