@@ -712,30 +712,25 @@ function startExampleRecognition(targetText, idx) {
     };
 }
 
-// 🌐 최종 수정: 배너 강제 롤링 시스템
+// 🌐 배너 강제 롤링 (요소 동적 감지 방식)
 (function() {
-    const esimRotationData = [
+    const data = [
         { f: "🇰🇷", t: "Get Korea eSIM" },
         { f: "🇯🇵", t: "Get Japan eSIM" },
         { f: "🇺🇸", t: "Get USA eSIM" },
         { f: "🗺️", t: "Global eSIM - 200+ Countries" }
     ];
-    let adIdx = 0;
+    let idx = 0;
 
-    function updateBanners() {
-        adIdx = (adIdx + 1) % esimRotationData.length;
-        const item = esimRotationData[adIdx];
+    setInterval(function() {
+        idx = (idx + 1) % data.length;
+        const item = data[idx];
         
+        // 페이지 전체에서 매번 다시 찾음 (동적 생성 대응)
         const flags = document.querySelectorAll('.my-rolling-flag');
         const texts = document.querySelectorAll('.my-rolling-text');
         
-        flags.forEach(el => el.textContent = item.f);
-        texts.forEach(el => el.textContent = item.t);
-    }
-
-    // 3초마다 무조건 실행
-    setInterval(updateBanners, 3000);
-    
-    // 초기 실행 (로딩 기다리지 않음)
-    updateBanners();
+        flags.forEach(el => { el.textContent = item.f; });
+        texts.forEach(el => { el.textContent = item.t; });
+    }, 3000);
 })();
