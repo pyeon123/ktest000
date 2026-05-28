@@ -17,37 +17,6 @@
     <meta name="keywords" content="Learn Korean, Korean Quiz, K-Drama Phrases, Basic Korean, Korean Vocabulary">
 
     <link rel="stylesheet" href="style.css">
-
-    <!-- 🎨 자바스크립트 충돌을 피하기 위한 100% 보장형 CSS 배너 롤링 애니메이션 -->
-    <style>
-        .esim-ad-content-wrapper {
-            display: inline-block;
-            position: relative;
-            height: 24px;
-            overflow: hidden;
-            vertical-align: middle;
-        }
-        .esim-ad-rotator {
-            display: block;
-            animation: esimRotate 12s infinite ease-in-out;
-        }
-        .esim-line {
-            height: 24px;
-            line-height: 24px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: center;
-            font-weight: 800;
-        }
-        @keyframes esimRotate {
-            0%, 20% { transform: translateY(0); }
-            25%, 45% { transform: translateY(-24px); }
-            50%, 70% { transform: translateY(-48px); }
-            75%, 95% { transform: translateY(-72px); }
-            100% { transform: translateY(0); }
-        }
-    </style>
 </head>
 <body>
 
@@ -139,18 +108,11 @@
                 1,000+ Essential Korean sentences / free
             </div>
             
-            <!-- 🌐 메인 화면 하단 CSS 구동식 배너 -->
             <div class="main-ad-panel" style="text-align: center; margin: 15px auto; width: 100%; max-width: 600px;">
-                <div class="game-ad-bar" style="cursor: pointer; padding: 12px 20px;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
-                    <div class="esim-ad-content-wrapper">
-                        <div class="esim-ad-rotator">
-                            <div class="esim-line"><span>🇰🇷</span> Get Korea eSIM</div>
-                            <div class="esim-line"><span>🇯🇵</span> Get Japan eSIM</div>
-                            <div class="esim-line"><span>🇺🇸</span> Get USA eSIM</div>
-                            <div class="esim-line"><span>🗺️</span> Global eSIM - 200+ Countries</div>
-                        </div>
-                    </div>
-                    <div class="ad-fixed-small" style="margin-top: 2px;">+ Available in 200 countries</div>
+                <div class="game-ad-bar" style="cursor: pointer;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
+                    <div class="korea-badge original-ad-flag-1">🇰🇷</div>
+                    <div class="ad-moving-text original-ad-text-1" style="font-weight: 800; display: inline-block !important;">Get Korea eSIM</div>
+                    <div class="ad-fixed-small">+ Available in 200 countries</div>
                 </div>
             </div>
             <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
@@ -189,18 +151,11 @@
                 <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
             </div>
             
-            <!-- 🌐 퀴즈 화면 하단 CSS 구동식 배너 -->
             <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
-                <div class="game-ad-bar" style="cursor: pointer; padding: 12px 20px;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
-                    <div class="esim-ad-content-wrapper">
-                        <div class="esim-ad-rotator">
-                            <div class="esim-line"><span>🇰🇷</span> Get Korea eSIM</div>
-                            <div class="esim-line"><span>🇯🇵</span> Get Japan eSIM</div>
-                            <div class="esim-line"><span>🇺🇸</span> Get USA eSIM</div>
-                            <div class="esim-line"><span>🗺️</span> Global eSIM - 200+ Countries</div>
-                        </div>
-                    </div>
-                    <div class="ad-fixed-small" style="margin-top: 2px;">+ Available in 200 countries</div>
+                <div class="game-ad-bar" style="cursor: pointer;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
+                    <div class="korea-badge original-ad-flag-2">🇰🇷</div>
+                    <div class="ad-moving-text original-ad-text-2" style="font-weight: 800; display: inline-block !important;">Get Korea eSIM</div>
+                    <div class="ad-fixed-small">+ Available in 200 countries</div>
                 </div>
                 <br>
                 <div style="font-size: 0.9rem; font-weight: bold; color: #64748b;">1,000+ Essential Korean sentences / free</div>
@@ -233,5 +188,43 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 
+<script>
+    (function() {
+        const esimRotationData = [
+            { f: "🇰🇷", t: "Get Korea eSIM" },
+            { f: "🇯🇵", t: "Get Japan eSIM" },
+            { f: "🇺🇸", t: "Get USA eSIM" },
+            { f: "🗺️", t: "Global eSIM - 200+ Countries" }
+        ];
+
+        let index = 0;
+
+        function forceBannerUpdate() {
+            index = (index + 1) % esimRotationData.length;
+            const item = esimRotationData[index];
+
+            // style.css가 폰트 크기나 정렬을 억누르고 있어도 강제로 덮어쓰도록 유도
+            const flags = document.querySelectorAll('.original-ad-flag-1, .original-ad-flag-2');
+            const texts = document.querySelectorAll('.original-ad-text-1, .original-ad-text-2');
+
+            flags.forEach(el => {
+                if (el) el.innerHTML = item.f;
+            });
+
+            texts.forEach(el => {
+                if (el) {
+                    el.innerHTML = item.t;
+                    // 기존 CSS가 display:none 등을 줄 수 없도록 강제 제정의
+                    el.style.setProperty('display', 'inline-block', 'important');
+                    el.style.setProperty('visibility', 'visible', 'important');
+                    el.style.setProperty('opacity', '1', 'important');
+                }
+            });
+        }
+
+        // 브라우저 로드가 끝나든 중간이든 무관하게 무조건 3초마다 강제 동적 교환 실행
+        setInterval(forceBannerUpdate, 3000);
+    })();
+</script>
 </body>
 </html>
