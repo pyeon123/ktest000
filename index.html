@@ -107,6 +107,14 @@
             <div style="text-align: center; font-size: 0.9rem; font-weight: bold; color: #64748b;">
                 1,000+ Essential Korean sentences / free
             </div>
+            
+            <div class="main-ad-panel" style="text-align: center; margin: 15px auto; width: 100%; max-width: 600px;">
+                <div class="game-ad-bar esim-ad-container" style="cursor: pointer; transition: all 0.3s ease;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
+                    <div class="korea-badge ad-flag">🇰🇷</div>
+                    <div class="ad-moving-text ad-content" style="font-weight: 800;">Get Korea eSIM</div>
+                    <div class="ad-fixed-small">+ Available in 200 countries</div>
+                </div>
+            </div>
             <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
         </div>
 
@@ -143,11 +151,10 @@
                 <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
             </div>
             
-            <!-- 🌐 기존 자리를 그대로 유지하고 매칭 ID만 심은 배너 구역 -->
-            <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; relative; z-index: 1000;">
-                <div class="game-ad-bar" id="esim-ad-container" style="cursor: pointer; transition: all 0.3s ease;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
-                    <div class="korea-badge" id="ad-flag">🇰🇷</div>
-                    <div class="ad-moving-text" id="ad-content" style="font-weight: 800;">Get Korea eSIM</div>
+            <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
+                <div class="game-ad-bar esim-ad-container" style="cursor: pointer; transition: all 0.3s ease;" onclick="window.open('https://breezesim.com/products/esim-south-korea?sca_ref=10996533.84IFCCRU2g', '_blank')">
+                    <div class="korea-badge ad-flag">🇰🇷</div>
+                    <div class="ad-moving-text ad-content" style="font-weight: 800;">Get Korea eSIM</div>
                     <div class="ad-fixed-small">+ Available in 200 countries</div>
                 </div>
                 <br>
@@ -181,30 +188,39 @@
 <script src="data.js"></script>
 <script src="script.js"></script>
 
-<!-- 🚀 HTML 파일 단 하나만 수정해도 바로 롤링이 되도록 직접 주입한 내장형 자바스크립트 엔진 -->
 <script>
-    const esimAdData = [
-        { flag: "🇰🇷", text: "Get Korea eSIM" },
-        { flag: "🇯🇵", text: "Get Japan eSIM" },
-        { flag: "🇺🇸", text: "Get USA eSIM" },
-        { flag: "🗺️", text: "Global eSIM - 200+ Countries" }
-    ];
+    (function() {
+        const esimAdData = [
+            { flag: "🇰🇷", text: "Get Korea eSIM" },
+            { flag: "🇯🇵", text: "Get Japan eSIM" },
+            { flag: "🇺🇸", text: "Get USA eSIM" },
+            { flag: "🗺️", text: "Global eSIM - 200+ Countries" }
+        ];
 
-    let currentEsimIndex = 0;
+        let currentEsimIndex = 0;
 
-    function rotateEsimAd() {
-        const adFlag = document.getElementById("ad-flag");
-        const adContent = document.getElementById("ad-content");
-
-        if (adFlag && adContent) {
+        function rotateEsimAd() {
             currentEsimIndex = (currentEsimIndex + 1) % esimAdData.length;
-            adFlag.textContent = esimAdData[currentEsimIndex].flag;
-            adContent.textContent = esimAdData[currentEsimIndex].text;
-        }
-    }
+            const nextData = esimAdData[currentEsimIndex];
 
-    // 파일이 로드된 후 3초마다 부드럽게 글자를 로테이션 시킵니다.
-    setInterval(rotateEsimAd, 3000);
+            // 메인 화면과 퀴즈 화면에 분산되어 있는 모든 배너 요소를 한꺼번에 찾아내어 동기화 변경
+            const flags = document.querySelectorAll('.ad-flag');
+            const contents = document.querySelectorAll('.ad-content');
+
+            flags.forEach(el => { el.textContent = nextData.flag; });
+            contents.forEach(el => { el.textContent = nextData.text; });
+        }
+
+        // 앱이 로딩되자마자 즉시 인터벌 구동 시작
+        document.addEventListener("DOMContentLoaded", function() {
+            setInterval(rotateEsimAd, 3000);
+        });
+        
+        // 예외 방지용 백업 구동 트리거
+        setTimeout(function() {
+            setInterval(rotateEsimAd, 3000);
+        }, 1000);
+    })();
 </script>
 </body>
 </html>
