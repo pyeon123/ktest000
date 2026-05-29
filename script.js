@@ -738,10 +738,15 @@ function goToDetailPage() {
     // 1. 현재 데이터가 올바른지 확인
     const currentData = currentCategoryData[currentIdx];
     
+    // 2. 카테고리 ID 변수(activeCatId) 사용
     if (currentData && currentData.kr) {
-        // 2. 주소 생성
-        const url = 'https://pyeon123.github.io/ktest000/detail.html?word=' + encodeURIComponent(currentData.kr);
-        // 3. 이동
+        // activeCatId가 비어있다면 기본값 'cat_feelings' 사용 (필요시 수정)
+        const catId = activeCatId || 'cat_feelings'; 
+        
+        // 3. 주소 생성 (상대 경로로 수정)
+        const url = `./feelings.html?cat=${catId}&word=${encodeURIComponent(currentData.kr)}`;
+        
+        // 4. 이동
         window.location.href = url;
     } else {
         alert("데이터를 찾을 수 없습니다.");
