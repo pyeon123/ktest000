@@ -734,3 +734,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3초마다 반복 실행
     setInterval(updateBanners, 3000);
 });
+function goToDetailPage() {
+    // 1. 현재 데이터가 올바른지 확인
+    const currentData = currentCategoryData[currentIdx];
+    
+    if (currentData && currentData.kr) {
+        // 2. 주소 생성
+        const url = 'https://pyeon123.github.io/ktest000/detail.html?word=' + encodeURIComponent(currentData.kr);
+        // 3. 이동
+        window.location.href = url;
+    } else {
+        alert("데이터를 찾을 수 없습니다.");
+    }
+}
