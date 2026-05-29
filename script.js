@@ -733,23 +733,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3초마다 반복 실행
     setInterval(updateBanners, 3000);
-// 함수가 event라는 정보를 받을 수 있게 소괄호 안에 event를 넣으세요
 function goToDetailPage(event) {
-    // 혹시라도 있을 페이지 새로고침을 완벽하게 차단합니다
     if (event) {
         event.preventDefault();
         event.stopPropagation();
     }
 
     const currentData = currentCategoryData[currentIdx];
-    
-    if (currentData && currentData.kr) {
-        const catId = activeCatId || 'cat_feelings'; 
-        // 확실하게 전체 주소를 적어보세요
-        const url = `https://pyeon123.github.io/ktest000/feelings.html?cat=${catId}&word=${encodeURIComponent(currentData.kr)}`;
-        
-        console.log("이동할 주소:", url);
-        window.location.href = url;
+    if (currentData) {
+        // 파일을 이동하는 게 아니라, 상세 화면을 보여주는 함수를 실행하세요!
+        // 예시: showDetailView(currentData);
+        // 만약 그런 함수가 없다면 상세 화면용 div의 display를 'block'으로 바꿔야 합니다.
+
+        console.log("상세 정보 표시:", currentData.kr);
+        // window.location.href는 지우세요! (이게 메인으로 튕기게 했던 범인입니다)
     } else {
         alert("데이터를 찾을 수 없습니다.");
     }
