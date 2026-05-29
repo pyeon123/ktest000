@@ -733,16 +733,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3초마다 반복 실행
     setInterval(updateBanners, 3000);
-});
-function goToDetailPage() {
-    console.log("버튼 클릭됨!"); // 1. 클릭이 되는지 확인
-    const currentData = currentCategoryData[currentIdx];
-    console.log("현재 데이터:", currentData); // 2. 데이터가 있는지 확인
+// 함수가 event라는 정보를 받을 수 있게 소괄호 안에 event를 넣으세요
+function goToDetailPage(event) {
+    // 혹시라도 있을 페이지 새로고침을 완벽하게 차단합니다
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
 
+    const currentData = currentCategoryData[currentIdx];
+    
     if (currentData && currentData.kr) {
         const catId = activeCatId || 'cat_feelings'; 
-        const url = `./feelings.html?cat=${catId}&word=${encodeURIComponent(currentData.kr)}`;
-        console.log("이동할 주소:", url); // 3. 주소가 맞는지 확인
+        // 확실하게 전체 주소를 적어보세요
+        const url = `https://pyeon123.github.io/ktest000/feelings.html?cat=${catId}&word=${encodeURIComponent(currentData.kr)}`;
+        
+        console.log("이동할 주소:", url);
         window.location.href = url;
     } else {
         alert("데이터를 찾을 수 없습니다.");
