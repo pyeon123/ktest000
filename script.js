@@ -735,18 +735,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateBanners, 3000);
 });
 function goToDetailPage() {
-    // 1. 현재 데이터가 올바른지 확인
+    console.log("버튼 클릭됨!"); // 1. 클릭이 되는지 확인
     const currentData = currentCategoryData[currentIdx];
-    
-    // 2. 카테고리 ID 변수(activeCatId) 사용
+    console.log("현재 데이터:", currentData); // 2. 데이터가 있는지 확인
+
     if (currentData && currentData.kr) {
-        // activeCatId가 비어있다면 기본값 'cat_feelings' 사용 (필요시 수정)
         const catId = activeCatId || 'cat_feelings'; 
-        
-        // 3. 주소 생성 (상대 경로로 수정)
         const url = `./feelings.html?cat=${catId}&word=${encodeURIComponent(currentData.kr)}`;
-        
-        // 4. 이동
+        console.log("이동할 주소:", url); // 3. 주소가 맞는지 확인
         window.location.href = url;
     } else {
         alert("데이터를 찾을 수 없습니다.");
