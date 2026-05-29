@@ -791,23 +791,3 @@ function startExampleRecognition(targetText, idx) {
         micBtn.classList.remove('recording');
     };
 }
-// 1. 나라별 배너 데이터 정의
-const esimRotationData = [
-    { f: "🇯🇵", t: "Get Japan eSIM" },
-    { f: "🇺🇸", t: "Get USA eSIM" },
-    { f: "🗺️", t: "Global eSIM - 200+ Countries" }
-];
-let esimAdIdx = 0;
-
-// 2. 배너 업데이트 함수
-function updateBanners() {
-    esimAdIdx = (esimAdIdx + 1) % esimRotationData.length;
-    const item = esimRotationData[esimAdIdx];
-
-    // 페이지 내 모든 배너 클래스를 찾아 텍스트 업데이트
-    document.querySelectorAll('.my-rolling-flag').forEach(el => el.textContent = item.f);
-    document.querySelectorAll('.my-rolling-text').forEach(el => el.textContent = item.t);
-}
-
-// 3. 3초마다 반복 실행
-setInterval(updateBanners, 3000);
