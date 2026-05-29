@@ -791,32 +791,41 @@ function startExampleRecognition(targetText, idx) {
         micBtn.classList.remove('recording');
     };
 }
-function goToDetailPage(event) {
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
-    // 1. 현재 문제 데이터 가져오기
-    const currentData = currentCategoryData[currentIdx];
+document.addEventListener('DOMContentLoaded', () => {
+    const detailBtn = document.getElementById('go-detail-btn');
     
-    if (currentData) {
-        console.log("상세 정보 표시 중:", currentData.kr);
-
-        // 2. 메인/퀴즈 화면 숨기기
-        document.getElementById('menu-screen').style.display = 'none';
-        document.getElementById('quiz-screen').style.display = 'block';
-        document.getElementById('quiz-screen').classList.add('active');
-
-        // 3. 데이터 강제 주입 (Tap to start learning 대신 실제 내용 입력)
-        document.getElementById('korean-sentence').textContent = currentData.kr;
-        document.getElementById('romanization').textContent = currentData.rom || "";
-        
-        // 추가로 필요한 정보(상황, 팁 등)도 여기서 입력하세요
-        const tipEl = document.getElementById('category-tip-text');
-        if (tipEl) tipEl.textContent = currentData.tip || "Enjoy learning!";
-
-    } else {
-        alert("데이터를 찾을 수 없습니다.");
+    if (detailBtn) {
+        detailBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            // 1. 현재 퀴즈 데이터 가져오기
+            const currentData = currentCategoryData[currentIdx];
+            
+            if (currentData) {
+                // 2. 메인/퀴즈 화면 전환
+                const menuScreen = document.getElementById('menu-screen');
+                const quizScreen = document.getElementById('quiz-screen');
+                
+                if (menuScreen) menuScreen.style.display = 'none';
+                if (quizScreen) {
+                    quizScreen.style.display = 'block';
+                    quizScreen.classList.add('active');
+                }
+                
+                // 3. 상세 화면에 데이터 채우기 (HTML 요소들의 ID 확인 필요)
+                const korEl = document.getElementById('korean-sentence');
+                const romEl = document.getElementById('romanization');
+                const tipEl = document.getElementById('category-tip-text');
+                
+                if (korEl) korEl.textContent = currentData.kr;
+                if (romEl) romEl.textContent = currentData.rom || "";
+                if (tipEl) tipEl.textContent = currentData.tip || "Enjoy learning!";
+                
+                console.log("상세 정보 표시 완료:", currentData.kr);
+            } else {
+                alert("데이터를 찾을 수 없습니다.");
+            }
+        });
     }
-}
+});
