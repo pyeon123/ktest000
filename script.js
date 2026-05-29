@@ -791,18 +791,37 @@ function startExampleRecognition(targetText, idx) {
         micBtn.classList.remove('recording');
     };
 }
-function goToDetailPage() {
-    const currentData = currentCategoryData[currentIdx];
-    if (currentData) {
-        // 1. 화면 전환
-        document.getElementById('menu-screen').style.display = 'none';
-        document.getElementById('quiz-screen').style.display = 'block';
-        
-        // 2. 데이터 뿌리기
-        document.getElementById('korean-sentence').textContent = currentData.kr;
-        document.getElementById('romanization').textContent = currentData.rom || "";
-        document.getElementById('category-tip-text').textContent = currentData.tip || "Enjoy learning!";
-    } else {
-        alert("데이터를 찾을 수 없습니다.");
+// 1. 기존 광고 순환 코드 (살려둠)
+const adTexts = [
+    "No internet in Korea? You'll need data!",
+    "Maps won't work without internet",
+    "Travel Korea stress-free with eSIM",
+    "Instant internet access in Korea"
+];
+let adIdx = 0;
+setInterval(() => {
+    adIdx = (adIdx + 1) % adTexts.length;
+    const el = document.getElementById("ad-content");
+    if(el) {
+        el.style.animation = 'none';
+        el.offsetHeight; 
+        el.style.animation = 'fadeMove 0.6s ease-out';
+        el.innerText = adTexts[adIdx];
     }
+}, 4500);
+
+// 2. 새 eSIM 배너 로직 (추가함)
+const esimRotationData = [
+    { f: "🇯🇵", t: "Get Japan eSIM" },
+    { f: "🇺🇸", t: "Get USA eSIM" },
+    { f: "🗺️", t: "Global eSIM - 200+ Countries" }
+];
+let esimAdIdx = 0;
+
+function updateBanners() {
+    esimAdIdx = (esimAdIdx + 1) % esimRotationData.length;
+    const item = esimRotationData[esimAdIdx];
+    document.querySelectorAll('.my-rolling-flag').forEach(el => el.textContent = item.f);
+    document.querySelectorAll('.my-rolling-text').forEach(el => el.textContent = item.t);
 }
+setInterval(updateBanners, 3000);
