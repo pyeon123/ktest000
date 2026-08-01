@@ -1107,7 +1107,580 @@ const allQuizData = {
         { kr: "성냥", rom: "Seong-nyang", en: "Match", tip: "How to say the small wooden stick that lights up when rubbed against a surface in Korean?", situation: "Use this for fire.", forms: { casual: "성냥 (Seong-nyang)", polite: "성냥이에요 (Seong-nyang-i-e-yo)" }, examples: [{ kr: "성냥으로 불을 켜요.", en: "I turn on the fire with a match.", rom: "Seong-nyang-eu-ro bul-eul kyeo-yo." }, { kr: "성냥이 필요해요.", en: "I need a match.", rom: "Seong-nyang-i pil-yo-hae-yo." }, { kr: "성냥을 켰어요.", en: "I lit a match.", rom: "Seong-nyang-eul kyeo-ss-eo-yo." }] },
         { kr: "나침반", rom: "Na-chim-ban", en: "Compass", tip: "How to refer to the instrument that shows the direction of North in Korean?", situation: "Use this for hiking.", forms: { casual: "나침반 (Na-chim-ban)", polite: "나침반이에요 (Na-chim-ban-i-e-yo)" }, examples: [{ kr: "나침반으로 방향을 찾아요.", en: "I find the direction with a compass.", rom: "Na-chim-ban-eu-ro bang-hyang-eul chaj-a-yo." }, { kr: "나침반이 정확해요.", en: "The compass is accurate.", rom: "Na-chim-ban-i jeong-hwak-hae-yo." }, { kr: "나침반을 가져가요.", en: "I take a compass.", rom: "Na-chim-ban-eul ga-jyeo-ga-yo." }] }
     ]
-},      
+}, 
+"cat_25": {
+    id: "25",
+    emoji: "❤",
+    name: "Sentence Lovers",
+    data: [
+        {
+             "kr": "오늘도 고생했어.",
+    "rom": "O-neul-do go-saeng-haet-eo.",
+    "en": "You worked hard today.",
+    "tip": "Your partner has finished a long day at work or school. You want to acknowledge their effort and make them feel appreciated. What do you say?",
+    "situation": "Cultural Insight: '고생했어' is one of the most common Korean expressions of care. Rather than simply praising someone, it recognizes their effort and emotional burden.",
+    "forms": {
+        "casual": "오늘도 고생했어. (O-neul-do go-saeng-haet-eo.)",
+        "polite": "오늘도 고생했어요. (O-neul-do go-saeng-haet-eo-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "오늘도 고생했어. 푹 쉬어.",
+            "en": "You worked hard today. Get some good rest.",
+            "rom": "O-neul-do go-saeng-haet-eo. Puk swi-eo."
+        },
+        {
+            "kr": "회사에서 고생 많았지?",
+            "en": "You worked hard at work today, didn't you?",
+            "rom": "Hoe-sa-e-seo go-saeng man-at-ji?"
+        },
+        {
+            "kr": "오늘 정말 수고했어.",
+            "en": "You really did a great job today.",
+            "rom": "O-neul jeong-mal su-go-haet-eo."
+        }
+    ]
+},
+{
+    "kr": "밥 먹었어?",
+    "rom": "Bap meog-eoss-eo?",
+    "en": "Have you eaten?",
+    "tip": "You want to check on someone you care about. In Korea this question often means 'Are you doing okay?' rather than simply asking about food.",
+    "situation": "Cultural Insight: Asking 'Have you eaten?' is one of the most caring greetings in Korean culture and often replaces 'How are you?'",
+    "forms": {
+        "casual": "밥 먹었어? (Bap meog-eoss-eo?)",
+        "polite": "밥 먹었어요? (Bap meog-eoss-eo-yo?)"
+    },
+    "examples": [
+        {
+            "kr": "아직 밥 안 먹었어?",
+            "en": "You haven't eaten yet?",
+            "rom": "A-jik bap an meog-eoss-eo?"
+        },
+        {
+            "kr": "점심은 먹었어?",
+            "en": "Did you have lunch?",
+            "rom": "Jeom-sim-eun meog-eoss-eo?"
+        },
+        {
+            "kr": "밥부터 먹자.",
+            "en": "Let's eat first.",
+            "rom": "Bap-bu-teo meok-ja."
+        }
+    ]
+},
+{
+    "kr": "지금 뭐 해?",
+    "rom": "Ji-geum mwo hae?",
+    "en": "What are you doing now?",
+    "tip": "You want to start a casual conversation or check if someone is available to chat or meet.",
+    "situation": "Cultural Insight: This is one of the most common opening text messages between friends and couples in Korea.",
+    "forms": {
+        "casual": "지금 뭐 해? (Ji-geum mwo hae?)",
+        "polite": "지금 뭐 해요? (Ji-geum mwo hae-yo?)"
+    },
+    "examples": [
+        {
+            "kr": "집에서 쉬고 있어.",
+            "en": "I'm relaxing at home.",
+            "rom": "Jip-e-seo swi-go i-sseo."
+        },
+        {
+            "kr": "지금 일하고 있어.",
+            "en": "I'm working right now.",
+            "rom": "Ji-geum il-ha-go i-sseo."
+        },
+        {
+            "kr": "시간 있으면 만나자.",
+            "en": "Let's meet if you have time.",
+            "rom": "Si-gan it-seu-myeon man-na-ja."
+        }
+    ]
+},
+{
+    "kr": "조심해서 들어가.",
+    "rom": "Jo-sim-hae-seo deul-eo-ga.",
+    "en": "Get home safely.",
+    "tip": "After spending time together, you want to make sure the other person gets home safely.",
+    "situation": "Cultural Insight: Saying this after a date or meeting is considered basic politeness and shows genuine care.",
+    "forms": {
+        "casual": "조심해서 들어가. (Jo-sim-hae-seo deul-eo-ga.)",
+        "polite": "조심해서 들어가세요. (Jo-sim-hae-seo deu-reo-ga-se-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "집에 도착하면 연락해.",
+            "en": "Text me when you get home.",
+            "rom": "Ji-be do-chak-ha-myeon yeon-rak-hae."
+        },
+        {
+            "kr": "밤길 조심해.",
+            "en": "Be careful on your way home tonight.",
+            "rom": "Bam-gil jo-sim-hae."
+        },
+        {
+            "kr": "잘 들어가!",
+            "en": "Get home safely!",
+            "rom": "Jal deu-reo-ga!"
+        }
+    ]
+},
+{
+    "kr": "연락해 줘.",
+    "rom": "Yeon-rak-hae jwo.",
+    "en": "Text me.",
+    "tip": "You want the other person to keep in touch after they leave or when they have time.",
+    "situation": "Cultural Insight: Koreans frequently use this expression to maintain close relationships and show ongoing interest.",
+    "forms": {
+        "casual": "연락해 줘. (Yeon-rak-hae jwo.)",
+        "polite": "연락해 주세요. (Yeon-rak-hae ju-se-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "시간 나면 연락해 줘.",
+            "en": "Text me when you have time.",
+            "rom": "Si-gan na-myeon yeon-rak-hae jwo."
+        },
+        {
+            "kr": "도착하면 연락해.",
+            "en": "Let me know when you arrive.",
+            "rom": "Do-chak-ha-myeon yeon-rak-hae."
+        },
+        {
+            "kr": "잊지 말고 연락해.",
+            "en": "Don't forget to text me.",
+            "rom": "It-ji mal-go yeon-rak-hae."
+        }
+    ]
+},
+{
+    "kr": "천천히 와.",
+    "rom": "Cheon-cheon-hi wa.",
+    "en": "Take your time.",
+    "tip": "Someone is on their way to meet you, and you want them to travel safely without rushing.",
+    "situation": "Cultural Insight: Koreans often say '천천히 와' to show concern for the other person's safety rather than their arrival time.",
+    "forms": {
+        "casual": "천천히 와. (Cheon-cheon-hi wa.)",
+        "polite": "천천히 오세요. (Cheon-cheon-hi o-se-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "안 급하니까 천천히 와.",
+            "en": "There's no rush, take your time.",
+            "rom": "An geup-ha-ni-kka cheon-cheon-hi wa."
+        },
+        {
+            "kr": "운전 조심하고 천천히 와.",
+            "en": "Drive safely and take your time.",
+            "rom": "Un-jeon jo-sim-ha-go cheon-cheon-hi wa."
+        },
+        {
+            "kr": "난 기다리고 있을게.",
+            "en": "I'll be waiting.",
+            "rom": "Nan gi-da-ri-go i-sseul-ge."
+        }
+    ]
+},
+{
+    "kr": "네 편이야.",
+    "rom": "Ne pyeon-i-ya.",
+    "en": "I'm on your side.",
+    "tip": "Someone is feeling discouraged, and you want to reassure them that you'll always support them.",
+    "situation": "Cultural Insight: This phrase is commonly used to provide emotional support and strengthen trust between close friends, family members, or couples.",
+    "forms": {
+        "casual": "네 편이야. (Ne pyeon-i-ya.)",
+        "polite": "당신 편이에요. (Dang-sin pyeon-i-e-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "무슨 일이 있어도 네 편이야.",
+            "en": "I'll always be on your side.",
+            "rom": "Mu-seun il-i i-sseo-do ne pyeon-i-ya."
+        },
+        {
+            "kr": "걱정하지 마. 네 편이야.",
+            "en": "Don't worry. I'm on your side.",
+            "rom": "Geok-jeong-ha-ji ma. Ne pyeon-i-ya."
+        },
+        {
+            "kr": "항상 응원할게.",
+            "en": "I'll always support you.",
+            "rom": "Hang-sang eung-won-hal-ge."
+        }
+    ]
+},
+{
+    "kr": "같이 사진 찍자.",
+    "rom": "Gat-i sa-jin jjik-ja.",
+    "en": "Let's take a picture together.",
+    "tip": "You want to save a special memory with someone before leaving.",
+    "situation": "Cultural Insight: Taking selfies together has become a common way for Koreans to remember outings, trips, and dates.",
+    "forms": {
+        "casual": "같이 사진 찍자. (Gat-i sa-jin jjik-ja.)",
+        "polite": "같이 사진 찍어요. (Gat-i sa-jin jji-geo-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "여기서 같이 사진 찍자.",
+            "en": "Let's take a picture here.",
+            "rom": "Yeo-gi-seo gat-i sa-jin jjik-ja."
+        },
+        {
+            "kr": "기념으로 한 장 찍자.",
+            "en": "Let's take one for memory.",
+            "rom": "Gi-nyeom-eu-ro han jang jjik-ja."
+        },
+        {
+            "kr": "웃어! 사진 찍는다.",
+            "en": "Smile! I'm taking the picture.",
+            "rom": "U-seo! Sa-jin jjik-neun-da."
+        }
+    ]
+},
+{
+    "kr": "오늘 진짜 즐거웠어.",
+    "rom": "O-neul jin-jja jeul-geo-woss-eo.",
+    "en": "I really had fun today.",
+    "tip": "You want to let someone know you truly enjoyed spending time together.",
+    "situation": "Cultural Insight: Saying this after a date or gathering is a common way to express gratitude and leave a positive impression.",
+    "forms": {
+        "casual": "오늘 진짜 즐거웠어. (O-neul jin-jja jeul-geo-woss-eo.)",
+        "polite": "오늘 정말 즐거웠어요. (O-neul jeong-mal jeul-geo-woss-eo-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "덕분에 정말 즐거웠어.",
+            "en": "I had a great time thanks to you.",
+            "rom": "Deok-bun-e jeong-mal jeul-geo-woss-eo."
+        },
+        {
+            "kr": "다음에도 같이 놀자.",
+            "en": "Let's hang out again next time.",
+            "rom": "Da-eum-e-do gat-i nol-ja."
+        },
+        {
+            "kr": "오늘 잊지 못할 것 같아.",
+            "en": "I don't think I'll forget today.",
+            "rom": "O-neul it-ji mot-hal geot gat-a."
+        }
+    ]
+},
+{
+    "kr": "다음에 또 만나.",
+    "rom": "Da-eum-e tto man-na.",
+    "en": "Let's meet again next time.",
+    "tip": "You're saying goodbye and hope to see the other person again soon.",
+    "situation": "Cultural Insight: This phrase is widely used after meetings, dates, or social gatherings to express a desire to continue the relationship.",
+    "forms": {
+        "casual": "다음에 또 만나. (Da-eum-e tto man-na.)",
+        "polite": "다음에 또 만나요. (Da-eum-e tto man-na-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "다음 주에 또 만나자.",
+            "en": "Let's meet again next week.",
+            "rom": "Da-eum ju-e tto man-na-ja."
+        },
+        {
+            "kr": "오늘 고마웠어. 다음에 또 만나.",
+            "en": "Thanks for today. Let's meet again.",
+            "rom": "O-neul go-ma-woss-eo. Da-eum-e tto man-na."
+        },
+        {
+            "kr": "조심해서 들어가. 다음에 봐.",
+            "en": "Get home safely. See you next time.",
+            "rom": "Jo-sim-hae-seo deu-reo-ga. Da-eum-e bwa."}
+
+                ]
+        }
+    ]
+},
+"cat_26": {
+    id: "26",
+    emoji: "😊",
+    name: "Sentence Friends",
+    data: [ 
+        {
+    "kr": "오늘 뭐 해?",
+    "rom": "O-neul mwo hae?",
+    "en": "What are you doing today?",
+    "tip": "You want to see if your friend is free to hang out today. What do you say?",
+    "situation": "Cultural Insight: This is one of the most common opening messages between friends in Korea. It naturally starts a conversation without sounding formal.",
+    "forms": {
+        "casual": "오늘 뭐 해? (O-neul mwo hae?)",
+        "polite": "오늘 뭐 해요? (O-neul mwo hae-yo?)"
+    },
+    "examples": [
+        {
+            "kr": "오늘 뭐 해? 같이 놀자.",
+            "en": "What are you doing today? Let's hang out.",
+            "rom": "O-neul mwo hae? Gat-i nol-ja."
+        },
+        {
+            "kr": "오늘 뭐 해? 시간 있어?",
+            "en": "What are you doing today? Do you have time?",
+            "rom": "O-neul mwo hae? Si-gan i-sseo?"
+        },
+        {
+            "kr": "오늘 뭐 해? 심심한데.",
+            "en": "What are you doing today? I'm bored.",
+            "rom": "O-neul mwo hae? Sim-sim-han-de."
+        }
+    ]
+},
+{
+    "kr": "어디야?",
+    "rom": "Eo-di-ya?",
+    "en": "Where are you?",
+    "tip": "You're trying to meet your friend and want to know their current location.",
+    "situation": "Cultural Insight: Koreans often ask this when coordinating meetups. It's short, casual, and very common.",
+    "forms": {
+        "casual": "어디야? (Eo-di-ya?)",
+        "polite": "어디예요? (Eo-di-ye-yo?)"
+    },
+    "examples": [
+        {
+            "kr": "지금 어디야?",
+            "en": "Where are you now?",
+            "rom": "Ji-geum eo-di-ya?"
+        },
+        {
+            "kr": "나 거의 다 왔어. 어디야?",
+            "en": "I'm almost there. Where are you?",
+            "rom": "Na geo-ui da wat-eo. Eo-di-ya?"
+        },
+        {
+            "kr": "카페 앞이야.",
+            "en": "I'm in front of the cafe.",
+            "rom": "Ka-pe ap-i-ya."
+        }
+    ]
+},
+{
+    "kr": "언제 와?",
+    "rom": "Eon-je wa?",
+    "en": "When are you coming?",
+    "tip": "Your friend is on the way and you want to know when they'll arrive.",
+    "situation": "Cultural Insight: Friends often use this message when waiting to meet.",
+    "forms": {
+        "casual": "언제 와? (Eon-je wa?)",
+        "polite": "언제 와요? (Eon-je wa-yo?)"
+    },
+    "examples": [
+        {
+            "kr": "언제 와? 다 기다리고 있어.",
+            "en": "When are you coming? Everyone is waiting.",
+            "rom": "Eon-je wa? Da gi-da-ri-go i-sseo."
+        },
+        {
+            "kr": "곧 도착해.",
+            "en": "I'll arrive soon.",
+            "rom": "Got do-chak-hae."
+        },
+        {
+            "kr": "5분 정도 걸려.",
+            "en": "It'll take about five minutes.",
+            "rom": "O-bun jeong-do geol-lyeo."
+        }
+    ]
+},
+{
+    "kr": "같이 밥 먹자.",
+    "rom": "Gat-i bap meok-ja.",
+    "en": "Let's eat together.",
+    "tip": "You'd like to invite your friend to have a meal together.",
+    "situation": "Cultural Insight: Eating together is an important part of Korean friendship and social life.",
+    "forms": {
+        "casual": "같이 밥 먹자. (Gat-i bap meok-ja.)",
+        "polite": "같이 밥 먹어요. (Gat-i bap meo-geo-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "점심 같이 밥 먹자.",
+            "en": "Let's have lunch together.",
+            "rom": "Jeom-sim gat-i bap meok-ja."
+        },
+        {
+            "kr": "배고픈데 같이 밥 먹자.",
+            "en": "I'm hungry. Let's eat together.",
+            "rom": "Bae-go-peun-de gat-i bap meok-ja."
+        },
+        {
+            "kr": "오늘 내가 살게.",
+            "en": "I'll pay today.",
+            "rom": "O-neul nae-ga sal-ge."
+        }
+    ]
+},
+{
+    "kr": "사진 보내 줘.",
+    "rom": "Sa-jin bo-nae jwo.",
+    "en": "Send me the photo.",
+    "tip": "Your friend took pictures and you'd like them to send them to you.",
+    "situation": "Cultural Insight: Sharing photos after hanging out is very common among Korean friends.",
+    "forms": {
+        "casual": "사진 보내 줘. (Sa-jin bo-nae jwo.)",
+        "polite": "사진 보내 주세요. (Sa-jin bo-nae ju-se-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "찍은 사진 보내 줘.",
+            "en": "Send me the photos you took.",
+            "rom": "Jjik-eun sa-jin bo-nae jwo."
+        },
+        {
+            "kr": "예쁘게 나왔어?",
+            "en": "Did I look good in the photos?",
+            "rom": "Ye-ppeu-ge na-wat-eo?"
+        },
+        {
+            "kr": "원본으로 보내 줘.",
+            "en": "Send me the original files.",
+            "rom": "Won-bon-eu-ro bo-nae jwo."
+        }
+    ]
+},
+{
+    "kr": "진짜 재밌다!",
+    "rom": "Jin-jja jae-mit-da!",
+    "en": "That's so fun!",
+    "tip": "You're having a great time with your friends and want to express how much you're enjoying the moment.",
+    "situation": "Cultural Insight: Koreans often say '진짜 재밌다!' during an activity instead of waiting until it's over. It makes the atmosphere more lively and positive.",
+    "forms": {
+        "casual": "진짜 재밌다! (Jin-jja jae-mit-da!)",
+        "polite": "진짜 재밌어요! (Jin-jja jae-mi-sseo-yo!)"
+    },
+    "examples": [
+        {
+            "kr": "오늘 진짜 재밌다!",
+            "en": "Today is so much fun!",
+            "rom": "O-neul jin-jja jae-mit-da!"
+        },
+        {
+            "kr": "같이 오길 잘했다.",
+            "en": "I'm glad we came together.",
+            "rom": "Gat-i o-gil jal-haet-da."
+        },
+        {
+            "kr": "다음에도 또 오자.",
+            "en": "Let's come again next time.",
+            "rom": "Da-eum-e-do tto o-ja."
+        }
+    ]
+},
+{
+    "kr": "잠깐 통화 가능해?",
+    "rom": "Jam-kkan tong-hwa ga-neung-hae?",
+    "en": "Can you talk for a minute?",
+    "tip": "You need to ask your friend something quickly over the phone.",
+    "situation": "Cultural Insight: Instead of calling unexpectedly, many Koreans first send this message to check if it's a good time to talk.",
+    "forms": {
+        "casual": "잠깐 통화 가능해? (Jam-kkan tong-hwa ga-neung-hae?)",
+        "polite": "잠깐 통화 가능하세요? (Jam-kkan tong-hwa ga-neung-ha-se-yo?)"
+    },
+    "examples": [
+        {
+            "kr": "지금 잠깐 통화 가능해?",
+            "en": "Can you talk for a minute now?",
+            "rom": "Ji-geum jam-kkan tong-hwa ga-neung-hae?"
+        },
+        {
+            "kr": "전화해도 돼?",
+            "en": "Can I call you?",
+            "rom": "Jeon-hwa-hae-do dwae?"
+        },
+        {
+            "kr": "끝나면 전화해 줘.",
+            "en": "Call me when you're done.",
+            "rom": "Kkeut-na-myeon jeon-hwa-hae jwo."
+        }
+    ]
+},
+{
+    "kr": "오늘도 화이팅!",
+    "rom": "O-neul-do hwa-i-ting!",
+    "en": "You've got this today!",
+    "tip": "You want to encourage your friend before work, school, or an important event.",
+    "situation": "Cultural Insight: '화이팅!' is one of Korea's most common expressions of encouragement and motivation.",
+    "forms": {
+        "casual": "오늘도 화이팅! (O-neul-do hwa-i-ting!)",
+        "polite": "오늘도 화이팅이에요! (O-neul-do hwa-i-ting-i-e-yo!)"
+    },
+    "examples": [
+        {
+            "kr": "시험 화이팅!",
+            "en": "Good luck on your exam!",
+            "rom": "Si-heom hwa-i-ting!"
+        },
+        {
+            "kr": "오늘도 힘내!",
+            "en": "Stay strong today!",
+            "rom": "O-neul-do him-nae!"
+        },
+        {
+            "kr": "잘할 수 있어!",
+            "en": "You can do it!",
+            "rom": "Jal-hal su i-sseo!"
+        }
+    ]
+},
+{
+    "kr": "조심해서 와.",
+    "rom": "Jo-sim-hae-seo wa.",
+    "en": "Come safely.",
+    "tip": "Your friend is on the way to meet you, and you want them to arrive safely.",
+    "situation": "Cultural Insight: This phrase is commonly used before meeting someone and reflects genuine care.",
+    "forms": {
+        "casual": "조심해서 와. (Jo-sim-hae-seo wa.)",
+        "polite": "조심해서 오세요. (Jo-sim-hae-seo o-se-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "천천히 와.",
+            "en": "Take your time.",
+            "rom": "Cheon-cheon-hi wa."
+        },
+        {
+            "kr": "운전 조심해.",
+            "en": "Drive safely.",
+            "rom": "Un-jeon jo-sim-hae."
+        },
+        {
+            "kr": "도착하면 연락해.",
+            "en": "Text me when you arrive.",
+            "rom": "Do-chak-ha-myeon yeon-rak-hae."
+        }
+    ]
+},
+{
+    "kr": "연락 좀 해.",
+    "rom": "Yeon-rak jom hae.",
+    "en": "Text me sometime.",
+    "tip": "You haven't heard from your friend for a while and want to remind them to stay in touch.",
+    "situation": "Cultural Insight: Adding '좀' makes the request sound softer and more natural in everyday Korean.",
+    "forms": {
+        "casual": "연락 좀 해. (Yeon-rak jom hae.)",
+        "polite": "연락 좀 해 주세요. (Yeon-rak jom hae ju-se-yo.)"
+    },
+    "examples": [
+        {
+            "kr": "오랜만이다. 연락 좀 해.",
+            "en": "Long time no see. Text me sometime.",
+            "rom": "O-raen-man-i-da. Yeon-rak jom hae."
+        },
+        {
+            "kr": "시간 나면 연락해.",
+            "en": "Text me when you have time.",
+            "rom": "Si-gan na-myeon yeon-rak-hae."
+        },
+        {
+            "kr": "다음에 꼭 연락해.",
+            "en": "Make sure to contact me next time.",
+            "rom": "Da-eum-e kkok yeon-rak-hae."}
+                  ]
+        }
+    ]
+},          
   
 "cat_24": {
     id: "24",
