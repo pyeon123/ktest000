@@ -17,7 +17,7 @@ let todayQuizData = null;
 const recognition = (window.SpeechRecognition || window.webkitSpeechRecognition) ? new (window.SpeechRecognition || window.webkitSpeechRecognition)() : null;
 if (recognition) { recognition.lang = 'ko-KR'; }
 
-// 🌐 [전역화] 관련 퀴즈(Related) 추천 + My Review List 기능이 공통으로 참조하는 데이터[cite: 2]
+// 🌐 [전역화] 관련 퀴즈(Related) 추천 + My Review List 기능이 공통으로 참조하는 데이터
 const quizDB = [
     { title: "Academy", url: "academy.html", keywords: "academy school study education" },
     { title: "Airplane", url: "airplane.html", keywords: "airplane flight travel sky" },
@@ -321,7 +321,6 @@ function forceExternalBrowser() {
         window.open(window.location.href, '_blank', 'width=900,height=1050');
     }
 }
-
 function initMenu() {
     const list = document.getElementById('category-list');
     if (!list || typeof allQuizData === 'undefined') return;
@@ -491,6 +490,7 @@ function renderLearningProgress() {
     }
 }
 
+
 // =============================
 // ❤️ My Review List
 // =============================
@@ -534,6 +534,7 @@ function updateFavoriteButton() {
     }
 }
 
+
 function renderFavoriteBox() {
     const box = document.getElementById("favorite-box");
     if (!box) return;
@@ -559,6 +560,7 @@ function renderFavoriteBox() {
             box-shadow:0 3px 10px rgba(0,0,0,.05);
             overflow:hidden;
         ">
+
             <button
                 onclick="openFavoriteList()"
                 style="
@@ -594,6 +596,7 @@ function renderFavoriteBox() {
                            ">
                             📖 ${item.title}
                         </a>
+
                         <span
                             onclick="removeFavorite('${item.url}')"
                             title="Remove"
@@ -644,25 +647,34 @@ function renderFavoriteBox() {
     `;
 }
 
+
+
 function openFavoriteList() {
     const content = document.getElementById("favorite-list-content");
     if (!content) return;
+
     content.style.display = "block";
 }
 
 function closeFavoriteList() {
     const content = document.getElementById("favorite-list-content");
     if (!content) return;
+
     content.style.display = "none";
 }
 
 function removeFavorite(url) {
     let favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
+
     favorites = favorites.filter(x => x.url !== url);
+
     localStorage.setItem("favoriteLessons", JSON.stringify(favorites));
+
     renderFavoriteBox();
     updateFavoriteButton();
 }
+
+
 
 function checkAnswer(isCorrect, quiz) {
     if (isCorrect) {
@@ -687,6 +699,7 @@ function checkAnswer(isCorrect, quiz) {
         }
 
         const currentFileName = window.location.pathname.split("/").pop();
+
         const currentItem = quizDB.find(item => item.url === currentFileName);
 
         const currentKeywords = currentItem
@@ -846,7 +859,7 @@ function checkAnswer(isCorrect, quiz) {
                 ${grammarHtml}
                 ${optionsHtml}
                 ${examplesHtml}
-                
+
                 <div style="margin-top: 25px;">
                     ${favoriteHtml}
                     ${recHtml} 
@@ -934,6 +947,7 @@ function nextQuiz() {
     currentIdx++;
     
     if (currentCategoryData && currentIdx < currentCategoryData.length) {
+        
         const detailArea = document.getElementById('detail-area');
         if (detailArea) {
             detailArea.classList.remove('active');
@@ -947,6 +961,7 @@ function nextQuiz() {
         }
         
         loadQuiz(true);
+        
     } else {
         alert("🎉 You've mastered all the quizzes in this category! Excellent job! 👏");
         goHome(); 
@@ -1180,8 +1195,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    renderFavoriteBox();
-
     if (typeof CURRENT_CAT !== 'undefined' && typeof allQuizData !== 'undefined' && allQuizData[CURRENT_CAT]) {
         startQuiz(CURRENT_CAT, false); 
     }  
@@ -1196,6 +1209,9 @@ document.addEventListener('DOMContentLoaded', () => {
             updateSEOData(null); 
         }
     }
+
+    // ❤️ My Review List 초기화 (홈 화면 목록 표시용, 개별 페이지 버튼은 정답 시 자동 생성됨)
+    renderFavoriteBox();
 });
 
 function speakExampleText(text) {
