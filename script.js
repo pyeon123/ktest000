@@ -45,10 +45,10 @@ function updateSEOData(catId) {
 
     const cat = allQuizData[catId];
     if (cat) {
-        // 카테고리에 맞는 Title, Description, H1 동적 변경
-        document.getElementById('seo-title').innerText = `Learn ${cat.name} in Korean - Free Interactive Quiz`;
-        document.getElementById('seo-desc').setAttribute("content", `Master essential Korean ${cat.name} vocabulary. Practice pronunciation and test your skills with our free interactive ${cat.name} quiz!`);
-        document.getElementById('main-header').innerText = `Korean ${cat.name} Vocabulary Quiz`;
+       
+        document.getElementById('main-header').innerText = cat.name.trim();
+        
+        // 🟢 JSON-LD 구조화된 데이터 동적 주입 (원래 기능 절대 누락 없이 그대로 유지!)
         injectSafeSEOData(catId);
     }
 }
@@ -153,6 +153,8 @@ function initMenu() {
         "cat_22": "landscapes.html",
         "cat_23": "word.html",
         "cat_24": "vocabulary.html",
+        "cat_25": "sentencelover1.html",
+        "cat_26": "sentencefriend1.html",
     };
 
     let html = "";
@@ -161,7 +163,7 @@ function initMenu() {
         const targetUrl = fileMapping[catId] || "index.html"; 
 
         html += `
-            <a href="${targetUrl}" class="cat-btn" style="text-decoration:none; color:inherit; display:block;">
+            <a href="${targetUrl}" target="_top" class="cat-btn" style="text-decoration:none; color:inherit; display:block;">
                 <span class="emoji">${cat.emoji}</span>
                 <span>${cat.name}</span>
             </a>`;
@@ -220,7 +222,77 @@ function loadQuiz(autoSpeak = false) {
         btn.onclick = () => checkAnswer(choice.isCorrect, data);
         container.appendChild(btn);
     });
+
+    // [중요: 여기 한 줄만 추가하세요!]
+    // 기존 data의 kr을 question으로, en을 answer로 매칭해서 보냅니다.
+    injectQuizSchema({ question: data.kr, answer: data.en });
+
     if (autoSpeak) { setTimeout(speak, 1000); }
+}
+
+// =============================
+// Learning Progress (3000 Lessons)
+// =============================
+function renderLearningProgress() {
+    const TOTAL_LESSONS = 3000;
+    const currentPage = window.location.pathname.split("/").pop();
+    let learnedPages = JSON.parse(localStorage.getItem("learnedPages") || "[]");
+    
+    if (!learnedPages.includes(currentPage)) {
+        learnedPages.push(currentPage);
+        localStorage.setItem("learnedPages", JSON.stringify(learnedPages));
+    }
+    
+    const learned = learnedPages.length;
+    const percent = Math.min((learned / TOTAL_LESSONS) * 100, 100);
+    
+    const progressHtml = `
+    <div style="
+        margin:18px 0;
+        padding:18px;
+        background:#fff;
+        border:2px solid #e5e7eb;
+        border-radius:14px;
+        text-align:center;
+        box-shadow:0 3px 10px rgba(0,0,0,.05);">
+        <div style="font-size:1.2rem;font-weight:bold;color:#2563eb;">
+            📚 Your Korean Learning Progress
+        </div>
+        <div style="font-size:1.6rem;font-weight:bold;margin-top:12px;">
+            ${learned} / ${TOTAL_LESSONS} Lessons
+        </div>
+        <div style="
+            width:100%;
+            height:16px;
+            background:#e5e7eb;
+            border-radius:20px;
+            overflow:hidden;
+            margin-top:15px;">
+            <div style="
+                width:${percent}%;
+                height:100%;
+                background:linear-gradient(90deg,#22c55e,#16a34a);
+                transition:.5s;">
+            </div>
+        </div>
+        <div style="
+            margin-top:10px;
+            font-weight:bold;
+            color:#16a34a;">
+            ${percent.toFixed(1)}% Completed
+        </div>
+        <div style="
+            margin-top:12px;
+            color:#64748b;
+            font-size:14px;">
+           🔥 Complete all 3,000 lessons and the Korean government might send you a Kimchi Refrigerator! 🧊
+        </div>
+    </div>`;
+
+    const homeBtn = document.getElementById('home-btn');
+    if (homeBtn) {
+        homeBtn.insertAdjacentHTML("afterend", progressHtml);
+    }
 }
 
 function checkAnswer(isCorrect, quiz) {
@@ -247,50 +319,253 @@ function checkAnswer(isCorrect, quiz) {
             }
         }
 
-        // 🔄 [독립형 추천 시스템] 데이터 공백 에러 차단 및 100% 출력 보장 리스트
-        const recommendList = [
-            { id: "cat_01", name: "Family", emoji: "👨‍👩‍👧‍👦", file: "family.html" },
-            { id: "cat_02", name: "Food", emoji: "🍔", file: "food.html" },
-            { id: "cat_03", name: "Places", emoji: "📍", file: "places.html" },
-            { id: "cat_04", name: "Transport", emoji: "🚌", file: "transport.html" },
-            { id: "cat_05", name: "Animals", emoji: "🦁", file: "animals.html" },
-            { id: "cat_06", name: "Clothes", emoji: "👕", file: "clothes.html" },
-            { id: "cat_07", name: "Nature", emoji: "🌿", file: "nature.html" },
-            { id: "cat_08", name: "Hobbies", emoji: "🎸", file: "hobbies.html" },
-            { id: "cat_09", name: "Body", emoji: "💪", file: "body.html" },
-            { id: "cat_10", name: "Jobs", emoji: "💼", file: "Jobs.html" },
-            { id: "cat_11", name: "Emotions", emoji: "😊", file: "emotions.html" },
-            { id: "cat_12", name: "Kitchen", emoji: "🍳", file: "kitchen.html" },
-            { id: "cat_13", name: "Electronics", emoji: "📱", file: "electronics.html" },
-            { id: "cat_14", name: "Health", emoji: "🏥", file: "health.html" },
-            { id: "cat_15", name: "Fruits", emoji: "🍎", file: "fruits.html" },
-            { id: "cat_16", name: "Colors", emoji: "🎨", file: "colors.html" },
-            { id: "cat_17", name: "School", emoji: "🏫", file: "school.html" },
-            { id: "cat_18", name: "Time", emoji: "⏰", file: "time.html" },
-            { id: "cat_19", name: "Sports", emoji: "⚽", file: "sports.html" },
-            { id: "cat_20", name: "Furniture", emoji: "🪑", file: "furniture.html" },
-            { id: "cat_21", name: "Buildings", emoji: "🏢", file: "buildings.html" },
-            { id: "cat_22", name: "Landscapes", emoji: "🏔️", file: "landscapes.html" },
-            { id: "cat_23", name: "Word", emoji: "📝", file: "word.html" },
-            { id: "cat_24", name: "Vocabulary", emoji: "📖", file: "vocabulary.html" }
+        const quizDB = [
+            { title: "Academy", url: "academy.html", keywords: "academy school study education" },
+            { title: "Airplane", url: "airplane.html", keywords: "airplane flight travel sky" },
+            { title: "Airport", url: "airport.html", keywords: "airport travel flight airplane" },
+            { title: "Animals", url: "animals.html", keywords: "animals pet nature zoo" },
+            { title: "Apartment", url: "apartment.html", keywords: "apartment house living room" },
+            { title: "Apple", url: "apple.html", keywords: "apple fruit food red" },
+            { title: "Autumn", url: "autumn.html", keywords: "autumn fall season weather" },
+            { title: "Baby", url: "baby.html", keywords: "baby child kid family" },
+            { title: "Bed", url: "bed.html", keywords: "bed furniture sleep" },
+            { title: "Bibimbap", url: "bibimbap.html", keywords: "bibimbap food korean rice" },
+            { title: "Bird", url: "bird.html", keywords: "bird animal sky fly" },
+            { title: "Body", url: "body.html", keywords: "body human health" },
+            { title: "Book", url: "book.html", keywords: "book reading library study" },
+            { title: "Bread", url: "bread.html", keywords: "bread food bakery" },
+            { title: "Brother", url: "brother.html", keywords: "brother family sibling" },
+            { title: "Buildings", url: "buildings.html", keywords: "buildings house city" },
+            { title: "Bulgogi", url: "bulgogi.html", keywords: "bulgogi food korean meat" },
+            { title: "Bus", url: "bus.html", keywords: "bus transport commute" },
+            { title: "Cash", url: "cash.html", keywords: "cash money currency" },
+            { title: "Cat", url: "cat.html", keywords: "cat animal pet" },
+            { title: "Chair", url: "chair.html", keywords: "chair furniture seat" },
+            { title: "City", url: "city.html", keywords: "city buildings urban" },
+            { title: "Class", url: "class.html", keywords: "class school study student" },
+            { title: "Clothes", url: "clothes.html", keywords: "clothes fashion wear" },
+            { title: "Colors", url: "colors.html", keywords: "colors red blue green" },
+            { title: "Commute", url: "commute.html", keywords: "commute work transport travel" },
+            { title: "Company", url: "company.html", keywords: "company work job business" },
+            { title: "Cooking", url: "cooking.html", keywords: "cooking food kitchen" },
+            { title: "Dad", url: "dad.html", keywords: "dad father family parent" },
+            { title: "Dawn", url: "dawn.html", keywords: "dawn morning time" },
+            { title: "Desk", url: "desk.html", keywords: "desk furniture study school" },
+            { title: "Dog", url: "dog.html", keywords: "dog animal pet puppy" },
+            { title: "Door", url: "door.html", keywords: "door house entrance" },
+            { title: "Economy", url: "economy.html", keywords: "economy money finance" },
+            { title: "Electronics", url: "electronics.html", keywords: "electronics tech device" },
+            { title: "Emotions", url: "emotions.html", keywords: "emotions feelings mood" },
+            { title: "Evening", url: "evening.html", keywords: "evening night time" },
+            { title: "Exam", url: "exam.html", keywords: "exam test study school" },
+            { title: "Family", url: "family.html", keywords: "family parents child sibling" },
+            { title: "Feelings", url: "feelings.html", keywords: "feelings mood emotion" },
+            { title: "Fish", url: "fish.html", keywords: "fish animal sea ocean" },
+            { title: "Flower", url: "flower.html", keywords: "flower nature plant" },
+            { title: "Food", url: "food.html", keywords: "food eat meal" },
+            { title: "Friend", url: "friend.html", keywords: "friend person relationship" },
+            { title: "Fruit", url: "fruit.html", keywords: "fruit food healthy" },
+            { title: "Furniture", url: "furniture.html", keywords: "furniture house bed chair" },
+            { title: "Gift", url: "gift.html", keywords: "gift present surprise" },
+            { title: "Gimbap", url: "gimbap.html", keywords: "gimbap food korean" },
+            { title: "Happiness", url: "happiness.html", keywords: "happiness joy emotion" },
+            { title: "Health", url: "health.html", keywords: "health body exercise" },
+            { title: "Hobbies", url: "hobbies.html", keywords: "hobbies activity free time" },
+            { title: "Homework", url: "homework.html", keywords: "homework study school" },
+            { title: "House", url: "house.html", keywords: "house home living" },
+            { title: "Jobs", url: "jobs.html", keywords: "jobs work profession" },
+            { title: "Joy", url: "joy.html", keywords: "joy happiness emotion" },
+            { title: "Kimchi", url: "kimchi1.html", keywords: "kimchi food korean spicy" },
+            { title: "Kitchen", url: "kitchen.html", keywords: "kitchen cooking house" },
+            { title: "Landscapes", url: "landscapes.html", keywords: "landscapes nature scenery" },
+            { title: "Lion", url: "lion.html", keywords: "lion animal nature" },
+            { title: "LivingRoom", url: "livingRoom.html", keywords: "livingRoom house home" },
+            { title: "Love", url: "love.html", keywords: "love emotion feelings" },
+            { title: "Lunch", url: "lunch.html", keywords: "lunch food meal time" },
+            { title: "Market", url: "market.html", keywords: "market shopping store" },
+            { title: "Meat", url: "meat.html", keywords: "meat food protein" },
+            { title: "Money", url: "money.html", keywords: "money cash finance" },
+            { title: "Mood", url: "mood.html", keywords: "mood emotion feelings" },
+            { title: "Morning", url: "morning.html", keywords: "morning dawn time" },
+            { title: "Mother", url: "mother.html", keywords: "mother mom family parent" },
+            { title: "Mountain", url: "mountain.html", keywords: "mountain nature hiking" },
+            { title: "Nature", url: "nature.html", keywords: "nature plant scenery" },
+            { title: "Parents", url: "parents.html", keywords: "parents family mom dad" },
+            { title: "Pencil", url: "pencil.html", keywords: "pencil school writing" },
+            { title: "Places", url: "places.html", keywords: "places location travel" },
+            { title: "Purchase", url: "purchase.html", keywords: "purchase shopping buy" },
+            { title: "Rain", url: "rain.html", keywords: "rain weather nature" },
+            { title: "Ramen", url: "ramen.html", keywords: "ramen food noodle" },
+            { title: "Restroom", url: "restroom.html", keywords: "restroom bathroom toilet" },
+            { title: "Sadness", url: "sadness.html", keywords: "sadness emotion feelings" },
+            { title: "Samgyeopsal", url: "samgyeopsal.html", keywords: "samgyeopsal food korean meat" },
+            { title: "School", url: "school.html", keywords: "school study education" },
+            { title: "Sea", url: "sea.html", keywords: "sea ocean water nature" },
+            { title: "Sister", url: "sister.html", keywords: "sister family sibling" },
+            { title: "Sky", url: "sky.html", keywords: "sky nature weather" },
+            { title: "Snow", url: "snow.html", keywords: "snow winter weather" },
+            { title: "Soup", url: "soup.html", keywords: "soup food meal" },
+            { title: "Sports", url: "sports.html", keywords: "sports exercise activity" },
+            { title: "Spring", url: "spring.html", keywords: "spring season weather" },
+            { title: "Store", url: "store.html", keywords: "store market shopping" },
+            { title: "Student", url: "student.html", keywords: "student school study" },
+            { title: "Study", url: "study.html", keywords: "study learn school" },
+            { title: "Summer", url: "summer.html", keywords: "summer season weather" },
+            { title: "Taxi", url: "taxi.html", keywords: "taxi transport car" },
+            { title: "Teacher", url: "teacher.html", keywords: "teacher school education" },
+            { title: "Textbook", url: "textbook.html", keywords: "textbook study school" },
+            { title: "Time", url: "time.html", keywords: "time clock schedule" },
+            { title: "Today", url: "today.html", keywords: "today time" },
+            { title: "Tomorrow", url: "tomorrow.html", keywords: "tomorrow time" },
+            { title: "Tourism", url: "tourism.html", keywords: "tourism travel trip" },
+            { title: "Train", url: "train.html", keywords: "train transport travel" },
+            { title: "Transport", url: "transport.html", keywords: "transport commute car bus" },
+            { title: "Travel", url: "travel.html", keywords: "travel trip tourism" },
+            { title: "Tteokbokki", url: "tteokbokki.html", keywords: "tteokbokki food korean spicy" },
+            { title: "Vocabulary", url: "vocabulary.html", keywords: "vocabulary words study" },
+            { title: "Water", url: "water.html", keywords: "water drink nature" },
+            { title: "Weather", url: "weather.html", keywords: "weather sky rain snow" },
+            { title: "Window", url: "window.html", keywords: "window house glass" },
+            { title: "Word", url: "word.html", keywords: "word vocabulary language" },
+            { title: "lover sentence", url: "sentencelover1.html", keywords: "sentence lover study korean phrase" },
+            { title: "Hello", url: "annyeonghaseyo1.html", keywords: "hello hi greeting korean greeting" },
+            { title: "Thank You", url: "gamsahamnida1.html", keywords: "thank you thanks gratitude appreciation" },
+            { title: "It's Fun", url: "jaemiisseoyo1.html", keywords: "it's fun fun interesting enjoyable" },
+            { title: "Good Night", url: "jaljayo1.html", keywords: "good night sleep bedtime" },
+            { title: "What's Your Name", url: "irum1.html", keywords: "what's your name name introduction" },
+            { title: "Nice to Meet You", url: "bangawoyo1.html", keywords: "nice to meet you introduction greeting" },
+            { title: "How Have You Been", url: "jaljinaesseoyo1.html", keywords: "how have you been greeting conversation" },
+            { title: "It's Okay", url: "gwaenchanayo1.html", keywords: "it's okay okay no problem fine" },
+            { title: "Im Sorry", url: "mianhaeyo1.html", keywords: "i'm sorry sorry apology excuse me" },
+            { title: "I Love You", url: "saranghaeyo1.html", keywords: "i love you love romance affection" },
+            { title: "Please Speak Slowly", url: "cheoncheonhi1.html", keywords: "please speak slowly slow speaking conversation" },
+            { title: "I'm Learning Korean", url: "hangukeo1.html", keywords: "i'm learning korean study korean language" },
+            { title: "Help Me", url: "dowajuseyo1.html", keywords: "help me help emergency assistance" },
+            { title: "Where Is the Restroom?", url: "hwajangsil1.html", keywords: "where is the restroom restroom bathroom toilet" },
+            { title: "How Much Is It", url: "eolmayeyo1.html", keywords: "how much is it price cost shopping" },
+            { title: "Where Is It", url: "eodi1.html", keywords: "where is it where location directions" },
+            { title: "Im Happy", url: "haengbok1.html", keywords: "i'm happy happy feeling emotion" },
+            { title: "Im Sleepy", url: "jollyeo1.html", keywords: "i'm sleepy sleepy tired bedtime" },
+            { title: "Im Tired", url: "pigon1.html", keywords: "i'm tired tired exhausted fatigue" },
+            { title: "Im Thirsty", url: "mongmalla1.html", keywords: "i'm thirsty thirsty drink water" },
+            { title: "I'm Hungry", url: "baegopa1.html", keywords: "i'm hungry hungry food meal" },
+            { title: "I Don't Understand", url: "ihaemot1.html", keywords: "i don't understand understand confusion learning" },
+            { title: "I Understand", url: "ihae1.html", keywords: "i understand understand got it learning" },
+            { title: "Please Speak Slowly", url: "cheoncheonhi1.html", keywords: "please speak slowly slow speaking conversation" },
+            { title: "Im Sad", url: "seulpeo1.html", keywords: "i'm sad sad emotion feeling" },
+            { title: "Im Angry", url: "hwana1.html", keywords: "i'm angry angry mad emotion" },
+            { title: "Im Scared", url: "museowo1.html", keywords: "i'm scared scared afraid fear" },
+            { title: "I Miss You", url: "bogosipeo1.html", keywords: "i miss you miss longing affection" },
+            { title: "Im Sick", url: "apayo1.html", keywords: "i'm sick sick ill health" },
+            { title: "Im Nervous", url: "ginjang1.html", keywords: "i'm nervous nervous anxious feeling" },
+            { title: "I Feel Good", url: "gibun1.html", keywords: "i feel good good feeling mood" },
+            { title: "Im Busy", url: "bappa1.html", keywords: "i'm busy busy work schedule" },
+            { title: "Im Free", url: "sigan1.html", keywords: "i'm free available free time schedule" },
+            { title: "Don't Worry", url: "geokjeong1.html", keywords: "don't worry worry relax comfort" },
+            { title: "I Like It", url: "joayo1.html", keywords: "i like it like favorite preference" },
+            { title: "I Don't Like It", url: "anjoa1.html", keywords: "i don't like it dislike don't like preference" },
+            { title: "I Love It", url: "jeongmal1.html", keywords: "i love it love favorite really like" },
+            { title: "I Hate It", url: "sireo1.html", keywords: "i hate it hate dislike emotion" },
+            { title: "Im Ready", url: "junbi1.html", keywords: "i'm ready ready prepared let's go" },
+            { title: "Not Yet", url: "ajig1.html", keywords: "not yet wait later unfinished" },
+            { title: "Please Wait", url: "gidaryeo1.html", keywords: "please wait wait hold on moment" },
+            { title: "Hurry Up", url: "ppalli1.html", keywords: "hurry up quick faster rush" },
+            { title: "Let's Eat", url: "meogeo1.html", keywords: "let's eat eat meal food" },
+            { title: "Let's Drink", url: "masyeo1.html", keywords: "let's drink drink beverage together" },
+            { title: "Let's Study", url: "gongbu1.html", keywords: "let's study study learn korean" },
+            { title: "Good Morning", url: "joheun1.html", keywords: "good morning morning greeting" },
+            { title: "See You Later", url: "najunge1.html", keywords: "see you later goodbye farewell" },
+            { title: "See You Tomorrow", url: "naeil1.html", keywords: "see you tomorrow tomorrow goodbye farewell" },
+            { title: "You're Welcome", url: "cheonman1.html", keywords: "you're welcome welcome no problem thanks" },
+            { title: "Excuse Me", url: "sillye1.html", keywords: "excuse me pardon attention polite" },
+            { title: "No Problem", url: "munje1.html", keywords: "no problem okay it's fine don't worry" },
+            { title: "What Does This Mean?", url: "ige1.html", keywords: "what does this mean meaning translation korean" },
+            { title: "It's Too Expensive", url: "bissayo1.html", keywords: "it's too expensive expensive price shopping" },
+            { title: "It's Cheap", url: "ssayo1.html", keywords: "it's cheap cheap affordable price shopping" },
+            { title: "Water Please", url: "muljuseyo1.html", keywords: "water please water drink beverage" },
+            { title: "It's Cold", url: "chagawo1.html", keywords: "it's cold cold weather temperature" },
+            { title: "It's Hot", url: "tteugeo1.html", keywords: "it's hot hot weather temperature" },
+            { title: "It's Salty", url: "jjayo1.html", keywords: "it's salty salty taste food" },
+            { title: "It's Sweet", url: "dalayo1.html", keywords: "it's sweet sweet taste dessert" },
+            { title: "It's Spicy", url: "maewoyo1.html", keywords: "it's spicy spicy hot food" },
+            { title: "It's Delicious", url: "masisseo1.html", keywords: "it's delicious delicious tasty food" },
+            { title: "Let's Go", url: "gayo1.html", keywords: "let's go go together invitation" },
+            { title: "Wait a Moment", url: "jamsiman1.html", keywords: "wait a moment wait hold on please" },
+            { title: "Coffee Please", url: "keopijuseyo1.html", keywords: "coffee please coffee drink beverage" },
+            { title: "What Happened?", url: "museunirieyo1.html", keywords: "what happened happened problem situation" },
+            { title: "Why?", url: "waeyo1.html", keywords: "why question reason" },
+            { title: "Really?", url: "jeongmalyo1.html", keywords: "really surprise question" },
+            { title: "I Miss You", url: "bogosipeoyo1.html", keywords: "i miss you miss longing affection" },
+            { title: "Happy Birthday", url: "saengilchukha1.html", keywords: "happy birthday birthday celebration greeting" },
+            { title: "Good Luck", url: "haenguneulbireoyo1.html", keywords: "good luck luck encouragement wish" },
+            { title: "Good Job", url: "jalhaesseoyo1.html", keywords: "good job well done praise encouragement" },
+            { title: "Be Careful", url: "josimhaseyo1.html", keywords: "be careful careful safety warning" },
+            { title: "Stand Up", url: "ireonaseyo1.html", keywords: "stand up get up classroom instruction" },
+            { title: "Sit Down", url: "aneuseyo1.html", keywords: "sit down take a seat classroom instruction" },
+            { title: "Are You Okay?", url: "gwaenchanayo1.html", keywords: "are you okay okay concern health" },
+            { title: "I'm Full", url: "baebulleoyo1.html", keywords: "i'm full full food meal" },
+            { title: "See You Soon", url: "ttaobwayo1.html", keywords: "see you soon goodbye farewell" },
+            { title: "Have a Nice Day", url: "joeunharubonaeseyo1.html", keywords: "have a nice day greeting farewell" },
+            { title: "Come In", url: "deureooseyo1.html", keywords: "come in enter welcome invitation" },
+            { title: "Please Wait", url: "gidaryeojuseyo1.html", keywords: "please wait wait hold on moment" },
+            { title: "I Don't Know", url: "moreugesseoyo1.html", keywords: "i don't know don't know answer" },
+            { title: "That's Right", url: "majayo1.html", keywords: "that's right correct yes agree" },
+            { title: "That's Cool", url: "meotjyeoyo1.html", keywords: "that's cool cool awesome compliment" },
+            { title: "That's Cute", url: "gwiyeowoyo1.html", keywords: "that's cute cute adorable compliment" },
+            { title: "That's Beautiful", url: "areumdawoyo1.html", keywords: "that's beautiful beautiful pretty compliment" },
+            { title: "That's Amazing", url: "nollawoyo1.html", keywords: "that's amazing amazing incredible surprise" },
+            { title: "That's Interesting", url: "heungmirowoyo1.html", keywords: "that's interesting interesting curious conversation" },
+            { title: "That's Awesome", url: "jeongmalmeotjyeoyo1.html", keywords: "that's awesome awesome excellent compliment" },
+            { title: "Good Bye", url: "bye2.html", keywords: "good bye goodbye farewell see you" },
+            { title: "That's Great", url: "jeongmaljoayo1.html", keywords: "that's great great excellent praise" },
+            { title: "I Agree", url: "donguihaeyo1.html", keywords: "i agree agree opinion conversation" },
+            { title: "That's Wrong", url: "teullyeosseoyo1.html", keywords: "that's wrong wrong incorrect mistake" },
+            { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
         ];
 
-        // 현재 웹페이지 파일명을 감지하여 자기 자신은 추천에서 제외
         const currentFileName = window.location.pathname.split("/").pop();
-        const filteredCats = recommendList.filter(c => c.file !== currentFileName && c.id !== activeCatId);
-        
-        // 제외하고 남은 카테고리 중 랜덤 하나 선택 (방어코드로 빈 배열일 경우 첫 번째 요소 선택)
-        const chosenCat = filteredCats[Math.floor(Math.random() * filteredCats.length)] || recommendList[0];
 
-        // Next Quiz 바로 위에 깔끔한 점선 박스로 바인딩
-        const recHtml = `
-            <div style="margin-bottom: 15px;">
-                <button id="rec-btn" data-target="${chosenCat.file}" style="width: 100%; padding: 14px; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 10px; cursor: pointer; font-size: 1.05rem; font-weight: bold; color: #475569;">
-                    🔄 Try another: ${chosenCat.emoji} ${chosenCat.name}
-                </button>
-            </div>`;
+        // 현재 페이지 찾기
+        const currentItem = quizDB.find(item => item.url === currentFileName);
 
-        // ✨ [핵심 알고리즘] 데이터 포맷 유연성 확보 (Present/Past/Future vs Casual/Polite 자동 판별)
+        // 현재 페이지 키워드
+        const currentKeywords = currentItem
+            ? currentItem.keywords.toLowerCase().split(" ")
+            : [];
+
+        // 키워드 점수 계산
+        const relatedList = quizDB
+            .filter(item => item.url !== currentFileName)
+            .map(item => {
+                const words = item.keywords.toLowerCase().split(" ");
+                const score = words.filter(w => currentKeywords.includes(w)).length;
+                return { ...item, score };
+            })
+            .filter(item => item.score > 0)      // 공통 키워드 있는 것만
+            .sort((a, b) => b.score - a.score);  // 점수 높은 순
+
+        // 상위 3개
+        const chosenList = relatedList.slice(0, 3);
+
+        const recHtml = chosenList.length > 0 ? `
+        <div style="margin-bottom:15px;">
+            <div style="font-size:0.9rem;font-weight:bold;color:#64748b;margin-bottom:8px;text-align:center;">
+                🔄 Related
+            </div>
+
+            <div style="display:flex;gap:8px;">
+                ${chosenList.map(item => `
+                    <button class="rec-btn-item"
+                        data-target="${item.url}"
+                        style="flex:1;padding:12px 8px;background:#f8fafc;border:2px dashed #cbd5e1;border-radius:10px;cursor:pointer;font-size:0.9rem;font-weight:bold;color:#475569;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                        📚 ${item.title}
+                    </button>
+                `).join("")}
+            </div>
+        </div>
+        ` : "";
+
+        // 데이터 포맷 유연성 확보
         let formsHtml = "";
         if (quiz.forms && (quiz.forms.present || quiz.forms.past || quiz.forms.future)) {
             formsHtml = `
@@ -307,26 +582,55 @@ function checkAnswer(isCorrect, quiz) {
             `;
         }
 
-        // 💡 [신규 추가] 비슷한 단어 / 확장 단어 (options 리스트 추출 시스템)
-        let optionsHtml = "";
-        if (quiz.options && Array.isArray(quiz.options)) {
-            optionsHtml = `
-                <h3 style="margin-top: 25px; color: #1e293b;">💡 Related Words</h3>
-                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
-                    ${quiz.options.map(opt => `
-                        <div style="padding: 12px 15px; background: #f1f5f9; border-radius: 10px; border-left: 4px solid #64748b; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <strong style="font-size: 1.2rem; color: #1e293b;">${opt.kr}</strong>
-                                <span style="font-size: 0.95rem; color: #64748b; margin-left: 6px;">(${opt.rom})</span>
-                            </div>
-                            <span style="font-size: 1.05rem; font-weight: bold; color: #475569;">${opt.en}</span>
-                        </div>
+        // 문법 분해
+        let grammarHtml = "";
+        if (quiz.grammar && Array.isArray(quiz.grammar.breakdown)) {
+            grammarHtml = `
+                <div style="margin-top: 20px; padding: 15px; background: #eff6ff; border-radius: 10px; border-left: 4px solid #3b82f6;">
+                    <h4 style="margin: 0 0 10px 0; color: #1e293b;">${quiz.grammar.title || '📚 Simple Grammar'}</h4>
+                    ${quiz.grammar.breakdown.map(b => `
+                        <p style="margin: 5px 0; font-size: 0.95rem; color: #334155;">
+                            <strong>${b.kr}</strong> <span style="color:#64748b;">(${b.rom})</span> — ${b.en}
+                        </p>
                     `).join('')}
+                    <p style="margin-top: 10px; font-weight: 700; color: #1e40af;">${quiz.grammar.meaning || ''}</p>
                 </div>
             `;
         }
 
-        // 📚 핵심 예문 출력 영역 (🔊 LISTEN / 🎤 SPEAK / 손 이모지 기능 완벽 유지)
+        // 비슷한 단어 / 확장 단어
+        let optionsHtml = "";
+        if (quiz.options && Array.isArray(quiz.options)) {
+            const showOptionAudio = quiz.optionAudio === true;
+
+            optionsHtml = `<h3 style="margin-top: 25px; color: #1e293b;">💡 Related Words</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                ${quiz.options.map((opt, idx) => `
+                <div style="padding: 12px 15px; background: #f1f5f9; border-radius: 10px; border-left: 4px solid #64748b; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong style="font-size: 1.2rem; color: #1e293b;">${opt.kr}</strong>
+                            <span style="font-size: 0.95rem; color: #64748b; margin-left: 6px;">(${opt.rom})</span>
+                        </div>
+                        <span style="font-size: 1.05rem; font-weight: bold; color: #475569;">${opt.en}</span>
+                    </div>
+                    ${showOptionAudio ? `
+                    <div class="control-group" style="scale: 0.85; margin: 0; justify-content: center; gap: 10px;">
+                        <button class="btn-main" onclick="event.stopPropagation(); window.speakOption('${opt.kr.replace(/'/g, "\\'")}')">
+                            <span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span>
+                        </button>
+                        <button class="btn-main" id="opt-mic-btn-${idx}" onclick="event.stopPropagation(); window.startOptionMic('${opt.kr.replace(/'/g, "\\'")}', 'opt-feedback-${idx}')">
+                            <span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span>
+                        </button>
+                    </div>
+                    <div id="opt-feedback-${idx}" style="height: 20px; font-weight: 900; font-size: 1rem; text-align: center;"></div>
+                    ` : ``}
+                </div>
+                `).join('')}
+            </div>`;
+        }
+
+        // 핵심 예문 출력 영역
         let examplesHtml = "";
         if (quiz.examples && Array.isArray(quiz.examples)) {
             examplesHtml = `
@@ -355,7 +659,7 @@ function checkAnswer(isCorrect, quiz) {
 
         const situationText = quiz.situation || "No context provided.";
 
-        // 화면 렌더링 주입 (Context -> Forms -> Related Words -> Key Sentences 구조)
+        // 화면 렌더링 주입
         detailArea.innerHTML = `
             <div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;">
                 <h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2>
@@ -363,9 +667,11 @@ function checkAnswer(isCorrect, quiz) {
                     <p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>
                     ${formsHtml}
                 </div>
+                ${grammarHtml}
                 ${optionsHtml}
                 ${examplesHtml}
                 
+
                 <div style="margin-top: 25px;">
                     ${recHtml} 
                     <button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭️</button>
@@ -382,15 +688,19 @@ function checkAnswer(isCorrect, quiz) {
         // 기능 작동 인터페이스 바인딩
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
-        
-        // 랜덤 추천 카테고리 클릭 시 데이터 링크로 즉시 이동
-        const recBtn = document.getElementById('rec-btn');
-        if (recBtn) {
-            recBtn.onclick = () => {
-                const targetFile = recBtn.getAttribute('data-target') || "index.html";
+
+    
+
+        document.querySelectorAll('.rec-btn-item').forEach(btn => {
+            btn.onclick = () => {
+                const targetFile = btn.getAttribute('data-target') || "index.html";
                 window.location.href = targetFile;
             };
-        }
+        });
+
+        // 🎯 [핵심] 렌더링 및 이벤트 바인딩 완료 후 학습 진도율 표시 함수 호출!
+        renderLearningProgress();
+
     } else {
         alert("Try Again! ❌");
     }
@@ -790,4 +1100,96 @@ function startExampleRecognition(targetText, idx) {
     recognition.onend = () => {
         micBtn.classList.remove('recording');
     };
+}
+
+// 🔊 [신규 추가] 옵션(Related Words) 듣기
+function speakOption(text) {
+    window.speechSynthesis.cancel();
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = "ko-KR";
+    msg.rate = 0.8;
+    window.speechSynthesis.speak(msg);
+}
+
+// 🎤 [신규 추가] 옵션(Related Words) 말하기
+function startOptionMic(targetText, feedbackId) {
+    if (!recognition) {
+        alert("Speech recognition is not supported.");
+        return;
+    }
+    resetRecognitionState();
+
+    const feedback = document.getElementById(feedbackId);
+
+    recognition.start();
+
+    if (feedback) {
+        feedback.textContent = "Please speak now...";
+        feedback.style.color = "#4f46e5";
+    }
+
+    silenceTimer = setTimeout(() => {
+        resetRecognitionState();
+        if (feedback) {
+            feedback.textContent = "No voice detected. Try again!";
+            feedback.style.color = "#ef4444";
+        }
+    }, 4200);
+
+    recognition.onresult = (event) => {
+        clearTimeout(silenceTimer);
+        const speech = event.results[0][0].transcript;
+        const target = targetText.replace(/[?!\s~,.]/g, '');
+        const voiced = speech.replace(/[?!\s~,.]/g, '');
+
+        if (feedback) {
+            if (voiced.includes(target) || target.includes(voiced)) {
+                feedback.textContent = "Excellent! 🎉";
+                feedback.style.color = "#22c55e";
+            } else {
+                feedback.textContent = "Try Again! ❌";
+                feedback.style.color = "#ef4444";
+            }
+        }
+    };
+
+    recognition.onerror = () => {
+        clearTimeout(silenceTimer);
+        resetRecognitionState();
+        if (feedback) {
+            feedback.textContent = "Error occurred. Try again.";
+            feedback.style.color = "#ef4444";
+        }
+    };
+}
+
+function injectQuizSchema(data) {
+    const oldSchema = document.getElementById('quiz-schema');
+    if (oldSchema) oldSchema.remove();
+
+    if (!data) return;
+
+    // 데이터가 질문/정답 중 어떤 필드명(q, question, a, answer)을 쓰든 찾아냅니다.
+    const qText = data.question || data.q || "No question provided";
+    const aText = data.answer || data.a || "No answer provided";
+
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "Quiz",
+        "name": document.title,
+        "hasPart": {
+            "@type": "Question",
+            "name": qText, 
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": aText
+            }
+        }
+    };
+
+    const script = document.createElement('script');
+    script.id = 'quiz-schema';
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(schemaData);
+    document.head.appendChild(script);
 }
