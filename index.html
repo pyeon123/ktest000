@@ -32,7 +32,7 @@
         <div id="menu-screen" class="screen active">
             <div style="text-align: center; padding: 20px 0 10px 0;">
                 <div class="big-korea-badge" style="font-size: 3.5rem; margin-bottom: 5px;">🇰🇷</div>
-                <div class="logo" style="font-size: 2rem; font-weight: 900; color: var(--primary);">Real-Life Words</div>
+                <div class="logo" style="font-size: 2rem; font-weight: 900; color: var(--primary);">FREE-WORDS QUIZ</div>
                 <p style="margin: 5px 0 0 0; color: #64748b; font-weight: 500;">Korean Words Used in Daily Life</p>
                 <p style="margin-top: 10px; font-weight: bold; color: #4285f4; font-size: 1.1rem;">
                     🌐 Practice Korean in your language!
@@ -96,18 +96,296 @@
                     <button class="back-link" style="width: 100%; margin-top: 10px; background-color: #f1f5f9; color: #64748b; box-sizing: border-box;" onclick="event.stopPropagation(); closeTodayQuiz();">✖ Close</button>         
                 </div>
             </div>
+            <div style="text-align: center; margin: 0 auto 30px auto; padding: 0 15px; width: 100%; max-width: 550px; box-sizing: border-box;">
+    <a href="test.html" target="_top" id="startQuizBtn" style="text-decoration: none;">
+    <button type="button" style="padding: 20px 15px; font-size: 16px; font-weight: bold; background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; border: none; border-radius: 15px; cursor: pointer; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3); width: 100%; box-sizing: border-box; transition: transform 0.2s;">
+        🎯 Free Korean Level Test
+    </button>
+</a>
+</div>
 
+            <script>
+            // 페이스북, 틱톡 등 인앱 웹뷰에서 차단 없이 외부 브라우저(크롬/사파리)로 다이렉트 튕김 연동
+            (function() {
+                const currentOrigin = window.location.origin;
+                const targetUrl = currentOrigin + window.location.pathname.replace('index.html', '') + 'test.html';
+                const startBtn = document.getElementById('startQuizBtn');
+
+                if (startBtn) {
+                    if (navigator.userAgent.match(/Android/i)) {
+                        const cleanUrl = targetUrl.replace(/^https?:\/\//, "");
+                        startBtn.href = "intent://" + cleanUrl + "#Intent;scheme=https;package=com.android.chrome;end";
+                    } else {
+                        startBtn.href = targetUrl;
+                        startBtn.setAttribute('target', '_blank');
+                        startBtn.setAttribute('rel', 'noopener noreferrer');
+                    }
+                }
+            })();
+            </script>
+            <!-- ============================================================
+     📧 Email Subscribe Box
+============================================================ -->
+
+<div id="subscribe-wrapper"
+     style="width:100%;max-width:550px;margin:0 auto 30px auto;padding:0 15px;box-sizing:border-box;">
+
+    <!-- 닫힌 상태 -->
+    <div id="subscribe-section"
+         onclick="expandSubscribeBox()"
+         style="
+            width:100%;
+            padding:20px 15px;
+            background:linear-gradient(135deg,#4f46e5,#7c3aed);
+            border-radius:15px;
+            cursor:pointer;
+            box-shadow:0 4px 12px rgba(79,70,229,.3);
+            text-align:center;
+            color:#fff;
+            transition:transform .2s;
+            box-sizing:border-box;
+         "
+         onmouseover="this.style.transform='scale(1.02)'"
+         onmouseout="this.style.transform='scale(1)'">
+
+        <div style="font-size:20px;font-weight:800;">
+           📬 Get a FREE Secret Phrase Every Day
+        </div>
+
+        <div style="
+            font-size:15px;
+            font-weight:700;
+            margin-top:6px;
+            opacity:.95;">
+            Click to Subscribe
+        </div>
+
+    </div>
+
+    <!-- 펼쳐지는 부분 -->
+    <div id="subscribe-content"
+         style="
+            display:none;
+            margin-top:12px;
+            padding:20px;
+            background:linear-gradient(135deg,#4f46e5,#7c3aed);
+            border-radius:15px;
+            box-shadow:0 4px 12px rgba(79,70,229,.3);
+            box-sizing:border-box;
+         ">
+
+        <p style="
+            color:#e0e7ff;
+            font-size:0.95rem;
+            line-height:1.5;
+            text-align:center;
+            margin:0 0 18px 0;">
+
+          Subscribe to receive 1 daily Listen & Speak practice phrase!- Practice in secret, then suddenly speak like a Korean and shock everyone!
+            <br>
+            🎁 100% FREE
+
+        </p>
+
+        <form id="subscribeForm"
+              name="daily-korean-subscribe"
+              method="POST"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              onsubmit="return handleSubscribeSubmit(event)"
+              style="
+                  display:flex;
+                  flex-direction:column;
+                  gap:12px;
+                  max-width:380px;
+                  margin:0 auto;
+              ">
+
+            <input type="hidden"
+                   name="form-name"
+                   value="daily-korean-subscribe">
+
+            <p style="display:none;">
+                <label>
+                    Don't fill this out if you're human:
+                    <input name="bot-field">
+                </label>
+            </p>
+
+            <input
+                type="email"
+                id="subscribe-email"
+                name="email"
+                required
+                placeholder="Enter your email address"
+                style="
+                    padding:14px 16px;
+                    border:none;
+                    border-radius:10px;
+                    font-size:16px;
+                    outline:none;
+                    width:100%;
+                    box-sizing:border-box;
+                ">
+
+            <button
+                type="submit"
+                style="
+                    padding:14px;
+                    background:#fff;
+                    color:#4f46e5;
+                    border:none;
+                    border-radius:10px;
+                    font-size:17px;
+                    font-weight:800;
+                    cursor:pointer;
+                    transition:transform .2s;
+                "
+                onmouseover="this.style.transform='scale(1.02)'"
+                onmouseout="this.style.transform='scale(1)'">
+
+                🔔 Subscribe FREE
+
+            </button>
+
+        </form>
+
+        <div id="subscribe-success"
+             style="
+                display:none;
+                margin-top:15px;
+                padding:12px;
+                border-radius:10px;
+                background:rgba(255,255,255,.15);
+                color:#fff;
+                text-align:center;
+                font-weight:700;
+             ">
+            ✅ Thank you! Check your inbox tomorrow.
+        </div>
+
+        <div id="subscribe-error"
+             style="
+                display:none;
+                margin-top:15px;
+                padding:12px;
+                border-radius:10px;
+                background:rgba(239,68,68,.2);
+                color:#fff;
+                text-align:center;
+                font-weight:700;
+             ">
+            ⚠️ Something went wrong. Please try again.
+        </div>
+
+        <p style="
+            color:#c7d2fe;
+            text-align:center;
+            font-size:12px;
+            margin-top:15px;">
+            No spam. Unsubscribe anytime.
+        </p>
+
+        <button
+            onclick="closeSubscribeBox()"
+            style="
+                width:100%;
+                margin-top:12px;
+                padding:10px;
+                border:none;
+                border-radius:8px;
+                background:rgba(255,255,255,.15);
+                color:#fff;
+                cursor:pointer;
+            ">
+            ✖ Close
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+function expandSubscribeBox() {
+    document.getElementById("subscribe-section").style.display = "none";
+    document.getElementById("subscribe-content").style.display = "block";
+}
+
+function closeSubscribeBox() {
+    document.getElementById("subscribe-content").style.display = "none";
+    document.getElementById("subscribe-section").style.display = "block";
+}
+
+function handleSubscribeSubmit(event) {
+
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    fetch("/",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/x-www-form-urlencoded"
+        },
+        body:new URLSearchParams(formData).toString()
+    })
+    .then(()=>{
+
+        document.getElementById("subscribeForm").style.display="none";
+        document.getElementById("subscribe-success").style.display="block";
+        document.getElementById("subscribe-error").style.display="none";
+
+        if(typeof gtag==="function"){
+            gtag("event","email_subscribe",{
+                event_category:"engagement",
+                event_label:"daily_korean_subscribe"
+            });
+        }
+
+    })
+    .catch(()=>{
+
+        document.getElementById("subscribe-error").style.display="block";
+
+    });
+
+    return false;
+}
+</script>
+            
+            <div id="search-container-top" style="position: relative; width: 100%; max-width: 500px; margin: 0 auto 25px auto; padding: 0 15px; box-sizing: border-box;">
+                <input type="text" id="searchInputTop" oninput="autoSearchTop()" placeholder="🔍 Enter search term (ex: sky, family)" 
+       style="width: 100%; padding: 28px 25px; border: 2px solid #333; border-radius: 12px; box-sizing: border-box; font-size: 0.90rem; outline: none; transition: border-color 0.3s;"
+       onfocus="this.style.borderColor='#4285f4';" 
+       onblur="this.style.borderColor='#333';">
+
+                <div id="resultContainerTop" style="display: none; border: 2px solid #333; border-top: none; margin-top: 0; background: white; z-index: 9999; position: absolute; left: 15px; right: 15px; max-height: 400px; overflow-y: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-sizing: border-box;">
+                    <ul id="resultsListTop" style="list-style: none; padding: 0; margin: 0;"></ul>
+                </div>
+            </div>
             <div style="text-align: center; margin-bottom: 15px;">
                 <p style="font-size: 1.1rem; font-weight: 700; color: #64748b; letter-spacing: 1px; text-transform: uppercase; margin: 0;">Category</p>
             </div>
             
             <div id="category-list" class="category-grid"></div>
             
+            <div id="search-container" style="position: relative; width: 100%; max-width: 500px; margin: 20px auto; padding: 0 15px; box-sizing: border-box;">
+    <input type="text" id="searchInput" oninput="autoSearch()" placeholder="🔍 Enter search term (ex: sky, family)" 
+       style="width: 100%; padding: 21px 15px; border: 2px solid #333; border-radius: 12px; box-sizing: border-box; font-size: 15px; outline: none; transition: border-color 0.3s;"
+       onfocus="this.style.borderColor='#4285f4';" 
+       onblur="this.style.borderColor='#333';">
+
+    <div id="resultContainer" style="display: none; border: 2px solid #333; border-top: none; margin-top: 0; background: white; z-index: 9999; position: absolute; left: 15px; right: 15px; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-sizing: border-box;">
+        <ul id="resultsList" style="list-style: none; padding: 0; margin: 0;"></ul>
+    </div>
+</div>
+            
             <br>
             <div style="text-align: center; font-size: 0.9rem; font-weight: bold; color: #64748b;">
                 1,000+ Essential Korean sentences / free
             </div>
-            <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
+            <a href="https://k-sentence.netlify.app/" target="_blank" class="wide-slim-banner"></a>
         </div>
 
         <div id="quiz-screen" class="quiz-screen">
@@ -138,10 +416,13 @@
             <div id="feedback" style="height: 35px; font-weight: 900; font-size: 1.4rem; margin-bottom: 10px; text-align: center;"></div>
             <div class="options-container" id="options-container"></div>
 
-            <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: 25px;">
-                <button class="back-link" style="margin-top: 0;" onclick="goHome()">🏠 HOME</button>
-                <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
-            </div>
+            <div style="text-align:center; margin-top:18px; margin-bottom:8px; font-size:13px; color:#666; font-weight:500;">
+    💡 Click the correct answer to view a detailed explanation.
+</div>
+<div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: 0;">
+    <button class="back-link" style="margin-top: 0;" onclick="goHome()">🏠 HOME</button>
+    <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
+</div>
             
             <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
                 <div class="game-ad-bar">
@@ -152,7 +433,7 @@
                 </div>
                 <br>
                 <div style="font-size: 0.9rem; font-weight: bold; color: #64748b;">1,000+ Essential Korean sentences / free</div>
-                <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
+                <a href="https://k-sentence.netlify.app/" target="_blank" class="wide-slim-banner"></a>
             </div>
         </div>
 
@@ -177,9 +458,689 @@
         <span class="menu-label">E-mail</span>
     </button>
 </div>
-    
-
 <script src="data.js"></script>
 <script src="script.js"></script>
+
+<script>
+const quizDB = [
+        { title: "Academy", url: "academy.html", keywords: "academy school study education" },
+        { title: "Airplane", url: "airplane.html", keywords: "airplane flight travel sky" },
+        { title: "Airport", url: "airport.html", keywords: "airport travel flight airplane" },
+        { title: "Animals", url: "animals.html", keywords: "animals pet nature zoo" },
+        { title: "Apartment", url: "apartment.html", keywords: "apartment house living room" },
+        { title: "Apple", url: "apple.html", keywords: "apple fruit food red" },
+        { title: "Autumn", url: "autumn.html", keywords: "autumn fall season weather" },
+        { title: "Baby", url: "baby.html", keywords: "baby child kid family" },
+        { title: "Bed", url: "bed.html", keywords: "bed furniture sleep" },
+        { title: "Bibimbap", url: "bibimbap.html", keywords: "bibimbap food korean rice" },
+        { title: "Bird", url: "bird.html", keywords: "bird animal sky fly" },
+        { title: "Body", url: "body.html", keywords: "body human health" },
+        { title: "Book", url: "book.html", keywords: "book reading library study" },
+        { title: "Bread", url: "bread.html", keywords: "bread food bakery" },
+        { title: "Brother", url: "brother.html", keywords: "brother family sibling" },
+        { title: "Buildings", url: "buildings.html", keywords: "buildings house city" },
+        { title: "Bulgogi", url: "bulgogi.html", keywords: "bulgogi food korean meat" },
+        { title: "Bus", url: "bus.html", keywords: "bus transport commute" },
+        { title: "Cash", url: "cash.html", keywords: "cash money currency" },
+        { title: "Cat", url: "cat.html", keywords: "cat animal pet" },
+        { title: "Chair", url: "chair.html", keywords: "chair furniture seat" },
+        { title: "City", url: "city.html", keywords: "city buildings urban" },
+        { title: "Class", url: "class.html", keywords: "class school study student" },
+        { title: "Clothes", url: "clothes.html", keywords: "clothes fashion wear" },
+        { title: "Colors", url: "colors.html", keywords: "colors red blue green" },
+        { title: "Commute", url: "commute.html", keywords: "commute work transport travel" },
+        { title: "Company", url: "company.html", keywords: "company work job business" },
+        { title: "Cooking", url: "cooking.html", keywords: "cooking food kitchen" },
+        { title: "Dad", url: "dad.html", keywords: "dad father family parent" },
+        { title: "Dawn", url: "dawn.html", keywords: "dawn morning time" },
+        { title: "Desk", url: "desk.html", keywords: "desk furniture study school" },
+        { title: "Dog", url: "dog.html", keywords: "dog animal pet puppy" },
+        { title: "Door", url: "door.html", keywords: "door house entrance" },
+        { title: "Economy", url: "economy.html", keywords: "economy money finance" },
+        { title: "Electronics", url: "electronics.html", keywords: "electronics tech device" },
+        { title: "Emotions", url: "emotions.html", keywords: "emotions feelings mood" },
+        { title: "Evening", url: "evening.html", keywords: "evening night time" },
+        { title: "Exam", url: "exam.html", keywords: "exam test study school" },
+        { title: "Family", url: "family.html", keywords: "family parents child sibling" },
+        { title: "Feelings", url: "feelings.html", keywords: "feelings mood emotion" },
+        { title: "Fish", url: "fish.html", keywords: "fish animal sea ocean" },
+        { title: "Flower", url: "flower.html", keywords: "flower nature plant" },
+        { title: "Food", url: "food.html", keywords: "food eat meal" },
+        { title: "Friend", url: "friend.html", keywords: "friend person relationship" },
+        { title: "Fruit", url: "fruit.html", keywords: "fruit food healthy" },
+        { title: "Furniture", url: "furniture.html", keywords: "furniture house bed chair" },
+        { title: "Gift", url: "gift.html", keywords: "gift present surprise" },
+        { title: "Gimbap", url: "gimbap.html", keywords: "gimbap food korean" },
+        { title: "Happiness", url: "happiness.html", keywords: "happiness joy emotion" },
+        { title: "Health", url: "health.html", keywords: "health body exercise" },
+        { title: "Hobbies", url: "hobbies.html", keywords: "hobbies activity free time" },
+        { title: "Homework", url: "homework.html", keywords: "homework study school" },
+        { title: "House", url: "house.html", keywords: "house home living" },
+        { title: "Jobs", url: "jobs.html", keywords: "jobs work profession" },
+        { title: "Joy", url: "joy.html", keywords: "joy happiness emotion" },
+        { title: "Kimchi", url: "kimchi1.html", keywords: "kimchi food korean spicy" },
+        { title: "Kitchen", url: "kitchen.html", keywords: "kitchen cooking house" },
+        { title: "Landscapes", url: "landscapes.html", keywords: "landscapes nature scenery" },
+        { title: "Lion", url: "lion.html", keywords: "lion animal nature" },
+        { title: "LivingRoom", url: "livingRoom.html", keywords: "livingRoom house home" },
+        { title: "Love", url: "love.html", keywords: "love emotion feelings" },
+        { title: "Lunch", url: "lunch.html", keywords: "lunch food meal time" },
+        { title: "Market", url: "market.html", keywords: "market shopping store" },
+        { title: "Meat", url: "meat.html", keywords: "meat food protein" },
+        { title: "Money", url: "money.html", keywords: "money cash finance" },
+        { title: "Mood", url: "mood.html", keywords: "mood emotion feelings" },
+        { title: "Morning", url: "morning.html", keywords: "morning dawn time" },
+        { title: "Mother", url: "mother.html", keywords: "mother mom family parent" },
+        { title: "Mountain", url: "mountain.html", keywords: "mountain nature hiking" },
+        { title: "Nature", url: "nature.html", keywords: "nature plant scenery" },
+        { title: "Parents", url: "parents.html", keywords: "parents family mom dad" },
+        { title: "Pencil", url: "pencil.html", keywords: "pencil school writing" },
+        { title: "Places", url: "places.html", keywords: "places location travel" },
+        { title: "Purchase", url: "purchase.html", keywords: "purchase shopping buy" },
+        { title: "Rain", url: "rain.html", keywords: "rain weather nature" },
+        { title: "Ramen", url: "ramen.html", keywords: "ramen food noodle" },
+        { title: "Restroom", url: "restroom.html", keywords: "restroom bathroom toilet" },
+        { title: "Sadness", url: "sadness.html", keywords: "sadness emotion feelings" },
+        { title: "Samgyeopsal", url: "samgyeopsal.html", keywords: "samgyeopsal food korean meat" },
+        { title: "School", url: "school.html", keywords: "school study education" },
+        { title: "Sea", url: "sea.html", keywords: "sea ocean water nature" },
+        { title: "Sister", url: "sister.html", keywords: "sister family sibling" },
+        { title: "Sky", url: "sky.html", keywords: "sky nature weather" },
+        { title: "Snow", url: "snow.html", keywords: "snow winter weather" },
+        { title: "Soup", url: "soup.html", keywords: "soup food meal" },
+        { title: "Sports", url: "sports.html", keywords: "sports exercise activity" },
+        { title: "Spring", url: "spring.html", keywords: "spring season weather" },
+        { title: "Store", url: "store.html", keywords: "store market shopping" },
+        { title: "Student", url: "student.html", keywords: "student school study" },
+        { title: "Study", url: "study.html", keywords: "study learn school" },
+        { title: "Summer", url: "summer.html", keywords: "summer season weather" },
+        { title: "Taxi", url: "taxi.html", keywords: "taxi transport car" },
+        { title: "Teacher", url: "teacher.html", keywords: "teacher school education" },
+        { title: "Textbook", url: "textbook.html", keywords: "textbook study school" },
+        { title: "Time", url: "time.html", keywords: "time clock schedule" },
+        { title: "Today", url: "today.html", keywords: "today time" },
+        { title: "Tomorrow", url: "tomorrow.html", keywords: "tomorrow time" },
+        { title: "Tourism", url: "tourism.html", keywords: "tourism travel trip" },
+        { title: "Train", url: "train.html", keywords: "train transport travel" },
+        { title: "Transport", url: "transport.html", keywords: "transport commute car bus" },
+        { title: "Travel", url: "travel.html", keywords: "travel trip tourism" },
+        { title: "Tteokbokki", url: "tteokbokki.html", keywords: "tteokbokki food korean spicy" },
+        { title: "Vocabulary", url: "vocabulary.html", keywords: "vocabulary words study" },
+        { title: "Water", url: "water.html", keywords: "water drink nature" },
+        { title: "Weather", url: "weather.html", keywords: "weather sky rain snow" },
+        { title: "Window", url: "window.html", keywords: "window house glass" },
+        { title: "Word", url: "word.html", keywords: "word vocabulary language" },
+        { title: "lover sentence", url: "sentencelover1.html", keywords: "sentence lover study korean phrase" },
+        { title: "Hello", url: "annyeonghaseyo1.html", keywords: "hello hi greeting korean greeting" },
+        { title: "Thank You", url: "gamsahamnida1.html", keywords: "thank you thanks gratitude appreciation" },
+        { title: "It's Fun", url: "jaemiisseoyo1.html", keywords: "it's fun fun interesting enjoyable" },
+        { title: "Good Night", url: "jaljayo1.html", keywords: "good night sleep bedtime" },
+        { title: "What's Your Name", url: "irum1.html", keywords: "what's your name name introduction" },
+        { title: "Nice to Meet You", url: "bangawoyo1.html", keywords: "nice to meet you introduction greeting" },
+        { title: "How Have You Been", url: "jaljinaesseoyo1.html", keywords: "how have you been greeting conversation" },
+        { title: "It's Okay", url: "gwaenchanayo1.html", keywords: "it's okay okay no problem fine" },
+        { title: "Im Sorry", url: "mianhaeyo1.html", keywords: "i'm sorry sorry apology excuse me" },
+        { title: "I Love You", url: "saranghaeyo1.html", keywords: "i love you love romance affection" },
+        { title: "Please Speak Slowly", url: "cheoncheonhi1.html", keywords: "please speak slowly slow speaking conversation" },
+        { title: "I'm Learning Korean", url: "hangukeo1.html", keywords: "i'm learning korean study korean language" },
+        { title: "Help Me", url: "dowajuseyo1.html", keywords: "help me help emergency assistance" },
+        { title: "Where Is the Restroom?", url: "hwajangsil1.html", keywords: "where is the restroom restroom bathroom toilet" },
+        { title: "How Much Is It", url: "eolmayeyo1.html", keywords: "how much is it price cost shopping" },
+        { title: "Where Is It", url: "eodi1.html", keywords: "where is it where location directions" },
+        { title: "Im Happy", url: "haengbok1.html", keywords: "i'm happy happy feeling emotion" },
+        { title: "Im Sleepy", url: "jollyeo1.html", keywords: "i'm sleepy sleepy tired bedtime" },
+        { title: "Im Tired", url: "pigon1.html", keywords: "i'm tired tired exhausted fatigue" },
+        { title: "Im Thirsty", url: "mongmalla1.html", keywords: "i'm thirsty thirsty drink water" },
+        { title: "I'm Hungry", url: "baegopa1.html", keywords: "i'm hungry hungry food meal" },
+        { title: "I Don't Understand", url: "ihaemot1.html", keywords: "i don't understand understand confusion learning" },
+        { title: "I Understand", url: "ihae1.html", keywords: "i understand understand got it learning" },
+        { title: "Please Speak Slowly", url: "cheoncheonhi1.html", keywords: "please speak slowly slow speaking conversation" },
+        { title: "Im Sad", url: "seulpeo1.html", keywords: "i'm sad sad emotion feeling" },
+        { title: "Im Angry", url: "hwana1.html", keywords: "i'm angry angry mad emotion" },
+        { title: "Im Scared", url: "museowo1.html", keywords: "i'm scared scared afraid fear" },
+        { title: "I Miss You", url: "bogosipeo1.html", keywords: "i miss you miss longing affection" },
+        { title: "Im Sick", url: "apayo1.html", keywords: "i'm sick sick ill health" },
+        { title: "Im Nervous", url: "ginjang1.html", keywords: "i'm nervous nervous anxious feeling" },
+        { title: "I Feel Good", url: "gibun1.html", keywords: "i feel good good feeling mood" },
+        { title: "Im Busy", url: "bappa1.html", keywords: "i'm busy busy work schedule" },
+        { title: "Im Free", url: "sigan1.html", keywords: "i'm free available free time schedule" },
+        { title: "Don't Worry", url: "geokjeong1.html", keywords: "don't worry worry relax comfort" },
+        { title: "I Like It", url: "joayo1.html", keywords: "i like it like favorite preference" },
+        { title: "I Don't Like It", url: "anjoa1.html", keywords: "i don't like it dislike don't like preference" },
+        { title: "I Love It", url: "jeongmal1.html", keywords: "i love it love favorite really like" },
+        { title: "I Hate It", url: "sireo1.html", keywords: "i hate it hate dislike emotion" },
+        { title: "Im Ready", url: "junbi1.html", keywords: "i'm ready ready prepared let's go" },
+        { title: "Not Yet", url: "ajig1.html", keywords: "not yet wait later unfinished" },
+        { title: "Please Wait", url: "gidaryeo1.html", keywords: "please wait wait hold on moment" },
+        { title: "Hurry Up", url: "ppalli1.html", keywords: "hurry up quick faster rush" },
+        { title: "Let's Eat", url: "meogeo1.html", keywords: "let's eat eat meal food" },
+        { title: "Let's Drink", url: "masyeo1.html", keywords: "let's drink drink beverage together" },
+        { title: "Let's Study", url: "gongbu1.html", keywords: "let's study study learn korean" },
+        { title: "Good Morning", url: "joheun1.html", keywords: "good morning morning greeting" },
+        { title: "See You Later", url: "najunge1.html", keywords: "see you later goodbye farewell" },
+        { title: "See You Tomorrow", url: "naeil1.html", keywords: "see you tomorrow tomorrow goodbye farewell" },
+        { title: "You're Welcome", url: "cheonman1.html", keywords: "you're welcome welcome no problem thanks" },
+        { title: "Excuse Me", url: "sillye1.html", keywords: "excuse me pardon attention polite" },
+        { title: "No Problem", url: "munje1.html", keywords: "no problem okay it's fine don't worry" },
+        { title: "What Does This Mean?", url: "ige1.html", keywords: "what does this mean meaning translation korean" },
+        { title: "It's Too Expensive", url: "bissayo1.html", keywords: "it's too expensive expensive price shopping" },
+        { title: "It's Cheap", url: "ssayo1.html", keywords: "it's cheap cheap affordable price shopping" },
+        { title: "Water Please", url: "muljuseyo1.html", keywords: "water please water drink beverage" },
+        { title: "It's Cold", url: "chagawo1.html", keywords: "it's cold cold weather temperature" },
+        { title: "It's Hot", url: "tteugeo1.html", keywords: "it's hot hot weather temperature" },
+        { title: "It's Salty", url: "jjayo1.html", keywords: "it's salty salty taste food" },
+        { title: "It's Sweet", url: "dalayo1.html", keywords: "it's sweet sweet taste dessert" },
+        { title: "It's Spicy", url: "maewoyo1.html", keywords: "it's spicy spicy hot food" },
+        { title: "It's Delicious", url: "masisseo1.html", keywords: "it's delicious delicious tasty food" },
+        { title: "Let's Go", url: "gayo1.html", keywords: "let's go go together invitation" },
+        { title: "Wait a Moment", url: "jamsiman1.html", keywords: "wait a moment wait hold on please" },
+        { title: "Coffee Please", url: "keopijuseyo1.html", keywords: "coffee please coffee drink beverage" },
+        { title: "What Happened?", url: "museunirieyo1.html", keywords: "what happened happened problem situation" },
+        { title: "Why?", url: "waeyo1.html", keywords: "why question reason" },
+        { title: "Really?", url: "jeongmalyo1.html", keywords: "really surprise question" },
+        { title: "I Miss You", url: "bogosipeoyo1.html", keywords: "i miss you miss longing affection" },
+        { title: "Happy Birthday", url: "saengilchukha1.html", keywords: "happy birthday birthday celebration greeting" },
+        { title: "Good Luck", url: "haenguneulbireoyo1.html", keywords: "good luck luck encouragement wish" },
+        { title: "Good Job", url: "jalhaesseoyo1.html", keywords: "good job well done praise encouragement" },
+        { title: "Be Careful", url: "josimhaseyo1.html", keywords: "be careful careful safety warning" },
+        { title: "Stand Up", url: "ireonaseyo1.html", keywords: "stand up get up classroom instruction" },
+        { title: "Sit Down", url: "aneuseyo1.html", keywords: "sit down take a seat classroom instruction" },
+        { title: "Are You Okay?", url: "gwaenchanayo1.html", keywords: "are you okay okay concern health" },
+        { title: "I'm Full", url: "baebulleoyo1.html", keywords: "i'm full full food meal" },
+        { title: "See You Soon", url: "ttaobwayo1.html", keywords: "see you soon goodbye farewell" },
+        { title: "Have a Nice Day", url: "joeunharubonaeseyo1.html", keywords: "have a nice day greeting farewell" },
+        { title: "Come In", url: "deureooseyo1.html", keywords: "come in enter welcome invitation" },
+        { title: "Please Wait", url: "gidaryeojuseyo1.html", keywords: "please wait wait hold on moment" },
+        { title: "I Don't Know", url: "moreugesseoyo1.html", keywords: "i don't know don't know answer" },
+        { title: "That's Right", url: "majayo1.html", keywords: "that's right correct yes agree" },
+        { title: "That's Cool", url: "meotjyeoyo1.html", keywords: "that's cool cool awesome compliment" },
+        { title: "That's Cute", url: "gwiyeowoyo1.html", keywords: "that's cute cute adorable compliment" },
+        { title: "That's Beautiful", url: "areumdawoyo1.html", keywords: "that's beautiful beautiful pretty compliment" },
+        { title: "That's Amazing", url: "nollawoyo1.html", keywords: "that's amazing amazing incredible surprise" },
+        { title: "That's Interesting", url: "heungmirowoyo1.html", keywords: "that's interesting interesting curious conversation" },
+        { title: "That's Awesome", url: "jeongmalmeotjyeoyo1.html", keywords: "that's awesome awesome excellent compliment" },
+        { title: "Good Bye", url: "bye2.html", keywords: "good bye goodbye farewell see you" },
+        { title: "That's Great", url: "jeongmaljoayo1.html", keywords: "that's great great excellent praise" },
+        { title: "I Agree", url: "donguihaeyo1.html", keywords: "i agree agree opinion conversation" },
+        { title: "That's Wrong", url: "teullyeosseoyo1.html", keywords: "that's wrong wrong incorrect mistake" },
+        { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
+    ];    
+
+    function autoSearch() {
+        const input = document.getElementById('searchInput').value.toLowerCase();
+        const container = document.getElementById('resultContainer');
+        const list = document.getElementById('resultsList');
+        
+        if (input.length < 1) { 
+            container.style.display = "none"; 
+            return; 
+        }
+        
+        container.style.display = "block";
+        list.innerHTML = "";
+        let found = false;
+
+        quizDB.forEach(item => {
+            if (item.title.toLowerCase().includes(input) || item.keywords.toLowerCase().includes(input)) {
+                list.innerHTML += `<li style="border-bottom: 1px solid #eee;">
+                                    <a href="${item.url}" style="display: block; padding: 15px; text-decoration:none; color:#333;">${item.title}</a>
+                                   </li>`;
+                found = true;
+            }
+        });
+
+        if (!found) {
+            list.innerHTML = `<li style="padding: 15px; color:#999;">관련 퀴즈가 없습니다.</li>`;
+        }
+    }
+
+    function autoSearchTop() {
+        const input = document.getElementById('searchInputTop').value.toLowerCase();
+        const container = document.getElementById('resultContainerTop');
+        const list = document.getElementById('resultsListTop');
+        
+        if (input.length < 1) { 
+            container.style.display = "none"; 
+            return; 
+        }
+        
+        container.style.display = "block";
+        list.innerHTML = "";
+        let found = false;
+
+        quizDB.forEach(item => {
+            if (item.title.toLowerCase().includes(input) || item.keywords.toLowerCase().includes(input)) {
+                list.innerHTML += `<li style="border-bottom: 1px solid #eee;">
+                                    <a href="${item.url}" style="display: block; padding: 15px; text-decoration:none; color:#333;">${item.title}</a>
+                                   </li>`;
+                found = true;
+            }
+        });
+
+        if (!found) {
+            list.innerHTML = `<li style="padding: 15px; color:#999;">관련 퀴즈가 없습니다.</li>`;
+        }
+    }
+
+    document.addEventListener('click', function(e) {
+        const container = document.getElementById('resultContainer');
+        const input = document.getElementById('searchInput');
+        if (container && input && !container.contains(e.target) && e.target !== input) {
+            container.style.display = "none";
+        }
+        
+        const containerTop = document.getElementById('resultContainerTop');
+        const inputTop = document.getElementById('searchInputTop');
+        if (containerTop && inputTop && !containerTop.contains(e.target) && e.target !== inputTop) {
+            containerTop.style.display = "none";
+        }
+    });
+</script>
+
+<div class="trending-container">
+    <div class="trending-header">
+        <div class="trending-title">
+            <span class="search-icon">🔍</span> Today's Most Viewed  Quiz 
+        </div>
+        <div class="trending-logo">Chosen by our 150,000 Facebook Followers</div>
+    </div>
+    <div id="trending-grid" class="trending-grid"></div>
+    <div class="alphabet-index-title" style="opacity: 0.4;"> Browse Words Alphabetically (A-Z)</div>
+    <div id="alphabet-tabs" class="alphabet-tabs"></div>
+    <div id="alphabet-word-list" class="alphabet-word-list"></div>
+</div>
+
+<style>
+/* 1. 트렌딩 전체 외곽 박스 고정 */
+.trending-container { 
+    display: block !important; 
+    clear: both !important; 
+    float: none !important; 
+    width: 100% !important; 
+    max-width: 600px !important; 
+    margin: 30px auto 20px auto !important; 
+    background: #ffffff !important; 
+    border: 1px solid #e2e8f0 !important; 
+    border-radius: 8px !important; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important; 
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif !important; 
+    overflow: hidden !important; 
+    box-sizing: border-box !important; 
+}
+
+/* 2. 🚨 목록 영역 내부 스크롤 강력 고정 (가로 쪼개짐 원천 차단) */
+.trending-grid { 
+    display: block !important;          /* grid 속성을 해제하고 block으로 강제 수직화 */
+    width: 100% !important;
+    height: 320px !important;           /* 높이를 딱 고정 */
+    max-height: 320px !important; 
+    overflow-y: scroll !important;       /* 세로 스크롤바 강제 활성화 */
+    overflow-x: hidden !important;       /* 좌우 탈출 차단 */
+    box-sizing: border-box !important; 
+    -webkit-overflow-scrolling: touch; 
+    padding: 10px 0 !important;
+}
+
+/* 3. 🚨 내부 링크 아이템을 무조건 전체 가로 너비를 다 먹는 한 줄 블록으로 고정 */
+.trending-item {
+    display: flex !important;           /* 내부 랭킹, 글자, 화살표 정렬용 */
+    align-items: center !important;
+    width: 100% !important;             /* 가로 반반 절대 안 쪼개지게 100% 꽉 채움 */
+    max-width: 100% !important;
+    padding: 12px 16px !important;
+    box-sizing: border-box !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.rank-num {
+    font-weight: bold !important;
+    color: #64748b !important;
+    margin-right: 15px !important;
+    width: 24px !important;
+    flex-shrink: 0 !important;
+}
+
+.word-text { 
+    font-size: 1.05rem !important; 
+    color: #334155 !important; 
+    font-weight: 500 !important; 
+    flex-grow: 1 !important; 
+    white-space: nowrap !important; 
+    overflow: hidden !important; 
+    text-overflow: ellipsis !important; /* 글자가 박스를 넘어가면 ... 처리 */
+    text-align: left !important;
+}
+
+.word-update { animation: rankBounce 0.5s ease-in-out !important; }
+@keyframes rankBounce { 0% { transform: translateY(3px); opacity: 0.7; } 100% { transform: translateY(0); opacity: 1; } }
+.status-icon { font-size: 1.1rem !important; font-weight: bold !important; width: 20px !important; text-align: right !important; flex-shrink: 0 !important; }
+.status-up { color: #dc2626 !important; } .status-down { color: #2563eb !important; } .status-same { color: #94a3b8 !important; }
+
+.alphabet-index-title { padding: 20px 16px 5px 16px !important; font-size: 0.75rem !important; font-weight: 500 !important; color: #cbd5e1 !important; text-transform: uppercase !important; letter-spacing: 1px !important; box-sizing: border-box !important; }
+.alphabet-tabs { display: flex !important; flex-wrap: wrap !important; gap: 2px !important; padding: 4px 16px !important; background: transparent !important; box-sizing: border-box !important; }
+.tab-btn { padding: 4px 6px !important; background: transparent !important; border: none !important; font-size: 0.75rem !important; font-weight: 500 !important; color: #cbd5e1 !important; opacity: 0.4 !important; cursor: pointer !important; transition: all 0.2s ease !important; }
+.tab-btn:hover { color: #94a3b8 !important; opacity: 1 !important; }
+.tab-btn.active { background: #f1f5f9 !important; color: #64748b !important; opacity: 1 !important; font-weight: bold !important; border-radius: 3px !important; }
+
+/* 알파벳 연동 리스트도 고정 */
+.alphabet-word-list { 
+    display: none; 
+    grid-template-columns: 1fr !important; 
+    background: #fafafa !important; 
+    border-top: 1px dashed #f1f5f9 !important; 
+    max-height: 150px !important; 
+    overflow-y: auto !important; 
+    box-sizing: border-box !important; 
+}
+.word-link-item { padding: 8px 16px !important; font-size: 0.8rem !important; color: #d1d5db !important; text-decoration: none !important; display: block !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; transition: all 0.2s !important; }
+.word-link-item:hover { background: #f1f5f9 !important; color: #0073e6 !important; text-decoration: none !important; }
+.no-words { grid-column: span 1 !important; padding: 15px !important; text-align: center !important; color: #e2e8f0 !important; font-size: 0.8rem !important; }
+
+/* 모바일 통합 반응형 */
+@media (max-width: 768px) {
+    /* 1. 최상위 부모가 flex나 grid로 잡혀있을 경우를 원천 차단하여 세로로 배치 */
+    body, 
+    main, 
+    .wrapper, 
+    .container, 
+    .main-container,
+    .app-container {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    /* 2. 기존 내부 컨테이너 세로 배치 */
+    .quiz-app, 
+    .content-area,
+    div[class*="-container"] { 
+        display: block !important; 
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. 메뉴 및 트렌딩 영역 강제 1단 배치 */
+    #menu-screen {
+        width: 100% !important;
+        float: none !important;
+        display: block !important;
+        box-sizing: border-box !important;
+    }
+    
+    .trending-container { 
+        display: block !important; 
+        width: 100% !important; 
+        max-width: 100% !important; 
+        margin: 20px 0 !important; 
+        box-sizing: border-box !important;
+    }
+}
+</style>
+
+<script>
+let trendingWords = [];
+let currentSelectedLetter = null;
+
+function initTrendingData() {
+    const sourceData = (typeof quizDB !== 'undefined') ? quizDB : [];
+    if (sourceData.length === 0) return;
+    let processed = sourceData.map(item => {
+        const states = ["up", "down", "same"];
+        const firstLetter = item.title.trim().charAt(0).toUpperCase();
+        return { word: item.title, file: item.url || "index.html", sortingKey: firstLetter, change: states[Math.floor(Math.random() * states.length)] };
+    });
+    processed.sort(() => Math.random() - 0.5);
+    trendingWords = processed.map((item, idx) => ({ ...item, rank: idx + 1 }));
+}
+
+function renderTrendingChart() {
+    const gridContainer = document.getElementById('trending-grid');
+    if (!gridContainer || trendingWords.length === 0) return;
+    const sortedWords = [...trendingWords].sort((a, b) => a.rank - b.rank);
+    const displayWords = sortedWords.slice(0, 12); 
+    let gridHtml = "";
+    displayWords.forEach(item => {
+        let arrow = "—"; let statusClass = "status-same";
+        if (item.change === "up") { arrow = "↑"; statusClass = "status-up"; }
+        else if (item.change === "down") { arrow = "↓"; statusClass = "status-down"; }
+        gridHtml += `<a href="${item.file}" class="trending-item"><span class="rank-num">${item.rank}</span><span class="word-text word-update">${item.word}</span><span class="status-icon ${statusClass}">${arrow}</span></a>`;
+    });
+    gridContainer.innerHTML = gridHtml;
+    setTimeout(() => { document.querySelectorAll('.word-text').forEach(el => el.classList.remove('word-update')); }, 500);
+}
+
+function initAlphabetTabs() {
+    const tabsContainer = document.getElementById('alphabet-tabs');
+    if (!tabsContainer) return;
+    let tabsHtml = "";
+    for (let i = 65; i <= 90; i++) {
+        const letter = String.fromCharCode(i);
+        tabsHtml += `<button class="tab-btn" onclick="selectAlphabet('${letter}')">${letter}</button>`;
+    }
+    tabsContainer.innerHTML = tabsHtml;
+}
+
+function selectAlphabet(letter) {
+    currentSelectedLetter = letter;
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        if (btn.textContent === letter) btn.classList.add('active');
+        else btn.classList.remove('active');
+    });
+    renderAlphabetWordList();
+}
+
+function renderAlphabetWordList() {
+    const listContainer = document.getElementById('alphabet-word-list');
+    if (!listContainer || !currentSelectedLetter) return;
+    const filtered = trendingWords.filter(item => item.sortingKey === currentSelectedLetter).sort((a, b) => a.word.localeCompare(b.word));
+    listContainer.style.display = 'grid';
+    if (filtered.length === 0) {
+        listContainer.innerHTML = `<div class="no-words">No words starting with '${currentSelectedLetter}' yet.</div>`;
+        return;
+    }
+    let listHtml = "";
+    filtered.forEach(item => { listHtml += `<a href="${item.file}" class="word-link-item">🔤 ${item.word}</a>`; });
+    listContainer.innerHTML = listHtml;
+}
+
+function simulateLiveChart() {
+    setInterval(() => {
+        if (trendingWords.length === 0) return;
+        const randomIndex = Math.floor(Math.random() * Math.min(12, trendingWords.length));
+        const states = ["up", "down", "same"];
+        trendingWords[randomIndex].change = states[Math.floor(Math.random() * states.length)];
+        renderTrendingChart();
+    }, 3000);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    initTrendingData();
+    renderTrendingChart();
+    initAlphabetTabs();
+    simulateLiveChart();
+});
+</script>
+<div class="kfree-info-footer">
+    <div class="kfree-info-container">
+        <h2 class="kfree-info-title">🇰🇷 K-Free Site Information</h2>
+
+        <!-- 메뉴를 한 줄로 배치 -->
+        <div class="kfree-info-tabs">
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('about')">About Us</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('privacy')">Privacy Policy</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('terms')">Terms of Service</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('contact')">Contact & Disclaimer</button>
+        </div>
+
+        <!-- 클릭 시 나타나는 상세 내용 영역 -->
+        <div id="kfree-content-about" class="kfree-info-content">
+            <p>K-Free is a free Korean learning website created for beginners around the world. You can learn Korean vocabulary, useful daily expressions, pronunciation, listening, and speaking through interactive quizzes. The website provides over 3,000 Korean words and 1,000 practical Korean sentences.</p>
+        </div>
+
+        <div id="kfree-content-privacy" class="kfree-info-content">
+            <p>K-Free uses Google Analytics to improve website performance and user experience. No personal information is collected or sold. Cookies may be used for analytics and website functionality.</p>
+        </div>
+
+        <div id="kfree-content-terms" class="kfree-info-content">
+            <p>All learning materials are provided free for educational purposes. Users may use this website for personal learning only. Copying or redistributing website content without permission is not allowed.</p>
+        </div>
+
+        <div id="kfree-content-contact" class="kfree-info-content">
+            <p>For questions or feedback, please contact us by email: <a href="mailto:topkcc@gmail.com">topkcc@gmail.com</a></p>
+            <p class="kfree-disclaimer">This website is intended for educational purposes only. Although we try to provide accurate Korean language content, mistakes may occur. Learning results may vary depending on each learner.</p>
+        </div>
+
+        <div class="kfree-copyright">
+            <p>© 2026 K-Free | Free Korean Learning Website</p>
+        </div>
+    </div>
+</div>
+
+<script>
+// 클릭 시 내용을 켜고 끄는 함수
+function toggleKFreeInfo(section) {
+    const target = document.getElementById(`kfree-content-${section}`);
+    const allContents = document.querySelectorAll('.kfree-info-content');
+    const allButtons = document.querySelectorAll('.kfree-tab-btn');
+    
+    // 이미 열려있는 것을 다시 누르면 닫기
+    if (target.classList.contains('active')) {
+        target.classList.remove('active');
+        event.target.classList.remove('active');
+        return;
+    }
+
+    // 다른 열려있는 세션들 모두 닫기
+    allContents.forEach(content => content.classList.remove('active'));
+    allButtons.forEach(btn => btn.classList.remove('active'));
+
+    // 선택한 세션만 열기
+    target.classList.add('active');
+    event.target.classList.add('active');
+}
+</script>
+
+<style>
+/* 독립된 고유 푸터 스타일 */
+.kfree-info-footer {
+    width: 100%;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e7eb;
+    padding: 30px 20px;
+    margin-top: 60px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+.kfree-info-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.kfree-info-title {
+    font-size: 18px;
+    color: #4285f4;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+/* 4개 메뉴를 한 줄로 정렬 */
+.kfree-info-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap; /* 모바일에서 좁아지면 자연스럽게 내려가도록 설정 */
+    margin-bottom: 15px;
+}
+.kfree-tab-btn {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #4b5563;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.kfree-tab-btn:hover {
+    background: #f3f4f6;
+    color: #2563eb;
+    border-color: #2563eb;
+}
+.kfree-tab-btn.active {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+}
+/* 상세 내용 기본 숨김 처리 및 애니메이션 효과 */
+.kfree-info-content {
+    display: none;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    margin-top: 10px;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+.kfree-info-content.active {
+    display: block;
+    animation: fadeInKFree 0.3s ease-in-out;
+}
+.kfree-info-content p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: #4a5568;
+    margin: 0;
+}
+.kfree-info-content a {
+    color: #4285f4;
+    text-decoration: none;
+    font-weight: bold;
+}
+.kfree-info-content a:hover {
+    text-decoration: underline;
+}
+.kfree-disclaimer {
+    font-size: 12px !important;
+    color: #718096 !important;
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 10px;
+    margin-top: 10px !important;
+}
+.kfree-copyright {
+    text-align: center;
+    color: #a0aec0;
+    font-size: 12px;
+    margin-top: 25px;
+    border-top: 1px solid #edf2f7;
+    padding-top: 15px;
+}
+@keyframes fadeInKFree {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* 모바일 화면 대응 */
+@media (max-width: 600px) {
+    .kfree-info-tabs {
+        gap: 8px;
+    }
+    .kfree-tab-btn {
+        font-size: 12px;
+        padding: 8px 12px;
+        flex: 1 1 calc(50% - 8px); /* 모바일에서는 2개씩 깔끔하게 정렬 */
+        text-align: center;
+    }
+}
+</style>
+
+ <form name="daily-korean-subscribe" method="POST" data-netlify="true" hidden>
+  <input type="email" name="email">
+</form>
+    
 </body>
 </html>
