@@ -1364,3 +1364,21 @@ function injectQuizSchema(data) {
     script.text = JSON.stringify(schemaData);
     document.head.appendChild(script);
 }
+// 자바스크립트(.js) 파일에 넣을 때는 태그 없이 이렇게만!
+function toggleKFreeInfo(section) {
+    const allContents = document.querySelectorAll('.kfree-info-content');
+    const allButtons = document.querySelectorAll('.kfree-tab-btn');
+    
+    allContents.forEach(content => content.classList.remove('active'));
+    allButtons.forEach(btn => btn.classList.remove('active'));
+
+    const targetContent = document.getElementById('kfree-content-' + section);
+    if (targetContent) {
+        targetContent.classList.add('active');
+    }
+
+    const targetButton = document.querySelector(`button[onclick="toggleKFreeInfo('${section}')"]`);
+    if (targetButton) {
+        targetButton.classList.add('active');
+    }
+}
