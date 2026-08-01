@@ -18,7 +18,7 @@
 
 <link rel="canonical" href="https://pyeon123.github.io/ktest000/family.html" />
 
-    <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -109,7 +109,7 @@
             <div style="text-align: center; font-size: 0.9rem; font-weight: bold; color: #64748b;">
                 1,000+ Essential Korean sentences / free
             </div>
-            <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
+            <a href="https://k-sentence.netlify.app/" target="_blank" class="wide-slim-banner"></a>
         </div>
 
         <div id="quiz-screen" class="quiz-screen">
@@ -140,10 +140,13 @@
             <div id="feedback" style="height: 35px; font-weight: 900; font-size: 1.4rem; margin-bottom: 10px; text-align: center;"></div>
             <div class="options-container" id="options-container"></div>
 
-            <div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: 25px;">
-                <button class="back-link" style="margin-top: 0;" onclick="goHome()">🏠 HOME</button>
-                <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
-            </div>
+            <div style="text-align:center; margin-top:18px; margin-bottom:8px; font-size:13px; color:#666; font-weight:500;">
+    💡 Click the correct answer to view a detailed explanation.
+</div>
+<div style="display: flex; gap: 10px; justify-content: center; width: 100%; margin-top: 0;">
+    <button class="back-link" style="margin-top: 0;" onclick="goHome()">🏠 HOME</button>
+    <button class="back-link hint-btn" style="margin-top: 0;" onclick="showCorrectAnswer()">💡 Answer</button>
+</div>
             
             <div class="control-panel" style="text-align: center; margin: 25px auto; width: 100%; max-width: 600px; position: relative; z-index: 1000;">
                 <div class="game-ad-bar">
@@ -154,7 +157,7 @@
                 </div>
                 <br>
                 <div style="font-size: 0.9rem; font-weight: bold; color: #64748b;">1,000+ Essential Korean sentences / free</div>
-                <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
+                <a href="https://k-sentence.netlify.app/" target="_blank" class="wide-slim-banner"></a>
             </div>
         </div>
 
@@ -179,191 +182,10 @@
         <span class="menu-label">E-mail</span>
     </button>
 </div>
-
 <script>
-  (function() {
-      // [주소창 강제 가로채기 해킹 차단 및 고정]
-      // 외부 스크립트가 어떤 값(cat_feelings, cat_friend 등)으로 주소를 바꾸려 해도 강제로 cat_family로 고정합니다.
-      const interceptAndForceFamily = (url) => {
-          if (!url || typeof url !== 'string') return url;
-          return url.replace(/cat_feelings|cat_friend/g, 'cat_family');
-      };
-
-      const originalReplaceState = history.replaceState;
-      history.replaceState = function(state, title, url) {
-          return originalReplaceState.apply(this, [state, title, interceptAndForceFamily(url)]);
-      };
-
-      const originalPushState = history.pushState;
-      history.pushState = function(state, title, url) {
-          return originalPushState.apply(this, [state, title, interceptAndForceFamily(url)]);
-      };
-
-      // 첫 진입 시 주소창 기본 파라미터 세팅
-      if (!window.location.search.includes('cat=cat_family')) {
-          history.replaceState(null, '', '?cat=cat_family');
-      }
-
-const familyData = {
-    "id": "family",
-    "emoji": "🏠",
-    "name": "Family (Nouns)",
-    "data": [
-        {
-            "kr": "가족",
-            "rom": "ga-jok",
-            "en": "Family",
-            "tip": "When you think about people you live with, eat meals with, and spend holidays together with, this word naturally comes to mind.",
-            "situation": "In Korean culture, family is considered one of the most important parts of life and emotional support. Many Korean families eat meals together daily and gather during major holidays like Chuseok and Lunar New Year. Family members often stay closely connected even after becoming adults. Respect for parents and caring for family members are deeply rooted values in Korean society.",
-            "forms": {
-                "casual": "가족이야 (ga-jok-i-ya)",
-                "polite": "가족이에요 / 가족입니다 (ga-jok-i-e-yo / ga-jok-im-ni-da)"
-            },
-            "examples": [
-                { "kr": "가족이랑 밥 McCo어", "en": "I ate with my family", "rom": "ga-jok-i-rang bap meok-eo-sseo" },
-                { "kr": "가족 만나러 갔어", "en": "I went to see my family", "rom": "ga-jok man-na-reo gat-sseo" },
-                { "kr": "가족 보고 싶어", "en": "I miss my family", "rom": "ga-jok bo-go si-peo" }
-            ],
-            "options": [
-                { "kr": "친구", "en": "Friend", "rom": "chin-gu" },
-                { "kr": "동료", "en": "Colleague", "rom": "dong-ryo" },
-                { "kr": "친척", "en": "Relative", "rom": "chin-cheok" }
-            ]
-        },
-
-        {
-            "kr": "부모님",
-            "rom": "bu-mo-nim",
-            "en": "Parents",
-            "tip": "When you think about the people who raised you, worried about you, and supported you growing up, this word often appears.",
-            "situation": "In Korean culture, parents are treated with strong respect and gratitude. Many people contact their parents frequently even after moving out or getting married. Family responsibility and caring for parents are considered important social values. Korean conversations often include topics about parents, family meals, and visiting home during holidays.",
-            "forms": {
-                "casual": "부모님이야 (bu-mo-nim-i-ya)",
-                "polite": "부모님이에요 / 부모님입니다 (bu-mo-nim-i-e-yo / bu-mo-nim-im-ni-da)"
-            },
-            "examples": [
-                { "kr": "부모님이랑 통화했어", "en": "I talked with my parents", "rom": "bu-mo-nim-i-rang tong-hwa-haess-eo" },
-                { "kr": "부모님 집 갔어", "en": "I went to my parents' house", "rom": "bu-mo-nim jip gat-sseo" },
-                { "kr": "부모님 보고 싶어", "en": "I miss my parents", "rom": "bu-mo-nim bo-go si-peo" }
-            ],
-            "options": [
-                { "kr": "친구", "en": "Friend", "rom": "chin-gu" },
-                { "kr": "선생님", "en": "Teacher", "rom": "seon-saeng-nim" },
-                { "kr": "동료", "en": "Colleague", "rom": "dong-ryo" }
-            ]
-        },
-
-        {
-            "kr": "친척",
-            "rom": "chin-cheok",
-            "en": "Relative",
-            "tip": "When you think about meeting extended family during holidays or family gatherings, this word usually comes to mind.",
-            "situation": "In Korea, relatives often gather together during traditional holidays such as Chuseok and Lunar New Year. These gatherings are important cultural events where families eat together, talk, and maintain close family connections. Relationships with relatives are considered part of long-term family responsibility and social connection.",
-            "forms": {
-                "casual": "친척이야 (chin-cheok-i-ya)",
-                "polite": "친척이에요 / 친척입니다 (chin-cheok-i-e-yo / chin-cheok-im-ni-da)"
-            },
-            "examples": [
-                { "kr": "친척 집 갔어", "en": "I went to my relative's house", "rom": "chin-cheok jip gat-sseo" },
-                { "kr": "친척 만났어", "en": "I met my relatives", "rom": "chin-cheok man-nat-eo" },
-                { "kr": "친척이 많이 왔어", "en": "Many relatives came", "rom": "chin-cheok-i ma-ni wa-sseo" }
-            ],
-            "options": [
-                { "kr": "가족", "en": "Family", "rom": "ga-jok" },
-                { "kr": "동료", "en": "Colleague", "rom": "dong-ryo" },
-                { "kr": "친구", "en": "Friend", "rom": "chin-gu" }
-            ]
-        },
-
-        {
-            "kr": "형제",
-            "rom": "hyeong-je",
-            "en": "Siblings",
-            "tip": "When you think about brothers or sisters growing up together in the same house, this word naturally appears.",
-            "situation": "Sibling relationships in Korea are usually very close because children often grow up spending a lot of time together at home and school. Korean culture also places importance on age hierarchy between siblings, which affects speech style and behavior. Older siblings are often expected to take care of younger ones, while younger siblings show respect to older siblings.",
-            "forms": {
-                "casual": "형제야 (hyeong-je-ya)",
-                "polite": "형제예요 / 형제입니다 (hyeong-je-ye-yo / hyeong-je-im-ni-da)"
-            },
-            "examples": [
-                { "kr": "형제랑 놀았어", "en": "I played with my siblings", "rom": "hyeong-je-rang nol-at-sseo" },
-                { "kr": "형제랑 싸웠어", "en": "I fought with my siblings", "rom": "hyeong-je-rang ssa-woss-eo" },
-                { "kr": "형제가 많아", "en": "I have many siblings", "rom": "hyeong-je-ga ma-na" }
-            ],
-            "options": [
-                { "kr": "친척", "en": "Relative", "rom": "chin-cheok" },
-                { "kr": "친구", "en": "Friend", "rom": "chin-gu" },
-                { "kr": "가족", "en": "Family", "rom": "ga-jok" }
-            ]
-        }
-    ]
-};
-      // 3. [변수 고정] CURRENT_CAT을 'cat_family'로 영원히 고정
-      Object.defineProperty(window, 'CURRENT_CAT', {
-          get() { return 'cat_family'; },
-          set() { },
-          configurable: false
-      });
-
-      // 4. [3중 데이터 보호막] 외부 스크립트가 어떤 키값으로 데이터를 조회하든
-      // 완벽하게 가족 명사(familyData)를 강제로 공급하도록 세팅합니다.
-      let safeDataStore = { 
-          'cat_family': familyData,
-          'cat_friend': familyData,
-          'cat_feelings': familyData 
-      };
-      
-      Object.defineProperty(window, 'allQuizData', {
-          get() { return safeDataStore; },
-          set(newValue) {
-              if (newValue && typeof newValue === 'object') {
-                  Object.assign(safeDataStore, newValue);
-                  safeDataStore['cat_family'] = familyData;
-                  safeDataStore['cat_friend'] = familyData;
-                  safeDataStore['cat_feelings'] = familyData; // 강제 병합 및 유지 보장
-              }
-          },
-          configurable: false
-      });
-
-      // 5. [강제 화면 분쇄 루프] 대기 화면을 지우고 퀴즈 화면을 강제로 활성화
-      let executionTicks = 0;
-      const forceEngineLoop = setInterval(() => {
-          executionTicks++;
-          const menu = document.getElementById('menu-screen');
-          const quiz = document.getElementById('quiz-screen');
-
-          if (menu) {
-              menu.classList.remove('active');
-              menu.style.setProperty('display', 'none', 'important');
-          }
-          if (quiz) {
-              quiz.classList.add('active');
-              quiz.style.setProperty('display', 'block', 'important');
-          }
-
-          // 원본 엔진 함수 강제 기동
-          if (typeof startQuiz === 'function') {
-              try { startQuiz('cat_family', false); } catch(e){
-                  try { startQuiz('cat_friend', false); } catch(err){}
-              }
-          }
-          if (typeof loadQuiz === 'function') {
-              try { loadQuiz(true); } catch(e){}
-          }
-
-          // 확실하게 화면이 전환되면 감시 루프 종료 (최대 3초간 실행)
-          if (executionTicks > 60 || (quiz && quiz.classList.contains('active') && (!menu || !menu.classList.contains('active')))) {
-              clearInterval(forceEngineLoop);
-          }
-      }, 50);
-
-      // 홈으로 가기 리셋 차단
-      window.goHome = function() {
-          if (typeof startQuiz === 'function') startQuiz('cat_family', false);
-      };
-  })();
-</script>
+    // 본인의 카테고리 데이터에 맞는 ID를 'cat_01' 자리에 넣으세요
+    const CURRENT_CAT = 'cat_01'; 
+</script>    
 
 <script src="data.js"></script>
 <script src="script.js"></script>
