@@ -1193,3 +1193,15 @@ function injectQuizSchema(data) {
     script.text = JSON.stringify(schemaData);
     document.head.appendChild(script);
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const btn = document.getElementById("aiTutorBtn");
+
+    if(btn){
+        btn.onclick = function(){
+            alert("AI Tutor Coming Soon!");
+        };
+    }
+
+});
