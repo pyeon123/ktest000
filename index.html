@@ -773,11 +773,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <!-- 메뉴를 한 줄로 배치 -->
         <div class="kfree-info-tabs">
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('about')">About Us</button>
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('privacy')">Privacy Policy</button>
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('terms')">Terms of Service</button>
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('contact')">Contact & Disclaimer</button>
-        </div>
+    <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'about')">About Us</button>
+    <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'privacy')">Privacy Policy</button>
+    <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'terms')">Terms of Service</button>
+    <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'contact')">Contact & Disclaimer</button>
+</div>
 
         <!-- 클릭 시 나타나는 상세 내용 영역 -->
         <div id="kfree-content-about" class="kfree-info-content">
