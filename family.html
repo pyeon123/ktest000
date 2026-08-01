@@ -368,5 +368,208 @@ const familyData = {
 <script src="data.js"></script>
 <script src="script.js"></script>
 
+<style>
+    body {
+        display: block !important;
+    }
+</style>
+
+<div class="control-panel" style="clear: both !important; display: block !important; text-align: center; margin: 25px auto; width: 100%; max-width: 600px; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif;">
+    <div class="trending-container" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: left; margin-bottom: 25px;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin: 0 0 15px 0; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.3rem;">📈</span> Today's Most Viewed Quiz • Chosen by our 150,000 FB Followers
+        </h3>
+        <div id="trending-grid" class="trending-grid" style="display: flex; flex-direction: column !important; gap: 8px; max-height: 380px; overflow-y: auto; overflow-x: hidden; padding-right: 4px;">
+            </div>
+    </div>
+
+    <div class="alphabet-container" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); text-align: left; margin-bottom: 25px;">
+        <h3 style="font-size: 1.15rem; font-weight: 800; color: #1e293b; margin: 0 0 12px 0; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1.3rem;">🔤</span> Browse Words/Sentences Alphabetically  
+        </h3>
+        <div id="alphabet-tabs" class="alphabet-tabs" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px;">
+            </div>
+        <div id="alphabet-word-list" class="alphabet-word-list" style="display: none; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; background: #f8fafc; border-radius: 12px; padding: 15px; border: 1px dashed #cbd5e1; max-height: 250px; overflow-y: auto;">
+            </div>
+    </div>
+
+    <div class="kfree-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; margin-top: 30px; text-align: center;">
+        <div class="kfree-tabs" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-bottom: 15px;">
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('about')" style="padding: 8px 14px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s; font-family: inherit;">About Us</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('privacy')" style="padding: 8px 14px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s; font-family: inherit;">Privacy Policy</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('terms')" style="padding: 8px 14px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s; font-family: inherit;">Terms of Service</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('contact')" style="padding: 8px 14px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: #475569; cursor: pointer; transition: all 0.2s; font-family: inherit;">Contact & Disclaimer</button>
+        </div>
+        
+        <div id="kfree-content-about" class="kfree-info-content" style="display: none; text-align: left; background: #ffffff; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 10px;">
+            Welcome to K-Free! We provide 100% free, high-quality interactive Korean learning games and quizzes. Master daily vocabulary, real-life conversation, and proper pronunciation effortlessly.
+        </div>
+        <div id="kfree-content-privacy" class="kfree-info-content" style="display: none; text-align: left; background: #ffffff; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 10px;">
+            We value your privacy. K-Free does not collect personal identifiers. Google Analytics (G-8QTRE4CGNE) is used strictly to analyze traffic and optimize your learning experience.
+        </div>
+        <div id="kfree-content-terms" class="kfree-info-content" style="display: none; text-align: left; background: #ffffff; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 10px;">
+            All gaming content and interactive tools on K-Free are provided free of charge for personal educational purposes. Commercial reproduction of our content or database structural system is prohibited.
+        </div>
+        <div id="kfree-content-contact" class="kfree-info-content" style="display: none; text-align: left; background: #ffffff; padding: 15px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 10px;">
+            For content feedback, partnership inquiries, or error reporting, feel free to contact us via email. Disclaimer: Learning speeds vary by individual; this tool functions as an active helper. topkcc@gmail.com
+        </div>
+        
+        <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 15px;">&copy; 2026 K-Free. All rights reserved.</p>
+    </div>
+</div>
+
+<script>
+    let quizDB = [];
+    let trendingWords = [];
+    let currentSelectedLetter = null;
+
+    // 교체된 데이터 로드 함수
+    async function loadQuizDBFromMain() {
+        try {
+            const response = await fetch('index.html');
+            if (!response.ok) throw new Error('Main page fetch error');
+            const htmlText = await response.text();
+            
+            const regex = /const\s+quizDB\s*=\s*(\[\s*\{[\s\S]*?\}\s*\])/;
+            const match = htmlText.match(regex);
+            
+            if (match && match[1]) {
+                // 데이터를 안전하게 파싱
+                quizDB = new Function('return ' + match[1])();
+                
+                // 데이터 로드 후 관련 초기화 함수들 호출
+                initTrendingData(); 
+                renderTrendingChart();
+                initAlphabetTabs();
+                simulateLiveChart();
+                console.log("데이터 로드 및 초기화 완료");
+            }
+        } catch (e) {
+            console.error("데이터 로드 실패:", e);
+        }
+    }
+
+    function initTrendingData() {
+        if (quizDB.length === 0) return;
+        let processed = quizDB.map(item => {
+            const states = ["up", "down", "same"];
+            const firstLetter = item.title.trim().charAt(0).toUpperCase();
+            return {
+                word: item.title,
+                file: item.url || "index.html",
+                sortingKey: firstLetter,
+                change: states[Math.floor(Math.random() * states.length)]
+            };
+        });
+        processed.sort(() => Math.random() - 0.5);
+        trendingWords = processed.map((item, idx) => ({ ...item, rank: idx + 1 }));
+    }
+
+    function renderTrendingChart() {
+        const gridContainer = document.getElementById('trending-grid');
+        if (!gridContainer || trendingWords.length === 0) return;
+        const displayWords = [...trendingWords].sort((a, b) => a.rank - b.rank).slice(0, 12);
+        let gridHtml = "";
+        displayWords.forEach(item => {
+            let arrow = "—"; 
+            let color = "#94a3b8";
+            if (item.change === "up") { arrow = "↑"; color = "#ef4444"; }
+            else if (item.change === "down") { arrow = "↓"; color = "#3b82f6"; }
+            
+            gridHtml += `
+                <a href="${item.file}" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; text-decoration: none; color: #333; transition: background 0.2s;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-weight: 800; color: #4f46e5; font-size: 1rem; width: 20px;">${item.rank}</span>
+                        <span style="font-weight: 700; color: #334155; font-size: 0.95rem;">${item.word}</span>
+                    </div>
+                    <span style="font-weight: 900; color: ${color}; font-size: 1rem;">${arrow}</span>
+                </a>`;
+        });
+        gridContainer.innerHTML = gridHtml;
+    }
+
+    function initAlphabetTabs() {
+        const tabsContainer = document.getElementById('alphabet-tabs');
+        if (!tabsContainer) return;
+        let tabsHtml = "";
+        for (let i = 65; i <= 90; i++) {
+            const letter = String.fromCharCode(i);
+            tabsHtml += `<button class="tab-btn" onclick="selectAlphabet('${letter}')" style="padding: 6px 10px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; font-weight: 700; color: #475569; cursor: pointer; transition: all 0.15s; font-family: inherit;">${letter}</button>`;
+        }
+        tabsContainer.innerHTML = tabsHtml;
+    }
+
+    function selectAlphabet(letter) {
+        currentSelectedLetter = letter;
+        const buttons = document.querySelectorAll('#alphabet-tabs .tab-btn');
+        buttons.forEach(btn => {
+            if (btn.textContent === letter) {
+                btn.style.background = "#4f46e5";
+                btn.style.color = "#ffffff";
+                btn.style.borderColor = "#4f46e5";
+            } else {
+                btn.style.background = "#ffffff";
+                btn.style.color = "#475569";
+                btn.style.borderColor = "#cbd5e1";
+            }
+        });
+        renderAlphabetWordList();
+    }
+
+    function renderAlphabetWordList() {
+        const listContainer = document.getElementById('alphabet-word-list');
+        if (!listContainer || !currentSelectedLetter) return;
+        const filtered = trendingWords.filter(item => item.sortingKey === currentSelectedLetter).sort((a, b) => a.word.localeCompare(b.word));
+        listContainer.style.display = 'grid';
+        if (filtered.length === 0) {
+            listContainer.innerHTML = `<div style="grid-column: 1/-1; color: #94a3b8; font-size: 0.9rem; text-align: center; padding: 10px 0;">No quizzes found for '${currentSelectedLetter}'</div>`;
+            return;
+        }
+        let listHtml = "";
+        filtered.forEach(item => { 
+            listHtml += `<a href="${item.file}" style="display: block; padding: 8px 10px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 6px; text-decoration: none; color: #475569; font-size: 0.85rem; font-weight: 600; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">🔤 ${item.word}</a>`; 
+        });
+        listContainer.innerHTML = listHtml;
+    }
+
+    function simulateLiveChart() {
+        setInterval(() => {
+            if (trendingWords.length === 0) return;
+            const randomIndex = Math.floor(Math.random() * Math.min(12, trendingWords.length));
+            const states = ["up", "down", "same"];
+            trendingWords[randomIndex].change = states[Math.floor(Math.random() * states.length)];
+            renderTrendingChart();
+        }, 3000);
+    }
+
+    function toggleKFreeInfo(section) {
+        const target = document.getElementById(`kfree-content-${section}`);
+        const allContents = document.querySelectorAll('.kfree-info-content');
+        const allButtons = document.querySelectorAll('.kfree-tab-btn');
+        
+        if (target.style.display === 'block') {
+            target.style.display = 'none';
+            if (event && event.target) {
+                event.target.style.background = '#ffffff';
+                event.target.style.color = '#475569';
+            }
+            return;
+        }
+        allContents.forEach(content => content.style.display = 'none');
+        allButtons.forEach(btn => {
+            btn.style.background = '#ffffff';
+            btn.style.color = '#475569';
+        });
+        target.style.display = 'block';
+        if (event && event.target) {
+            event.target.style.background = '#4f46e5';
+            event.target.style.color = '#ffffff';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        loadQuizDBFromMain();
+    });
+</script>
 </body>
 </html>
