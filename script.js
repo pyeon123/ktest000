@@ -17,7 +17,7 @@ let todayQuizData = null;
 const recognition = (window.SpeechRecognition || window.webkitSpeechRecognition) ? new (window.SpeechRecognition || window.webkitSpeechRecognition)() : null;
 if (recognition) { recognition.lang = 'ko-KR'; }
 
-// 🌐 [전역화] 관련 퀴즈(Related) 추천 + My Review List 기능이 공통으로 참조하는 데이터
+// 🌐 [전역화] 관련 퀴즈(Related) 추천 + My Review List 기능이 공통으로 참조하는 데이터[cite: 2]
 const quizDB = [
     { title: "Academy", url: "academy.html", keywords: "academy school study education" },
     { title: "Airplane", url: "airplane.html", keywords: "airplane flight travel sky" },
@@ -244,7 +244,7 @@ function updateSEOData(catId) {
         return;
     }
 
-    const cat = quizDB[catId];
+    const cat = allQuizData[catId];
     if (cat) {
         document.getElementById('main-header').innerText = cat.name.trim();
         injectSafeSEOData(catId);
@@ -262,8 +262,8 @@ function injectSafeSEOData(specificCatId) {
     let jsonLdData = {
         "@context": "https://schema.org",
         "@type": "Course",
-        "name": specificCatId ? `${quizDB[specificCatId].name} Korean Vocabulary Quiz` : "Learn Korean Game: 1,000+ Word Quiz",
-        "description": specificCatId ? `Interactive learning for Korean ${quizDB[specificCatId].name} words.` : "Interactive Korean language learning game with real-life vocabulary.",
+        "name": specificCatId ? `${allQuizData[specificCatId].name} Korean Vocabulary Quiz` : "Learn Korean Game: 1,000+ Word Quiz",
+        "description": specificCatId ? `Interactive learning for Korean ${allQuizData[specificCatId].name} words.` : "Interactive Korean language learning game with real-life vocabulary.",
         "provider": {
             "@type": "Organization",
             "name": "Learn korean with korean dramas phrases",
@@ -272,7 +272,7 @@ function injectSafeSEOData(specificCatId) {
         "hasPart": []
     };
 
-    const categoriesToProcess = specificCatId ? { [specificCatId]: quizDB[specificCatId] } : quizDB;
+    const categoriesToProcess = specificCatId ? { [specificCatId]: allQuizData[specificCatId] } : allQuizData;
 
     for (const catKey in categoriesToProcess) {
         const category = categoriesToProcess[catKey];
@@ -324,7 +324,7 @@ function forceExternalBrowser() {
 
 function initMenu() {
     const list = document.getElementById('category-list');
-    if (!list || typeof quizDB === 'undefined') return;
+    if (!list || typeof allQuizData === 'undefined') return;
 
     const fileMapping = {
         "cat_01": "family.html",
@@ -356,8 +356,8 @@ function initMenu() {
     };
 
     let html = "";
-    Object.keys(quizDB).forEach(catId => {
-        const cat = quizDB[catId];
+    Object.keys(allQuizData).forEach(catId => {
+        const cat = allQuizData[catId];
         const targetUrl = fileMapping[catId] || "index.html"; 
 
         html += `
@@ -371,8 +371,8 @@ function initMenu() {
 
 function startQuiz(catId, updateHistory = false) {
     activeCatId = catId;
-    currentCategoryData = quizDB[catId].data;
-    activeCategoryName = quizDB[catId].name; 
+    currentCategoryData = allQuizData[catId].data;
+    activeCategoryName = allQuizData[catId].name; 
 
     if (updateHistory) {
         window.history.pushState({cat: catId}, '', `?cat=${catId}`);
@@ -392,7 +392,7 @@ function loadQuiz(autoSpeak = false) {
     resetRecognitionState();
     const data = currentCategoryData[currentIdx];
     
-    document.getElementById('situation').textContent = `${quizDB[activeCatId].name}`;
+    document.getElementById('situation').textContent = `${allQuizData[activeCatId].name}`;
 
     const tipEl = document.getElementById('category-tip-text');
     if (tipEl) {
@@ -1164,32 +1164,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (window.location.pathname.includes('feelings.html')) {
-        if (typeof quizDB === 'undefined') window.quizDB = {};
+        if (typeof allQuizData === 'undefined') window.allQuizData = {};
         
         if (window.feelingsData) {
-            quizDB['cat_feelings'] = window.feelingsData;
+            allQuizData['cat_feelings'] = window.feelingsData;
         }
         
-        if (quizDB['cat_feelings']) {
+        if (allQuizData['cat_feelings']) {
             window.CURRENT_CAT = 'cat_feelings';
-        } else if (quizDB['cat_11']) {
+        } else if (allQuizData['cat_11']) {
             window.CURRENT_CAT = 'cat_11';
         } else {
-            quizDB['cat_feelings'] = { name: "Feelings", emoji: "😊", data: [] };
+            allQuizData['cat_feelings'] = { name: "Feelings", emoji: "😊", data: [] };
             window.CURRENT_CAT = 'cat_feelings';
         }
     }
 
     renderFavoriteBox();
 
-    if (typeof CURRENT_CAT !== 'undefined' && typeof quizDB !== 'undefined' && quizDB[CURRENT_CAT]) {
+    if (typeof CURRENT_CAT !== 'undefined' && typeof allQuizData !== 'undefined' && allQuizData[CURRENT_CAT]) {
         startQuiz(CURRENT_CAT, false); 
     }  
     else {
         const params = new URLSearchParams(window.location.search);
         const category = params.get('cat'); 
 
-        if (category && typeof quizDB !== 'undefined' && quizDB[category]) {
+        if (category && typeof allQuizData !== 'undefined' && allQuizData[category]) {
             startQuiz(category, false);
         } else {
             initMenu();
