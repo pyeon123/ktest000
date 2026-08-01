@@ -805,7 +805,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script>
 // 클릭 시 내용을 켜고 끄는 함수
-function toggleKFreeInfo(section) {
+function toggleKFreeInfo(event, section) {
     const target = document.getElementById(`kfree-content-${section}`);
     const allContents = document.querySelectorAll('.kfree-info-content');
     const allButtons = document.querySelectorAll('.kfree-tab-btn');
