@@ -356,13 +356,7 @@ function handleSubscribeSubmit(event) {
     return false;
 }
 </script>
-            
-            <div id="search-container-top" style="position: relative; width: 100%; max-width: 500px; margin: 0 auto 25px auto; padding: 0 15px; box-sizing: border-box;">
-                <input type="text" id="searchInputTop" oninput="autoSearchTop()" placeholder="🔍 Enter search term (ex: sky, family)" 
-       style="width: 100%; padding: 28px 25px; border: 2px solid #333; border-radius: 12px; box-sizing: border-box; font-size: 0.90rem; outline: none; transition: border-color 0.3s;"
-       onfocus="this.style.borderColor='#4285f4';" 
-       onblur="this.style.borderColor='#333';">
-<div style="text-align:center; margin:0 auto 45px auto; padding:0 15px; width:100%; max-width:550px; box-sizing:border-box;">
+            <div style="text-align:center; margin:0 auto 20px auto; padding:0 15px; width:100%; max-width:550px; box-sizing:border-box;">
     <button id="aiTutorBtn"
         style="
         padding:20px 15px;
@@ -379,6 +373,13 @@ function handleSubscribeSubmit(event) {
         🤖 AI Korean Tutor (Beta)
     </button>
 </div>
+            
+            <div id="search-container-top" style="position: relative; width: 100%; max-width: 500px; margin: 0 auto 25px auto; padding: 0 15px; box-sizing: border-box;">
+                <input type="text" id="searchInputTop" oninput="autoSearchTop()" placeholder="🔍 Enter search term (ex: sky, family)" 
+       style="width: 100%; padding: 28px 25px; border: 2px solid #333; border-radius: 12px; box-sizing: border-box; font-size: 0.90rem; outline: none; transition: border-color 0.3s;"
+       onfocus="this.style.borderColor='#4285f4';" 
+       onblur="this.style.borderColor='#333';">
+
                 <div id="resultContainerTop" style="display: none; border: 2px solid #333; border-top: none; margin-top: 0; background: white; z-index: 9999; position: absolute; left: 15px; right: 15px; max-height: 400px; overflow-y: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-sizing: border-box;">
                     <ul id="resultsListTop" style="list-style: none; padding: 0; margin: 0;"></ul>
                 </div>
