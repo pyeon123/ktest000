@@ -18,7 +18,12 @@
 body { 
     font-family: 'Pretendard', sans-serif;
     background-color: var(--bg); 
-    margin: 0; padding: 0; display: flex; justify-content: center; min-height: 100vh;
+    margin: 0; padding: 0; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start;
+    min-height: 100vh;
     padding-bottom: 80px !important;
     /* 본문 가림 방지 여백 */
 }
