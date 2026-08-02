@@ -684,7 +684,6 @@ let currentSelectedLetter = null;
 
 function initTrendingData() {
     const sourceData = (typeof quizDB !== 'undefined') ? quizDB : [];
-    alert('quizDB 상태: ' + sourceData.length);  // 🆕 임시 확인용
     if (sourceData.length === 0) return;
     let processed = sourceData.map(item => {
         const states = ["up", "down", "same"];
@@ -708,7 +707,6 @@ function renderTrendingChart() {
         gridHtml += `<a href="${item.file}" class="trending-item"><span class="rank-num">${item.rank}</span><span class="word-text word-update">${item.word}</span><span class="status-icon ${statusClass}">${arrow}</span></a>`;
     });
     gridContainer.innerHTML = gridHtml;
-    alert(gridHtml);   // 🆕 확인용
     setTimeout(() => { document.querySelectorAll('.word-text').forEach(el => el.classList.remove('word-update')); }, 500);
 }
 
