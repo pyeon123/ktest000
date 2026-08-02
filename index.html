@@ -696,6 +696,7 @@ function initTrendingData() {
 
 function renderTrendingChart() {
     const gridContainer = document.getElementById('trending-grid');
+    alert('gridContainer: ' + gridContainer + ' / trendingWords 길이: ' + trendingWords.length);  // 🆕 임시 확인용
     if (!gridContainer || trendingWords.length === 0) return;
     const sortedWords = [...trendingWords].sort((a, b) => a.rank - b.rank);
     const displayWords = sortedWords.slice(0, 12); 
