@@ -886,6 +886,7 @@ let currentSelectedLetter = null;
 
 function initTrendingData() {
     const sourceData = (typeof quizDB !== 'undefined') ? quizDB : [];
+    alert('quizDB 상태: ' + sourceData.length);  // 🆕 임시 확인용
     if (sourceData.length === 0) return;
     let processed = sourceData.map(item => {
         const states = ["up", "down", "same"];
