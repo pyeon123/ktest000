@@ -708,6 +708,7 @@ function renderTrendingChart() {
         gridHtml += `<a href="${item.file}" class="trending-item"><span class="rank-num">${item.rank}</span><span class="word-text word-update">${item.word}</span><span class="status-icon ${statusClass}">${arrow}</span></a>`;
     });
     gridContainer.innerHTML = gridHtml;
+    alert(gridHtml);   // 🆕 확인용
     setTimeout(() => { document.querySelectorAll('.word-text').forEach(el => el.classList.remove('word-update')); }, 500);
 }
 
