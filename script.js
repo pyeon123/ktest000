@@ -17,6 +17,8 @@ let todayQuizData = null;
 const recognition = (window.SpeechRecognition || window.webkitSpeechRecognition) ? new (window.SpeechRecognition || window.webkitSpeechRecognition)() : null;
 if (recognition) { recognition.lang = 'ko-KR'; }
 
+
+
 function shareApp() {
     if (navigator.share) {
         navigator.share({
@@ -32,10 +34,8 @@ function visitFacebook() {
     window.open("https://www.facebook.com/profile.php?id=100091484077264", "_blank");
 }
 
-// 🟢 카테고리별 동적 SEO 업데이트 함수
 function updateSEOData(catId) {
     if (!catId) {
-        // 메인 홈 화면용 기본 SEO
         document.getElementById('seo-title').innerText = "Learn Korean Game: 1,000+ Word Quiz (FREE)";
         document.getElementById('seo-desc').setAttribute("content", "Master Korean through fun interactive games! Challenge yourself with over 1,000 Korean Word quizzes. Perfect for K-Drama fans and learners worldwide.");
         document.getElementById('main-header').innerText = "Learn Korean Game: 1,000+ Word Quiz";
@@ -45,15 +45,11 @@ function updateSEOData(catId) {
 
     const cat = allQuizData[catId];
     if (cat) {
-       
         document.getElementById('main-header').innerText = cat.name.trim();
-        
-        // 🟢 JSON-LD 구조화된 데이터 동적 주입 (원래 기능 절대 누락 없이 그대로 유지!)
         injectSafeSEOData(catId);
     }
 }
 
-// 🟢 JSON-LD 구조화된 데이터 동적 주입
 function injectSafeSEOData(specificCatId) {
     let oldScript = document.getElementById('dynamic-json-ld');
     if(oldScript) oldScript.remove();
@@ -85,7 +81,7 @@ function injectSafeSEOData(specificCatId) {
             "learningResourceType": "Vocabulary List",
             "about": []
         };
-        category.data.slice(0, 10).forEach(item => { // SEO 성능을 위해 최대 10개 항목만 인덱싱
+        category.data.slice(0, 10).forEach(item => {
             categoryResource.about.push({
                 "@type": "DefinedTerm",
                 "termCode": item.en,
@@ -124,9 +120,10 @@ function forceExternalBrowser() {
         window.open(window.location.href, '_blank', 'width=900,height=1050');
     }
 }
+
 function initMenu() {
     const list = document.getElementById('category-list');
-    if (!list) return;
+    if (!list || typeof allQuizData === 'undefined') return;
 
     const fileMapping = {
         "cat_01": "family.html",
@@ -223,8 +220,6 @@ function loadQuiz(autoSpeak = false) {
         container.appendChild(btn);
     });
 
-    // [중요: 여기 한 줄만 추가하세요!]
-    // 기존 data의 kr을 question으로, en을 answer로 매칭해서 보냅니다.
     injectQuizSchema({ question: data.kr, answer: data.en });
 
     if (autoSpeak) { setTimeout(speak, 1000); }
@@ -295,16 +290,187 @@ function renderLearningProgress() {
     }
 }
 
+// =============================
+// ❤️ My Review List
+// =============================
+function toggleFavorite() {
+    const currentFile = window.location.pathname.split("/").pop();
+    const currentItem = quizDB.find(item => item.url === currentFile);
+    if (!currentItem) return;
+
+    let favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
+    const index = favorites.findIndex(x => x.url === currentItem.url);
+
+    if (index === -1) {
+        favorites.push(currentItem);
+    } else {
+        favorites.splice(index, 1);
+    }
+
+    localStorage.setItem("favoriteLessons", JSON.stringify(favorites));
+    updateFavoriteButton();
+    renderFavoriteBox();
+}
+
+function updateFavoriteButton() {
+    const btn = document.getElementById("favorite-btn");
+    if (!btn) return;
+
+    const currentFile = window.location.pathname.split("/").pop();
+    const favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
+    const saved = favorites.some(x => x.url === currentFile);
+
+    if (saved) {
+        btn.innerHTML = "❤️ Saved to My Review List";
+        btn.style.background = "#dc2626";
+        btn.style.color = "#ffffff";
+        btn.style.borderColor = "#dc2626";
+    } else {
+        btn.innerHTML = "🤍 Save to My Review List";
+        btn.style.background = "#ffffff";
+        btn.style.color = "#dc2626";
+        btn.style.borderColor = "#fecaca";
+    }
+}
+
+function renderFavoriteBox() {
+    const box = document.getElementById("favorite-box");
+    if (!box) return;
+
+    const favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
+
+    if (favorites.length === 0) {
+        box.innerHTML = "";
+        return;
+    }
+
+    const showList = favorites.slice(0, 20);
+
+    box.innerHTML = `
+        <div style="
+            width:100%;
+            max-width:500px;
+            margin:20px auto;
+            box-sizing:border-box;
+            background:#fff;
+            border:2px solid #fecaca;
+            border-radius:14px;
+            box-shadow:0 3px 10px rgba(0,0,0,.05);
+            overflow:hidden;
+        ">
+            <button
+                onclick="openFavoriteList()"
+                style="
+                    width:100%;
+                    padding:18px;
+                    border:none;
+                    background:#fff;
+                    cursor:pointer;
+                    font-size:1.1rem;
+                    font-weight:bold;
+                    color:#dc2626;
+                    box-sizing:border-box;
+                ">
+                📖 My Review List (${favorites.length})
+                <span style="float:right;">▼</span>
+            </button>
+
+            <div id="favorite-list-content" style="display:none;">
+                ${showList.map(item => `
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        padding:10px 18px;
+                        border-top:1px solid #eee;
+                    ">
+                        <a href="${item.url}"
+                           style="
+                                flex:1;
+                                text-decoration:none;
+                                color:#2563eb;
+                                font-weight:bold;
+                           ">
+                            📖 ${item.title}
+                        </a>
+                        <span
+                            onclick="removeFavorite('${item.url}')"
+                            title="Remove"
+                            style="
+                                cursor:pointer;
+                                font-size:22px;
+                                margin-left:10px;
+                            ">
+                            ❤️
+                        </span>
+                    </div>
+                `).join("")}
+
+                ${
+                    favorites.length > 20
+                    ? `
+                    <div style="
+                        padding:12px;
+                        text-align:center;
+                        color:#64748b;
+                        font-weight:bold;
+                        border-top:1px solid #eee;
+                    ">
+                        + ${favorites.length - 20} more lessons...
+                    </div>
+                    `
+                    : ""
+                }
+
+                <button
+                    onclick="closeFavoriteList()"
+                    style="
+                        display:block;
+                        width:calc(100% - 36px);
+                        margin:15px auto 18px;
+                        padding:10px;
+                        border:1px solid #fecaca;
+                        border-radius:10px;
+                        background:#fff;
+                        color:#dc2626;
+                        font-weight:bold;
+                        cursor:pointer;
+                    ">
+                    ✕ Close
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+function openFavoriteList() {
+    const content = document.getElementById("favorite-list-content");
+    if (!content) return;
+    content.style.display = "block";
+}
+
+function closeFavoriteList() {
+    const content = document.getElementById("favorite-list-content");
+    if (!content) return;
+    content.style.display = "none";
+}
+
+function removeFavorite(url) {
+    let favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
+    favorites = favorites.filter(x => x.url !== url);
+    localStorage.setItem("favoriteLessons", JSON.stringify(favorites));
+    renderFavoriteBox();
+    updateFavoriteButton();
+}
+
 function checkAnswer(isCorrect, quiz) {
     if (isCorrect) {
-        // 1. 기존 퀴즈 화면 확실하게 가리기
         const quizScreen = document.getElementById('quiz-screen');
         if (quizScreen) {
             quizScreen.classList.remove('active');
             quizScreen.style.display = 'none';
         }
         
-        // 2. 결과 상세창 생성 및 조율
         let detailArea = document.getElementById('detail-area');
         if (!detailArea) {
             detailArea = document.createElement('div');
@@ -319,19 +485,13 @@ function checkAnswer(isCorrect, quiz) {
             }
         }
 
-       
-
         const currentFileName = window.location.pathname.split("/").pop();
-
-        // 현재 페이지 찾기
         const currentItem = quizDB.find(item => item.url === currentFileName);
 
-        // 현재 페이지 키워드
         const currentKeywords = currentItem
             ? currentItem.keywords.toLowerCase().split(" ")
             : [];
 
-        // 키워드 점수 계산
         const relatedList = quizDB
             .filter(item => item.url !== currentFileName)
             .map(item => {
@@ -339,10 +499,9 @@ function checkAnswer(isCorrect, quiz) {
                 const score = words.filter(w => currentKeywords.includes(w)).length;
                 return { ...item, score };
             })
-            .filter(item => item.score > 0)      // 공통 키워드 있는 것만
-            .sort((a, b) => b.score - a.score);  // 점수 높은 순
+            .filter(item => item.score > 0)
+            .sort((a, b) => b.score - a.score);
 
-        // 상위 3개
         const chosenList = relatedList.slice(0, 3);
 
         const recHtml = chosenList.length > 0 ? `
@@ -363,7 +522,29 @@ function checkAnswer(isCorrect, quiz) {
         </div>
         ` : "";
 
-        // 데이터 포맷 유연성 확보
+        // ❤️ My Review List 하트 버튼 (Related 바로 위에 표시)
+        const favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
+        const isSaved = favorites.some(x => x.url === currentFileName);
+
+        const favoriteHtml = `
+            <button id="favorite-btn" onclick="toggleFavorite()" style="
+                display:block;
+                width:100%;
+                margin:0 0 15px 0;
+                padding:12px 24px;
+                font-size:15px;
+                font-weight:bold;
+                border-radius:30px;
+                cursor:pointer;
+                transition:all 0.2s ease;
+                box-shadow:0 4px 10px rgba(0,0,0,0.08);
+                border:2px solid ${isSaved ? '#dc2626' : '#fecaca'};
+                background:${isSaved ? '#dc2626' : '#ffffff'};
+                color:${isSaved ? '#ffffff' : '#dc2626'};
+            ">
+                ${isSaved ? '❤️ Saved to My Review List' : '🤍 Save to My Review List'}
+            </button>`;
+
         let formsHtml = "";
         if (quiz.forms && (quiz.forms.present || quiz.forms.past || quiz.forms.future)) {
             formsHtml = `
@@ -380,7 +561,6 @@ function checkAnswer(isCorrect, quiz) {
             `;
         }
 
-        // 문법 분해
         let grammarHtml = "";
         if (quiz.grammar && Array.isArray(quiz.grammar.breakdown)) {
             grammarHtml = `
@@ -396,7 +576,6 @@ function checkAnswer(isCorrect, quiz) {
             `;
         }
 
-        // 비슷한 단어 / 확장 단어
         let optionsHtml = "";
         if (quiz.options && Array.isArray(quiz.options)) {
             const showOptionAudio = quiz.optionAudio === true;
@@ -428,7 +607,6 @@ function checkAnswer(isCorrect, quiz) {
             </div>`;
         }
 
-        // 핵심 예문 출력 영역
         let examplesHtml = "";
         if (quiz.examples && Array.isArray(quiz.examples)) {
             examplesHtml = `
@@ -457,7 +635,6 @@ function checkAnswer(isCorrect, quiz) {
 
         const situationText = quiz.situation || "No context provided.";
 
-        // 화면 렌더링 주입
         detailArea.innerHTML = `
             <div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;">
                 <h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2>
@@ -469,8 +646,8 @@ function checkAnswer(isCorrect, quiz) {
                 ${optionsHtml}
                 ${examplesHtml}
                 
-
                 <div style="margin-top: 25px;">
+                    ${favoriteHtml}
                     ${recHtml} 
                     <button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭️</button>
                     <button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button>
@@ -478,16 +655,12 @@ function checkAnswer(isCorrect, quiz) {
             </div>
         `;
         
-        // 3. 결과창 화면 켜기 및 최상단 스크롤
         detailArea.classList.add('active');
         detailArea.style.display = 'block';
         window.scrollTo(0, 0);
 
-        // 기능 작동 인터페이스 바인딩
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
-
-    
 
         document.querySelectorAll('.rec-btn-item').forEach(btn => {
             btn.onclick = () => {
@@ -496,7 +669,6 @@ function checkAnswer(isCorrect, quiz) {
             };
         });
 
-        // 🎯 [핵심] 렌더링 및 이벤트 바인딩 완료 후 학습 진도율 표시 함수 호출!
         renderLearningProgress();
 
     } else {
@@ -558,31 +730,23 @@ function startSpeechRecognition() {
 }
 
 function nextQuiz() {
-    // 1. 다음 문제로 인덱스 이동
     currentIdx++;
     
-    // 2. 현재 카테고리에 풀 문제가 남아있는지 검증
     if (currentCategoryData && currentIdx < currentCategoryData.length) {
-        
-        // [UI 싱크] 열려 있던 결과 상세창을 확실하게 닫아줍니다.
         const detailArea = document.getElementById('detail-area');
         if (detailArea) {
             detailArea.classList.remove('active');
-            detailArea.style.display = 'none'; // display 속성까지 완벽 차단!
+            detailArea.style.display = 'none';
         }
         
-        // 퀴즈 화면 다시 켜기
         const quizScreen = document.getElementById('quiz-screen');
         if (quizScreen) {
             quizScreen.classList.add('active');
             quizScreen.style.display = 'block';
         }
         
-        // 3. 다음 문제 데이터 바인딩 로드
         loadQuiz(true);
-        
     } else {
-        // 4. 3개 문제를 모두 완료했을 때 알림 (설정하신 영문 가이드라인 적용!)
         alert("🎉 You've mastered all the quizzes in this category! Excellent job! 👏");
         goHome(); 
     }
@@ -789,7 +953,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// 🔥 [100% 철통 방어막이 완성된 가동 엔진 부분]
 document.addEventListener('DOMContentLoaded', () => {
     const userAgent = navigator.userAgent.toLowerCase();
     const isInApp = /kakaotalk|fbav|instagram|line|naver|snapchat|zum|tistory/i.test(userAgent);
@@ -799,28 +962,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (openBtn) openBtn.style.display = 'block';
     }
 
-    // 💡 feelings.html용 절대 뚫리지 않는 강력한 매칭 로직
     if (window.location.pathname.includes('feelings.html')) {
         if (typeof allQuizData === 'undefined') window.allQuizData = {};
         
-        // 1. 만약 HTML 파일 내부에 커스텀 feelingsData가 존재한다면 안전하게 연동시킵니다.
         if (window.feelingsData) {
             allQuizData['cat_feelings'] = window.feelingsData;
         }
         
-        // 2. 최종 데이터를 판별하여 데이터 유실로 인한 대기화면 복귀 현상을 완전히 차단합니다.
         if (allQuizData['cat_feelings']) {
             window.CURRENT_CAT = 'cat_feelings';
         } else if (allQuizData['cat_11']) {
-            window.CURRENT_CAT = 'cat_11'; // data.js 내부의 Emotions 카테고리로 안전 백업
+            window.CURRENT_CAT = 'cat_11';
         } else {
-            // 3. 최악의 상황(둘 다 없을 때)에도 에러로 멈추지 않도록 최소한의 임시 방어막 구축
             allQuizData['cat_feelings'] = { name: "Feelings", emoji: "😊", data: [] };
             window.CURRENT_CAT = 'cat_feelings';
         }
     }
 
-    // 🚀 최종 검증 후 퀴즈 화면으로 즉시 직행
+    renderFavoriteBox();
+
     if (typeof CURRENT_CAT !== 'undefined' && typeof allQuizData !== 'undefined' && allQuizData[CURRENT_CAT]) {
         startQuiz(CURRENT_CAT, false); 
     }  
@@ -837,7 +997,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// 🟢 예문 전용 추가 함수
 function speakExampleText(text) {
     window.speechSynthesis.cancel();
     const msg = new SpeechSynthesisUtterance(text);
@@ -900,7 +1059,6 @@ function startExampleRecognition(targetText, idx) {
     };
 }
 
-// 🔊 [신규 추가] 옵션(Related Words) 듣기
 function speakOption(text) {
     window.speechSynthesis.cancel();
     const msg = new SpeechSynthesisUtterance(text);
@@ -909,7 +1067,6 @@ function speakOption(text) {
     window.speechSynthesis.speak(msg);
 }
 
-// 🎤 [신규 추가] 옵션(Related Words) 말하기
 function startOptionMic(targetText, feedbackId) {
     if (!recognition) {
         alert("Speech recognition is not supported.");
@@ -967,7 +1124,6 @@ function injectQuizSchema(data) {
 
     if (!data) return;
 
-    // 데이터가 질문/정답 중 어떤 필드명(q, question, a, answer)을 쓰든 찾아냅니다.
     const qText = data.question || data.q || "No question provided";
     const aText = data.answer || data.a || "No answer provided";
 
