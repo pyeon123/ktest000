@@ -1510,8 +1510,42 @@ function toggleKFreeInfo(e, section) {
 .tab-btn.active{background:#4f46e5!important;color:white!important;border-color:#4f46e5!important;opacity:1!important}
 .alphabet-word-list{display:none;grid-template-columns:1fr 1fr!important;background:#fafbff!important;border-top:1px solid #e2e8f0!important;max-height:180px!important;overflow-y:auto!important}
 .word-link-item{padding:10px 20px!important;font-size:0.85rem!important;color:#64748b!important;text-decoration:none!important;border-bottom:1px solid #f1f5f9!important;display:block!important}
+
+/* 원래 옵션 선택지 스타일 복구 - mother / relative / sister 밀림 해결 */
+.options-container, #options-container, #today-options, #alphabet-word-list{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:12px!important;
+  width:100%!important;
+  max-width:500px!important;
+  margin: 0 auto!important;
+  box-sizing:border-box!important;
+}
+.opt-item{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  padding:16px 18px!important;
+  background:#ffffff!important;
+  border:2px solid #e2e8f0!important;
+  border-radius:12px!important;
+  font-size:1.1rem!important;
+  font-weight:600!important;
+  color:#334155!important;
+  cursor:pointer!important;
+  text-align:center!important;
+  box-sizing:border-box!important;
+  transition:all 0.2s!important;
+}
+.opt-item:hover{border-color:#4f46e5!important;background:#f8fafc!important}
 body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!important}
-@media(max-width:768px){.quiz-app,.content-area,div[class*="-container"]{display:block!important;width:100%!important;max-width:100%!important;box-sizing:border-box!important}.trending-container{max-width:95%!important;margin:20px auto!important}}
+@media(max-width:768px){
+  .quiz-app{width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+  .content-area{width:100%!important;max-width:100%!important;padding:10px!important;box-sizing:border-box!important}
+  .trending-container{max-width:95%!important;margin:20px auto!important}
+}
+
 `;
   const style = document.createElement('style');
   style.id = 'trending-pretty-fix';
