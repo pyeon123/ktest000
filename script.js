@@ -1583,20 +1583,32 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 
 
 
-// ===== FIX: 개별 페이지 About Us / Privacy / Terms 안눌림 강제 복구 =====
-(function fixKFreeFooter(){
+
+
+
+
+// ===== FIX: ABOUT US 메인/개별 전부 안열림 완전 복구 - 최종 =====
+(function fixKFreeFooterFinal(){
   function robustToggle(eOrSection, maybeSection){
     let section, evt;
-    if (maybeSection) { // toggleKFreeInfo(event, 'about') 형태
+    if (maybeSection) {
       evt = eOrSection;
       section = maybeSection;
-    } else { // toggleKFreeInfo('about') 형태 - 개별페이지 구버전
+    } else {
       section = eOrSection;
-      evt = window.event;
+      evt = window.event || null;
     }
-    if (evt && evt.preventDefault) evt.preventDefault();
+    if (evt && evt.preventDefault) { try{evt.preventDefault();}catch(x){} }
+    if (!section) return false;
+    section = String(section).trim().toLowerCase();
+    // about / privacy / terms / contact 매칭
+    if (section.includes('about')) section='about';
+    else if (section.includes('privacy')) section='privacy';
+    else if (section.includes('terms') || section.includes('service')) section='terms';
+    else if (section.includes('contact') || section.includes('disclaimer')) section='contact';
+
     const target = document.getElementById(`kfree-content-${section}`);
-    if (!target) return false;
+    if (!target) { console.log('kfree target not found', section); return false; }
     const allContents = document.querySelectorAll('.kfree-info-content');
     const allButtons = document.querySelectorAll('.kfree-tab-btn');
     const isActive = target.classList.contains('active');
@@ -1606,38 +1618,50 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 
     if (!isActive) {
       target.classList.add('active');
-      // 클릭된 버튼 찾기
+      target.style.display = 'block';
+      // 버튼 active
       let clickedBtn = null;
-      if (evt && evt.currentTarget) clickedBtn = evt.currentTarget;
-      else if (evt && evt.target) clickedBtn = evt.target.closest('.kfree-tab-btn') || evt.target;
-      else {
-        // event 없을 때 section으로 버튼 찾기
+      if (evt) {
+        if (evt.currentTarget && evt.currentTarget.classList.contains('kfree-tab-btn')) clickedBtn = evt.currentTarget;
+        else if (evt.target) clickedBtn = evt.target.closest ? evt.target.closest('.kfree-tab-btn') : null;
+      }
+      if (!clickedBtn) {
         document.querySelectorAll('.kfree-tab-btn').forEach(b=>{
-          if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${section}'`)) clickedBtn = b;
+          const on = (b.getAttribute('onclick')||"").toLowerCase();
+          const txt = (b.textContent||"").toLowerCase();
+          if (on.includes(section) || txt.includes(section) || (section==='terms' && txt.includes('terms')) || (section==='contact' && txt.includes('contact'))) {
+            clickedBtn = b;
+          }
         });
       }
       if (clickedBtn) clickedBtn.classList.add('active');
+      // 스크롤 살짝
+      setTimeout(()=>{ try{target.scrollIntoView({behavior:'smooth', block:'nearest'});}catch(e){} }, 100);
+    } else {
+      allContents.forEach(c => { c.style.display = 'none'; });
     }
     return false;
   }
 
-  // 전역으로 덮어쓰기 (개별페이지 인라인 스크립트보다 나중에 실행되도록)
   window.toggleKFreeInfo = robustToggle;
 
-  // DOM 준비되면 버튼에 직접 이벤트도 걸어서 onclick이 꼬여도 동작하게
   function attach(){
     document.querySelectorAll('.kfree-tab-btn').forEach(btn=>{
-      // 중복 방지
-      if (btn.dataset.fixed === "1") return;
-      btn.dataset.fixed = "1";
+      if (btn.dataset.kfreeFixed === "1") return;
+      btn.dataset.kfreeFixed = "1";
+      // 기존 인라인 onclick 제거해서 에러 방지
+      const oldOnclick = btn.getAttribute('onclick');
+      if (oldOnclick) {
+        btn.setAttribute('data-old-onclick', oldOnclick);
+        btn.removeAttribute('onclick');
+      }
       btn.addEventListener('click', function(e){
         e.preventDefault();
-        // onclick 속성에서 section 추출
+        e.stopPropagation();
         let section = null;
-        const onclick = this.getAttribute('onclick') || "";
-        const m = onclick.match(/'([^']+)'/);
+        const old = this.getAttribute('data-old-onclick') || "";
+        const m = old.match(/'([^']+)'/);
         if (m) section = m[1];
-        // 텍스트로도 추론
         if (!section) {
           const t = this.textContent.toLowerCase();
           if (t.includes('about')) section='about';
@@ -1646,7 +1670,13 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
           else if (t.includes('contact')) section='contact';
         }
         if (section) robustToggle(e, section);
+        return false;
       });
+    });
+    // 콘텐츠 초기 상태 정리 - display none 강제
+    document.querySelectorAll('.kfree-info-content').forEach(el=>{
+      if (!el.classList.contains('active')) el.style.display = 'none';
+      else el.style.display = 'block';
     });
   }
 
@@ -1655,7 +1685,6 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   } else {
     attach();
   }
-  // 혹시 개별페이지 스크립트가 나중에 로드돼도 1초 뒤에 다시 덮어쓰기
-  setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 800);
-  setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 2000);
+  setTimeout(attach, 500);
+  setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
