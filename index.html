@@ -546,310 +546,100 @@ function handleSubscribeSubmit(event) {
     <div id="alphabet-word-list" class="alphabet-word-list"></div>
 </div>
 
+
 <style>
-/* 1. 트렌딩 전체 외곽 박스 고정 */
+/* Trending - Fixed Pretty Version */
 .trending-container { 
-    display: block !important; 
-    clear: both !important; 
-    float: none !important; 
-    width: 100% !important; 
-    max-width: 600px !important; 
-    margin: 30px auto 20px auto !important; 
-    background: #ffffff !important; 
-    border: 1px solid #e2e8f0 !important; 
-    border-radius: 8px !important; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important; 
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif !important; 
-    overflow: hidden !important; 
-    box-sizing: border-box !important; 
-}
-
-/* 2. 🚨 목록 영역 내부 스크롤 강력 고정 (가로 쪼개짐 원천 차단) */
-.trending-grid { 
-    display: block !important;          /* grid 속성을 해제하고 block으로 강제 수직화 */
-    width: 100% !important;
-    height: 320px !important;           /* 높이를 딱 고정 */
-    max-height: 320px !important; 
-    overflow-y: scroll !important;       /* 세로 스크롤바 강제 활성화 */
-    overflow-x: hidden !important;       /* 좌우 탈출 차단 */
-    box-sizing: border-box !important; 
-    -webkit-overflow-scrolling: touch; 
-    padding: 10px 0 !important;
-}
-
-/* 3. 🚨 내부 링크 아이템을 무조건 전체 가로 너비를 다 먹는 한 줄 블록으로 고정 */
-.trending-item {
-    display: flex !important;           /* 내부 랭킹, 글자, 화살표 정렬용 */
-    align-items: center !important;
-    width: 100% !important;             /* 가로 반반 절대 안 쪼개지게 100% 꽉 채움 */
-    max-width: 100% !important;
-    padding: 12px 16px !important;
-    box-sizing: border-box !important;
-    text-decoration: none !important;
-    border-bottom: 1px solid #f1f5f9 !important;
-}
-
-.rank-num {
-    font-weight: bold !important;
-    color: #64748b !important;
-    margin-right: 15px !important;
-    width: 24px !important;
-    flex-shrink: 0 !important;
-}
-
-.word-text { 
-    font-size: 1.05rem !important; 
-    color: #334155 !important; 
-    font-weight: 500 !important; 
-    flex-grow: 1 !important; 
-    white-space: nowrap !important; 
-    overflow: hidden !important; 
-    text-overflow: ellipsis !important; /* 글자가 박스를 넘어가면 ... 처리 */
-    text-align: left !important;
-}
-
-.word-update { animation: rankBounce 0.5s ease-in-out !important; }
-@keyframes rankBounce { 0% { transform: translateY(3px); opacity: 0.7; } 100% { transform: translateY(0); opacity: 1; } }
-.status-icon { font-size: 1.1rem !important; font-weight: bold !important; width: 20px !important; text-align: right !important; flex-shrink: 0 !important; }
-.status-up { color: #dc2626 !important; } .status-down { color: #2563eb !important; } .status-same { color: #94a3b8 !important; }
-
-.alphabet-index-title { padding: 20px 16px 5px 16px !important; font-size: 0.75rem !important; font-weight: 500 !important; color: #cbd5e1 !important; text-transform: uppercase !important; letter-spacing: 1px !important; box-sizing: border-box !important; }
-.alphabet-tabs { display: flex !important; flex-wrap: wrap !important; gap: 2px !important; padding: 4px 16px !important; background: transparent !important; box-sizing: border-box !important; }
-.tab-btn { padding: 4px 6px !important; background: transparent !important; border: none !important; font-size: 0.75rem !important; font-weight: 500 !important; color: #cbd5e1 !important; opacity: 0.4 !important; cursor: pointer !important; transition: all 0.2s ease !important; }
-.tab-btn:hover { color: #94a3b8 !important; opacity: 1 !important; }
-.tab-btn.active { background: #f1f5f9 !important; color: #64748b !important; opacity: 1 !important; font-weight: bold !important; border-radius: 3px !important; }
-
-/* 알파벳 연동 리스트도 고정 */
-.alphabet-word-list { 
-    display: none; 
-    grid-template-columns: 1fr !important; 
-    background: #fafafa !important; 
-    border-top: 1px dashed #f1f5f9 !important; 
-    max-height: 150px !important; 
-    overflow-y: auto !important; 
-    box-sizing: border-box !important; 
-}
-.word-link-item { padding: 8px 16px !important; font-size: 0.8rem !important; color: #d1d5db !important; text-decoration: none !important; display: block !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; transition: all 0.2s !important; }
-.word-link-item:hover { background: #f1f5f9 !important; color: #0073e6 !important; text-decoration: none !important; }
-.no-words { grid-column: span 1 !important; padding: 15px !important; text-align: center !important; color: #e2e8f0 !important; font-size: 0.8rem !important; }
-
-/* 모바일 통합 반응형 */
-@media (max-width: 768px) {
-    /* 1. 최상위 부모가 flex나 grid로 잡혀있을 경우를 원천 차단하여 세로로 배치 */
-    body, 
-    main, 
-    .wrapper, 
-    .container, 
-    .main-container,
-    .app-container {
-        display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        overflow-x: hidden !important;
-    }
-
-    /* 2. 기존 내부 컨테이너 세로 배치 */
-    .quiz-app, 
-    .content-area,
-    div[class*="-container"] { 
-        display: block !important; 
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 10px !important;
-        box-sizing: border-box !important;
-    }
-
-    /* 3. 메뉴 및 트렌딩 영역 강제 1단 배치 */
-    #menu-screen {
-        width: 100% !important;
-        float: none !important;
-        display: block !important;
-        box-sizing: border-box !important;
-    }
-    
-    .trending-container { 
-        display: block !important; 
-        width: 100% !important; 
-        max-width: 100% !important; 
-        margin: 20px 0 !important; 
-        box-sizing: border-box !important;
-    }
-}
-</style>
-
-<script>
-// trending logic now in script.js - this block removed to prevent duplicate timers
-</script>
-<div class="kfree-info-footer">
-    <div class="kfree-info-container">
-        <h2 class="kfree-info-title">🇰🇷 K-Free Site Information</h2>
-
-        <!-- 메뉴를 한 줄로 배치 -->
-        <div class="kfree-info-tabs">
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'about')">About Us</button>
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'privacy')">Privacy Policy</button>
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'terms')">Terms of Service</button>
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'contact')">Contact & Disclaimer</button>
-        </div>
-
-        <!-- 클릭 시 나타나는 상세 내용 영역 -->
-        <div id="kfree-content-about" class="kfree-info-content">
-            <p>K-Free is a free Korean learning website created for beginners around the world. You can learn Korean vocabulary, useful daily expressions, pronunciation, listening, and speaking through interactive quizzes. The website provides over 3,000 Korean words and 1,000 practical Korean sentences.</p>
-        </div>
-
-        <div id="kfree-content-privacy" class="kfree-info-content">
-            <p>K-Free uses Google Analytics to improve website performance and user experience. No personal information is collected or sold. Cookies may be used for analytics and website functionality.</p>
-        </div>
-
-        <div id="kfree-content-terms" class="kfree-info-content">
-            <p>All learning materials are provided free for educational purposes. Users may use this website for personal learning only. Copying or redistributing website content without permission is not allowed.</p>
-        </div>
-
-        <div id="kfree-content-contact" class="kfree-info-content">
-            <p>For questions or feedback, please contact us by email: <a href="mailto:topkcc@gmail.com">topkcc@gmail.com</a></p>
-            <p class="kfree-disclaimer">This website is intended for educational purposes only. Although we try to provide accurate Korean language content, mistakes may occur. Learning results may vary depending on each learner.</p>
-        </div>
-
-        <div class="kfree-copyright">
-            <p>© 2026 K-Free | Free Korean Learning Website</p>
-        </div>
-    </div>
-</div>
-
-<script>
-// 클릭 시 내용을 켜고 끄는 함수
-function toggleKFreeInfo(e, section) {
-    if (e && e.preventDefault) e.preventDefault();
-    const evt = e || window.event;
-    const target = document.getElementById(`kfree-content-${section}`);
-    const allContents = document.querySelectorAll('.kfree-info-content');
-    const allButtons = document.querySelectorAll('.kfree-tab-btn');
-    if (!target) return;
-    if (target.classList.contains('active')) {
-        target.classList.remove('active');
-        if (evt && evt.target) evt.target.classList.remove('active');
-        return;
-    }
-    allContents.forEach(content => content.classList.remove('active'));
-    allButtons.forEach(btn => btn.classList.remove('active'));
-    target.classList.add('active');
-    if (evt && evt.target) evt.target.classList.add('active');
-}
-</script>
-
-<style>
-/* 독립된 고유 푸터 스타일 */
-.kfree-info-footer {
-    width: 100%;
-    background-color: #f9f9f9;
-    border-top: 1px solid #e5e7eb;
-    padding: 30px 20px;
-    margin-top: 60px;
-    font-family: Arial, sans-serif;
+    width: 100%; 
+    max-width: 600px; 
+    margin: 30px auto 20px auto; 
+    background: #ffffff; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 16px; 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06); 
+    overflow: hidden;
     box-sizing: border-box;
 }
-.kfree-info-container {
-    max-width: 900px;
-    margin: 0 auto;
-}
-.kfree-info-title {
-    font-size: 18px;
-    color: #4285f4;
+.trending-header {
+    padding: 18px 20px 14px;
+    background: linear-gradient(135deg, #f8fafc, #eef2ff);
+    border-bottom: 1px solid #e2e8f0;
     text-align: center;
-    margin-bottom: 20px;
-    font-weight: bold;
 }
-/* 4개 메뉴를 한 줄로 정렬 */
-.kfree-info-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap; /* 모바일에서 좁아지면 자연스럽게 내려가도록 설정 */
-    margin-bottom: 15px;
+.trending-title { font-weight: 800; font-size: 1.05rem; color: #1e293b; }
+.trending-logo { font-size: 0.75rem; color: #94a3b8; margin-top: 4px; }
+
+.trending-grid { 
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    width: 100%;
+    max-height: 380px;
+    overflow-y: auto;
+    padding: 8px 0;
 }
-.kfree-tab-btn {
-    background: #ffffff;
-    border: 1px solid #d1d5db;
-    padding: 10px 18px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #4b5563;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-}
-.kfree-tab-btn:hover {
-    background: #f3f4f6;
-    color: #2563eb;
-    border-color: #2563eb;
-}
-.kfree-tab-btn.active {
-    background: #2563eb;
-    color: #ffffff;
-    border-color: #2563eb;
-}
-/* 상세 내용 기본 숨김 처리 및 애니메이션 효과 */
-.kfree-info-content {
-    display: none;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
-    margin-top: 10px;
-    text-align: left;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-}
-.kfree-info-content.active {
-    display: block;
-    animation: fadeInKFree 0.3s ease-in-out;
-}
-.kfree-info-content p {
-    font-size: 13.5px;
-    line-height: 1.6;
-    color: #4a5568;
-    margin: 0;
-}
-.kfree-info-content a {
-    color: #4285f4;
+.trending-item {
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 20px;
+    box-sizing: border-box;
     text-decoration: none;
-    font-weight: bold;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.2s;
 }
-.kfree-info-content a:hover {
-    text-decoration: underline;
+.trending-item:hover { background: #f8fafc; }
+.trending-item:last-child { border-bottom: none; }
+.rank-num {
+    font-weight: 800;
+    color: #4f46e5;
+    background: #eef2ff;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    margin-right: 14px;
+    flex-shrink: 0;
+    font-size: 0.9rem;
 }
-.kfree-disclaimer {
-    font-size: 12px !important;
-    color: #718096 !important;
-    border-top: 1px dashed #e2e8f0;
-    padding-top: 10px;
-    margin-top: 10px !important;
+.word-text { 
+    font-size: 1rem; 
+    color: #334155; 
+    font-weight: 600; 
+    flex-grow: 1; 
+    text-align: left;
 }
-.kfree-copyright {
-    text-align: center;
-    color: #a0aec0;
-    font-size: 12px;
-    margin-top: 25px;
-    border-top: 1px solid #edf2f7;
-    padding-top: 15px;
+.status-icon { font-size: 1.1rem; font-weight: bold; width: 24px; text-align: center; }
+.status-up { color: #ef4444; } 
+.status-down { color: #3b82f6; } 
+.status-same { color: #cbd5e1; }
+.word-update { animation: rankBounce 0.5s ease-in-out; }
+@keyframes rankBounce { 0% { transform: translateY(3px); opacity: 0.7; } 100% { transform: translateY(0); opacity: 1; } }
+.alphabet-index-title { padding: 16px 20px 6px; font-size: 0.7rem; font-weight: 700; color: #94a3b8; letter-spacing: 1.2px; text-align: center; }
+.alphabet-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 10px 16px 16px; }
+.tab-btn { 
+    min-width: 32px; height: 32px;
+    background: #f8fafc; border: 1px solid #e2e8f0; 
+    border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: #64748b; 
+    cursor: pointer; 
 }
-@keyframes fadeInKFree {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
+.tab-btn.active { background: #4f46e5; color: white; border-color: #4f46e5; }
+.alphabet-word-list { 
+    display: none; 
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: #fafbff; 
+    border-top: 1px solid #e2e8f0; 
+    max-height: 180px; overflow-y: auto; 
 }
-/* 모바일 화면 대응 */
-@media (max-width: 600px) {
-    .kfree-info-tabs {
-        gap: 8px;
-    }
-    .kfree-tab-btn {
-        font-size: 12px;
-        padding: 8px 12px;
-        flex: 1 1 calc(50% - 8px); /* 모바일에서는 2개씩 깔끔하게 정렬 */
-        text-align: center;
-    }
+.word-link-item { padding: 10px 20px; font-size: 0.85rem; color: #64748b; text-decoration: none; border-bottom: 1px solid #f1f5f9; display:block; }
+.word-link-item:hover { color: #4f46e5; background: white; }
+.no-words { padding: 15px; text-align: center; color: #94a3b8; font-size: 0.8rem; }
+@media (max-width: 768px) {
+    .trending-container { max-width: 95% !important; margin: 20px auto !important; }
 }
 </style>
+
 
  <form name="daily-korean-subscribe" method="POST" data-netlify="true" hidden>
   <input type="email" name="email">
