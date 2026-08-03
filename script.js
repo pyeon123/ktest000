@@ -1,5 +1,3 @@
-// GA loaded in index.html - skip duplicate
-
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -534,14 +532,36 @@ function updateFavoriteButton() {
     }
 }
 
+
 function renderFavoriteBox() {
     const box = document.getElementById("favorite-box");
     if (!box) return;
 
+    // 박스 자체를 다른 박스(search-container)와 동일 규격으로 맞춤
+    box.style.position = "relative";
+    box.style.width = "100%";
+    box.style.maxWidth = "500px";
+    box.style.margin = "0 auto 25px auto";
+    box.style.padding = "0 15px";
+    box.style.boxSizing = "border-box";
+
     const favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
 
     if (favorites.length === 0) {
-        box.innerHTML = "";
+        box.innerHTML = `
+        <div style="
+            width:100%;
+            box-sizing:border-box;
+            background:#fff;
+            border:2px dashed #fecaca;
+            border-radius:12px;
+            padding:18px;
+            text-align:center;
+            color:#94a3b8;
+        ">
+            <div style="font-size:1.05rem; font-weight:bold; color:#dc2626; margin-bottom:6px;">📖 My Review List (0)</div>
+            <div style="font-size:0.85rem; line-height:1.4;">아직 저장된 리뷰가 없어요.<br>퀴즈에서 🤍 Save를 눌러보세요!</div>
+        </div>`;
         return;
     }
 
@@ -550,12 +570,10 @@ function renderFavoriteBox() {
     box.innerHTML = `
         <div style="
             width:100%;
-            max-width:500px;
-            margin:20px auto;
             box-sizing:border-box;
             background:#fff;
             border:2px solid #fecaca;
-            border-radius:14px;
+            border-radius:12px;
             box-shadow:0 3px 10px rgba(0,0,0,.05);
             overflow:hidden;
         ">
@@ -563,17 +581,20 @@ function renderFavoriteBox() {
                 onclick="openFavoriteList()"
                 style="
                     width:100%;
-                    padding:18px;
+                    padding:16px 18px;
                     border:none;
                     background:#fff;
                     cursor:pointer;
-                    font-size:1.1rem;
+                    font-size:1rem;
                     font-weight:bold;
                     color:#dc2626;
                     box-sizing:border-box;
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
                 ">
-                📖 My Review List (${favorites.length})
-                <span style="float:right;">▼</span>
+                <span>📖 My Review List (${favorites.length})</span>
+                <span>▼</span>
             </button>
 
             <div id="favorite-list-content" style="display:none;">
@@ -582,8 +603,8 @@ function renderFavoriteBox() {
                         display:flex;
                         justify-content:space-between;
                         align-items:center;
-                        padding:10px 18px;
-                        border-top:1px solid #eee;
+                        padding:10px 16px;
+                        border-top:1px solid #f1f5f9;
                     ">
                         <a href="${item.url}"
                            style="
@@ -591,6 +612,10 @@ function renderFavoriteBox() {
                                 text-decoration:none;
                                 color:#2563eb;
                                 font-weight:bold;
+                                font-size:0.95rem;
+                                white-space:nowrap;
+                                overflow:hidden;
+                                text-overflow:ellipsis;
                            ">
                             📖 ${item.title}
                         </a>
@@ -599,8 +624,9 @@ function renderFavoriteBox() {
                             title="Remove"
                             style="
                                 cursor:pointer;
-                                font-size:22px;
+                                font-size:20px;
                                 margin-left:10px;
+                                flex-shrink:0;
                             ">
                             ❤️
                         </span>
@@ -611,13 +637,14 @@ function renderFavoriteBox() {
                     favorites.length > 20
                     ? `
                     <div style="
-                        padding:12px;
+                        padding:10px;
                         text-align:center;
                         color:#64748b;
                         font-weight:bold;
-                        border-top:1px solid #eee;
+                        border-top:1px solid #f1f5f9;
+                        font-size:0.85rem;
                     ">
-                        + ${favorites.length - 20} more lessons...
+                        + ${favorites.length - 20} more...
                     </div>
                     `
                     : ""
@@ -627,8 +654,8 @@ function renderFavoriteBox() {
                     onclick="closeFavoriteList()"
                     style="
                         display:block;
-                        width:calc(100% - 36px);
-                        margin:15px auto 18px;
+                        width:calc(100% - 32px);
+                        margin:12px auto 14px;
                         padding:10px;
                         border:1px solid #fecaca;
                         border-radius:10px;
@@ -643,6 +670,7 @@ function renderFavoriteBox() {
         </div>
     `;
 }
+
 
 function openFavoriteList() {
     const content = document.getElementById("favorite-list-content");
