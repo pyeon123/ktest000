@@ -1580,3 +1580,82 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   style.textContent = css;
   document.head.appendChild(style);
 })();
+
+
+
+// ===== FIX: 개별 페이지 About Us / Privacy / Terms 안눌림 강제 복구 =====
+(function fixKFreeFooter(){
+  function robustToggle(eOrSection, maybeSection){
+    let section, evt;
+    if (maybeSection) { // toggleKFreeInfo(event, 'about') 형태
+      evt = eOrSection;
+      section = maybeSection;
+    } else { // toggleKFreeInfo('about') 형태 - 개별페이지 구버전
+      section = eOrSection;
+      evt = window.event;
+    }
+    if (evt && evt.preventDefault) evt.preventDefault();
+    const target = document.getElementById(`kfree-content-${section}`);
+    if (!target) return false;
+    const allContents = document.querySelectorAll('.kfree-info-content');
+    const allButtons = document.querySelectorAll('.kfree-tab-btn');
+    const isActive = target.classList.contains('active');
+
+    allContents.forEach(c => c.classList.remove('active'));
+    allButtons.forEach(b => b.classList.remove('active'));
+
+    if (!isActive) {
+      target.classList.add('active');
+      // 클릭된 버튼 찾기
+      let clickedBtn = null;
+      if (evt && evt.currentTarget) clickedBtn = evt.currentTarget;
+      else if (evt && evt.target) clickedBtn = evt.target.closest('.kfree-tab-btn') || evt.target;
+      else {
+        // event 없을 때 section으로 버튼 찾기
+        document.querySelectorAll('.kfree-tab-btn').forEach(b=>{
+          if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(`'${section}'`)) clickedBtn = b;
+        });
+      }
+      if (clickedBtn) clickedBtn.classList.add('active');
+    }
+    return false;
+  }
+
+  // 전역으로 덮어쓰기 (개별페이지 인라인 스크립트보다 나중에 실행되도록)
+  window.toggleKFreeInfo = robustToggle;
+
+  // DOM 준비되면 버튼에 직접 이벤트도 걸어서 onclick이 꼬여도 동작하게
+  function attach(){
+    document.querySelectorAll('.kfree-tab-btn').forEach(btn=>{
+      // 중복 방지
+      if (btn.dataset.fixed === "1") return;
+      btn.dataset.fixed = "1";
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        // onclick 속성에서 section 추출
+        let section = null;
+        const onclick = this.getAttribute('onclick') || "";
+        const m = onclick.match(/'([^']+)'/);
+        if (m) section = m[1];
+        // 텍스트로도 추론
+        if (!section) {
+          const t = this.textContent.toLowerCase();
+          if (t.includes('about')) section='about';
+          else if (t.includes('privacy')) section='privacy';
+          else if (t.includes('terms')) section='terms';
+          else if (t.includes('contact')) section='contact';
+        }
+        if (section) robustToggle(e, section);
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attach);
+  } else {
+    attach();
+  }
+  // 혹시 개별페이지 스크립트가 나중에 로드돼도 1초 뒤에 다시 덮어쓰기
+  setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 800);
+  setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 2000);
+})();
