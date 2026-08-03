@@ -560,7 +560,7 @@ function renderFavoriteBox() {
             color:#94a3b8;
         ">
             <div style="font-size:1.05rem; font-weight:bold; color:#dc2626; margin-bottom:6px;">📖 My Review List (0)</div>
-            <div style="font-size:0.85rem; line-height:1.4;">Tap 🤍 Save on the quiz page</div>
+            <div style="font-size:0.85rem; line-height:1.4;">아직 저장된 리뷰가 없어요.<br>퀴즈에서 🤍 Save를 눌러보세요!</div>
         </div>`;
         return;
     }
