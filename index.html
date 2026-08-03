@@ -353,8 +353,6 @@ function handleSubscribeSubmit(event) {
     return false;
 }
 </script>
-       <div id="favorite-box"></div>
-            
             <div id="search-container-top" style="position: relative; width: 100%; max-width: 500px; margin: 0 auto 25px auto; padding: 0 15px; box-sizing: border-box;">
                 <input type="text" id="searchInputTop" oninput="autoSearchTop()" placeholder="🔍 Enter search term (ex: sky, family)" 
        style="width: 100%; padding: 28px 25px; border: 2px solid #333; border-radius: 12px; box-sizing: border-box; font-size: 0.90rem; outline: none; transition: border-color 0.3s;"
@@ -460,12 +458,10 @@ function handleSubscribeSubmit(event) {
     </button>
 </div>
 <script src="data.js"></script>
-<script src="quizdb.js"></script>
 <script src="script.js"></script>
 
 <script>
-  
-
+    // quizDB moved to script.js - using window.quizDB
     function autoSearch() {
         const input = document.getElementById('searchInput').value.toLowerCase();
         const container = document.getElementById('resultContainer');
@@ -682,87 +678,7 @@ function handleSubscribeSubmit(event) {
 </style>
 
 <script>
-let trendingWords = [];
-let currentSelectedLetter = null;
-
-function initTrendingData() {
-    const sourceData = (typeof quizDB !== 'undefined') ? quizDB : [];
-    if (sourceData.length === 0) return;
-    let processed = sourceData.map(item => {
-        const states = ["up", "down", "same"];
-        const firstLetter = item.title.trim().charAt(0).toUpperCase();
-        return { word: item.title, file: item.url || "index.html", sortingKey: firstLetter, change: states[Math.floor(Math.random() * states.length)] };
-    });
-    processed.sort(() => Math.random() - 0.5);
-    trendingWords = processed.map((item, idx) => ({ ...item, rank: idx + 1 }));
-}
-
-function renderTrendingChart() {
-    const gridContainer = document.getElementById('trending-grid');
-    if (!gridContainer || trendingWords.length === 0) return;
-    const sortedWords = [...trendingWords].sort((a, b) => a.rank - b.rank);
-    const displayWords = sortedWords.slice(0, 12); 
-    let gridHtml = "";
-    displayWords.forEach(item => {
-        let arrow = "—"; let statusClass = "status-same";
-        if (item.change === "up") { arrow = "↑"; statusClass = "status-up"; }
-        else if (item.change === "down") { arrow = "↓"; statusClass = "status-down"; }
-        gridHtml += `<a href="${item.file}" class="trending-item"><span class="rank-num">${item.rank}</span><span class="word-text word-update">${item.word}</span><span class="status-icon ${statusClass}">${arrow}</span></a>`;
-    });
-    gridContainer.innerHTML = gridHtml;
-    setTimeout(() => { document.querySelectorAll('.word-text').forEach(el => el.classList.remove('word-update')); }, 500);
-}
-
-function initAlphabetTabs() {
-    const tabsContainer = document.getElementById('alphabet-tabs');
-    if (!tabsContainer) return;
-    let tabsHtml = "";
-    for (let i = 65; i <= 90; i++) {
-        const letter = String.fromCharCode(i);
-        tabsHtml += `<button class="tab-btn" onclick="selectAlphabet('${letter}')">${letter}</button>`;
-    }
-    tabsContainer.innerHTML = tabsHtml;
-}
-
-function selectAlphabet(letter) {
-    currentSelectedLetter = letter;
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-        if (btn.textContent === letter) btn.classList.add('active');
-        else btn.classList.remove('active');
-    });
-    renderAlphabetWordList();
-}
-
-function renderAlphabetWordList() {
-    const listContainer = document.getElementById('alphabet-word-list');
-    if (!listContainer || !currentSelectedLetter) return;
-    const filtered = trendingWords.filter(item => item.sortingKey === currentSelectedLetter).sort((a, b) => a.word.localeCompare(b.word));
-    listContainer.style.display = 'grid';
-    if (filtered.length === 0) {
-        listContainer.innerHTML = `<div class="no-words">No words starting with '${currentSelectedLetter}' yet.</div>`;
-        return;
-    }
-    let listHtml = "";
-    filtered.forEach(item => { listHtml += `<a href="${item.file}" class="word-link-item">🔤 ${item.word}</a>`; });
-    listContainer.innerHTML = listHtml;
-}
-
-function simulateLiveChart() {
-    setInterval(() => {
-        if (trendingWords.length === 0) return;
-        const randomIndex = Math.floor(Math.random() * Math.min(12, trendingWords.length));
-        const states = ["up", "down", "same"];
-        trendingWords[randomIndex].change = states[Math.floor(Math.random() * states.length)];
-        renderTrendingChart();
-    }, 3000);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    initTrendingData();
-    renderTrendingChart();
-    initAlphabetTabs();
-    simulateLiveChart();
-});
+// trending logic now in script.js - this block removed to prevent duplicate timers
 </script>
 <div class="kfree-info-footer">
     <div class="kfree-info-container">
@@ -770,10 +686,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <!-- 메뉴를 한 줄로 배치 -->
         <div class="kfree-info-tabs">
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('about')">About Us</button>
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('privacy')">Privacy Policy</button>
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('terms')">Terms of Service</button>
-            <button class="kfree-tab-btn" onclick="toggleKFreeInfo('contact')">Contact & Disclaimer</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'about')">About Us</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'privacy')">Privacy Policy</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'terms')">Terms of Service</button>
+            <button class="kfree-tab-btn" onclick="toggleKFreeInfo(event, 'contact')">Contact & Disclaimer</button>
         </div>
 
         <!-- 클릭 시 나타나는 상세 내용 영역 -->
@@ -802,25 +718,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script>
 // 클릭 시 내용을 켜고 끄는 함수
-function toggleKFreeInfo(section) {
+function toggleKFreeInfo(e, section) {
+    if (e && e.preventDefault) e.preventDefault();
+    const evt = e || window.event;
     const target = document.getElementById(`kfree-content-${section}`);
     const allContents = document.querySelectorAll('.kfree-info-content');
     const allButtons = document.querySelectorAll('.kfree-tab-btn');
-    
-    // 이미 열려있는 것을 다시 누르면 닫기
+    if (!target) return;
     if (target.classList.contains('active')) {
         target.classList.remove('active');
-        event.target.classList.remove('active');
+        if (evt && evt.target) evt.target.classList.remove('active');
         return;
     }
-
-    // 다른 열려있는 세션들 모두 닫기
     allContents.forEach(content => content.classList.remove('active'));
     allButtons.forEach(btn => btn.classList.remove('active'));
-
-    // 선택한 세션만 열기
     target.classList.add('active');
-    event.target.classList.add('active');
+    if (evt && evt.target) evt.target.classList.add('active');
 }
 </script>
 
