@@ -25,7 +25,7 @@ body {
     align-items: center; 
     justify-content: flex-start;
     min-height: 100vh;
-    padding-bottom: 80px !important;
+    padding-bottom: 140px !important;
 }
 
 .quiz-app {
@@ -64,9 +64,8 @@ body {
     z-index: 50;
 }
 
-.content-area { padding: 16px 16px 20px 16px; flex: 1; display: flex; flex-direction: column; align-items: center; width:100%; box-sizing:border-box; }
+.content-area { padding: 16px 16px 140px 16px; flex: 1; display: flex; flex-direction: column; align-items: center; width:100%; box-sizing:border-box; }
 
-/* 모든 메인 박스 가로 통일 500px */
 #search-container-top,#search-container,#favorite-box,.trending-container,#today-quiz-section,#subscribe-wrapper,.game-ad-bar,#category-screen{
     max-width: 500px !important;
     width: 100% !important;
@@ -121,7 +120,6 @@ body {
 .btn-main .icon { font-size: 1.6rem; margin-bottom: 2px; }
 .btn-main span { font-size: 0.8rem; color: #64748b; font-weight:800; }
 
-/* 선택지 - 밀림 해결 핵심 */
 .options-container { 
     display: flex !important; 
     flex-direction: column !important;
@@ -208,7 +206,6 @@ body {
     font-size: 2.5rem; border: 2px solid var(--border); border-bottom-width:4px; margin: 0 auto 10px auto; z-index: 5; position: relative;
 }
 
-/* 팁 컨테이너 */
 .tip-container {
     background: #f5f3ff !important; border-radius: 12px !important;
     padding: 12px 14px !important; margin-bottom: 12px !important; border: 2px solid #ddd6fe !important; text-align: left !important;
@@ -234,3 +231,25 @@ body {
 
 *, *:before, *:after { box-sizing: border-box !important; }
 html, body { width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; margin: 0; padding: 0; }
+
+/* ===== FIX: 하단 링크 가림 해결 (1000+ essential) ===== */
+.kfree-info-footer {
+    margin-bottom: 120px !important;
+    display: block !important;
+    visibility: visible !important;
+}
+#essential-links, .essential-footer, .seo-links {
+    display: block !important;
+    visibility: visible !important;
+    padding-bottom: 30px !important;
+    margin-bottom: 80px !important;
+    text-align: center !important;
+}
+#essential-links a, .essential-footer a, .seo-links a {
+    color: #64748b !important;
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    margin: 4px 8px !important;
+    display: inline-block !important;
+    text-decoration: underline !important;
+}
