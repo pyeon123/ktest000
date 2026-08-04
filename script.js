@@ -1688,3 +1688,254 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   setTimeout(attach, 500);
   setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
+
+// ==========================================
+// AI 튜터 우측 고정 플로팅 위젯 & API 연동 스크립트
+// ==========================================
+(function initAITutor() {
+  document.addEventListener("DOMContentLoaded", function () {
+    
+    // 1. 퀴즈 페이지 판별 (메인 화면 등 퀴즈가 아닌 곳은 제외)
+    const isQuizPage = window.location.pathname.includes('quiz') || document.querySelector('.quiz-container') || document.querySelector('.quiz');
+    if (!isQuizPage) return;
+
+    // 데이터 저장용 변수 (다시 듣기 및 손 이모지용)
+    let lastAudioText = "";
+    let lastGrammarPoint = "";
+
+    // 2. CSS 스타일 동적 주입 (우측 고정 플로팅 레이아웃)
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .ai-tutor-sidebar {
+        position: fixed;
+        right: 25px;
+        top: 100px;
+        width: 280px;
+        z-index: 1000;
+        font-family: inherit;
+      }
+      .tutor-card {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        text-align: center;
+      }
+      .tutor-avatar-container {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+      .tutor-image {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #6366f1;
+      }
+      .hand-emoji {
+        position: absolute;
+        bottom: 0;
+        right: -5px;
+        font-size: 22px;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 50%;
+        padding: 3px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .hand-emoji:hover { transform: scale(1.2); }
+      .tutor-bubble {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 12px;
+        margin: 10px 0;
+        font-size: 14px;
+        color: #334155;
+        min-height: 48px;
+        text-align: left;
+        line-height: 1.4;
+      }
+      .status-display {
+        font-weight: bold;
+        padding: 6px 10px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        display: none;
+        font-size: 13px;
+      }
+      .status-display.correct { display: block; background: #dcfce7; color: #166534; }
+      .status-display.incorrect { display: block; background: #fee2e2; color: #991b1b; }
+      
+      .tutor-controls {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 8px;
+      }
+      .tutor-btn {
+        background: #6366f1;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, transform 0.1s;
+      }
+      .tutor-btn:hover { background: #4f46e5; transform: scale(1.05); }
+      .tutor-btn.recording { background: #ef4444; animation: pulse 1s infinite; }
+      
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // 3. UI 위젯 생성 (필수 기능 요소 전체 포함)
+    const tutorSidebar = document.createElement('aside');
+    tutorSidebar.className = 'ai-tutor-sidebar';
+    tutorSidebar.innerHTML = `
+      <div class="tutor-card">
+        <div class="tutor-avatar-container">
+          <img src="tutor-character.png" alt="AI 튜터" class="tutor-image">
+          <span class="hand-emoji" id="hand-emoji-btn" title="문법 힌트 보기">✋</span>
+        </div>
+        
+        <!-- 정답 / 오답 표시 영역 -->
+        <div id="tutor-status-display" class="status-display"></div>
+        
+        <!-- 대화 말풍선 -->
+        <div class="tutor-bubble" id="tutor-bubble-text">
+          궁금한 점이 있으면 마이크 버튼(🎤)을 누르고 물어보세요!
+        </div>
+
+        <!-- 제어 버튼 (마이크 & 다시 듣기) -->
+        <div class="tutor-controls">
+          <button id="mic-btn" class="tutor-btn" title="마이크 질문">🎤</button>
+          <button id="listen-again-btn" class="tutor-btn" title="다시 듣기">🔊</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(tutorSidebar);
+
+    // 4. 오디오 재생 (TTS - 음성 출력) 함수
+    function speakText(text) {
+      if (!text) return;
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ko-KR';
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // 5. 마이크 입력 (STT - 음성 인식) 처리
+    const micBtn = document.getElementById('mic-btn');
+    const bubbleText = document.getElementById('tutor-bubble-text');
+    const statusDisplay = document.getElementById('tutor-status-display');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'ko-KR';
+      recognition.interimResults = false;
+
+      micBtn.addEventListener('click', function () {
+        if (micBtn.classList.contains('recording')) {
+          recognition.stop();
+        } else {
+          recognition.start();
+          micBtn.classList.add('recording');
+          bubbleText.innerText = "듣고 있어요... 말씀하세요!";
+        }
+      });
+
+      recognition.onresult = function (event) {
+        micBtn.classList.remove('recording');
+        const userSpeech = event.results[0][0].transcript;
+        bubbleText.innerText = `질문: "${userSpeech}"`;
+        sendToAITutor(userSpeech);
+      };
+
+      recognition.onerror = function () {
+        micBtn.classList.remove('recording');
+        bubbleText.innerText = "음성을 인식하지 못했습니다. 다시 시도해 주세요.";
+      };
+
+      recognition.onend = function () {
+        micBtn.classList.remove('recording');
+      };
+    } else {
+      micBtn.addEventListener('click', function () {
+        const textInput = prompt("질문을 입력해 주세요:");
+        if (textInput) sendToAITutor(textInput);
+      });
+    }
+
+    // 6. Netlify Function 백엔드 API 연동
+    async function sendToAITutor(userQuery) {
+      bubbleText.innerText = "AI 튜터가 생각 중입니다...";
+      
+      try {
+        const response = await fetch('/.netlify/functions/tutor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ userMessage: userQuery })
+        });
+
+        const data = await response.json();
+
+        if (data) {
+          // 정답 / 오답 표시 업데이트
+          statusDisplay.className = "status-display " + (data.isCorrect ? "correct" : "incorrect");
+          statusDisplay.innerText = data.isCorrect ? "⭕ 정답 / 올바른 표현입니다!" : "❌ 교정이 필요해요!";
+
+          // 다시 듣기 및 손 이모지용 데이터 저장
+          lastAudioText = (data.correctedSentence || "") + " " + (data.nextQuestion || "");
+          lastGrammarPoint = data.grammarPoint || "특별한 문법 설명이 없습니다.";
+
+          // 말풍선 업데이트
+          bubbleText.innerHTML = `
+            <strong>${data.correctedSentence || ''}</strong><br>
+            <span style="font-size:12px; color:#64748b;">${data.feedback || ''}</span><br><br>
+            ${data.nextQuestion || ''}
+          `;
+
+          // 오디오 자동 재생
+          speakText(lastAudioText);
+        }
+      } catch (err) {
+        console.error(err);
+        bubbleText.innerText = "응답을 불러오는 도중 오류가 발생했습니다.";
+      }
+    }
+
+    // 7. 다시 듣기 버튼 (🔊)
+    document.getElementById('listen-again-btn').addEventListener('click', function () {
+      if (lastAudioText) {
+        speakText(lastAudioText);
+      } else {
+        speakText(bubbleText.innerText);
+      }
+    });
+
+    // 8. 손 모양 이모지 (✋) - 문법 팁 / 힌트 출력
+    document.getElementById('hand-emoji-btn').addEventListener('click', function () {
+      if (lastGrammarPoint) {
+        alert("💡 [AI 튜터 문법 팁]\n\n" + lastGrammarPoint);
+      } else {
+        alert("💡 [AI 튜터 힌트]\n\n질문을 하시면 AI가 맞춤형 문법 설명을 제공합니다.");
+      }
+    });
+
+  });
+})();
