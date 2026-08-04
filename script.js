@@ -1711,122 +1711,88 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
 
-// ===== AI Tutor Final - No Ask Btn, FAQ hide on click, No Main =====
-(function() {
-  // 메인 페이지 확실히 제외
-  const path = location.pathname.toLowerCase();
-  const isMain = path === '/' || path === '/index.html' || path.endsWith('/index.html') || document.getElementById('today-quiz-section');
-  // 메인에서 today-quiz-section이 있으면 메인으로 판단해서 제외
-  if (isMain && !document.querySelector('.kr-text')) {
-    // 개별 페이지엔 kr-text가 있지만 메인에도 있으면 혼동되니까, URL에 /phrases/ 없으면 메인으로 간주
-    if (!path.includes('/phrases/') && !path.includes('/quiz/')) return;
-  }
-  const isQuizPage = document.querySelector('.kr-text');
-  if (!isQuizPage) return; // kr-text 없는 페이지는 전부 제외 = 메인 안 나옴
+// ===== AI Tutor - Safe Final (카테고리 안 건드림) =====
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    // kr-text가 없으면 퀴즈 개별 페이지가 아니므로 튜터 실행 안 함 (메인, 카테고리 페이지 제외)
+    const krEl = document.querySelector('.kr-text');
+    if (!krEl) return;
 
-  const style = document.createElement('style');
-  style.textContent = `
-    #ai-tutor-btn{position:fixed!important;bottom:90px!important;right:18px!important;width:60px!important;height:60px!important;border-radius:50%!important;background:#4f46e5!important;color:white!important;border:2px solid #3730a3!important;border-bottom-width:4px!important;font-size:1.6rem!important;cursor:pointer!important;z-index:9999!important;box-shadow:0 6px 16px rgba(79,70,229,0.35)!important;display:flex!important;align-items:center!important;justify-content:center!important;animation:tutorPulse 2.5s infinite;}
-    @keyframes tutorPulse{0%{box-shadow:0 0 0 0 rgba(79,70,229,0.5)}70%{box-shadow:0 0 0 12px rgba(79,70,229,0)}100%{box-shadow:0 0 rgba(79,70,229,0)}}
-    #ai-tutor-modal{display:none;position:fixed!important;bottom:160px!important;right:18px!important;width:360px!important;max-width:92vw!important;height:480px!important;background:white!important;border:2px solid #e2e8f0!important;border-bottom-width:4px!important;border-radius:20px!important;z-index:9999!important;flex-direction:column!important;overflow:hidden!important;box-shadow:0 10px 30px rgba(0,0,0,0.15)!important;}
-    #ai-faq-chips{display:flex!important;flex-wrap:wrap!important;gap:6px!important;padding:10px 12px!important;border-bottom:2px solid #f1f5f9!important;background:#f8fafc!important;}
-    .faq-chip{padding:8px 13px!important;background:white!important;border:2px solid #e2e8f0!important;border-bottom-width:3px!important;border-radius:20px!important;font-size:0.82rem!important;font-weight:800!important;cursor:pointer!important;color:#334155!important;transition:0.1s!important;}
-    .faq-chip:active{transform:translateY(1px)!important;border-bottom-width:2px!important;}
-  `;
-  document.head.appendChild(style);
+    const style = document.createElement('style');
+    style.textContent = `
+      #ai-tutor-btn{position:fixed!important;bottom:90px!important;right:18px!important;width:60px!important;height:60px!important;border-radius:50%!important;background:#4f46e5!important;color:white!important;border:2px solid #3730a3!important;border-bottom-width:4px!important;font-size:1.6rem!important;cursor:pointer!important;z-index:9999!important;box-shadow:0 6px 16px rgba(79,70,229,0.35)!important;display:flex!important;align-items:center!important;justify-content:center!important;animation:tutorPulse 2.5s infinite;}
+      @keyframes tutorPulse{0%{box-shadow:0 0 0 0 rgba(79,70,229,0.5)}70%{box-shadow:0 0 0 12px rgba(79,70,229,0)}100%{box-shadow:0 0 rgba(79,70,229,0)}}
+      #ai-tutor-modal{display:none;position:fixed!important;bottom:160px!important;right:18px!important;width:360px!important;max-width:92vw!important;height:480px!important;background:white!important;border:2px solid #e2e8f0!important;border-bottom-width:4px!important;border-radius:20px!important;z-index:9999!important;flex-direction:column!important;overflow:hidden!important;box-shadow:0 10px 30px rgba(0,0,0,0.15)!important;}
+      #ai-faq-chips{display:flex!important;flex-wrap:wrap!important;gap:6px!important;padding:10px 12px!important;border-bottom:2px solid #f1f5f9!important;background:#f8fafc!important;}
+      .faq-chip{padding:8px 13px!important;background:white!important;border:2px solid #e2e8f0!important;border-bottom-width:3px!important;border-radius:20px!important;font-size:0.82rem!important;font-weight:800!important;cursor:pointer!important;color:#334155!important;}
+    `;
+    document.head.appendChild(style);
 
-  function getPageContext() {
-    return {
-      kr: document.querySelector('.kr-text')?.innerText?.trim() || '',
-      rom: document.querySelector('.rom-text')?.innerText?.trim() || '',
-      en: document.querySelector('.tip-container')?.innerText?.trim().slice(0,100) || '',
-      url: location.pathname
-    };
-  }
+    function getCtx() {
+      return {
+        kr: document.querySelector('.kr-text')?.innerText?.trim() || '',
+        rom: document.querySelector('.rom-text')?.innerText?.trim() || '',
+        en: document.querySelector('.tip-container')?.innerText?.trim().slice(0,80) || ''
+      };
+    }
 
-  function buildFaqs(ctx) {
-    const s = ctx.kr ? ctx.kr.slice(0, 12) : 'this';
-    return [
-      `Why does "${s}" end with 요?`,
-      `What does "${s}" mean?`,
+    const ctx = getCtx();
+    const faqs = [
+      `Why does "${ctx.kr.slice(0,10)}" end with 요?`,
+      `What does "${ctx.kr.slice(0,10)}" mean?`,
       `Formal vs casual?`,
-      `How to pronounce "${s}"?`,
+      `How to pronounce it?`,
       `Example sentence?`
     ];
-  }
 
-  const ctx = getPageContext();
-  const faqs = buildFaqs(ctx);
-
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = `
-    <button id="ai-tutor-btn">💬</button>
-    <div id="ai-tutor-modal">
-      <div style="padding:14px 16px;font-weight:900;border-bottom:2px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;">
-        <span>🤖 AI Tutor <span style="font-size:0.68rem;background:#f5f3ff;color:#4f46e5;padding:4px 8px;border-radius:10px;margin-left:6px;">${ctx.kr.slice(0,14)}</span></span>
-        <span id="ai-tutor-close" style="cursor:pointer;padding:4px 10px;background:#f1f5f9;border-radius:8px;">✖</span>
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <button id="ai-tutor-btn">💬</button>
+      <div id="ai-tutor-modal">
+        <div style="padding:14px 16px;font-weight:900;border-bottom:2px solid #f1f5f9;display:flex;justify-content:space-between;">
+          <span>🤖 AI Tutor <span style="font-size:0.68rem;background:#f5f3ff;color:#4f46e5;padding:4px 8px;border-radius:10px;">${ctx.kr.slice(0,14)}</span></span>
+          <span id="ai-tutor-close" style="cursor:pointer;padding:4px 10px;background:#f1f5f9;border-radius:8px;">✖</span>
+        </div>
+        <div id="ai-faq-chips">${faqs.map(q=>`<button class="faq-chip" data-q="${q.replace(/"/g,'&quot;')}">${q}</button>`).join('')}</div>
+        <div id="ai-chat-log" style="flex:1;overflow-y:auto;padding:12px;font-size:0.9rem;display:flex;flex-direction:column;gap:8px;">
+          <div style="background:#f5f3ff;padding:10px 12px;border-radius:12px;"><b>AI:</b> Ask about <b style="color:#4f46e5;">"${ctx.kr}"</b>! 👋</div>
+        </div>
+        <div style="padding:10px;border-top:2px solid #f1f5f9;">
+          <input id="ai-input" placeholder="Ask... press Enter" style="width:100%;padding:12px 14px;border-radius:12px;border:2px solid #e2e8f0;font-weight:700;outline:none;box-sizing:border-box;">
+        </div>
       </div>
-      <div id="ai-faq-chips">
-        ${faqs.map(q=>`<button class="faq-chip" data-q="${q.replace(/"/g,'&quot;')}">${q}</button>`).join('')}
-      </div>
-      <div id="ai-chat-log" style="flex:1;overflow-y:auto;padding:12px;font-size:0.9rem;line-height:1.5;display:flex;flex-direction:column;gap:8px;">
-        <div style="background:#f5f3ff;padding:10px 12px;border-radius:12px;"><b>AI:</b> Ask about <b style="color:#4f46e5;">"${ctx.kr}"</b>! 👋</div>
-      </div>
-      <div style="padding:10px;border-top:2px solid #f1f5f9;">
-        <input id="ai-input" autocomplete="off" placeholder="Ask something... press Enter" style="width:100%;padding:12px 14px;border-radius:12px;border:2px solid #e2e8f0;font-weight:700;outline:none;font-family:inherit;box-sizing:border-box;">
-      </div>
-    </div>
-  `;
-  document.body.appendChild(wrapper);
+    `;
+    document.body.appendChild(div);
 
-  const btn = document.getElementById('ai-tutor-btn');
-  const modal = document.getElementById('ai-tutor-modal');
-  const closeBtn = document.getElementById('ai-tutor-close');
-  const input = document.getElementById('ai-input');
-  const log = document.getElementById('ai-chat-log');
-  const faqBox = document.getElementById('ai-faq-chips');
-  let isOpen = false;
-
-  function toggleTutor(){ isOpen=!isOpen; modal.style.display=isOpen?'flex':'none'; if(isOpen) { faqBox.style.display='flex'; } }
-
-  function sendQuestion(q) {
-    if (!q || !q.trim()) return;
-    q = q.trim();
-
-    // 유저 말풍선
-    log.innerHTML += `<div style="align-self:flex-end;max-width:80%;"><span style="background:#4f46e5;color:white;padding:9px 13px;border-radius:16px 16px 4px 16px;display:inline-block;font-weight:800;font-size:0.88rem;">${q}</span></div>`;
-    input.value = '';
+    const btn = document.getElementById('ai-tutor-btn');
+    const modal = document.getElementById('ai-tutor-modal');
+    const closeBtn = document.getElementById('ai-tutor-close');
+    const input = document.getElementById('ai-input');
+    const log = document.getElementById('ai-chat-log');
+    const faqBox = document.getElementById('ai-faq-chips');
+    let open = false;
     
-    // FAQ 전체 사라지게 (나머지 질문들 숨김)
-    faqBox.style.display = 'none';
-    log.scrollTop = log.scrollHeight;
+    const toggle = () => { open=!open; modal.style.display=open?'flex':'none'; };
+    btn.addEventListener('click', toggle);
+    closeBtn.addEventListener('click', toggle);
 
-    const pageCtx = getPageContext();
+    function sendQ(q) {
+      if(!q || !q.trim()) return;
+      q=q.trim();
+      log.innerHTML += `<div style="align-self:flex-end;max-width:80%;"><span style="background:#4f46e5;color:white;padding:9px 13px;border-radius:16px 16px 4px 16px;display:inline-block;font-weight:800;">${q}</span></div>`;
+      input.value='';
+      faqBox.style.display='none';
+      log.scrollTop=log.scrollHeight;
+      setTimeout(()=>{
+        let ans = q.includes('요') ? `"요" = polite!<br>${ctx.kr.replace('요','')} (casual) → ${ctx.kr} (polite)` : `"${ctx.kr}" = ${ctx.en.slice(0,60)}<br>Example: ${ctx.kr} 정말 좋아요!`;
+        log.innerHTML += `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:12px;"><b>🤖:</b> ${ans}<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:8px;font-size:0.75rem;padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;">↩ Show questions</button></div>`;
+        log.scrollTop=log.scrollHeight;
+      },300);
+    }
 
-    setTimeout(() => {
-      let ans = '';
-      if (q.includes('요')) ans = `"요" = polite ending!<br>• ${pageCtx.kr.replace('요','')} (casual) → ${pageCtx.kr} (polite)`;
-      else if (q.toLowerCase().includes('mean')) ans = `"${pageCtx.kr}" = <b>${pageCtx.en.slice(0,80)}</b>`;
-      else if (q.toLowerCase().includes('formal')) ans = `Casual: ${pageCtx.kr.replace('요','')}<br>Polite: ${pageCtx.kr}<br>Formal: ${pageCtx.kr.replace('요','ㅂ니다')}`;
-      else if (q.toLowerCase().includes('pronounce')) ans = `Say it like <b>"${pageCtx.rom}"</b> 🔊`;
-      else ans = `Ex: "${pageCtx.kr} 정말 좋아요!"<br>= I really like it!`;
+    input.addEventListener('keypress', e=>{ if(e.key==='Enter') sendQ(input.value); });
+    input.addEventListener('input', ()=>{ faqBox.style.display = input.value.length>0 ? 'none' : 'flex'; });
+    div.querySelectorAll('.faq-chip').forEach(c=>{ c.addEventListener('click', ()=> sendQ(c.dataset.q)); });
 
-      log.innerHTML += `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:11px 12px;border-radius:12px;"><b>🤖 AI:</b> ${ans}<div style="margin-top:8px;"><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="font-size:0.75rem;padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;">↩ Show questions</button></div></div>`;
-      log.scrollTop = log.scrollHeight;
-    }, 350);
-  }
-
-  btn.addEventListener('click', toggleTutor);
-  closeBtn.addEventListener('click', toggleTutor);
-  input.addEventListener('keypress', (e)=>{ if(e.key==='Enter') sendQuestion(input.value); });
-  input.addEventListener('input', ()=>{ if(input.value.length>0) faqBox.style.display='none'; else if(log.children.length<=1) faqBox.style.display='flex'; });
-
-  document.querySelectorAll('.faq-chip').forEach(chip=>{
-    chip.onclick = () => sendQuestion(chip.dataset.q);
-  });
-})();
-// ===== End =====
-  }
-  attachFaqEvents();
-})();
-// ===== End AI Tutor Final =====
+  } catch(e) { console.log('AI Tutor error', e); }
+});
