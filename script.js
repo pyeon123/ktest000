@@ -1711,46 +1711,46 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
 
-// ===== AI TUTOR - 스크롤 완벽 fix 최종 =====
+// ===== AI TUTOR - 위치 아래로 fix =====
 (function(){
   var file = location.pathname.split('/').pop().toLowerCase();
   if(file === '' || file === 'index.html' || file === '/' || file === 'index') return;
-  if(document.getElementById('ai-tutor-btn')) return;
-  
+  var oldBtn = document.getElementById('ai-tutor-btn'); if(oldBtn) oldBtn.parentElement.remove();
+  var oldStyle = document.getElementById('ai-tutor-style'); if(oldStyle) oldStyle.remove();
+
   var css = document.createElement('style');
+  css.id='ai-tutor-style';
   css.textContent = `
-  #ai-tutor-btn{display:none;position:fixed;bottom:90px;right:16px;z-index:99999;cursor:pointer;border:none;background:transparent;flex-direction:column;align-items:center;gap:4px;}
-  #ai-tutor-btn .ai-bubble{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-size:1.8rem;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(99,102,241,0.4);border:3px solid white;animation:ai-bounce 2s infinite;}
-  #ai-tutor-btn .ai-label{background:#1e293b;color:white;font-size:.65rem;font-weight:900;padding:3px 8px;border-radius:20px;}
-  @keyframes ai-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-  #ai-tutor-modal{display:none;position:fixed;bottom:165px;right:16px;width:365px;max-width:92vw;height:500px;background:white;border-radius:24px;z-index:99999;flex-direction:column;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.15);border:1px solid #e2e8f0;}
-  #ai-chat-log{flex:1 !important;height:280px !important;max-height:280px !important;overflow-y:auto !important;overflow-x:hidden !important;display:flex;flex-direction:column;gap:10px;padding:14px !important;-webkit-overflow-scrolling:touch;background:white;}
-  #ai-chat-log div{word-wrap:break-word !important;white-space:normal !important;line-height:1.5 !important;}
-  #ai-faq-chips{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:#f8fafc;flex-shrink:0;}
-  .faq-chip{padding:8px 14px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:20px;font-size:.82rem;font-weight:800;cursor:pointer;}
-  .ai-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
-  .ai-action-btn{padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-size:.7rem;font-weight:800;cursor:pointer;}
+  #ai-tutor-btn{display:none;position:fixed;bottom:20px;right:14px;z-index:99999;cursor:pointer;border:none;background:transparent;flex-direction:column;align-items:center;gap:3px;}
+  #ai-tutor-btn .ai-bubble{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-size:1.7rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(99,102,241,0.4);border:3px solid white;animation:ai-bounce 2s infinite;}
+  #ai-tutor-btn .ai-label{background:#1e293b;color:white;font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:20px;}
+  @keyframes ai-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  #ai-tutor-modal{display:none;position:fixed;bottom:85px;right:10px;width:360px;max-width:94vw;height:62vh;max-height:440px;background:white;border-radius:20px;z-index:99999;flex-direction:column;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.2);border:1px solid #e2e8f0;}
+  #ai-chat-log{flex:1;overflow-y:auto !important;overflow-x:hidden;padding:14px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch;}
+  #ai-chat-log div{word-wrap:break-word;white-space:normal;line-height:1.5;}
+  #ai-faq-chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px;background:#f8fafc;flex-shrink:0;}
+  .faq-chip{padding:7px 12px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:20px;font-size:.8rem;font-weight:800;cursor:pointer;}
   `;
   document.head.appendChild(css);
 
   var wrap = document.createElement('div');
   wrap.innerHTML = `<button id="ai-tutor-btn"><div class="ai-bubble">🤖</div><div class="ai-label">TUTOR</div></button>
   <div id="ai-tutor-modal">
-    <div style="padding:16px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;display:flex;justify-content:space-between;flex-shrink:0;"><div style="display:flex;gap:10px;align-items:center;"><div style="width:36px;height:36px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;">🤖</div><div><div style="font-weight:900;">AI Tutor</div><div style="font-size:.7rem;opacity:.9;">스크롤 가능!</div></div></div><span id="ai-x" style="cursor:pointer;background:rgba(255,255,255,0.2);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span></div>
+    <div style="padding:14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;display:flex;justify-content:space-between;flex-shrink:0;align-items:center;"><div style="font-weight:900;">🤖 AI Tutor</div><span id="ai-x" style="cursor:pointer;background:rgba(255,255,255,0.25);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span></div>
     <div id="ai-faq-chips"></div>
     <div id="ai-chat-log"></div>
-    <div style="padding:12px;background:#f8fafc;border-top:1px solid #f1f5f9;flex-shrink:0;display:flex;gap:8px;"><input id="ai-in" placeholder="Ask... Enter" style="flex:1;padding:12px;border-radius:24px;border:2px solid #e2e8f0;outline:none;"></div>
+    <div style="padding:10px;background:#f8fafc;border-top:1px solid #eee;flex-shrink:0;"><input id="ai-in" placeholder="Ask... Enter" style="width:100%;padding:11px 14px;border-radius:24px;border:2px solid #e2e8f0;outline:none;"></div>
   </div>`;
   document.body.appendChild(wrap);
 
   var btn=wrap.querySelector('#ai-tutor-btn'),modal=wrap.querySelector('#ai-tutor-modal'),log=wrap.querySelector('#ai-chat-log'),faq=wrap.querySelector('#ai-faq-chips'),input=wrap.querySelector('#ai-in'),open=false;
-  function getK(){return {kr:document.querySelector('.kr-text')?.innerText||document.getElementById('korean-sentence')?.innerText||'', en:document.getElementById('situation')?.innerText||''};}
-  function makeAct(t){return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${t.replace(/'/g,'')}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({kr:'${getK().kr}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤️ Saved!'">💾 Save</button><button class="ai-action-btn" onclick="if(navigator.share)navigator.share({text:'${t.replace(/'/g,'')}'});else navigator.clipboard.writeText('${t.replace(/'/g,'')}')">📤 Share</button></div>`;}
-  function renderFaq(){var k=getK().kr;faq.innerHTML=['💜 Why 요?','🤔 Meaning?','👔 Formal?','🗣️ Pronounce?','💡 Example?'].map(q=>`<button class="faq-chip">${q}</button>`).join('');log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:16px;"><b>🤖 Tutor:</b> You got <b style="color:#6366f1;">"${k}"</b>! 답변 길어도 여기서 스크롤 돼요! 👇<br><br>이건 테스트용 긴 답변입니다. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 반복 테스트용 긴 글입니다. 스크롤 되는지 확인해보세요!</div>`;faq.style.display='flex';log.scrollTop=0;wrap.querySelectorAll('.faq-chip').forEach(c=>{c.onclick=()=>{var q=c.innerText;log.innerHTML+=`<div style="align-self:flex-end;max-width:80%;"><span style="background:#6366f1;color:white;padding:10px 14px;border-radius:18px 18px 4px 18px;display:inline-block;font-weight:700;">${q}</span></div>`;faq.style.display='none';setTimeout(()=>{var ans=`"${k}" - 아주 긴 설명입니다. `.repeat(10);log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px;border-radius:16px;"><b>🤖 Tutor:</b> ${ans}${makeAct(ans)}<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:8px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;">↩ Show</button></div>`;log.scrollTop=log.scrollHeight;},300);}});}
+  function getK(){return document.getElementById('korean-sentence')?.innerText||'';}
+  function renderFaq(){var k=getK();faq.innerHTML=['💜 Why 요?','🤔 Meaning?','👔 Formal?','🗣️ Pronounce?','💡 Example?'].map(q=>`<button class="faq-chip">${q}</button>`).join('');log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:14px;"><b>Tutor:</b> You got <b style="color:#6366f1;">"${k}"</b>! 여기서 스크롤 돼요! 👇</div>`;faq.style.display='flex';log.scrollTop=0;wrap.querySelectorAll('.faq-chip').forEach(c=>{c.onclick=()=>{log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:80%;">${c.innerText}</div>`;faq.style.display='none';setTimeout(()=>{var longText=`"${k}" 설명입니다. `.repeat(20)+`<br><br>스크롤 테스트: 길어도 안에서 스크롤 됩니다!`;log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px;border-radius:14px;">${longText}<br><br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="padding:6px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;">↩ Show</button></div>`;log.scrollTop=log.scrollHeight;},300);}});}
   btn.onclick=()=>{open=!open;modal.style.display=open?'flex':'none';if(open)renderFaq();};
   wrap.querySelector('#ai-x').onclick=()=>{open=false;modal.style.display='none';};
-  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim();log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:10px 14px;border-radius:18px 18px 4px 18px;max-width:80%;align-self:flex-end;">${q}</div>`;e.target.value='';faq.style.display='none';setTimeout(()=>{var a=`Answer for "${q}" - 긴 답변 테스트 `.repeat(15);log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px;border-radius:16px;">${a}${makeAct(a)}</div>`;log.scrollTop=log.scrollHeight;},300);}});
+  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:80%;">${e.target.value}</div>`;e.target.value='';faq.style.display='none';log.scrollTop=log.scrollHeight;}});
   window.showAiTutor=()=>{var d=document.getElementById('detail-area');if(d&&d.style.display!=='none'&&d.innerText.includes('Correct'))btn.style.display='flex';};
   window.hideAiTutor=()=>{btn.style.display='none';modal.style.display='none';open=false;};
   var oldR=window.renderLearningProgress;window.renderLearningProgress=function(){if(oldR)oldR();setTimeout(showAiTutor,300);};
+  var oldN=window.nextQuiz;window.nextQuiz=function(){hideAiTutor();if(oldN)oldN.apply(this,arguments);};
 })();
