@@ -1711,48 +1711,79 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
 
-// ===== AI TUTOR - 예쁜 디자인 버전 =====
+// ===== AI TUTOR - 복사/저장/공유 완벽 버전 =====
 (function(){
   var file = location.pathname.split('/').pop().toLowerCase();
   if(file === '' || file === 'index.html' || file === '/' || file === 'index') return;
   
   var css = document.createElement('style');
   css.textContent = `
-  #ai-tutor-btn{ display:none; position:fixed; bottom:90px; right:16px; z-index:99999; cursor:pointer; border:none; background:transparent; flex-direction:column; align-items:center; gap:4px; }
-  #ai-tutor-btn .ai-bubble{ width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; font-size:1.8rem; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(99,102,241,0.4); border:3px solid white; animation: ai-bounce 2s infinite; }
-  #ai-tutor-btn .ai-label{ background:#1e293b; color:white; font-size:.65rem; font-weight:900; padding:3px 8px; border-radius:20px; letter-spacing:.5px; box-shadow:0 2px 8px rgba(0,0,0,0.2); }
-  @keyframes ai-bounce{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
-  #ai-tutor-modal{display:none; position:fixed; bottom:165px; right:16px; width:365px; max-width:92vw; height:480px; background:white; border-radius:24px; z-index:99999; flex-direction:column; overflow:hidden; box-shadow:0 20px 50px rgba(0,0,0,0.15); border:1px solid #e2e8f0;}
+  #ai-tutor-btn{display:none;position:fixed;bottom:90px;right:16px;z-index:99999;cursor:pointer;border:none;background:transparent;flex-direction:column;align-items:center;gap:4px;}
+  #ai-tutor-btn .ai-bubble{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-size:1.8rem;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(99,102,241,0.4);border:3px solid white;animation:ai-bounce 2s infinite;}
+  #ai-tutor-btn .ai-label{background:#1e293b;color:white;font-size:.65rem;font-weight:900;padding:3px 8px;border-radius:20px;}
+  @keyframes ai-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  #ai-tutor-modal{display:none;position:fixed;bottom:165px;right:16px;width:365px;max-width:92vw;height:500px;background:white;border-radius:24px;z-index:99999;flex-direction:column;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,0.15);border:1px solid #e2e8f0;}
   #ai-faq-chips{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:#f8fafc;}
-  .faq-chip{padding:8px 14px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:20px;font-size:.82rem;font-weight:800;cursor:pointer;color:#334155;transition:all .15s;}
-  .faq-chip:hover{border-color:#6366f1;transform:translateY(-1px);}
+  .faq-chip{padding:8px 14px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:20px;font-size:.82rem;font-weight:800;cursor:pointer;}
+  .ai-actions{display:flex;gap:6px;margin-top:8px;}
+  .ai-action-btn{padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-size:.7rem;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:4px;}
+  .ai-action-btn:hover{border-color:#6366f1;}
+  #ai-chat-log{flex:1;overflow-y:auto;padding:14px;font-size:.9rem;display:flex;flex-direction:column;gap:10px;}
+  #ai-chat-log div{word-wrap:break-word;word-break:break-word;white-space:normal;line-height:1.5;}
   `;
   document.head.appendChild(css);
 
   var wrap = document.createElement('div');
   wrap.innerHTML = `
-    <button id="ai-tutor-btn">
-      <div class="ai-bubble">🤖</div>
-      <div class="ai-label">TUTOR</div>
-    </button>
+    <button id="ai-tutor-btn"><div class="ai-bubble">🤖</div><div class="ai-label">TUTOR</div></button>
     <div id="ai-tutor-modal">
       <div style="padding:16px 18px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;display:flex;justify-content:space-between;align-items:center;">
-        <div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;">🤖</div><div><div style="font-weight:900;font-size:.95rem;">AI Korean Tutor</div><div style="font-size:.7rem;opacity:.9;">Ask me anything!</div></div></div>
+        <div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;">🤖</div><div><div style="font-weight:900;">AI Tutor</div><div style="font-size:.7rem;opacity:.9;">복사·저장·공유 가능!</div></div></div>
         <span id="ai-x" style="cursor:pointer;background:rgba(255,255,255,0.2);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span>
       </div>
       <div id="ai-faq-chips"></div>
-      <div id="ai-log" style="flex:1;overflow:auto;padding:14px;font-size:.9rem;display:flex;flex-direction:column;gap:10px;background:#fff;"></div>
-      <div style="padding:12px;background:#f8fafc;border-top:1px solid #f1f5f9;display:flex;gap:8px;"><input id="ai-in" placeholder="Ask about this sentence..." style="flex:1;padding:12px 14px;border-radius:24px;border:2px solid #e2e8f0;outline:none;font-weight:600;"><span style="background:#6366f1;color:white;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:900;" onclick="document.getElementById('ai-in').dispatchEvent(new KeyboardEvent('keypress',{key:'Enter'}))">↵</span></div>
+      <div id="ai-log"></div>
+      <div style="padding:12px;background:#f8fafc;border-top:1px solid #f1f5f9;display:flex;gap:8px;"><input id="ai-in" placeholder="Ask..." style="flex:1;padding:12px;border-radius:24px;border:2px solid #e2e8f0;outline:none;font-weight:600;"></div>
     </div>`;
   document.body.appendChild(wrap);
 
   var btn=wrap.querySelector('#ai-tutor-btn'),modal=wrap.querySelector('#ai-tutor-modal'),log=wrap.querySelector('#ai-log'),faq=wrap.querySelector('#ai-faq-chips'),input=wrap.querySelector('#ai-in'),open=false;
-  function getK(){return document.querySelector('.kr-text')?document.querySelector('.kr-text').innerText:''}
-  function faqRender(){var k=getK();faq.innerHTML=['💜 Why ends with 요?','🤔 What does it mean?','👔 Formal vs casual?','🗣️ Pronounce?','💡 Example?'].map(function(q){return '<button class="faq-chip">'+q+'</button>'}).join('');log.innerHTML='<div style="background:linear-gradient(135deg,#f5f3ff,#eef2ff);padding:12px 14px;border-radius:16px;border:1px solid #e9d5ff;"><b>🤖 Tutor:</b> You got <b style="color:#6366f1;">"'+k+'"</b> correct! 🎉<br><span style="font-size:.8rem;color:#64748b;">Tap a question below!</span></div>';faq.style.display='flex';wrap.querySelectorAll('.faq-chip').forEach(function(c){c.onclick=function(){var q=c.innerText;log.innerHTML+='<div style="align-self:flex-end;max-width:80%;"><span style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;padding:10px 14px;border-radius:18px 18px 4px 18px;display:inline-block;font-weight:700;">'+q+'</span></div>';faq.style.display='none';log.scrollTop=log.scrollHeight;setTimeout(function(){log.innerHTML+='<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px;border-radius:16px;"><b>🤖 Tutor:</b> "요" is polite ending! <br>• Casual: '+(k.replace('요',''))+'<br>• Polite: '+k+'<br><button onclick="document.getElementById(\'ai-faq-chips\').style.display=\'flex\'" style="margin-top:8px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:.75rem;">↩ Show questions</button></div>';log.scrollTop=log.scrollHeight;},400);}});}
-  btn.onclick=function(){open=!open;modal.style.display=open?'flex':'none';if(open)faqRender();};
-  wrap.querySelector('#ai-x').onclick=function(){open=false;modal.style.display='none';};
-  input.addEventListener('keypress',function(e){if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim();log.innerHTML+='<div style="align-self:flex-end;max-width:80%;"><span style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;padding:10px 14px;border-radius:18px 18px 4px 18px;display:inline-block;font-weight:700;">'+q+'</span></div>';e.target.value='';faq.style.display='none';log.scrollTop=log.scrollHeight;}});
-  window.showAiTutor=function(){var d=document.getElementById('detail-area');if(d&&d.style.display!=='none'&&d.innerText.indexOf('Correct')>-1)btn.style.display='flex';};
-  window.hideAiTutor=function(){btn.style.display='none';modal.style.display='none';open=false;};
-  var oldRender=window.renderLearningProgress;window.renderLearningProgress=function(){if(oldRender)oldRender();if(window.showAiTutor)setTimeout(showAiTutor,300);};
+
+  function getK(){return {kr:document.querySelector('.kr-text')?.innerText||'', rom:document.querySelector('.rom-text')?.innerText||'', en:document.querySelector('.tip-container')?.innerText||''};}
+
+  function makeActions(text){
+    return `<div class="ai-actions">
+      <button class="ai-action-btn" onclick="navigator.clipboard.writeText(\`${text.replace(/`/g,'')}\`);this.innerHTML='✅ Copied!';setTimeout(()=>this.innerHTML='📋 Copy',1500)">📋 Copy</button>
+      <button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({kr:'${getK().kr}',txt:\`${text.replace(/`/g,'').slice(0,100)}\`,date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerHTML='❤️ Saved!';setTimeout(()=>this.innerHTML='💾 Save',1500)">💾 Save</button>
+      <button class="ai-action-btn" onclick="if(navigator.share){navigator.share({title:'Korean Study',text:\`${text.replace(/`/g,'')}\`})}else{navigator.clipboard.writeText(\`${text.replace(/`/g,'')}\`);alert('Copied! Share it!')}">📤 Share</button>
+    </div>`;
+  }
+
+  function faqRender(){
+    var k=getK().kr;
+    faq.innerHTML=['💜 Why ends with 요?','🤔 What does it mean?','👔 Formal vs casual?','🗣️ Pronounce?','💡 Example?'].map(q=>`<button class="faq-chip">${q}</button>`).join('');
+    log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:16px;">You got <b style="color:#6366f1;">"${k}"</b>! Tap question 👋</div>`;
+    faq.style.display='flex';
+    wrap.querySelectorAll('.faq-chip').forEach(c=>{
+      c.onclick=()=>{
+        var q=c.innerText;
+        log.innerHTML+=`<div style="align-self:flex-end;max-width:80%;"><span style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;padding:10px 14px;border-radius:18px 18px 4px 18px;display:inline-block;font-weight:700;">${q}</span></div>`;
+        faq.style.display='none';
+        setTimeout(()=>{
+          var ans = `"요" is polite ending! Casual: ${k.replace('요','')} / Polite: ${k}`;
+          if(q.includes('mean')) ans = `"${k}" means "${getK().en.slice(0,80)}"`;
+          log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px;border-radius:16px;"><b>🤖 Tutor:</b> ${ans}${makeActions(ans)}<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:8px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;font-size:.75rem;">↩ Show questions</button></div>`;
+          log.scrollTop=log.scrollHeight;
+        },400);
+      };
+    });
+  }
+
+  btn.onclick=()=>{open=!open;modal.style.display=open?'flex':'none';if(open)faqRender();};
+  wrap.querySelector('#ai-x').onclick=()=>{open=false;modal.style.display='none';};
+  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim();log.innerHTML+=`<div style="align-self:flex-end;max-width:80%;"><span style="background:#6366f1;color:white;padding:10px 14px;border-radius:18px 18px 4px 18px;display:inline-block;">${q}</span></div>`;var ans=`About "${getK().kr}": ${q} - This is polite form!`;setTimeout(()=>{log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px;border-radius:16px;"><b>🤖:</b> ${ans}${makeActions(ans)}</div>`;log.scrollTop=log.scrollHeight;},300);e.target.value='';faq.style.display='none';}});
+
+  window.showAiTutor=()=>{var d=document.getElementById('detail-area');if(d&&d.style.display!=='none'&&d.innerText.includes('Correct'))btn.style.display='flex';};
+  window.hideAiTutor=()=>{btn.style.display='none';modal.style.display='none';open=false;};
+  var oldR=window.renderLearningProgress;window.renderLearningProgress=function(){if(oldR)oldR();setTimeout(showAiTutor,300);};
 })();
