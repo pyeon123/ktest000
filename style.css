@@ -224,3 +224,25 @@ html, body { width: 100% !important; max-width: 100% !important; overflow-x: hid
 .buttons button:active { transform: translateY(1px); box-shadow: 0 1px 0 #3730a3; }
 .buttons a:nth-child(2) button { background: #10b981; box-shadow: 0 2px 0 #065f46; }
 .buttons a:nth-child(2) button:active { box-shadow: 0 1px 0 #065f46; }
+/* ===== 검색 결과 스크롤 + 긴 답변 복습 완벽 fix ===== */
+#resultContainer, #resultContainerTop {
+  max-height: 320px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  border: 2px solid #e2e8f0;
+  border-top: none;
+}
+#ai-chat-log {
+  max-height: 280px !important;
+  overflow-y: auto !important;
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+  line-height: 1.5 !important;
+}
+#ai-chat-log div { word-wrap:break-word !important; white-space:normal !important; }
+#detail-area { max-height: 85vh !important; overflow-y:auto !important; }
+.result-container { padding-bottom:100px !important; }
