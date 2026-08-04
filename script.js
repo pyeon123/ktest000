@@ -494,71 +494,34 @@ function toggleKFreeInfo(e, section) {
   setTimeout(attach, 500); setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
 
-// ================= AI TUTOR - ONLY on Correct Page (Your Korean Learning Progress) =================
-(function(){
-  const fileName = window.location.pathname.split('/').pop().toLowerCase();
-  const isIndex = fileName === '' || fileName === 'index.html' || fileName === '/';
-  if (isIndex) return; // 메인에서는 절대 생성 안 함
+// 맨 아래 AI 부분 전체 교체 - 무조건 뜨는 버전
+window.showAiTutor = function(){
+  var b=document.getElementById('ai-tutor-btn');
+  var m=document.getElementById('ai-tutor-modal');
+  var faqBox=document.getElementById('ai-faq-chips');
+  var log=document.getElementById('ai-chat-log');
+  if(!b) return;
 
-  let aiCreated = false;
-  function createAiTutorDOM(){
-    if(aiCreated) return; aiCreated = true;
-    const css = document.createElement('style');
-    css.textContent = "#ai-tutor-btn{position:fixed!important;bottom:90px!important;right:18px!important;width:60px!important;height:60px!important;border-radius:50%!important;background:#4f46e5!important;color:white!important;border:2px solid #3730a3!important;border-bottom-width:4px!important;font-size:1.6rem!important;cursor:pointer!important;z-index:99999!important;display:none!important;align-items:center!important;justify-content:center!important;box-shadow:0 6px 16px rgba(79,70,229,0.35)!important}#ai-tutor-modal{display:none;position:fixed!important;bottom:160px!important;right:18px!important;width:360px!important;max-width:92vw!important;height:460px!important;background:white!important;border:2px solid #e2e8f0!important;border-bottom-width:4px!important;border-radius:20px!important;z-index:99999!important;flex-direction:column!important;overflow:hidden!important;box-shadow:0 10px 30px rgba(0,0,0,0.15)!important}#ai-faq-chips{display:flex!important;flex-wrap:wrap!important;gap:6px!important;padding:10px 12px!important;border-bottom:2px solid #f1f5f9!important;background:#f8fafc!important}.faq-chip{padding:7px 12px!important;background:white!important;border:2px solid #e2e8f0!important;border-bottom-width:3px!important;border-radius:20px!important;font-size:0.8rem!important;font-weight:800!important;cursor:pointer!important;color:#334155!important}";
-    document.head.appendChild(css);
+  // kr-text가 있는 페이지면 무조건 표시 시도
+  var krEl = document.querySelector('.kr-text');
+  var progressBox = document.getElementById('korean-progress-box');
+  var detailArea = document.getElementById('detail-area');
 
-    const wrap = document.createElement('div');
-    wrap.innerHTML = '<button id="ai-tutor-btn">💬</button><div id="ai-tutor-modal"><div style="padding:14px 16px;font-weight:900;border-bottom:2px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;"><span>🤖 AI Tutor</span><span id="ai-tutor-close" style="cursor:pointer;padding:4px 10px;background:#f1f5f9;border-radius:8px;">✖</span></div><div id="ai-faq-chips"></div><div id="ai-chat-log" style="flex:1;overflow-y:auto;padding:12px;font-size:0.9rem;display:flex;flex-direction:column;gap:8px;"></div><div style="padding:10px;border-top:2px solid #f1f5f9;"><input id="ai-input" autocomplete="off" placeholder="Ask... press Enter" style="width:100%;padding:12px 14px;border-radius:12px;border:2px solid #e2e8f0;font-weight:700;outline:none;box-sizing:border-box;"></div></div>';
-    document.body.appendChild(wrap);
-
-    const btn = document.getElementById('ai-tutor-btn');
-    const modal = document.getElementById('ai-tutor-modal');
-    const log = document.getElementById('ai-chat-log');
-    const faqBox = document.getElementById('ai-faq-chips');
-    const input = document.getElementById('ai-input');
-    let open = false;
-    btn.onclick = function(){ open=!open; modal.style.display=open?'flex':'none'; };
-    document.getElementById('ai-tutor-close').onclick = function(){ open=false; modal.style.display='none'; };
-
-    function getCtx(){ return { kr: (document.querySelector('.kr-text')||{}).innerText||'', rom: (document.querySelector('.rom-text')||{}).innerText||'', en: (document.querySelector('.tip-container')||{}).innerText||'' }; }
-
-    function buildFaqs(){
-      const ctx=getCtx(); const s=ctx.kr?ctx.kr.slice(0,10):'this';
-      faqBox.innerHTML = ['Why does "'+s+'" end with 요?','What does "'+s+'" mean?','Formal vs casual?','How to pronounce it?','Example sentence?'].map(function(q){ return '<button class="faq-chip" data-q="'+q.replace(/"/g,'&quot;')+'">'+q+'</button>'; }).join('');
-      log.innerHTML = '<div style="background:#f5f3ff;padding:10px 12px;border-radius:12px;"><b>AI:</b> You got <b style="color:#4f46e5;">"'+(ctx.kr||'this')+'"</b>! Tap a question 👋</div>';
-      wrap.querySelectorAll('.faq-chip').forEach(function(c){ c.onclick=function(){ sendQ(c.getAttribute('data-q')); }; });
-    }
-
-    function sendQ(q){
-      if(!q||!q.trim()) return; q=q.trim();
-      log.innerHTML += '<div style="align-self:flex-end;max-width:80%;"><span style="background:#4f46e5;color:white;padding:9px 13px;border-radius:16px 16px 4px 16px;display:inline-block;font-weight:800;">'+q+'</span></div>';
-      input.value=''; faqBox.style.display='none'; log.scrollTop=log.scrollHeight;
-      const ctx=getCtx();
+  // detail-area가 보이고, 그 안에 progress가 있으면 = 정답 화면
+  if(detailArea && detailArea.style.display !== 'none' && progressBox){
+    b.style.display='flex';
+    // FAQ 다시 그리기
+    var kr = krEl ? krEl.innerText : 'this';
+    faqBox.innerHTML = ['Why does "'+kr.slice(0,10)+'" end with 요?','What does it mean?','Formal vs casual?','How to pronounce?','Example?'].map(function(q){ return '<button class="faq-chip" data-q="'+q.replace(/"/g,'&quot;')+'">'+q+'</button>'; }).join('');
+    log.innerHTML = '<div style="background:#f5f3ff;padding:10px 12px;border-radius:12px;"><b>AI:</b> You got <b style="color:#4f46e5;">"'+kr+'"</b>! Tap a question 👋</div>';
+    faqBox.querySelectorAll('.faq-chip').forEach(function(c){ c.onclick=function(){ 
+      var qq=c.getAttribute('data-q');
+      log.innerHTML += '<div style="align-self:flex-end;max-width:80%;"><span style="background:#4f46e5;color:white;padding:9px 13px;border-radius:16px 16px 4px 16px;display:inline-block;font-weight:800;">'+qq+'</span></div>';
+      faqBox.style.display='none';
       setTimeout(function(){
-        let ans='';
-        if(q.indexOf('요')>-1) ans='"요" is polite ending! '+ctx.kr.replace('요','')+' (casual) → '+ctx.kr+' (polite)';
-        else if(q.toLowerCase().indexOf('mean')>-1) ans='"'+ctx.kr+'" = '+(ctx.en||'...').slice(0,80);
-        else if(q.toLowerCase().indexOf('formal')>-1) ans='Casual: '+ctx.kr.replace('요','')+'<br>Polite: '+ctx.kr+'<br>Formal: '+ctx.kr.replace('요','ㅂ니다');
-        else if(q.toLowerCase().indexOf('pronounce')>-1) ans='Pronounced: <b>'+ctx.rom+'</b> 🔊';
-        else ans='Ex: "'+ctx.kr+' 정말 좋아요!" = I really like it!';
-        log.innerHTML += '<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:12px;"><b>🤖:</b> '+ans+'<br><button onclick="document.getElementById(\'ai-faq-chips\').style.display=\'flex\'" style="margin-top:8px;font-size:0.75rem;padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;">↩ Show questions</button></div>';
+        log.innerHTML += '<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:12px;"><b>🤖:</b> "요" is polite ending! '+kr.replace('요','')+' → '+kr+'<br><button onclick="document.getElementById(\'ai-faq-chips\').style.display=\'flex\'" style="margin-top:8px;padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;">↩ Show questions</button></div>';
         log.scrollTop=log.scrollHeight;
       },300);
-    }
-
-    input.addEventListener('keypress', function(e){ if(e.key==='Enter') sendQ(input.value); });
-    input.addEventListener('input', function(){ faqBox.style.display = input.value.length>0 ? 'none' : 'flex'; });
-
-    window.showAiTutor = function(){
-      const hasProgress = document.getElementById('korean-progress-box') || document.body.innerText.indexOf('Your Korean Learning Progress')>-1;
-      if(!hasProgress) return;
-      if(btn) { btn.style.display='flex'; buildFaqs(); }
-    };
-    window.hideAiTutor = function(){
-      const b=document.getElementById('ai-tutor-btn'); const m=document.getElementById('ai-tutor-modal');
-      if(b) b.style.display='none'; if(m) m.style.display='none';
-    };
+    };});
   }
-
-  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', createAiTutorDOM); } else { createAiTutorDOM(); }
-})();
+};
