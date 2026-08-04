@@ -1711,12 +1711,13 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
 
-// ===== AI TUTOR - 위치 아래로 fix =====
+// ===== AI TUTOR - 페북/카톡/왓츠앱 공유 최종 =====
 (function(){
   var file = location.pathname.split('/').pop().toLowerCase();
   if(file === '' || file === 'index.html' || file === '/' || file === 'index') return;
-  var oldBtn = document.getElementById('ai-tutor-btn'); if(oldBtn) oldBtn.parentElement.remove();
-  var oldStyle = document.getElementById('ai-tutor-style'); if(oldStyle) oldStyle.remove();
+  var old = document.getElementById('ai-tutor-btn'); if(old) old.parentElement.remove();
+  var oldS = document.getElementById('ai-tutor-style'); if(oldS) oldS.remove();
+  var oldShare = document.getElementById('ai-share-modal'); if(oldShare) oldShare.remove();
 
   var css = document.createElement('style');
   css.id='ai-tutor-style';
@@ -1725,13 +1726,40 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   #ai-tutor-btn .ai-bubble{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;font-size:1.7rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(99,102,241,0.4);border:3px solid white;animation:ai-bounce 2s infinite;}
   #ai-tutor-btn .ai-label{background:#1e293b;color:white;font-size:.6rem;font-weight:900;padding:2px 7px;border-radius:20px;}
   @keyframes ai-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-  #ai-tutor-modal{display:none;position:fixed;bottom:85px;right:10px;width:360px;max-width:94vw;height:62vh;max-height:440px;background:white;border-radius:20px;z-index:99999;flex-direction:column;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.2);border:1px solid #e2e8f0;}
+  #ai-tutor-modal{display:none;position:fixed;bottom:85px;right:10px;width:365px;max-width:94vw;height:62vh;max-height:440px;background:white;border-radius:20px;z-index:99999;flex-direction:column;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.2);border:1px solid #e2e8f0;}
   #ai-chat-log{flex:1;overflow-y:auto !important;overflow-x:hidden;padding:14px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch;}
   #ai-chat-log div{word-wrap:break-word;white-space:normal;line-height:1.5;}
   #ai-faq-chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px;background:#f8fafc;flex-shrink:0;}
   .faq-chip{padding:7px 12px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:20px;font-size:.8rem;font-weight:800;cursor:pointer;}
+  .ai-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+  .ai-action-btn{padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-size:.7rem;font-weight:800;cursor:pointer;}
+  #ai-share-modal{display:none;position:fixed;bottom:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:100000;justify-content:center;align-items:flex-end;}
+  #ai-share-card{background:white;width:100%;max-width:400px;border-radius:20px 20px 0 0;padding:20px;animation:slideUp .3s;}
+  @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0;}
+  .share-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;border:none;background:transparent;}
+  .share-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:white;}
   `;
   document.head.appendChild(css);
+
+  // 공유 모달
+  var shareModal = document.createElement('div');
+  shareModal.id='ai-share-modal';
+  shareModal.innerHTML = `<div id="ai-share-card">
+    <div style="width:40px;height:4px;background:#e2e8f0;border-radius:10px;margin:0 auto 14px;"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;"><b>Share Korean Tip</b><span id="share-x" style="cursor:pointer;background:#f1f5f9;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span></div>
+    <div class="share-grid">
+      <button class="share-item" data-type="kakao"><div class="share-icon" style="background:#FEE500;color:#000;">💬</div><span style="font-size:.7rem;font-weight:800;">Kakao</span></button>
+      <button class="share-item" data-type="facebook"><div class="share-icon" style="background:#1877F2;">📘</div><span style="font-size:.7rem;font-weight:800;">Facebook</span></button>
+      <button class="share-item" data-type="whatsapp"><div class="share-icon" style="background:#25D366;">📱</div><span style="font-size:.7rem;font-weight:800;">WhatsApp</span></button>
+      <button class="share-item" data-type="twitter"><div class="share-icon" style="background:#000;">𝕏</div><span style="font-size:.7rem;font-weight:800;">X</span></button>
+      <button class="share-item" data-type="email"><div class="share-icon" style="background:#64748b;">✉️</div><span style="font-size:.7rem;font-weight:800;">E-mail</span></button>
+      <button class="share-item" data-type="copy"><div class="share-icon" style="background:#8b5cf6;">📋</div><span style="font-size:.7rem;font-weight:800;">Copy</span></button>
+      <button class="share-item" data-type="save"><div class="share-icon" style="background:#f59e0b;">💾</div><span style="font-size:.7rem;font-weight:800;">Save</span></button>
+      <button class="share-item" data-type="more"><div class="share-icon" style="background:#e2e8f0;color:#334155;">⋯</div><span style="font-size:.7rem;font-weight:800;">More</span></button>
+    </div>
+  </div>`;
+  document.body.appendChild(shareModal);
 
   var wrap = document.createElement('div');
   wrap.innerHTML = `<button id="ai-tutor-btn"><div class="ai-bubble">🤖</div><div class="ai-label">TUTOR</div></button>
@@ -1743,14 +1771,61 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   </div>`;
   document.body.appendChild(wrap);
 
+  var currentShareText = '';
+  function openShare(text){
+    currentShareText = text;
+    shareModal.style.display='flex';
+  }
+  shareModal.querySelector('#share-x').onclick=()=>shareModal.style.display='none';
+  shareModal.onclick=(e)=>{if(e.target.id==='ai-share-modal') shareModal.style.display='none';};
+  
+  shareModal.querySelectorAll('.share-item').forEach(btn=>{
+    btn.onclick=()=>{
+      var t=currentShareText; var url=location.href; var full=t+"\\n\\n"+url;
+      var type=btn.dataset.type;
+      if(type==='kakao'){ if(window.Kakao) { /* Kakao SDK */ } window.open('https://sharer.kakao.com/talk/friends/picker/link?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(t)); }
+      else if(type==='facebook'){ window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url)+'&quote='+encodeURIComponent(t),'_blank','width=600,height=400'); }
+      else if(type==='whatsapp'){ window.open('https://wa.me/?text='+encodeURIComponent(full),'_blank'); }
+      else if(type==='twitter'){ window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(t)+'&url='+encodeURIComponent(url),'_blank'); }
+      else if(type==='email'){ location.href='mailto:?subject='+encodeURIComponent('Korean Study Tip')+'&body='+encodeURIComponent(full); }
+      else if(type==='copy'){ navigator.clipboard.writeText(full); btn.querySelector('span').innerText='Copied!'; setTimeout(()=>{btn.querySelector('span').innerText='Copy'; shareModal.style.display='none';},1000); return; }
+      else if(type==='save'){ let s=JSON.parse(localStorage.getItem('aiSaved')||'[]'); s.push({txt:t,date:new Date().toLocaleDateString()}); localStorage.setItem('aiSaved',JSON.stringify(s)); btn.querySelector('span').innerText='Saved!'; setTimeout(()=>{btn.querySelector('span').innerText='Save'; shareModal.style.display='none';},1000); return; }
+      else if(type==='more'){ if(navigator.share){ navigator.share({title:'Korean Tip',text:t,url:url}); } else { navigator.clipboard.writeText(full); alert('Copied!'); } }
+      shareModal.style.display='none';
+    };
+  });
+
   var btn=wrap.querySelector('#ai-tutor-btn'),modal=wrap.querySelector('#ai-tutor-modal'),log=wrap.querySelector('#ai-chat-log'),faq=wrap.querySelector('#ai-faq-chips'),input=wrap.querySelector('#ai-in'),open=false;
   function getK(){return document.getElementById('korean-sentence')?.innerText||'';}
-  function renderFaq(){var k=getK();faq.innerHTML=['💜 Why 요?','🤔 Meaning?','👔 Formal?','🗣️ Pronounce?','💡 Example?'].map(q=>`<button class="faq-chip">${q}</button>`).join('');log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:14px;"><b>Tutor:</b> You got <b style="color:#6366f1;">"${k}"</b>! 여기서 스크롤 돼요! 👇</div>`;faq.style.display='flex';log.scrollTop=0;wrap.querySelectorAll('.faq-chip').forEach(c=>{c.onclick=()=>{log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:80%;">${c.innerText}</div>`;faq.style.display='none';setTimeout(()=>{var longText=`"${k}" 설명입니다. `.repeat(20)+`<br><br>스크롤 테스트: 길어도 안에서 스크롤 됩니다!`;log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px;border-radius:14px;">${longText}<br><br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="padding:6px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;">↩ Show</button></div>`;log.scrollTop=log.scrollHeight;},300);}});}
+  function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400);return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤️ Saved!'">💾 Save</button></div>`;}
+
+  function renderFaq(){
+    var k=getK();
+    faq.innerHTML=['💜 Why 요?','🤔 Meaning?','👔 Formal?','🗣️ Pronounce?','💡 Example?'].map(q=>`<button class="faq-chip">${q}</button>`).join('');
+    log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:14px;"><b>Tutor:</b> You got <b style="color:#6366f1;">"${k}"</b>! 👇<br>Share 버튼 누르면 페북/카톡/왓츠앱 다 공유 가능!</div>`;
+    faq.style.display='flex'; log.scrollTop=0;
+    wrap.querySelectorAll('.faq-chip').forEach(c=>{
+      c.onclick=()=>{
+        var q=c.innerText;
+        log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:80%;">${q}</div>`;
+        faq.style.display='none';
+        setTimeout(()=>{
+          var ans = `"${k}" - polite form! Use 요 for respect.`;
+          log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px;border-radius:14px;"><b>🤖:</b> ${ans}${makeActions(ans)}<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:8px;padding:6px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;">↩ Show</button></div>`;
+          log.scrollTop=log.scrollHeight;
+        },300);
+      };
+    });
+  }
+
+  // 전역으로 openShare 사용
+  window.openShare = openShare;
+
   btn.onclick=()=>{open=!open;modal.style.display=open?'flex':'none';if(open)renderFaq();};
   wrap.querySelector('#ai-x').onclick=()=>{open=false;modal.style.display='none';};
-  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:80%;">${e.target.value}</div>`;e.target.value='';faq.style.display='none';log.scrollTop=log.scrollHeight;}});
+  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim();log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:80%;">${q}</div>`;e.target.value='';faq.style.display='none';setTimeout(()=>{var a=`Answer: ${q}`;log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px;border-radius:14px;"><b>🤖:</b> ${a}${makeActions(a)}</div>`;log.scrollTop=log.scrollHeight;},300);}});
+
   window.showAiTutor=()=>{var d=document.getElementById('detail-area');if(d&&d.style.display!=='none'&&d.innerText.includes('Correct'))btn.style.display='flex';};
   window.hideAiTutor=()=>{btn.style.display='none';modal.style.display='none';open=false;};
   var oldR=window.renderLearningProgress;window.renderLearningProgress=function(){if(oldR)oldR();setTimeout(showAiTutor,300);};
-  var oldN=window.nextQuiz;window.nextQuiz=function(){hideAiTutor();if(oldN)oldN.apply(this,arguments);};
 })();
