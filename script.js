@@ -1710,3 +1710,27 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   setTimeout(attach, 500);
   setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
+
+// ===== AI TUTOR - 맨 아래에 추가 (원본 건드리지 않음) =====
+(function(){
+  var file = location.pathname.split('/').pop().toLowerCase();
+  if(file === '' || file === 'index.html' || file === '/' || file === 'index') return;
+  var css = document.createElement('style');
+  css.textContent = "#ai-tutor-btn{display:none;position:fixed;bottom:90px;right:18px;width:60px;height:60px;border-radius:50%;background:#4f46e5;color:#fff;border:2px solid #3730a3;border-bottom-width:4px;font-size:1.6rem;z-index:99999;cursor:pointer;align-items:center;justify-content:center;}#ai-tutor-modal{display:none;position:fixed;bottom:160px;right:18px;width:360px;max-width:92vw;height:460px;background:#fff;border:2px solid #e2e8f0;border-bottom-width:4px;border-radius:20px;z-index:99999;flex-direction:column;overflow:hidden;}#ai-faq-chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:#f8fafc;border-bottom:2px solid #f1f5f9;}.faq-chip{padding:7px 12px;background:#fff;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:20px;font-size:.8rem;font-weight:800;cursor:pointer;}";
+  document.head.appendChild(css);
+  var wrap = document.createElement('div');
+  wrap.innerHTML = '<button id="ai-tutor-btn">💬</button><div id="ai-tutor-modal"><div style="padding:14px;font-weight:900;border-bottom:2px solid #f1f5f9;display:flex;justify-content:space-between;"><span>🤖 AI Tutor</span><span id="ai-x" style="cursor:pointer;background:#f1f5f9;padding:4px 10px;border-radius:8px;">✖</span></div><div id="ai-faq-chips"></div><div id="ai-log" style="flex:1;overflow:auto;padding:12px;font-size:.9rem;display:flex;flex-direction:column;gap:8px;"></div><div style="padding:10px;border-top:2px solid #f1f5f9;"><input id="ai-in" placeholder="Ask... Enter" style="width:100%;padding:12px;border-radius:12px;border:2px solid #e2e8f0;"></div></div>';
+  document.body.appendChild(wrap);
+  var btn=wrap.querySelector('#ai-tutor-btn'),modal=wrap.querySelector('#ai-tutor-modal'),log=wrap.querySelector('#ai-log'),faq=wrap.querySelector('#ai-faq-chips'),input=wrap.querySelector('#ai-in'),open=false;
+  function getK(){return document.querySelector('.kr-text')?document.querySelector('.kr-text').innerText:''}
+  function faqRender(){var k=getK();faq.innerHTML=['Why ends with 요?','What does it mean?','Formal vs casual?','Pronounce?','Example?'].map(function(q){return '<button class="faq-chip">'+q+'</button>'}).join('');log.innerHTML='<div style="background:#f5f3ff;padding:10px;border-radius:12px;">You got "'+k+'"! Tap question 👋</div>';faq.style.display='flex';wrap.querySelectorAll('.faq-chip').forEach(function(c){c.onclick=function(){var q=c.innerText;log.innerHTML+='<div style="align-self:flex-end;background:#4f46e5;color:#fff;padding:8px 12px;border-radius:14px;">'+q+'</div>';faq.style.display='none';setTimeout(function(){log.innerHTML+='<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:8px;border-radius:10px;">🤖: "요" is polite ending!<br><button onclick="document.getElementById(\'ai-faq-chips\').style.display=\'flex\'" style="margin-top:6px;padding:4px 8px;border-radius:12px;border:2px solid #e2e8f0;">↩ Show</button></div>';},300);}});}
+  btn.onclick=function(){open=!open;modal.style.display=open?'flex':'none';if(open)faqRender();};
+  wrap.querySelector('#ai-x').onclick=function(){open=false;modal.style.display='none';};
+  input.addEventListener('keypress',function(e){if(e.key==='Enter'&&e.target.value){var q=e.target.value;log.innerHTML+='<div style="align-self:flex-end;background:#4f46e5;color:#fff;padding:8px 12px;border-radius:14px;">'+q+'</div>';e.target.value='';faq.style.display='none';}});
+  window.showAiTutor=function(){var d=document.getElementById('detail-area');if(d&&d.style.display!=='none'&&d.innerText.indexOf('Correct')>-1)btn.style.display='flex';};
+  window.hideAiTutor=function(){btn.style.display='none';modal.style.display='none';open=false;};
+  var oldRender = window.renderLearningProgress;
+  window.renderLearningProgress = function(){ if(oldRender) oldRender(); if(window.showAiTutor) setTimeout(showAiTutor,300); };
+  var oldNext = window.nextQuiz;
+  window.nextQuiz = function(){ if(window.hideAiTutor) hideAiTutor(); if(oldNext) oldNext.apply(this,arguments); };
+})();
