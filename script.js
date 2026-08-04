@@ -494,34 +494,84 @@ function toggleKFreeInfo(e, section) {
   setTimeout(attach, 500); setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
 
-// 맨 아래 AI 부분 전체 교체 - 무조건 뜨는 버전
-window.showAiTutor = function(){
-  var b=document.getElementById('ai-tutor-btn');
-  var m=document.getElementById('ai-tutor-modal');
-  var faqBox=document.getElementById('ai-faq-chips');
-  var log=document.getElementById('ai-chat-log');
-  if(!b) return;
+// ===== AI TUTOR FINAL CLEAN - ONLY Correct Page =====
+(function(){
+  // 1. 메인(index.html)에서는 절대 생성 안 함
+  var file = location.pathname.split('/').pop().toLowerCase();
+  if(file === '' || file === 'index.html' || file === '/') return;
 
-  // kr-text가 있는 페이지면 무조건 표시 시도
-  var krEl = document.querySelector('.kr-text');
-  var progressBox = document.getElementById('korean-progress-box');
-  var detailArea = document.getElementById('detail-area');
+  // 2. DOM 생성 (숨김 상태)
+  var style = document.createElement('style');
+  style.textContent = "#ai-tutor-btn{display:none;position:fixed;bottom:90px;right:18px;width:60px;height:60px;border-radius:50%;background:#4f46e5;color:white;border:2px solid #3730a3;border-bottom-width:4px;font-size:1.6rem;z-index:99999;cursor:pointer;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(79,70,229,0.35);} #ai-tutor-modal{display:none;position:fixed;bottom:160px;right:18px;width:360px;max-width:92vw;height:460px;background:white;border:2px solid #e2e8f0;border-bottom-width:4px;border-radius:20px;z-index:99999;flex-direction:column;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.15);} #ai-faq-chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;background:#f8fafc;border-bottom:2px solid #f1f5f9;} .faq-chip{padding:7px 12px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:20px;font-size:0.8rem;font-weight:800;cursor:pointer;color:#334155;} .faq-chip:active{transform:translateY(1px);border-bottom-width:2px;}";
+  document.head.appendChild(style);
 
-  // detail-area가 보이고, 그 안에 progress가 있으면 = 정답 화면
-  if(detailArea && detailArea.style.display !== 'none' && progressBox){
-    b.style.display='flex';
-    // FAQ 다시 그리기
-    var kr = krEl ? krEl.innerText : 'this';
-    faqBox.innerHTML = ['Why does "'+kr.slice(0,10)+'" end with 요?','What does it mean?','Formal vs casual?','How to pronounce?','Example?'].map(function(q){ return '<button class="faq-chip" data-q="'+q.replace(/"/g,'&quot;')+'">'+q+'</button>'; }).join('');
-    log.innerHTML = '<div style="background:#f5f3ff;padding:10px 12px;border-radius:12px;"><b>AI:</b> You got <b style="color:#4f46e5;">"'+kr+'"</b>! Tap a question 👋</div>';
-    faqBox.querySelectorAll('.faq-chip').forEach(function(c){ c.onclick=function(){ 
-      var qq=c.getAttribute('data-q');
-      log.innerHTML += '<div style="align-self:flex-end;max-width:80%;"><span style="background:#4f46e5;color:white;padding:9px 13px;border-radius:16px 16px 4px 16px;display:inline-block;font-weight:800;">'+qq+'</span></div>';
-      faqBox.style.display='none';
-      setTimeout(function(){
-        log.innerHTML += '<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:12px;"><b>🤖:</b> "요" is polite ending! '+kr.replace('요','')+' → '+kr+'<br><button onclick="document.getElementById(\'ai-faq-chips\').style.display=\'flex\'" style="margin-top:8px;padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;">↩ Show questions</button></div>';
-        log.scrollTop=log.scrollHeight;
-      },300);
-    };});
+  var wrap = document.createElement('div');
+  wrap.innerHTML = '<button id="ai-tutor-btn">💬</button><div id="ai-tutor-modal"><div style="padding:14px 16px;font-weight:900;border-bottom:2px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;"><span>🤖 AI Tutor</span><span id="ai-tutor-close" style="cursor:pointer;padding:4px 10px;background:#f1f5f9;border-radius:8px;">✖</span></div><div id="ai-faq-chips"></div><div id="ai-chat-log" style="flex:1;overflow-y:auto;padding:12px;font-size:0.9rem;display:flex;flex-direction:column;gap:8px;"></div><div style="padding:10px;border-top:2px solid #f1f5f9;"><input id="ai-input" autocomplete="off" placeholder="Ask... press Enter" style="width:100%;padding:12px 14px;border-radius:12px;border:2px solid #e2e8f0;font-weight:700;outline:none;box-sizing:border-box;"></div></div>';
+  document.body.appendChild(wrap);
+
+  var btn = document.getElementById('ai-tutor-btn');
+  var modal = document.getElementById('ai-tutor-modal');
+  var log = document.getElementById('ai-chat-log');
+  var faqBox = document.getElementById('ai-faq-chips');
+  var input = document.getElementById('ai-input');
+  var open = false;
+
+  function getCtx(){
+    return {
+      kr: (document.querySelector('.kr-text') && document.querySelector('.kr-text').innerText) || '',
+      rom: (document.querySelector('.rom-text') && document.querySelector('.rom-text').innerText) || '',
+      en: (document.querySelector('.tip-container') && document.querySelector('.tip-container').innerText) || ''
+    };
   }
-};
+
+  function renderFaq(){
+    var ctx = getCtx();
+    var s = ctx.kr ? ctx.kr.slice(0,10) : 'this';
+    var faqs = ['Why does "'+s+'" end with 요?','What does "'+s+'" mean?','Formal vs casual?','How to pronounce it?','Example sentence?'];
+    faqBox.innerHTML = faqs.map(function(q){ return '<button class="faq-chip" data-q="'+q.replace(/"/g,'&quot;')+'">'+q+'</button>'; }).join('');
+    log.innerHTML = '<div style="background:#f5f3ff;padding:10px 12px;border-radius:12px;"><b>AI:</b> You got <b style="color:#4f46e5;">"'+(ctx.kr||'this')+'"</b> correct! Tap a question 👋</div>';
+    wrap.querySelectorAll('.faq-chip').forEach(function(c){
+      c.onclick = function(){ sendQ(c.getAttribute('data-q')); };
+    });
+    faqBox.style.display = 'flex';
+  }
+
+  function sendQ(q){
+    if(!q || !q.trim()) return; q=q.trim();
+    log.innerHTML += '<div style="align-self:flex-end;max-width:80%;"><span style="background:#4f46e5;color:white;padding:9px 13px;border-radius:16px 16px 4px 16px;display:inline-block;font-weight:800;font-size:0.88rem;">'+q+'</span></div>';
+    input.value='';
+    faqBox.style.display='none'; // 나머지 질문 사라짐
+    log.scrollTop = log.scrollHeight;
+    var ctx = getCtx();
+    setTimeout(function(){
+      var ans='';
+      if(q.indexOf('요')>-1) ans = '"요" = polite ending!<br>• '+ctx.kr.replace('요','')+' (casual, friends)<br>• '+ctx.kr+' (polite, strangers)';
+      else if(q.toLowerCase().indexOf('mean')>-1) ans = '"'+ctx.kr+'" means <b>"'+ctx.en.slice(0,80)+'"</b>';
+      else if(q.toLowerCase().indexOf('formal')>-1) ans = 'Casual: '+ctx.kr.replace('요','')+'<br>Polite: '+ctx.kr+'<br>Formal: '+ctx.kr.replace('요','ㅂ니다');
+      else if(q.toLowerCase().indexOf('pronounce')>-1) ans = 'Say it like <b>"'+ctx.rom+'"</b> 🔊';
+      else ans = 'Ex: "'+ctx.kr+' 정말 좋아요!" = I really like it!';
+      log.innerHTML += '<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:12px;"><b>🤖:</b> '+ans+'<br><button onclick="document.getElementById(\'ai-faq-chips\').style.display=\'flex\'" style="margin-top:8px;font-size:0.75rem;padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;">↩ Show questions</button></div>';
+      log.scrollTop = log.scrollHeight;
+    },350);
+  }
+
+  btn.onclick = function(){ open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq(); };
+  document.getElementById('ai-tutor-close').onclick = function(){ open=false; modal.style.display='none'; };
+  input.addEventListener('keypress', function(e){ if(e.key==='Enter') sendQ(input.value); });
+  input.addEventListener('input', function(){ faqBox.style.display = input.value.length>0 ? 'none' : 'flex'; });
+
+  // 외부에서 호출하는 함수 - renderLearningProgress에서 호출됨
+  window.showAiTutor = function(){
+    // Your Korean Learning Progress 박스가 있을 때만 표시
+    var hasProgress = document.getElementById('korean-progress-box') || document.body.innerText.indexOf('Your Korean Learning Progress')>-1;
+    var detail = document.getElementById('detail-area');
+    var isCorrectScreen = detail && detail.style.display!=='none' && detail.innerText.indexOf('Correct!')>-1;
+    if(hasProgress && isCorrectScreen){
+      btn.style.display='flex';
+      renderFaq();
+    }
+  };
+  window.hideAiTutor = function(){
+    btn.style.display='none'; modal.style.display='none'; open=false;
+  };
+})();
