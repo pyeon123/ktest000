@@ -1711,75 +1711,134 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
 
-// ===== AI Tutor Floating Button - Auto Inject for Quiz Pages =====
+// ===== AI Tutor - Final Clean Version (Page Recognition + FAQ) =====
 (function() {
-  // 메인 페이지는 제외, 퀴즈 요소가 있는 페이지만
-  const isQuizPage = document.querySelector('.kr-text') || document.getElementById('quiz-screen') || location.pathname.includes('/quiz/') || location.pathname.includes('/phrases/');
-  if (!isQuizPage) return; // index.html에서는 안 뜸
+  // 1. 퀴즈 페이지에서만 실행 (메인 제외)
+  const isQuizPage = document.querySelector('.kr-text') || document.getElementById('quiz-screen') || location.pathname.includes('/phrases/') || location.pathname.includes('/quiz/');
+  if (!isQuizPage) return;
 
-  // CSS 주입
+  // 2. CSS 주입
   const style = document.createElement('style');
-  style.innerHTML = `
+  style.textContent = `
     #ai-tutor-btn{position:fixed!important;bottom:90px!important;right:18px!important;width:60px!important;height:60px!important;border-radius:50%!important;background:#4f46e5!important;color:white!important;border:2px solid #3730a3!important;border-bottom-width:4px!important;font-size:1.6rem!important;cursor:pointer!important;z-index:9999!important;box-shadow:0 6px 16px rgba(79,70,229,0.35)!important;display:flex!important;align-items:center!important;justify-content:center!important;animation:tutorPulse 2.5s infinite;}
     @keyframes tutorPulse{0%{box-shadow:0 0 0 0 rgba(79,70,229,0.5)}70%{box-shadow:0 0 0 12px rgba(79,70,229,0)}100%{box-shadow:0 0 rgba(79,70,229,0)}}
-    #ai-tutor-btn:active{transform:translateY(2px);border-bottom-width:2px!important;}
-    #ai-tutor-modal{display:none;position:fixed!important;bottom:160px!important;right:18px!important;width:360px!important;max-width:92vw!important;height:460px!important;background:white!important;border:2px solid #e2e8f0!important;border-bottom-width:4px!important;border-radius:20px!important;z-index:9999!important;flex-direction:column!important;overflow:hidden!important;box-shadow:0 10px 30px rgba(0,0,0,0.15)!important;}
+    #ai-tutor-btn:active{transform:translateY(2px)!important;border-bottom-width:2px!important;}
+    #ai-tutor-modal{display:none;position:fixed!important;bottom:160px!important;right:18px!important;width:360px!important;max-width:92vw!important;height:480px!important;background:white!important;border:2px solid #e2e8f0!important;border-bottom-width:4px!important;border-radius:20px!important;z-index:9999!important;flex-direction:column!important;overflow:hidden!important;box-shadow:0 10px 30px rgba(0,0,0,0.15)!important;}
+    #ai-faq-chips{display:flex!important;flex-wrap:wrap!important;gap:6px!important;padding:10px 12px!important;border-bottom:2px solid #f1f5f9!important;background:#f8fafc!important;}
+    .faq-chip{padding:7px 12px!important;background:white!important;border:2px solid #e2e8f0!important;border-bottom-width:3px!important;border-radius:20px!important;font-size:0.8rem!important;font-weight:800!important;cursor:pointer!important;color:#334155!important;transition:0.1s!important;user-select:none!important;}
+    .faq-chip:hover{border-color:#4f46e5!important;color:#4f46e5!important;}
+    .faq-chip:active{transform:translateY(1px)!important;border-bottom-width:2px!important;}
   `;
   document.head.appendChild(style);
 
-  // HTML 주입
-  const html = `
-    <button id="ai-tutor-btn">💬</button>
+  // 3. 현재 페이지 인식 함수
+  function getPageContext() {
+    return {
+      kr: document.querySelector('.kr-text')?.innerText?.trim() || '',
+      rom: document.querySelector('.rom-text')?.innerText?.trim() || '',
+      en: document.querySelector('.tip-container')?.innerText?.trim().slice(0,100) || document.title,
+      url: location.pathname
+    };
+  }
+
+  // 4. FAQ 자동 생성 (페이지마다 다르게)
+  function buildFaqs(ctx) {
+    const shortKr = ctx.kr ? ctx.kr.slice(0, 12) : 'this sentence';
+    return [
+      `Why does "${shortKr}" end with 요?`,
+      `What does "${shortKr}" mean exactly?`,
+      `Formal vs casual form?`,
+      `How to pronounce "${shortKr}"?`,
+      `Example with "${shortKr}"?`
+    ];
+  }
+
+  const ctx = getPageContext();
+  const faqs = buildFaqs(ctx);
+
+  // 5. HTML 주입
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = `
+    <button id="ai-tutor-btn" aria-label="AI Tutor">💬</button>
     <div id="ai-tutor-modal">
-      <div style="padding:14px 16px;font-weight:900;border-bottom:2px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-family:'Nunito';">
-        <span>🤖 AI Tutor</span>
-        <span id="ai-tutor-close" style="cursor:pointer;padding:4px 8px;background:#f1f5f9;border-radius:8px;">✖</span>
+      <div style="padding:14px 16px;font-weight:900;border-bottom:2px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-family:'Nunito',sans-serif;">
+        <span>🤖 AI Tutor <span style="font-size:0.68rem;background:#f5f3ff;color:#4f46e5;padding:4px 8px;border-radius:10px;margin-left:6px;vertical-align:middle;">${ctx.kr ? ctx.kr.slice(0,14) : 'LIVE'}</span></span>
+        <span id="ai-tutor-close" style="cursor:pointer;padding:4px 10px;background:#f1f5f9;border-radius:8px;font-size:1.1rem;">✖</span>
       </div>
-      <div id="ai-chat-log" style="flex:1;overflow-y:auto;padding:12px;font-size:0.9rem;line-height:1.4;">
-        <div style="background:#f5f3ff;padding:10px;border-radius:12px;margin-bottom:8px;"><b>AI:</b> Ask me about "<span id="tutor-current-kr" style="color:#4f46e5;">this sentence</span>"! 👋</div>
+      <div id="ai-faq-chips">
+        ${faqs.map(q=>`<button class="faq-chip" data-q="${q.replace(/"/g,'&quot;')}">${q}</button>`).join('')}
+      </div>
+      <div id="ai-chat-log" style="flex:1;overflow-y:auto;padding:12px;font-size:0.9rem;line-height:1.5;display:flex;flex-direction:column;gap:8px;">
+        <div style="background:#f5f3ff;padding:10px 12px;border-radius:12px;"><b>AI:</b> I'm seeing <b style="color:#4f46e5;">"${ctx.kr || 'this page'}"</b> with you. Tap a question or ask anything! 👋</div>
       </div>
       <div style="padding:10px;display:flex;gap:8px;border-top:2px solid #f1f5f9;">
-        <input id="ai-input" placeholder="Why -요? Meaning?" style="flex:1;padding:12px;border-radius:12px;border:2px solid #e2e8f0;font-weight:700;outline:none;">
+        <input id="ai-input" autocomplete="off" placeholder="Ask about this sentence..." style="flex:1;padding:12px;border-radius:12px;border:2px solid #e2e8f0;font-weight:700;outline:none;font-family:inherit;">
         <button id="ai-ask-btn" style="padding:10px 16px;background:#4f46e5;color:white;border:2px solid #3730a3;border-bottom-width:4px;border-radius:12px;font-weight:900;cursor:pointer;">Ask</button>
       </div>
     </div>
   `;
-  const wrapper = document.createElement('div');
-  wrapper.innerHTML = html;
   document.body.appendChild(wrapper);
 
-  // 로직
-  let tutorOpen = false;
+  // 6. 엘리먼트
   const btn = document.getElementById('ai-tutor-btn');
   const modal = document.getElementById('ai-tutor-modal');
-  const close = document.getElementById('ai-tutor-close');
-  
-  function toggleTutor() {
-    tutorOpen = !tutorOpen;
-    modal.style.display = tutorOpen ? 'flex' : 'none';
-    const krEl = document.querySelector('.kr-text');
-    if (krEl) document.getElementById('tutor-current-kr').innerText = krEl.innerText.slice(0,18);
-  }
-  btn.addEventListener('click', toggleTutor);
-  close.addEventListener('click', toggleTutor);
+  const closeBtn = document.getElementById('ai-tutor-close');
+  const input = document.getElementById('ai-input');
+  const askBtn = document.getElementById('ai-ask-btn');
+  const log = document.getElementById('ai-chat-log');
+  const faqBox = document.getElementById('ai-faq-chips');
+  let isOpen = false;
 
-  window.askTutor = async function() {
-    const input = document.getElementById('ai-input');
-    const q = input.value.trim();
-    if(!q) return;
-    const log = document.getElementById('ai-chat-log');
-    log.innerHTML += `<div style="text-align:right;margin:6px 0;"><span style="background:#4f46e5;color:white;padding:8px 12px;border-radius:16px 16px 4px 16px;display:inline-block;font-weight:700;">${q}</span></div>`;
+  function toggleTutor() {
+    isOpen = !isOpen;
+    modal.style.display = isOpen ? 'flex' : 'none';
+  }
+
+  // 7. 질문 전송 (핵심)
+  function sendQuestion(q) {
+    if (!q || !q.trim()) return;
+    q = q.trim();
+
+    // 유저 말풍선
+    log.innerHTML += `<div style="align-self:flex-end;max-width:80%;"><span style="background:#4f46e5;color:white;padding:9px 13px;border-radius:16px 16px 4px 16px;display:inline-block;font-weight:800;font-size:0.88rem;">${q}</span></div>`;
     input.value = '';
+    faqBox.style.display = 'none'; // 타이핑/질문하면 FAQ 숨김
     log.scrollTop = log.scrollHeight;
-    
-    // API 연동 전까지 임시
-    setTimeout(()=> {
-      log.innerHTML += `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px;border-radius:12px;margin:6px 0;"><b>AI:</b> Good question! (API 연결하면 진짜 답 와요)</div>`;
+
+    const pageCtx = getPageContext();
+    console.log('[AI Tutor] Page:', pageCtx, 'Q:', q);
+
+    // 임시 답변 - API 연결 전까지
+    setTimeout(() => {
+      let ans = '';
+      if (q.includes('요')) ans = `<b>"요"</b> is polite ending! <br>• ${pageCtx.kr.replace('요','')} = casual (to friends)<br>• ${pageCtx.kr} = polite (to strangers/older)`;
+      else if (q.toLowerCase().includes('mean')) ans = `"${pageCtx.kr}" means <b>"${pageCtx.en.slice(0,60)}"</b>. Perfect for daily conversation!`;
+      else if (q.toLowerCase().includes('formal')) ans = `Casual: ${pageCtx.kr.replace('요','')} <br>Polite: ${pageCtx.kr} <br>Formal: ${pageCtx.kr.replace('요','ㅂ니다')}`;
+      else if (q.toLowerCase().includes('pronounce')) ans = `Pronounced as <b>"${pageCtx.rom || 'check rom above'}"</b>. Click 🔊 to listen!`;
+      else ans = `Example: <b>"${pageCtx.kr} 정말 좋아요!"</b> = I really like it! <br>Want more examples?`;
+
+      log.innerHTML += `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:12px;"><b>🤖 AI:</b> ${ans}</div>`;
       log.scrollTop = log.scrollHeight;
-    }, 400);
-  };
+    }, 350);
+  }
+
+  // 8. 이벤트
+  btn.addEventListener('click', toggleTutor);
+  closeBtn.addEventListener('click', toggleTutor);
+  askBtn.addEventListener('click', () => sendQuestion(input.value));
+  input.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendQuestion(input.value); });
   
-  document.getElementById('ai-ask-btn').addEventListener('click', window.askTutor);
-  document.getElementById('ai-input').addEventListener('keypress', (e)=>{ if(e.key==='Enter') window.askTutor(); });
+  // 타이핑하면 FAQ 사라지기
+  input.addEventListener('input', () => {
+    faqBox.style.display = input.value.length > 0 ? 'none' : 'flex';
+  });
+
+  // FAQ 칩 클릭
+  function attachFaqEvents() {
+    document.querySelectorAll('.faq-chip').forEach(chip => {
+      chip.onclick = () => sendQuestion(chip.dataset.q);
+    });
+  }
+  attachFaqEvents();
 })();
-// ===== End AI Tutor =====
+// ===== End AI Tutor Final =====
