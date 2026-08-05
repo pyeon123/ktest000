@@ -1101,7 +1101,7 @@ Every Korean must have (Roman) English.
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({
             contents:[{parts:[{text:prompt}]}],
-            generationConfig: { maxOutputTokens: 500, temperature: 0.6 }
+            generationConfig: { maxOutputTokens: 1500, temperature: 0.6 }
           })
         });
         const data = await res.json();
