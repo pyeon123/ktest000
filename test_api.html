@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>API 연결 테스트</title>
+<style>
+body{font-family:sans-serif;padding:20px;background:#111;color:#fff}
+button{padding:15px 30px;font-size:18px;background:#4CAF50;color:white;border:none;border-radius:10px}
+#result{margin-top:20px;padding:15px;background:#222;border-radius:10px;white-space:pre-wrap;word-break:break-all}
+</style>
+</head>
+<body>
+<h2>🧪 Gemini API 연결 테스트</h2>
+<p>키: AQ.Ab8...Exkg</p>
+<button onclick="test()">테스트 시작!</button>
+<div id="result">버튼을 눌러주세요...</div>
+
+<script>
+const KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg";
+async function test(){
+  const resultDiv = document.getElementById('result');
+  resultDiv.textContent = "⏳ 연결 중...";
+  try{
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${KEY}`, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        contents:[{parts:[{text:"은/는 차이점을 한국어로 2줄로 간단히 설명해줘"}]}]
+      })
+    });
+    const data = await res.json();
+    console.log(data);
+    if(data.error){
+      resultDiv.textContent = "❌ 에러!\n" + JSON.stringify(data.error, null, 2);
+    } else {
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "답 없음";
+      resultDiv.textContent = "✅ 성공! 답변:\n\n" + text + "\n\n전체 응답:\n" + JSON.stringify(data, null, 2).slice(0,1000);
+    }
+  }catch(e){
+    resultDiv.textContent = "❌ 네트워크 에러:\n" + e.message + "\n\n깃허브 Pages에서는 CORS 때문에 안 될 수도 있어! 그럼 script.js 문제 맞아!";
+  }
+}
+</script>
+</body>
+</html
