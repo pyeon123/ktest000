@@ -962,7 +962,7 @@ Use page sentence {kr} as main example first, then DB examples.
 Every Korean must have (Roman) English.
 `.trim();
 
-  const GEMINI_API_KEY = "AQ.Ab8RN6I-a0AnlgX19edFuQ3wCfKtvWPSpXAlwpKjUct5v49BUw"; // ← 여기에 Gemini 키 넣으면 진짜 AI
+  const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg"; // ← 여기에 Gemini 키 넣으면 진짜 AI
   const USE_GEMINI = true;
 
   var file = (location.pathname.split('/').pop()||'').toLowerCase();
