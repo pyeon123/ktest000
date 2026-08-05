@@ -1336,13 +1336,12 @@ Every Korean must have (Roman) English.
     var s=ctx.kr.slice(0,10);
     var chips=[
       `💜 Why does "${s}" have 요?`,
-      `은/는 vs 이/가?`,
-      `What does "${s}" mean?`,
+      `은/는 vs 이/가?`
       `Formal vs casual?`,
       `Example with ${s}?`
     ];
     faq.innerHTML=chips.map(q=>`<button class="faq-chip">${q}</button>`).join('');
-    log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;"><b>🤖 V2.1 Tutor:</b> You got <b style="color:#6366f1;">"${ctx.kr} (${ctx.rom})"</b> correct!<br><br><b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Native Tip</b><br>👩🏫 Native: Ask me about 은/는, 이/가, 요! I use Grammar DB G001~G020!<br><br><span style="font-size:0.75rem;color:#94a3b8;">V2.1: Every Korean = Korean (Roman) English + 12 sections</span><br><br><span style="font-size:0.75rem;background:#fff9db;padding:4px 8px;border-radius:6px;">📚 Grammar DB: ${grammarData.length} grammars loaded</span></div>`;
+    log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;"><b>🤖 V2.1 Tutor:</b>  <b style="color:#6366f1;">"${ctx.kr} (${ctx.rom})"</b> correct!<br><br><b></b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Native Tip</b><br>👩🏫 Native: Ask me about 은/는, 이/가, 요! I use Grammar DB G001~G020!<br><br><span style="font-size:0.75rem;color:#94a3b8;">V2.1: Every Korean = Korean (Roman) English + 12 sections</span><br><br><span style="font-size:0.75rem;background:#fff9db;padding:4px 8px;border-radius:6px;">📚 Grammar DB: ${grammarData.length} grammars loaded</span></div>`;
     faq.style.display='flex'; log.scrollTop=0;
     wrap.querySelectorAll('.faq-chip').forEach(c=>{c.onclick=()=>handleQuestion(c.innerText);});
   }
