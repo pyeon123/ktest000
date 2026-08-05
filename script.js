@@ -1079,7 +1079,7 @@ Every Korean must have (Roman) English.
       try{
         const dbText = gram ? `${gram.k} (${gram.rom}) ${gram.mean} | Rule: ${gram.rule} | Ex: ${gram.ex} | Tip: ${gram.tip}` : Object.values(GRAMMAR_DB).slice(0,5).map(g=>`${g.k} ${g.mean}`).join(', ');
         const prompt = V21_SYSTEM.replace('{kr}',ctx.kr).replace('{rom}',ctx.rom).replace('{en}',ctx.en).replace('{q}',q).replace('{grammar_db}', dbText);
-        const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
+        const res=await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
         const data=await res.json();
         finalAnswer=data.candidates?.[0]?.content?.parts?.[0]?.text||"Error";
       }catch(e){
