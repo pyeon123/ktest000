@@ -1304,23 +1304,77 @@ Every Korean must have (Roman) English.
     return { kr: (krEl&&krEl.innerText.trim())||'가족', rom: (romEl&&romEl.innerText.trim())||'ga-jok', en: (tipEl&&tipEl.innerText.trim().slice(0,120))||'family' };
   }
 
-  function detectGrammar(q, kr){
-    const text=(q+' '+kr).toLowerCase();
-    if(text.includes('은')||text.includes('는')||text.includes('eun')||text.includes('neun')||text.includes('about')||text.includes('topic')) return GRAMMAR_DB['G001'];
-    if(text.includes('이/가')||text.includes(' 이 ')||text.includes(' 가 ')||text.includes('who')||text.includes('subject')) return GRAMMAR_DB['G002'];
-    if(text.includes('을')||text.includes('를')||text.includes('eul')||text.includes('reul')||text.includes('object')) return GRAMMAR_DB['G003'];
-    if(text.includes('에서')||text.includes('e-seo')) return GRAMMAR_DB['G005'];
-    if(text.includes('에 ')||text.includes(' to ')||text.includes(' at ')) return GRAMMAR_DB['G004'];
-    if(text.includes('요')||text.includes('yo')||text.includes('polite')) return GRAMMAR_DB['G008'];
-    if(text.includes('그래서')||text.includes('so')||text.includes('therefore')) return GRAMMAR_DB['G018'];
-    if(text.includes('하지만')||text.includes('but')) return GRAMMAR_DB['G017'];
-    if(text.includes('또')||text.includes('again')) return GRAMMAR_DB['G019'];
+  // 1. grammarData 객체를 기반으로 답변 텍스트를 즉시 생성하는 함수
+  function buildGrammarResponse(gram) {
+    const exText = (gram.examples || gram.ex || [])
+      .map((e, i) => typeof e === 'object' ? `${i + 1}. ${e.kr}\n(${e.rom})\n${e.en}` : `${i + 1}. ${e}`)
+      .join('\n\n');
+
+    const mistakeText = gram.commonMistakes 
+      ? gram.commonMistakes.map(m => `❌ ${m.wrong}\n✅ ${m.correct}`).join('\n')
+      : (gram.mistake ? `❌ ${gram.mistake}` : '');
+
+    const compareText = gram.compare 
+      ? gram.compare.map(c => `• ${c.grammar}: ${c.meaning} - ${c.mainJob}`).join('\n')
+      : '';
+
+    return `
+Short Answer
+${gram.grammar || gram.k} (${gram.romanization || gram.rom}) - ${gram.title || gram.mean}
+
+Easy Explanation
+${gram.easyExplanation || gram.imagine || gram.rule || ''}
+
+Examples
+${exText}
+
+Native Tip
+👩‍🏫 ${gram.nativeTip || gram.tip || ''}
+
+${mistakeText ? 'Common Mistakes\n' + mistakeText : ''}
+${compareText ? '\nCompare\n' + compareText : ''}
+
+Excellent! Keep practicing. You are improving every day.
+`.trim();
+  }
+
+  // 2. 질문에서 grammarData의 문법 항목을 감지하는 함수
+  function detectGrammar(q, kr) {
+    const list = window.grammarData || (typeof grammarData !== 'undefined' ? grammarData : []);
+    const text = (q + ' ' + kr).toLowerCase().replace(/\s+/g, '');
+
+    // 배열 순회 감지 (id, grammar, romanization)
+    for (let item of list) {
+      const gName = (item.grammar || item.k || '').toLowerCase().replace(/\s+/g, '');
+      const gRom = (item.romanization || item.rom || '').toLowerCase().replace(/\s+/g, '');
+      const gId = (item.id || '').toLowerCase();
+
+      if ((gName && text.includes(gName)) || (gRom && text.includes(gRom)) || (gId && text.includes(gId))) {
+        return item;
+      }
+    }
+
+    // 주요 키워드 폴백
+    if (text.includes('은') || text.includes('는') || text.includes('eun') || text.includes('neun') || text.includes('topic')) {
+      return list.find(item => item.id === 'G001') || null;
+    }
+    if (text.includes('이') || text.includes('가') || text.includes('subject')) {
+      return list.find(item => item.id === 'G002') || null;
+    }
+    if (text.includes('을') || text.includes('를') || text.includes('object')) {
+      return list.find(item => item.id === 'G003') || null;
+    }
+    if (text.includes('요') || text.includes('polite')) {
+      return list.find(item => item.id === 'G008') || null;
+    }
+
     return null;
   }
 
-  function mdToHtml(text){
+  // 3. 마크다운 변환 함수
+  function mdToHtml(text) {
     let t = text;
-    t = t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    t = t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     t = t.replace(/^#{1,6}\s*(.+)$/gm, '<br><b style="color:#4f46e5;">$1</b><br>');
     t = t.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
     t = t.replace(/^---+$/gm, '');
@@ -1330,100 +1384,106 @@ Every Korean must have (Roman) English.
     return t;
   }
 
-  function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
+  // 4. 액션 버튼 생성 함수
+  function makeActions(txt) {
+    var safe = txt.replace(/'/g, "").replace(/"/g, '').slice(0, 400);
+    return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;
+  }
 
-  function renderFaq(){
-    var ctx=getCtx();
-    var s=ctx.kr.slice(0,10);
-    var chips=[
+  // 5. FAQ 렌더링 함수
+  function renderFaq() {
+    var ctx = getCtx();
+    var s = ctx.kr.slice(0, 10);
+    var chips = [
       `💜 Why does "${s}" have 요?`,
       `은/는 vs 이/가?`,
       `What does "${s}" mean?`,
       `Formal vs casual?`,
       `Example with ${s}?`
     ];
-    faq.innerHTML=chips.map(q=>`<button class="faq-chip">${q}</button>`).join('');
-    log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;"><b>🤖 V2.1 Tutor:</b> You got <b style="color:#6366f1;">"${ctx.kr} (${ctx.rom})"</b> correct!<br><br><b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Native Tip</b><br>👩🏫 Native: Ask me about 은/는, 이/가, 요! I use Grammar DB G001~G020!<br><br><span style="font-size:0.75rem;color:#94a3b8;">V2.1: Every Korean = Korean (Roman) English + 12 sections</span><br><br><span style="font-size:0.75rem;background:#fff9db;padding:4px 8px;border-radius:6px;">📚 Grammar DB: ${grammarData.length} grammars loaded</span></div>`;
-    faq.style.display='flex'; log.scrollTop=0;
-    wrap.querySelectorAll('.faq-chip').forEach(c=>{c.onclick=()=>handleQuestion(c.innerText);});
+    var listLength = (window.grammarData || (typeof grammarData !== 'undefined' ? grammarData : [])).length;
+    faq.innerHTML = chips.map(q => `<button class="faq-chip">${q}</button>`).join('');
+    log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;"><b>🤖 V2.1 Tutor:</b> You got <b style="color:#6366f1;">"${ctx.kr} (${ctx.rom})"</b> correct!<br><br><b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Native Tip</b><br>👩‍🏫 Native: Ask me about 은/는, 이/가, 요!<br><br><span style="font-size:0.75rem;color:#94a3b8;">V2.1: Instant Local DB Answers + Gemini AI Fallback</span><br><br><span style="font-size:0.75rem;background:#fff9db;padding:4px 8px;border-radius:6px;">📚 Grammar DB: ${listLength} grammars loaded</span></div>`;
+    faq.style.display = 'flex';
+    log.scrollTop = 0;
+    wrap.querySelectorAll('.faq-chip').forEach(c => { c.onclick = () => handleQuestion(c.innerText); });
   }
 
-  async function handleQuestion(q){
-    var ctx=getCtx();
-    var gram=detectGrammar(q, ctx.kr);
-    log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${q}</div>`;
-    faq.style.display='none';
-    log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">🤖 V2.1 + Grammar DB thinking... Detected: ${gram?gram.k+' '+gram.mean:'General'}</div>`;
-    log.scrollTop=log.scrollHeight;
+  // 6. 질문 처리 핵심 함수 (Local DB 우선 즉시 출력)
+  async function handleQuestion(q) {
+    var ctx = getCtx();
 
-    var finalAnswer="";
-    var geminiErrorMsg=null;
+    // 지연 로더가 선언되어 있는 경우 실행
+    if (typeof loadGrammarData === 'function') {
+      try { await loadGrammarData(); } catch(e) {}
+    }
 
-    if(USE_GEMINI){
-      try{
-        const dbText = gram ? `${gram.k} (${gram.rom}) ${gram.mean} | Rule: ${gram.rule} | Ex: ${gram.ex} | Tip: ${gram.tip}` : grammarData.slice(0,5).map(g=>`${g.grammar} ${g.title}`).join(', ');
-        const prompt = V21_SYSTEM.replace('{kr}',ctx.kr).replace('{rom}',ctx.rom).replace('{en}',ctx.en).replace('{q}',q).replace('{grammar_db}', dbText);
-        const res = await fetch(GEMINI_ENDPOINT, {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({
-            contents:[{parts:[{text:prompt}]}],
-            generationConfig: { maxOutputTokens: 2500, temperature: 0.6 }
-          })
-        });
-        const data = await res.json();
-        console.log('[AI Tutor] Gemini raw response:', data);
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${q}</div>`;
+    faq.style.display = 'none';
 
-        if(!res.ok || data.error){
-          geminiErrorMsg = `HTTP ${res.status} - ${data?.error?.message || 'Unknown error'}`;
-          console.error('[AI Tutor] Gemini API error:', geminiErrorMsg);
-        } else {
-          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-          finalAnswer = rawText ? mdToHtml(rawText) : "";
-          if(!finalAnswer) geminiErrorMsg = 'Empty response from Gemini (candidates 없음)';
+    var gram = detectGrammar(q, ctx.kr);
+    var finalAnswer = "";
+    var geminiErrorMsg = null;
+
+    // [핵심] DB 매칭 시 API 호출 없이 즉시 답변 생성
+    if (gram) {
+      console.log(`✅ [Local DB Direct] ${gram.id || 'Grammar'} 데이터로 즉시 응답합니다.`);
+      finalAnswer = mdToHtml(buildGrammarResponse(gram));
+    } else {
+      // DB에 없는 질문만 Gemini API 요청
+      log.innerHTML += `<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">🤖 Gemini AI 생각 중...</div>`;
+      log.scrollTop = log.scrollHeight;
+
+      if (USE_GEMINI) {
+        try {
+          const prompt = V21_SYSTEM.replace('{kr}', ctx.kr).replace('{rom}', ctx.rom).replace('{en}', ctx.en).replace('{q}', q).replace('{grammar_db}', '');
+          const res = await fetch(GEMINI_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: { maxOutputTokens: 2500, temperature: 0.6 }
+            })
+          });
+          const data = await res.json();
+          if (!res.ok || data.error) {
+            geminiErrorMsg = `HTTP ${res.status} - ${data?.error?.message || 'Unknown error'}`;
+          } else {
+            const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+            finalAnswer = rawText ? mdToHtml(rawText) : "";
+          }
+        } catch (e) {
+          geminiErrorMsg = 'Network Error: ' + e.message;
         }
-      }catch(e){
-        geminiErrorMsg = 'Network/Fetch error: ' + e.message;
-        console.error('[AI Tutor] Fetch failed:', e);
       }
+
+      const th = document.getElementById('ai-thinking');
+      if (th) th.remove();
     }
 
-    if(!finalAnswer){
-      if(q.includes('은/는')||q.includes('는 vs')||q.includes('About')|| (gram&&gram.k.includes('은 / 는'))){
-        const g=GRAMMAR_DB['G001'];
-        finalAnswer=`<b>Short Answer</b><br>${g.k} (${g.rom}) ${g.mean}<br><br><b>Easy Explanation</b><br>${g.k} shows topic = About...<br><br><b>Grammar</b><br>✅ Consonant → ${g.k.split('/')[0].trim()}<br>Example: 책은 (chaek-eun) As for book<br>✅ Vowel → 는<br>Example: 사과는 (sa-gwa-neun) As for apple<br><br><b>Examples</b><br>1. ${ctx.kr} (${ctx.rom}) ${ctx.en}<br>2. 저는 학생이에요. (Jeo-neun hak-saeng-i-e-yo.) I am student.<br>3. 오늘은 더워요. (O-neul-eun deo-wo-yo.) Today is hot.<br><br><b>Native Tip</b><br>👩🏫 ${g.tip}<br><br><b>Common Mistake</b><br>❌ ${g.mistake.split('/')[0]||'사과은'} Wrong → ✅ 사과는 Correct<br><br><b>Compare</b><br>은/는 (eun/neun) = Topic / About<br>이/가 (i/ga) = Subject / Who<br><br><b>Practice</b><br>Complete: 저__ 학생이에요. (Jeo__ hak-saeng-i-e-yo.)<br>Answer: 저는 (Jeo-neun)<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
-      } else if(q.includes('요')||q.toLowerCase().includes('polite')|| (gram&&gram.k==='요')){
-        const g=GRAMMAR_DB['G008']||{k:'요', rom:'yo', mean:'Polite Ending', tip:'Use 요 with strangers'};
-        finalAnswer=`<b>Short Answer</b><br>${g.k} (${g.rom}) ${g.mean} - Makes polite!<br><br><b>Easy Explanation</b><br>Add 요 at end = polite form<br>${ctx.kr.replace('요','')} (casual) → ${ctx.kr} (polite)<br><br><b>Examples</b><br>1. ${ctx.kr} (${ctx.rom}) ${ctx.en}<br>2. 가요 (Ga-yo.) I go (polite)<br>3. 먹어요 (Meo-geo-yo.) I eat (polite)<br><br><b>Native Tip</b><br>👩🏫 ${g.tip}<br><br><b>Common Mistake</b><br>Use 요 with strangers, not with close friends<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
-      } else if(q.includes('이/가')||q.includes('Who')){
-        const g=GRAMMAR_DB['G002'];
-        finalAnswer=`<b>Short Answer</b><br>${g.k} (${g.rom}) ${g.mean}<br><br><b>Grammar</b><br>Who? What? → 이/가<br>${g.rule}<br><br><b>Examples</b><br>${g.ex}<br><br><b>Compare Table</b><br>은/는 = Topic (About) / 이/가 = Subject (Who/What)<br><br><b>Native Tip</b><br>👩🏫 ${g.tip}<br><br><b>Excellent! Keep practicing.</b>`;
-      } else {
-        finalAnswer=`<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Easy Explanation</b><br>This sentence means ${ctx.en}<br><br><b>Grammar</b><br>Detected: ${gram?gram.k+' ('+gram.rom+') '+gram.mean:'General'}<br>${gram?gram.rule:''}<br><br><b>Examples</b><br>1. ${ctx.kr} (${ctx.rom}) ${ctx.en}<br>2. ${gram?gram.ex:ctx.kr+' 정말 좋아요. (Jeong-mal jo-a-yo.) Really like.'}<br><br><b>Native Tip</b><br>👩🏫 ${gram?gram.tip:'Koreans use 우리 '+ctx.kr+' 90% not my '+ctx.en}<br><br><b>Common Mistake</b><br>${gram?gram.mistake:'Check particles 은/는 vs 이/가'}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
-      }
+    // 기본 예비 답변
+    if (!finalAnswer) {
+      finalAnswer = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
     }
 
-    const th=document.getElementById('ai-thinking'); if(th) th.remove();
+    const errorBlock = geminiErrorMsg ? `<div id="ai-error-box" style="font-size:0.8rem;color:#e11d48;background:#ffe4e6;padding:6px 10px;border-radius:8px;margin-bottom:8px;">⚠️ ${geminiErrorMsg}</div>` : '';
 
-    const errorBlock = geminiErrorMsg ? `<div id="ai-error-box">⚠️ Gemini API 실패, 로컬 DB로 대체했어요.<br>에러: ${geminiErrorMsg}</div>` : '';
-
-    log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${errorBlock}<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;margin-top:${geminiErrorMsg?'8px':'0'};">🤖 V2.1 Answer ${gram?'| Grammar: '+gram.k:''}</div>${finalAnswer}${makeActions(finalAnswer.replace(/<[^>]*>/g,'').slice(0,200))}<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button></div>`;
-    log.scrollTop=log.scrollHeight;
+    log.innerHTML += `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${errorBlock}<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 V2.1 Answer ${gram ? '| DB: ' + (gram.id || gram.grammar || gram.k) : ''}</div>${finalAnswer}${makeActions(finalAnswer.replace(/<[^>]*>/g, '').slice(0, 200))}<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button></div>`;
+    log.scrollTop = log.scrollHeight;
   }
 
-  window.openShare=openShare;
-  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
-  wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
-  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
+  // 7. 이벤트 바인딩 및 전역 설정
+  window.openShare = openShare;
+  btn.onclick = () => { open = !open; modal.style.display = open ? 'flex' : 'none'; if (open) renderFaq(); };
+  wrap.querySelector('#ai-x').onclick = () => { open = false; modal.style.display = 'none'; };
+  input.addEventListener('keypress', e => { if (e.key === 'Enter' && e.target.value.trim()) { var q = e.target.value.trim(); e.target.value = ''; handleQuestion(q); } });
 
-  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
-  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
-  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
+  window.showAiTutor = () => { var d = document.getElementById('detail-area'); if (d && d.style.display !== 'none' && d.innerText.includes('Correct')) { btn.style.display = 'flex'; } };
+  window.hideAiTutor = () => { btn.style.display = 'none'; modal.style.display = 'none'; open = false; };
+  var oldR = window.renderLearningProgress;
+  window.renderLearningProgress = function () { if (oldR) oldR(); setTimeout(window.showAiTutor, 300); };
 
-  console.log('✅ AI Tutor V2.1 + Grammar DB loaded with grammarData array!');
-  console.log(USE_GEMINI?'✅ Real Gemini mode (v1beta / gemini-flash-latest)':'⚠️ Local DB mode');
-})();
-
+  console.log('✅ AI Tutor V2.1 + Direct Local DB Mode ready!');
 
 
 
