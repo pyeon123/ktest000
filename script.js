@@ -941,8 +941,12 @@ ABSOLUTE RULES:
 #9 Explain Common Mistakes WHY wrong then correct.
 #10 Be positive, never criticize.
 
-GRAMMAR DB (use when relevant):
-${Object.values(GRAMMAR_DB).map(g=>`${g.k} (${g.rom}) ${g.mean} | Rule: ${g.rule} | Ex: ${g.ex} | Tip: ${g.tip} | Mistake: ${g.mistake}`).join('\n')}
+RELEVANT GRAMMAR (use this, don't invent other rules):
+{grammar_db}
+
+FORMAT RULE:
+Do NOT use Markdown symbols like #, ##, ###, **, --- or bullet dashes.
+Write plain text only. Use line breaks between sections. Use a section label like "Short Answer:" followed by a colon, not a heading.
 
 INSTRUCTION:
 Current sentence on page: {kr} ({rom}) - {en}
@@ -1047,6 +1051,18 @@ Every Korean must have (Roman) English.
     return null;
   }
 
+  function mdToHtml(text){
+    let t = text;
+    t = t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    t = t.replace(/^#{1,6}\s*(.+)$/gm, '<br><b style="color:#4f46e5;">$1</b><br>');
+    t = t.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+    t = t.replace(/^---+$/gm, '');
+    t = t.replace(/^[-*]\s+(.+)$/gm, '• $1<br>');
+    t = t.replace(/\n{2,}/g, '<br><br>');
+    t = t.replace(/\n/g, '<br>');
+    return t;
+  }
+
   function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
 
   function renderFaq(){
@@ -1083,7 +1099,10 @@ Every Korean must have (Roman) English.
         const res = await fetch(GEMINI_ENDPOINT, {
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+          body:JSON.stringify({
+            contents:[{parts:[{text:prompt}]}],
+            generationConfig: { maxOutputTokens: 500, temperature: 0.6 }
+          })
         });
         const data = await res.json();
         console.log('[AI Tutor] Gemini raw response:', data);
@@ -1092,7 +1111,8 @@ Every Korean must have (Roman) English.
           geminiErrorMsg = `HTTP ${res.status} - ${data?.error?.message || 'Unknown error'}`;
           console.error('[AI Tutor] Gemini API error:', geminiErrorMsg);
         } else {
-          finalAnswer = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          finalAnswer = rawText ? mdToHtml(rawText) : "";
           if(!finalAnswer) geminiErrorMsg = 'Empty response from Gemini (candidates 없음)';
         }
       }catch(e){
