@@ -901,8 +901,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 })();
 
 
-
-// ==================== AI TUTOR V2.1 + 문법 DB G001~G020 + 질문별 다른 답변 ====================
+// ==================== 여기서부터 원본 파일의 "AI TUTOR V2.1" IIFE를 이걸로 통째로 교체하세요 ====================
 (function(){
   const GRAMMAR_DB = {
 "G001": { "k": "은 / 는", "rom": "eun / neun", "mean": "Topic Marker - About...", "rule": "자음 뒤 은, 모음 뒤 는. Example: 책은 (chaek-eun) As for book, 사과는 (sa-gwa-neun) As for apple", "ex": "저는 학생이에요. (Jeo-neun hak-saeng-i-e-yo.) I am a student. / 오늘은 더워요. (O-neul-eun deo-wo-yo.) Today is hot.", "tip": "Native: 주제 소개, 비교할 때 매일 사용", "mistake": "사과는 O, 사과은 X / 책은 O, 책는 X" },
@@ -927,7 +926,6 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 "G020": { "k": "너무", "rom": "neo-mu", "mean": "Too/Very", "rule": "", "ex": "너무 좋아요. (Neo-mu jo-a-yo.) Like very much.", "tip": "", "mistake": "" }
 };
 
-  // 네 원본 V2.1 지침 요약 (1500줄 → Gemini용 압축, 절대 규칙 유지)
   const V21_SYSTEM = `
 You are Hi Korea Friend AI Tutor v2.1.
 ROLE: Professional Korean teacher, students are beginners, teach WHY not WHAT, simple English, encouraging.
@@ -962,13 +960,14 @@ Use page sentence {kr} as main example first, then DB examples.
 Every Korean must have (Roman) English.
 `.trim();
 
-  const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg"; // ← 여기에 Gemini 키 넣으면 진짜 AI
+  // ✅ 테스트 완료: v1beta + gemini-flash-latest 조합으로 정상 작동 확인됨 (200 OK)
+  const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg";
   const USE_GEMINI = true;
+  const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
 
   var file = (location.pathname.split('/').pop()||'').toLowerCase();
   if(file===''||file==='index.html'||file==='/'||file==='index') return;
 
-  // Clean old
   var oldBtn=document.getElementById('ai-tutor-btn'); if(oldBtn) oldBtn.parentElement.remove();
   var oldStyle=document.getElementById('ai-tutor-style'); if(oldStyle) oldStyle.remove();
   var oldShare=document.getElementById('ai-share-modal'); if(oldShare) oldShare.remove();
@@ -986,6 +985,7 @@ Every Korean must have (Roman) English.
   .faq-chip{padding:7px 11px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:20px;font-size:.78rem;font-weight:800;cursor:pointer;}
   .ai-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
   .ai-action-btn{padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-size:.7rem;font-weight:800;cursor:pointer;}
+  #ai-error-box{background:#fef2f2;border:2px solid #fca5a5;color:#991b1b;padding:10px 12px;border-radius:12px;font-size:0.8rem;white-space:pre-wrap;word-break:break-word;}
   #ai-share-modal{display:none;position:fixed;bottom:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:100000;justify-content:center;align-items:flex-end;}
   #ai-share-card{background:white;width:100%;max-width:400px;border-radius:20px 20px 0 0;padding:20px;animation:slideUp .3s;}
   @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
@@ -1074,21 +1074,35 @@ Every Korean must have (Roman) English.
     log.scrollTop=log.scrollHeight;
 
     var finalAnswer="";
+    var geminiErrorMsg=null;
 
     if(USE_GEMINI){
       try{
         const dbText = gram ? `${gram.k} (${gram.rom}) ${gram.mean} | Rule: ${gram.rule} | Ex: ${gram.ex} | Tip: ${gram.tip}` : Object.values(GRAMMAR_DB).slice(0,5).map(g=>`${g.k} ${g.mean}`).join(', ');
         const prompt = V21_SYSTEM.replace('{kr}',ctx.kr).replace('{rom}',ctx.rom).replace('{en}',ctx.en).replace('{q}',q).replace('{grammar_db}', dbText);
-        const res=await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})});
-        const data=await res.json();
-        finalAnswer=data.candidates?.[0]?.content?.parts?.[0]?.text||"Error";
+        const res = await fetch(GEMINI_ENDPOINT, {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({contents:[{parts:[{text:prompt}]}]})
+        });
+        const data = await res.json();
+        console.log('[AI Tutor] Gemini raw response:', data);
+
+        if(!res.ok || data.error){
+          geminiErrorMsg = `HTTP ${res.status} - ${data?.error?.message || 'Unknown error'}`;
+          console.error('[AI Tutor] Gemini API error:', geminiErrorMsg);
+        } else {
+          finalAnswer = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+          if(!finalAnswer) geminiErrorMsg = 'Empty response from Gemini (candidates 없음)';
+        }
       }catch(e){
-        finalAnswer=`Error, using local DB: ${gram?gram.k+' '+gram.mean:'General'}`;
+        geminiErrorMsg = 'Network/Fetch error: ' + e.message;
+        console.error('[AI Tutor] Fetch failed:', e);
       }
     }
 
-    if(!USE_GEMINI || !finalAnswer || finalAnswer.includes('Error')){
-      // 로컬 문법 DB 기반 답변 - 질문마다 다르게!
+    if(!finalAnswer){
+      // 로컬 문법 DB 기반 답변 (Gemini 실패 시 대체) - 질문마다 다르게!
       if(q.includes('은/는')||q.includes('는 vs')||q.includes('About')|| (gram&&gram.k.includes('은 / 는'))){
         const g=GRAMMAR_DB['G001'];
         finalAnswer=`<b>Short Answer</b><br>${g.k} (${g.rom}) ${g.mean}<br><br><b>Easy Explanation</b><br>${g.k} shows topic = About...<br><br><b>Grammar</b><br>✅ Consonant → ${g.k.split('/')[0].trim()}<br>Example: 책은 (chaek-eun) As for book<br>✅ Vowel → 는<br>Example: 사과는 (sa-gwa-neun) As for apple<br><br><b>Examples</b><br>1. ${ctx.kr} (${ctx.rom}) ${ctx.en}<br>2. 저는 학생이에요. (Jeo-neun hak-saeng-i-e-yo.) I am student.<br>3. 오늘은 더워요. (O-neul-eun deo-wo-yo.) Today is hot.<br><br><b>Native Tip</b><br>👩🏫 ${g.tip}<br><br><b>Common Mistake</b><br>❌ ${g.mistake.split('/')[0]||'사과은'} Wrong → ✅ 사과는 Correct<br><br><b>Compare</b><br>은/는 (eun/neun) = Topic / About<br>이/가 (i/ga) = Subject / Who<br><br><b>Practice</b><br>Complete: 저__ 학생이에요. (Jeo__ hak-saeng-i-e-yo.)<br>Answer: 저는 (Jeo-neun)<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
@@ -1104,7 +1118,10 @@ Every Korean must have (Roman) English.
     }
 
     const th=document.getElementById('ai-thinking'); if(th) th.remove();
-    log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;"><div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 V2.1 Answer ${gram?'| Grammar: '+gram.k:''}</div>${finalAnswer}${makeActions(finalAnswer.replace(/<[^>]*>/g,'').slice(0,200))}<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button></div>`;
+
+    const errorBlock = geminiErrorMsg ? `<div id="ai-error-box">⚠️ Gemini API 실패, 로컬 DB로 대체했어요.<br>에러: ${geminiErrorMsg}</div>` : '';
+
+    log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${errorBlock}<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;margin-top:${geminiErrorMsg?'8px':'0'};">🤖 V2.1 Answer ${gram?'| Grammar: '+gram.k:''}</div>${finalAnswer}${makeActions(finalAnswer.replace(/<[^>]*>/g,'').slice(0,200))}<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button></div>`;
     log.scrollTop=log.scrollHeight;
   }
 
@@ -1117,6 +1134,10 @@ Every Korean must have (Roman) English.
   window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
   var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
 
-  console.log('✅ AI Tutor V2.1 + Grammar DB G001-G020 loaded! Questions → different answers!');
-  console.log(USE_GEMINI?'✅ Real Gemini':'⚠️ Local DB mode (add API key for real AI)');
+  console.log('✅ AI Tutor V2.1 + Grammar DB G001-G020 loaded!');
+  console.log(USE_GEMINI?'✅ Real Gemini mode (v1beta / gemini-flash-latest)':'⚠️ Local DB mode');
 })();
+
+
+
+
