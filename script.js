@@ -903,28 +903,168 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 
 // ==================== 여기서부터 원본 파일의 "AI TUTOR V2.1" IIFE를 이걸로 통째로 교체하세요 ====================
 (function(){
-  const GRAMMAR_DB = {
-"G001": { "k": "은 / 는", "rom": "eun / neun", "mean": "Topic Marker - About...", "rule": "자음 뒤 은, 모음 뒤 는. Example: 책은 (chaek-eun) As for book, 사과는 (sa-gwa-neun) As for apple", "ex": "저는 학생이에요. (Jeo-neun hak-saeng-i-e-yo.) I am a student. / 오늘은 더워요. (O-neul-eun deo-wo-yo.) Today is hot.", "tip": "Native: 주제 소개, 비교할 때 매일 사용", "mistake": "사과는 O, 사과은 X / 책은 O, 책는 X" },
-"G002": { "k": "이 / 가", "rom": "i / ga", "mean": "Subject Marker - Who/What", "rule": "자음 뒤 이, 모음 뒤 가. Who did it?", "ex": "고양이가 귀여워요. (Go-yang-i-ga gwi-yeo-wo-yo.) The cat is cute. / 비가 와요. (Bi-ga wa-yo.) It rains.", "tip": "새 정보, Who/What 강조", "mistake": "사과가 O, 사과이 X" },
-"G003": { "k": "을 / 를", "rom": "eul / reul", "mean": "Object Marker", "rule": "자음 뒤 을, 모음 뒤 를", "ex": "사과를 먹어요. (Sa-gwa-reul meo-geo-yo.) I eat apple.", "tip": "뭘? 목적어", "mistake": "밥을 O, 밥를 X" },
-"G004": { "k": "에", "rom": "e", "mean": "To/At (place/time)", "rule": "장소/시간 뒤", "ex": "학교에 가요. (Hak-gyo-e ga-yo.) Go to school.", "tip": "장소, 시간", "mistake": "" },
-"G005": { "k": "에서", "rom": "e-seo", "mean": "At/From (action place)", "rule": "동작하는 장소", "ex": "학교에서 공부해요. (Hak-gyo-e-seo gong-bu-hae-yo.) Study at school.", "tip": "에 vs 에서: 에=도착, 에서=동작", "mistake": "" },
-"G006": { "k": "와 / 과", "rom": "wa / gwa", "mean": "And / With", "rule": "모음 뒤 와, 자음 뒤 과", "ex": "사과와 바나나 (Sa-gwa-wa ba-na-na) Apple and banana", "tip": "", "mistake": "" },
-"G007": { "k": "도", "rom": "do", "mean": "Also", "rule": "명사 뒤", "ex": "저도 학생이에요. (Jeo-do hak-saeng-i-e-yo.) I am also student.", "tip": "또=부사, 도=조사", "mistake": "" },
-"G008": { "k": "요", "rom": "yo", "mean": "Polite Ending", "rule": "문장 끝에 요 = 존댓말", "ex": "가요 (Ga-yo.) I go (polite)", "tip": "Native: 90% 일상에서 요 사용, 친구에겐 안 씀", "mistake": "" },
-"G009": { "k": "이에요 / 예요", "rom": "i-e-yo / ye-yo", "mean": "am/is/are", "rule": "자음 뒤 이에요, 모음 뒤 예요", "ex": "학생이에요. (Hak-saeng-i-e-yo.) I am student.", "tip": "", "mistake": "" },
-"G010": { "k": "있어요 / 없어요", "rom": "i-sseo-yo / eop-seo-yo", "mean": "have / there is", "rule": "", "ex": "돈이 있어요. (Don-i i-sseo-yo.) Have money.", "tip": "", "mistake": "" },
-"G011": { "k": "주세요", "rom": "ju-se-yo", "mean": "Please give", "rule": "N + 주세요", "ex": "물 주세요. (Mul ju-se-yo.) Water please.", "tip": "가장 많이 쓰는 요청", "mistake": "" },
-"G012": { "k": "고 싶어요", "rom": "go si-peo-yo", "mean": "Want to", "rule": "V + 고 싶어요", "ex": "가고 싶어요. (Ga-go si-peo-yo.) Want to go.", "tip": "", "mistake": "" },
-"G013": { "k": "아요 / 어요", "rom": "a-yo / eo-yo", "mean": "Present polite", "rule": "", "ex": "먹어요 (meo-geo-yo) eat", "tip": "", "mistake": "" },
-"G014": { "k": "았어요 / 었어요", "rom": "a-sseo-yo / eo-sseo-yo", "mean": "Past", "rule": "", "ex": "먹었어요. (Meo-geo-sseo-yo.) Ate.", "tip": "", "mistake": "" },
-"G015": { "k": "을 거예요", "rom": "eul geo-ye-yo", "mean": "Future will", "rule": "", "ex": "갈 거예요. (Gal geo-ye-yo.) Will go.", "tip": "", "mistake": "" },
-"G016": { "k": "안 / 못", "rom": "an / mot", "mean": "Not / Cannot", "rule": "안=don't, 못=can't", "ex": "안 가요 (An ga-yo) Don't go / 못 가요 (Mot ga-yo) Can't go", "tip": "", "mistake": "" },
-"G017": { "k": "하지만", "rom": "ha-ji-man", "mean": "But", "rule": "", "ex": "바빠요. 하지만 갈게요. (Ba-ppa-yo. Ha-ji-man gal-ge-yo.) Busy but will go.", "tip": "", "mistake": "" },
-"G018": { "k": "그래서", "rom": "geu-rae-seo", "mean": "So", "rule": "이유 → 그래서 → 결과", "ex": "배가 고파요. 그래서 밥 먹어요. (Bae-ga go-pa-yo. Geu-rae-seo...) Hungry so eat.", "tip": "매일 쓰는 연결어", "mistake": "" },
-"G019": { "k": "또", "rom": "tto", "mean": "Again", "rule": "동사 앞", "ex": "또 만나요. (Tto man-na-yo.) See you again.", "tip": "또 봐요 매일 사용", "mistake": "" },
-"G020": { "k": "너무", "rom": "neo-mu", "mean": "Too/Very", "rule": "", "ex": "너무 좋아요. (Neo-mu jo-a-yo.) Like very much.", "tip": "", "mistake": "" }
-};
+  const grammarData = [
+    {
+      id: "G001",
+      grammar: "은 / 는",
+      romanization: "eun / neun",
+      title: "Topic Marker",
+      rating: "★★★★★ Used Every Day",
+      imagine: "Imagine you are talking to a friend. Before speaking, you tell your friend what your topic is. Korean uses 은 / 는 (eun / neun) Topic Marker to say: \"I'm talking about this.\"",
+      memoryTrick: "은 / 는 (eun / neun) Topic Marker = About... (\"About me\", \"About today\", \"About Korea\")",
+      easyExplanation: "은 / 는 (eun / neun) Topic Marker shows the topic of a sentence. It tells the listener what you are talking about. Koreans use it every day.",
+      basicRule: "After a consonant → use 은 (eun) (e.g. 책 → 책은)\nAfter a vowel → use 는 (neun) (e.g. 사과 → 사과는)",
+      examples: [
+        { kr: "저는 학생이에요.", rom: "Jeo-neun hak-saeng-i-e-yo.", en: "I am a student." },
+        { kr: "오늘은 더워요.", rom: "O-neul-eun deo-wo-yo.", en: "Today is hot." },
+        { kr: "한국은 아름다워요.", rom: "Han-guk-eun a-reum-da-wo-yo.", en: "Korea is beautiful." }
+      ],
+      nativeTip: "Native Koreans use 은 / 는 (eun / neun) Topic Marker to introduce a topic or compare two things.",
+      commonMistakes: [
+        { wrong: "사과은 (Sa-gwa-eun)", correct: "사과는 (Sa-gwa-neun)" },
+        { wrong: "책는 (Chaek-neun)", correct: "책은 (Chae-geun)" }
+      ],
+      compare: [
+        { grammar: "은 / 는 (eun / neun)", meaning: "Topic Marker", mainJob: "Shows the topic" },
+        { grammar: "이 / 가 (i / ga)", meaning: "Subject Marker", mainJob: "Shows the subject" }
+      ],
+      miniQuiz: {
+        question: "학교__ (Hak-gyo __ ) The school...",
+        options: ["① 은 (eun) Topic Marker", "② 는 (neun) Topic Marker"],
+        answer: "는 (neun) Topic Marker",
+        reason: "Because 학교 (hak-gyo) school ends with a vowel."
+      },
+      speakingPractice: {
+        kr: "저는 한국어를 공부해요.",
+        rom: "Jeo-neun Han-gu-geo-reul gong-bu-hae-yo.",
+        en: "I study Korean.",
+        repeat: 3
+      },
+      practiceChallenge: {
+        question: "저__ 학생이에요. (Jeo__ hak-saeng-i-e-yo.) I am a student.",
+        answer: "저는 (Jeo-neun) As for me"
+      },
+      relatedGrammar: ["이 / 가 (i / ga) Subject Marker"],
+      relatedVocabulary: [
+        { kr: "학생", rom: "hak-saeng", en: "student" },
+        { kr: "오늘", rom: "o-neul", en: "today" },
+        { kr: "한국", rom: "han-guk", en: "Korea" }
+      ],
+      teacherNote: "Core function: Topic Marker. Compare with 이 / 가 (i / ga) — Subject Marker whenever learners ask the difference. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+    },
+    {
+      id: "G002",
+      grammar: "이 / 가",
+      romanization: "i / ga",
+      title: "Subject Marker",
+      rating: "★★★★★ Used Every Day",
+      imagine: "Imagine someone asks, \"Who is a student?\" You answer, \"I am.\" Korean uses 이 / 가 (i / ga) Subject Marker to show who or what is the subject.",
+      memoryTrick: "이 / 가 (i / ga) Subject Marker = Who? / What? Think: Who did it? What is it?",
+      easyExplanation: "이 / 가 (i / ga) Subject Marker shows the subject. It tells us who or what the sentence is about at that moment. It often introduces new information.",
+      basicRule: "After a consonant → use 이 (i) (e.g. 책 → 책이)\nAfter a vowel → use 가 (ga) (e.g. 사과 → 사과가)",
+      examples: [
+        { kr: "제가 학생이에요.", rom: "Je-ga hak-saeng-i-e-yo.", en: "I am the student." },
+        { kr: "고양이가 귀여워요.", rom: "Go-yang-i-ga gwi-yeo-wo-yo.", en: "The cat is cute." },
+        { kr: "비가 와요.", rom: "Bi-ga wa-yo.", en: "It is raining." }
+      ],
+      nativeTip: "Native Koreans use 이 / 가 (i / ga) Subject Marker when introducing new information or answering Who? or What?",
+      commonMistakes: [
+        { wrong: "사과이 (Sa-gwa-i)", correct: "사과가 (Sa-gwa-ga)" },
+        { wrong: "책가 (Chaek-ga)", correct: "책이 (Chae-gi)" }
+      ],
+      compare: [
+        { grammar: "이 / 가 (i / ga)", meaning: "Subject Marker", mainJob: "Shows who or what is the subject" },
+        { grammar: "은 / 는 (eun / neun)", meaning: "Topic Marker", mainJob: "Shows the topic" }
+      ],
+      miniQuiz: {
+        question: "학생__ (Hak-saeng __ ) The student...",
+        options: ["① 이 (i) Subject Marker", "② 가 (ga) Subject Marker"],
+        answer: "이 (i) Subject Marker",
+        reason: "Because 학생 (hak-saeng) student ends with a consonant."
+      },
+      speakingPractice: {
+        kr: "고양이가 귀여워요.",
+        rom: "Go-yang-i-ga gwi-yeo-wo-yo.",
+        en: "The cat is cute.",
+        repeat: 3
+      },
+      practiceChallenge: {
+        question: "비__ 와요. (Bi__ wa-yo.) It is raining.",
+        answer: "비가 (Bi-ga) The rain"
+      },
+      relatedGrammar: ["은 / 는 (eun / neun) Topic Marker"],
+      relatedVocabulary: [
+        { kr: "고양이", rom: "go-yang-i", en: "cat" },
+        { kr: "비", rom: "bi", en: "rain" },
+        { kr: "학생", rom: "hak-saeng", en: "student" }
+      ],
+      teacherNote: "Core function: Subject Marker. Best explained by comparing with 은 / 는 (eun / neun) — Topic Marker. Focus on Who? and What? questions before teaching contrast."
+    },
+    {
+      id: "G003",
+      grammar: "을 / 를",
+      romanization: "eul / reul",
+      title: "Object Marker",
+      rating: "★★★★★ Used Every Day",
+      imagine: "Imagine you say, \"I eat an apple.\" The apple is the thing you eat. Korean uses 을 / 를 (eul / reul) Object Marker to show what receives the action.",
+      memoryTrick: "을 / 를 (eul / reul) Object Marker = What? (What do you eat? What do you drink? What do you watch?)",
+      easyExplanation: "을 / 를 (eul / reul) Object Marker shows the object of a verb. The object is the person or thing that receives the action. Native Koreans use it every day.",
+      whenToUse: ["To say what you eat", "To say what you drink", "To say what you buy", "To say what you watch"],
+      basicRule: "After a consonant → use 을 (eul) (e.g. 밥 → 밥을)\nAfter a vowel → use 를 (reul) (e.g. 사과 → 사과를)",
+      examples: [
+        { kr: "사과를 먹어요.", rom: "Sa-gwa-reul meo-geo-yo.", en: "I eat an apple." },
+        { kr: "물을 마셔요.", rom: "Mu-reul ma-syeo-yo.", en: "I drink water." },
+        { kr: "한국어를 공부해요.", rom: "Han-gu-geo-reul gong-bu-hae-yo.", en: "I study Korean." }
+      ],
+      nativeTip: "Native Koreans often drop 을 / 를 in casual speaking, but always use it when speaking clearly or writing.",
+      commonMistakes: [
+        { wrong: "밥를 (Bab-reul)", correct: "밥을 (Ba-beul)" },
+        { wrong: "사과을 (Sa-gwa-eun)", correct: "사과를 (Sa-gwa-reul)" }
+      ],
+      compare: [
+        { grammar: "을 / 를 (eul / reul)", meaning: "Object Marker", mainJob: "Shows the object (What?)" },
+        { grammar: "이 / 가 (i / ga)", meaning: "Subject Marker", mainJob: "Shows the subject (Who/What?)" }
+      ],
+      miniQuiz: {
+        question: "밥__ (Bab __ ) Rice (object)...",
+        options: ["① 을 (eul) Object Marker", "② 를 (reul) Object Marker"],
+        answer: "① 을 (eul) Object Marker",
+        reason: "Because 밥 (bab) ends with a consonant."
+      },
+      speakingPractice: {
+        kr: "사과를 먹어요.",
+        rom: "Sa-gwa-reul meo-geo-yo.",
+        en: "I eat an apple.",
+        repeat: 3
+      },
+      practiceChallenge: {
+        question: "물__ 마셔요. (Mul__ ma-syeo-yo.) I drink water.",
+        answer: "물을 (Mu-reul) Water (object)"
+      },
+      relatedGrammar: ["이 / 가 (i / ga) Subject Marker"],
+      relatedVocabulary: [
+        { kr: "사과", rom: "sa-gwa", en: "apple" },
+        { kr: "물", rom: "mul", en: "water" },
+        { kr: "공부하다", rom: "gong-bu-ha-da", en: "to study" }
+      ],
+      teacherNote: "Core function: Object Marker."
+    }
+  ];
+
+  // 기존 스크립트 호환성을 위한 하위 호환 맵핑 자동 생성
+  const GRAMMAR_DB = {};
+  grammarData.forEach(item => {
+    GRAMMAR_DB[item.id] = {
+      ...item,
+      k: item.grammar,
+      rom: item.romanization,
+      mean: item.title,
+      rule: item.basicRule,
+      ex: item.examples ? item.examples.map(e => `${e.kr} (${e.rom}) ${e.en}`).join(' / ') : '',
+      tip: item.nativeTip,
+      mistake: item.commonMistakes ? item.commonMistakes.map(m => `❌ ${m.wrong} → ✅ ${m.correct}`).join(' / ') : ''
+    };
+  });
 
   const V21_SYSTEM = `
 You are Hi Korea Friend AI Tutor v3.0.
@@ -1092,7 +1232,6 @@ Use page sentence {kr} as main example first, then DB examples.
 Every Korean must have (Roman) English.
 `.trim();
 
-  // ✅ 테스트 완료: v1beta + gemini-flash-latest 조합으로 정상 작동 확인됨 (200 OK)
   const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg";
   const USE_GEMINI = true;
   const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
@@ -1169,7 +1308,7 @@ Every Korean must have (Roman) English.
     const text=(q+' '+kr).toLowerCase();
     if(text.includes('은')||text.includes('는')||text.includes('eun')||text.includes('neun')||text.includes('about')||text.includes('topic')) return GRAMMAR_DB['G001'];
     if(text.includes('이/가')||text.includes(' 이 ')||text.includes(' 가 ')||text.includes('who')||text.includes('subject')) return GRAMMAR_DB['G002'];
-    if(text.includes('을')||text.includes('를')||text.includes('object')) return GRAMMAR_DB['G003'];
+    if(text.includes('을')||text.includes('를')||text.includes('eul')||text.includes('reul')||text.includes('object')) return GRAMMAR_DB['G003'];
     if(text.includes('에서')||text.includes('e-seo')) return GRAMMAR_DB['G005'];
     if(text.includes('에 ')||text.includes(' to ')||text.includes(' at ')) return GRAMMAR_DB['G004'];
     if(text.includes('요')||text.includes('yo')||text.includes('polite')) return GRAMMAR_DB['G008'];
@@ -1204,7 +1343,7 @@ Every Korean must have (Roman) English.
       `Example with ${s}?`
     ];
     faq.innerHTML=chips.map(q=>`<button class="faq-chip">${q}</button>`).join('');
-    log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;"><b>🤖 V2.1 Tutor:</b> You got <b style="color:#6366f1;">"${ctx.kr} (${ctx.rom})"</b> correct!<br><br><b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Native Tip</b><br>👩🏫 Native: Ask me about 은/는, 이/가, 요! I use Grammar DB G001~G020!<br><br><span style="font-size:0.75rem;color:#94a3b8;">V2.1: Every Korean = Korean (Roman) English + 12 sections</span><br><br><span style="font-size:0.75rem;background:#fff9db;padding:4px 8px;border-radius:6px;">📚 Grammar DB: ${Object.keys(GRAMMAR_DB).length} grammars loaded</span></div>`;
+    log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;"><b>🤖 V2.1 Tutor:</b> You got <b style="color:#6366f1;">"${ctx.kr} (${ctx.rom})"</b> correct!<br><br><b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Native Tip</b><br>👩🏫 Native: Ask me about 은/는, 이/가, 요! I use Grammar DB G001~G020!<br><br><span style="font-size:0.75rem;color:#94a3b8;">V2.1: Every Korean = Korean (Roman) English + 12 sections</span><br><br><span style="font-size:0.75rem;background:#fff9db;padding:4px 8px;border-radius:6px;">📚 Grammar DB: ${grammarData.length} grammars loaded</span></div>`;
     faq.style.display='flex'; log.scrollTop=0;
     wrap.querySelectorAll('.faq-chip').forEach(c=>{c.onclick=()=>handleQuestion(c.innerText);});
   }
@@ -1222,7 +1361,7 @@ Every Korean must have (Roman) English.
 
     if(USE_GEMINI){
       try{
-        const dbText = gram ? `${gram.k} (${gram.rom}) ${gram.mean} | Rule: ${gram.rule} | Ex: ${gram.ex} | Tip: ${gram.tip}` : Object.values(GRAMMAR_DB).slice(0,5).map(g=>`${g.k} ${g.mean}`).join(', ');
+        const dbText = gram ? `${gram.k} (${gram.rom}) ${gram.mean} | Rule: ${gram.rule} | Ex: ${gram.ex} | Tip: ${gram.tip}` : grammarData.slice(0,5).map(g=>`${g.grammar} ${g.title}`).join(', ');
         const prompt = V21_SYSTEM.replace('{kr}',ctx.kr).replace('{rom}',ctx.rom).replace('{en}',ctx.en).replace('{q}',q).replace('{grammar_db}', dbText);
         const res = await fetch(GEMINI_ENDPOINT, {
           method:'POST',
@@ -1250,12 +1389,11 @@ Every Korean must have (Roman) English.
     }
 
     if(!finalAnswer){
-      // 로컬 문법 DB 기반 답변 (Gemini 실패 시 대체) - 질문마다 다르게!
       if(q.includes('은/는')||q.includes('는 vs')||q.includes('About')|| (gram&&gram.k.includes('은 / 는'))){
         const g=GRAMMAR_DB['G001'];
         finalAnswer=`<b>Short Answer</b><br>${g.k} (${g.rom}) ${g.mean}<br><br><b>Easy Explanation</b><br>${g.k} shows topic = About...<br><br><b>Grammar</b><br>✅ Consonant → ${g.k.split('/')[0].trim()}<br>Example: 책은 (chaek-eun) As for book<br>✅ Vowel → 는<br>Example: 사과는 (sa-gwa-neun) As for apple<br><br><b>Examples</b><br>1. ${ctx.kr} (${ctx.rom}) ${ctx.en}<br>2. 저는 학생이에요. (Jeo-neun hak-saeng-i-e-yo.) I am student.<br>3. 오늘은 더워요. (O-neul-eun deo-wo-yo.) Today is hot.<br><br><b>Native Tip</b><br>👩🏫 ${g.tip}<br><br><b>Common Mistake</b><br>❌ ${g.mistake.split('/')[0]||'사과은'} Wrong → ✅ 사과는 Correct<br><br><b>Compare</b><br>은/는 (eun/neun) = Topic / About<br>이/가 (i/ga) = Subject / Who<br><br><b>Practice</b><br>Complete: 저__ 학생이에요. (Jeo__ hak-saeng-i-e-yo.)<br>Answer: 저는 (Jeo-neun)<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
       } else if(q.includes('요')||q.toLowerCase().includes('polite')|| (gram&&gram.k==='요')){
-        const g=GRAMMAR_DB['G008'];
+        const g=GRAMMAR_DB['G008']||{k:'요', rom:'yo', mean:'Polite Ending', tip:'Use 요 with strangers'};
         finalAnswer=`<b>Short Answer</b><br>${g.k} (${g.rom}) ${g.mean} - Makes polite!<br><br><b>Easy Explanation</b><br>Add 요 at end = polite form<br>${ctx.kr.replace('요','')} (casual) → ${ctx.kr} (polite)<br><br><b>Examples</b><br>1. ${ctx.kr} (${ctx.rom}) ${ctx.en}<br>2. 가요 (Ga-yo.) I go (polite)<br>3. 먹어요 (Meo-geo-yo.) I eat (polite)<br><br><b>Native Tip</b><br>👩🏫 ${g.tip}<br><br><b>Common Mistake</b><br>Use 요 with strangers, not with close friends<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
       } else if(q.includes('이/가')||q.includes('Who')){
         const g=GRAMMAR_DB['G002'];
@@ -1282,7 +1420,7 @@ Every Korean must have (Roman) English.
   window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
   var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
 
-  console.log('✅ AI Tutor V2.1 + Grammar DB G001-G020 loaded!');
+  console.log('✅ AI Tutor V2.1 + Grammar DB loaded with grammarData array!');
   console.log(USE_GEMINI?'✅ Real Gemini mode (v1beta / gemini-flash-latest)':'⚠️ Local DB mode');
 })();
 
