@@ -1126,7 +1126,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       grammar: "와 / 과",
       romanization: "wa / gwa",
       title: "And / With",
-      keywords: ["and","with","together","connect two nouns","wa gwa"],
+      keywords: ["connect two nouns","wa gwa","noun and noun","together with"],
       sentencePatterns: ["와","과"],
       easyExplanation: "와/과 (wa/gwa) connects two nouns, meaning 'and' or 'with'. It's mostly used in writing or formal speech.",
       basicRule: "After a vowel → use 와 (wa) (e.g. 사과 → 사과와)\nAfter a consonant → use 과 (gwa) (e.g. 책 → 책과)",
@@ -1651,49 +1651,62 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   }
 
   // 한글 조각은 앞뒤가 한글 음절이 아닐 때만 인정 (단어 중간에 우연히 낀 경우 방지)
+  // — 자유 질문(예: "왜 은/는 써요?")처럼 문법 조각이 독립된 토큰으로 등장할 때 사용
   function hasHangulBoundary(text, token){
     const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const pattern = new RegExp(`(^|[^가-힣])${escaped}([^가-힣]|$)`);
     return pattern.test(text);
   }
 
-  function findGrammarMatch(q){
-    if(!q) return null;
+  // 뒤쪽 경계만 체크 — 실제 한글 문장 안에서 조사/어미 스캔할 때 사용.
+  // 조사는 앞 글자가 항상 한글(예: 먹어요의 '어')이므로 앞쪽은 검사하지 않고,
+  // 뒤에 다른 글자가 이어붙어 더 긴 문법이 되는 경우만 걸러냄 (에서의 '에' 등).
+  function hasTrailingHangulBoundary(text, token){
+    const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const pattern = new RegExp(`${escaped}([^가-힣]|$)`);
+    return pattern.test(text);
+  }
+
+  function findAllGrammarMatches(q){
+    if(!q) return [];
     const norm = q.toLowerCase().trim();
 
-    // 1순위: ID 정확 매칭 (예: "G001") — 가장 확실함
+    // 1순위: ID 정확 매칭 — 가장 확실하므로 다른 단계 스킵하고 그 하나로 확정
     const idMatch = grammarData.find(g => norm.includes(g.id.toLowerCase()));
-    if(idMatch) return idMatch;
+    if(idMatch) return [idMatch];
 
-    // 2순위: 영어 키워드 매칭 — 외국인 사용자 대부분은 영어로 질문하므로 최우선
-    // 여러 단어로 된 구문(예: "topic marker")은 그냥 includes로, 짧은 단어는 경계 체크
+    const seen = new Set();
+    const results = [];
+    function addIfNew(g){ if(!seen.has(g.id)){ seen.add(g.id); results.push(g); } }
+
+    // 2순위: 영어 키워드 매칭 — 이 단계에서 걸리는 건 전부 수집
+    // (예: "difference between topic and subject marker" → G001, G002 둘 다)
     for(const g of grammarData){
       const kws = g.keywords || [];
       for(const kw of kws){
         const k = kw.toLowerCase();
-        if(k.includes(' ')){
-          if(norm.includes(k)) return g; // 구문은 단어 경계 안 따짐 (예: "topic marker")
-        } else if(k.length <= 3){
-          if(hasWordBoundary(norm, k)) return g; // 짧은 단어는 경계 체크 필수 (예: "who", "eun")
-        } else {
-          if(norm.includes(k)) return g;
-        }
+        let ok;
+        if(k.includes(' ')) ok = norm.includes(k); // 구문은 단어 경계 안 따짐
+        else if(k.length <= 3) ok = hasWordBoundary(norm, k); // 짧은 단어는 경계 체크 필수
+        else ok = norm.includes(k);
+        if(ok){ addIfNew(g); break; }
       }
     }
+    if(results.length > 0) return results;
 
     // 3순위: 로마자 조각 매칭 (keywords에 없는 경우 대비 백업)
     for(const g of grammarData){
       const romParts = g.romanization.split('/').map(s=>s.trim().toLowerCase()).filter(Boolean);
-      if(romParts.some(p => p.length>=2 && hasWordBoundary(norm, p))) return g;
+      if(romParts.some(p => p.length>=2 && hasWordBoundary(norm, p))) addIfNew(g);
     }
+    if(results.length > 0) return results;
 
     // 4순위: 한글 조각 매칭 (한글로 직접 질문한 경우 대비, 경계 체크 적용)
     for(const g of grammarData){
       const parts = g.grammar.split('/').map(s=>s.trim()).filter(Boolean);
-      if(parts.some(p => p.length>=1 && hasHangulBoundary(q, p))) return g;
+      if(parts.some(p => p.length>=1 && hasHangulBoundary(q, p))) addIfNew(g);
     }
-
-    return null;
+    return results;
   }
 
   // DB 항목 하나를 V21_SYSTEM의 9-섹션 포맷(HTML)으로 즉시 렌더링. API 호출 없음.
@@ -1984,6 +1997,7 @@ Every Korean must have (Roman) English.
   }
 
   // 주어진 한글 문장 안에 어떤 문법 포인트들이 들어있는지 찾아서 매칭된 것들을 전부 반환
+  // hasHangulBoundary로 조사/어미가 다른 단어 중간에 우연히 낀 경우(가다의 '가', 에서의 '에')를 거른다.
   function detectGrammarInText(text){
     if(!text) return [];
     const found = [];
@@ -1991,7 +2005,7 @@ Every Korean must have (Roman) English.
       const patterns = g.sentencePatterns && g.sentencePatterns.length
         ? g.sentencePatterns
         : g.grammar.split('/').map(s=>s.trim()).filter(Boolean);
-      let hit = patterns.some(p => p && text.includes(p));
+      let hit = patterns.some(p => p && hasTrailingHangulBoundary(text, p));
       // G014(과거형)는 갔어요/왔어요처럼 축약된 형태도 별도 로직으로 추가 감지
       if(!hit && g.id === 'G014' && hasSsBatchimBeforeEoyo(text)) hit = true;
       if(hit) found.push(g);
@@ -2091,29 +2105,44 @@ Every Korean must have (Roman) English.
   // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
   async function handleQuestion(q, gramForced){
     var ctx=getCtx();
-    var gram = gramForced || findGrammarMatch(q);
+    var grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
 
     log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${q}</div>`;
     faq.style.display='none';
 
-    // ===== 케이스 1: DB에 있는 문법 → API 호출 없이 즉시 렌더링 (타이핑 효과로 표시) =====
-    if(gram){
-      const finalAnswer = renderFromDB(gram, ctx);
+    // ===== 케이스 1: DB에 매칭되는 문법 1개 이상 → API 호출 없이 순서대로 타이핑 표시 =====
+    if(grams.length > 0){
       const cid = 'ai-content-' + Date.now();
+      const tag = grams.length > 1 ? `📚 DB 즉시 답변 — ${grams.length}개 문법 매칭 (API 호출 없음)` : `📚 DB 즉시 답변 (API 호출 없음)`;
       log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-        + `<span class="ai-source-tag ai-source-db">📚 DB 즉시 답변 (API 호출 없음)</span><br>`
-        + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">🤖 ${gram.grammar} (${gram.id})</div>`
+        + `<span class="ai-source-tag ai-source-db">${tag}</span>`
         + `<div id="${cid}"></div>`
         + `<div id="${cid}-actions"></div></div>`;
       log.scrollTop = log.scrollHeight;
-      const target = document.getElementById(cid);
-      typeWriterHTML(target, finalAnswer, 6, ()=>{
-        const actionsEl = document.getElementById(cid+'-actions');
-        if(actionsEl){
-          actionsEl.innerHTML = makeActions(finalAnswer.replace(/<[^>]*>/g,'').slice(0,200))
-            + `<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button>`;
+      const container = document.getElementById(cid);
+      let combinedPlain = '';
+
+      function typeNext(idx){
+        if(idx >= grams.length){
+          const actionsEl = document.getElementById(cid+'-actions');
+          if(actionsEl){
+            actionsEl.innerHTML = makeActions(combinedPlain.slice(0,200))
+              + `<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button>`;
+          }
+          return;
         }
-      });
+        const g = grams[idx];
+        const headerDiv = document.createElement('div');
+        headerDiv.style.cssText = `font-size:0.85rem;color:#6366f1;font-weight:800;margin:${idx>0 ? '14px 0 6px;padding-top:10px;border-top:1px dashed #e2e8f0;' : '6px 0;'}`;
+        headerDiv.textContent = `🤖 ${g.grammar} (${g.id})`;
+        container.appendChild(headerDiv);
+        const bodyDiv = document.createElement('div');
+        container.appendChild(bodyDiv);
+        const finalAnswer = renderFromDB(g, ctx);
+        combinedPlain += (idx>0?' / ':'') + finalAnswer.replace(/<[^>]*>/g,'').slice(0,150);
+        typeWriterHTML(bodyDiv, finalAnswer, 6, ()=>{ typeNext(idx+1); });
+      }
+      typeNext(0);
       return; // API 호출 안 함
     }
 
@@ -2193,6 +2222,7 @@ Every Korean must have (Roman) English.
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions':'⚠️ Gemini disabled');
 })();
+
 
 
   
