@@ -1769,6 +1769,7 @@ Every Korean must have (Roman) English.
   const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg";
   const USE_GEMINI = true;
   const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+  const GEMINI_STREAM_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
 
   var file = (location.pathname.split('/').pop()||'').toLowerCase();
   if(file===''||file==='index.html'||file==='/'||file==='index') return;
@@ -1891,6 +1892,60 @@ Every Korean must have (Roman) English.
     step();
   }
 
+  function escapeAndBr(text){
+    return text
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\n{2,}/g,'<br><br>')
+      .replace(/\n/g,'<br>');
+  }
+
+  // Gemini 스트리밍 응답을 실시간으로 읽어서 onChunk(누적된 전체 텍스트)를 계속 호출.
+  // 다 끝나면 onDone(최종 텍스트), 실패하면 onError(에러 메시지) 호출.
+  async function streamGemini(prompt, onChunk, onDone, onError){
+    try{
+      const res = await fetch(GEMINI_STREAM_ENDPOINT, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          contents:[{parts:[{text:prompt}]}],
+          generationConfig: { maxOutputTokens: 1500, temperature: 0.6 }
+        })
+      });
+      if(!res.ok || !res.body){
+        let msg = 'Unknown error';
+        try{ const data = await res.json(); msg = data?.error?.message || msg; }catch(e){}
+        onError(`HTTP ${res.status} - ${msg}`);
+        return;
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buffer = '';
+      let fullText = '';
+      while(true){
+        const { done, value } = await reader.read();
+        if(done) break;
+        buffer += decoder.decode(value, { stream:true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop(); // 마지막 줄이 아직 완성 안 됐을 수 있으니 버퍼에 남겨둠
+        for(const line of lines){
+          const trimmed = line.trim();
+          if(!trimmed.startsWith('data:')) continue;
+          const jsonStr = trimmed.slice(5).trim();
+          if(!jsonStr || jsonStr === '[DONE]') continue;
+          try{
+            const obj = JSON.parse(jsonStr);
+            if(obj?.error){ onError(obj.error.message || 'Stream error'); return; }
+            const piece = obj?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if(piece){ fullText += piece; onChunk(fullText); }
+          }catch(e){ /* 아직 완성 안 된 JSON 조각일 수 있으니 무시하고 계속 */ }
+        }
+      }
+      onDone(fullText);
+    }catch(e){
+      onError('Network/Stream error: ' + e.message);
+    }
+  }
+
   function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
 
   // FAQ 칩은 grammarData 첫 몇 개를 기반으로 자동 생성, id를 직접 매달아서 100% 로컬 매칭 보장
@@ -1941,61 +1996,67 @@ Every Korean must have (Roman) English.
       return; // API 호출 안 함
     }
 
-    // ===== 케이스 2: DB에 없는 일반 질문 → Gemini API 호출 =====
+    // ===== 케이스 2: DB에 없는 일반 질문 → Gemini API 스트리밍 호출 =====
     log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">🤖 DB에 없는 질문이라 Gemini에게 물어보는 중...</div>`;
     log.scrollTop=log.scrollHeight;
 
-    var finalAnswer="";
-    var geminiErrorMsg=null;
-
-    if(USE_GEMINI){
-      try{
-        const prompt = V21_SYSTEM.replace('{kr}',ctx.kr).replace('{rom}',ctx.rom).replace('{en}',ctx.en).replace('{q}',q);
-        const res = await fetch(GEMINI_ENDPOINT, {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({
-            contents:[{parts:[{text:prompt}]}],
-            generationConfig: { maxOutputTokens: 1500, temperature: 0.6 }
-          })
-        });
-        const data = await res.json();
-        console.log('[AI Tutor] Gemini raw response:', data);
-
-        if(!res.ok || data.error){
-          geminiErrorMsg = `HTTP ${res.status} - ${data?.error?.message || 'Unknown error'}`;
-          console.error('[AI Tutor] Gemini API error:', geminiErrorMsg);
-        } else {
-          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-          finalAnswer = rawText ? mdToHtml(rawText) : "";
-          if(!finalAnswer) geminiErrorMsg = 'Empty response from Gemini (candidates 없음)';
-        }
-      }catch(e){
-        geminiErrorMsg = 'Network/Fetch error: ' + e.message;
-        console.error('[AI Tutor] Fetch failed:', e);
-      }
+    if(!USE_GEMINI){
+      const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
+      const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${fallback}</div>`;
+      log.scrollTop=log.scrollHeight;
+      return;
     }
 
-    if(!finalAnswer){
-      // Gemini 실패 시 최소한의 로컬 대체 답변
-      finalAnswer=`<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Easy Explanation</b><br>This sentence means ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
-    }
-
-    const th=document.getElementById('ai-thinking'); if(th) th.remove();
-    const errorBlock = geminiErrorMsg ? `<div id="ai-error-box">⚠️ Gemini API 실패, 기본 답변으로 대체했어요.<br>에러: ${geminiErrorMsg}</div>` : '';
-    const sourceTag = geminiErrorMsg ? '' : `<span class="ai-source-tag ai-source-api">🌐 Gemini API 응답</span><br>`;
-
+    const prompt = V21_SYSTEM.replace('{kr}',ctx.kr).replace('{rom}',ctx.rom).replace('{en}',ctx.en).replace('{q}',q);
     const cid2 = 'ai-content-' + Date.now();
-    log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${errorBlock}${sourceTag}<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 V2.1 Answer</div><div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
-    log.scrollTop = log.scrollHeight;
-    const target2 = document.getElementById(cid2);
-    typeWriterHTML(target2, finalAnswer, 12, ()=>{
-      const actionsEl2 = document.getElementById(cid2+'-actions');
-      if(actionsEl2){
-        actionsEl2.innerHTML = makeActions(finalAnswer.replace(/<[^>]*>/g,'').slice(0,200))
-          + `<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button>`;
+    let wrapperInserted = false;
+    let rawFullText = '';
+
+    function ensureWrapper(){
+      if(wrapperInserted) return;
+      wrapperInserted = true;
+      const th=document.getElementById('ai-thinking'); if(th) th.remove();
+      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+        + `<span class="ai-source-tag ai-source-api">🌐 Gemini API 응답 (실시간)</span><br>`
+        + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">🤖 V2.1 Answer</div>`
+        + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
+      log.scrollTop = log.scrollHeight;
+    }
+
+    streamGemini(
+      prompt,
+      // onChunk: 새 텍스트 조각이 도착할 때마다 실시간으로 화면 업데이트
+      (accumulatedText)=>{
+        ensureWrapper();
+        rawFullText = accumulatedText;
+        const el = document.getElementById(cid2);
+        if(el){ el.innerHTML = escapeAndBr(accumulatedText); log.scrollTop = log.scrollHeight; }
+      },
+      // onDone: 스트리밍 끝나면 버튼 표시
+      (finalText)=>{
+        ensureWrapper();
+        const finalAnswer = escapeAndBr(finalText || rawFullText || '');
+        const el = document.getElementById(cid2);
+        if(el) el.innerHTML = finalAnswer;
+        const actionsEl2 = document.getElementById(cid2+'-actions');
+        if(actionsEl2){
+          actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
+            + `<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button>`;
+        }
+        log.scrollTop = log.scrollHeight;
+      },
+      // onError: 스트리밍 실패 시 로컬 대체 답변 + 에러 표시
+      (errMsg)=>{
+        console.error('[AI Tutor] Stream error:', errMsg);
+        const th=document.getElementById('ai-thinking'); if(th) th.remove();
+        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+        log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+          + `<div id="ai-error-box">⚠️ Gemini 스트리밍 실패, 기본 답변으로 대체했어요.<br>에러: ${errMsg}</div>`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">🤖 V2.1 Answer</div>${fallback}</div>`;
+        log.scrollTop = log.scrollHeight;
       }
-    });
+    );
   }
 
   window.openShare=openShare;
