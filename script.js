@@ -503,7 +503,7 @@ function goHome() {
     updateSEOData(null); 
     closeTodayQuiz(); hideGuide();
 }
-const adTexts = ["No internet in Korea? You'll need data!","Maps won't work without internet","Travel Korea stress-free with eSIM","Instant internet access in Korea"];
+const adTexts = ["Stuck on Korean grammar? Ask our AI Tutor! 🤖","Get instant answers on 은/는, 이/가 and more","Your personal Korean grammar coach, free","Tap the AI Tutor button for real-time help"];
 let adIdx = 0;
 setInterval(() => {
     adIdx = (adIdx + 1) % adTexts.length;
