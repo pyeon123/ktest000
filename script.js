@@ -1808,7 +1808,7 @@ Every Korean must have (Roman) English.
   #ai-tutor-modal{display:none;position:fixed;bottom:85px;right:10px;width:368px;max-width:95vw;height:68vh;max-height:520px;background:white;border-radius:20px;z-index:99999;flex-direction:column;overflow:hidden;box-shadow:0 15px 40px rgba(0,0,0,0.2);border:1px solid #e2e8f0;}
   #ai-chat-log{flex:1;overflow-y:auto !important;padding:14px;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch; font-size:0.9rem; line-height:1.6;}
   #ai-faq-chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:#f8fafc;flex-shrink:0;}
-  .faq-chip{padding:7px 11px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:20px;font-size:.78rem;font-weight:800;cursor:pointer;}
+  .faq-chip{padding:8px 12px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:14px;font-size:.78rem;font-weight:800;cursor:pointer;text-align:left;line-height:1.3;max-width:100%;}
   .ai-actions{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
   .ai-action-btn{padding:5px 10px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-size:.7rem;font-weight:800;cursor:pointer;}
   #ai-error-box{background:#fef2f2;border:2px solid #fca5a5;color:#991b1b;padding:10px 12px;border-radius:12px;font-size:0.8rem;white-space:pre-wrap;word-break:break-word;}
@@ -1830,7 +1830,7 @@ Every Korean must have (Roman) English.
   document.body.appendChild(shareModal);
 
   var wrap=document.createElement('div');
-  wrap.innerHTML=`<button id="ai-tutor-btn"><div class="ai-bubble">🤖</div><div class="ai-label">TUTOR V2.1</div></button><div id="ai-tutor-modal"><div style="padding:12px 14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;"><div style="font-weight:900;font-size:0.9rem;">🤖 AI Tutor V2.1 + Grammar DB</div><span id="ai-x" style="cursor:pointer;background:rgba(255,255,255,0.25);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span></div><div id="ai-faq-chips"></div><div id="ai-chat-log"></div><div style="padding:10px;background:#f8fafc;border-top:1px solid #eee;flex-shrink:0;"><input id="ai-in" placeholder="Ask... 예: 왜 은/는 써요? / What does 요 mean?" style="width:100%;padding:11px 14px;border-radius:24px;border:2px solid #e2e8f0;outline:none;font-size:0.9rem;"></div></div>`;
+  wrap.innerHTML=`<button id="ai-tutor-btn"><div class="ai-bubble">🤖</div><div class="ai-label">TUTOR V2.1</div></button><div id="ai-tutor-modal"><div style="padding:12px 14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;"><div style="font-weight:900;font-size:0.9rem;">🤖 AI Tutor V2.1 + Grammar DB</div><span id="ai-x" style="cursor:pointer;background:rgba(255,255,255,0.25);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span></div><div id="ai-faq-chips"></div><div id="ai-chat-log"></div><div style="padding:10px;background:#f8fafc;border-top:1px solid #eee;flex-shrink:0;display:flex;gap:8px;"><input id="ai-in" placeholder="Ask anything about Korean..." style="flex:1;min-width:0;padding:11px 14px;border-radius:24px;border:2px solid #e2e8f0;outline:none;font-size:0.9rem;"><button id="ai-send-btn" style="flex-shrink:0;width:44px;height:44px;border-radius:50%;border:none;background:#6366f1;color:white;font-size:1.1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;">➤</button></div></div>`;
   document.body.appendChild(wrap);
 
   var currentShareText='';
@@ -2036,16 +2036,16 @@ Every Korean must have (Roman) English.
 
     if(sentences.length === 0){
       faq.innerHTML = '';
-      log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#64748b;">아래 입력창에 궁금한 걸 물어보세요!</div>`;
+      log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#64748b;">Ask me anything about Korean below!</div>`;
       faq.style.display='none';
       return;
     }
 
     faq.innerHTML = sentences.map((s,i) =>
-      `<button class="faq-chip" data-sidx="${i}">${s.kr}</button>`
+      `<button class="faq-chip" data-sidx="${i}"><div>${s.kr}</div><div style="font-size:.72em;font-weight:600;opacity:.8;margin-top:2px;">${s.rom ? '('+s.rom+') ' : ''}${s.en || ''}</div></button>`
     ).join('');
 
-    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👇 아래 문장을 눌러보면 그 안에 어떤 문법이 쓰였는지 바로 확인할 수 있어요.</div>`;
+    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 Tap a sentence you studied above to see its grammar explained instantly.</div>`;
 
     faq.style.display='flex';
     log.scrollTop = 0;
@@ -2184,6 +2184,7 @@ Every Korean must have (Roman) English.
   btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
   wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
   input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
+  wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
 
   window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
   window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
