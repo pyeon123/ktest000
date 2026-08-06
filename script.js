@@ -909,6 +909,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "eun / neun",
       title: "Topic Marker",
       keywords: ["topic marker","topic of the sentence","eun neun","as for"],
+      sentencePatterns: ["은","는"],
       rating: "★★★★★ Used Every Day",
       imagine: "Imagine you are talking to a friend. Before speaking, you tell your friend what your topic is. Korean uses 은 / 는 (eun / neun) Topic Marker to say: \"I'm talking about this.\"",
       memoryTrick: "은 / 는 (eun / neun) Topic Marker = About... (\"About me\", \"About today\", \"About Korea\")",
@@ -958,6 +959,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "i / ga",
       title: "Subject Marker",
       keywords: ["subject marker","subject particle","i ga","new information particle"],
+      sentencePatterns: ["이","가"],
       rating: "★★★★★ Used Every Day",
       imagine: "Imagine someone asks, \"Who is a student?\" You answer, \"I am.\" Korean uses 이 / 가 (i / ga) Subject Marker to show who or what is the subject.",
       memoryTrick: "이 / 가 (i / ga) Subject Marker = Who? / What? Think: Who did it? What is it?",
@@ -1007,6 +1009,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "eul / reul",
       title: "Object Marker",
       keywords: ["object marker","object","eul","reul","what do you eat","what do you drink"],
+      sentencePatterns: ["을","를"],
       rating: "★★★★★ Used Every Day",
       imagine: "Imagine you say, \"I eat an apple.\" The apple is the thing you eat. Korean uses 을 / 를 (eul / reul) Object Marker to show what receives the action.",
       memoryTrick: "을 / 를 (eul / reul) Object Marker = What? (What do you eat? What do you drink? What do you watch?)",
@@ -1058,6 +1061,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "e",
       title: "Location/Time Marker (To/At)",
       keywords: ["location marker","time marker","destination marker","e marker","go to","arrive at","meet at","what time particle"],
+      sentencePatterns: ["에"],
       easyExplanation: "에 (e) marks a destination or a fixed point in time. It answers 'where to?' or 'when?'.",
       basicRule: "Attach 에 directly after a place or time noun.\n학교 (school) → 학교에 (to school)\n3시 (3 o'clock) → 3시에 (at 3 o'clock)",
       examples: [
@@ -1090,6 +1094,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "e-seo",
       title: "Action Location Marker (At/From)",
       keywords: ["action place","doing something at","from","location of activity","e-seo","where you do something","origin"],
+      sentencePatterns: ["에서"],
       easyExplanation: "에서 (e-seo) marks the place where an action happens, or the starting point (origin) when used with verbs like 오다 (to come).",
       basicRule: "Attach 에서 directly after a place noun.\n학교 (school) → 학교에서 (at school, doing something)",
       examples: [
@@ -1122,6 +1127,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "wa / gwa",
       title: "And / With",
       keywords: ["and","with","together","connect two nouns","wa gwa"],
+      sentencePatterns: ["와","과"],
       easyExplanation: "와/과 (wa/gwa) connects two nouns, meaning 'and' or 'with'. It's mostly used in writing or formal speech.",
       basicRule: "After a vowel → use 와 (wa) (e.g. 사과 → 사과와)\nAfter a consonant → use 과 (gwa) (e.g. 책 → 책과)",
       examples: [
@@ -1154,6 +1160,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "do",
       title: "Also / Too",
       keywords: ["also","as well","in addition","do marker","me too","i also"],
+      sentencePatterns: ["도"],
       easyExplanation: "도 (do) means 'also' or 'too'. It attaches directly to a noun and replaces 은/는, 이/가, or 을/를.",
       basicRule: "Attach 도 directly to the noun.\n저 (I) → 저도 (I also)\nThis particle cannot be combined with 은/는, 이/가, 을/를 — it replaces them.",
       examples: [
@@ -1186,6 +1193,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "yo",
       title: "Polite Sentence Ending",
       keywords: ["polite","politeness","yo ending","formal casual","honorific ending","how to be polite"],
+      sentencePatterns: ["요"],
       easyExplanation: "Adding 요 (yo) to the end of a sentence makes it polite. This is called 해요체 and is used with strangers, elders, and in most everyday polite situations.",
       basicRule: "Add 요 right after the verb/adjective stem's polite conjugation.\n가다 (go) → 가요 (go, polite)",
       examples: [
@@ -1219,6 +1227,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "i-e-yo / ye-yo",
       title: "To Be (am/is/are)",
       keywords: ["to be","am is are","copula","noun plus is","this is a"],
+      sentencePatterns: ["이에요","예요"],
       easyExplanation: "이에요/예요 (i-e-yo / ye-yo) is the polite way to say 'am/is/are' after a noun.",
       basicRule: "After a consonant → 이에요 (i-e-yo) (e.g. 학생 → 학생이에요)\nAfter a vowel → 예요 (ye-yo) (e.g. 친구 → 친구예요)",
       examples: [
@@ -1251,6 +1260,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "i-sseo-yo / eop-seo-yo",
       title: "Have / There Is — Don't Have / There Isn't",
       keywords: ["have","there is","existence","don't have","no","possession","i-sseo-yo eop-seo-yo"],
+      sentencePatterns: ["있어요","없어요"],
       easyExplanation: "있어요 (i-sseo-yo) means 'have' or 'there is'. 없어요 (eop-seo-yo) means 'don't have' or 'there isn't'. Same word covers both possession and existence.",
       basicRule: "Noun + 이/가 + 있어요/없어요\n돈이 있어요 (I have money) / 시간이 없어요 (I don't have time)",
       examples: [
@@ -1283,6 +1293,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "ju-se-yo",
       title: "Please Give / Please Do",
       keywords: ["please give","please","request","polite request","can i have","ju-se-yo"],
+      sentencePatterns: ["주세요"],
       easyExplanation: "주세요 (ju-se-yo) means 'please give me' when attached to a noun, or 'please do' when attached to a verb stem.",
       basicRule: "Noun + 주세요 (물 주세요 = water please)\nVerb stem + 아/어 주세요 (도와주세요 = please help me)",
       examples: [
@@ -1315,6 +1326,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "go si-peo-yo",
       title: "Want To",
       keywords: ["how do i say i want to","i want to go","i want to eat","go sipeoyo","express desire in korean"],
+      sentencePatterns: ["싶어요"],
       easyExplanation: "고 싶어요 (go si-peo-yo) means 'want to' and attaches to a verb stem to express your own desire.",
       basicRule: "Verb stem + 고 싶어요\n가다 (go) → 가고 싶어요 (want to go)",
       examples: [
@@ -1347,6 +1359,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "a-yo / eo-yo",
       title: "Present Tense (Polite)",
       keywords: ["present tense","present tense conjugation","a-yo eo-yo"],
+      sentencePatterns: ["아요","어요","해요"],
       easyExplanation: "아요/어요 (a-yo / eo-yo) is the polite present tense ending attached to a verb or adjective stem.",
       basicRule: "Stem ends in ㅏ or ㅗ → add 아요 (가다 → 가요)\nOther stems → add 어요 (먹다 → 먹어요)\n하다 verbs → 해요 (공부하다 → 공부해요)",
       examples: [
@@ -1379,6 +1392,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "a-sseo-yo / eo-sseo-yo",
       title: "Past Tense (Polite)",
       keywords: ["past tense","did","went","ate","already happened","a-sseo-yo eo-sseo-yo"],
+      sentencePatterns: ["았어요","었어요","했어요"],
       easyExplanation: "았어요/었어요 (a-sseo-yo / eo-sseo-yo) is the polite past tense ending, following the same vowel harmony rule as the present tense.",
       basicRule: "Stem ends in ㅏ or ㅗ → add 았어요 (가다 → 갔어요)\nOther stems → add 었어요 (먹다 → 먹었어요)\n하다 verbs → 했어요 (공부하다 → 공부했어요)",
       examples: [
@@ -1411,6 +1425,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "eul geo-ye-yo",
       title: "Future Tense / Plan / Guess",
       keywords: ["future tense","will","going to","plan","intention","guess","eul geoyeyo"],
+      sentencePatterns: ["거예요"],
       easyExplanation: "(으)ㄹ 거예요 (eul geo-ye-yo) expresses a future plan ('I will...') or a guess/supposition ('It will probably...').",
       basicRule: "Verb stem ends in vowel → + ㄹ 거예요 (가다 → 갈 거예요)\nVerb stem ends in consonant → + 을 거예요 (먹다 → 먹을 거예요)",
       examples: [
@@ -1443,6 +1458,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "an / mot",
       title: "Negation — Not / Cannot",
       keywords: ["not","don't","doesn't","can't","cannot","unable","negation","an mot"],
+      sentencePatterns: ["안 ","못 "],
       easyExplanation: "안 (an) is a simple negation meaning 'don't/doesn't' (a choice). 못 (mot) means 'can't' (inability due to circumstances).",
       basicRule: "안/못 + verb\n안 가요 (don't go, by choice) / 못 가요 (can't go, due to circumstance)",
       examples: [
@@ -1475,6 +1491,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "ha-ji-man",
       title: "But / However",
       keywords: ["but","however","contrast","although","ha-ji-man"],
+      sentencePatterns: ["하지만"],
       easyExplanation: "하지만 (ha-ji-man) means 'but' or 'however', usually starting a new sentence to show contrast with the previous one.",
       basicRule: "Sentence 1. 하지만 Sentence 2.\n바빠요. 하지만 갈게요. (I'm busy. But I'll go.)",
       examples: [
@@ -1506,6 +1523,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "geu-rae-seo",
       title: "So / Therefore",
       keywords: ["therefore","as a result","because of that","that's why","geu-rae-seo"],
+      sentencePatterns: ["그래서"],
       easyExplanation: "그래서 (geu-rae-seo) means 'so' or 'therefore', connecting a reason to its result across two sentences.",
       basicRule: "Reason. 그래서 Result.\n배가 고파요. 그래서 밥을 먹어요. (I'm hungry. So I eat rice.)",
       examples: [
@@ -1537,6 +1555,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "tto",
       title: "Again",
       keywords: ["again","one more time","next time","see you again","tto"],
+      sentencePatterns: ["또"],
       easyExplanation: "또 (tto) is an adverb meaning 'again' or 'one more time'. It modifies a verb, unlike 도 which attaches to a noun.",
       basicRule: "또 + verb\n또 만나요 (see again) / 또 왔어요 (came again)",
       examples: [
@@ -1568,6 +1587,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       romanization: "neo-mu",
       title: "Too / Very",
       keywords: ["too much","extremely","so much","so good","so pretty","neo-mu"],
+      sentencePatterns: ["너무"],
       easyExplanation: "너무 (neo-mu) means 'too' or 'very'. Traditionally it had a negative nuance ('too much'), but today it's also used casually for strong positive emphasis.",
       basicRule: "너무 + adjective\n너무 좋아요 (like it so much) / 너무 커요 (too big)",
       examples: [
@@ -1946,25 +1966,126 @@ Every Korean must have (Roman) English.
     }
   }
 
+  // 한글 음절의 받침이 ㅆ인지 확인 (갔어요, 왔어요처럼 았/었이 축약된 과거형 감지용)
+  // 단, 있다(있어요)처럼 원래 어간 자체에 ㅆ받침이 있는 예외는 제외
+  function hasSsBatchimBeforeEoyo(text){
+    for(let i=0; i<text.length-2; i++){
+      const ch = text[i];
+      const code = text.charCodeAt(i);
+      if(ch === '있') continue; // 있다 예외 (과거형 아님)
+      if(code >= 0xAC00 && code <= 0xD7A3){
+        const finalIdx = (code - 0xAC00) % 28;
+        if(finalIdx === 20 && text.slice(i+1, i+3) === '어요'){ // 20 = ㅆ 받침
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // 주어진 한글 문장 안에 어떤 문법 포인트들이 들어있는지 찾아서 매칭된 것들을 전부 반환
+  function detectGrammarInText(text){
+    if(!text) return [];
+    const found = [];
+    for(const g of grammarData){
+      const patterns = g.sentencePatterns && g.sentencePatterns.length
+        ? g.sentencePatterns
+        : g.grammar.split('/').map(s=>s.trim()).filter(Boolean);
+      let hit = patterns.some(p => p && text.includes(p));
+      // G014(과거형)는 갔어요/왔어요처럼 축약된 형태도 별도 로직으로 추가 감지
+      if(!hit && g.id === 'G014' && hasSsBatchimBeforeEoyo(text)) hit = true;
+      if(hit) found.push(g);
+    }
+    return found;
+  }
+
+  // 현재 화면(퀴즈)에 나온 문장들 — Key Sentence / Related Words 를 최대 4개까지 가져옴
+  function getPageSentences(){
+    const list = [];
+    try{
+      const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
+        ? currentCategoryData[currentIdx] : null;
+      if(quiz){
+        if(Array.isArray(quiz.examples)){
+          quiz.examples.forEach(e=>{ if(e && e.kr) list.push({ kr:e.kr, rom:e.rom||'', en:e.en||'' }); });
+        }
+        if(Array.isArray(quiz.options)){
+          quiz.options.forEach(o=>{ if(o && o.kr) list.push({ kr:o.kr, rom:o.rom||'', en:o.en||'' }); });
+        }
+        if(list.length===0 && quiz.kr){
+          list.push({ kr:quiz.kr, rom:quiz.rom||'', en:quiz.en||'' });
+        }
+      }
+    }catch(e){ console.warn('[AI Tutor] getPageSentences error:', e); }
+
+    // 혹시 위 방법으로 못 찾으면 화면(detail-area)에서 직접 긁어오기
+    if(list.length===0){
+      document.querySelectorAll('#detail-area li strong').forEach(el=>{
+        const kr = el.innerText.trim();
+        if(kr) list.push({ kr, rom:'', en:'' });
+      });
+    }
+    return list.slice(0,4);
+  }
+
   function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
 
-  // FAQ 칩은 grammarData 첫 몇 개를 기반으로 자동 생성, id를 직접 매달아서 100% 로컬 매칭 보장
+  // FAQ 칩 = 지금 화면(퀴즈)에 있는 Key Sentence / Related Words. 소개 문구(Native Tip 등)는 없음.
   function renderFaq(){
-    var ctx=getCtx();
-    var s=ctx.kr.slice(0,10);
-    var pool = grammarData.slice(0,4); // 필요하면 개수 조정
-    var chipHtml = pool.map(g => `<button class="faq-chip" data-gid="${g.id}">${g.grammar} ${g.title}</button>`).join('')
-      + `<button class="faq-chip" data-gid="">What does "${s}" mean?</button>`;
-    faq.innerHTML = chipHtml;
-    log.innerHTML=`<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;"><b>🤖 V2.1 Tutor:</b> <b style="color:#6366f1;">"${ctx.kr} (${ctx.rom})"</b> correct!<br><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Native Tip</b><br>👩‍🏫 Ask me about grammar below — those answer instantly from the DB, no waiting!<br><br><span style="font-size:0.75rem;background:#fff9db;padding:4px 8px;border-radius:6px;">📚 Grammar DB: ${grammarData.length} grammars loaded</span></div>`;
-    faq.style.display='flex'; log.scrollTop=0;
+    var sentences = getPageSentences();
+
+    if(sentences.length === 0){
+      faq.innerHTML = '';
+      log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#64748b;">아래 입력창에 궁금한 걸 물어보세요!</div>`;
+      faq.style.display='none';
+      return;
+    }
+
+    faq.innerHTML = sentences.map((s,i) =>
+      `<button class="faq-chip" data-sidx="${i}">${s.kr}</button>`
+    ).join('');
+
+    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👇 아래 문장을 눌러보면 그 안에 어떤 문법이 쓰였는지 바로 확인할 수 있어요.</div>`;
+
+    faq.style.display='flex';
+    log.scrollTop = 0;
+
     wrap.querySelectorAll('.faq-chip').forEach(c=>{
       c.onclick=()=>{
-        const gid = c.getAttribute('data-gid');
-        const gramForced = gid ? grammarData.find(g=>g.id===gid) : null;
-        handleQuestion(c.innerText, gramForced);
+        const idx = parseInt(c.getAttribute('data-sidx'), 10);
+        const s = sentences[idx];
+        if(s) handleSentenceClick(s);
       };
     });
+  }
+
+  // 문장 칩 클릭 시: 문장 안 문법을 스캔해서 DB에 있는 건 즉시 렌더링, 없으면 일반 질문으로 처리(API)
+  function handleSentenceClick(s){
+    const label = s.en ? `${s.kr} (${s.en})` : s.kr;
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${s.kr}${s.rom?` <span style="opacity:.8;font-weight:500;">(${s.rom})</span>`:''}</div>`;
+    faq.style.display='none';
+    log.scrollTop = log.scrollHeight;
+
+    const matches = detectGrammarInText(s.kr);
+
+    if(matches.length > 0){
+      let block = `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+        + `<span class="ai-source-tag ai-source-db">📚 문장 속 문법 ${matches.length}개 발견 (API 호출 없음)</span>`;
+      matches.forEach(g=>{
+        block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${g.grammar} (${g.id})</div>`
+          + renderFromDB(g, {kr:s.kr, rom:s.rom, en:s.en})
+          + `</div>`;
+      });
+      const plainForCopy = matches.map(g=>`${g.grammar} (${g.romanization}) ${g.title}`).join(' / ');
+      block += makeActions(plainForCopy)
+        + `<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button></div>`;
+      log.innerHTML += block;
+      log.scrollTop = log.scrollHeight;
+    } else {
+      // DB에서 못 찾으면 일반 질문 흐름(Gemini)으로 넘김
+      handleQuestion(s.kr);
+    }
   }
 
   // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
