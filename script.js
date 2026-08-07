@@ -1055,7 +1055,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   },
   {
     id: "G004",
-    grammar: "에",
+    grammar: "에(e) ",
     romanization: "e",
     title: "Location / Time Marker",
     keywords: ["location marker", "time marker", "e particle", "at to in on"],
