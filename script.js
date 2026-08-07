@@ -8118,7 +8118,119 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     "teacherNote": "Core function: Because / And then. Use page examples first, then Grammar DB examples, then generate new examples if needed."
   },
   {
-    "id": "G080",
+  "id": "G080",
+  "grammar": "-(이)랑 / -랑",
+  "romanization": "-(i)-rang / -rang",
+  "title": "With / And",
+  "keywords": [
+    "-랑",
+    "with",
+    "and",
+    "rang"
+    "-rang"
+  ],
+  "sentencePatterns": [
+    "Noun + (이)랑"
+  ],
+  "rating": "★★★★★ Used Every Day",
+  "imagine": "Imagine you say,\n\n\"I'm going with my friend.\"\n\nOr,\n\n\"Coffee and bread, please.\"\n\nKorean uses\n\n-(이)랑\n\n(-(i)-rang)\n\nto mean\n\nwith\n\nor\n\nand\n\nin everyday conversation.",
+  "memoryTrick": "🤝\n\n-(이)랑\n\n= Together\n\nThink:\n\nTwo people\n\nor\n\nTwo things\n\njoined together.",
+  "easyExplanation": "-(이)랑\n\nmeans\n\nwith\n\nor\n\nand.\n\nIt connects two nouns.\n\nNative Koreans use this grammar every day in casual conversation.",
+  "basicRule": "Noun\n\n+(이)랑\n\nSecond Noun / Verb\n\nIf the noun ends with a vowel → 랑\n\n친구 + 랑\n\n친구랑\n\n(chin-gu-rang)\n\nIf the noun ends with a consonant → 이랑\n\n학생 + 이랑\n\n학생이랑\n\n(hak-saeng-i-rang)",
+  "examples": [
+    {
+      "kr": "친구랑 영화 봐요.",
+      "rom": "Chin-gu-rang yeong-hwa bwa-yo.",
+      "en": "I'm watching a movie with my friend."
+    },
+    {
+      "kr": "엄마랑 쇼핑해요.",
+      "rom": "Eom-ma-rang syo-ping-hae-yo.",
+      "en": "I'm shopping with my mom."
+    },
+    {
+      "kr": "학생이랑 이야기했어요.",
+      "rom": "Hak-saeng-i-rang i-ya-gi-hae-sseo-yo.",
+      "en": "I talked with the student."
+    },
+    {
+      "kr": "커피랑 빵 주세요.",
+      "rom": "Keo-pi-rang ppang ju-se-yo.",
+      "en": "Coffee and bread, please."
+    }
+  ],
+  "nativeTip": "Native Koreans use\n\n-(이)랑\n\nmostly in casual speech.\n\nIn formal situations,\n\nthey often use\n\n-와 / -과\n\nor\n\n하고.\n\nExample:\n\n친구랑 갔어요.\n\n(Chin-gu-rang ga-sseo-yo.)\n\nI went with my friend.",
+  "commonMistakes": [
+    {
+      "wrong": "❌ 친구이랑 (Chin-gu-i-rang) Wrong",
+      "correct": "✅ 친구랑 (Chin-gu-rang) Correct"
+    },
+    {
+      "wrong": "❌ 학생랑 (Hak-saeng-rang) Wrong",
+      "correct": "✅ 학생이랑 (Hak-saeng-i-rang) Correct"
+    }
+  ],
+  "compare": [
+    {
+      "grammar": "-(이)랑 (-(i)-rang)",
+      "meaning": "With / And",
+      "mainJob": "Casual connector for nouns"
+    },
+    {
+      "grammar": "-와 / -과",
+      "meaning": "With / And",
+      "mainJob": "Formal connector for nouns"
+    }
+  ],
+  "miniQuiz": {
+    "question": "친구_____ 영화 봐요.",
+    "options": [
+      "① 랑 (rang)",
+      "② 에서 (e-seo)"
+    ],
+    "answer": "✅ Answer\n\n① 랑",
+    "reason": "Because you are connecting two nouns."
+  },
+  "speakingPractice": {
+    "kr": "친구랑 밥 먹어요.",
+    "rom": "Chin-gu-rang bap meo-geo-yo.",
+    "en": "I'm eating with my friend.",
+    "repeat": 3
+  },
+  "practiceChallenge": {
+    "question": "엄마_____ 쇼핑해요. (Eom-ma_____ syo-ping-hae-yo.) I'm shopping with my mom.",
+    "answer": "✅ Answer\n\n랑"
+  },
+  "relatedGrammar": [
+    "-와 / -과",
+    "-하고"
+  ],
+  "relatedVocabulary": [
+    {
+      "kr": "친구",
+      "rom": "chin-gu",
+      "en": "friend"
+    },
+    {
+      "kr": "엄마",
+      "rom": "eom-ma",
+      "en": "mom"
+    },
+    {
+      "kr": "학생",
+      "rom": "hak-saeng",
+      "en": "student"
+    },
+    {
+      "kr": "커피",
+      "rom": "keo-pi",
+      "en": "coffee"
+    }
+  ],
+  "teacherNote": "Core function: With / And. -(이)랑 attaches to nouns only. Use 랑 after vowel-ending nouns and 이랑 after consonant-ending nouns."
+  }, 
+  {
+    "id": "G081",
     "grammar": "-기 전에",
     "romanization": "-gi jeon-e",
     "title": "Before...",
