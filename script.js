@@ -1710,7 +1710,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     grammar: "그리고",
     romanization: "geu-ri-go",
     title: "And / Then",
-    keywords: ["and then", "geurigo", "sentence connector"],
+    keywords: ["and then", "geurigo", "geu-ri-go", "geu ri go", "sentence connector"],
     sentencePatterns: ["그리고"],
     rating: "★★★★★ Used Every Day",
     imagine: "Imagine you want to tell a story.\n\"I ate breakfast.\" And \"I went to school.\"\nKorean uses 그리고 (geu-ri-go) And / Then to connect two sentences or ideas.",
