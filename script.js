@@ -4873,7 +4873,10 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     "keywords": [
       "-아 / 어 주세요",
       "ju-se-yo",
-      "please do...",
+      "ju se yo",
+      "juseyo",
+      "주세요",
+      "please do",
       "-a / eo ju-se-yo"
     ],
     "sentencePatterns": [
