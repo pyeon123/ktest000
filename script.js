@@ -4973,6 +4973,3238 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       }
     ],
     "teacherNote": "Core function: Please do....\nUse page examples first, then Grammar DB examples, then generate new examples if needed."
+   },
+   {
+    "id": "G051",
+    "grammar": "-지 마세요",
+    "romanization": "-ji ma-se-yo",
+    "title": "Please don't...",
+    "keywords": [
+      "-지 마세요",
+      "please don't...",
+      "-ji ma-se-yo"
+    ],
+    "sentencePatterns": [
+      "-지 마세요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your teacher says,\n\n\"Please don't use your phone.\"\n\nOr your mother says,\n\n\"Don't run!\"\n\nKorean uses\n\n-지 마세요\n\n(-ji ma-se-yo)\n\nto politely tell someone\n\nnot to do something.",
+    "memoryTrick": "🟥\n\n-지 마세요\n\n(-ji ma-se-yo)\n\n=\n\n🚫🙏\n\nPlease don't...\n\nThink:\n\nPlease DON'T do it.",
+    "easyExplanation": "-지 마세요\n\n(-ji ma-se-yo)\n\nmeans\n\nplease don't...\n\nIt is a polite way to tell someone not to do an action.\n\nNative Koreans use this grammar every day in schools, stores, hospitals, buses, and public places.",
+    "basicRule": "Verb Stem\n\n-지 마세요\n\n(-ji ma-se-yo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가지 마세요.\n\n(Ga-ji ma-se-yo.)\n\nPlease don't go.\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹지 마세요.\n\n(Meok-ji ma-se-yo.)\n\nPlease don't eat.",
+    "examples": [
+      {
+        "kr": "가지 마세요.",
+        "rom": "Ga-ji ma-se-yo.",
+        "en": "Please don't go."
+      },
+      {
+        "kr": "사진을 찍지 마세요.",
+        "rom": "Sa-jin-eul jjik-ji ma-se-yo.",
+        "en": "Please don't take pictures."
+      },
+      {
+        "kr": "걱정하지 마세요.",
+        "rom": "Geok-jeong-ha-ji ma-se-yo.",
+        "en": "Please don't worry."
+      },
+      {
+        "kr": "여기에서 담배를 피우지 마세요.",
+        "rom": "Yeo-gi-e-seo dam-bae-reul pi-u-ji ma-se-yo.",
+        "en": "Please don't smoke here."
+      }
+    ],
+    "nativeTip": "You'll often see\n\n-지 마세요\n\non public signs.\n\nExamples:\n\n출입하지 마세요.\n\n(Chul-ip-ha-ji ma-se-yo.)\n\nDo not enter.\n\n만지지 마세요.\n\n(Man-ji-ji ma-se-yo.)\n\nDo not touch.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 안 가세요. (An ga-se-yo.) This means \"You are not going.\" It is NOT a request.",
+        "correct": "✅ 가지 마세요. (Ga-ji ma-se-yo.) Please don't go. Correct"
+      },
+      {
+        "wrong": "❌ 먹다 마세요. (Meok-da ma-se-yo.) Wrong",
+        "correct": "✅ 먹지 마세요. (Meok-ji ma-se-yo.) Please don't eat. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-아 / 어 주세요 (-a / eo ju-se-yo)",
+        "meaning": "Please do...\tPolite request",
+        "mainJob": "Please do...\tPolite request"
+      },
+      {
+        "grammar": "-지 마세요 (-ji ma-se-yo)",
+        "meaning": "Please don't...\tPolite negative request",
+        "mainJob": "Please don't...\tPolite negative request"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 걱정하지 마세요. (Geok-jeong-ha-ji ma-se-yo.) Please don't worry.",
+        "② 걱정해 주세요. (Geok-jeong-hae ju-se-yo.) Please worry."
+      ],
+      "answer": "✅ Answer\n\n① 걱정하지 마세요.",
+      "reason": ""
+    },
+    "speakingPractice": {
+      "kr": "걱정하지 마세요.",
+      "rom": "Geok-jeong-ha-ji ma-se-yo.",
+      "en": "Please don't worry.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "여기에서 _____. (Yeo-gi-e-seo _____.) Please don't run here.",
+      "answer": "✅ Answer\n\n뛰지 마세요."
+    },
+    "relatedGrammar": [
+      "-아 / 어 주세요 (-a / eo ju-se-yo) Please do..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "걱정하다",
+        "rom": "geok-jeong-ha-da",
+        "en": "to worry"
+      },
+      {
+        "kr": "뛰다",
+        "rom": "ttwi-da",
+        "en": "to run"
+      },
+      {
+        "kr": "찍다",
+        "rom": "jjik-da",
+        "en": "to take (a picture)"
+      },
+      {
+        "kr": "피우다",
+        "rom": "pi-u-da",
+        "en": "to smoke"
+      }
+    ],
+    "teacherNote": "Core function: Please don't.... Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G052",
+    "grammar": "-아 / 어도 돼요",
+    "romanization": "-a / eo-do dwae-yo",
+    "title": "Can I...? / It's OK to...",
+    "keywords": [
+      "-아 / 어도 돼요",
+      "can i...? / it's ok to...",
+      "-a / eo-do dwae-yo"
+    ],
+    "sentencePatterns": [
+      "-아 / 어도 돼요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you're at a friend's house.\n\nYou ask,\n\n\"Can I sit here?\"\n\nOr,\n\n\"Can I take a picture?\"\n\nKorean uses\n\n-아 / 어도 돼요\n\n(-a / eo-do dwae-yo)\n\nto ask for permission.\n\nIt means\n\nCan I...?\n\nor\n\nIs it OK if I...?",
+    "memoryTrick": "🟦\n\n-아 / 어도 돼요\n\n(-a / eo-do dwae-yo)\n\n=\n\n✅\n\nCan I...?\n\nThink:\n\nIs it OK?",
+    "easyExplanation": "-아 / 어도 돼요\n\n(-a / eo-do dwae-yo)\n\nmeans\n\nCan I...?\n\nor\n\nIs it OK to...?\n\nUse it when asking someone for permission politely.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb Stem\n\n-아 / 어도 돼요\n\n(-a / eo-do dwae-yo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가도 돼요?\n\n(Ga-do dwae-yo?)\n\nCan I go?\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹어도 돼요?\n\n(Meo-geo-do dwae-yo?)\n\nCan I eat it?",
+    "examples": [
+      {
+        "kr": "가도 돼요?",
+        "rom": "Ga-do dwae-yo?",
+        "en": "Can I go?"
+      },
+      {
+        "kr": "사진을 찍어도 돼요?",
+        "rom": "Sa-jin-eul jji-geo-do dwae-yo?",
+        "en": "Can I take a picture?"
+      },
+      {
+        "kr": "여기에 앉아도 돼요?",
+        "rom": "Yeo-gi-e an-ja-do dwae-yo?",
+        "en": "Can I sit here?"
+      },
+      {
+        "kr": "창문을 열어도 돼요?",
+        "rom": "Chang-mun-eul yeo-reo-do dwae-yo?",
+        "en": "Can I open the window?"
+      }
+    ],
+    "nativeTip": "If someone says\n\n돼요.\n\n(Dwae-yo.)\n\nit means\n\nYes, you can.\n\nIf they say\n\n안 돼요.\n\n(An dwae-yo.)\n\nit means\n\nNo, you can't.\n\nThese are two of the most useful Korean expressions.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가고 돼요? (Ga-go dwae-yo?) Wrong",
+        "correct": "✅ 가도 돼요? (Ga-do dwae-yo?) Can I go? Correct"
+      },
+      {
+        "wrong": "❌ 먹다도 돼요? (Meok-da-do dwae-yo?) Wrong",
+        "correct": "✅ 먹어도 돼요? (Meo-geo-do dwae-yo?) Can I eat it? Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-아 / 어도 돼요 (-a / eo-do dwae-yo)",
+        "meaning": "Can I...?\tAsking permission",
+        "mainJob": "Can I...?\tAsking permission"
+      },
+      {
+        "grammar": "-지 마세요 (-ji ma-se-yo)",
+        "meaning": "Please don't...\tTelling someone not to do something",
+        "mainJob": "Please don't...\tTelling someone not to do something"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 가도 돼요? (Ga-do dwae-yo?) Can I go?",
+        "② 가지 마세요. (Ga-ji ma-se-yo.) Please don't go."
+      ],
+      "answer": "✅ Answer\n\n① 가도 돼요?",
+      "reason": "Because you're asking for permission."
+    },
+    "speakingPractice": {
+      "kr": "사진을 찍어도 돼요?",
+      "rom": "Sa-jin-eul jji-geo-do dwae-yo?",
+      "en": "Can I take a picture?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "여기에 _____? (Yeo-gi-e _____?) Can I sit here?",
+      "answer": "✅ Answer\n\n앉아도 돼요?"
+    },
+    "relatedGrammar": [
+      "-지 마세요 (-ji ma-se-yo) Please don't..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "앉다",
+        "rom": "an-da",
+        "en": "to sit"
+      },
+      {
+        "kr": "열다",
+        "rom": "yeol-da",
+        "en": "to open"
+      },
+      {
+        "kr": "찍다",
+        "rom": "jjik-da",
+        "en": "to take (a picture)"
+      },
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      }
+    ],
+    "teacherNote": "Core function: Can I...? / It's OK to.... Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G053",
+    "grammar": "-아 / 어야 돼요",
+    "romanization": "-a / eo-ya dwae-yo",
+    "title": "Have to / Must",
+    "keywords": [
+      "-아 / 어야 돼요",
+      "have to / must",
+      "-a / eo-ya dwae-yo"
+    ],
+    "sentencePatterns": [
+      "-아 / 어야 돼요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your teacher says,\n\n\"You have to study.\"\n\nOr your mother says,\n\n\"You have to sleep early.\"\n\nKorean uses\n\n-아 / 어야 돼요\n\n(-a / eo-ya dwae-yo)\n\nto say\n\nhave to\n\nor\n\nmust.\n\nIt expresses necessity.",
+    "memoryTrick": "🟥\n\n-아 / 어야 돼요\n\n(-a / eo-ya dwae-yo)\n\n=\n\n‼️\n\nHave to\n\nThink:\n\nI must do it.",
+    "easyExplanation": "-아 / 어야 돼요\n\n(-a / eo-ya dwae-yo)\n\nmeans\n\nhave to\n\nor\n\nmust.\n\nUse it when something is necessary or required.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb Stem\n\n-아 / 어야 돼요\n\n(-a / eo-ya dwae-yo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가야 돼요.\n\n(Ga-ya dwae-yo.)\n\nI have to go.\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹어야 돼요.\n\n(Meo-geo-ya dwae-yo.)\n\nI have to eat.",
+    "examples": [
+      {
+        "kr": "집에 가야 돼요.",
+        "rom": "Ji-be ga-ya dwae-yo.",
+        "en": "I have to go home."
+      },
+      {
+        "kr": "한국어를 공부해야 돼요.",
+        "rom": "Han-gu-geo-reul gong-bu-hae-ya dwae-yo.",
+        "en": "I have to study Korean."
+      },
+      {
+        "kr": "일찍 일어나야 돼요.",
+        "rom": "Il-jjik i-reo-na-ya dwae-yo.",
+        "en": "I have to wake up early."
+      },
+      {
+        "kr": "약을 먹어야 돼요.",
+        "rom": "Ya-geul meo-geo-ya dwae-yo.",
+        "en": "I have to take medicine."
+      }
+    ],
+    "nativeTip": "Native Koreans often shorten\n\n돼요\n\nto\n\n해요\n\nin casual speech.\n\nExample:\n\n가야 해요.\n\n(Ga-ya hae-yo.)\n\nI have to go.\n\nThis is just as common as\n\n가야 돼요.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가고 돼요. (Ga-go dwae-yo.) Wrong",
+        "correct": "✅ 가야 돼요. (Ga-ya dwae-yo.) I have to go. Correct"
+      },
+      {
+        "wrong": "❌ 먹다야 돼요. (Meok-da-ya dwae-yo.) Wrong",
+        "correct": "✅ 먹어야 돼요. (Meo-geo-ya dwae-yo.) I have to eat. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-아 / 어야 돼요 (-a / eo-ya dwae-yo)",
+        "meaning": "Have to\tNecessity",
+        "mainJob": "Have to\tNecessity"
+      },
+      {
+        "grammar": "-고 싶어요 (-go si-peo-yo)",
+        "meaning": "Want to\tDesire",
+        "mainJob": "Want to\tDesire"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 가야 돼요 (ga-ya dwae-yo) Have to go",
+        "② 가고 싶어요 (ga-go si-peo-yo) Want to go"
+      ],
+      "answer": "✅ Answer\n\n① 가야 돼요",
+      "reason": "Because it expresses necessity."
+    },
+    "speakingPractice": {
+      "kr": "저는 오늘 공부해야 돼요.",
+      "rom": "Jeo-neun o-neul gong-bu-hae-ya dwae-yo.",
+      "en": "I have to study today.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "저는 약을 _____. (Jeo-neun ya-geul _____. ) I have to take medicine.",
+      "answer": "✅ Answer\n\n먹어야 돼요"
+    },
+    "relatedGrammar": [
+      "-고 싶어요 (-go si-peo-yo) Want to"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "약",
+        "rom": "yak",
+        "en": "medicine"
+      },
+      {
+        "kr": "일어나다",
+        "rom": "i-reo-na-da",
+        "en": "to wake up"
+      }
+    ],
+    "teacherNote": "Core function: Have to / Must. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G054",
+    "grammar": "-ㄹ / 을 거예요",
+    "romanization": "-l / eul geo-ye-yo",
+    "title": "Will / Going to",
+    "keywords": [
+      "-ㄹ / 을 거예요",
+      "will / going to",
+      "-l / eul geo-ye-yo"
+    ],
+    "sentencePatterns": [
+      "-ㄹ / 을 거예요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your friend asks,\n\n\"What will you do tomorrow?\"\n\nYou answer,\n\n\"I will study Korean.\"\n\nOr,\n\n\"I'm going to eat.\"\n\nKorean uses\n\n-ㄹ / 을 거예요\n\n(-l / eul geo-ye-yo)\n\nto talk about the future.\n\nIt means\n\nwill\n\nor\n\ngoing to.",
+    "memoryTrick": "🟦\n\n-ㄹ / 을 거예요\n\n(-l / eul geo-ye-yo)\n\n=\n\n➡️\n\nWill\n\nThink:\n\nFuture = Later",
+    "easyExplanation": "-ㄹ / 을 거예요\n\n(-l / eul geo-ye-yo)\n\nmeans\n\nwill\n\nor\n\ngoing to.\n\nUse it when talking about future plans or future actions.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "If the verb stem ends with a vowel\n\nAdd\n\n-ㄹ 거예요\n\n(-l geo-ye-yo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n갈 거예요.\n\n(Gal geo-ye-yo.)\n\nI will go.\n\nIf the verb stem ends with a consonant\n\nAdd\n\n-을 거예요\n\n(-eul geo-ye-yo)\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹을 거예요.\n\n(Meo-geul geo-ye-yo.)\n\nI will eat.",
+    "examples": [
+      {
+        "kr": "내일 갈 거예요.",
+        "rom": "Nae-il gal geo-ye-yo.",
+        "en": "I will go tomorrow."
+      },
+      {
+        "kr": "한국어를 공부할 거예요.",
+        "rom": "Han-gu-geo-reul gong-bu-hal geo-ye-yo.",
+        "en": "I will study Korean."
+      },
+      {
+        "kr": "저녁을 먹을 거예요.",
+        "rom": "Jeo-nyeo-geul meo-geul geo-ye-yo.",
+        "en": "I will eat dinner."
+      },
+      {
+        "kr": "친구를 만날 거예요.",
+        "rom": "Chin-gu-reul man-nal geo-ye-yo.",
+        "en": "I will meet my friend."
+      }
+    ],
+    "nativeTip": "Native Koreans often use\n\n-ㄹ / 을 거예요\n\nwhen talking about\n\nplans,\n\npromises,\n\nor predictions.\n\nExample:\n\n내일 비가 올 거예요.\n\n(Nae-il bi-ga ol geo-ye-yo.)\n\nIt will rain tomorrow.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가 거예요. (Ga geo-ye-yo.) Wrong",
+        "correct": "✅ 갈 거예요. (Gal geo-ye-yo.) I will go. Correct"
+      },
+      {
+        "wrong": "❌ 먹 거예요. (Meok geo-ye-yo.) Wrong",
+        "correct": "✅ 먹을 거예요. (Meo-geul geo-ye-yo.) I will eat. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-ㄹ / 을 거예요 (-l / eul geo-ye-yo)",
+        "meaning": "Will\tFuture",
+        "mainJob": "Will\tFuture"
+      },
+      {
+        "grammar": "-고 있어요 (-go i-sseo-yo)",
+        "meaning": "Be doing\tPresent action",
+        "mainJob": "Be doing\tPresent action"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 갈 거예요 (gal geo-ye-yo) Will go",
+        "② 가고 있어요 (ga-go i-sseo-yo) Am going"
+      ],
+      "answer": "✅ Answer\n\n① 갈 거예요",
+      "reason": "Because it's a future action."
+    },
+    "speakingPractice": {
+      "kr": "저는 내일 공부할 거예요.",
+      "rom": "Jeo-neun nae-il gong-bu-hal geo-ye-yo.",
+      "en": "I will study tomorrow.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "저는 커피를 _____. (Jeo-neun keo-pi-reul _____. ) I will drink coffee.",
+      "answer": "✅ Answer\n\n마실 거예요"
+    },
+    "relatedGrammar": [
+      "-고 있어요 (-go i-sseo-yo) Be doing"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "내일",
+        "rom": "nae-il",
+        "en": "tomorrow"
+      },
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "만나다",
+        "rom": "man-na-da",
+        "en": "to meet"
+      }
+    ],
+    "teacherNote": "Core function: Will / Going to. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G055",
+    "grammar": "-았 / 었어요",
+    "romanization": "-at / eot-seo-yo",
+    "title": "Past Tense (Did / Was)",
+    "keywords": [
+      "-았 / 었어요",
+      "past tense (did / was)",
+      "-at / eot-seo-yo"
+    ],
+    "sentencePatterns": [
+      "-았 / 었어요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your friend asks,\n\n\"What did you do yesterday?\"\n\nYou answer,\n\n\"I studied.\"\n\nOr,\n\n\"I ate dinner.\"\n\nKorean uses\n\n-았 / 었어요\n\n(-at / eot-seo-yo)\n\nto talk about the past.\n\nIt means\n\ndid\n\nor\n\nwas.",
+    "memoryTrick": "🟦\n\n-았 / 었어요\n\n(-at / eot-seo-yo)\n\n=\n\n⬅️\n\nPast\n\nThink:\n\nYesterday. Already finished.",
+    "easyExplanation": "-았 / 었어요\n\n(-at / eot-seo-yo)\n\nis the Korean past tense.\n\nUse it when an action already happened.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "If the verb has ㅏ or ㅗ\n\nUse\n\n-았어요\n\n(-at-seo-yo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n갔어요.\n\n(Ga-sseo-yo.)\n\nWent\n\nMost other verbs\n\nUse\n\n-었어요\n\n(-eot-seo-yo)\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹었어요.\n\n(Meo-geo-sseo-yo.)\n\nAte",
+    "examples": [
+      {
+        "kr": "어제 학교에 갔어요.",
+        "rom": "Eo-je hak-gyo-e ga-sseo-yo.",
+        "en": "I went to school yesterday."
+      },
+      {
+        "kr": "저녁을 먹었어요.",
+        "rom": "Jeo-nyeo-geul meo-geo-sseo-yo.",
+        "en": "I ate dinner."
+      },
+      {
+        "kr": "한국어를 공부했어요.",
+        "rom": "Han-gu-geo-reul gong-bu-hae-sseo-yo.",
+        "en": "I studied Korean."
+      },
+      {
+        "kr": "영화를 봤어요.",
+        "rom": "Yeong-hwa-reul bwa-sseo-yo.",
+        "en": "I watched a movie."
+      }
+    ],
+    "nativeTip": "Native Koreans use the past tense constantly when talking about\n\nyesterday,\n\nlast week,\n\nor something they already finished.\n\nExample:\n\n오늘 아침에 커피를 마셨어요.\n\n(O-neul a-chi-me keo-pi-reul ma-syeo-sseo-yo.)\n\nI drank coffee this morning.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가어요. (Ga-eo-yo.) Wrong",
+        "correct": "✅ 갔어요. (Ga-sseo-yo.) Went Correct"
+      },
+      {
+        "wrong": "❌ 먹어요. (Meo-geo-yo.) when talking about yesterday. Wrong",
+        "correct": "✅ 먹었어요. (Meo-geo-sseo-yo.) Ate Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-았 / 었어요 (-at / eot-seo-yo)",
+        "meaning": "Did / Was\tPast tense",
+        "mainJob": "Did / Was\tPast tense"
+      },
+      {
+        "grammar": "-ㄹ / 을 거예요 (-l / eul geo-ye-yo)",
+        "meaning": "Will\tFuture tense",
+        "mainJob": "Will\tFuture tense"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 갔어요 (ga-sseo-yo) Went",
+        "② 갈 거예요 (gal geo-ye-yo) Will go"
+      ],
+      "answer": "✅ Answer\n\n① 갔어요",
+      "reason": "Because the action already happened."
+    },
+    "speakingPractice": {
+      "kr": "저는 어제 한국어를 공부했어요.",
+      "rom": "Jeo-neun eo-je Han-gu-geo-reul gong-bu-hae-sseo-yo.",
+      "en": "I studied Korean yesterday.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "저는 저녁을 _____. (Jeo-neun jeo-nyeo-geul _____. ) I ate dinner.",
+      "answer": "✅ Answer\n\n먹었어요"
+    },
+    "relatedGrammar": [
+      "-ㄹ / 을 거예요 (-l / eul geo-ye-yo) Will"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "어제",
+        "rom": "eo-je",
+        "en": "yesterday"
+      },
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      }
+    ],
+    "teacherNote": "Core function: Past Tense (Did / Was). Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G056",
+    "grammar": "안",
+    "romanization": "an",
+    "title": "Not / Don't",
+    "keywords": [
+      "안",
+      "not / don't",
+      "an"
+    ],
+    "sentencePatterns": [
+      "안"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your friend asks,\n\n\"Do you eat spicy food?\"\n\nYou answer,\n\n\"No, I don't eat it.\"\n\nOr,\n\n\"I don't know.\"\n\nKorean uses\n\n안\n\n(an)\n\nto make a sentence negative.\n\nIt means\n\nnot\n\nor\n\ndon't.",
+    "memoryTrick": "🟥\n\n안\n\n(an)\n\n=\n\n❌\n\nNot\n\nThink:\n\nDo NOT.",
+    "easyExplanation": "안\n\n(an)\n\nmeans\n\nnot\n\nor\n\ndon't.\n\nPut\n\n안\n\nbefore a verb or adjective\n\nto make the sentence negative.\n\nNative Koreans use\n\n안\n\nevery day.",
+    "basicRule": "안\n\n(an)\n\nVerb / Adjective\n\nExample\n\n가요.\n\n(Ga-yo.)\n\nGo\n\n↓\n\n안 가요.\n\n(An ga-yo.)\n\nDon't go / I don't go.\n\nExample\n\n먹어요.\n\n(Meo-geo-yo.)\n\nEat\n\n↓\n\n안 먹어요.\n\n(An meo-geo-yo.)\n\nDon't eat.",
+    "examples": [
+      {
+        "kr": "안 가요.",
+        "rom": "An ga-yo.",
+        "en": "I don't go."
+      },
+      {
+        "kr": "안 먹어요.",
+        "rom": "An meo-geo-yo.",
+        "en": "I don't eat."
+      },
+      {
+        "kr": "안 바빠요.",
+        "rom": "An ba-ppa-yo.",
+        "en": "I'm not busy."
+      },
+      {
+        "kr": "한국어를 안 알아요.",
+        "rom": "Han-gu-geo-reul an a-ra-yo.",
+        "en": "I don't know Korean."
+      }
+    ],
+    "nativeTip": "Native Koreans use\n\n안\n\nmuch more often than longer negative forms.\n\nExample:\n\n안 가요.\n\n(An ga-yo.)\n\nI don't go.\n\nThis is shorter and more natural in daily conversation.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가요 안. (Ga-yo an.) Wrong",
+        "correct": "✅ 안 가요. (An ga-yo.) I don't go. Correct"
+      },
+      {
+        "wrong": "❌ 먹어요 안. (Meo-geo-yo an.) Wrong",
+        "correct": "✅ 안 먹어요. (An meo-geo-yo.) I don't eat. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "안 (an)",
+        "meaning": "Not / Don't\tSimple negative",
+        "mainJob": "Not / Don't\tSimple negative"
+      },
+      {
+        "grammar": "못 (mot)",
+        "meaning": "Can't\tInability",
+        "mainJob": "Can't\tInability"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 안 마셔요 (an ma-syeo-yo) Don't drink",
+        "② 마셔요 (ma-syeo-yo) Drink"
+      ],
+      "answer": "✅ Answer\n\n① 안 마셔요",
+      "reason": "Because the sentence is negative."
+    },
+    "speakingPractice": {
+      "kr": "저는 매운 음식을 안 먹어요.",
+      "rom": "Jeo-neun mae-un eum-si-geul an meo-geo-yo.",
+      "en": "I don't eat spicy food.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "저는 오늘 학교에 _____. (Jeo-neun o-neul hak-gyo-e _____. ) I'm not going to school today.",
+      "answer": "✅ Answer\n\n안 가요"
+    },
+    "relatedGrammar": [
+      "못 (mot) Can't"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "마시다",
+        "rom": "ma-si-da",
+        "en": "to drink"
+      },
+      {
+        "kr": "알다",
+        "rom": "al-da",
+        "en": "to know"
+      }
+    ],
+    "teacherNote": "Core function: Not / Don't. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G057",
+    "grammar": "못",
+    "romanization": "mot",
+    "title": "Can't / Cannot",
+    "keywords": [
+      "못",
+      "can't / cannot",
+      "mot"
+    ],
+    "sentencePatterns": [
+      "못"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your friend asks,\n\n\"Can you come today?\"\n\nYou answer,\n\n\"Sorry, I can't.\"\n\nOr,\n\n\"I can't speak Korean yet.\"\n\nKorean uses\n\n못\n\n(mot)\n\nto say\n\ncan't\n\nor\n\ncannot.\n\nIt means you are unable to do something.",
+    "memoryTrick": "🟥\n\n못\n\n(mot)\n\n=\n\n🚫\n\nCan't\n\nThink:\n\nWant to... but can't.",
+    "easyExplanation": "못\n\n(mot)\n\nmeans\n\ncan't\n\nor\n\ncannot.\n\nPut\n\n못\n\nbefore a verb\n\nto show that you don't have the ability or opportunity to do something.\n\nNative Koreans use\n\n못\n\nevery day.",
+    "basicRule": "못\n\n(mot)\n\nVerb\n\nExample\n\n가요.\n\n(Ga-yo.)\n\nGo\n\n↓\n\n못 가요.\n\n(Mot ga-yo.)\n\nCan't go.\n\nExample\n\n먹어요.\n\n(Meo-geo-yo.)\n\nEat\n\n↓\n\n못 먹어요.\n\n(Mot meo-geo-yo.)\n\nCan't eat.",
+    "examples": [
+      {
+        "kr": "오늘 못 가요.",
+        "rom": "O-neul mot ga-yo.",
+        "en": "I can't go today."
+      },
+      {
+        "kr": "매운 음식을 못 먹어요.",
+        "rom": "Mae-un eum-si-geul mot meo-geo-yo.",
+        "en": "I can't eat spicy food."
+      },
+      {
+        "kr": "한국어를 아직 못 해요.",
+        "rom": "Han-gu-geo-reul a-jik mot hae-yo.",
+        "en": "I can't speak Korean yet."
+      },
+      {
+        "kr": "잘 못 들어요.",
+        "rom": "Jal mot deu-reo-yo.",
+        "en": "I can't hear well."
+      }
+    ],
+    "nativeTip": "Use\n\n못\n\nwhen you want to do something but can't.\n\nExamples:\n\n돈이 없어서 못 가요.\n\n(Do-ni eop-seo-seo mot ga-yo.)\n\nI can't go because I don't have money.\n\n시간이 없어서 못 만나요.\n\n(Si-ga-ni eop-seo-seo mot man-na-yo.)\n\nI can't meet because I don't have time.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 안 가요. (An ga-yo.) when you mean \"I can't go.\" Wrong meaning.",
+        "correct": "✅ 못 가요. (Mot ga-yo.) I can't go. Correct."
+      },
+      {
+        "wrong": "❌ 못 바빠요. (Mot ba-ppa-yo.) Wrong. 못 is not used with adjectives.",
+        "correct": "✅ 안 바빠요. (An ba-ppa-yo.) I'm not busy. Correct."
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "안 (an)",
+        "meaning": "Don't / Not\tChoice or simple negative",
+        "mainJob": "Don't / Not\tChoice or simple negative"
+      },
+      {
+        "grammar": "못 (mot)",
+        "meaning": "Can't\tNo ability or opportunity",
+        "mainJob": "Can't\tNo ability or opportunity"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 못 가요 (mot ga-yo) Can't go",
+        "② 안 가요 (an ga-yo) Don't go"
+      ],
+      "answer": "✅ Answer\n\n① 못 가요",
+      "reason": "Because you are unable to go."
+    },
+    "speakingPractice": {
+      "kr": "저는 한국어를 아직 못 해요.",
+      "rom": "Jeo-neun Han-gu-geo-reul a-jik mot hae-yo.",
+      "en": "I can't speak Korean yet.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "저는 매운 음식을 _____. (Jeo-neun mae-un eum-si-geul _____. ) I can't eat spicy food.",
+      "answer": "✅ Answer\n\n못 먹어요"
+    },
+    "relatedGrammar": [
+      "안 (an) Don't / Not"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do / speak"
+      },
+      {
+        "kr": "듣다",
+        "rom": "deut-da",
+        "en": "to hear / listen"
+      }
+    ],
+    "teacherNote": "Core function: Can't / Cannot. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G058",
+    "grammar": "-네요",
+    "romanization": "-ne-yo",
+    "title": "Oh! / I see! / Wow!",
+    "keywords": [
+      "-네요",
+      "oh! / i see! / wow!",
+      "-ne-yo"
+    ],
+    "sentencePatterns": [
+      "-네요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you see snow for the first time.\n\nYou say,\n\n\"Wow! It's beautiful!\"\n\nOr you taste delicious food.\n\nYou say,\n\n\"Oh! It's really good!\"\n\nKorean uses\n\n-네요\n\n(-ne-yo)\n\nto express a natural reaction or new realization.",
+    "memoryTrick": "🟦\n\n-네요\n\n(-ne-yo)\n\n=\n\n😲\n\nOh!\n\nThink:\n\nI just noticed!",
+    "easyExplanation": "-네요\n\n(-ne-yo)\n\nis used when you suddenly notice, realize, or feel surprised about something.\n\nIt often means\n\nOh!\n\nWow!\n\nI see!\n\nNative Koreans use this grammar naturally in conversations.",
+    "basicRule": "Verb / Adjective Stem\n\n-네요\n\n(-ne-yo)\n\nExample\n\n예쁘다\n\n(ye-ppeu-da)\n\nto be pretty\n\n↓\n\n예쁘네요.\n\n(Ye-ppeu-ne-yo.)\n\nWow, it's pretty.\n\nExample\n\n맛있다\n\n(ma-sit-da)\n\nto be delicious\n\n↓\n\n맛있네요.\n\n(Ma-si-ne-yo.)\n\nWow, it's delicious.",
+    "examples": [
+      {
+        "kr": "오늘 춥네요.",
+        "rom": "O-neul chup-ne-yo.",
+        "en": "Oh, it's cold today."
+      },
+      {
+        "kr": "한국어를 잘하네요.",
+        "rom": "Han-gu-geo-reul jal-ha-ne-yo.",
+        "en": "Wow, you speak Korean well."
+      },
+      {
+        "kr": "맛있네요.",
+        "rom": "Ma-si-ne-yo.",
+        "en": "Wow, it's delicious."
+      },
+      {
+        "kr": "비가 오네요.",
+        "rom": "Bi-ga o-ne-yo.",
+        "en": "Oh, it's raining."
+      }
+    ],
+    "nativeTip": "Native Koreans often use\n\n-네요\n\ninstead of simply saying\n\n예뻐요\n\nor\n\n맛있어요\n\nwhen they are reacting naturally.\n\nExample:\n\n와!\n\n예쁘네요!\n\n(Wa! Ye-ppeu-ne-yo!)\n\nWow! It's beautiful!",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 예뻐네요. (Ye-ppeo-ne-yo.) Wrong",
+        "correct": "✅ 예쁘네요. (Ye-ppeu-ne-yo.) Wow, it's pretty. Correct"
+      },
+      {
+        "wrong": "❌ 맛있어요. when you want to express surprise. Not wrong, but it sounds like a simple statement.",
+        "correct": "✅ 맛있네요! (Ma-si-ne-yo!) Wow, it's delicious! More natural."
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-네요 (-ne-yo)",
+        "meaning": "Oh! / Wow!\tSurprise or realization",
+        "mainJob": "Oh! / Wow!\tSurprise or realization"
+      },
+      {
+        "grammar": "-어요 (-eo-yo)",
+        "meaning": "Is / Are\tSimple statement",
+        "mainJob": "Is / Are\tSimple statement"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 예쁘네요 (ye-ppeu-ne-yo) Wow, it's pretty!",
+        "② 예뻐요 (ye-ppeo-yo) It's pretty."
+      ],
+      "answer": "✅ Answer\n\n① 예쁘네요",
+      "reason": "Because you're expressing surprise."
+    },
+    "speakingPractice": {
+      "kr": "한국어를 정말 잘하네요.",
+      "rom": "Han-gu-geo-reul jeong-mal jal-ha-ne-yo.",
+      "en": "Wow, you speak Korean really well.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "와! 정말 _____! (Wa! Jeong-mal _____!)",
+      "answer": "✅ Answer\n\n맛있네요"
+    },
+    "relatedGrammar": [
+      "-어요 (-eo-yo) Simple polite statement"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "예쁘다",
+        "rom": "ye-ppeu-da",
+        "en": "to be pretty"
+      },
+      {
+        "kr": "맛있다",
+        "rom": "ma-sit-da",
+        "en": "to be delicious"
+      },
+      {
+        "kr": "춥다",
+        "rom": "chup-da",
+        "en": "to be cold"
+      },
+      {
+        "kr": "잘하다",
+        "rom": "jal-ha-da",
+        "en": "to do well"
+      }
+    ],
+    "teacherNote": "Core function: Oh! / I see! / Wow!. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G059",
+    "grammar": "-지만",
+    "romanization": "-ji-man",
+    "title": "But / Although",
+    "keywords": [
+      "-지만",
+      "but / although",
+      "-ji-man"
+    ],
+    "sentencePatterns": [
+      "-지만"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you say,\n\n\"It's expensive, but I want it.\"\n\nOr,\n\n\"I'm tired, but I have to study.\"\n\nKorean uses\n\n-지만\n\n(-ji-man)\n\nto connect two opposite ideas.\n\nIt means\n\nbut\n\nor\n\nalthough.",
+    "memoryTrick": "🟥\n\n-지만\n\n(-ji-man)\n\n=\n\n↔️\n\nBut\n\nThink:\n\nTwo opposite ideas.",
+    "easyExplanation": "-지만\n\n(-ji-man)\n\nmeans\n\nbut\n\nor\n\nalthough.\n\nIt connects two sentences that contrast each other.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb / Adjective Stem\n\n-지만\n\n(-ji-man)\n\nSecond Sentence\n\nExample\n\n비싸다\n\n(bi-ssa-da)\n\nto be expensive\n\n↓\n\n비싸지만\n\n(Bi-ssa-ji-man)\n\nAlthough it's expensive...\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가지만\n\n(Ga-ji-man)\n\nAlthough (I) go...",
+    "examples": [
+      {
+        "kr": "비싸지만 사고 싶어요.",
+        "rom": "Bi-ssa-ji-man sa-go si-peo-yo.",
+        "en": "It's expensive, but I want to buy it."
+      },
+      {
+        "kr": "피곤하지만 공부해야 돼요.",
+        "rom": "Pi-go-na-ji-man gong-bu-hae-ya dwae-yo.",
+        "en": "I'm tired, but I have to study."
+      },
+      {
+        "kr": "춥지만 재미있어요.",
+        "rom": "Chup-ji-man jae-mi-it-sseo-yo.",
+        "en": "It's cold, but it's fun."
+      },
+      {
+        "kr": "한국어는 어렵지만 재미있어요.",
+        "rom": "Han-gu-geo-neun eo-ryeop-ji-man jae-mi-it-sseo-yo.",
+        "en": "Korean is difficult, but it's interesting."
+      }
+    ],
+    "nativeTip": "Native Koreans use\n\n-지만\n\nmore often in writing and formal speech.\n\nIn casual conversation,\n\nthey often use\n\n근데\n\n(geun-de)\n\ninstead.\n\nExample:\n\n피곤해요.\n\n근데 공부해야 돼요.\n\n(Pi-go-nae-yo. Geun-de gong-bu-hae-ya dwae-yo.)\n\nI'm tired, but I have to study.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 비싸요 지만... (Bi-ssa-yo ji-man...) Wrong",
+        "correct": "✅ 비싸지만... (Bi-ssa-ji-man...) Although it's expensive... Correct"
+      },
+      {
+        "wrong": "❌ 하지만 하지만... Using both together. Wrong",
+        "correct": "✅ 비싸지만 사고 싶어요. (Bi-ssa-ji-man sa-go si-peo-yo.) Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-지만 (-ji-man)",
+        "meaning": "But / Although\tConnects opposite ideas",
+        "mainJob": "But / Although\tConnects opposite ideas"
+      },
+      {
+        "grammar": "그래서 (geu-rae-seo)",
+        "meaning": "So\tConnects reason and result",
+        "mainJob": "So\tConnects reason and result"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 지만 (ji-man) But",
+        "② 그래서 (geu-rae-seo) So"
+      ],
+      "answer": "✅ Answer\n\n① 지만",
+      "reason": "Because the two ideas contrast."
+    },
+    "speakingPractice": {
+      "kr": "피곤하지만 행복해요.",
+      "rom": "Pi-go-na-ji-man haeng-bok-hae-yo.",
+      "en": "I'm tired, but I'm happy.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "비싸_____ 사고 싶어요. (Bi-ssa_____ sa-go si-peo-yo.) It's expensive, but I want to buy it.",
+      "answer": "✅ Answer\n\n지만"
+    },
+    "relatedGrammar": [
+      "근데 (geun-de)",
+      "But (casual conversation)"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "비싸다",
+        "rom": "bi-ssa-da",
+        "en": "to be expensive"
+      },
+      {
+        "kr": "피곤하다",
+        "rom": "pi-go-na-da",
+        "en": "to be tired"
+      },
+      {
+        "kr": "어렵다",
+        "rom": "eo-ryeop-da",
+        "en": "to be difficult"
+      },
+      {
+        "kr": "재미있다",
+        "rom": "jae-mi-it-da",
+        "en": "to be interesting"
+      }
+    ],
+    "teacherNote": "Core function: But / Although. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G060",
+    "grammar": "-거나",
+    "romanization": "-geo-na",
+    "title": "Or",
+    "keywords": [
+      "-거나",
+      "or",
+      "-geo-na"
+    ],
+    "sentencePatterns": [
+      "-거나"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your friend asks,\n\n\"What do you want to eat?\"\n\nYou say,\n\n\"Pizza or chicken.\"\n\nOr,\n\n\"Let's watch a movie or stay home.\"\n\nKorean uses\n\n-거나\n\n(-geo-na)\n\nto mean\n\nor.\n\nIt connects two or more choices.",
+    "memoryTrick": "🟦\n\n-거나\n\n(-geo-na)\n\n=\n\n🔀\n\nOr\n\nThink:\n\nChoice A or Choice B",
+    "easyExplanation": "-거나\n\n(-geo-na)\n\nmeans\n\nor.\n\nIt is used to connect two actions or choices.\n\nNative Koreans use\n\n-거나\n\nevery day when giving options.",
+    "basicRule": "Verb Stem\n\n-거나\n\n(-geo-na)\n\nSecond Verb\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가거나\n\n(Ga-geo-na)\n\nGo or...\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹거나\n\n(Meok-geo-na)\n\nEat or...",
+    "examples": [
+      {
+        "kr": "집에 가거나 친구를 만날 거예요.",
+        "rom": "Ji-be ga-geo-na chin-gu-reul man-nal geo-ye-yo.",
+        "en": "I'll go home or meet a friend."
+      },
+      {
+        "kr": "커피를 마시거나 차를 마셔요.",
+        "rom": "Keo-pi-reul ma-si-geo-na cha-reul ma-syeo-yo.",
+        "en": "I drink coffee or tea."
+      },
+      {
+        "kr": "공부하거나 운동해요.",
+        "rom": "Gong-bu-ha-geo-na un-dong-hae-yo.",
+        "en": "I study or exercise."
+      },
+      {
+        "kr": "주말에는 쉬거나 영화를 봐요.",
+        "rom": "Ju-ma-re-neun swi-geo-na yeong-hwa-reul bwa-yo.",
+        "en": "On weekends, I rest or watch movies."
+      }
+    ],
+    "nativeTip": "Native Koreans often use\n\n-거나\n\nwhen they are not sure which choice will happen.\n\nExample:\n\n내일 가거나 모레 갈 거예요.\n\n(Nae-il ga-geo-na mo-re gal geo-ye-yo.)\n\nI'll go tomorrow or the day after tomorrow.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가고 먹어요. (Ga-go meo-geo-yo.) Wrong if you mean \"go or eat.\" -고 means and, not or.",
+        "correct": "✅ 가거나 먹어요. (Ga-geo-na meo-geo-yo.) Go or eat. Correct"
+      },
+      {
+        "wrong": "❌ 그리고 커피. (Geu-ri-go keo-pi.) Wrong if giving a choice.",
+        "correct": "✅ 커피거나 차. (Keo-pi-geo-na cha.) Better as a choice. (For nouns, Koreans more naturally use 이나 / 나, which you'll learn later.)"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-거나 (-geo-na)",
+        "meaning": "Or\tShows choices",
+        "mainJob": "Or\tShows choices"
+      },
+      {
+        "grammar": "-고 (-go)",
+        "meaning": "And\tConnects actions",
+        "mainJob": "And\tConnects actions"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 하거나 (ha-geo-na) Or",
+        "② 하고 (ha-go) And"
+      ],
+      "answer": "✅ Answer\n\n① 하거나",
+      "reason": "Because you're giving two choices."
+    },
+    "speakingPractice": {
+      "kr": "주말에는 쉬거나 운동해요.",
+      "rom": "Ju-ma-re-neun swi-geo-na un-dong-hae-yo.",
+      "en": "On weekends, I rest or exercise.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "오늘은 집에 _____ 친구를 만날 거예요. (O-neu-reun ji-be _____ chin-gu-reul man-nal geo-ye-yo.) Today I'll stay home or meet a friend.",
+      "answer": "✅ Answer\n\n가거나"
+    },
+    "relatedGrammar": [
+      "-고 (-go) And"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "운동하다",
+        "rom": "un-dong-ha-da",
+        "en": "to exercise"
+      }
+    ],
+    "teacherNote": "Core function: Or. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G061",
+    "grammar": "-부터",
+    "romanization": "-bu-teo",
+    "title": "From / Starting from",
+    "keywords": [
+      "-부터",
+      "from / starting from",
+      "-bu-teo"
+    ],
+    "sentencePatterns": [
+      "-부터"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your class starts at 9:00.\n\nYou say,\n\n\"Class starts from 9 o'clock.\"\n\nOr,\n\n\"Let's start from here.\"\n\nKorean uses\n\n-부터\n\n(-bu-teo)\n\nto mean\n\nfrom\n\nor\n\nstarting from.\n\nIt tells the starting point of time, place, or order.",
+    "memoryTrick": "🟦\n\n-부터\n\n(-bu-teo)\n\n=\n\n➡️\n\nFrom\n\nThink:\n\nStarting here.",
+    "easyExplanation": "-부터\n\n(-bu-teo)\n\nmeans\n\nfrom\n\nor\n\nstarting from.\n\nIt marks the beginning of something.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Noun\n\n-부터\n\n(-bu-teo)\n\nExample\n\n오늘\n\n(o-neul)\n\ntoday\n\n↓\n\n오늘부터\n\n(O-neul-bu-teo)\n\nStarting today\n\nExample\n\n아홉 시\n\n(a-hop si)\n\n9 o'clock\n\n↓\n\n아홉 시부터\n\n(A-hop si-bu-teo)\n\nFrom 9 o'clock",
+    "examples": [
+      {
+        "kr": "오늘부터 운동할 거예요.",
+        "rom": "O-neul-bu-teo un-dong-hal geo-ye-yo.",
+        "en": "I'm going to exercise starting today."
+      },
+      {
+        "kr": "수업은 아홉 시부터 시작해요.",
+        "rom": "Su-eo-beun a-hop si-bu-teo si-jak-hae-yo.",
+        "en": "Class starts at 9 o'clock."
+      },
+      {
+        "kr": "월요일부터 일해요.",
+        "rom": "Wol-yo-il-bu-teo il-hae-yo.",
+        "en": "I work starting Monday."
+      },
+      {
+        "kr": "1페이지부터 읽어 주세요.",
+        "rom": "Il-pe-i-ji-bu-teo il-geo ju-se-yo.",
+        "en": "Please read from page 1."
+      }
+    ],
+    "nativeTip": "-부터 often appears together with\n\n-까지\n\n(-kka-ji)\n\nmeaning\n\nuntil.\n\nExample:\n\n아홉 시부터 다섯 시까지 일해요.\n\n(A-hop si-bu-teo da-seot si-kka-ji il-hae-yo.)\n\nI work from 9 o'clock until 5 o'clock.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 오늘 시작해요. (O-neul si-jak-hae-yo.) This means \"It starts today.\" It does not emphasize \"starting from today.\"",
+        "correct": "✅ 오늘부터 시작해요. (O-neul-bu-teo si-jak-hae-yo.) It starts from today. Correct."
+      },
+      {
+        "wrong": "❌ 9시에서 (Gu-si-e-seo) Wrong for time.",
+        "correct": "✅ 9시부터 (Gu-si-bu-teo) From 9 o'clock Correct."
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-부터 (-bu-teo)",
+        "meaning": "From\tStarting point",
+        "mainJob": "From\tStarting point"
+      },
+      {
+        "grammar": "-까지 (-kka-ji)",
+        "meaning": "Until\tEnding point",
+        "mainJob": "Until\tEnding point"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 오늘부터 (o-neul-bu-teo) Starting today",
+        "② 오늘까지 (o-neul-kka-ji) Until today"
+      ],
+      "answer": "✅ Answer\n\n① 오늘부터",
+      "reason": "Because it indicates the beginning."
+    },
+    "speakingPractice": {
+      "kr": "오늘부터 한국어를 공부할 거예요.",
+      "rom": "O-neul-bu-teo Han-gu-geo-reul gong-bu-hal geo-ye-yo.",
+      "en": "I'm going to study Korean starting today.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "수업은 10시_____ 시작해요. (Su-eo-beun yeol-si_____ si-jak-hae-yo.) Class starts from 10 o'clock.",
+      "answer": "✅ Answer\n\n부터"
+    },
+    "relatedGrammar": [
+      "-까지 (-kka-ji) Until"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "오늘",
+        "rom": "o-neul",
+        "en": "today"
+      },
+      {
+        "kr": "월요일",
+        "rom": "wol-yo-il",
+        "en": "Monday"
+      },
+      {
+        "kr": "시작하다",
+        "rom": "si-jak-ha-da",
+        "en": "to start"
+      },
+      {
+        "kr": "페이지",
+        "rom": "pe-i-ji",
+        "en": "page"
+      }
+    ],
+    "teacherNote": "Core function: From / Starting from. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G062",
+    "grammar": "-까지",
+    "romanization": "-kka-ji",
+    "title": "Until / Up to",
+    "keywords": [
+      "-까지",
+      "until / up to",
+      "-kka-ji"
+    ],
+    "sentencePatterns": [
+      "-까지"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your class ends at 5:00.\n\nYou say,\n\n\"Class is until 5 o'clock.\"\n\nOr,\n\n\"Walk up to the station.\"\n\nKorean uses\n\n-까지\n\n(-kka-ji)\n\nto mean\n\nuntil\n\nor\n\nup to.\n\nIt marks the ending point of time, place, or amount.",
+    "memoryTrick": "🟦\n\n-까지\n\n(-kka-ji)\n\n=\n\n🏁\n\nUntil\n\nThink:\n\nFinish here.",
+    "easyExplanation": "-까지\n\n(-kka-ji)\n\nmeans\n\nuntil\n\nor\n\nup to.\n\nIt shows where or when something ends.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Noun\n\n-까지\n\n(-kka-ji)\n\nExample\n\n내일\n\n(nae-il)\n\ntomorrow\n\n↓\n\n내일까지\n\n(Nae-il-kka-ji)\n\nUntil tomorrow\n\nExample\n\n다섯 시\n\n(da-seot si)\n\n5 o'clock\n\n↓\n\n다섯 시까지\n\n(Da-seot si-kka-ji)\n\nUntil 5 o'clock",
+    "examples": [
+      {
+        "kr": "다섯 시까지 일해요.",
+        "rom": "Da-seot si-kka-ji il-hae-yo.",
+        "en": "I work until 5 o'clock."
+      },
+      {
+        "kr": "내일까지 숙제를 해야 돼요.",
+        "rom": "Nae-il-kka-ji suk-je-reul hae-ya dwae-yo.",
+        "en": "I have to finish my homework by tomorrow."
+      },
+      {
+        "kr": "여기까지 걸어가요.",
+        "rom": "Yeo-gi-kka-ji geo-reo-ga-yo.",
+        "en": "Walk up to here."
+      },
+      {
+        "kr": "10페이지까지 읽었어요.",
+        "rom": "Sip-pe-i-ji-kka-ji il-geo-sseo-yo.",
+        "en": "I read up to page 10."
+      }
+    ],
+    "nativeTip": "-까지 is often paired with\n\n-부터\n\n(-bu-teo)\n\nExample:\n\n월요일부터 금요일까지 일해요.\n\n(Wol-yo-il-bu-teo geum-yo-il-kka-ji il-hae-yo.)\n\nI work from Monday to Friday.\n\nThis is one of the most common combinations in Korean.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 5시 끝나요. (O-si kkeut-na-yo.) This simply means \"It ends at 5.\"",
+        "correct": "✅ 5시까지 (O-si-kka-ji) Until 5 o'clock Correct."
+      },
+      {
+        "wrong": "❌ 내일에서 (Nae-il-e-seo) Wrong",
+        "correct": "✅ 내일까지 (Nae-il-kka-ji) Until tomorrow Correct."
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-부터 (-bu-teo)",
+        "meaning": "From\tStarting point",
+        "mainJob": "From\tStarting point"
+      },
+      {
+        "grammar": "-까지 (-kka-ji)",
+        "meaning": "Until\tEnding point",
+        "mainJob": "Until\tEnding point"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 내일까지 (nae-il-kka-ji) Until tomorrow",
+        "② 내일부터 (nae-il-bu-teo) Starting tomorrow"
+      ],
+      "answer": "✅ Answer\n\n① 내일까지",
+      "reason": "Because it indicates the deadline."
+    },
+    "speakingPractice": {
+      "kr": "저는 금요일까지 일해요.",
+      "rom": "Jeo-neun geum-yo-il-kka-ji il-hae-yo.",
+      "en": "I work until Friday.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "수업은 4시_____ 끝나요. (Su-eo-beun ne-si_____ kkeut-na-yo.) Class ends at 4 o'clock.",
+      "answer": "✅ Answer\n\n까지"
+    },
+    "relatedGrammar": [
+      "-부터 (-bu-teo) From"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "내일",
+        "rom": "nae-il",
+        "en": "tomorrow"
+      },
+      {
+        "kr": "금요일",
+        "rom": "geum-yo-il",
+        "en": "Friday"
+      },
+      {
+        "kr": "끝나다",
+        "rom": "kkeut-na-da",
+        "en": "to end"
+      },
+      {
+        "kr": "페이지",
+        "rom": "pe-i-ji",
+        "en": "page"
+      }
+    ],
+    "teacherNote": "Core function: Until / Up to. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G063",
+    "grammar": "-면서",
+    "romanization": "-myeon-seo",
+    "title": "While / At the same time",
+    "keywords": [
+      "-면서",
+      "while / at the same time",
+      "-myeon-seo"
+    ],
+    "sentencePatterns": [
+      "-면서"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you're listening to music\n\nwhile studying.\n\nOr drinking coffee\n\nwhile reading a book.\n\nKorean uses\n\n-면서\n\n(-myeon-seo)\n\nto talk about two actions happening at the same time.\n\nIt means\n\nwhile\n\nor\n\nat the same time.",
+    "memoryTrick": "🟦\n\n-면서\n\n(-myeon-seo)\n\n=\n\n⏳\n\nWhile\n\nThink:\n\nTwo actions together.",
+    "easyExplanation": "-면서\n\n(-myeon-seo)\n\nmeans\n\nwhile\n\nor\n\nat the same time.\n\nUse it when one person is doing two actions simultaneously.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb Stem\n\n-면서\n\n(-myeon-seo)\n\nSecond Action\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹으면서\n\n(Meo-geu-myeon-seo)\n\nWhile eating...\n\nExample\n\n공부하다\n\n(gong-bu-ha-da)\n\nto study\n\n↓\n\n공부하면서\n\n(Gong-bu-ha-myeon-seo)\n\nWhile studying...",
+    "examples": [
+      {
+        "kr": "음악을 들으면서 공부해요.",
+        "rom": "Eum-a-geul deu-reu-myeon-seo gong-bu-hae-yo.",
+        "en": "I study while listening to music."
+      },
+      {
+        "kr": "커피를 마시면서 책을 읽어요.",
+        "rom": "Keo-pi-reul ma-si-myeon-seo chae-geul il-geo-yo.",
+        "en": "I read a book while drinking coffee."
+      },
+      {
+        "kr": "걸으면서 이야기해요.",
+        "rom": "Geo-reu-myeon-seo i-ya-gi-hae-yo.",
+        "en": "We talk while walking."
+      },
+      {
+        "kr": "TV를 보면서 밥을 먹어요.",
+        "rom": "Ti-bi-reul bo-myeon-seo ba-beul meo-geo-yo.",
+        "en": "I eat while watching TV."
+      }
+    ],
+    "nativeTip": "-면서 is only used when the same person does both actions.\n\n✅ I eat while watching TV.\n\n✅ She studies while listening to music.\n\nIf two different people do different actions, Koreans use other grammar.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 먹고 TV를 봐요. (Meok-go TV-reul bwa-yo.) This means Eat, and then watch TV. Not Eat while watching TV.",
+        "correct": "✅ TV를 보면서 밥을 먹어요. (TV-reul bo-myeon-seo ba-beul meo-geo-yo.) I eat while watching TV. Correct."
+      },
+      {
+        "wrong": "❌ 공부면서 (Gong-bu-myeon-seo) Wrong",
+        "correct": "✅ 공부하면서 (Gong-bu-ha-myeon-seo) While studying Correct."
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-면서 (-myeon-seo)",
+        "meaning": "While\tTwo actions at the same time",
+        "mainJob": "While\tTwo actions at the same time"
+      },
+      {
+        "grammar": "-고 (-go)",
+        "meaning": "And\tOne action, then another",
+        "mainJob": "And\tOne action, then another"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 들으면서 (deu-reu-myeon-seo) While listening",
+        "② 듣고 (deut-go) And then listen"
+      ],
+      "answer": "✅ Answer\n\n① 들으면서",
+      "reason": "Because both actions happen at the same time."
+    },
+    "speakingPractice": {
+      "kr": "커피를 마시면서 공부해요.",
+      "rom": "Keo-pi-reul ma-si-myeon-seo gong-bu-hae-yo.",
+      "en": "I study while drinking coffee.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "TV를 _____ 밥을 먹어요. (TV-reul _____ ba-beul meo-geo-yo.) I eat while watching TV.",
+      "answer": "✅ Answer\n\n보면서"
+    },
+    "relatedGrammar": [
+      "-고 (-go) And"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "듣다",
+        "rom": "deut-da",
+        "en": "to listen"
+      },
+      {
+        "kr": "보다",
+        "rom": "bo-da",
+        "en": "to watch"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "Grammar",
+        "rom": "-기 전에",
+        "en": "(-gi jeo-ne)"
+      },
+      {
+        "kr": "Before",
+        "rom": "★★★★★ Used Every Day",
+        "en": "Imagine"
+      },
+      {
+        "kr": "Imagine your mother says,",
+        "rom": "\"Wash your hands before eating.\"",
+        "en": "Or your teacher says,"
+      },
+      {
+        "kr": "\"Study before the test.\"",
+        "rom": "Korean uses",
+        "en": "-기 전에"
+      },
+      {
+        "kr": "(-gi jeo-ne)",
+        "rom": "to talk about something that happens before another action.",
+        "en": "It means"
+      },
+      {
+        "kr": "before.",
+        "rom": "Easy Memory Trick",
+        "en": "🟦"
+      },
+      {
+        "kr": "-기 전에",
+        "rom": "-gi jeo-ne",
+        "en": "="
+      },
+      {
+        "kr": "⬅️",
+        "rom": "Before",
+        "en": "Think:"
+      },
+      {
+        "kr": "Do this first.",
+        "rom": "Easy Explanation",
+        "en": "-기 전에"
+      },
+      {
+        "kr": "(-gi jeo-ne)",
+        "rom": "means",
+        "en": "before."
+      },
+      {
+        "kr": "Use it when one action happens first, and another action happens later.",
+        "rom": "Native Koreans use this grammar every day.",
+        "en": "When do Koreans use it?"
+      },
+      {
+        "kr": "✅ Before eating",
+        "rom": "✅ Before sleeping",
+        "en": "✅ Before leaving"
+      },
+      {
+        "kr": "✅ Before studying",
+        "rom": "✅ Before meeting someone",
+        "en": "Basic Rule"
+      },
+      {
+        "kr": "Verb Stem",
+        "rom": "-기 전에",
+        "en": "(-gi jeo-ne)"
+      },
+      {
+        "kr": "Example",
+        "rom": "먹다",
+        "en": "(meok-da)"
+      },
+      {
+        "kr": "to eat",
+        "rom": "↓",
+        "en": "먹기 전에"
+      },
+      {
+        "kr": "(Meok-gi jeo-ne)",
+        "rom": "Before eating",
+        "en": "Example"
+      },
+      {
+        "kr": "자다",
+        "rom": "ja-da",
+        "en": "to sleep"
+      },
+      {
+        "kr": "↓",
+        "rom": "자기 전에",
+        "en": "(Ja-gi jeo-ne)"
+      },
+      {
+        "kr": "Before sleeping",
+        "rom": "Examples",
+        "en": "Example 1"
+      },
+      {
+        "kr": "먹기 전에 손을 씻어요.",
+        "rom": "Meok-gi jeo-ne so-neul ssi-seo-yo.",
+        "en": "I wash my hands before eating."
+      },
+      {
+        "kr": "Example 2",
+        "rom": "자기 전에 이를 닦아요.",
+        "en": "(Ja-gi jeo-ne i-reul dak-ka-yo.)"
+      },
+      {
+        "kr": "I brush my teeth before sleeping.",
+        "rom": "Example 3",
+        "en": "학교에 가기 전에 아침을 먹어요."
+      },
+      {
+        "kr": "(Hak-gyo-e ga-gi jeo-ne a-chi-meul meo-geo-yo.)",
+        "rom": "I eat breakfast before going to school.",
+        "en": "Example 4"
+      },
+      {
+        "kr": "시험 보기 전에 공부해요.",
+        "rom": "Si-heom bo-gi jeo-ne gong-bu-hae-yo.",
+        "en": "I study before taking the test."
+      },
+      {
+        "kr": "Native Tip",
+        "rom": "Native Koreans use",
+        "en": "-기 전에"
+      },
+      {
+        "kr": "very often in daily routines.",
+        "rom": "Examples:",
+        "en": "Before work"
+      },
+      {
+        "kr": "Before school",
+        "rom": "Before dinner",
+        "en": "Before sleeping"
+      },
+      {
+        "kr": "It's one of the most useful grammar patterns for talking about daily habits.",
+        "rom": "Common Mistake",
+        "en": "❌"
+      },
+      {
+        "kr": "먹어요 전에",
+        "rom": "Meo-geo-yo jeo-ne",
+        "en": "Wrong"
+      },
+      {
+        "kr": "✅",
+        "rom": "먹기 전에",
+        "en": "(Meok-gi jeo-ne)"
+      },
+      {
+        "kr": "Before eating",
+        "rom": "Correct",
+        "en": "❌"
+      },
+      {
+        "kr": "가기 전",
+        "rom": "Not wrong,",
+        "en": "but beginners should first learn"
+      },
+      {
+        "kr": "가기 전에",
+        "rom": "because it's the standard polite form.",
+        "en": "Compare"
+      },
+      {
+        "kr": "Grammar\tMeaning\tMain Job",
+        "rom": "-기 전에 (-gi jeo-ne)\tBefore\tEarlier action",
+        "en": "-고 나서 (-go na-seo)\tAfter\tLater action"
+      },
+      {
+        "kr": "Mini Quiz",
+        "rom": "_____ 이를 닦아요.",
+        "en": "(_____ i-reul dak-ka-yo.)"
+      },
+      {
+        "kr": "I brush my teeth before sleeping.",
+        "rom": "①",
+        "en": "자기 전에"
+      },
+      {
+        "kr": "(ja-gi jeo-ne)",
+        "rom": "Before sleeping",
+        "en": "②"
+      },
+      {
+        "kr": "자고 나서",
+        "rom": "ja-go na-seo",
+        "en": "After sleeping"
+      },
+      {
+        "kr": "✅ Answer",
+        "rom": "① 자기 전에",
+        "en": "(Ja-gi jeo-ne)"
+      },
+      {
+        "kr": "Before sleeping",
+        "rom": "Because the brushing happens first.",
+        "en": "Speaking Practice"
+      },
+      {
+        "kr": "Repeat 3 times.",
+        "rom": "먹기 전에 손을 씻어요.",
+        "en": "(Meok-gi jeo-ne so-neul ssi-seo-yo.)"
+      },
+      {
+        "kr": "I wash my hands before eating.",
+        "rom": "Practice Challenge",
+        "en": "Complete the sentence."
+      },
+      {
+        "kr": "학교에 _____ 아침을 먹어요.",
+        "rom": "Hak-gyo-e _____ a-chi-meul meo-geo-yo.",
+        "en": "I eat breakfast before going to school."
+      },
+      {
+        "kr": "✅ Answer",
+        "rom": "가기 전에",
+        "en": "(ga-gi jeo-ne)"
+      },
+      {
+        "kr": "Before going",
+        "rom": "Related Grammar",
+        "en": "-고 나서"
+      },
+      {
+        "kr": "(-go na-seo)",
+        "rom": "After",
+        "en": "Related Vocabulary"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "자다",
+        "rom": "ja-da",
+        "en": "to sleep"
+      },
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "시험",
+        "rom": "si-heom",
+        "en": "test / exam"
+      }
+    ],
+    "teacherNote": "Core function: While / At the same time. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G065",
+    "grammar": "-고 나서",
+    "romanization": "-go na-seo",
+    "title": "After",
+    "keywords": [
+      "-고 나서",
+      "after",
+      "-go na-seo"
+    ],
+    "sentencePatterns": [
+      "-고 나서"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your mother says,\n\n\"After eating, brush your teeth.\"\n\nOr your teacher says,\n\n\"Study, then go to bed.\"\n\nKorean uses\n\n-고 나서\n\n(-go na-seo)\n\nto show that one action is finished first, and then another action happens.\n\nIt means\n\nafter.",
+    "memoryTrick": "🟦\n\n-고 나서\n\n(-go na-seo)\n\n=\n\n➡️\n\nAfter\n\nThink:\n\nFinish first → Then do the next thing.",
+    "easyExplanation": "-고 나서\n\n(-go na-seo)\n\nmeans\n\nafter.\n\nUse it when Action A finishes first, then Action B happens.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb Stem\n\n-고 나서\n\n(-go na-seo)\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹고 나서\n\n(Meok-go na-seo)\n\nAfter eating\n\nExample\n\n공부하다\n\n(gong-bu-ha-da)\n\nto study\n\n↓\n\n공부하고 나서\n\n(Gong-bu-ha-go na-seo)\n\nAfter studying",
+    "examples": [
+      {
+        "kr": "밥을 먹고 나서 이를 닦아요.",
+        "rom": "Ba-beul meok-go na-seo i-reul dak-ka-yo.",
+        "en": "I brush my teeth after eating."
+      },
+      {
+        "kr": "숙제를 하고 나서 TV를 봐요.",
+        "rom": "Suk-je-reul ha-go na-seo TV-reul bwa-yo.",
+        "en": "I watch TV after doing my homework."
+      },
+      {
+        "kr": "샤워하고 나서 잠을 자요.",
+        "rom": "Sya-wo-ha-go na-seo ja-meul ja-yo.",
+        "en": "I sleep after taking a shower."
+      },
+      {
+        "kr": "공부하고 나서 친구를 만나요.",
+        "rom": "Gong-bu-ha-go na-seo chin-gu-reul man-na-yo.",
+        "en": "I meet my friend after studying."
+      }
+    ],
+    "nativeTip": "Native Koreans often use\n\n-고 나서\n\nto describe daily routines.\n\nExample:\n\n아침을 먹고 나서 출근해요.\n\n(A-chi-meul meok-go na-seo chul-geun-hae-yo.)\n\nI go to work after eating breakfast.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 먹기 나서 (Meok-gi na-seo) Wrong",
+        "correct": "✅ 먹고 나서 (Meok-go na-seo) After eating Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-고 나서 (-go na-seo)",
+        "meaning": "After\tAction A finishes, then Action B",
+        "mainJob": "After\tAction A finishes, then Action B"
+      },
+      {
+        "grammar": "-면서 (-myeon-seo)",
+        "meaning": "While\tTwo actions happen at the same time",
+        "mainJob": "While\tTwo actions happen at the same time"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 하고 나서 (ha-go na-seo) After doing",
+        "② 하면서 (ha-myeon-seo) While doing"
+      ],
+      "answer": "✅ Answer\n\n① 하고 나서",
+      "reason": "Because the homework is finished first."
+    },
+    "speakingPractice": {
+      "kr": "밥을 먹고 나서 커피를 마셔요.",
+      "rom": "Ba-beul meok-go na-seo keo-pi-reul ma-syeo-yo.",
+      "en": "I drink coffee after eating.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "공부_____ 잠을 자요. (Gong-bu_____ ja-meul ja-yo.) I sleep after studying.",
+      "answer": "✅ Answer\n\n하고 나서"
+    },
+    "relatedGrammar": [
+      "-기 전에 (-gi jeo-ne) Before"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "자다",
+        "rom": "ja-da",
+        "en": "to sleep"
+      },
+      {
+        "kr": "샤워하다",
+        "rom": "sya-wo-ha-da",
+        "en": "to take a shower"
+      }
+    ],
+    "teacherNote": "Core function: After. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G066",
+    "grammar": "-아 / 어 보세요",
+    "romanization": "-a / eo bo-se-yo",
+    "title": "Try...",
+    "keywords": [
+      "-아 / 어 보세요",
+      "try...",
+      "-a / eo bo-se-yo"
+    ],
+    "sentencePatterns": [
+      "-아 / 어 보세요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your friend says,\n\n\"Try this food!\"\n\nOr your teacher says,\n\n\"Try speaking Korean!\"\n\nKorean uses\n\n-아 / 어 보세요\n\n(-a / eo bo-se-yo)\n\nto politely encourage someone\n\nto try doing something.\n\nIt means\n\nTry...",
+    "memoryTrick": "🟦\n\n-아 / 어 보세요\n\n(-a / eo bo-se-yo)\n\n=\n\n🧪\n\nTry it!\n\nThink:\n\nJust give it a try.",
+    "easyExplanation": "-아 / 어 보세요\n\n(-a / eo bo-se-yo)\n\nmeans\n\ntry doing...\n\nUse it when suggesting that someone experience or test something.\n\nNative Koreans use this grammar very often in conversations.",
+    "basicRule": "Verb Stem\n\n-아 / 어 보세요\n\n(-a / eo bo-se-yo)\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹어 보세요.\n\n(Meo-geo bo-se-yo.)\n\nPlease try eating it.\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가 보세요.\n\n(Ga bo-se-yo.)\n\nTry going.",
+    "examples": [
+      {
+        "kr": "이 음식을 먹어 보세요.",
+        "rom": "I eum-si-geul meo-geo bo-se-yo.",
+        "en": "Try this food."
+      },
+      {
+        "kr": "한국어를 말해 보세요.",
+        "rom": "Han-gu-geo-reul mal-hae bo-se-yo.",
+        "en": "Try speaking Korean."
+      },
+      {
+        "kr": "이 책을 읽어 보세요.",
+        "rom": "I chae-geul il-geo bo-se-yo.",
+        "en": "Try reading this book."
+      },
+      {
+        "kr": "한번 해 보세요.",
+        "rom": "Han-beon hae bo-se-yo.",
+        "en": "Give it a try."
+      }
+    ],
+    "nativeTip": "Native Koreans often use\n\n한번\n\n(han-beon)\n\nmeaning\n\nonce\n\nbefore this grammar.\n\nExample:\n\n한번 먹어 보세요.\n\n(Han-beon meo-geo bo-se-yo.)\n\nPlease try it once.\n\nThis sounds very natural.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 먹어 주세요. (Meo-geo ju-se-yo.) This means Please eat it. Not Try eating it.",
+        "correct": "✅ 먹어 보세요. (Meo-geo bo-se-yo.) Try eating it. Correct."
+      },
+      {
+        "wrong": "❌ 가세요. (Ga-se-yo.) This means Please go. Not Try going.",
+        "correct": "✅ 가 보세요. (Ga bo-se-yo.) Try going. Correct."
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-아 / 어 보세요 (-a / eo bo-se-yo)",
+        "meaning": "Try...\tSuggest trying",
+        "mainJob": "Try...\tSuggest trying"
+      },
+      {
+        "grammar": "-아 / 어 주세요 (-a / eo ju-se-yo)",
+        "meaning": "Please do...\tPolite request",
+        "mainJob": "Please do...\tPolite request"
+      }
+    ],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 먹어 보세요 (meo-geo bo-se-yo) Try eating",
+        "② 먹어 주세요 (meo-geo ju-se-yo) Please eat"
+      ],
+      "answer": "✅ Answer\n\n① 먹어 보세요",
+      "reason": ""
+    },
+    "speakingPractice": {
+      "kr": "한번 한국어를 말해 보세요.",
+      "rom": "Han-beon Han-gu-geo-reul mal-hae bo-se-yo.",
+      "en": "Try speaking Korean.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "이 책을 _____. (I chae-geul _____. ) Try reading this book.",
+      "answer": "✅ Answer\n\n읽어 보세요"
+    },
+    "relatedGrammar": [
+      "-아 / 어 주세요 (-a / eo ju-se-yo) Please do..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "읽다",
+        "rom": "ik-da",
+        "en": "to read"
+      },
+      {
+        "kr": "말하다",
+        "rom": "mal-ha-da",
+        "en": "to speak"
+      },
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do"
+      }
+    ],
+    "teacherNote": "Core function: Try.... Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G067",
+    "grammar": "-아 / 어 드릴게요",
+    "romanization": "-a / eo deu-ril-ge-yo",
+    "title": "I'll do it for you",
+    "keywords": [
+      "-아 / 어 드릴게요",
+      "i'll do it for you",
+      "-a / eo deu-ril-ge-yo"
+    ],
+    "sentencePatterns": [
+      "-아 / 어 드릴게요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine someone is carrying a heavy bag.\n\nYou say,\n\n\"I'll help you.\"\n\nOr someone can't take a photo.\n\nYou say,\n\n\"I'll take it for you.\"\n\nKorean uses\n\n-아 / 어 드릴게요\n\n(-a / eo deu-ril-ge-yo)\n\nto politely offer to do something for someone else.\n\nIt means\n\nI'll... for you.",
+    "memoryTrick": "🟦\n\n-아 / 어 드릴게요\n\n(-a / eo deu-ril-ge-yo)\n\n=\n\n🤝\n\nI'll do it for you.\n\nThink:\n\nI'm helping you.",
+    "easyExplanation": "-아 / 어 드릴게요\n\n(-a / eo deu-ril-ge-yo)\n\nmeans\n\nI'll do it for you.\n\nUse it when you are offering help politely.\n\nNative Koreans use this grammar when speaking politely to customers, older people, or anyone they want to help.",
+    "basicRule": "Verb Stem\n\n-아 / 어 드릴게요\n\n(-a / eo deu-ril-ge-yo)\n\nExample\n\n돕다\n\n(dop-da)\n\nto help\n\n↓\n\n도와드릴게요.\n\n(Do-wa deu-ril-ge-yo.)\n\nI'll help you.\n\nExample\n\n찍다\n\n(jjik-da)\n\nto take (a picture)\n\n↓\n\n찍어드릴게요.\n\n(Jji-geo deu-ril-ge-yo.)\n\nI'll take a picture for you.",
+    "examples": [
+      {
+        "kr": "도와드릴게요.",
+        "rom": "Do-wa deu-ril-ge-yo.",
+        "en": "I'll help you."
+      },
+      {
+        "kr": "사진을 찍어드릴게요.",
+        "rom": "Sa-jin-eul jji-geo deu-ril-ge-yo.",
+        "en": "I'll take a picture for you."
+      },
+      {
+        "kr": "문을 열어드릴게요.",
+        "rom": "Mu-neul yeo-reo deu-ril-ge-yo.",
+        "en": "I'll open the door for you."
+      },
+      {
+        "kr": "가방을 들어드릴게요.",
+        "rom": "Ga-bang-eul deu-reo deu-ril-ge-yo.",
+        "en": "I'll carry your bag for you."
+      }
+    ],
+    "nativeTip": "This grammar is heard every day in Korea.\n\nAt stores, restaurants, banks, and hospitals, staff often say:\n\n안내해드릴게요.\n\n(An-nae-hae deu-ril-ge-yo.)\n\nI'll guide you.\n\n설명해드릴게요.\n\n(Seol-myeong-hae deu-ril-ge-yo.)\n\nI'll explain it for you.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 도와줄게요. (Do-wa jul-ge-yo.) Correct grammar, but it's more casual. Not appropriate for customers or strangers.",
+        "correct": "✅ 도와드릴게요. (Do-wa deu-ril-ge-yo.) I'll help you. More polite."
+      },
+      {
+        "wrong": "❌ 찍어 주세요. (Jji-geo ju-se-yo.) This means Please take a picture.",
+        "correct": "✅ 찍어드릴게요. (Jji-geo deu-ril-ge-yo.) I'll take a picture for you. Correct."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 찍어드릴게요 (jji-geo deu-ril-ge-yo) I'll take it for you",
+        "② 찍어 주세요 (jji-geo ju-se-yo) Please take it"
+      ],
+      "answer": "✅ Answer\n\n① 찍어드릴게요",
+      "reason": ""
+    },
+    "speakingPractice": {
+      "kr": "도와드릴게요.",
+      "rom": "Do-wa deu-ril-ge-yo.",
+      "en": "I'll help you.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "문을 _____. (Mu-neul _____. ) I'll open the door for you.",
+      "answer": "✅ Answer\n\n열어드릴게요"
+    },
+    "relatedGrammar": [
+      "-아 / 어 주세요 (-a / eo ju-se-yo) Please do..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "돕다",
+        "rom": "dop-da",
+        "en": "to help"
+      },
+      {
+        "kr": "열다",
+        "rom": "yeol-da",
+        "en": "to open"
+      },
+      {
+        "kr": "찍다",
+        "rom": "jjik-da",
+        "en": "to take (a picture)"
+      },
+      {
+        "kr": "들다",
+        "rom": "deul-da",
+        "en": "to carry"
+      }
+    ],
+    "teacherNote": "Core function: I'll do it for you. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G068",
+    "grammar": "-고 싶어 해요",
+    "romanization": "-go si-peo hae-yo",
+    "title": "Wants to... (Someone else)",
+    "keywords": [
+      "-고 싶어 해요",
+      "wants to... (someone else)",
+      "-go si-peo hae-yo"
+    ],
+    "sentencePatterns": [
+      "-고 싶어 해요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your friend says,\n\n\"I want to eat pizza.\"\n\nYou can say:\n\n\"My friend wants to eat pizza.\"\n\nIn Korean,\n\n-고 싶어요\n\nis only used for your own feelings.\n\nWhen talking about someone else's desire, Koreans use\n\n-고 싶어 해요\n\n(-go si-peo hae-yo).",
+    "memoryTrick": "🟦\n\n-고 싶어요\n\n=\n\n😊\n\nI want to...\n\n-고 싶어 해요\n\n=\n\n👤\n\nHe/She wants to...",
+    "easyExplanation": "-고 싶어 해요\n\n(-go si-peo hae-yo)\n\nmeans\n\nsomeone wants to...\n\nUse it when talking about another person's wishes or desires.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb Stem\n\n-고 싶어 해요\n\n(-go si-peo hae-yo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가고 싶어 해요.\n\n(Ga-go si-peo hae-yo.)\n\nHe/She wants to go.\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹고 싶어 해요.\n\n(Meok-go si-peo hae-yo.)\n\nHe/She wants to eat.",
+    "examples": [
+      {
+        "kr": "친구는 한국에 가고 싶어 해요.",
+        "rom": "Chin-gu-neun Han-gu-ge ga-go si-peo hae-yo.",
+        "en": "My friend wants to go to Korea."
+      },
+      {
+        "kr": "동생은 게임을 하고 싶어 해요.",
+        "rom": "Dong-saeng-eun ge-i-meul ha-go si-peo hae-yo.",
+        "en": "My younger sibling wants to play games."
+      },
+      {
+        "kr": "아이는 아이스크림을 먹고 싶어 해요.",
+        "rom": "A-i-neun a-i-seu-keu-ri-meul meok-go si-peo hae-yo.",
+        "en": "The child wants to eat ice cream."
+      },
+      {
+        "kr": "우리 엄마는 여행하고 싶어 해요.",
+        "rom": "U-ri eom-ma-neun yeo-haeng-ha-go si-peo hae-yo.",
+        "en": "My mother wants to travel."
+      }
+    ],
+    "nativeTip": "When talking about your own feelings, use:\n\n-고 싶어요\n\nWhen talking about another person's feelings, use:\n\n-고 싶어 해요\n\nThis difference is very important in Korean.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 친구는 가고 싶어요. (Chin-gu-neun ga-go si-peo-yo.) This sounds like your own feeling, not your friend's.",
+        "correct": "✅ 친구는 가고 싶어 해요. (Chin-gu-neun ga-go si-peo hae-yo.) My friend wants to go. Correct."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 공부하고 싶어 해요 (gong-bu-ha-go si-peo hae-yo) Wants to study",
+        "② 공부하고 싶어요 (gong-bu-ha-go si-peo-yo) I want to study"
+      ],
+      "answer": "✅ Answer\n\n① 공부하고 싶어 해요",
+      "reason": "Because you're talking about your friend."
+    },
+    "speakingPractice": {
+      "kr": "친구는 한국에 가고 싶어 해요.",
+      "rom": "Chin-gu-neun Han-gu-ge ga-go si-peo hae-yo.",
+      "en": "My friend wants to go to Korea.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "우리 엄마는 여행_____. (U-ri eom-ma-neun yeo-haeng_____.) My mother wants to travel.",
+      "answer": "✅ Answer\n\n하고 싶어 해요"
+    },
+    "relatedGrammar": [
+      "-고 싶어요 (-go si-peo-yo) I want to..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "친구",
+        "rom": "chin-gu",
+        "en": "friend"
+      },
+      {
+        "kr": "엄마",
+        "rom": "eom-ma",
+        "en": "mother"
+      },
+      {
+        "kr": "여행하다",
+        "rom": "yeo-haeng-ha-da",
+        "en": "to travel"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      }
+    ],
+    "teacherNote": "Core function: Wants to... (Someone else). Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G069",
+    "grammar": "-는 것 같아요",
+    "romanization": "-neun geot gat-a-yo",
+    "title": "I think... / It seems...",
+    "keywords": [
+      "-는 것 같아요",
+      "i think... / it seems...",
+      "-neun geot gat-a-yo"
+    ],
+    "sentencePatterns": [
+      "-는 것 같아요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you look outside.\n\nThe sky is dark.\n\nYou say,\n\n\"I think it's going to rain.\"\n\nOr you meet someone for the first time.\n\nYou say,\n\n\"I think he's a student.\"\n\nKorean uses\n\n-는 것 같아요\n\n(-neun geot gat-a-yo)\n\nwhen you are not 100% sure.\n\nIt means\n\nI think...\n\nor\n\nIt seems...",
+    "memoryTrick": "🟦\n\n-는 것 같아요\n\n(-neun geot gat-a-yo)\n\n=\n\n🤔\n\nI think...\n\nThink:\n\nI'm not completely sure.",
+    "easyExplanation": "-는 것 같아요\n\n(-neun geot gat-a-yo)\n\nmeans\n\nI think...\n\nor\n\nIt seems...\n\nUse it when giving your opinion or guess.\n\nNative Koreans use this grammar constantly because it sounds softer and more polite than making a direct statement.",
+    "basicRule": "Verb Stem\n\n-는 것 같아요\n\n(-neun geot gat-a-yo)\n\nExample\n\n오다\n\n(o-da)\n\nto come\n\n↓\n\n오는 것 같아요.\n\n(O-neun geot gat-a-yo.)\n\nI think it's coming.\n\nExample\n\n비가 오다\n\n(bi-ga o-da)\n\nto rain\n\n↓\n\n비가 오는 것 같아요.\n\n(Bi-ga o-neun geot gat-a-yo.)\n\nI think it's raining.",
+    "examples": [
+      {
+        "kr": "비가 오는 것 같아요.",
+        "rom": "Bi-ga o-neun geot gat-a-yo.",
+        "en": "I think it's raining."
+      },
+      {
+        "kr": "그 사람은 학생인 것 같아요.",
+        "rom": "Geu sa-ra-meun hak-saeng-in geot gat-a-yo.",
+        "en": "I think that person is a student."
+      },
+      {
+        "kr": "이 음식은 맛있는 것 같아요.",
+        "rom": "I eum-si-geun ma-sit-neun geot gat-a-yo.",
+        "en": "I think this food is delicious."
+      },
+      {
+        "kr": "오늘은 바쁜 것 같아요.",
+        "rom": "O-neu-reun ba-ppeun geot gat-a-yo.",
+        "en": "I think today is busy."
+      }
+    ],
+    "nativeTip": "Native Koreans often use\n\n것 같아요\n\ninstead of making direct statements.\n\nInstead of saying:\n\n비가 와요.\n\n(Bi-ga wa-yo.)\n\nIt's raining.\n\nThey often say:\n\n비가 오는 것 같아요.\n\n(Bi-ga o-neun geot gat-a-yo.)\n\nI think it's raining.\n\nIt sounds softer and more natural.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 비가 오는 것이에요. (Bi-ga o-neun geo-si-e-yo.) Wrong meaning.",
+        "correct": "✅ 비가 오는 것 같아요. (Bi-ga o-neun geot gat-a-yo.) I think it's raining. Correct."
+      },
+      {
+        "wrong": "❌ 학생 같아요. This can be natural in conversation, but beginners should first learn the full pattern.",
+        "correct": "✅ 학생인 것 같아요. (Hak-saeng-in geot gat-a-yo.) I think he/she is a student."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 오는 것 같아요 (o-neun geot gat-a-yo) I think it's raining",
+        "② 오네요 (o-ne-yo) Oh, it's raining!"
+      ],
+      "answer": "✅ Answer\n\n① 오는 것 같아요",
+      "reason": "Because you're making a guess."
+    },
+    "speakingPractice": {
+      "kr": "오늘은 추운 것 같아요.",
+      "rom": "O-neu-reun chu-un geot gat-a-yo.",
+      "en": "I think it's cold today.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "그 사람은 학생_____. (Geu sa-ra-meun hak-saeng_____. ) I think that person is a student.",
+      "answer": "✅ Answer\n\n인 것 같아요"
+    },
+    "relatedGrammar": [
+      "-네요 (-ne-yo) Oh! / Wow!"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "비",
+        "rom": "bi",
+        "en": "rain"
+      },
+      {
+        "kr": "학생",
+        "rom": "hak-saeng",
+        "en": "student"
+      },
+      {
+        "kr": "맛있다",
+        "rom": "ma-sit-da",
+        "en": "to be delicious"
+      },
+      {
+        "kr": "바쁘다",
+        "rom": "ba-ppeu-da",
+        "en": "to be busy"
+      }
+    ],
+    "teacherNote": "Core function: I think... / It seems.... Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G070",
+    "grammar": "-아 / 어도 돼요",
+    "romanization": "-a / eo-do dwae-yo",
+    "title": "May I...? / It's okay to...",
+    "keywords": [
+      "-아 / 어도 돼요",
+      "may i...? / it's okay to...",
+      "-a / eo-do dwae-yo"
+    ],
+    "sentencePatterns": [
+      "-아 / 어도 돼요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you're at a friend's house.\n\nYou ask,\n\n\"May I sit here?\"\n\nOr at school,\n\n\"May I open the window?\"\n\nKorean uses\n\n-아 / 어도 돼요\n\n(-a / eo-do dwae-yo)\n\nto ask for permission or to say something is allowed.\n\nIt means\n\nMay I...?\n\nor\n\nIt's okay to...",
+    "memoryTrick": "🟦\n\n-아 / 어도 돼요\n\n(-a / eo-do dwae-yo)\n\n=\n\n✅\n\nIt's okay.\n\nThink:\n\nPermission.",
+    "easyExplanation": "-아 / 어도 돼요\n\n(-a / eo-do dwae-yo)\n\nmeans\n\nMay I...?\n\nor\n\nIt's okay to...\n\nUse it when asking if something is allowed.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb Stem\n\n-아 / 어도 돼요\n\n(-a / eo-do dwae-yo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가도 돼요?\n\n(Ga-do dwae-yo?)\n\nMay I go?\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹어도 돼요?\n\n(Meo-geo-do dwae-yo?)\n\nMay I eat it?",
+    "examples": [
+      {
+        "kr": "여기에 앉아도 돼요?",
+        "rom": "Yeo-gi-e an-ja-do dwae-yo?",
+        "en": "May I sit here?"
+      },
+      {
+        "kr": "사진을 찍어도 돼요?",
+        "rom": "Sa-jin-eul jji-geo-do dwae-yo?",
+        "en": "May I take a picture?"
+      },
+      {
+        "kr": "지금 가도 돼요?",
+        "rom": "Ji-geum ga-do dwae-yo?",
+        "en": "May I go now?"
+      },
+      {
+        "kr": "이걸 먹어도 돼요?",
+        "rom": "I-geol meo-geo-do dwae-yo?",
+        "en": "May I eat this?"
+      }
+    ],
+    "nativeTip": "When giving permission, Koreans often simply answer:\n\n네, 돼요.\n\n(Ne, dwae-yo.)\n\nYes, you may.\n\nOr,\n\n네, 괜찮아요.\n\n(Ne, gwaen-cha-na-yo.)\n\nYes, that's fine.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가세요? (Ga-se-yo?) This means Are you going? or Please go. Not May I go?",
+        "correct": "✅ 가도 돼요? (Ga-do dwae-yo?) May I go? Correct."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 찍어도 돼요 (jji-geo-do dwae-yo) May I take it?",
+        "② 찍어야 돼요 (jji-geo-ya dwae-yo) I must take it."
+      ],
+      "answer": "✅ Answer\n\n① 찍어도 돼요",
+      "reason": "Because you're asking for permission."
+    },
+    "speakingPractice": {
+      "kr": "여기에 앉아도 돼요?",
+      "rom": "Yeo-gi-e an-ja-do dwae-yo?",
+      "en": "May I sit here?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "지금 _____? (Ji-geum _____?) May I go now?",
+      "answer": "✅ Answer\n\n가도 돼요"
+    },
+    "relatedGrammar": [
+      "-아 / 어야 돼요 (-a / eo-ya dwae-yo) Must / Have to"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "앉다",
+        "rom": "an-da",
+        "en": "to sit"
+      },
+      {
+        "kr": "찍다",
+        "rom": "jjik-da",
+        "en": "to take (a picture)"
+      }
+    ],
+    "teacherNote": "Core function: May I...? / It's okay to.... Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G071",
+    "grammar": "-아 / 어야 돼요",
+    "romanization": "-a / eo-ya dwae-yo",
+    "title": "Must / Have to",
+    "keywords": [
+      "-아 / 어야 돼요",
+      "must / have to",
+      "-a / eo-ya dwae-yo"
+    ],
+    "sentencePatterns": [
+      "-아 / 어야 돼요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine your teacher says,\n\n\"You have to study.\"\n\nOr your mom says,\n\n\"You must sleep early.\"\n\nKorean uses\n\n-아 / 어야 돼요\n\n(-a / eo-ya dwae-yo)\n\nto express necessity or obligation.\n\nIt means\n\nmust\n\nor\n\nhave to.",
+    "memoryTrick": "🟥\n\n-아 / 어야 돼요\n\n(-a / eo-ya dwae-yo)\n\n=\n\n❗\n\nMust\n\nThink:\n\nYou need to do it.",
+    "easyExplanation": "-아 / 어야 돼요\n\n(-a / eo-ya dwae-yo)\n\nmeans\n\nmust\n\nor\n\nhave to.\n\nUse it when something is necessary or required.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb Stem\n\n-아 / 어야 돼요\n\n(-a / eo-ya dwae-yo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가야 돼요.\n\n(Ga-ya dwae-yo.)\n\nI have to go.\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹어야 돼요.\n\n(Meo-geo-ya dwae-yo.)\n\nI have to eat.",
+    "examples": [
+      {
+        "kr": "공부해야 돼요.",
+        "rom": "Gong-bu-hae-ya dwae-yo.",
+        "en": "I have to study."
+      },
+      {
+        "kr": "지금 가야 돼요.",
+        "rom": "Ji-geum ga-ya dwae-yo.",
+        "en": "I have to go now."
+      },
+      {
+        "kr": "약을 먹어야 돼요.",
+        "rom": "Ya-geul meo-geo-ya dwae-yo.",
+        "en": "You have to take medicine."
+      },
+      {
+        "kr": "일찍 자야 돼요.",
+        "rom": "Il-jjik ja-ya dwae-yo.",
+        "en": "You have to sleep early."
+      }
+    ],
+    "nativeTip": "In casual conversations, Koreans often shorten\n\n돼요\n\nto\n\n돼.\n\nExample:\n\n가야 돼.\n\n(Ga-ya dwae.)\n\nI have to go.\n\nThis sounds natural among friends.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가도 돼요. (Ga-do dwae-yo.) This means May I go? Not I have to go.",
+        "correct": "✅ 가야 돼요. (Ga-ya dwae-yo.) I have to go. Correct."
+      },
+      {
+        "wrong": "❌ 먹어요. (Meo-geo-yo.) This simply means I eat.",
+        "correct": "✅ 먹어야 돼요. (Meo-geo-ya dwae-yo.) I have to eat."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 가야 돼요 (ga-ya dwae-yo) I have to go",
+        "② 가도 돼요 (ga-do dwae-yo) May I go?"
+      ],
+      "answer": "✅ Answer\n\n① 가야 돼요",
+      "reason": "Because you're expressing an obligation."
+    },
+    "speakingPractice": {
+      "kr": "오늘 공부해야 돼요.",
+      "rom": "O-neul gong-bu-hae-ya dwae-yo.",
+      "en": "I have to study today.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "약을 _____. (Ya-geul _____.) You have to take the medicine.",
+      "answer": "✅ Answer\n\n먹어야 돼요"
+    },
+    "relatedGrammar": [
+      "-아 / 어도 돼요 (-a / eo-do dwae-yo) May I...? / It's okay to..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "자다",
+        "rom": "ja-da",
+        "en": "to sleep"
+      }
+    ],
+    "teacherNote": "Core function: Must / Have to. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G072",
+    "grammar": "-(으)ㄹ까요?",
+    "romanization": "-(eu)l-kka-yo?",
+    "title": "Shall we...? / Should I...?",
+    "keywords": [
+      "-(으)ㄹ까요?",
+      "shall we...? / should i...?",
+      "-(eu)l-kka-yo?"
+    ],
+    "sentencePatterns": [
+      "-(으)ㄹ까요?"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you're with a friend.\n\nYou ask,\n\n\"Shall we eat?\"\n\nOr you ask,\n\n\"Shall I help you?\"\n\nKorean uses\n\n-(으)ㄹ까요?\n\n(-(eu)l-kka-yo?)\n\nto make suggestions or politely ask what to do.\n\nIt means\n\nShall we...?\n\nor\n\nShould I...?",
+    "memoryTrick": "🟦\n\n-(으)ㄹ까요?\n\n(-(eu)l-kka-yo?)\n\n=\n\n🤝\n\nShall we?\n\nThink:\n\nLet's decide together.",
+    "easyExplanation": "-(으)ㄹ까요?\n\n(-(eu)l-kka-yo?)\n\nmeans\n\nShall we...?\n\nor\n\nShould I...?\n\nUse it to make a polite suggestion or offer.\n\nNative Koreans use this grammar constantly.",
+    "basicRule": "Verb Stem\n\n-(으)ㄹ까요?\n\n(-(eu)l-kka-yo?)\n\nIf the verb stem ends in a vowel or ㄹ → -ㄹ까요?\nIf the verb stem ends in a consonant → -을까요?\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n갈까요?\n\n(Gal-kka-yo?)\n\nShall we go?\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹을까요?\n\n(Meo-geul-kka-yo?)\n\nShall we eat?",
+    "examples": [
+      {
+        "kr": "같이 갈까요?",
+        "rom": "Ga-chi gal-kka-yo?",
+        "en": "Shall we go together?"
+      },
+      {
+        "kr": "점심을 먹을까요?",
+        "rom": "Jeom-si-meul meo-geul-kka-yo?",
+        "en": "Shall we eat lunch?"
+      },
+      {
+        "kr": "제가 도와드릴까요?",
+        "rom": "Je-ga do-wa deu-ril-kka-yo?",
+        "en": "Shall I help you?"
+      },
+      {
+        "kr": "커피를 마실까요?",
+        "rom": "Keo-pi-reul ma-sil-kka-yo?",
+        "en": "Shall we drink coffee?"
+      }
+    ],
+    "nativeTip": "-(으)ㄹ까요? is much softer than giving a command.\n\nInstead of saying:\n\n갑시다.\n\n(Gap-si-da.)\n\nLet's go.\n\nMany Koreans naturally say:\n\n갈까요?\n\n(Gal-kka-yo?)\n\nShall we go?\n\nIt sounds more friendly.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 갈래요? (Gal-lae-yo?) This asks about someone's personal intention (\"Do you want to go?\").",
+        "correct": "✅ 갈까요? (Gal-kka-yo?) Shall we go? Correct."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 갈까요 (gal-kka-yo) Shall we go?",
+        "② 가야 돼요 (ga-ya dwae-yo) Have to go"
+      ],
+      "answer": "✅ Answer\n\n① 갈까요?",
+      "reason": "Because you're making a suggestion."
+    },
+    "speakingPractice": {
+      "kr": "같이 점심을 먹을까요?",
+      "rom": "Ga-chi jeom-si-meul meo-geul-kka-yo?",
+      "en": "Shall we eat lunch together?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "제가 _____? (Je-ga _____?) Shall I help you?",
+      "answer": "✅ Answer\n\n도와드릴까요"
+    },
+    "relatedGrammar": [
+      "-겠어요 (-get-sseo-yo) I will... / I intend to..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "돕다",
+        "rom": "dop-da",
+        "en": "to help"
+      },
+      {
+        "kr": "마시다",
+        "rom": "ma-si-da",
+        "en": "to drink"
+      }
+    ],
+    "teacherNote": "Core function: Shall we...? / Should I...?. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G073",
+    "grammar": "-네요",
+    "romanization": "-ne-yo",
+    "title": "Oh! / I see! / Wow!",
+    "keywords": [
+      "-네요",
+      "oh! / i see! / wow!",
+      "-ne-yo"
+    ],
+    "sentencePatterns": [
+      "-네요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "You walk outside.\n\nIt's snowing.\n\nYou say,\n\n\"Oh! It's snowing!\"\n\nOr you taste delicious food.\n\nYou say,\n\n\"Wow! It's delicious!\"\n\nKorean uses\n\n-네요\n\n(-ne-yo)\n\nto express surprise, realization, or admiration.",
+    "memoryTrick": "🟦\n\n-네요\n\n(-ne-yo)\n\n=\n\n😮\n\nOh!\n\nThink:\n\nYou just noticed something.",
+    "easyExplanation": "-네요\n\n(-ne-yo)\n\nmeans\n\nOh!\n\nI see!\n\nWow!\n\nIt expresses a new realization or surprise.\n\nNative Koreans use it very often in everyday conversations.",
+    "basicRule": "Verb / Adjective Stem\n\n-네요\n\n(-ne-yo)\n\nExample\n\n예쁘다\n\n(ye-ppeu-da)\n\nto be pretty\n\n↓\n\n예쁘네요.\n\n(Ye-ppeu-ne-yo.)\n\nOh, it's pretty!\n\nExample\n\n오다\n\n(o-da)\n\nto come\n\n↓\n\n오네요.\n\n(O-ne-yo.)\n\nOh, it's coming!",
+    "examples": [
+      {
+        "kr": "오늘 춥네요.",
+        "rom": "O-neul chup-ne-yo.",
+        "en": "Oh, it's cold today."
+      },
+      {
+        "kr": "음식이 맛있네요.",
+        "rom": "Eum-si-gi ma-sit-ne-yo.",
+        "en": "Wow, the food is delicious."
+      },
+      {
+        "kr": "비가 오네요.",
+        "rom": "Bi-ga o-ne-yo.",
+        "en": "Oh, it's raining."
+      },
+      {
+        "kr": "한국어를 잘하시네요.",
+        "rom": "Han-gu-geo-reul jal-ha-si-ne-yo.",
+        "en": "Wow, you speak Korean well."
+      }
+    ],
+    "nativeTip": "Native Koreans use -네요 when they notice something at that moment.\n\nExample:\n\n와! 예쁘네요!\n\n(Wa! Ye-ppeu-ne-yo!)\n\nWow! It's beautiful!\n\nIt sounds warm and natural.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 맛있어요. (Ma-si-sseo-yo.) This simply states a fact: It's delicious.",
+        "correct": "✅ 맛있네요. (Ma-sit-ne-yo.) Wow, it's delicious! Shows your reaction."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 맛있네요 (ma-sit-ne-yo) Wow, it's delicious!",
+        "② 맛있는 것 같아요 (ma-sit-neun geot gat-a-yo) I think it's delicious."
+      ],
+      "answer": "✅ Answer\n\n① 맛있네요",
+      "reason": "Because you're reacting with surprise or admiration."
+    },
+    "speakingPractice": {
+      "kr": "와! 정말 예쁘네요.",
+      "rom": "Wa! Jeong-mal ye-ppeu-ne-yo.",
+      "en": "Wow! It's really beautiful.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "비가 _____. (Bi-ga _____. ) Oh, it's raining.",
+      "answer": "✅ Answer\n\n오네요"
+    },
+    "relatedGrammar": [
+      "-는 것 같아요 (-neun geot gat-a-yo) I think..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "예쁘다",
+        "rom": "ye-ppeu-da",
+        "en": "to be pretty"
+      },
+      {
+        "kr": "맛있다",
+        "rom": "ma-sit-da",
+        "en": "to be delicious"
+      },
+      {
+        "kr": "춥다",
+        "rom": "chup-da",
+        "en": "to be cold"
+      },
+      {
+        "kr": "오다",
+        "rom": "o-da",
+        "en": "to come / to rain"
+      }
+    ],
+    "teacherNote": "Core function: Oh! / I see! / Wow!. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G074",
+    "grammar": "-잖아요",
+    "romanization": "-ja-na-yo",
+    "title": "You know... / As you know... / Remember?",
+    "keywords": [
+      "-잖아요",
+      "you know... / as you know... / remember?",
+      "-ja-na-yo"
+    ],
+    "sentencePatterns": [
+      "-잖아요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Your friend says,\n\n\"I'm hungry.\"\n\nYou reply,\n\n\"You skipped breakfast, you know.\"\n\nOr,\n\n\"It's Sunday, remember?\"\n\nKorean uses\n\n-잖아요\n\n(-ja-na-yo)\n\nwhen both people already know the information.\n\nIt means\n\nYou know...\n\nor\n\nRemember...?",
+    "memoryTrick": "🟦\n\n-잖아요\n\n(-ja-na-yo)\n\n=\n\n💡\n\nYou know!\n\nThink:\n\nWe both already know this.",
+    "easyExplanation": "-잖아요\n\n(-ja-na-yo)\n\nmeans\n\nYou know...\n\nAs you know...\n\nor\n\nRemember...?\n\nUse it when reminding someone about something they already know.\n\nNative Koreans use this grammar all the time in conversations.",
+    "basicRule": "Verb / Adjective / Noun\n\n-잖아요\n\n(-ja-na-yo)\n\nExample\n\n알다\n\n(al-da)\n\nto know\n\n↓\n\n알잖아요.\n\n(Al-ja-na-yo.)\n\nYou know.\n\nExample\n\n학생이다\n\n(hak-saeng-i-da)\n\nto be a student\n\n↓\n\n학생이잖아요.\n\n(Hak-saeng-i-ja-na-yo.)\n\nYou know he's a student.",
+    "examples": [
+      {
+        "kr": "오늘 일요일이잖아요.",
+        "rom": "O-neul il-yo-i-ri-ja-na-yo.",
+        "en": "It's Sunday, you know."
+      },
+      {
+        "kr": "이미 먹었잖아요.",
+        "rom": "I-mi meo-geo-jja-na-yo.",
+        "en": "You already ate, remember?"
+      },
+      {
+        "kr": "한국에 가고 싶었잖아요.",
+        "rom": "Han-gu-ge ga-go si-peot-jja-na-yo.",
+        "en": "You wanted to go to Korea, remember?"
+      },
+      {
+        "kr": "그 사람은 우리 친구잖아요.",
+        "rom": "Geu sa-ra-meun u-ri chin-gu-ja-na-yo.",
+        "en": "He's our friend, you know."
+      }
+    ],
+    "nativeTip": "Koreans use -잖아요 very naturally when reminding someone of shared information.\n\nIt doesn't always sound angry.\n\nIt often simply means:\n\n\"You know...\"\n\nor\n\n\"Remember?\"",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 오늘 일요일이에요. (O-neul il-yo-i-ri-e-yo.) This only states a fact.",
+        "correct": "✅ 오늘 일요일이잖아요. (O-neul il-yo-i-ri-ja-na-yo.) It's Sunday, you know. Shows you're reminding the listener."
+      },
+      {
+        "wrong": "❌ 알아요? (A-ra-yo?) Means: Do you know?",
+        "correct": "✅ 알잖아요. (Al-ja-na-yo.) You know."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 잖아요 (ja-na-yo) You know",
+        "② 네요 (ne-yo) Oh!"
+      ],
+      "answer": "✅ Answer\n\n① 잖아요",
+      "reason": "Because you're reminding someone of something they already know."
+    },
+    "speakingPractice": {
+      "kr": "우리 약속했잖아요.",
+      "rom": "U-ri yak-sok-haet-jja-na-yo.",
+      "en": "We already promised, remember?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "그 사람은 학생_____. (Geu sa-ra-meun hak-saeng_____.) He's a student, you know.",
+      "answer": "✅ Answer\n\n이잖아요"
+    },
+    "relatedGrammar": [
+      "-네요 (-ne-yo) Oh! / I just realized..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "알다",
+        "rom": "al-da",
+        "en": "to know"
+      },
+      {
+        "kr": "약속하다",
+        "rom": "yak-sok-ha-da",
+        "en": "to promise"
+      },
+      {
+        "kr": "학생",
+        "rom": "hak-saeng",
+        "en": "student"
+      },
+      {
+        "kr": "친구",
+        "rom": "chin-gu",
+        "en": "friend"
+      }
+    ],
+    "teacherNote": "Core function: You know... / As you know... / Remember?. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G075",
+    "grammar": "-(으)려고 해요",
+    "romanization": "-(eu)ryeo-go hae-yo",
+    "title": "I'm planning to... / I'm going to...",
+    "keywords": [
+      "-(으)려고 해요",
+      "i'm planning to... / i'm going to...",
+      "-(eu)ryeo-go hae-yo"
+    ],
+    "sentencePatterns": [
+      "-(으)려고 해요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Tomorrow is Saturday.\n\nYou say,\n\n\"I'm going to meet my friend.\"\n\nOr,\n\n\"I'm planning to study Korean tonight.\"\n\nKorean uses\n\n-(으)려고 해요\n\n(-(eu)ryeo-go hae-yo)\n\nto talk about your plan or intention.\n\nIt means\n\nI'm planning to...\n\nor\n\nI'm going to...",
+    "memoryTrick": "🟦\n\n-(으)려고 해요\n\n(-(eu)ryeo-go hae-yo)\n\n=\n\n📅\n\nPlan\n\nThink:\n\nI've already decided to do it.",
+    "easyExplanation": "-(으)려고 해요\n\n(-(eu)ryeo-go hae-yo)\n\nmeans\n\nI'm planning to...\n\nor\n\nI'm going to...\n\nUse it when talking about something you intend to do.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb Stem\n\n-(으)려고 해요\n\n(-(eu)ryeo-go hae-yo)\n\nIf the verb stem ends in a vowel or ㄹ → -려고 해요\nIf the verb stem ends in a consonant → -으려고 해요\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가려고 해요.\n\n(Ga-ryeo-go hae-yo.)\n\nI'm going to go.\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹으려고 해요.\n\n(Meo-geu-ryeo-go hae-yo.)\n\nI'm going to eat.",
+    "examples": [
+      {
+        "kr": "오늘 친구를 만나려고 해요.",
+        "rom": "O-neul chin-gu-reul man-na-ryeo-go hae-yo.",
+        "en": "I'm going to meet my friend today."
+      },
+      {
+        "kr": "한국어를 더 공부하려고 해요.",
+        "rom": "Han-gu-geo-reul deo gong-bu-ha-ryeo-go hae-yo.",
+        "en": "I'm planning to study more Korean."
+      },
+      {
+        "kr": "주말에 여행하려고 해요.",
+        "rom": "Ju-ma-re yeo-haeng-ha-ryeo-go hae-yo.",
+        "en": "I'm planning to travel this weekend."
+      },
+      {
+        "kr": "저녁을 먹으려고 해요.",
+        "rom": "Jeo-nyeo-geul meo-geu-ryeo-go hae-yo.",
+        "en": "I'm going to eat dinner."
+      }
+    ],
+    "nativeTip": "-(으)려고 해요 sounds stronger than -고 싶어요.\n\n먹고 싶어요. → I want to eat.\n먹으려고 해요. → I'm planning to eat.\n\nThe second means you've already decided.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 먹고 싶어 해요. (Meok-go si-peo hae-yo.) This means Someone else wants to eat.",
+        "correct": "✅ 먹으려고 해요. (Meo-geu-ryeo-go hae-yo.) I'm planning to eat. Correct."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 하려고 해요 (ha-ryeo-go hae-yo) I'm planning to",
+        "② 하고 싶어요 (ha-go si-peo-yo) I want to"
+      ],
+      "answer": "✅ Answer\n\n① 하려고 해요",
+      "reason": "Because it expresses a plan."
+    },
+    "speakingPractice": {
+      "kr": "오늘 운동하려고 해요.",
+      "rom": "O-neul un-dong-ha-ryeo-go hae-yo.",
+      "en": "I'm going to exercise today.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "한국에 _____. (Han-gu-ge _____. ) I'm planning to go to Korea.",
+      "answer": "✅ Answer\n\n가려고 해요"
+    },
+    "relatedGrammar": [
+      "-고 싶어요 (-go si-peo-yo) I want to..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "여행하다",
+        "rom": "yeo-haeng-ha-da",
+        "en": "to travel"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      }
+    ],
+    "teacherNote": "Core function: I'm planning to... / I'm going to.... Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G076",
+    "grammar": "-지요? (죠?)",
+    "romanization": "-ji-yo? / -jyo?",
+    "title": "Right? / Isn't it?",
+    "keywords": [
+      "-지요? (죠?)",
+      "right? / isn't it?",
+      "-ji-yo? / -jyo?"
+    ],
+    "sentencePatterns": [
+      "-지요? (죠?)"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "You and your friend are looking at the sky.\n\nYou say,\n\n\"It's beautiful, isn't it?\"\n\nOr,\n\n\"You're Korean, right?\"\n\nKorean uses\n\n-지요?\n\nor the shorter form\n\n-죠?\n\nto ask for agreement or confirmation.\n\nIt means\n\nRight?\n\nor\n\nIsn't it?",
+    "memoryTrick": "🟦\n\n-죠?\n\n(-jyo?)\n\n=\n\n👍\n\nRight?\n\nThink:\n\nYou agree with me, don't you?",
+    "easyExplanation": "-지요?\n\n(-ji-yo?)\n\nor\n\n-죠?\n\n(-jyo?)\n\nmeans\n\nRight?\n\nIsn't it?\n\nUse it when you think the other person already knows the answer and you just want confirmation.\n\nNative Koreans use -죠? constantly in daily conversations.",
+    "basicRule": "Verb / Adjective / Noun\n\n-지요?\n\nor\n\n-죠?\n\nExample\n\n맞다\n\n(mat-da)\n\nto be correct\n\n↓\n\n맞죠?\n\n(Mat-jyo?)\n\nRight?\n\nExample\n\n학생이다\n\n(hak-saeng-i-da)\n\nto be a student\n\n↓\n\n학생이죠?\n\n(Hak-saeng-i-jyo?)\n\nYou're a student, right?",
+    "examples": [
+      {
+        "kr": "오늘 춥죠?",
+        "rom": "O-neul chup-jyo?",
+        "en": "It's cold today, isn't it?"
+      },
+      {
+        "kr": "한국 사람이죠?",
+        "rom": "Han-guk sa-ra-mi-jyo?",
+        "en": "You're Korean, right?"
+      },
+      {
+        "kr": "맛있죠?",
+        "rom": "Ma-sit-jyo?",
+        "en": "It's delicious, isn't it?"
+      },
+      {
+        "kr": "내일 쉬죠?",
+        "rom": "Nae-il swi-jyo?",
+        "en": "We're off tomorrow, right?"
+      }
+    ],
+    "nativeTip": "In everyday speech,\n\n-죠?\n\nis much more common than\n\n-지요?\n\nBoth mean exactly the same thing.\n\nNative speakers almost always say:\n\n맞죠?\n\ninstead of\n\n맞지요?",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 맞아요? (Ma-ja-yo?) This asks: \"Is it correct?\"",
+        "correct": "✅ 맞죠? (Mat-jyo?) This means: \"It's correct, right?\" You're expecting agreement."
+      },
+      {
+        "wrong": "❌ 예뻐요? (Ye-ppeo-yo?) Means: \"Is it pretty?\"",
+        "correct": "✅ 예쁘죠? (Ye-ppeu-jyo?) Means: \"It's pretty, isn't it?\""
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 죠 (jyo) Right?",
+        "② 나요 (na-yo) Is it?"
+      ],
+      "answer": "✅ Answer\n\n① 죠",
+      "reason": "Because you're asking for agreement."
+    },
+    "speakingPractice": {
+      "kr": "좋죠?",
+      "rom": "Jo-jyo?",
+      "en": "It's good, right?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "오늘 날씨가 좋_____? (O-neul nal-ssi-ga jo_____?) The weather is nice today, isn't it?",
+      "answer": "✅ Answer\n\n죠"
+    },
+    "relatedGrammar": [
+      "-나요? (-na-yo?) Is it...?"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "맞다",
+        "rom": "mat-da",
+        "en": "to be correct"
+      },
+      {
+        "kr": "좋다",
+        "rom": "jo-ta",
+        "en": "to be good"
+      },
+      {
+        "kr": "춥다",
+        "rom": "chup-da",
+        "en": "to be cold"
+      },
+      {
+        "kr": "맛있다",
+        "rom": "ma-sit-da",
+        "en": "to be delicious"
+      }
+    ],
+    "teacherNote": "Core function: Right? / Isn't it?. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G077",
+    "grammar": "-겠어요",
+    "romanization": "-get-sseo-yo",
+    "title": "I will... / It looks like...",
+    "keywords": [
+      "-겠어요",
+      "i will... / it looks like...",
+      "-get-sseo-yo"
+    ],
+    "sentencePatterns": [
+      "-겠어요"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "You're cold.\n\nSomeone gives you a jacket.\n\nYou say,\n\n\"I'll wear it.\"\n\nOr you see dark clouds.\n\nYou say,\n\n\"It looks like it's going to rain.\"\n\nKorean uses\n\n-겠어요\n\n(-get-sseo-yo)\n\nto express intention, guess, or future prediction.",
+    "memoryTrick": "🟦\n\n-겠어요\n\n(-get-sseo-yo)\n\n=\n\n➡️\n\nWill\n\nThink:\n\nI will...\n\nor\n\nIt probably will...",
+    "easyExplanation": "-겠어요\n\n(-get-sseo-yo)\n\ncan mean\n\nI will...\n\nor\n\nIt looks like...\n\nDepending on the situation.\n\nNative Koreans use it often in polite conversations.",
+    "basicRule": "Verb / Adjective Stem\n\n-겠어요\n\n(-get-sseo-yo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가겠어요.\n\n(Ga-get-sseo-yo.)\n\nI'll go.\n\nExample\n\n맛있다\n\n(ma-sit-da)\n\nto be delicious\n\n↓\n\n맛있겠어요.\n\n(Ma-sit-get-sseo-yo.)\n\nIt looks delicious.",
+    "examples": [
+      {
+        "kr": "제가 하겠어요.",
+        "rom": "Je-ga ha-get-sseo-yo.",
+        "en": "I'll do it."
+      },
+      {
+        "kr": "내일 비가 오겠어요.",
+        "rom": "Nae-il bi-ga o-get-sseo-yo.",
+        "en": "It looks like it will rain tomorrow."
+      },
+      {
+        "kr": "정말 맛있겠어요.",
+        "rom": "Jeong-mal ma-sit-get-sseo-yo.",
+        "en": "That looks really delicious."
+      },
+      {
+        "kr": "제가 전화하겠어요.",
+        "rom": "Je-ga jeon-hwa-ha-get-sseo-yo.",
+        "en": "I'll call."
+      }
+    ],
+    "nativeTip": "When talking about your own plans, Koreans often use\n\n-(으)려고 해요\n\nmore frequently.\n\nBut\n\n-겠어요\n\nsounds more formal and is often used for:\n\nOffering help\nMaking polite promises\nPredictions",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 맛있어요. (Ma-si-sseo-yo.) Means: It is delicious.",
+        "correct": "✅ 맛있겠어요. (Ma-sit-get-sseo-yo.) Means: It looks delicious. You haven't eaten it yet."
+      },
+      {
+        "wrong": "❌ 가려고 해요. Means: I'm planning to go.",
+        "correct": "✅ 가겠어요. Means: I'll go. A decision made at the moment."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 하겠어요 (ha-get-sseo-yo) I'll do it",
+        "② 하려고 해요 (ha-ryeo-go hae-yo) I'm planning to do it"
+      ],
+      "answer": "✅ Answer\n\n① 하겠어요",
+      "reason": "Because it's an immediate decision or offer."
+    },
+    "speakingPractice": {
+      "kr": "제가 도와드리겠어요.",
+      "rom": "Je-ga do-wa deu-ri-get-sseo-yo.",
+      "en": "I'll help you.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "내일 비가 _____. (Nae-il bi-ga _____. ) It looks like it will rain tomorrow.",
+      "answer": "✅ Answer\n\n오겠어요"
+    },
+    "relatedGrammar": [
+      "-(으)려고 해요 (-(eu)ryeo-go hae-yo) I'm planning to..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do"
+      },
+      {
+        "kr": "전화하다",
+        "rom": "jeon-hwa-ha-da",
+        "en": "to call"
+      },
+      {
+        "kr": "맛있다",
+        "rom": "ma-sit-da",
+        "en": "to be delicious"
+      }
+    ],
+    "teacherNote": "Core function: I will... / It looks like.... Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G078",
+    "grammar": "-기 때문에",
+    "romanization": "-gi ttae-mun-e",
+    "title": "Because",
+    "keywords": [
+      "-기 때문에",
+      "because",
+      "-gi ttae-mun-e"
+    ],
+    "sentencePatterns": [
+      "-기 때문에"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "You say,\n\n\"I'm tired because I worked all day.\"\n\nOr,\n\n\"I stayed home because it was raining.\"\n\nKorean uses\n\n-기 때문에\n\n(-gi ttae-mun-e)\n\nto explain the reason or cause of something.\n\nIt means\n\nbecause.",
+    "memoryTrick": "🟦\n\n-기 때문에\n\n(-gi ttae-mun-e)\n\n=\n\n➡️\n\nBecause\n\nThink:\n\nReason → Result",
+    "easyExplanation": "-기 때문에\n\n(-gi ttae-mun-e)\n\nmeans\n\nbecause.\n\nUse it when explaining why something happened.\n\nNative Koreans use this grammar in both speaking and writing.",
+    "basicRule": "Verb / Adjective Stem\n\n-기 때문에\n\n(-gi ttae-mun-e)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가기 때문에\n\n(Ga-gi ttae-mun-e)\n\nBecause (someone) goes\n\nExample\n\n춥다\n\n(chup-da)\n\nto be cold\n\n↓\n\n춥기 때문에\n\n(Chup-gi ttae-mun-e)\n\nBecause it's cold",
+    "examples": [
+      {
+        "kr": "비가 오기 때문에 집에 있어요.",
+        "rom": "Bi-ga o-gi ttae-mun-e ji-be i-sseo-yo.",
+        "en": "I'm staying home because it's raining."
+      },
+      {
+        "kr": "피곤하기 때문에 일찍 자요.",
+        "rom": "Pi-go-na-gi ttae-mun-e il-jjik ja-yo.",
+        "en": "I go to bed early because I'm tired."
+      },
+      {
+        "kr": "한국어를 좋아하기 때문에 공부해요.",
+        "rom": "Han-gu-geo-reul jo-a-ha-gi ttae-mun-e gong-bu-hae-yo.",
+        "en": "I study because I like Korean."
+      },
+      {
+        "kr": "아프기 때문에 학교에 안 가요.",
+        "rom": "A-peu-gi ttae-mun-e hak-gyo-e an ga-yo.",
+        "en": "I don't go to school because I'm sick."
+      }
+    ],
+    "nativeTip": "In casual conversations, Koreans often shorten this to:\n\n-아서 / -어서\n\nExample:\n\n비가 와서 집에 있어요.\n\n(Bi-ga wa-seo ji-be i-sseo-yo.)\n\nI'm staying home because it's raining.\n\nBut -기 때문에 sounds more formal and clearer.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 비가 오기 집에 있어요. (Bi-ga o-gi ji-be i-sseo-yo.) Wrong.",
+        "correct": "✅ 비가 오기 때문에 집에 있어요. (Bi-ga o-gi ttae-mun-e ji-be i-sseo-yo.) I'm staying home because it's raining. Correct."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 춥기 때문에 (chup-gi ttae-mun-e) Because it's cold",
+        "② 춥겠어요 (chup-get-sseo-yo) It looks cold"
+      ],
+      "answer": "✅ Answer\n\n① 춥기 때문에",
+      "reason": "Because it expresses the reason."
+    },
+    "speakingPractice": {
+      "kr": "피곤하기 때문에 쉬어요.",
+      "rom": "Pi-go-na-gi ttae-mun-e swi-eo-yo.",
+      "en": "I rest because I'm tired.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "아프_____ 병원에 가요. (A-peu_____ byeong-won-e ga-yo.) I go to the hospital because I'm sick.",
+      "answer": "✅ Answer\n\n기 때문에"
+    },
+    "relatedGrammar": [
+      "-아서 / -어서 (-a-seo / -eo-seo) Because / So"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "비",
+        "rom": "bi",
+        "en": "rain"
+      },
+      {
+        "kr": "춥다",
+        "rom": "chup-da",
+        "en": "to be cold"
+      },
+      {
+        "kr": "아프다",
+        "rom": "a-peu-da",
+        "en": "to be sick"
+      },
+      {
+        "kr": "피곤하다",
+        "rom": "pi-go-na-da",
+        "en": "to be tired"
+      }
+    ],
+    "teacherNote": "Core function: Because. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G079",
+    "grammar": "-아 / 어서",
+    "romanization": "-a / eo-seo",
+    "title": "Because / And then",
+    "keywords": [
+      "-아 / 어서",
+      "because / and then",
+      "-a / eo-seo"
+    ],
+    "sentencePatterns": [
+      "-아 / 어서"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "It's raining.\n\nYou say,\n\n\"I stayed home because it was raining.\"\n\nOr,\n\nYou buy coffee,\n\nthen drink it.\n\n\"I bought coffee and drank it.\"\n\nKorean uses\n\n-아 / 어서\n\n(-a / eo-seo)\n\nfor reasons and natural sequence of actions.",
+    "memoryTrick": "🟦\n\n-아서 / -어서\n\n(-a-seo / -eo-seo)\n\n=\n\n➡️\n\nBecause\n\nor\n\nAnd then\n\nThink:\n\nAction A → Action B",
+    "easyExplanation": "-아 / 어서\n\nmeans\n\nbecause\n\nor\n\nand then.\n\nIt connects two related actions or explains the reason for something.\n\nNative Koreans use this grammar constantly.",
+    "basicRule": "Verb / Adjective Stem\n\n-아서 / -어서\n\n(-a-seo / -eo-seo)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가서\n\n(Ga-seo)\n\nGo and then...\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹어서\n\n(Meo-geo-seo)\n\nBecause I ate / Eat and then...",
+    "examples": [
+      {
+        "kr": "비가 와서 집에 있어요.",
+        "rom": "Bi-ga wa-seo ji-be i-sseo-yo.",
+        "en": "I'm staying home because it's raining."
+      },
+      {
+        "kr": "피곤해서 일찍 자요.",
+        "rom": "Pi-go-na-seo il-jjik ja-yo.",
+        "en": "I sleep early because I'm tired."
+      },
+      {
+        "kr": "밥을 먹어서 배가 불러요.",
+        "rom": "Ba-beul meo-geo-seo bae-ga bul-leo-yo.",
+        "en": "I'm full because I ate."
+      },
+      {
+        "kr": "학교에 가서 공부해요.",
+        "rom": "Hak-gyo-e ga-seo gong-bu-hae-yo.",
+        "en": "I go to school and study."
+      }
+    ],
+    "nativeTip": "-아서 / -어서 is much more common in daily conversations than -기 때문에.\n\nFriends usually say:\n\n피곤해서 집에 갈게.\n\n(Pi-go-na-seo ji-be gal-ge.)\n\nI'm going home because I'm tired.\n\nInstead of:\n\n피곤하기 때문에...",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 비가 와서 때문에 Wrong. Don't use -아서/-어서 together with 때문에.",
+        "correct": "✅ 비가 와서 (Bi-ga wa-seo) Because it's raining Correct."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 해서 (hae-seo) Because",
+        "② 겠어요 (get-sseo-yo) Will"
+      ],
+      "answer": "✅ Answer\n\n① 해서",
+      "reason": "Because it explains the reason."
+    },
+    "speakingPractice": {
+      "kr": "학교에 가서 공부해요.",
+      "rom": "Hak-gyo-e ga-seo gong-bu-hae-yo.",
+      "en": "I go to school and study.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "밥을 _____ 커피를 마셔요. (Ba-beul _____ keo-pi-reul ma-syeo-yo.) I eat and then drink coffee.",
+      "answer": "✅ Answer\n\n먹어서"
+    },
+    "relatedGrammar": [
+      "-기 때문에 (-gi ttae-mun-e)",
+      "Because (formal)"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "피곤하다",
+        "rom": "pi-go-na-da",
+        "en": "to be tired"
+      }
+    ],
+    "teacherNote": "Core function: Because / And then. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+  },
+  {
+    "id": "G080",
+    "grammar": "-기 전에",
+    "romanization": "-gi jeon-e",
+    "title": "Before...",
+    "keywords": [
+      "-기 전에",
+      "before...",
+      "-gi jeon-e"
+    ],
+    "sentencePatterns": [
+      "-기 전에"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Before you sleep,\n\nyou brush your teeth.\n\nOr,\n\nbefore eating,\n\nyou wash your hands.\n\nKorean uses\n\n-기 전에\n\n(-gi jeon-e)\n\nto talk about something that happens before another action.\n\nIt means\n\nbefore...",
+    "memoryTrick": "🟦\n\n-기 전에\n\n(-gi jeon-e)\n\n=\n\n⏪\n\nBefore\n\nThink:\n\nFirst this → Then that",
+    "easyExplanation": "-기 전에\n\n(-gi jeon-e)\n\nmeans\n\nbefore doing something.\n\nUse it to describe an action that happens earlier than another action.\n\nNative Koreans use this grammar every day.",
+    "basicRule": "Verb Stem\n\n-기 전에\n\n(-gi jeon-e)\n\nExample\n\n가다\n\n(ga-da)\n\nto go\n\n↓\n\n가기 전에\n\n(Ga-gi jeon-e)\n\nBefore going\n\nExample\n\n먹다\n\n(meok-da)\n\nto eat\n\n↓\n\n먹기 전에\n\n(Meok-gi jeon-e)\n\nBefore eating",
+    "examples": [
+      {
+        "kr": "자기 전에 이를 닦아요.",
+        "rom": "Ja-gi jeon-e i-reul dak-ka-yo.",
+        "en": "I brush my teeth before sleeping."
+      },
+      {
+        "kr": "먹기 전에 손을 씻어요.",
+        "rom": "Meok-gi jeon-e so-neul ssi-seo-yo.",
+        "en": "I wash my hands before eating."
+      },
+      {
+        "kr": "학교에 가기 전에 아침을 먹어요.",
+        "rom": "Hak-gyo-e ga-gi jeon-e a-chi-meul meo-geo-yo.",
+        "en": "I eat breakfast before going to school."
+      },
+      {
+        "kr": "공부하기 전에 커피를 마셔요.",
+        "rom": "Gong-bu-ha-gi jeon-e keo-pi-reul ma-syeo-yo.",
+        "en": "I drink coffee before studying."
+      }
+    ],
+    "nativeTip": "This grammar is extremely common in daily routines.\n\nExamples:\n\n자기 전에 (before sleeping)\n집에 가기 전에 (before going home)\n일하기 전에 (before working)\n\nYou'll hear these expressions every day in Korea.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 먹기 후에 (Meok-gi hu-e) This means after eating, not before eating.",
+        "correct": "✅ 먹기 전에 (Meok-gi jeon-e) Before eating Correct."
+      },
+      {
+        "wrong": "❌ 가기 먼저 Not natural.",
+        "correct": "✅ 가기 전에 (Ga-gi jeon-e) Correct."
+      }
+    ],
+    "compare": [],
+    "miniQuiz": {
+      "question": "",
+      "options": [
+        "① 먹기 전에 (meok-gi jeon-e) Before eating",
+        "② 먹고 나서 (meok-go na-seo) After eating"
+      ],
+      "answer": "✅ Answer\n\n① 먹기 전에",
+      "reason": "Because the action happens first."
+    },
+    "speakingPractice": {
+      "kr": "자기 전에 책을 읽어요.",
+      "rom": "Ja-gi jeon-e chae-geul il-geo-yo.",
+      "en": "I read a book before sleeping.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "학교에 _____ 아침을 먹어요. (Hak-gyo-e _____ a-chi-meul meo-geo-yo.) I eat breakfast before going to school.",
+      "answer": "✅ Answer\n\n가기 전에"
+    },
+    "relatedGrammar": [
+      "-고 나서 (-go na-seo) After..."
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "자다",
+        "rom": "ja-da",
+        "en": "to sleep"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      }
+    ],
+    "teacherNote": "Core function: Before.... Use page examples first, then Grammar DB examples, then generate new examples if needed."
   }
 ];
 
