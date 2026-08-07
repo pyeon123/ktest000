@@ -4976,7 +4976,8 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   }
 ];
 
-  // 하위 호환 맵 (기존 GRAMMAR_DB 접근 코드가 있다면 계속 동작하도록)
+
+   // 하위 호환 맵 (기존 GRAMMAR_DB 접근 코드가 있다면 계속 동작하도록)
   const GRAMMAR_DB = {};
   grammarData.forEach(item => {
     GRAMMAR_DB[item.id] = {
@@ -4990,9 +4991,9 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       mistake: item.commonMistakes ? item.commonMistakes.map(m => `❌ ${m.wrong} → ✅ ${m.correct}`).join(' / ') : ''
     };
   });
-
+ 
   // ==================== 여기부터 핵심 변경: 로컬 DB 매칭 + 렌더링 ====================
-
+ 
   // 사용자의 질문(또는 클릭한 칩)이 DB의 어떤 문법과 매칭되는지 찾는다.
   // 1순위: 정확한 id (G001, g001 등 대소문자 무관)
   // 2순위: grammar 필드에 있는 개별 조각(예: "은", "는", "이", "가")이 질문 텍스트에 포함되는지
@@ -5003,7 +5004,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     const pattern = new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, 'i');
     return pattern.test(text);
   }
-
+ 
   // 한글 조각은 앞뒤가 한글 음절이 아닐 때만 인정 (단어 중간에 우연히 낀 경우 방지)
   // — 자유 질문(예: "왜 은/는 써요?")처럼 문법 조각이 독립된 토큰으로 등장할 때 사용
   function hasHangulBoundary(text, token){
@@ -5011,7 +5012,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     const pattern = new RegExp(`(^|[^가-힣])${escaped}([^가-힣]|$)`);
     return pattern.test(text);
   }
-
+ 
   // 뒤쪽 경계만 체크 — 실제 한글 문장 안에서 조사/어미 스캔할 때 사용.
   // 조사는 앞 글자가 항상 한글(예: 먹어요의 '어')이므로 앞쪽은 검사하지 않고,
   // 뒤에 다른 글자가 이어붙어 더 긴 문법이 되는 경우만 걸러냄 (에서의 '에' 등).
@@ -5020,26 +5021,26 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     const pattern = new RegExp(`${escaped}([^가-힣]|$)`);
     return pattern.test(text);
   }
-
+ 
   // 로마자를 하이픈 기준으로 쪼개서, 음절 사이에 하이픈/공백이 있어도 없어도 매칭되는 정규식 생성
   // \b(단어 경계)는 그대로 유지해서 "ga"가 "yoga","garbage" 안에 낄 때는 여전히 안 걸림
   function romanizationFlexRegex(token){
     const parts = token.split('-').map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
     return new RegExp(`\\b${parts.join('[\\s-]*')}\\b`, 'i');
   }
-
+ 
   function findAllGrammarMatches(q){
     if(!q) return [];
     const norm = q.toLowerCase().trim();
-
+ 
     // 1순위: ID 정확 매칭 — 가장 확실하므로 다른 단계 스킵하고 그 하나로 확정
     const idMatch = grammarData.find(g => norm.includes(g.id.toLowerCase()));
     if(idMatch) return [idMatch];
-
+ 
     const seen = new Set();
     const results = [];
     function addIfNew(g){ if(!seen.has(g.id)){ seen.add(g.id); results.push(g); } }
-
+ 
     // 2순위: 영어 키워드 매칭 — 이 단계에서 걸리는 건 전부 수집
     // (예: "difference between topic and subject marker" → G001, G002 둘 다)
     for(const g of grammarData){
@@ -5054,14 +5055,14 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       }
     }
     if(results.length > 0) return results;
-
+ 
     // 3순위: 로마자 매칭 — 하이픈/공백 표기가 달라도 다 잡히면서, 단어 경계는 그대로 지킴
     for(const g of grammarData){
       const romParts = g.romanization.split('/').map(s=>s.trim()).filter(Boolean);
       if(romParts.some(p => p.replace(/-/g,'').length>=2 && romanizationFlexRegex(p).test(norm))) addIfNew(g);
     }
     if(results.length > 0) return results;
-
+ 
     // 4순위: 한글 조각 매칭 (한글로 직접 질문한 경우 대비, 경계 체크 적용)
     for(const g of grammarData){
       const parts = g.grammar.split('/').map(s=>s.trim()).filter(Boolean);
@@ -5069,7 +5070,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     }
     return results;
   }
-
+ 
   // DB 항목 하나를 V21_SYSTEM의 9-섹션 포맷(HTML)으로 즉시 렌더링. API 호출 없음.
   function renderFromDB(g, ctx){
     const exHtml = (g.examples||[]).map((e,i)=>`${i+1}. ${e.kr} (${e.rom}) ${e.en}`).join('<br>');
@@ -5083,7 +5084,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       : (g.speakingPractice ? `${g.speakingPractice.kr} (${g.speakingPractice.rom}) ${g.speakingPractice.en}` : '—');
     const ruleHtml = (g.basicRule||'').replace(/\n/g,'<br>');
     const imagineHtml = g.imagine ? `<br><br>${g.imagine}` : '';
-
+ 
     return `<b>Short Answer</b><br>${g.grammar} (${g.romanization}) ${g.title}<br><br>`
       + `<b>Easy Explanation</b><br>${g.easyExplanation||''}${imagineHtml}<br><br>`
       + `<b>Grammar</b><br>${ruleHtml}<br><br>`
@@ -5095,12 +5096,12 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       + `<b>Mini Quiz</b><br>${quizHtml}<br><br>`
       + `<b>Excellent! Keep practicing. You are improving every day.</b>`;
   }
-
+ 
   // ==================== Gemini는 DB에 없는 "일반 질문"일 때만 호출 ====================
-
+ 
   const V21_SYSTEM = `
 You are Hi Korea Friend AI Tutor v3.0.
-
+ 
 ROLE
 You are a professional Korean language teacher.
 Your students are foreigners.
@@ -5109,23 +5110,23 @@ Teach like a real Korean teacher.
 Always explain WHY, not only WHAT.
 Always use simple beginner-friendly English.
 Always be patient, encouraging and positive.
-
+ 
 MISSION
 Help students understand Korean, remember Korean, speak naturally, think like Korean speakers, and communicate confidently in real life.
 Always teach modern, natural Korean.
 Prefer expressions used by native speakers.
-
+ 
 ABSOLUTE KOREAN DISPLAY RULE
 Whenever ANY Korean text appears anywhere in the response, ALWAYS display:
 Korean
 Romanization
 English
 Never output Korean alone. Never output Korean without Romanization. Never output Korean without English.
-
+ 
 TEACHING RULES
 Always explain using English. Never explain grammar using Korean.
 Always explain WHY.
-
+ 
 OUTPUT RULES
 Always include:
 1. Short Answer
@@ -5137,41 +5138,45 @@ Always include:
 7. Practice
 8. Mini Quiz
 9. Encouragement
-
+ 
 COMPARISON RULE
 When comparing grammar, always create a comparison table.
-
+ 
 NATURAL KOREAN
 If a more natural expression exists, say: "A more natural way is..."
-
+ 
 FINAL MESSAGE
 Always finish with:
 Excellent! Keep practicing. You are improving every day.
-
+ 
 FORMAT RULE:
 Do NOT use Markdown symbols like #, ##, ###, **, --- or bullet dashes.
 Write plain text only. Use line breaks between sections. Use a section label like "Short Answer:" followed by a colon, not a heading.
-
-INSTRUCTION:
+ 
+You must always follow the OUTPUT RULES above and include all 9 sections, even for simple questions.
+`.trim();
+ 
+  // 유저 턴에 들어갈 부분 — 페이지 문맥 + 실제 질문만. 규칙은 위 V21_SYSTEM(systemInstruction)에 이미 있음.
+  const V21_USER_TEMPLATE = `
 Current sentence on page: {kr} ({rom}) - {en}
 Student question: {q}
-This question is NOT about a grammar point already in our Grammar DB, so answer generally using the rules above.
-Use page sentence {kr} as main example first.
-Every Korean must have (Roman) English.
+This question is NOT about a grammar point already in our Grammar DB, so answer generally using the system rules.
+Use the page sentence as the main example first if relevant.
+Remember: include all 9 sections (Short Answer, Easy Explanation, Grammar, Examples, Native Tip, Common Mistake, Practice, Mini Quiz, Encouragement).
 `.trim();
-
+ 
   const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg";
   const USE_GEMINI = true;
   const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
   const GEMINI_STREAM_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
-
+ 
   var file = (location.pathname.split('/').pop()||'').toLowerCase();
   if(file===''||file==='index.html'||file==='/'||file==='index') return;
-
+ 
   var oldBtn=document.getElementById('ai-tutor-btn'); if(oldBtn) oldBtn.parentElement.remove();
   var oldStyle=document.getElementById('ai-tutor-style'); if(oldStyle) oldStyle.remove();
   var oldShare=document.getElementById('ai-share-modal'); if(oldShare) oldShare.remove();
-
+ 
   var css=document.createElement('style');
   css.id='ai-tutor-style';
   css.textContent=`
@@ -5197,16 +5202,16 @@ Every Korean must have (Roman) English.
   .share-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:white;}
   `;
   document.head.appendChild(css);
-
+ 
   var shareModal=document.createElement('div');
   shareModal.id='ai-share-modal';
   shareModal.innerHTML=`<div id="ai-share-card"><div style="width:40px;height:4px;background:#e2e8f0;border-radius:10px;margin:0 auto 14px;"></div><div style="display:flex;justify-content:space-between;align-items:center;"><b>Share Korean Tip</b><span id="share-x" style="cursor:pointer;background:#f1f5f9;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span></div><div class="share-grid"><button class="share-item" data-type="kakao"><div class="share-icon" style="background:#FEE500;color:#000;">💬</div><span style="font-size:.7rem;font-weight:800;">Kakao</span></button><button class="share-item" data-type="facebook"><div class="share-icon" style="background:#1877F2;">📘</div><span style="font-size:.7rem;font-weight:800;">Facebook</span></button><button class="share-item" data-type="whatsapp"><div class="share-icon" style="background:#25D366;">📱</div><span style="font-size:.7rem;font-weight:800;">WhatsApp</span></button><button class="share-item" data-type="twitter"><div class="share-icon" style="background:#000;">𝕏</div><span style="font-size:.7rem;font-weight:800;">X</span></button><button class="share-item" data-type="email"><div class="share-icon" style="background:#64748b;">✉</div><span style="font-size:.7rem;font-weight:800;">E-mail</span></button><button class="share-item" data-type="copy"><div class="share-icon" style="background:#8b5cf6;">📋</div><span style="font-size:.7rem;font-weight:800;">Copy</span></button><button class="share-item" data-type="save"><div class="share-icon" style="background:#f59e0b;">💾</div><span style="font-size:.7rem;font-weight:800;">Save</span></button><button class="share-item" data-type="more"><div class="share-icon" style="background:#e2e8f0;color:#334155;">⋯</div><span style="font-size:.7rem;font-weight:800;">More</span></button></div></div>`;
   document.body.appendChild(shareModal);
-
+ 
   var wrap=document.createElement('div');
   wrap.innerHTML=`<button id="ai-tutor-btn"><div class="ai-bubble">🤖</div><div class="ai-label">TUTOR V2.1</div></button><div id="ai-tutor-modal"><div style="padding:12px 14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;"><div style="font-weight:900;font-size:0.9rem;">🤖 AI Tutor V2.1 + Grammar DB</div><span id="ai-x" style="cursor:pointer;background:rgba(255,255,255,0.25);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span></div><div id="ai-faq-chips"></div><div id="ai-chat-log"></div><div style="padding:10px;background:#f8fafc;border-top:1px solid #eee;flex-shrink:0;display:flex;gap:8px;"><input id="ai-in" placeholder="Ask anything about Korean..." style="flex:1;min-width:0;padding:11px 14px;border-radius:24px;border:2px solid #e2e8f0;outline:none;font-size:0.9rem;"><button id="ai-send-btn" style="flex-shrink:0;width:44px;height:44px;border-radius:50%;border:none;background:#6366f1;color:white;font-size:1.1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;">➤</button></div></div>`;
   document.body.appendChild(wrap);
-
+ 
   var currentShareText='';
   function openShare(text){currentShareText=text; shareModal.style.display='flex';}
   shareModal.querySelector('#share-x').onclick=()=>shareModal.style.display='none';
@@ -5226,16 +5231,16 @@ Every Korean must have (Roman) English.
       shareModal.style.display='none';
     };
   });
-
+ 
   var btn=wrap.querySelector('#ai-tutor-btn'), modal=wrap.querySelector('#ai-tutor-modal'), log=wrap.querySelector('#ai-chat-log'), faq=wrap.querySelector('#ai-faq-chips'), input=wrap.querySelector('#ai-in'), open=false;
-
+ 
   function getCtx(){
     const krEl=document.getElementById('korean-sentence')||document.querySelector('.kr-text');
     const romEl=document.getElementById('romanization')||document.querySelector('.rom-text');
     const tipEl=document.getElementById('category-tip-text');
     return { kr: (krEl&&krEl.innerText.trim())||'가족', rom: (romEl&&romEl.innerText.trim())||'ga-jok', en: (tipEl&&tipEl.innerText.trim().slice(0,120))||'family' };
   }
-
+ 
   function mdToHtml(text){
     let t = text;
     t = t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -5247,7 +5252,7 @@ Every Korean must have (Roman) English.
     t = t.replace(/\n/g, '<br>');
     return t;
   }
-
+ 
   // HTML을 태그는 즉시, 글자는 하나씩 타이핑하는 효과. 클릭하면 즉시 전체 표시로 스킵.
   function typeWriterHTML(container, html, speed, onDone){
     const tokens = html.match(/<[^>]+>|[^<]/g) || [];
@@ -5285,24 +5290,29 @@ Every Korean must have (Roman) English.
     }
     step();
   }
-
+ 
   function escapeAndBr(text){
     return text
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/\n{2,}/g,'<br><br>')
       .replace(/\n/g,'<br>');
   }
-
+ 
   // Gemini 스트리밍 응답을 실시간으로 읽어서 onChunk(누적된 전체 텍스트)를 계속 호출.
   // 다 끝나면 onDone(최종 텍스트), 실패하면 onError(에러 메시지) 호출.
-  async function streamGemini(prompt, onChunk, onDone, onError){
+  async function streamGemini(systemInstruction, userText, onChunk, onDone, onError){
     try{
       const res = await fetch(GEMINI_STREAM_ENDPOINT, {
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
-          contents:[{parts:[{text:prompt}]}],
-          generationConfig: { maxOutputTokens: 1500, temperature: 0.6 }
+          systemInstruction: { parts:[{ text: systemInstruction }] },
+          contents:[{ role:'user', parts:[{ text: userText }] }],
+          generationConfig: {
+            maxOutputTokens: 2048,
+            temperature: 0.6,
+            thinkingConfig: { thinkingBudget: 0 } // 내부 reasoning 토큰 비활성화 (지원 안 하면 API가 무시함)
+          }
         })
       });
       if(!res.ok || !res.body){
@@ -5331,6 +5341,10 @@ Every Korean must have (Roman) English.
             if(obj?.error){ onError(obj.error.message || 'Stream error'); return; }
             const piece = obj?.candidates?.[0]?.content?.parts?.[0]?.text;
             if(piece){ fullText += piece; onChunk(fullText); }
+            const finishReason = obj?.candidates?.[0]?.finishReason;
+            if(finishReason && finishReason !== 'STOP'){
+              console.warn('[AI Tutor] Gemini finishReason:', finishReason, '(MAX_TOKENS면 답변이 잘린 것)');
+            }
           }catch(e){ /* 아직 완성 안 된 JSON 조각일 수 있으니 무시하고 계속 */ }
         }
       }
@@ -5339,7 +5353,7 @@ Every Korean must have (Roman) English.
       onError('Network/Stream error: ' + e.message);
     }
   }
-
+ 
   // 한글 음절의 받침이 ㅆ인지 확인 (갔어요, 왔어요처럼 았/었이 축약된 과거형 감지용)
   // 단, 있다(있어요)처럼 원래 어간 자체에 ㅆ받침이 있는 예외는 제외
   function hasSsBatchimBeforeEoyo(text){
@@ -5356,7 +5370,7 @@ Every Korean must have (Roman) English.
     }
     return false;
   }
-
+ 
   // 주어진 한글 문장 안에 어떤 문법 포인트들이 들어있는지 찾아서 매칭된 것들을 전부 반환
   // hasHangulBoundary로 조사/어미가 다른 단어 중간에 우연히 낀 경우(가다의 '가', 에서의 '에')를 거른다.
   function detectGrammarInText(text){
@@ -5373,7 +5387,7 @@ Every Korean must have (Roman) English.
     }
     return found;
   }
-
+ 
   // 현재 화면(퀴즈)에 나온 문장들 — Key Sentence / Related Words 를 최대 4개까지 가져옴
   function getPageSentences(){
     const list = [];
@@ -5392,7 +5406,7 @@ Every Korean must have (Roman) English.
         }
       }
     }catch(e){ console.warn('[AI Tutor] getPageSentences error:', e); }
-
+ 
     // 혹시 위 방법으로 못 찾으면 화면(detail-area)에서 직접 긁어오기
     if(list.length===0){
       document.querySelectorAll('#detail-area li strong').forEach(el=>{
@@ -5402,29 +5416,29 @@ Every Korean must have (Roman) English.
     }
     return list.slice(0,4);
   }
-
+ 
   function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
-
+ 
   // FAQ 칩 = 지금 화면(퀴즈)에 있는 Key Sentence / Related Words. 소개 문구(Native Tip 등)는 없음.
   function renderFaq(){
     var sentences = getPageSentences();
-
+ 
     if(sentences.length === 0){
       faq.innerHTML = '';
       log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#64748b;">Ask me anything about Korean below!</div>`;
       faq.style.display='none';
       return;
     }
-
+ 
     faq.innerHTML = sentences.map((s,i) =>
       `<button class="faq-chip" data-sidx="${i}"><div>${s.kr}</div><div style="font-size:.72em;font-weight:600;opacity:.8;margin-top:2px;">${s.rom ? '('+s.rom+') ' : ''}${s.en || ''}</div></button>`
     ).join('');
-
+ 
     log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 Tap a sentence you studied above to see its grammar explained instantly.</div>`;
-
+ 
     faq.style.display='flex';
     log.scrollTop = 0;
-
+ 
     wrap.querySelectorAll('.faq-chip').forEach(c=>{
       c.onclick=()=>{
         const idx = parseInt(c.getAttribute('data-sidx'), 10);
@@ -5433,16 +5447,16 @@ Every Korean must have (Roman) English.
       };
     });
   }
-
+ 
   // 문장 칩 클릭 시: 문장 안 문법을 스캔해서 DB에 있는 건 즉시 렌더링, 없으면 일반 질문으로 처리(API)
   function handleSentenceClick(s){
     const label = s.en ? `${s.kr} (${s.en})` : s.kr;
     log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${s.kr}${s.rom?` <span style="opacity:.8;font-weight:500;">(${s.rom})</span>`:''}</div>`;
     faq.style.display='none';
     log.scrollTop = log.scrollHeight;
-
+ 
     const matches = detectGrammarInText(s.kr);
-
+ 
     if(matches.length > 0){
       let block = `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
         + `<span class="ai-source-tag ai-source-db">📚 문장 속 문법 ${matches.length}개 발견 (API 호출 없음)</span>`;
@@ -5462,15 +5476,15 @@ Every Korean must have (Roman) English.
       handleQuestion(s.kr);
     }
   }
-
+ 
   // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
   async function handleQuestion(q, gramForced){
     var ctx=getCtx();
     var grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
-
+ 
     log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${q}</div>`;
     faq.style.display='none';
-
+ 
     // ===== 케이스 1: DB에 매칭되는 문법 1개 이상 → API 호출 없이 순서대로 타이핑 표시 =====
     if(grams.length > 0){
       const cid = 'ai-content-' + Date.now();
@@ -5482,7 +5496,7 @@ Every Korean must have (Roman) English.
       log.scrollTop = log.scrollHeight;
       const container = document.getElementById(cid);
       let combinedPlain = '';
-
+ 
       function typeNext(idx){
         if(idx >= grams.length){
           const actionsEl = document.getElementById(cid+'-actions');
@@ -5506,11 +5520,11 @@ Every Korean must have (Roman) English.
       typeNext(0);
       return; // API 호출 안 함
     }
-
+ 
     // ===== 케이스 2: DB에 없는 일반 질문 → Gemini API 스트리밍 호출 =====
     log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">🤖 DB에 없는 질문이라 Gemini에게 물어보는 중...</div>`;
     log.scrollTop=log.scrollHeight;
-
+ 
     if(!USE_GEMINI){
       const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
       const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
@@ -5518,12 +5532,12 @@ Every Korean must have (Roman) English.
       log.scrollTop=log.scrollHeight;
       return;
     }
-
-    const prompt = V21_SYSTEM.replace('{kr}',ctx.kr).replace('{rom}',ctx.rom).replace('{en}',ctx.en).replace('{q}',q);
+ 
+    const userText = V21_USER_TEMPLATE.replace('{kr}',ctx.kr).replace('{rom}',ctx.rom).replace('{en}',ctx.en).replace('{q}',q);
     const cid2 = 'ai-content-' + Date.now();
     let wrapperInserted = false;
     let rawFullText = '';
-
+ 
     function ensureWrapper(){
       if(wrapperInserted) return;
       wrapperInserted = true;
@@ -5534,9 +5548,10 @@ Every Korean must have (Roman) English.
         + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
       log.scrollTop = log.scrollHeight;
     }
-
+ 
     streamGemini(
-      prompt,
+      V21_SYSTEM,
+      userText,
       // onChunk: 새 텍스트 조각이 도착할 때마다 실시간으로 화면 업데이트
       (accumulatedText)=>{
         ensureWrapper();
@@ -5569,24 +5584,17 @@ Every Korean must have (Roman) English.
       }
     );
   }
-
+ 
   window.openShare=openShare;
   btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
   wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
   input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
   wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
-
+ 
   window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
   window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
   var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
-
+ 
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions':'⚠️ Gemini disabled');
 })();
-
-
-
-  
-
-
-
