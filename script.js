@@ -4872,6 +4872,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     "title": "Please do...",
     "keywords": [
       "-아 / 어 주세요",
+      "ju-se-yo",
       "please do...",
       "-a / eo ju-se-yo"
     ],
