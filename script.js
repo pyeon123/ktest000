@@ -2435,6 +2435,8 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     "title": "And / With (Very Casual)",
     "keywords": [
       "랑 / 이랑",
+      "랑",
+      "rang",
       "and / with (very casual)",
       "rang / i-rang"
     ],
