@@ -8118,115 +8118,120 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     "teacherNote": "Core function: Because / And then. Use page examples first, then Grammar DB examples, then generate new examples if needed."
   },
   {
-  "id": "G080",
-  "grammar": "-요",
-  "romanization": "-yo",
-  "title": "Polite Ending",
+  "id": "G062",
+  "grammar": "-해요",
+  "romanization": "-hae-yo",
+  "title": "Do / Does",
   "keywords": [
-    "-요",
-    "polite ending",
-    "formal Korean",
-    "-yo"
+    "-해요",
+    "해요",
+    "하다",
+    "do",
+    "hae yo",
+    "haeyo",
+    "-hae-yo"
   ],
   "sentencePatterns": [
-    "Verb / Adjective + 요"
+    "Noun + 해요",
+    "하다 → 해요"
   ],
   "rating": "★★★★★ Used Every Day",
-  "imagine": "Imagine you meet someone for the first time.\n\nYou don't say:\n\n먹어.\n\nInstead you say:\n\n먹어요.\n\nOr,\n\n감사합니다.\n\nEvery day in Korea,\n\n-요\n\n(-yo)\n\nmakes your Korean sound polite and friendly.",
-  "memoryTrick": "😊\n\n-요\n\n=\n\nPolite Smile\n\nThink:\n\nAdd\n\n-요\n\nand your sentence becomes polite.",
-  "easyExplanation": "-요\n\n(-yo)\n\nis the most common polite ending in Korean.\n\nNative Koreans use it when talking to strangers,\n\ncoworkers,\n\nteachers,\n\ncustomers,\n\nor anyone they want to speak politely to.",
-  "basicRule": "Verb / Adjective Stem\n\n+\n\n아요 / 어요 / 여요\n\n↓\n\nPolite Korean ending\n\nExamples\n\n가다\n\n(ga-da)\n\n→ 가요\n\n(ga-yo)\n\nGo\n\n먹다\n\n(meok-da)\n\n→ 먹어요\n\n(meo-geo-yo)\n\nEat\n\n예쁘다\n\n(ye-ppeu-da)\n\n→ 예뻐요\n\n(ye-ppeo-yo)\n\nPretty",
+  "imagine": "Imagine you say,\n\n\"I study Korean.\"\n\nOr,\n\n\"I exercise every morning.\"\n\nMany Korean verbs are made with\n\n하다\n\n(to do).\n\nWhen speaking politely,\n\n하다\n\nbecomes\n\n해요\n\n(hae-yo).",
+  "memoryTrick": "🛠️\n\n하다\n\n→\n\n해요\n\nThink:\n\nDo something\n\n=\n\n해요",
+  "easyExplanation": "해요\n\n(hae-yo)\n\nis the polite form of\n\n하다\n\nwhich means\n\n\"to do.\"\n\nMany everyday Korean verbs end with\n\n하다,\n\nso you'll hear\n\n해요\n\nall the time.",
+  "basicRule": "하다\n\n→\n\n해요\n\nExamples\n\n공부하다\n\n(gong-bu-ha-da)\n\n→\n\n공부해요\n\n(gong-bu-hae-yo)\n\nStudy\n\n운동하다\n\n(un-dong-ha-da)\n\n→\n\n운동해요\n\n(un-dong-hae-yo)\n\nExercise\n\n일하다\n\n(il-ha-da)\n\n→\n\n일해요\n\n(il-hae-yo)\n\nWork",
   "examples": [
     {
-      "kr": "한국어를 공부해요.",
-      "rom": "Han-gu-geo-reul gong-bu-hae-yo.",
-      "en": "I study Korean."
+      "kr": "매일 공부해요.",
+      "rom": "Mae-il gong-bu-hae-yo.",
+      "en": "I study every day."
     },
     {
-      "kr": "집에 가요.",
-      "rom": "Ji-be ga-yo.",
-      "en": "I'm going home."
+      "kr": "아침에 운동해요.",
+      "rom": "A-chi-me un-dong-hae-yo.",
+      "en": "I exercise in the morning."
     },
     {
-      "kr": "커피를 마셔요.",
-      "rom": "Keo-pi-reul ma-syeo-yo.",
-      "en": "I drink coffee."
+      "kr": "회사에서 일해요.",
+      "rom": "Hoe-sa-e-seo il-hae-yo.",
+      "en": "I work at a company."
     },
     {
-      "kr": "오늘은 바빠요.",
-      "rom": "O-neu-reun ba-ppa-yo.",
-      "en": "I'm busy today."
+      "kr": "숙제를 해요.",
+      "rom": "Suk-je-reul hae-yo.",
+      "en": "I do my homework."
     }
   ],
-  "nativeTip": "Native Koreans use\n\n-요\n\nin most daily conversations.\n\nAmong close friends or family,\n\nthey often drop\n\n-요\n\nand use casual speech.\n\nExample:\n\n가요.\n\n→ Polite\n\n가.\n\n→ Casual",
+  "nativeTip": "Native Koreans use\n\n해요\n\nconstantly because many Korean verbs are\n\nNoun + 하다.\n\nExamples include:\n\n공부해요 (study)\n\n운동해요 (exercise)\n\n일해요 (work)\n\n청소해요 (clean).",
   "commonMistakes": [
     {
-      "wrong": "❌ 가다요 (Ga-da-yo) Wrong",
-      "correct": "✅ 가요 (Ga-yo) Correct"
+      "wrong": "❌ 공부하다요 (Gong-bu-ha-da-yo) Wrong",
+      "correct": "✅ 공부해요 (Gong-bu-hae-yo) Correct"
     },
     {
-      "wrong": "❌ 먹다요 (Meok-da-yo) Wrong",
-      "correct": "✅ 먹어요 (Meo-geo-yo) Correct"
+      "wrong": "❌ 운동하다요 (Un-dong-ha-da-yo) Wrong",
+      "correct": "✅ 운동해요 (Un-dong-hae-yo) Correct"
     }
   ],
   "compare": [
     {
-      "grammar": "-요 (-yo)",
-      "meaning": "Polite ending",
-      "mainJob": "Makes sentences polite"
+      "grammar": "-해요 (hae-yo)",
+      "meaning": "Do (polite)",
+      "mainJob": "Polite form of 하다"
     },
     {
-      "grammar": "-습니다 (-seum-ni-da)",
-      "meaning": "Formal ending",
-      "mainJob": "Very formal speech"
+      "grammar": "-해 (hae)",
+      "meaning": "Do (casual)",
+      "mainJob": "Casual form of 하다"
     }
   ],
   "miniQuiz": {
-    "question": "Which ending sounds polite?",
+    "question": "공부하다 → ?",
     "options": [
-      "① 가요 (ga-yo)",
-      "② 가 (ga)"
+      "① 공부해요",
+      "② 공부하다요"
     ],
-    "answer": "✅ Answer\n\n① 가요",
-    "reason": "Because -요 is the standard polite ending."
+    "answer": "✅ Answer\n\n① 공부해요",
+    "reason": "하다 changes to 해요 in polite speech."
   },
   "speakingPractice": {
-    "kr": "매일 한국어를 공부해요.",
-    "rom": "Mae-il Han-gu-geo-reul gong-bu-hae-yo.",
-    "en": "I study Korean every day.",
+    "kr": "매일 운동해요.",
+    "rom": "Mae-il un-dong-hae-yo.",
+    "en": "I exercise every day.",
     "repeat": 3
   },
   "practiceChallenge": {
-    "question": "집에 가_____. (Ji-be ga_____.) I'm going home.",
-    "answer": "✅ Answer\n\n요"
+    "question": "숙제를 _____ . (Suk-je-reul _____.) I do my homework.",
+    "answer": "✅ Answer\n\n해요"
   },
   "relatedGrammar": [
-    "-습니다 (-seum-ni-da)",
-    "반말 (Casual Speech)"
+    "하다 (ha-da)",
+    "-해 (hae)",
+    "-요 (-yo)"
   ],
   "relatedVocabulary": [
-    {
-      "kr": "가다",
-      "rom": "ga-da",
-      "en": "to go"
-    },
-    {
-      "kr": "먹다",
-      "rom": "meok-da",
-      "en": "to eat"
-    },
-    {
-      "kr": "마시다",
-      "rom": "ma-si-da",
-      "en": "to drink"
-    },
     {
       "kr": "공부하다",
       "rom": "gong-bu-ha-da",
       "en": "to study"
+    },
+    {
+      "kr": "운동하다",
+      "rom": "un-dong-ha-da",
+      "en": "to exercise"
+    },
+    {
+      "kr": "일하다",
+      "rom": "il-ha-da",
+      "en": "to work"
+    },
+    {
+      "kr": "청소하다",
+      "rom": "cheong-so-ha-da",
+      "en": "to clean"
     }
   ],
-  "teacherNote": "Core function: Polite ending. Teach that -요 is not attached directly to dictionary forms. Verbs and adjectives must first be conjugated (가다→가요, 먹다→먹어요, 예쁘다→예뻐요). This is the most important polite ending for beginners."
+  "teacherNote": "Core function: 해요 is the polite conjugation of 하다. Teach learners that hundreds of common Korean verbs use the Noun + 하다 pattern, making 해요 one of the most frequent verb endings in everyday Korean."
   }, 
   {
     "id": "G081",
