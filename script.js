@@ -8119,115 +8119,114 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   },
   {
   "id": "G080",
-  "grammar": "-(이)랑 / -랑",
-  "romanization": "-(i)-rang / -rang",
-  "title": "With / And",
+  "grammar": "-요",
+  "romanization": "-yo",
+  "title": "Polite Ending",
   "keywords": [
-    "-랑",
-    "with",
-    "and",
-    "rang",
-    "-rang"
+    "-요",
+    "polite ending",
+    "formal Korean",
+    "-yo"
   ],
   "sentencePatterns": [
-    "Noun + (이)랑"
+    "Verb / Adjective + 요"
   ],
   "rating": "★★★★★ Used Every Day",
-  "imagine": "Imagine you say,\n\n\"I'm going with my friend.\"\n\nOr,\n\n\"Coffee and bread, please.\"\n\nKorean uses\n\n-(이)랑\n\n(-(i)-rang)\n\nto mean\n\nwith\n\nor\n\nand\n\nin everyday conversation.",
-  "memoryTrick": "🤝\n\n-(이)랑\n\n= Together\n\nThink:\n\nTwo people\n\nor\n\nTwo things\n\njoined together.",
-  "easyExplanation": "-(이)랑\n\nmeans\n\nwith\n\nor\n\nand.\n\nIt connects two nouns.\n\nNative Koreans use this grammar every day in casual conversation.",
-  "basicRule": "Noun\n\n+(이)랑\n\nSecond Noun / Verb\n\nIf the noun ends with a vowel → 랑\n\n친구 + 랑\n\n친구랑\n\n(chin-gu-rang)\n\nIf the noun ends with a consonant → 이랑\n\n학생 + 이랑\n\n학생이랑\n\n(hak-saeng-i-rang)",
+  "imagine": "Imagine you meet someone for the first time.\n\nYou don't say:\n\n먹어.\n\nInstead you say:\n\n먹어요.\n\nOr,\n\n감사합니다.\n\nEvery day in Korea,\n\n-요\n\n(-yo)\n\nmakes your Korean sound polite and friendly.",
+  "memoryTrick": "😊\n\n-요\n\n=\n\nPolite Smile\n\nThink:\n\nAdd\n\n-요\n\nand your sentence becomes polite.",
+  "easyExplanation": "-요\n\n(-yo)\n\nis the most common polite ending in Korean.\n\nNative Koreans use it when talking to strangers,\n\ncoworkers,\n\nteachers,\n\ncustomers,\n\nor anyone they want to speak politely to.",
+  "basicRule": "Verb / Adjective Stem\n\n+\n\n아요 / 어요 / 여요\n\n↓\n\nPolite Korean ending\n\nExamples\n\n가다\n\n(ga-da)\n\n→ 가요\n\n(ga-yo)\n\nGo\n\n먹다\n\n(meok-da)\n\n→ 먹어요\n\n(meo-geo-yo)\n\nEat\n\n예쁘다\n\n(ye-ppeu-da)\n\n→ 예뻐요\n\n(ye-ppeo-yo)\n\nPretty",
   "examples": [
     {
-      "kr": "친구랑 영화 봐요.",
-      "rom": "Chin-gu-rang yeong-hwa bwa-yo.",
-      "en": "I'm watching a movie with my friend."
+      "kr": "한국어를 공부해요.",
+      "rom": "Han-gu-geo-reul gong-bu-hae-yo.",
+      "en": "I study Korean."
     },
     {
-      "kr": "엄마랑 쇼핑해요.",
-      "rom": "Eom-ma-rang syo-ping-hae-yo.",
-      "en": "I'm shopping with my mom."
+      "kr": "집에 가요.",
+      "rom": "Ji-be ga-yo.",
+      "en": "I'm going home."
     },
     {
-      "kr": "학생이랑 이야기했어요.",
-      "rom": "Hak-saeng-i-rang i-ya-gi-hae-sseo-yo.",
-      "en": "I talked with the student."
+      "kr": "커피를 마셔요.",
+      "rom": "Keo-pi-reul ma-syeo-yo.",
+      "en": "I drink coffee."
     },
     {
-      "kr": "커피랑 빵 주세요.",
-      "rom": "Keo-pi-rang ppang ju-se-yo.",
-      "en": "Coffee and bread, please."
+      "kr": "오늘은 바빠요.",
+      "rom": "O-neu-reun ba-ppa-yo.",
+      "en": "I'm busy today."
     }
   ],
-  "nativeTip": "Native Koreans use\n\n-(이)랑\n\nmostly in casual speech.\n\nIn formal situations,\n\nthey often use\n\n-와 / -과\n\nor\n\n하고.\n\nExample:\n\n친구랑 갔어요.\n\n(Chin-gu-rang ga-sseo-yo.)\n\nI went with my friend.",
+  "nativeTip": "Native Koreans use\n\n-요\n\nin most daily conversations.\n\nAmong close friends or family,\n\nthey often drop\n\n-요\n\nand use casual speech.\n\nExample:\n\n가요.\n\n→ Polite\n\n가.\n\n→ Casual",
   "commonMistakes": [
     {
-      "wrong": "❌ 친구이랑 (Chin-gu-i-rang) Wrong",
-      "correct": "✅ 친구랑 (Chin-gu-rang) Correct"
+      "wrong": "❌ 가다요 (Ga-da-yo) Wrong",
+      "correct": "✅ 가요 (Ga-yo) Correct"
     },
     {
-      "wrong": "❌ 학생랑 (Hak-saeng-rang) Wrong",
-      "correct": "✅ 학생이랑 (Hak-saeng-i-rang) Correct"
+      "wrong": "❌ 먹다요 (Meok-da-yo) Wrong",
+      "correct": "✅ 먹어요 (Meo-geo-yo) Correct"
     }
   ],
   "compare": [
     {
-      "grammar": "-(이)랑 (-(i)-rang)",
-      "meaning": "With / And",
-      "mainJob": "Casual connector for nouns"
+      "grammar": "-요 (-yo)",
+      "meaning": "Polite ending",
+      "mainJob": "Makes sentences polite"
     },
     {
-      "grammar": "-와 / -과",
-      "meaning": "With / And",
-      "mainJob": "Formal connector for nouns"
+      "grammar": "-습니다 (-seum-ni-da)",
+      "meaning": "Formal ending",
+      "mainJob": "Very formal speech"
     }
   ],
   "miniQuiz": {
-    "question": "친구_____ 영화 봐요.",
+    "question": "Which ending sounds polite?",
     "options": [
-      "① 랑 (rang)",
-      "② 에서 (e-seo)"
+      "① 가요 (ga-yo)",
+      "② 가 (ga)"
     ],
-    "answer": "✅ Answer\n\n① 랑",
-    "reason": "Because you are connecting two nouns."
+    "answer": "✅ Answer\n\n① 가요",
+    "reason": "Because -요 is the standard polite ending."
   },
   "speakingPractice": {
-    "kr": "친구랑 밥 먹어요.",
-    "rom": "Chin-gu-rang bap meo-geo-yo.",
-    "en": "I'm eating with my friend.",
+    "kr": "매일 한국어를 공부해요.",
+    "rom": "Mae-il Han-gu-geo-reul gong-bu-hae-yo.",
+    "en": "I study Korean every day.",
     "repeat": 3
   },
   "practiceChallenge": {
-    "question": "엄마_____ 쇼핑해요. (Eom-ma_____ syo-ping-hae-yo.) I'm shopping with my mom.",
-    "answer": "✅ Answer\n\n랑"
+    "question": "집에 가_____. (Ji-be ga_____.) I'm going home.",
+    "answer": "✅ Answer\n\n요"
   },
   "relatedGrammar": [
-    "-와 / -과",
-    "-하고"
+    "-습니다 (-seum-ni-da)",
+    "반말 (Casual Speech)"
   ],
   "relatedVocabulary": [
     {
-      "kr": "친구",
-      "rom": "chin-gu",
-      "en": "friend"
+      "kr": "가다",
+      "rom": "ga-da",
+      "en": "to go"
     },
     {
-      "kr": "엄마",
-      "rom": "eom-ma",
-      "en": "mom"
+      "kr": "먹다",
+      "rom": "meok-da",
+      "en": "to eat"
     },
     {
-      "kr": "학생",
-      "rom": "hak-saeng",
-      "en": "student"
+      "kr": "마시다",
+      "rom": "ma-si-da",
+      "en": "to drink"
     },
     {
-      "kr": "커피",
-      "rom": "keo-pi",
-      "en": "coffee"
+      "kr": "공부하다",
+      "rom": "gong-bu-ha-da",
+      "en": "to study"
     }
   ],
-  "teacherNote": "Core function: With / And. -(이)랑 attaches to nouns only. Use 랑 after vowel-ending nouns and 이랑 after consonant-ending nouns."
+  "teacherNote": "Core function: Polite ending. Teach that -요 is not attached directly to dictionary forms. Verbs and adjectives must first be conjugated (가다→가요, 먹다→먹어요, 예쁘다→예뻐요). This is the most important polite ending for beginners."
   }, 
   {
     "id": "G081",
