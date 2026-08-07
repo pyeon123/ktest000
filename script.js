@@ -4984,6 +4984,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       "-지 마세요",
       "please don't",
       "ma-se-yo", 
+      "ma se yo",
       "-ji ma-se-yo"
       
     ],
