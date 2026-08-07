@@ -4983,6 +4983,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       "-지 마세요",
       "please don't...",
       "-ji ma-se-yo"
+      "ma-se-yo"
     ],
     "sentencePatterns": [
       "-지 마세요"
