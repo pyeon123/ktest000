@@ -4982,7 +4982,8 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     "title": "Please don't...",
     "keywords": [
       "-지 마세요",
-      "please don't...",
+      "please don't",
+      "ma-se-yo", 
       "-ji ma-se-yo"
       
     ],
