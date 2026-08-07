@@ -2430,7 +2430,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   },
   {
     "id": "G027",
-    "grammar": "랑 / 이랑",
+    "grammar": "랑",
     "romanization": "rang / i-rang",
     "title": "And / With (Very Casual)",
     "keywords": [
