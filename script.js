@@ -1124,6 +1124,25 @@ Remember: include all 9 sections (Short Answer, Easy Explanation, Grammar, Examp
   .share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0;}
   .share-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;border:none;background:transparent;}
   .share-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:white;}
+     @media (max-width:600px){
+    #ai-tutor-modal{
+      top:10px !important;
+      bottom:10px !important;
+      left:8px !important;
+      right:8px !important;
+      width:auto !important;
+      max-width:none !important;
+      height:auto !important;
+      max-height:none !important;
+      border-radius:18px !important;
+    }
+
+    #ai-chat-log{
+      overflow-y:auto !important;
+      -webkit-overflow-scrolling:touch;
+    }
+  }
+  
   `;
   document.head.appendChild(css);
  
