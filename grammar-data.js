@@ -9418,19 +9418,19 @@ const grammarData = [
   },
   {
     "id": "G114",
-    "grammar": "-세요",
-    "romanization": "-se-yo",
+    "grammar": "세요",
+    "romanization": "se-yo",
     "title": "Please... / Do... / Are you...?",
     "keywords": [
-      "-세요",
-      "-se-yo",
+      "세요",
+      "se-yo",
       "please",
       "do in korean",
       "how do i say do",
       "are you"
     ],
     "sentencePatterns": [
-      "-세요"
+      "세요"
     ],
     "rating": "★★★★★ Used Every Day",
     "imagine": "You are in a Korean restaurant.\n\nThe staff says:\n\n앉으세요.\n\n(An-jeu-se-yo.)\n\nPlease sit down.\n\nThis is one of the most common polite expressions you'll hear in Korea.",
