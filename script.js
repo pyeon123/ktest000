@@ -1295,22 +1295,43 @@ Remember: include all 9 sections (Short Answer, Easy Explanation, Grammar, Examp
     return false;
   }
  
-  // 주어진 한글 문장 안에 어떤 문법 포인트들이 들어있는지 찾아서 매칭된 것들을 전부 반환
-  // hasHangulBoundary로 조사/어미가 다른 단어 중간에 우연히 낀 경우(가다의 '가', 에서의 '에')를 거른다.
-  function detectGrammarInText(text){
-    if(!text) return [];
-    const found = [];
-    for(const g of grammarData){
-      const patterns = g.sentencePatterns && g.sentencePatterns.length
-        ? g.sentencePatterns
-        : g.grammar.split('/').map(s=>s.trim()).filter(Boolean);
-      let hit = patterns.some(p => p && hasTrailingHangulBoundary(text, p));
-      // G014(과거형)는 갔어요/왔어요처럼 축약된 형태도 별도 로직으로 추가 감지
-      if(!hit && g.id === 'G014' && hasSsBatchimBeforeEoyo(text)) hit = true;
-      if(hit) found.push(g);
+// 주어진 한글 문장 안에 어떤 문법 포인트들이 들어있는지 찾아서
+// DB에 있는 문법을 전부 반환
+function detectGrammarInText(text){
+  if(!text) return [];
+
+  const found = [];
+
+  for(const g of grammarData){
+
+    // sentencePatterns가 있으면 사용하되
+    // "랑 / 이랑"처럼 한 문자열에 여러 패턴이 들어있는 경우
+    // "/" 기준으로 자동 분리
+    const patterns = (
+      g.sentencePatterns && g.sentencePatterns.length
+        ? g.sentencePatterns.flatMap(p => p.split('/'))
+        : g.grammar.split('/')
+    )
+    .map(s => s.trim())
+    .filter(Boolean);
+
+    let hit = patterns.some(
+      p => p && hasTrailingHangulBoundary(text, p)
+    );
+
+    // G014(과거형)는 갔어요/왔어요처럼
+    // 축약된 형태도 별도 로직으로 감지
+    if(!hit && g.id === 'G014' && hasSsBatchimBeforeEoyo(text)){
+      hit = true;
     }
-    return found;
+
+    if(hit){
+      found.push(g);
+    }
   }
+
+  return found;
+}
  
   // 현재 화면(퀴즈)에 나온 문장들 — Key Sentence / Related Words 를 최대 4개까지 가져옴
   function getPageSentences(){
