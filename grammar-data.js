@@ -1866,6 +1866,7 @@ const grammarData = [
     "title": "And / With (Very Casual)",
     "keywords": [
       "and in korean",
+      "rang",
       "how do i say and",
       "with"
     ],
