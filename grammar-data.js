@@ -1862,7 +1862,7 @@ const grammarData = [
   {
     "id": "G027",
     "grammar": "랑",
-    "romanization": "rang / i-rang",
+    "romanization": "rang",
     "title": "And / With (Very Casual)",
     "keywords": [
       "and in korean",
