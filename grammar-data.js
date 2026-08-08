@@ -1861,7 +1861,7 @@ const grammarData = [
   },
   {
     "id": "G027",
-    "grammar": "랑 / 이랑",
+    "grammar": "랑",
     "romanization": "rang / i-rang",
     "title": "And / With (Very Casual)",
     "keywords": [
@@ -9126,11 +9126,11 @@ const grammarData = [
   },
   {
     "id": "G111",
-    "grammar": "-해요",
+    "grammar": "해요",
     "romanization": "-hae-yo",
     "title": "Present Polite Ending for 하다 Verbs",
     "keywords": [
-      "-해요",
+      "해요",
       "present polite ending for 하다 verbs",
       "-hae-yo",
       "present polite ending for  verbs"
