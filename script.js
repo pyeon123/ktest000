@@ -1462,7 +1462,7 @@ function detectGrammarInText(text){
       `<button class="faq-chip" data-sidx="${i}"><div>${s.kr}</div><div style="font-size:.72em;font-weight:600;opacity:.8;margin-top:2px;">${s.rom ? '('+s.rom+') ' : ''}${s.en || ''}</div></button>`
     ).join('');
  
-    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 Tap a sentence you studied above to see its grammar explained instantly.</div>`;
+    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 Tap the sentence above to explore grammar rules. For deeper explanations or questions, please use the search bar below.</div>`;
  
     faq.style.display='flex';
     log.scrollTop = 0;
