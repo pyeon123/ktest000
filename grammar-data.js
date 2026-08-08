@@ -1861,8 +1861,8 @@ const grammarData = [
   },
   {
     "id": "G027",
-    "grammar": "랑",
-    "romanization": "rang,
+    "grammar": "랑 / 이랑",
+    "romanization": "rang / i-rang",
     "title": "And / With (Very Casual)",
     "keywords": [
       "and in korean",
@@ -1870,7 +1870,7 @@ const grammarData = [
       "with"
     ],
     "sentencePatterns": [
-      "랑"
+      "랑 / 이랑"
     ],
     "rating": "★★★★★ Used Every Day",
     "imagine": "Imagine you say,\n\n\"I'm going with my friend.\"\n\nOr,\n\n\"Mom and Dad.\"\n\nKorean often uses\n\n랑 / 이랑\n\n(rang / i-rang)\n\nto mean\n\nand\n\nor\n\nwith\n\nin casual conversation.",
@@ -9126,11 +9126,11 @@ const grammarData = [
   },
   {
     "id": "G111",
-    "grammar": "해요",
+    "grammar": "-해요",
     "romanization": "-hae-yo",
     "title": "Present Polite Ending for 하다 Verbs",
     "keywords": [
-      "해요",
+      "-해요",
       "present polite ending for 하다 verbs",
       "-hae-yo",
       "present polite ending for  verbs"
