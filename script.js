@@ -1295,8 +1295,65 @@ Remember: include all 9 sections (Short Answer, Easy Explanation, Grammar, Examp
     return false;
   }
  
-// 주어진 한글 문장 안에 어떤 문법 포인트들이 들어있는지 찾아서
-// DB에 있는 문법을 전부 반환
+// ============================================================
+// 문장 속 Grammar DB 자동 감지
+// - "랑 / 이랑" → 랑, 이랑 각각 검사
+// - "-해요" → 실제 문장에서는 "해요" 검사
+// - "-아요", "-어요" 등도 동일하게 처리
+// - 한 문장에 여러 문법이 있으면 모두 반환
+// ============================================================
+
+function hasGrammarPattern(text, pattern){
+  if(!text || !pattern) return false;
+
+  pattern = pattern.trim();
+
+  // ----------------------------------------------------------
+  // 1. "/"가 들어간 패턴은 각각 분리해서 검사
+  // 예: "랑 / 이랑" → "랑", "이랑"
+  // ----------------------------------------------------------
+  const parts = pattern
+    .split('/')
+    .map(p => p.trim())
+    .filter(Boolean);
+
+  if(parts.length > 1){
+    return parts.some(p => hasGrammarPattern(text, p));
+  }
+
+  pattern = parts[0];
+
+  // ----------------------------------------------------------
+  // 2. Grammar DB에서 "-해요"처럼 앞에 "-"를 붙인 경우
+  //
+  // "-해요"는 실제 문장에 "-해요"가 존재한다는 뜻이 아니라
+  // "해요"가 문장에 나타나는 형태라는 의미.
+  //
+  // "-아요" → "아요"
+  // "-어요" → "어요"
+  // "-해요" → "해요"
+  // "-ㅂ니다" → "ㅂ니다"
+  // ----------------------------------------------------------
+  if(pattern.startsWith('-')){
+    const actualPattern = pattern.slice(1).trim();
+
+    if(!actualPattern) return false;
+
+    return hasTrailingHangulBoundary(text, actualPattern);
+  }
+
+  // ----------------------------------------------------------
+  // 3. 일반 패턴
+  // 예: "랑", "이랑", "은", "는", "에서" 등
+  // ----------------------------------------------------------
+  return hasTrailingHangulBoundary(text, pattern);
+}
+
+
+// ============================================================
+// 문장 안에 어떤 Grammar DB 항목들이 들어있는지 검사
+// ============================================================
+
 function detectGrammarInText(text){
   if(!text) return [];
 
@@ -1304,24 +1361,50 @@ function detectGrammarInText(text){
 
   for(const g of grammarData){
 
-    // sentencePatterns가 있으면 사용하되
-    // "랑 / 이랑"처럼 한 문자열에 여러 패턴이 들어있는 경우
-    // "/" 기준으로 자동 분리
-    const patterns = (
+    // --------------------------------------------------------
+    // sentencePatterns 우선 사용
+    // sentencePatterns가 없으면 grammar 필드 사용
+    // --------------------------------------------------------
+    const rawPatterns = (
       g.sentencePatterns && g.sentencePatterns.length
-        ? g.sentencePatterns.flatMap(p => p.split('/'))
+        ? g.sentencePatterns
         : g.grammar.split('/')
-    )
-    .map(s => s.trim())
-    .filter(Boolean);
-
-    let hit = patterns.some(
-      p => p && hasTrailingHangulBoundary(text, p)
     );
 
-    // G014(과거형)는 갔어요/왔어요처럼
-    // 축약된 형태도 별도 로직으로 감지
-    if(!hit && g.id === 'G014' && hasSsBatchimBeforeEoyo(text)){
+    // --------------------------------------------------------
+    // 각 sentencePattern 안에서도 "/"를 다시 분리
+    //
+    // "랑 / 이랑"
+    //       ↓
+    // "랑"
+    // "이랑"
+    //
+    // "은 / 는"
+    //       ↓
+    // "은"
+    // "는"
+    // --------------------------------------------------------
+    const patterns = rawPatterns
+      .flatMap(p => String(p).split('/'))
+      .map(p => p.trim())
+      .filter(Boolean);
+
+    // --------------------------------------------------------
+    // 하나라도 문장에 발견되면 해당 Grammar 매칭
+    // --------------------------------------------------------
+    let hit = patterns.some(
+      p => hasGrammarPattern(text, p)
+    );
+
+    // --------------------------------------------------------
+    // G014 과거형 특별 처리
+    // 갔어요 / 왔어요 등의 축약형
+    // --------------------------------------------------------
+    if(
+      !hit &&
+      g.id === 'G014' &&
+      hasSsBatchimBeforeEoyo(text)
+    ){
       hit = true;
     }
 
