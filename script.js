@@ -1130,12 +1130,11 @@ For a simple vocabulary question:
 Give the meaning, pronunciation, and a short usage explanation.
 
 For a comparison question:
-
+Use a concise structure with about 5–6 sections.
 Clearly compare the words or expressions.
-
 Explain the difference in formality, relationship, situation, and natural usage.
-
-Give a few useful examples.
+Give 2–4 useful examples.
+Keep the answer concise.
 
 For a grammar question:
 
