@@ -1226,7 +1226,6 @@ Current sentence on page: {kr} ({rom}) - {en}
 Student question: {q}
 This question is NOT about a grammar point already in our Grammar DB, so answer generally using the system rules.
 Use the page sentence as the main example first if relevant.
-Remember: include all 9 sections (Short Answer, Easy Explanation, Grammar, Examples, Native Tip, Common Mistake, Practice, Mini Quiz, Encouragement).
 `.trim();
  
   const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg";
@@ -1392,7 +1391,7 @@ Remember: include all 9 sections (Short Answer, Easy Explanation, Grammar, Examp
           systemInstruction: { parts:[{ text: systemInstruction }] },
           contents:[{ role:'user', parts:[{ text: userText }] }],
           generationConfig: {
-            maxOutputTokens: 2048,
+            maxOutputTokens: 4096,
             
           }
         })
