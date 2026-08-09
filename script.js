@@ -1175,8 +1175,7 @@ Usage:
 Explain when each word is normally used.
 
 Examples:
-
-Give 2–4 natural examples.
+Give 2 natural examples.
 
 Native Tip:
 
@@ -1208,7 +1207,7 @@ Do not repeat the same explanation.
 
 Do not make simple questions unnecessarily long.
 
-Do not use Markdown symbols such as #, ##, ###, **, or ---.
+Do not use Markdown symbols such as #, ##, ###, **, ---, or bullet dashes.
 
 Use simple labels followed by a colon.
 
