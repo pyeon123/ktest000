@@ -421,7 +421,36 @@ function checkAnswer(isCorrect, quiz) {
                 return { ...item, score };
             }).filter(item => item.score > 0).sort((a, b) => b.score - a.score);
         const chosenList = relatedList.slice(0, 3);
-        const recHtml = chosenList.length > 0 ? `<div style="margin-bottom:15px;"><div style="font-size:0.9rem;font-weight:bold;color:#64748b;margin-bottom:8px;text-align:center;">🔄 Related</div><div style="display:flex;gap:8px;">${chosenList.map(item => `<button class="rec-btn-item" data-target="${item.url}" style="flex:1;padding:12px 8px;background:#f8fafc;border:2px dashed #cbd5e1;border-radius:10px;cursor:pointer;font-size:0.9rem;font-weight:bold;color:#475569;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">📚 ${item.title}</button>`).join("")}</div></div>` : "";
+        const recHtml = chosenList.length > 0
+    ? `<div style="margin-bottom:15px;">
+        <div style="font-size:0.9rem;font-weight:bold;color:#64748b;margin-bottom:8px;text-align:center;">
+            🔄 Related Korean Sentences
+        </div>
+        <div style="display:flex;gap:8px;">
+            ${chosenList.map(item => `
+                <a href="${item.url}"
+                   style="flex:1;
+                          display:block;
+                          box-sizing:border-box;
+                          padding:12px 8px;
+                          background:#f8fafc;
+                          border:2px dashed #cbd5e1;
+                          border-radius:10px;
+                          cursor:pointer;
+                          font-size:0.9rem;
+                          font-weight:bold;
+                          color:#475569;
+                          text-decoration:none;
+                          text-align:center;
+                          overflow:hidden;
+                          text-overflow:ellipsis;
+                          white-space:nowrap;">
+                    📚 ${item.title}
+                </a>
+            `).join("")}
+        </div>
+    </div>`
+    : "";
         const favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
         const isSaved = favorites.some(x => x.url === currentFileName);
         const favoriteHtml = `<button id="favorite-btn" onclick="toggleFavorite()" style="display:block;width:100%;margin:0 0 15px 0;padding:12px 24px;font-size:15px;font-weight:bold;border-radius:30px;cursor:pointer;transition:all 0.2s ease;box-shadow:0 4px 10px rgba(0,0,0,0.08);border:2px solid ${isSaved ? '#dc2626' : '#fecaca'};background:${isSaved ? '#dc2626' : '#ffffff'};color:${isSaved ? '#ffffff' : '#dc2626'};">${isSaved ? '❤ Saved to My Review List' : '🤍 Save to My Review List'}</button>`;
@@ -451,7 +480,7 @@ function checkAnswer(isCorrect, quiz) {
         detailArea.classList.add('active'); detailArea.style.display = 'block'; window.scrollTo(0, 0);
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
-        document.querySelectorAll('.rec-btn-item').forEach(btn => { btn.onclick = () => { const targetFile = btn.getAttribute('data-target') || "index.html"; window.location.href = targetFile; }; });
+        
         renderLearningProgress();
     } else { alert("Try Again! ❌"); }
 }
