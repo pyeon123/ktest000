@@ -1121,7 +1121,7 @@ Remember: include all 9 sections (Short Answer, Easy Explanation, Grammar, Examp
   const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg";
   const USE_GEMINI = true;
   const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
-  const GEMINI_STREAM_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
+  const GEMINI_STREAM_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
  
   var file = (location.pathname.split('/').pop()||'').toLowerCase();
   if(file===''||file==='index.html'||file==='/'||file==='index') return;
@@ -1282,8 +1282,7 @@ Remember: include all 9 sections (Short Answer, Easy Explanation, Grammar, Examp
           contents:[{ role:'user', parts:[{ text: userText }] }],
           generationConfig: {
             maxOutputTokens: 2048,
-            temperature: 0.6,
-            thinkingConfig: { thinkingBudget: 0 } // 내부 reasoning 토큰 비활성화 (지원 안 하면 API가 무시함)
+            
           }
         })
       });
