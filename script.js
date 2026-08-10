@@ -532,7 +532,7 @@ function goHome() {
     updateSEOData(null); 
     closeTodayQuiz(); hideGuide();
 }
-const adTexts = ["Stuck on Korean grammar? Ask our AI Tutor! 🤖","Get instant answers on 은/는, 이/가 and more","Your personal Korean grammar coach, free","Tap the AI Tutor button for real-time help"];
+const adTexts = ["Stuck on Korean grammar? Ask our AI Tutor! 🤖","Ask Any Korean Grammar Question — Instantly","Your Personal AI Korean Tutor — 100% Free","Tap the AI Tutor button for real-time help"];
 let adIdx = 0;
 setInterval(() => {
     adIdx = (adIdx + 1) % adTexts.length;
