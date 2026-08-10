@@ -1570,34 +1570,117 @@ function detectGrammarInText(text){
   return found;
 }
  
-  // 현재 화면(퀴즈)에 나온 문장들 — Key Sentence / Related Words 를 최대 4개까지 가져옴
-  function getPageSentences(){
-    const list = [];
-    try{
-      const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
-        ? currentCategoryData[currentIdx] : null;
-      if(quiz){
-        if(Array.isArray(quiz.examples)){
-          quiz.examples.forEach(e=>{ if(e && e.kr) list.push({ kr:e.kr, rom:e.rom||'', en:e.en||'' }); });
-        }
-        if(Array.isArray(quiz.options)){
-          quiz.options.forEach(o=>{ if(o && o.kr) list.push({ kr:o.kr, rom:o.rom||'', en:o.en||'' }); });
-        }
-        if(list.length===0 && quiz.kr){
-          list.push({ kr:quiz.kr, rom:quiz.rom||'', en:quiz.en||'' });
+// 현재 페이지 문맥:
+// ① 메인 퀴즈 현재 문장 = 무조건 포함
+// ② 추가 문장 최대 2개 = 문장만 포함
+// 단어 하나짜리 Related Words는 제외
+function getPageSentences(){
+  const list = [];
+
+  function isSentence(item){
+    if(!item || !item.kr) return false;
+
+    const kr = String(item.kr).trim();
+
+    // 문장부호가 있으면 문장으로 인정
+    if(/[.!?。！？]/.test(kr)) return true;
+
+    // 띄어쓰기가 있는 한국어 표현은 문장으로 인정
+    // 예: "밥 먹었어요", "어디 가요"
+    if(/\s/.test(kr)) return true;
+
+    // 한글/영문 단어 하나만 있는 경우는 제외
+    return false;
+  }
+
+  try{
+    const quiz =
+      (typeof currentCategoryData !== 'undefined' &&
+       Array.isArray(currentCategoryData) &&
+       typeof currentIdx !== 'undefined')
+        ? currentCategoryData[currentIdx]
+        : null;
+
+    if(quiz){
+
+      // ==========================================
+      // ① 메인 퀴즈 현재 문장 — 무조건 첫 번째
+      // ==========================================
+      if(quiz.kr){
+        list.push({
+          kr: quiz.kr,
+          rom: quiz.rom || '',
+          en: quiz.en || ''
+        });
+      }
+
+      // ==========================================
+      // ② Key Sentences — 문장만 최대 2개
+      // ==========================================
+      if(Array.isArray(quiz.examples)){
+        for(const e of quiz.examples){
+          if(list.length >= 3) break;
+
+          if(isSentence(e)){
+            // 메인 퀴즈와 같은 문장은 중복 제외
+            if(!list.some(x => x.kr === e.kr)){
+              list.push({
+                kr: e.kr,
+                rom: e.rom || '',
+                en: e.en || ''
+              });
+            }
+          }
         }
       }
-    }catch(e){ console.warn('[AI Tutor] getPageSentences error:', e); }
- 
-    // 혹시 위 방법으로 못 찾으면 화면(detail-area)에서 직접 긁어오기
-    if(list.length===0){
-      document.querySelectorAll('#detail-area li strong').forEach(el=>{
-        const kr = el.innerText.trim();
-        if(kr) list.push({ kr, rom:'', en:'' });
-      });
+
+      // ==========================================
+      // ③ Related Words 안에 문장이 있다면
+      //    문장인 것만 추가
+      // ==========================================
+      if(Array.isArray(quiz.options)){
+        for(const o of quiz.options){
+          if(list.length >= 3) break;
+
+          if(isSentence(o)){
+            if(!list.some(x => x.kr === o.kr)){
+              list.push({
+                kr: o.kr,
+                rom: o.rom || '',
+                en: o.en || ''
+              });
+            }
+          }
+        }
+      }
     }
-    return list.slice(0,4);
+
+  }catch(e){
+    console.warn('[AI Tutor] getPageSentences error:', e);
   }
+
+  // ==========================================
+  // 화면에서 직접 찾는 fallback
+  // 단, 문장인 것만
+  // ==========================================
+  if(list.length === 0){
+    document.querySelectorAll('#detail-area li strong').forEach(el => {
+      if(list.length >= 3) return;
+
+      const kr = el.innerText.trim();
+
+      if(isSentence({kr})){
+        list.push({
+          kr: kr,
+          rom: '',
+          en: ''
+        });
+      }
+    });
+  }
+
+  return list.slice(0,3);
+}
  
   function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
  
