@@ -1047,7 +1047,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       + (compareHtml ? `<b>Compare</b><br>${compareHtml}<br><br>` : '')
       + `<b>Practice</b><br>${practiceHtml}<br><br>`
       + `<b>Mini Quiz</b><br>${quizHtml}<br><br>`
-      + `<b>Excellent! Keep practicing. You are improving every day.</b>`;
+     
   }
  
   // ==================== Gemini는 DB에 없는 "일반 질문"일 때만 호출 ====================
