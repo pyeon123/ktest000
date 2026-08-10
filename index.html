@@ -21,7 +21,7 @@
 <body>
 <div style="display: flex; justify-content: flex-end; padding: 10px 15px;">
         <button onclick="openAuthModal()" style="padding: 8px 16px; background: #4F46E5; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
-            로그인 / Pro
+            Log in / Pro
         </button>
     </div>
 <div class="quiz-app">
@@ -871,20 +871,50 @@ function toggleKFreeInfo(e, section) {
 <!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- ⚠️ PayPal Client ID로 교체하세요 -->
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&vault=true&intent=subscription"></script>
+
 <script>
   // ★ 여기에 본인의 Supabase Project URL 및 anon key를 넣어주세요.
   const SUPABASE_URL = 'https://kwfiidykbaargsxuuvvy.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_VThH1zOjeve9iqeBqPWbTQ_1vB5CS_X';
-  
+
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  let paypalRendered = false;
 
   // 팝업 모달 열기 / 닫기
   function openAuthModal() {
     document.getElementById('auth-modal').style.display = 'flex';
+    checkUserStatus();
   }
   function closeAuthModal() {
     document.getElementById('auth-modal').style.display = 'none';
   }
+
+  // ==================== AI 튜터 등 다른 스크립트에서 쓸 수 있는 전역 함수들 ====================
+  window.getKoreanAuthUser = async function () {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    return session ? session.user : null;
+  };
+  window.getKoreanAuthToken = async function () {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    return session ? session.access_token : null;
+  };
+  window.getKoreanAuthProfile = async function () {
+    const user = await window.getKoreanAuthUser();
+    if (!user) return null;
+    const { data } = await supabaseClient
+      .from('profiles')
+      .select('plan, paid_until, is_admin')
+      .eq('id', user.id)
+      .single();
+    return data;
+  };
+  // 로그인 안 되어 있으면 이 모달을 열어줌 (AI 튜터 버튼 등에서 호출)
+  window.requireKoreanAuth = function () {
+    openAuthModal();
+  };
+  // ====================================================================================
 
   // Google OAuth 로그인
   async function loginWithGoogle() {
@@ -921,25 +951,103 @@ function toggleKFreeInfo(e, section) {
     if (error) {
       alert('로그인 오류: ' + error.message);
     } else {
-      alert('로그인 성공!');
       checkUserStatus();
     }
+  }
+
+  async function logout() {
+    await supabaseClient.auth.signOut();
+    paypalRendered = false;
+    checkUserStatus();
   }
 
   // 유저 로그인 상태 체킹 및 팝업 UI 전환
   async function checkUserStatus() {
     const { data: { session } } = await supabaseClient.auth.getSession();
-    
+
     if (session) {
       document.getElementById('modal-login-section').style.display = 'none';
       document.getElementById('modal-pay-section').style.display = 'block';
+
+      const profile = await window.getKoreanAuthProfile();
+      const planNote = document.getElementById('modal-plan-note');
+      if (profile && profile.plan === 'paid') {
+        planNote.innerHTML = `✅ You're on the <b>Paid plan</b> (20 questions/day). Thank you!`;
+        document.getElementById('paypal-button-container').style.display = 'none';
+      } else {
+        planNote.innerHTML = `Free plan: <b>3 questions/day</b>. Upgrade below for 20/day.`;
+        document.getElementById('paypal-button-container').style.display = 'block';
+        renderPayPalButtonIfNeeded();
+      }
     } else {
       document.getElementById('modal-login-section').style.display = 'block';
       document.getElementById('modal-pay-section').style.display = 'none';
     }
   }
 
+  function showPayStatus(text, type) {
+    const box = document.getElementById('modal-pay-status');
+    box.textContent = text;
+    box.style.display = 'block';
+    box.style.background = type === 'error' ? '#fef2f2' : (type === 'success' ? '#f0fdf4' : '#eef2ff');
+    box.style.color = type === 'error' ? '#dc2626' : (type === 'success' ? '#166534' : '#4338ca');
+  }
+
+  // 진짜 PayPal 구독 버튼 렌더링 (로그인된 유저의 id를 custom_id로 실어보냄)
+  async function renderPayPalButtonIfNeeded() {
+    if (paypalRendered) return;
+    const user = await window.getKoreanAuthUser();
+    if (!user || typeof paypal === 'undefined') return;
+    paypalRendered = true;
+
+    document.getElementById('paypal-button-container').innerHTML = '';
+
+    paypal.Buttons({
+      style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
+
+      createSubscription: function (data, actions) {
+        return actions.subscription.create({
+          plan_id: 'YOUR_PAYPAL_PLAN_ID', // ⚠️ PayPal에서 만든 Billing Plan ID로 교체
+          custom_id: user.id
+        });
+      },
+
+      onApprove: function (data, actions) {
+        showPayStatus('Payment approved! Activating your account, please wait...', 'info');
+        pollForUpgrade();
+      },
+
+      onError: function (err) {
+        console.error('[PayPal] error:', err);
+        showPayStatus('Something went wrong with PayPal. Please try again.', 'error');
+      },
+
+      onCancel: function () {
+        showPayStatus('Payment cancelled.', 'error');
+      }
+    }).render('#paypal-button-container');
+  }
+
+  // 웹훅이 서버에 도착해서 DB가 바뀔 때까지 몇 초간 확인
+  async function pollForUpgrade() {
+    const user = await window.getKoreanAuthUser();
+    for (let i = 0; i < 10; i++) {
+      await new Promise(r => setTimeout(r, 2000));
+      const { data } = await supabaseClient
+        .from('profiles')
+        .select('plan')
+        .eq('id', user.id)
+        .single();
+      if (data && data.plan === 'paid') {
+        showPayStatus('🎉 You are now on the paid plan!', 'success');
+        setTimeout(() => { checkUserStatus(); }, 1200);
+        return;
+      }
+    }
+    showPayStatus('Payment received, activation is taking longer than usual. Please reopen this menu in a minute.', 'error');
+  }
+
   window.addEventListener('DOMContentLoaded', checkUserStatus);
-</script>    
+</script>
 </body>
 </html>
