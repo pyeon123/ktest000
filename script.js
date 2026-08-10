@@ -1642,7 +1642,7 @@ function detectGrammarInText(text){
  
     if(matches.length > 0){
       let block = `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-        + `<span class="ai-source-tag ai-source-db">📚 문장 속 문법 ${matches.length}개 발견 (API 호출 없음)</span>`;
+        + `<span class="ai-source-tag ai-source-db">📚 ${matches.length} grammar point${matches.length === 1 ? '' : 's'} found in the sentence</span>`;
       matches.forEach(g=>{
         block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
           + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${g.grammar} (${g.id})</div>`
@@ -1671,7 +1671,7 @@ function detectGrammarInText(text){
     // ===== 케이스 1: DB에 매칭되는 문법 1개 이상 → API 호출 없이 순서대로 타이핑 표시 =====
     if(grams.length > 0){
       const cid = 'ai-content-' + Date.now();
-      const tag = grams.length > 1 ? `📚 DB 즉시 답변 — ${grams.length}개 문법 매칭 (API 호출 없음)` : `📚 DB 즉시 답변 (API 호출 없음)`;
+      const tag = `📚 ${grams.length} grammar point${grams.length === 1 ? '' : 's'} found in the sentence`;
       log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
         + `<span class="ai-source-tag ai-source-db">${tag}</span>`
         + `<div id="${cid}"></div>`
