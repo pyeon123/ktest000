@@ -1571,40 +1571,29 @@ function detectGrammarInText(text){
 }
  
 // ==========================================
-// 현재 페이지 AI Tutor 문맥
-// ① 메인 퀴즈 현재 문장 = 무조건 포함
-// ② 추가 문장 = 최대 2개
-// ③ 총 최대 3개
-// ④ 단어 하나짜리 항목은 제외
-// ⑤ 같은 문장은 중복 제거
-//    예: "배불러요" = "A: 배불러요"
+// 현재 페이지에서 AI Tutor에 보여줄 문장 가져오기
+// 메인 퀴즈 문장 1개 + 추가 문장 2개 = 최대 3개
+// 단어는 제외
+// 중복 문장 제거
+// 예: "배불러요" = "A:배불러요"
 // ==========================================
 function getPageSentences(){
 
   const list = [];
 
-  // ------------------------------------------
-  // 문장 비교용 정규화
-  // "배불러요"
-  // "A: 배불러요"
-  // "A : 배불러요"
-  // "A:배불러요"
-  // → 모두 같은 문장으로 처리
-  // ------------------------------------------
+  // 문장 비교용 정리
   function normalizeSentence(text){
     return String(text || '')
       .trim()
-      .replace(/^[A-Za-z]\s*:\s*/i, '')
+      .replace(/^[A-Za-z]\s*[:：.)]\s*/i, '')
       .replace(/\s+/g, ' ')
-      .trim();
+      .trim()
+      .toLowerCase();
   }
 
-  // ------------------------------------------
   // 문장인지 확인
   // 단어 하나짜리는 제외
-  // ------------------------------------------
   function isSentence(item){
-
     if(!item || !item.kr) return false;
 
     const kr = String(item.kr).trim();
@@ -1612,25 +1601,17 @@ function getPageSentences(){
     if(!kr) return false;
 
     // 문장부호가 있으면 문장
-    if(/[.!?。！？]/.test(kr)){
-      return true;
-    }
+    if(/[.!?。！？]/.test(kr)) return true;
 
-    // 띄어쓰기가 있는 한국어 표현이면 문장으로 인정
-    // 예: "밥 먹었어요", "어디 가요"
-    if(/\s/.test(kr)){
-      return true;
-    }
+    // 띄어쓰기가 있으면 문장으로 인정
+    if(/\s/.test(kr)) return true;
 
     // 단어 하나짜리는 제외
     return false;
   }
 
-  // ------------------------------------------
-  // 중복 여부 확인
-  // ------------------------------------------
+  // 이미 같은 문장이 있는지 확인
   function isDuplicate(text){
-
     const normalized = normalizeSentence(text);
 
     return list.some(item =>
@@ -1649,28 +1630,28 @@ function getPageSentences(){
       ? currentCategoryData[currentIdx]
       : null;
 
-
     if(quiz){
 
       // ==========================================
-      // ① 메인 퀴즈 현재 문장
-      // 무조건 첫 번째로 넣음
+      // 1. 현재 메인 퀴즈 문장
+      // 무조건 첫 번째
       // ==========================================
       if(quiz.kr){
 
         list.push({
-          kr: quiz.kr,
+          kr: String(quiz.kr)
+            .trim()
+            .replace(/^[A-Za-z]\s*[:：.)]\s*/i, ''),
           rom: quiz.rom || '',
           en: quiz.en || ''
         });
 
       }
 
-
       // ==========================================
-      // ② Key Sentences
+      // 2. Key Sentences
       // 문장만 최대 2개
-      // 중복 문장은 제외
+      // 메인 문장과 중복이면 제외
       // ==========================================
       if(Array.isArray(quiz.examples)){
 
@@ -1683,7 +1664,9 @@ function getPageSentences(){
           if(isDuplicate(e.kr)) continue;
 
           list.push({
-            kr: e.kr,
+            kr: String(e.kr)
+              .trim()
+              .replace(/^[A-Za-z]\s*[:：.)]\s*/i, ''),
             rom: e.rom || '',
             en: e.en || ''
           });
@@ -1692,12 +1675,10 @@ function getPageSentences(){
 
       }
 
-
       // ==========================================
-      // ③ Related Words / 기타 항목
-      //
-      // 단어 하나짜리는 제외하고
-      // 실제 문장인 경우에만 최대 3개까지 추가
+      // 3. Related Words / Options
+      // 문장인 경우에만 추가
+      // 단어는 제외
       // ==========================================
       if(Array.isArray(quiz.options)){
 
@@ -1710,7 +1691,9 @@ function getPageSentences(){
           if(isDuplicate(o.kr)) continue;
 
           list.push({
-            kr: o.kr,
+            kr: String(o.kr)
+              .trim()
+              .replace(/^[A-Za-z]\s*[:：.)]\s*/i, ''),
             rom: o.rom || '',
             en: o.en || ''
           });
@@ -1730,10 +1713,8 @@ function getPageSentences(){
 
   }
 
-
   // ==========================================
   // 화면에서 직접 찾는 fallback
-  // 단, 문장인 것만
   // ==========================================
   if(list.length === 0){
 
@@ -1750,7 +1731,9 @@ function getPageSentences(){
         if(isDuplicate(kr)) return;
 
         list.push({
-          kr: kr,
+          kr: kr
+            .replace(/^[A-Za-z]\s*[:：.)]\s*/i, '')
+            .trim(),
           rom: '',
           en: ''
         });
@@ -1759,10 +1742,7 @@ function getPageSentences(){
 
   }
 
-
-  // ==========================================
-  // 최종적으로 최대 3개만 반환
-  // ==========================================
+  // 최종 최대 3개
   return list.slice(0, 3);
 
 }
