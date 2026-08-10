@@ -1634,7 +1634,7 @@ function detectGrammarInText(text){
   // 문장 칩 클릭 시: 문장 안 문법을 스캔해서 DB에 있는 건 즉시 렌더링, 없으면 일반 질문으로 처리(API)
   function handleSentenceClick(s){
     const label = s.en ? `${s.kr} (${s.en})` : s.kr;
-    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${s.kr}${s.rom?` <span style="opacity:.8;font-weight:500;">(${s.rom})</span>`:''}</div>`;
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${s.kr}${s.rom?` (${s.rom})`:''}${s.en?` - ${s.en}`:''}</div>`;
     faq.style.display='none';
     log.scrollTop = log.scrollHeight;
  
