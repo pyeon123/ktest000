@@ -1570,13 +1570,6 @@ function detectGrammarInText(text){
   return found;
 }
  
-// ==========================================
-// 현재 페이지에서 AI Tutor에 보여줄 문장 가져오기
-// 메인 퀴즈 문장 1개 + 추가 문장 2개 = 최대 3개
-// 단어는 제외
-// 중복 문장 제거
-// 예: "배불러요" = "A:배불러요"
-// ==========================================
 function getPageSentences(){
 
   const list = [];
@@ -1585,38 +1578,69 @@ function getPageSentences(){
   function normalizeSentence(text){
     return String(text || '')
       .trim()
+      // A: / A : / A. / A) 같은 앞쪽 라벨 제거
       .replace(/^[A-Za-z]\s*[:：.)]\s*/i, '')
+      // 마지막 문장부호 제거
+      .replace(/[.!?。！？]+$/g, '')
+      // 여러 공백 하나로 통일
       .replace(/\s+/g, ' ')
       .trim()
       .toLowerCase();
   }
 
+  // 실제 화면에 표시할 문장
+  function cleanSentence(text){
+    return String(text || '')
+      .trim()
+      .replace(/^[A-Za-z]\s*[:：.)]\s*/i, '')
+      .trim();
+  }
+
   // 문장인지 확인
   // 단어 하나짜리는 제외
   function isSentence(item){
+
     if(!item || !item.kr) return false;
 
-    const kr = String(item.kr).trim();
+    const original = String(item.kr).trim();
+    const kr = cleanSentence(original);
 
     if(!kr) return false;
 
     // 문장부호가 있으면 문장
-    if(/[.!?。！？]/.test(kr)) return true;
+    if(/[.!?。！？]/.test(original)) return true;
 
-    // 띄어쓰기가 있으면 문장으로 인정
+    // 띄어쓰기가 있으면 문장
     if(/\s/.test(kr)) return true;
 
-    // 단어 하나짜리는 제외
+    // 그 외 한 단어는 제외
     return false;
   }
 
   // 이미 같은 문장이 있는지 확인
   function isDuplicate(text){
+
     const normalized = normalizeSentence(text);
 
     return list.some(item =>
       normalizeSentence(item.kr) === normalized
     );
+  }
+
+  // 문장 추가
+  function addSentence(item){
+
+    if(list.length >= 3) return;
+
+    if(!isSentence(item)) return;
+
+    if(isDuplicate(item.kr)) return;
+
+    list.push({
+      kr: cleanSentence(item.kr),
+      rom: item.rom || '',
+      en: item.en || ''
+    });
   }
 
   try{
@@ -1633,25 +1657,24 @@ function getPageSentences(){
     if(quiz){
 
       // ==========================================
-      // 1. 현재 메인 퀴즈 문장
+      // ① 메인 퀴즈 현재 문장
       // 무조건 첫 번째
       // ==========================================
       if(quiz.kr){
 
         list.push({
-          kr: String(quiz.kr)
-            .trim()
-            .replace(/^[A-Za-z]\s*[:：.)]\s*/i, ''),
+          kr: cleanSentence(quiz.kr),
           rom: quiz.rom || '',
           en: quiz.en || ''
         });
 
       }
 
+
       // ==========================================
-      // 2. Key Sentences
-      // 문장만 최대 2개
-      // 메인 문장과 중복이면 제외
+      // ② Key Sentences
+      // 문장만 추가
+      // 최대 2개
       // ==========================================
       if(Array.isArray(quiz.examples)){
 
@@ -1659,26 +1682,17 @@ function getPageSentences(){
 
           if(list.length >= 3) break;
 
-          if(!isSentence(e)) continue;
-
-          if(isDuplicate(e.kr)) continue;
-
-          list.push({
-            kr: String(e.kr)
-              .trim()
-              .replace(/^[A-Za-z]\s*[:：.)]\s*/i, ''),
-            rom: e.rom || '',
-            en: e.en || ''
-          });
+          addSentence(e);
 
         }
 
       }
 
+
       // ==========================================
-      // 3. Related Words / Options
-      // 문장인 경우에만 추가
-      // 단어는 제외
+      // ③ options
+      // examples가 부족할 때만 사용
+      // 단어는 제외하고 문장만 추가
       // ==========================================
       if(Array.isArray(quiz.options)){
 
@@ -1686,17 +1700,7 @@ function getPageSentences(){
 
           if(list.length >= 3) break;
 
-          if(!isSentence(o)) continue;
-
-          if(isDuplicate(o.kr)) continue;
-
-          list.push({
-            kr: String(o.kr)
-              .trim()
-              .replace(/^[A-Za-z]\s*[:：.)]\s*/i, ''),
-            rom: o.rom || '',
-            en: o.en || ''
-          });
+          addSentence(o);
 
         }
 
@@ -1713,36 +1717,6 @@ function getPageSentences(){
 
   }
 
-  // ==========================================
-  // 화면에서 직접 찾는 fallback
-  // ==========================================
-  if(list.length === 0){
-
-    document
-      .querySelectorAll('#detail-area li strong')
-      .forEach(el => {
-
-        if(list.length >= 3) return;
-
-        const kr = el.innerText.trim();
-
-        if(!isSentence({kr})) return;
-
-        if(isDuplicate(kr)) return;
-
-        list.push({
-          kr: kr
-            .replace(/^[A-Za-z]\s*[:：.)]\s*/i, '')
-            .trim(),
-          rom: '',
-          en: ''
-        });
-
-      });
-
-  }
-
-  // 최종 최대 3개
   return list.slice(0, 3);
 
 }
