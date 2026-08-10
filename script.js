@@ -1045,8 +1045,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       + `<b>Native Tip</b><br>👩‍🏫 ${g.nativeTip||''}<br><br>`
       + `<b>Common Mistake</b><br>${mistakeHtml}<br><br>`
       + (compareHtml ? `<b>Compare</b><br>${compareHtml}<br><br>` : '')
-      + `<b>Practice</b><br>${practiceHtml}<br><br>`
-      + `<b>Mini Quiz</b><br>${quizHtml}<br><br>`
+      + `<b>Excellent! Keep practicing. You are improving every day.</b>`; 
      
   }
  
