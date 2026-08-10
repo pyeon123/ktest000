@@ -1704,7 +1704,7 @@ function detectGrammarInText(text){
     }
  
     // ===== 케이스 2: DB에 없는 일반 질문 → Gemini API 스트리밍 호출 =====
-    log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">🤖 DB에 없는 질문이라 Gemini에게 물어보는 중...</div>`;
+    log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👩‍🏫 Your teacher is preparing your answer...</div>`;
     log.scrollTop=log.scrollHeight;
  
     if(!USE_GEMINI){
