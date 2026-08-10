@@ -272,3 +272,12 @@ html, body { width: 100% !important; max-width: 100% !important; overflow-x: hid
   max-height: none !important;
   overflow: visible !important;
 }
+
+@keyframes aiThinkingBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
