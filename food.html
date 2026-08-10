@@ -1,3 +1,4 @@
+_fixed_v2.html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,11 +18,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div class="quiz-app">
-    <div id="top-open-btn" class="top-window-notice" onclick="forceExternalBrowser()">
-        🔗 FB.TikTok / Sound Problem? >> Click here to open in New Window
-    </div>
+    <div id="top-open-btn" class="top-window-notice" onclick="forceExternalBrowser()">🔗 FB.TikTok / Sound Problem? >> Click here to open in New Window</div>
     <h1 id="main-header" class="header">Learn Korean Game: 1,000+ Word Quiz</h1>
     <div class="content-area">
         <div id="menu-screen" class="screen active">
@@ -33,9 +31,7 @@
             </div>
             <div id="category-screen" style="margin-bottom: 20px;">
                 <div id="guide-box" onclick="showGuide()" style="cursor:pointer; background:#ffffff; border:2px solid #4285f4; border-radius:10px; padding:10px 15px; margin:5px auto; max-width:92%; text-align:center; box-shadow: 0 3px 6px rgba(0,0,0,0.1);">
-                    <div style="font-weight:bold; color:#4285f4; font-size:1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                        <span>🌐</span> Translation Guide <span style="font-size:0.8rem; color:#999; font-weight:normal;">(Click)</span>
-                    </div>
+                    <div style="font-weight:bold; color:#4285f4; font-size:1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;"><span>🌐</span> Translation Guide <span style="font-size:0.8rem; color:#999; font-weight:normal;">(Click)</span></div>
                 </div>
                 <div id="guide-content" onclick="hideGuide()" style="display:none; cursor:pointer; background:#ffffff; border:2px solid #4285f4; border-radius:10px; padding:15px; margin:5px auto; max-width:92%; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
                     <div style="font-weight:bold; color:#4285f4; font-size:1.1rem; text-align:center; margin-bottom:10px;">🌐 Translation Guide</div>
@@ -74,7 +70,6 @@
             <div style="text-align: center; font-size: 0.9rem; font-weight: bold; color: #64748b;">1,000+ Essential Korean sentences / free</div>
             <a href="https://kstudy.netlify.app/" target="_blank" class="wide-slim-banner"></a>
         </div>
-
         <div id="quiz-screen" class="quiz-screen">
             <div class="situation-tag" id="situation">---</div>
             <div id="category-tip-container" style="background: #fff9db; border-radius: 12px; padding: 15px; margin: 10px 0; border-left: 8px solid #fcc419; text-align: left;">
@@ -108,7 +103,6 @@
         </div>
     </div>
 </div>
-
 <div class="bottom-menu">
     <button onclick="shareApp()" class="menu-item"><span class="menu-emoji">📤</span><span class="menu-label">Share</span></button>
     <button onclick="visitFacebook()" class="menu-item"><span class="menu-emoji">📱</span><span class="menu-label">Facebook</span></button>
@@ -117,94 +111,120 @@
 </div>
 
 <script>
-  // ✅ 정상 구조: family.html과 동일 - AI 튜터, SEO, 속도 모두 정상
-  const CURRENT_CAT = 'cat_food';
-  const foodData = {
-    "id": "food",
-    "emoji": "🍚",
-    "name": "Food (Nouns)",
-    "data": [
-        {
-            "kr": "음식",
-            "rom": "eum-sik",
-            "en": "Food",
-            "tip": "When you think about eating, restaurants, delivery, or meals with other people, this word naturally comes to mind.",
-            "situation": "In Korean culture, food is strongly connected to daily life and social relationships. People often eat together with friends, family, or coworkers, and sharing dishes is very common. Korean conversations frequently include questions about eating or meals because food is considered an important part of caring and bonding. Delivery food culture is also extremely popular in Korea, especially for late-night meals.",
-            "forms": { "casual": "음식이야 (eum-sik-i-ya)", "polite": "음식이에요 / 음식입니다 (eum-sik-i-e-yo / eum-sik-im-ni-da)" },
-            "examples": [
-                { "kr": "음식 먹었어", "en": "I ate food", "rom": "eum-sik meok-eo-sseo" },
-                { "kr": "음식 만들었어", "en": "I made food", "rom": "eum-sik man-deul-eoss-eo" },
-                { "kr": "음식 주문했어", "en": "I ordered food", "rom": "eum-sik ju-mun-haess-eo" }
-            ],
-            "options": [
-                { "kr": "김치", "en": "Kimchi", "rom": "gim-chi" },
-                { "kr": "밥", "en": "Rice / Meal", "rom": "bap" },
-                { "kr": "라면", "en": "Ramen", "rom": "ra-myeon" }
-            ]
-        },
-        {
-            "kr": "김치",
-            "rom": "gim-chi",
-            "en": "Kimchi",
-            "tip": "When you think of spicy fermented vegetables served with almost every Korean meal, this word immediately appears.",
-            "situation": "Kimchi is one of the most famous and essential foods in Korean culture. It is usually served as a side dish during meals and comes in many varieties. Many Korean families traditionally make large amounts of kimchi together during a seasonal event called '김장'. Kimchi represents Korean food culture, family tradition, and everyday eating habits.",
-            "forms": { "casual": "김치야 (gim-chi-ya)", "polite": "김치예요 / 김치입니다 (gim-chi-ye-yo / gim-chi-im-ni-da)" },
-            "examples": [
-                { "kr": "김치 먹었어", "en": "I ate kimchi", "rom": "gim-chi meok-eo-sseo" },
-                { "kr": "김치 만들었어", "en": "I made kimchi", "rom": "gim-chi man-deul-eoss-eo" },
-                { "kr": "김치가 맛있어", "en": "The kimchi is delicious", "rom": "gim-chi-ga ma-si-sseo" }
-            ],
-            "options": [
-                { "kr": "라면", "en": "Ramen", "rom": "ra-myeon" },
-                { "kr": "불고기", "en": "Bulgogi", "rom": "bul-go-gi" },
-                { "kr": "밥", "en": "Rice / Meal", "rom": "bap" }
-            ]
-        },
-        {
-            "kr": "밥",
-            "rom": "bap",
-            "en": "Rice / Meal",
-            "tip": "When you think about daily meals or asking someone if they have eaten yet, this word naturally comes up.",
-            "situation": "In Korea, '밥' does not only mean rice but also refers to an entire meal. Asking '밥 먹었어?' is a very common expression used like a greeting or a way to show care. Meals are an important social activity in Korean culture, and people often eat together at restaurants, homes, or workplaces. Sharing food is considered warm and friendly behavior.",
-            "forms": { "casual": "밥이야 (bab-i-ya)", "polite": "밥이에요 / 밥입니다 (bab-i-e-yo / bab-im-ni-da)" },
-            "examples": [
-                { "kr": "밥 먹었어", "en": "I ate", "rom": "bap meok-eo-sseo" },
-                { "kr": "밥 같이 먹자", "en": "Let's eat together", "rom": "bap ga-chi meok-ja" },
-                { "kr": "밥 만들었어", "en": "I made a meal", "rom": "bap man-deul-eoss-eo" }
-            ],
-            "options": [
-                { "kr": "김치", "en": "Kimchi", "rom": "gim-chi" },
-                { "kr": "치킨", "en": "Chicken", "rom": "chi-kin" },
-                { "kr": "라면", "en": "Ramen", "rom": "ra-myeon" }
-            ]
-        },
-        {
-            "kr": "라면",
-            "rom": "ra-myeon",
-            "en": "Ramen",
-            "tip": "When you think of quick late-night food or instant noodles eaten at home, this word often comes to mind.",
-            "situation": "Ramen is one of the most popular convenience foods in Korea and is strongly connected to everyday life. Many people eat ramen late at night, during study sessions, or when they want something quick and cheap. Convenience stores in Korea often have spaces where customers can cook and eat ramen immediately. Korean ramen culture is widely recognized through dramas, movies, and online content.",
-            "forms": { "casual": "라면이야 (ra-myeon-i-ya)", "polite": "라면이에요 / 라면입니다 (ra-myeon-i-e-yo / ra-myeon-im-ni-da)" },
-            "examples": [
-                { "kr": "라면 끓였어", "en": "I cooked ramen", "rom": "ra-myeon kkeur-yeoss-eo" },
-                { "kr": "라면 먹고 싶어", "en": "I want to eat ramen", "rom": "ra-myeon meok-go si-peo" },
-                { "kr": "라면 사 왔어", "en": "I bought ramen", "rom": "ra-myeon sa wass-eo" }
-            ],
-            "options": [
-                { "kr": "김치", "en": "Kimchi", "rom": "gim-chi" },
-                { "kr": "밥", "en": "Rice / Meal", "rom": "bap" },
-                { "kr": "떡볶이", "en": "Tteokbokki", "rom": "tteok-bok-kki" }
-            ]
-        }
-    ]
-  };
-
-  // data.js와 충돌 없이 병합
-  window.allQuizData = window.allQuizData || {};
-  window.allQuizData['cat_food'] = foodData;
+// 1. 고정 카테고리 (family.html과 동일 구조)
+const CURRENT_CAT = 'cat_food';
 </script>
 
 <script src="data.js"></script>
 <script src="script.js"></script>
+
+<script>
+// 2. data.js가 로드된 후에 food 데이터 주입 (덮어쓰기 방지)
+// 이게 핵심 - data.js가 allQuizData를 덮어도 다시 살림
+const foodData = {
+  "id": "food",
+  "emoji": "🍚",
+  "name": "Food (Nouns)",
+  "data": [
+    {
+      "kr": "음식", "rom": "eum-sik", "en": "Food",
+      "tip": "When you think about eating, restaurants, delivery, or meals with other people, this word naturally comes to mind.",
+      "situation": "In Korean culture, food is strongly connected to daily life and social relationships. People often eat together with friends, family, or coworkers, and sharing dishes is very common.",
+      "forms": { "casual": "음식이야 (eum-sik-i-ya)", "polite": "음식이에요 / 음식입니다 (eum-sik-i-e-yo / eum-sik-im-ni-da)" },
+      "examples": [
+        { "kr": "음식 먹었어", "en": "I ate food", "rom": "eum-sik meok-eo-sseo" },
+        { "kr": "음식 만들었어", "en": "I made food", "rom": "eum-sik man-deul-eoss-eo" },
+        { "kr": "음식 주문했어", "en": "I ordered food", "rom": "eum-sik ju-mun-haess-eo" }
+      ],
+      "options": [
+        { "kr": "김치", "en": "Kimchi", "rom": "gim-chi" },
+        { "kr": "밥", "en": "Rice / Meal", "rom": "bap" },
+        { "kr": "라면", "en": "Ramen", "rom": "ra-myeon" }
+      ]
+    },
+    {
+      "kr": "김치", "rom": "gim-chi", "en": "Kimchi",
+      "tip": "When you think of spicy fermented vegetables served with almost every Korean meal, this word immediately appears.",
+      "situation": "Kimchi is one of the most famous and essential foods in Korean culture. It is usually served as a side dish during meals and comes in many varieties.",
+      "forms": { "casual": "김치야 (gim-chi-ya)", "polite": "김치예요 / 김치입니다 (gim-chi-ye-yo / gim-chi-im-ni-da)" },
+      "examples": [
+        { "kr": "김치 먹었어", "en": "I ate kimchi", "rom": "gim-chi meok-eo-sseo" },
+        { "kr": "김치 만들었어", "en": "I made kimchi", "rom": "gim-chi man-deul-eoss-eo" },
+        { "kr": "김치가 맛있어", "en": "The kimchi is delicious", "rom": "gim-chi-ga ma-si-sseo" }
+      ],
+      "options": [
+        { "kr": "라면", "en": "Ramen", "rom": "ra-myeon" },
+        { "kr": "불고기", "en": "Bulgogi", "rom": "bul-go-gi" },
+        { "kr": "밥", "en": "Rice / Meal", "rom": "bap" }
+      ]
+    },
+    {
+      "kr": "밥", "rom": "bap", "en": "Rice / Meal",
+      "tip": "When you think about daily meals or asking someone if they have eaten yet, this word naturally comes up.",
+      "situation": "In Korea, '밥' does not only mean rice but also refers to an entire meal. Asking '밥 먹었어?' is a very common expression used like a greeting.",
+      "forms": { "casual": "밥이야 (bab-i-ya)", "polite": "밥이에요 / 밥입니다 (bab-i-e-yo / bab-im-ni-da)" },
+      "examples": [
+        { "kr": "밥 먹었어", "en": "I ate", "rom": "bap meok-eo-sseo" },
+        { "kr": "밥 같이 먹자", "en": "Let's eat together", "rom": "bap ga-chi meok-ja" },
+        { "kr": "밥 만들었어", "en": "I made a meal", "rom": "bap man-deul-eoss-eo" }
+      ],
+      "options": [
+        { "kr": "김치", "en": "Kimchi", "rom": "gim-chi" },
+        { "kr": "치킨", "en": "Chicken", "rom": "chi-kin" },
+        { "kr": "라면", "en": "Ramen", "rom": "ra-myeon" }
+      ]
+    },
+    {
+      "kr": "라면", "rom": "ra-myeon", "en": "Ramen",
+      "tip": "When you think of quick late-night food or instant noodles eaten at home, this word often comes to mind.",
+      "situation": "Ramen is one of the most popular convenience foods in Korea and is strongly connected to everyday life.",
+      "forms": { "casual": "라면이야 (ra-myeon-i-ya)", "polite": "라면이에요 / 라면입니다 (ra-myeon-i-e-yo / ra-myeon-im-ni-da)" },
+      "examples": [
+        { "kr": "라면 끓였어", "en": "I cooked ramen", "rom": "ra-myeon kkeur-yeoss-eo" },
+        { "kr": "라면 먹고 싶어", "en": "I want to eat ramen", "rom": "ra-myeon meok-go si-peo" },
+        { "kr": "라면 사 왔어", "en": "I bought ramen", "rom": "ra-myeon sa wass-eo" }
+      ],
+      "options": [
+        { "kr": "김치", "en": "Kimchi", "rom": "gim-chi" },
+        { "kr": "밥", "en": "Rice / Meal", "rom": "bap" },
+        { "kr": "떡볶이", "en": "Tteokbokki", "rom": "tteok-bok-kki" }
+      ]
+    }
+  ]
+};
+
+(function(){
+  // data.js가 덮어썼어도 다시 주입
+  window.allQuizData = window.allQuizData || {};
+  window.allQuizData['cat_food'] = foodData;
+  window.allQuizData['cat_soup'] = foodData; // 혹시 soup로 들어와도 food 보여주기
+
+  // URL 파라미터 없으면 cat_food로 세팅 (SEO에 안전한 1회만)
+  if(!location.search.includes('cat=')){
+    history.replaceState(null,'','?cat=cat_food');
+  }
+
+  // 퀴즈 강제 시작 (menu -> quiz 전환)
+  function tryStart(){
+    if(typeof startQuiz === 'function'){
+      try{
+        startQuiz('cat_food', false);
+        console.log('✅ food quiz started');
+      }catch(e){
+        console.warn('startQuiz retry', e);
+        setTimeout(tryStart, 200);
+      }
+    }else{
+      setTimeout(tryStart, 200);
+    }
+  }
+  // data.js, script.js 로드 후 실행
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', tryStart);
+  }else{
+    tryStart();
+  }
+})();
+</script>
 </body>
 </html>
