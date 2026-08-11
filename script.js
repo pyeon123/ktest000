@@ -1736,8 +1736,10 @@ function getPageSentences(){
  
     faq.innerHTML = sentences.map((s,i) =>
   `<button class="faq-chip" data-sidx="${i}">
-    <div>${s.kr}</div>
-    <div style="font-size:.72em;font-weight:600;opacity:.8;margin-top:2px;">
+    <div style="font-size:.82em;font-weight:700;">
+      ${s.kr}
+    </div>
+    <div style="font-size:.9em;font-weight:700;opacity:.95;margin-top:5px;">
       ${s.rom ? '('+s.rom+') ' : ''}${s.en || ''}
     </div>
   </button>`
