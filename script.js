@@ -1887,18 +1887,54 @@ function getPageSentences(){
         }
         log.scrollTop = log.scrollHeight;
       },
-      // onError: 스트리밍 실패 시 로컬 대체 답변 + 에러 표시
-      (errMsg)=>{
-        console.error('[AI Tutor] Stream error:', errMsg);
-        const th=document.getElementById('ai-thinking'); if(th) th.remove();
-        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
-        log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-          + `<div id="ai-error-box">⚠️ Gemini 스트리밍 실패, 기본 답변으로 대체했어요.<br>에러: ${errMsg}</div>`
-          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
-        log.scrollTop = log.scrollHeight;
-      }
-    );
-  }
+      // onError: 스트리밍 실패 또는 임시 무료 사용 제한 안내
+(errMsg)=>{
+
+  console.error('[AI Tutor] Stream error:', errMsg);
+
+  const th = document.getElementById('ai-thinking');
+  if(th) th.remove();
+
+  const limitMessage = `
+    <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
+
+      <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
+        You've used today's 3 free AI questions. Please come back tomorrow.
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:800;color:#6366f1;">
+          📚 Grammar Database — Unlimited & Free
+        </div>
+        <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+          Get unlimited access to grammar explanations for the sentences above.
+        </div>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:800;color:#6366f1;">
+          🤖 AI Learning Assistant — 3 Free Questions Every Day
+        </div>
+        <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+          Need more help? Upgrade to Pro for $3.99/month.
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:800;color:#6366f1;">
+          ✨ All Other Learning Features — Unlimited & Free
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  log.innerHTML += limitMessage;
+  log.scrollTop = log.scrollHeight;
+
+}
+);
+}
  
   window.openShare=openShare;
   btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
