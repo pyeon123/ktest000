@@ -1798,7 +1798,7 @@ function getPageSentences(){
     var grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
  
     log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${q}</div>`;
-    faq.style.display='none';
+    
  
     // ===== 케이스 1: DB에 매칭되는 문법 1개 이상 → API 호출 없이 순서대로 타이핑 표시 =====
     if(grams.length > 0){
