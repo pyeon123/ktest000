@@ -867,18 +867,17 @@ function toggleKFreeInfo(e, section) {
 
     <!-- STEP 2: 로그인 성공 후 표시될 결제 영역 -->
     <div id="modal-pay-section" style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
-    <p style="color: #059669; font-weight: bold; margin-bottom: 4px;">You’re logged in!</p>
-    <p style="font-size: 13px; color: #555; margin-bottom: 15px;">Click the button below to subscribe to the Pro Plan for $3.99/month.</p>
-      
-      <div id="paypal-button-container">
-        <button style="width: 100%; padding: 12px; background: #FFC439; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px;">
-          PayPal로 결제하기 (UI 테스트)
-        </button>
-      </div>
+      <p style="color: #059669; font-weight: bold; margin-bottom: 4px;">로그인되었습니다!</p>
+      <p id="modal-plan-note" style="font-size: 13px; color: #555; margin-bottom: 15px;"></p>
+ 
+      <div id="paypal-button-container"></div>
+ 
+      <div id="modal-pay-status" style="display:none; margin-top:12px; padding:10px 12px; border-radius:8px; font-size:12.5px; line-height:1.5;"></div>
+ 
+      <button onclick="logout()" style="width: 100%; margin-top: 15px; padding: 9px; background: #f1f5f9; color: #64748b; border: none; border-radius: 6px; cursor: pointer; font-size: 13px;">
+        로그아웃
+      </button>
     </div>
-
-  </div>
-</div>
 
 <!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
