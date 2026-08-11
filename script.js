@@ -1888,8 +1888,8 @@ function getPageSentences(){
         log.scrollTop = log.scrollHeight;
       },
 
-      // onError: 스트리밍 실패 또는 무료 AI 질문 제한 안내
-(errMsg) => {
+      // onError: 스트리밍 실패 또는 임시 무료 사용 제한 안내
+(errMsg)=>{
 
   console.error('[AI Tutor] Stream error:', errMsg);
 
@@ -1900,37 +1900,31 @@ function getPageSentences(){
     <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
 
       <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
-        You've used all 3 free AI questions for today. Please come back tomorrow.
-        <br>
-        <span style="font-size:0.82rem;font-weight:600;">
-          (3 free questions every day)
-        </span>
-      </div>
-
-      <div style="margin-bottom:12px;">
-        <div style="font-weight:800;color:#6366f1;">
-          🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)
-        </div>
-
-        <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
-          Need more help? Upgrade to Pro Mode for $3.99/month.
-        </div>
+        You've used today's 3 free AI questions. Please come back tomorrow.
       </div>
 
       <div style="margin-bottom:12px;">
         <div style="font-weight:800;color:#6366f1;">
           📚 Grammar Database — Unlimited & Free
         </div>
-
         <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
-          Get unlimited grammar explanations for the sentences above.
-          <b>(Tap a sentence.)</b>
+          Get unlimited access to grammar explanations for the sentences above.
         </div>
       </div>
 
-      <div style="font-size:0.82rem;color:#475569;">
-        ✨ All other features, including quizzes, speaking, and listening practice,
-        are completely free.
+      <div style="margin-bottom:12px;">
+        <div style="font-weight:800;color:#6366f1;">
+          🤖 AI Learning Assistant — 3 Free Questions Every Day
+        </div>
+        <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+          Need more help? Upgrade to Pro for $3.99/month.
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:800;color:#6366f1;">
+          ✨ All Other Learning Features — Unlimited & Free
+        </div>
       </div>
 
     </div>
@@ -1939,6 +1933,8 @@ function getPageSentences(){
   log.innerHTML += limitMessage;
   log.scrollTop = log.scrollHeight;
 
+}
+);
 }  
  
   window.openShare=openShare;
