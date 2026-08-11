@@ -515,6 +515,7 @@ function nextQuiz() {
         const quizScreen = document.getElementById('quiz-screen');
         if (quizScreen) { quizScreen.classList.add('active'); quizScreen.style.display = 'block'; }
         loadQuiz(true);
+        window.scrollTo(0, 0);
     } else { alert("🎉 You've mastered all the quizzes in this category! Excellent job! 👏"); goHome(); }
 }
 function speak() {
