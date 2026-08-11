@@ -1761,7 +1761,7 @@ function getPageSentences(){
   function handleSentenceClick(s){
     const label = s.en ? `${s.kr} (${s.en})` : s.kr;
     log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${s.kr}${s.rom?` (${s.rom})`:''}${s.en?` - ${s.en}`:''}</div>`;
-    faq.style.display='none';
+    
     log.scrollTop = log.scrollHeight;
  
     const matches = detectGrammarInText(s.kr);
