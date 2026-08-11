@@ -251,10 +251,16 @@ html, body { width: 100% !important; max-width: 100% !important; overflow-x: hid
   max-width: 100% !important;
 }
 
-#ai-faq-chips {
-  flex-shrink: 0 !important;
-  max-height: 100px;
-  overflow-y: auto !important;
+#ai-faq-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  padding:10px;
+  background:#f8fafc;
+  flex-shrink:0;
+  position:relative;
+  z-index:30;
+  border-bottom:1px solid #e2e8f0;
 }
 
 #ai-tutor-modal > div:last-child {
