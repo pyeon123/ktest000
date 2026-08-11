@@ -1763,7 +1763,11 @@ function getPageSentences(){
  
     if(matches.length > 0){
       let block = `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-        + `<span class="ai-source-tag ai-source-db">📚 ${matches.length} grammar point${matches.length === 1 ? '' : 's'} found in the sentence</span>`;
+  + `<span class="ai-source-tag ai-source-db">📚 ${matches.length} grammar point${matches.length === 1 ? '' : 's'} found in the sentence</span>`
+  + `<div style="font-size:0.72rem;color:#64748b;margin-top:4px;margin-bottom:8px;line-height:1.4;">`
+  + `📚 Grammar Database Answer — Unlimited use, no AI usage<br>`
+  + `💡 Want a deeper explanation? Ask the AI teacher below.`
+  + `</div>`;
       matches.forEach(g=>{
         block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
           + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${g.grammar} (${g.id})</div>`
