@@ -1227,7 +1227,7 @@ Use the page sentence as the main example first if relevant.
 `.trim();
  
   // ⚠️ 이제 Gemini를 브라우저에서 직접 호출하지 않습니다. API 키는 서버(Edge Function)에만 있어요.
-  const ASK_TUTOR_ENDPOINT = "https://YOUR-PROJECT.supabase.co/functions/v1/ask-tutor";
+  const ASK_TUTOR_ENDPOINT = "https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/rapid-worker";
   const USE_GEMINI = true;
 
   // 로그인 안 한 사용자를 구분하기 위한 익명 기기 ID (브라우저에 한 번 생성해서 저장)
