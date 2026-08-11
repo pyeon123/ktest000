@@ -1226,10 +1226,19 @@ This question is NOT about a grammar point already in our Grammar DB, so answer 
 Use the page sentence as the main example first if relevant.
 `.trim();
  
-  const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg";
+  // ⚠️ 이제 Gemini를 브라우저에서 직접 호출하지 않습니다. API 키는 서버(Edge Function)에만 있어요.
+  const ASK_TUTOR_ENDPOINT = "https://YOUR-PROJECT.supabase.co/functions/v1/ask-tutor";
   const USE_GEMINI = true;
-  const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
-  const GEMINI_STREAM_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
+
+  // 로그인 안 한 사용자를 구분하기 위한 익명 기기 ID (브라우저에 한 번 생성해서 저장)
+  function getDeviceId(){
+    let id = localStorage.getItem('koreanAppDeviceId');
+    if(!id){
+      id = 'anon-' + (crypto?.randomUUID ? crypto.randomUUID() : (Date.now()+'-'+Math.random().toString(36).slice(2)));
+      localStorage.setItem('koreanAppDeviceId', id);
+    }
+    return id;
+  }
  
   var file = (location.pathname.split('/').pop()||'').toLowerCase();
   if(file===''||file==='index.html'||file==='/'||file==='index') return;
@@ -1378,25 +1387,37 @@ Use the page sentence as the main example first if relevant.
       .replace(/\n/g,'<br>');
   }
  
-  // Gemini 스트리밍 응답을 실시간으로 읽어서 onChunk(누적된 전체 텍스트)를 계속 호출.
-  // 다 끝나면 onDone(최종 텍스트), 실패하면 onError(에러 메시지) 호출.
-  async function streamGemini(systemInstruction, userText, onChunk, onDone, onError){
+  // 서버(ask-tutor Edge Function)를 통해 스트리밍 응답을 실시간으로 읽어서
+  // onChunk(누적된 전체 텍스트)를 계속 호출. 다 끝나면 onDone(최종 텍스트),
+  // 사용량 초과면 onQuotaExceeded(message, plan, isAnonymous), 그 외 실패는 onError(에러 메시지) 호출.
+  async function askTutorStream(ctx, q, onChunk, onDone, onQuotaExceeded, onError){
     try{
-      const res = await fetch(GEMINI_STREAM_ENDPOINT, {
+      const user = window.getKoreanAuthUser ? await window.getKoreanAuthUser() : null;
+      const headers = { 'Content-Type':'application/json' };
+      let bodyExtra = {};
+
+      if(user){
+        const token = window.getKoreanAuthToken ? await window.getKoreanAuthToken() : null;
+        if(token) headers['Authorization'] = `Bearer ${token}`;
+      } else {
+        bodyExtra.deviceId = getDeviceId(); // 로그인 안 했으면 익명 기기 ID로 하루 3회 카운트
+      }
+
+      const res = await fetch(ASK_TUTOR_ENDPOINT, {
         method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          systemInstruction: { parts:[{ text: systemInstruction }] },
-          contents:[{ role:'user', parts:[{ text: userText }] }],
-          generationConfig: {
-            maxOutputTokens: 4096,
-            
-          }
-        })
+        headers,
+        body: JSON.stringify({ kr: ctx.kr, rom: ctx.rom, en: ctx.en, q, ...bodyExtra })
       });
+
+      if(res.status === 403){
+        const data = await res.json().catch(()=>({}));
+        onQuotaExceeded(data.message || '오늘 질문 횟수를 다 쓰셨어요.', data.plan || 'free', !user);
+        return;
+      }
+
       if(!res.ok || !res.body){
         let msg = 'Unknown error';
-        try{ const data = await res.json(); msg = data?.error?.message || msg; }catch(e){}
+        try{ const data = await res.json(); msg = data?.error || msg; }catch(e){}
         onError(`HTTP ${res.status} - ${msg}`);
         return;
       }
@@ -1422,7 +1443,7 @@ Use the page sentence as the main example first if relevant.
             if(piece){ fullText += piece; onChunk(fullText); }
             const finishReason = obj?.candidates?.[0]?.finishReason;
             if(finishReason && finishReason !== 'STOP'){
-              console.warn('[AI Tutor] Gemini finishReason:', finishReason, '(MAX_TOKENS면 답변이 잘린 것)');
+              console.warn('[AI Tutor] finishReason:', finishReason, '(MAX_TOKENS면 답변이 잘린 것)');
             }
           }catch(e){ /* 아직 완성 안 된 JSON 조각일 수 있으니 무시하고 계속 */ }
         }
@@ -1865,9 +1886,8 @@ function getPageSentences(){
       log.scrollTop = log.scrollHeight;
     }
  
-    streamGemini(
-      V21_SYSTEM,
-      userText,
+    askTutorStream(
+      ctx, q,
       // onChunk: 새 텍스트 조각이 도착할 때마다 실시간으로 화면 업데이트
       (accumulatedText)=>{
         ensureWrapper();
@@ -1889,60 +1909,80 @@ function getPageSentences(){
         log.scrollTop = log.scrollHeight;
       },
 
-    // onError: 스트리밍 실패 또는 임시 무료 사용 제한 안내
-(errMsg)=>{
+      // onQuotaExceeded: 진짜 오늘 한도(무료 3회 / 유료 20회)를 다 썼을 때만 뜸
+      (message, plan, isAnonymous)=>{
+        const th = document.getElementById('ai-thinking');
+        if(th) th.remove();
 
-  console.error('[AI Tutor] Stream error:', errMsg);
+        const signInNote = isAnonymous
+          ? `<div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#c2410c;">
+                🔑 Sign in to keep asking
+              </div>
+              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+                Sign in (still free!) to keep using the AI teacher.
+              </div>
+            </div>`
+          : '';
 
-  const th = document.getElementById('ai-thinking');
-  if(th) th.remove();
+        const limitMessage = `
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
 
-  const limitMessage = `
-    <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
+            <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
+              ${message}
+            </div>
 
-      <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
-        You've used all 3 free AI questions for today. Please come back tomorrow.
-        <br>
-        <span style="font-size:0.82rem;font-weight:600;">
-          (3 free questions every day)
-        </span>
-      </div>
+            ${signInNote}
 
-      <div style="margin-bottom:12px;">
-        <div style="font-weight:800;color:#6366f1;">
-          🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)
-        </div>
+            <div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#6366f1;">
+                🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)
+              </div>
 
-        <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
-          Need more help? Upgrade to Pro Mode for $3.99/month.
-        </div>
-      </div>
+              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+                Need more help? Upgrade to Pro Mode for $3.99/month.
+              </div>
+            </div>
 
-      <div style="margin-bottom:12px;">
-        <div style="font-weight:800;color:#6366f1;">
-          📚 Grammar Database — Unlimited & Free
-        </div>
+            <div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#6366f1;">
+                📚 Grammar Database — Unlimited & Free
+              </div>
 
-        <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
-          Get unlimited grammar explanations for the sentences above.
-          <b>(Tap a sentence.)</b>
-        </div>
-      </div>
+              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+                Get unlimited grammar explanations for the sentences above.
+                <b>(Tap a sentence.)</b>
+              </div>
+            </div>
 
-      <div style="font-size:0.82rem;color:#475569;">
-        ✨ All other features, including quizzes, speaking, and listening practice,
-        are completely free.
-      </div>
+            <div style="font-size:0.82rem;color:#475569;">
+              ✨ All other features, including quizzes, speaking, and listening practice,
+              are completely free.
+            </div>
 
-    </div>
-  `;
+          </div>
+        `;
 
-  log.innerHTML += limitMessage;
-  log.scrollTop = log.scrollHeight;
+        log.innerHTML += limitMessage;
+        log.scrollTop = log.scrollHeight;
 
-}
-);
-}  
+        // 로그인 안 한 유저는 로그인 모달을 바로 띄워줌 (기존 auth-modal 재사용)
+        if(isAnonymous && window.requireKoreanAuth) window.requireKoreanAuth();
+      },
+
+      // onError: 진짜 네트워크/서버 에러일 때만 (사용량 초과랑 분리됨)
+      (errMsg)=>{
+        console.error('[AI Tutor] Stream error:', errMsg);
+        const th = document.getElementById('ai-thinking');
+        if(th) th.remove();
+        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+        log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+          + `<div id="ai-error-box">⚠️ 서버 연결 실패, 기본 답변으로 대체했어요.<br>에러: ${errMsg}</div>`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
+        log.scrollTop = log.scrollHeight;
+      }
+    );
+  }
  
   window.openShare=openShare;
   btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
@@ -1957,7 +1997,3 @@ function getPageSentences(){
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions':'⚠️ Gemini disabled');
 })();
-
-
-
-
