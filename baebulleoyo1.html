@@ -43,6 +43,8 @@
             word-break: keep-all;
             overflow-wrap: break-word;
         }
+        #menu-screen { display: none !important; }
+        #quiz-screen { display: block !important; }
     </style>
 </head>
 <body>
@@ -365,9 +367,8 @@
           configurable: false
       });
 
-      let executionTicks = 0;
-      const forceEngineLoop = setInterval(() => {
-          executionTicks++;
+      // 화면 초기화 및 퀴즈 시작 (1회 실행)
+      function initQuizPage() {
           const menu = document.getElementById('menu-screen');
           const quiz = document.getElementById('quiz-screen');
 
@@ -375,7 +376,7 @@
               menu.classList.remove('active');
               menu.style.setProperty('display', 'none', 'important');
           }
-  
+
           if (quiz) {
               quiz.classList.add('active');
               quiz.style.setProperty('display', 'block', 'important');
@@ -383,16 +384,17 @@
 
           if (typeof startQuiz === 'function') {
               try { startQuiz('cat_baebulleoyo1', false); } catch(e){}
-          }
-      
-          if (typeof loadQuiz === 'function') {
+          } else if (typeof loadQuiz === 'function') {
               try { loadQuiz(true); } catch(e){}
           }
+      }
 
-          if (executionTicks > 60 || (quiz && quiz.classList.contains('active'))) {
-              clearInterval(forceEngineLoop);
-          }
-      }, 50);
+      // DOM 로드 완료 시 안전하게 실행
+      if (document.readyState === 'interactive' || document.readyState === 'complete') {
+          initQuizPage();
+      } else {
+          document.addEventListener('DOMContentLoaded', initQuizPage);
+      }
 
       window.goHome = function() {
           if (typeof startQuiz === 'function') startQuiz('cat_baebulleoyo1', false);
