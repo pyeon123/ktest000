@@ -1228,6 +1228,7 @@ Use the page sentence as the main example first if relevant.
  
   // ⚠️ 이제 Gemini를 브라우저에서 직접 호출하지 않습니다. API 키는 서버(Edge Function)에만 있어요.
   const ASK_TUTOR_ENDPOINT = "https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/ask-tutor";
+  const SUPA_ANON_KEY = "sb_publishable_VThH1zOjeve9iqeBqPWbTQ_1vB5CS_X";
   const USE_GEMINI = true;
 
   // 로그인 안 한 사용자를 구분하기 위한 익명 기기 ID (브라우저에 한 번 생성해서 저장)
@@ -1393,7 +1394,11 @@ Use the page sentence as the main example first if relevant.
   async function askTutorStream(ctx, q, onChunk, onDone, onQuotaExceeded, onError){
     try{
       const user = window.getKoreanAuthUser ? await window.getKoreanAuthUser() : null;
-      const headers = { 'Content-Type':'application/json' };
+      const headers = { 
+        'Content-Type':'application/json',
+        'apikey': SUPA_ANON_KEY,
+        'Authorization': `Bearer ${SUPA_ANON_KEY}`
+      };
       let bodyExtra = {};
 
       if(user){
