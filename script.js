@@ -299,6 +299,8 @@ function forceExternalBrowser() {
     else { window.open(window.location.href, '_blank', 'width=900,height=1050'); }
 }
 function initMenu() {
+    const d = document.getElementById('detail-area'); if(d){ d.classList.remove('active'); d.style.display='none'; d.innerHTML=''; }
+    if(window.hideAiTutor) window.hideAiTutor();
     const list = document.getElementById('category-list');
     if (!list || typeof allQuizData === 'undefined') return;
     const fileMapping = { "cat_01": "family.html", "cat_02": "food.html", "cat_03": "places.html", "cat_04": "transport.html", "cat_05": "animals.html", "cat_06": "clothes.html", "cat_07": "nature.html", "cat_08": "hobbies.html", "cat_09": "body.html", "cat_10": "Jobs.html", "cat_11": "emotions.html", "cat_12": "kitchen.html", "cat_13": "electronics.html", "cat_14": "health.html", "cat_15": "fruits.html", "cat_16": "colors.html", "cat_17": "school.html", "cat_18": "time.html", "cat_19": "sports.html", "cat_20": "furniture.html", "cat_21": "buildings.html", "cat_22": "landscapes.html", "cat_23": "word.html", "cat_24": "vocabulary.html", "cat_25": "sentencelover1.html", "cat_26": "sentencefriend1.html", };
@@ -527,7 +529,7 @@ function goHome() {
     resetRecognitionState();
     if (typeof CURRENT_CAT !== 'undefined') { window.location.href = 'index.html'; return; }
     const detailArea = document.getElementById('detail-area');
-    if (detailArea) { detailArea.classList.remove('active'); detailArea.style.display = 'none'; }
+    if (detailArea) { detailArea.classList.remove('active'); detailArea.style.display = 'none'; detailArea.innerHTML=''; }
     if (window.hideAiTutor) window.hideAiTutor();
     document.getElementById('menu-screen').classList.add('active');
     document.getElementById('quiz-screen').classList.remove('active');
@@ -2003,7 +2005,7 @@ function getPageSentences(){
   input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
   wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
  
-  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); var menu=document.getElementById('menu-screen'); if(menu && menu.classList.contains('active')){ if(d){ d.style.display='none'; } btn.style.display='none'; return; } if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
   window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
   var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
  
