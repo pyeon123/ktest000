@@ -1396,13 +1396,23 @@ Use the page sentence as the main example first if relevant.
       const headers = { 'Content-Type':'application/json' };
       let bodyExtra = {};
 
-      if(user){
-        const token = window.getKoreanAuthToken ? await window.getKoreanAuthToken() : null;
-        if(token) headers['Authorization'] = `Bearer ${token}`;
-      } else {
-        bodyExtra.deviceId = getDeviceId(); // 로그인 안 했으면 익명 기기 ID로 하루 3회 카운트
-      }
+      // Supabase 대시보드(Settings -> API)에서 발급받은 Anon Key를 변수로 선언해 둡니다.
+const SUPABASE_ANON_KEY = "sb_publishable_VThH1zOjeve9iqeBqPWbTQ_1vB5CS_X";
 
+if(user){
+  const token = window.getKoreanAuthToken ? await window.getKoreanAuthToken() : null;
+  // 토큰이 정상적으로 있으면 유저 토큰을 사용
+  if(token) {
+      headers['Authorization'] = `Bearer ${token}`;
+  } else {
+      // user 객체는 있지만 token을 못 가져온 예외 상황에서도 Anon key로 폴백
+      headers['Authorization'] = `Bearer ${SUPABASE_ANON_KEY}`;
+  }
+} else {
+  bodyExtra.deviceId = getDeviceId(); 
+  // 비로그인 상태라도 Edge Function 게이트웨이를 통과하려면 Anon Key가 반드시 필요합니다!
+  headers['Authorization'] = `Bearer ${SUPABASE_ANON_KEY}`;
+}
       const res = await fetch(ASK_TUTOR_ENDPOINT, {
         method:'POST',
         headers,
