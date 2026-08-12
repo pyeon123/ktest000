@@ -526,6 +526,9 @@ function speak() {
 function goHome() {
     resetRecognitionState();
     if (typeof CURRENT_CAT !== 'undefined') { window.location.href = 'index.html'; return; }
+    const detailArea = document.getElementById('detail-area');
+    if (detailArea) { detailArea.classList.remove('active'); detailArea.style.display = 'none'; }
+    if (window.hideAiTutor) window.hideAiTutor();
     document.getElementById('menu-screen').classList.add('active');
     document.getElementById('quiz-screen').classList.remove('active');
     document.getElementById('top-open-btn').style.display = 'none';
@@ -2006,4 +2009,4 @@ function getPageSentences(){
  
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions':'⚠️ Gemini disabled');
-})();
+})()
