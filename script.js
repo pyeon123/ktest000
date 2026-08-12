@@ -1227,9 +1227,10 @@ Use the page sentence as the main example first if relevant.
 `.trim();
  
   // ⚠️ 이제 Gemini를 브라우저에서 직접 호출하지 않습니다. API 키는 서버(Edge Function)에만 있어요.
-  const GEMINI_API_KEY = "AQ.Ab8RN6ItpsOwmsYi-vBN6MuU5_qLkYCBFX35wpdRButkHeExkg";
+  const ASK_TUTOR_ENDPOINT = "https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/ask-tutor";
   const USE_GEMINI = true;
 
+  // 로그인 안 한 사용자를 구분하기 위한 익명 기기 ID (브라우저에 한 번 생성해서 저장)
   function getDeviceId(){
     let id = localStorage.getItem('koreanAppDeviceId');
     if(!id){
@@ -1389,51 +1390,47 @@ Use the page sentence as the main example first if relevant.
   // 서버(ask-tutor Edge Function)를 통해 스트리밍 응답을 실시간으로 읽어서
   // onChunk(누적된 전체 텍스트)를 계속 호출. 다 끝나면 onDone(최종 텍스트),
   // 사용량 초과면 onQuotaExceeded(message, plan, isAnonymous), 그 외 실패는 onError(에러 메시지) 호출.
-  
-  // 직접 Gemini 호출 버전 - Supabase 없이 바로 작동 (CLI 필요 없음)
   async function askTutorStream(ctx, q, onChunk, onDone, onQuotaExceeded, onError){
     try{
-      const systemPrompt = `You are Hi Korea Friend AI Tutor v3.0.
-ROLE: Professional Korean language teacher for foreigners.
-Teach REAL, MODERN, NATURAL Korean. Use simple, clear English.
-ACCURACY: Never invent grammar. If unsure, say unsure.
-SCOPE: Only Korean language, grammar, vocab, pronunciation, culture. If unrelated, politely say you are Korean tutor.
-KOREAN DISPLAY RULE: Whenever Korean appears, ALWAYS show Korean Romanization English.
-TEACHING: Explain why, prefer natural expressions.
-ANSWER STYLE: Do not force fixed format. Answer directly and naturally. No #, **, ---
-Current sentence on page: ${ctx.kr} (${ctx.rom}) - ${ctx.en}`;
+      const user = window.getKoreanAuthUser ? await window.getKoreanAuthUser() : null;
+      const headers = { 'Content-Type':'application/json' };
+      let bodyExtra = {};
 
-      const userPrompt = `Current sentence on page: ${ctx.kr} (${ctx.rom}) - ${ctx.en}
-Student question: ${q}
-Answer generally using system rules. Use page sentence as main example first if relevant.`;
+      if(user){
+        const token = window.getKoreanAuthToken ? await window.getKoreanAuthToken() : null;
+        if(token) headers['Authorization'] = `Bearer ${token}`;
+      } else {
+        bodyExtra.deviceId = getDeviceId(); // 로그인 안 했으면 익명 기기 ID로 하루 3회 카운트
+      }
 
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?key=${GEMINI_API_KEY}&alt=sse`;
-
-      const res = await fetch(url, {
+      const res = await fetch(ASK_TUTOR_ENDPOINT, {
         method:'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: systemPrompt }] },
-          contents: [{ role:'user', parts:[{ text: userPrompt }] }]
-        })
+        headers,
+        body: JSON.stringify({ kr: ctx.kr, rom: ctx.rom, en: ctx.en, q, ...bodyExtra })
       });
 
-      if(!res.ok || !res.body){
-        const txt = await res.text().catch(()=> 'Unknown');
-        onError(`Gemini HTTP ${res.status} - ${txt.slice(0,300)}`);
+      if(res.status === 403){
+        const data = await res.json().catch(()=>({}));
+        onQuotaExceeded(data.message || '오늘 질문 횟수를 다 쓰셨어요.', data.plan || 'free', !user);
         return;
       }
 
+      if(!res.ok || !res.body){
+        let msg = 'Unknown error';
+        try{ const data = await res.json(); msg = data?.error || msg; }catch(e){}
+        onError(`HTTP ${res.status} - ${msg}`);
+        return;
+      }
       const reader = res.body.getReader();
       const decoder = new TextDecoder('utf-8');
       let buffer = '';
       let fullText = '';
       while(true){
-        const {done, value} = await reader.read();
+        const { done, value } = await reader.read();
         if(done) break;
-        buffer += decoder.decode(value, {stream:true});
+        buffer += decoder.decode(value, { stream:true });
         const lines = buffer.split('\n');
-        buffer = lines.pop();
+        buffer = lines.pop(); // 마지막 줄이 아직 완성 안 됐을 수 있으니 버퍼에 남겨둠
         for(const line of lines){
           const trimmed = line.trim();
           if(!trimmed.startsWith('data:')) continue;
@@ -1444,7 +1441,11 @@ Answer generally using system rules. Use page sentence as main example first if 
             if(obj?.error){ onError(obj.error.message || 'Stream error'); return; }
             const piece = obj?.candidates?.[0]?.content?.parts?.[0]?.text;
             if(piece){ fullText += piece; onChunk(fullText); }
-          }catch(e){}
+            const finishReason = obj?.candidates?.[0]?.finishReason;
+            if(finishReason && finishReason !== 'STOP'){
+              console.warn('[AI Tutor] finishReason:', finishReason, '(MAX_TOKENS면 답변이 잘린 것)');
+            }
+          }catch(e){ /* 아직 완성 안 된 JSON 조각일 수 있으니 무시하고 계속 */ }
         }
       }
       onDone(fullText);
@@ -1452,8 +1453,537 @@ Answer generally using system rules. Use page sentence as main example first if 
       onError('Network/Stream error: ' + e.message);
     }
   }
+ 
+  // 한글 음절의 받침이 ㅆ인지 확인 (갔어요, 왔어요처럼 았/었이 축약된 과거형 감지용)
+  // 단, 있다(있어요)처럼 원래 어간 자체에 ㅆ받침이 있는 예외는 제외
+  function hasSsBatchimBeforeEoyo(text){
+    for(let i=0; i<text.length-2; i++){
+      const ch = text[i];
+      const code = text.charCodeAt(i);
+      if(ch === '있') continue; // 있다 예외 (과거형 아님)
+      if(code >= 0xAC00 && code <= 0xD7A3){
+        const finalIdx = (code - 0xAC00) % 28;
+        if(finalIdx === 20 && text.slice(i+1, i+3) === '어요'){ // 20 = ㅆ 받침
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+ 
+// ============================================================
+// 문장 속 Grammar DB 자동 감지
+// - "랑 / 이랑" → 랑, 이랑 각각 검사
+// - "-해요" → 실제 문장에서는 "해요" 검사
+// - "-아요", "-어요" 등도 동일하게 처리
+// - 한 문장에 여러 문법이 있으면 모두 반환
+// ============================================================
+
+function hasGrammarPattern(text, pattern){
+  if(!text || !pattern) return false;
+
+  pattern = pattern.trim();
+
+  // ----------------------------------------------------------
+  // 1. "/"가 들어간 패턴은 각각 분리해서 검사
+  // 예: "랑 / 이랑" → "랑", "이랑"
+  // ----------------------------------------------------------
+  const parts = pattern
+    .split('/')
+    .map(p => p.trim())
+    .filter(Boolean);
+
+  if(parts.length > 1){
+    return parts.some(p => hasGrammarPattern(text, p));
+  }
+
+  pattern = parts[0];
+
+  // ----------------------------------------------------------
+  // 2. Grammar DB에서 "-해요"처럼 앞에 "-"를 붙인 경우
+  //
+  // "-해요"는 실제 문장에 "-해요"가 존재한다는 뜻이 아니라
+  // "해요"가 문장에 나타나는 형태라는 의미.
+  //
+  // "-아요" → "아요"
+  // "-어요" → "어요"
+  // "-해요" → "해요"
+  // "-ㅂ니다" → "ㅂ니다"
+  // ----------------------------------------------------------
+  if(pattern.startsWith('-')){
+    const actualPattern = pattern.slice(1).trim();
+
+    if(!actualPattern) return false;
+
+    return hasTrailingHangulBoundary(text, actualPattern);
+  }
+
+  // ----------------------------------------------------------
+  // 3. 일반 패턴
+  // 예: "랑", "이랑", "은", "는", "에서" 등
+  // ----------------------------------------------------------
+  return hasTrailingHangulBoundary(text, pattern);
+}
 
 
+// ============================================================
+// 문장 안에 어떤 Grammar DB 항목들이 들어있는지 검사
+// ============================================================
+
+function detectGrammarInText(text){
+  if(!text) return [];
+
+  const found = [];
+
+  for(const g of grammarData){
+
+    // --------------------------------------------------------
+    // sentencePatterns 우선 사용
+    // sentencePatterns가 없으면 grammar 필드 사용
+    // --------------------------------------------------------
+    const rawPatterns = (
+      g.sentencePatterns && g.sentencePatterns.length
+        ? g.sentencePatterns
+        : g.grammar.split('/')
+    );
+
+    // --------------------------------------------------------
+    // 각 sentencePattern 안에서도 "/"를 다시 분리
+    //
+    // "랑 / 이랑"
+    //       ↓
+    // "랑"
+    // "이랑"
+    //
+    // "은 / 는"
+    //       ↓
+    // "은"
+    // "는"
+    // --------------------------------------------------------
+    const patterns = rawPatterns
+      .flatMap(p => String(p).split('/'))
+      .map(p => p.trim())
+      .filter(Boolean);
+
+    // --------------------------------------------------------
+    // 하나라도 문장에 발견되면 해당 Grammar 매칭
+    // --------------------------------------------------------
+    let hit = patterns.some(
+      p => hasGrammarPattern(text, p)
+    );
+
+    // --------------------------------------------------------
+    // G014 과거형 특별 처리
+    // 갔어요 / 왔어요 등의 축약형
+    // --------------------------------------------------------
+    if(
+      !hit &&
+      g.id === 'G014' &&
+      hasSsBatchimBeforeEoyo(text)
+    ){
+      hit = true;
+    }
+
+    if(hit){
+      found.push(g);
+    }
+  }
+
+  return found;
+}
+ 
+function getPageSentences(){
+
+  const list = [];
+
+  // 문장 비교용 정리
+  function normalizeSentence(text){
+    return String(text || '')
+      .trim()
+      // A: / A : / A. / A) 같은 앞쪽 라벨 제거
+      .replace(/^[A-Za-z]\s*[:：.)]\s*/i, '')
+      // 마지막 문장부호 제거
+      .replace(/[.!?。！？]+$/g, '')
+      // 여러 공백 하나로 통일
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+  }
+
+  // 실제 화면에 표시할 문장
+  function cleanSentence(text){
+    return String(text || '')
+      .trim()
+      .replace(/^[A-Za-z]\s*[:：.)]\s*/i, '')
+      .trim();
+  }
+
+  // 문장인지 확인
+  // 단어 하나짜리는 제외
+  function isSentence(item){
+
+    if(!item || !item.kr) return false;
+
+    const original = String(item.kr).trim();
+    const kr = cleanSentence(original);
+
+    if(!kr) return false;
+
+    // 문장부호가 있으면 문장
+    if(/[.!?。！？]/.test(original)) return true;
+
+    // 띄어쓰기가 있으면 문장
+    if(/\s/.test(kr)) return true;
+
+    // 그 외 한 단어는 제외
+    return false;
+  }
+
+  // 이미 같은 문장이 있는지 확인
+  function isDuplicate(text){
+
+    const normalized = normalizeSentence(text);
+
+    return list.some(item =>
+      normalizeSentence(item.kr) === normalized
+    );
+  }
+
+  // 문장 추가
+  function addSentence(item){
+
+    if(list.length >= 3) return;
+
+    if(!isSentence(item)) return;
+
+    if(isDuplicate(item.kr)) return;
+
+    list.push({
+      kr: cleanSentence(item.kr),
+      rom: item.rom || '',
+      en: item.en || ''
+    });
+  }
+
+  try{
+
+    const quiz =
+      (
+        typeof currentCategoryData !== 'undefined' &&
+        Array.isArray(currentCategoryData) &&
+        typeof currentIdx !== 'undefined'
+      )
+      ? currentCategoryData[currentIdx]
+      : null;
+
+    if(quiz){
+
+      // ==========================================
+      // ① 메인 퀴즈 현재 문장
+      // 무조건 첫 번째
+      // ==========================================
+      if(quiz.kr){
+
+        list.push({
+          kr: cleanSentence(quiz.kr),
+          rom: quiz.rom || '',
+          en: quiz.en || ''
+        });
+
+      }
+
+
+      // ==========================================
+      // ② Key Sentences
+      // 문장만 추가
+      // 최대 2개
+      // ==========================================
+      if(Array.isArray(quiz.examples)){
+
+        for(const e of quiz.examples){
+
+          if(list.length >= 3) break;
+
+          addSentence(e);
+
+        }
+
+      }
+
+
+      // ==========================================
+      // ③ options
+      // examples가 부족할 때만 사용
+      // 단어는 제외하고 문장만 추가
+      // ==========================================
+      if(Array.isArray(quiz.options)){
+
+        for(const o of quiz.options){
+
+          if(list.length >= 3) break;
+
+          addSentence(o);
+
+        }
+
+      }
+
+    }
+
+  }catch(e){
+
+    console.warn(
+      '[AI Tutor] getPageSentences error:',
+      e
+    );
+
+  }
+
+  return list.slice(0, 3);
+
+}
+ 
+  function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
+ 
+  // FAQ 칩 = 지금 화면(퀴즈)에 있는 Key Sentence / Related Words. 소개 문구(Native Tip 등)는 없음.
+  function renderFaq(){
+    var sentences = getPageSentences();
+ 
+    if(sentences.length === 0){
+      faq.innerHTML = '';
+      log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#64748b;">Ask me anything about Korean below!</div>`;
+      faq.style.display='none';
+      return;
+    }
+ 
+    faq.innerHTML = sentences.map((s,i) =>
+  `<button class="faq-chip" data-sidx="${i}">
+    <div style="font-size:.82em;font-weight:700;">
+      ${s.kr}
+    </div>
+    <div style="font-size:.9em;font-weight:700;opacity:.95;margin-top:5px;">
+      ${s.rom ? '('+s.rom+') ' : ''}${s.en || ''}
+    </div>
+  </button>`
+).join('');
+ 
+    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 Tap the sentence above to explore grammar rules. For deeper explanations or questions, please use the search bar below.</div>`;
+ 
+    faq.style.display='flex';
+    log.scrollTop = 0;
+ 
+    wrap.querySelectorAll('.faq-chip').forEach(c=>{
+      c.onclick=()=>{
+        const idx = parseInt(c.getAttribute('data-sidx'), 10);
+        const s = sentences[idx];
+        if(s) handleSentenceClick(s);
+      };
+    });
+  }
+ 
+  // 문장 칩 클릭 시: 문장 안 문법을 스캔해서 DB에 있는 건 즉시 렌더링, 없으면 일반 질문으로 처리(API)
+  function handleSentenceClick(s){
+    const label = s.en ? `${s.kr} (${s.en})` : s.kr;
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${s.kr}${s.rom?` (${s.rom})`:''}${s.en?` - ${s.en}`:''}</div>`;
+    
+    log.scrollTop = log.scrollHeight;
+ 
+    const matches = detectGrammarInText(s.kr);
+ 
+    if(matches.length > 0){
+      let block = `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+  + `<span class="ai-source-tag ai-source-db">📚 ${matches.length} grammar point${matches.length === 1 ? '' : 's'} found in the sentence</span>`
+  + `<div style="font-size:0.72rem;color:#64748b;margin-top:4px;margin-bottom:8px;line-height:1.4;">`
+  + `📚 Grammar Database Answer — Unlimited use, no AI usage<br>`
+  + `💡 Want a deeper explanation? Ask the AI teacher below.`
+  + `</div>`;
+      matches.forEach(g=>{
+        block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${g.grammar} (${g.id})</div>`
+          + renderFromDB(g, {kr:s.kr, rom:s.rom, en:s.en})
+          + `</div>`;
+      });
+      const plainForCopy = matches.map(g=>`${g.grammar} (${g.romanization}) ${g.title}`).join(' / ');
+      block += makeActions(plainForCopy)
+        + `<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button></div>`;
+      log.innerHTML += block;
+      log.scrollTop = log.scrollHeight;
+    } else {
+      // DB에서 못 찾으면 일반 질문 흐름(Gemini)으로 넘김
+      handleQuestion(s.kr);
+    }
+  }
+ 
+  // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
+  async function handleQuestion(q, gramForced){
+    var ctx=getCtx();
+    var grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
+ 
+    log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${q}</div>`;
+    
+ 
+    // ===== 케이스 1: DB에 매칭되는 문법 1개 이상 → API 호출 없이 순서대로 타이핑 표시 =====
+    if(grams.length > 0){
+      const cid = 'ai-content-' + Date.now();
+      const tag = `📚 ${grams.length} grammar point${grams.length === 1 ? '' : 's'} found in the sentence`;
+      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+        + `<span class="ai-source-tag ai-source-db">${tag}</span>`
+        + `<div id="${cid}"></div>`
+        + `<div id="${cid}-actions"></div></div>`;
+      log.scrollTop = log.scrollHeight;
+      const container = document.getElementById(cid);
+      let combinedPlain = '';
+ 
+      function typeNext(idx){
+        if(idx >= grams.length){
+          const actionsEl = document.getElementById(cid+'-actions');
+          if(actionsEl){
+            actionsEl.innerHTML = makeActions(combinedPlain.slice(0,200))
+              + `<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button>`;
+          }
+          return;
+        }
+        const g = grams[idx];
+        const headerDiv = document.createElement('div');
+        headerDiv.style.cssText = `font-size:0.85rem;color:#6366f1;font-weight:800;margin:${idx>0 ? '14px 0 6px;padding-top:10px;border-top:1px dashed #e2e8f0;' : '6px 0;'}`;
+        headerDiv.textContent = `🤖 ${g.grammar} (${g.id})`;
+        container.appendChild(headerDiv);
+        const bodyDiv = document.createElement('div');
+        container.appendChild(bodyDiv);
+        const finalAnswer = renderFromDB(g, ctx);
+        combinedPlain += (idx>0?' / ':'') + finalAnswer.replace(/<[^>]*>/g,'').slice(0,150);
+        typeWriterHTML(bodyDiv, finalAnswer, 6, ()=>{ typeNext(idx+1); });
+      }
+      typeNext(0);
+      return; // API 호출 안 함
+    }
+ 
+    // ===== 케이스 2: DB에 없는 일반 질문 → Gemini API 스트리밍 호출 =====
+    log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;animation:aiThinkingBlink 1.2s ease-in-out infinite;">👩‍🏫 Your teacher is preparing your answer...</div>`;
+    log.scrollTop=log.scrollHeight;
+ 
+    if(!USE_GEMINI){
+      const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
+      const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${fallback}</div>`;
+      log.scrollTop=log.scrollHeight;
+      return;
+    }
+ 
+    const userText = V21_USER_TEMPLATE.replace('{kr}',ctx.kr).replace('{rom}',ctx.rom).replace('{en}',ctx.en).replace('{q}',q);
+    const cid2 = 'ai-content-' + Date.now();
+    let wrapperInserted = false;
+    let rawFullText = '';
+ 
+    function ensureWrapper(){
+      if(wrapperInserted) return;
+      wrapperInserted = true;
+      const th=document.getElementById('ai-thinking'); if(th) th.remove();
+      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+        + `<span class="ai-source-tag ai-source-api">>👩‍🏫 Teacher Response</span><br>`
+        + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>`
+        + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
+      log.scrollTop = log.scrollHeight;
+    }
+ 
+    askTutorStream(
+      ctx, q,
+      // onChunk: 새 텍스트 조각이 도착할 때마다 실시간으로 화면 업데이트
+      (accumulatedText)=>{
+        ensureWrapper();
+        rawFullText = accumulatedText;
+        const el = document.getElementById(cid2);
+        if(el){ el.innerHTML = escapeAndBr(accumulatedText); log.scrollTop = log.scrollHeight; }
+      },
+      // onDone: 스트리밍 끝나면 버튼 표시
+      (finalText)=>{
+        ensureWrapper();
+        const finalAnswer = escapeAndBr(finalText || rawFullText || '');
+        const el = document.getElementById(cid2);
+        if(el) el.innerHTML = finalAnswer;
+        const actionsEl2 = document.getElementById(cid2+'-actions');
+        if(actionsEl2){
+          actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
+            + `<br><button onclick="document.getElementById('ai-faq-chips').style.display='flex'" style="margin-top:10px;padding:6px 12px;border-radius:20px;border:2px solid #e2e8f0;background:white;font-weight:800;cursor:pointer;font-size:0.8rem;">↩ Show questions</button>`;
+        }
+        log.scrollTop = log.scrollHeight;
+      },
+
+      // onQuotaExceeded: 진짜 오늘 한도(무료 3회 / 유료 20회)를 다 썼을 때만 뜸
+      (message, plan, isAnonymous)=>{
+        const th = document.getElementById('ai-thinking');
+        if(th) th.remove();
+
+        const signInNote = isAnonymous
+          ? `<div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#c2410c;">
+                🔑 Sign in to keep asking
+              </div>
+              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+                Sign in (still free!) to keep using the AI teacher.
+              </div>
+            </div>`
+          : '';
+
+        const limitMessage = `
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
+
+            <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
+              ${message}
+            </div>
+
+            ${signInNote}
+
+            <div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#6366f1;">
+                🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)
+              </div>
+
+              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+                Need more help? Upgrade to Pro Mode for $3.99/month.
+              </div>
+            </div>
+
+            <div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#6366f1;">
+                📚 Grammar Database — Unlimited & Free
+              </div>
+
+              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+                Get unlimited grammar explanations for the sentences above.
+                <b>(Tap a sentence.)</b>
+              </div>
+            </div>
+
+            <div style="font-size:0.82rem;color:#475569;">
+              ✨ All other features, including quizzes, speaking, and listening practice,
+              are completely free.
+            </div>
+
+          </div>
+        `;
+
+        log.innerHTML += limitMessage;
+        log.scrollTop = log.scrollHeight;
+
+        // 로그인 안 한 유저는 로그인 모달을 바로 띄워줌 (기존 auth-modal 재사용)
+        if(isAnonymous && window.requireKoreanAuth) window.requireKoreanAuth();
+      },
+
+      // onError: 진짜 네트워크/서버 에러일 때만 (사용량 초과랑 분리됨)
+      (errMsg)=>{
+        console.error('[AI Tutor] Stream error:', errMsg);
+        const th = document.getElementById('ai-thinking');
+        if(th) th.remove();
+        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+        log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+          + `<div id="ai-error-box">⚠️ 서버 연결 실패, 기본 답변으로 대체했어요.<br>에러: ${errMsg}</div>`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
+        log.scrollTop = log.scrollHeight;
+      }
+    );
+  }
+ 
   window.openShare=openShare;
   btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
   wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
