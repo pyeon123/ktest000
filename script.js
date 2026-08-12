@@ -478,7 +478,7 @@ function checkAnswer(isCorrect, quiz) {
             examplesHtml = `<h3 style="margin-top: 25px; color: #1e293b;">📚 Key Sentences</h3><ul style="list-style: none; padding: 0; margin-bottom: 20px;">${quiz.examples.map((ex, idx) => `<li style="margin-bottom: 15px; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);"><strong style="font-size: 1.3rem; display: block; margin-bottom: 5px; color: #1e293b;">${ex.kr}</strong><span style="font-size: 1.1rem; color: #64748b; display: block; margin-bottom: 5px;">${ex.en}</span><em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${ex.rom || ''}</em><div class="control-group" style="scale: 0.85; margin: 10px 0 0 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); speakExampleText('${ex.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="ex-mic-btn-${idx}" onclick="event.stopPropagation(); startExampleRecognition('${ex.kr.replace(/'/g, "\\'")}', ${idx})"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="ex-feedback-${idx}" style="height: 25px; font-weight: 900; font-size: 1.1rem; margin-top: 5px; text-align: center;"></div></li>`).join('')}</ul>`;
         }
         const situationText = quiz.situation || "No context provided.";
-        detailArea.innerHTML = `<div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;"><h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2><div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;"><p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>${formsHtml}</div>${grammarHtml}${optionsHtml}${examplesHtml}<div style="margin-top: 25px;">${favoriteHtml}${recHtml}<button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭</button><button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button></div></div>`;
+        detailArea.innerHTML = `<div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;"><h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2><div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;"><p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>${formsHtml}</div>${grammarHtml}${optionsHtml}${examplesHtml}<div id="faq-above-save" style="margin:20px 0;"></div><div style="margin-top: 25px;">${favoriteHtml}${recHtml}<button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭</button><button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button></div></div>`;
         detailArea.classList.add('active'); detailArea.style.display = 'block'; window.scrollTo(0, 0);
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
@@ -1768,6 +1768,7 @@ function getPageSentences(){
       faq.innerHTML = '';
       log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#64748b;">Ask me anything about Korean below!</div>`;
       faq.style.display='none';
+      var inlineFaq2 = document.getElementById('faq-above-save'); if(inlineFaq2) inlineFaq2.innerHTML='';
       return;
     }
  
@@ -1785,6 +1786,23 @@ function getPageSentences(){
     log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 Tap the sentence above to explore grammar rules. For deeper explanations or questions, please use the search bar below.</div>`;
  
     faq.style.display='flex';
+    // --- 추가: Correct 페이지 Save 바로 위에 FAQ 복제 ---
+    var inlineFaq = document.getElementById('faq-above-save');
+    if(inlineFaq){
+      inlineFaq.innerHTML = `<div style="background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:10px;"><div style="font-size:0.85rem;font-weight:900;color:#475569;margin-bottom:8px;">💬 Frequently Asked</div><div style="display:flex;flex-wrap:wrap;gap:6px;">` + sentences.map((s,i) => `<button class="faq-chip" data-sidx-inline="${i}" style="padding:8px 12px;background:white;border:2px solid #e2e8f0;border-bottom-width:3px;border-radius:14px;font-size:.78rem;font-weight:800;cursor:pointer;text-align:left;line-height:1.3;max-width:100%;"><div style="font-size:.82em;font-weight:700;">${s.kr}</div><div style="font-size:.9em;font-weight:700;opacity:.95;margin-top:5px;">${s.rom ? '('+s.rom+') ' : ''}${s.en || ''}</div></button>`).join('') + `</div></div>`;
+      inlineFaq.querySelectorAll('[data-sidx-inline]').forEach(c=>{
+        c.onclick=()=>{
+          const idx2 = parseInt(c.getAttribute('data-sidx-inline'),10);
+          const s = sentences[idx2];
+          if(s){
+            var modal = document.getElementById('ai-tutor-modal');
+            if(modal){ modal.style.display='flex'; }
+            handleSentenceClick(s);
+            document.getElementById('ai-tutor-modal')?.scrollIntoView({behavior:'smooth'});
+          }
+        };
+      });
+    }
     log.scrollTop = 0;
  
     wrap.querySelectorAll('.faq-chip').forEach(c=>{
