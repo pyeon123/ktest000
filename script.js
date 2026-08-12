@@ -1875,7 +1875,7 @@ function getPageSentences(){
  
     if(!USE_GEMINI){
       const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
-      const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+      const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
       log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${fallback}</div>`;
       log.scrollTop=log.scrollHeight;
       return;
