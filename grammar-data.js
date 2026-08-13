@@ -6628,8 +6628,8 @@
         "correct": "✅ 비가 오는 것 같아요. (Bi-ga o-neun geot gat-a-yo.) I think it's raining. Correct."
       },
       {
-        "wrong": "❌ 학생 같아요. This can be natural in conversation, but beginners should first learn the full pattern.",
-        "correct": "✅ 학생인 것 같아요. (Hak-saeng-in geot gat-a-yo.) I think he/she is a student."
+        "wrong": "❌ 학생 같아요 (hak-saeng ga-ta-yo). This can be natural in conversation, but beginners should first learn the full pattern.",
+        "correct": "✅ 학생인 것 같아요 (hak-saeng-in geot gat-a-yo). I think he/she is a student."
       }
     ],
     "compare": [],
@@ -7396,8 +7396,8 @@
         "correct": "✅ 맛있겠어요. (Ma-sit-get-sseo-yo.) Means: It looks delicious. You haven't eaten it yet."
       },
       {
-        "wrong": "❌ 가려고 해요. Means: I'm planning to go.",
-        "correct": "✅ 가겠어요. Means: I'll go. A decision made at the moment."
+        "wrong": "❌ 가려고 해요 (ga-ryeo-go hae-yo). Means: I'm planning to go.",
+        "correct": "✅ 가겠어요 (ga-ge-sseo-yo). Means: I'll go. A decision made at the moment."
       }
     ],
     "compare": [],
@@ -7584,7 +7584,7 @@
     "nativeTip": "-아서 / -어서 is much more common in daily conversations than -기 때문에. (-aseo / -eoseo is much more common in daily conversations than -gi ttaemune.)\n\nFriends usually say:\n\n피곤해서 집에 갈게. (Pi-go-na-seo ji-be gal-ge.)\n\nI'm going home because I'm tired.\n\nInstead of:\n\n피곤하기 때문에... (pigonhagi ttaemune...)",
     "commonMistakes": [
       {
-        "wrong": "❌ 비가 와서 때문에 Wrong. Don't use -아서/-어서 together with 때문에.",
+        "wrong": "❌ 비가 와서 때문에 (bi-ga wa-seo ttae-mun-e) Wrong. Don't use -아서-aseo/-어서-eoseo together with 때문에 ttae-mun-e.",
         "correct": "✅ 비가 와서 (Bi-ga wa-seo) Because it's raining Correct."
       }
     ],
@@ -7781,8 +7781,8 @@
         "correct": "✅ 먹고 나서 커피를 마셔요. (Meok-go na-seo keo-pi-reul ma-syeo-yo.) I drink coffee after eating. Correct."
       },
       {
-        "wrong": "❌ 먹어서 커피를 마셔요. This sounds unnatural if you simply want to show order.",
-        "correct": "✅ 먹고 나서 커피를 마셔요. Correct."
+        "wrong": "❌ 먹어서 커피를 마셔요 (meo-geo-seo keo-pi-reul ma-syeo-yo). This sounds unnatural if you simply want to show order.",
+        "correct": "✅ 먹고 나서 커피를 마셔요 (meok-go na-seo keo-pi-reul ma-syeo-yo). Correct."
       }
     ],
     "compare": [],
@@ -7973,8 +7973,8 @@
         "correct": "✅ 먹어 보세요. (Meo-geo bo-se-yo.) Means: Try eating it. Much softer and more natural."
       },
       {
-        "wrong": "❌ 가겠어요. Means: I'll go.",
-        "correct": "✅ 가 보세요. Means: Try going."
+        "wrong": "❌ 가겠어요 (ga-ge-sseo-yo). Means: I'll go.",
+        "correct": "✅ 가 보세요 (ga bo-se-yo). Means: Try going."
       }
     ],
     "compare": [],
@@ -8067,12 +8067,12 @@
     "nativeTip": "-(으)면 can mean both if and when, depending on the context.\n\nExample:\n\n집에 가면 연락하세요. (Ji-be ga-myeon yeon-rak-ha-se-yo.)\n\nWhen you get home, contact me.",
     "commonMistakes": [
       {
-        "wrong": "❌ 가기 때문에 Means: Because (someone) goes",
+        "wrong": "❌ 가기 때문에 (ga-gi ttae-mun-e) Means: Because (someone) goes",
         "correct": "✅ 가면 (Ga-myeon) Means: If (someone) goes"
       },
       {
-        "wrong": "❌ 먹어서 Means: Because I ate",
-        "correct": "✅ 먹으면 Means: If (you) eat"
+        "wrong": "❌ 먹어서 (meo-geo-seo) Means: Because I ate",
+        "correct": "✅ 먹으면 (meo-geu-myeon) Means: If (you) eat"
       }
     ],
     "compare": [],
@@ -8169,8 +8169,8 @@
         "correct": "✅ 가도 돼요. (Ga-do dwae-yo.) Means: You may go."
       },
       {
-        "wrong": "❌ 먹지 마세요. Means: Don't eat.",
-        "correct": "✅ 먹어도 돼요. Means: You may eat."
+        "wrong": "❌ 먹지 마세요 (meok-ji ma-se-yo). Means: Don't eat.",
+        "correct": "✅ 먹어도 돼요 (meo-geo-do dwae-yo). Means: You may eat."
       }
     ],
     "compare": [],
@@ -8267,8 +8267,8 @@
         "correct": "✅ 가야 돼요. (Ga-ya dwae-yo.) Means: You have to go."
       },
       {
-        "wrong": "❌ 먹어도 돼요. Means: You may eat.",
-        "correct": "✅ 먹어야 돼요. Means: You have to eat."
+        "wrong": "❌ 먹어도 돼요 (meo-geo-do dwae-yo). Means: You may eat.",
+        "correct": "✅ 먹어야 돼요 (meo-geo-ya dwae-yo). Means: You have to eat."
       }
     ],
     "compare": [],
@@ -8365,8 +8365,8 @@
         "correct": "✅ 친구가 가고 싶어 해요. (Chin-gu-ga ga-go si-peo hae-yo.) My friend wants to go. Correct."
       },
       {
-        "wrong": "❌ 가려고 해요. Means: I'm planning to go.",
-        "correct": "✅ 가고 싶어요. Means: I want to go."
+        "wrong": "❌ 가려고 해요 (ga-ryeo-go hae-yo). Means: I'm planning to go.",
+        "correct": "✅ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go.
       }
     ],
     "compare": [],
@@ -8561,8 +8561,8 @@
         "correct": "✅ 먹으세요. (Meo-geu-se-yo.) Means: Please eat. A polite invitation."
       },
       {
-        "wrong": "❌ 앉아 주세요. Can be correct, but often implies: Please sit down (because I want you to).",
-        "correct": "✅ 앉으세요. More natural as a polite instruction."
+        "wrong": "❌ 앉아 주세요 (an-ja ju-se-yo). Can be correct, but often implies: Please sit down (because I want you to).",
+        "correct": "✅ 앉으세요 (an-jeu-se-yo). More natural as a polite instruction."
       }
     ],
     "compare": [],
@@ -8660,8 +8660,8 @@
         "correct": "✅ 가지 못해요. (Ga-ji mot-hae-yo.) I can't go. (No ability / impossible)"
       },
       {
-        "wrong": "❌ 안 먹어요. Means: I don't eat.",
-        "correct": "✅ 먹지 못해요. Means: I can't eat."
+        "wrong": "❌ 안 먹어요 (an meo-geo-yo). Means: I don't eat.",
+        "correct": "✅ 먹지 못해요 (meok-ji mo-tae-yo). Means: I can't eat."
       }
     ],
     "compare": [],
@@ -8758,8 +8758,8 @@
         "correct": "✅ 가지 않아요. (Ga-ji a-na-yo.) Means: I don't go. (My choice)"
       },
       {
-        "wrong": "❌ 못 먹어요. Means: I can't eat.",
-        "correct": "✅ 먹지 않아요. Means: I don't eat."
+        "wrong": "❌ 못 먹어요 (mot meo-geo-yo). Means: I can't eat.",
+        "correct": "✅ 먹지 않아요 (meok-ji a-na-yo). Means: I don't eat."
       }
     ],
     "compare": [],
@@ -8852,7 +8852,7 @@
     "nativeTip": "This grammar is only used with 가다 (go) and 오다 (come).\n\nIt expresses the purpose of movement.",
     "commonMistakes": [
       {
-        "wrong": "❌ 학교에 공부해서 가요. Wrong.",
+        "wrong": "❌ 학교에 공부해서 가요. (hak-gyo-e gong-bu-hae seo ga-yo) Wrong.",
         "correct": "✅ 학교에 공부하러 가요. (Hak-gyo-e gong-bu-ha-reo ga-yo.) I'm going to school to study. Correct."
       }
     ],
@@ -9044,8 +9044,8 @@
         "correct": "✅ 먹고 있어요. (Meok-go i-sseo-yo.) Means: I'm eating right now."
       },
       {
-        "wrong": "❌ 공부하기 시작했어요. Means: I started studying.",
-        "correct": "✅ 공부하고 있어요. Means: I'm studying now."
+        "wrong": "❌ 공부하기 시작했어요 (gong-bu-ha-gi si-ja-kae-sseo-yo). Means: I started studying.",
+        "correct": "✅ 공부하고 있어요 (gong-bu-ha-go i-sseo-yo). Means: I'm studying now.
       }
     ],
     "compare": [],
@@ -9142,8 +9142,8 @@
         "correct": "✅ 갈 거예요. (Gal geo-ye-yo.) Means: I'll go."
       },
       {
-        "wrong": "❌ 가고 싶어요. Means: I want to go.",
-        "correct": "✅ 갈 거예요. Means: I'm going to go."
+        "wrong": "❌ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go.",
+        "correct": "✅ 갈 거예요 (gal geo-ye-yo). Means: I'm going to go."
       }
     ],
     "compare": [],
@@ -9240,8 +9240,8 @@
         "correct": "✅ 가려고 해요. (Ga-ryeo-go hae-yo.) Means: I'm planning to go. (Plan / intention)"
       },
       {
-        "wrong": "❌ 가고 싶어요. Means: I want to go.",
-        "correct": "✅ 가려고 해요. Means: I'm planning to go."
+        "wrong": "❌ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go.",
+        "correct": "✅ 가려고 해요 (ga-ryeo-go hae-yo). Means: I'm planning to go."
       }
     ],
     "compare": [],
@@ -9334,8 +9334,8 @@
     "nativeTip": "Koreans often pair this grammar with 먼저 (meon-jeo)\n\nmeaning\n\nfirst.\n\nExample:\n\n먼저 숙제를 하고 자기 전에 책을 읽어요. (Meon-jeo suk-je-reul ha-go ja-gi jeo-ne chae-geul il-geo-yo.)\n\nFirst I do my homework, then I read before sleeping.",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹은 후에 Means: After eating",
-        "correct": "✅ 먹기 전에 Means: Before eating"
+       "wrong": "❌ 먹은 후에 (meo-geun hu-e) Means: After eating",
+       "correct": "✅ 먹기 전에 (meok-gi jeon-e) Means: Before eating"
       }
     ],
     "compare": [],
@@ -9428,8 +9428,8 @@
     "nativeTip": "In everyday conversation,\n\nKoreans often shorten\n\n후에 (hue)\n\nto simply\n\n후 (hu)\n\nExample:\n\n식사 후 커피를 마셔요. (Sik-sa hu keo-pi-reul ma-syeo-yo.)\n\nI drink coffee after the meal.\n\nThis sounds very natural.",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹기 전에 Means: Before eating",
-        "correct": "✅ 먹은 후에 Means: After eating"
+        "wrong": "❌ 먹기 전에 meo-ggi jeon-e  Means: Before eating",
+        "correct": "✅ 먹은 후에 meog-eun hue  Means: After eating"
       }
     ],
     "compare": [],
@@ -9522,8 +9522,8 @@
     "nativeTip": "-(으)면서 usually describes the same person doing both actions.\n\nExample:\n\n저는 음악을 들으면서 공부해요. (Jeo-neun eum-ak-eul deu-reu-myeon-seo gong-bu-hae-yo.)\n\nI study while listening to music.\n\nBoth actions are done by me.",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹은 후에 공부해요. Means: I study after eating.",
-        "correct": "✅ 먹으면서 공부해요. Means: I study while eating."
+        "wrong": "❌ 먹은 후에 공부해요 (meo-geun hu-e gong-bu-hae-yo). Means: I study after eating.",
+        "correct": "✅ 먹으면서 공부해요 (meo-geu-myeon-seo gong-bu-hae-yo). Means: I study while eating."
       }
     ],
     "compare": [],
