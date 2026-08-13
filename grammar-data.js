@@ -8852,7 +8852,7 @@
     "nativeTip": "This grammar is only used with 가다 (go) and 오다 (come).\n\nIt expresses the purpose of movement.",
     "commonMistakes": [
       {
-        "wrong": "❌ 학교에 공부해서 가요. Wrong.",
+        "wrong": "❌ 학교에 공부해서 가요.(hag-gyo gong bu hae seo ga-yo) Wrong.",
         "correct": "✅ 학교에 공부하러 가요. (Hak-gyo-e gong-bu-ha-reo ga-yo.) I'm going to school to study. Correct."
       }
     ],
@@ -9037,15 +9037,15 @@
         "en": "I'm waiting for my friend."
       }
     ],
-    "nativeTip": "Koreans often omit\n\n지금 (now)\n\nbecause\n\n-고 있어요 (-go isseoyo)\n\nalready implies that the action is happening now.\n\nExample:\n\n뭐 하고 있어요? (Mwo ha-go i-sseo-yo?)\n\nWhat are you doing?\n\nOne of the most common Korean questions.",
+    "nativeTip": "Koreans often omit\n\n지금 ji-geum (now)\n\nbecause\n\n-고 있어요 (-go isseoyo)\n\nalready implies that the action is happening now.\n\nExample:\n\n뭐 하고 있어요? (Mwo ha-go i-sseo-yo?)\n\nWhat are you doing?\n\nOne of the most common Korean questions.",
     "commonMistakes": [
       {
         "wrong": "❌ 먹어요. (Meo-geo-yo.) Means: I eat / I'm eating (general)",
         "correct": "✅ 먹고 있어요. (Meok-go i-sseo-yo.) Means: I'm eating right now."
       },
       {
-        "wrong": "❌ 공부하기 시작했어요. Means: I started studying.",
-        "correct": "✅ 공부하고 있어요. Means: I'm studying now."
+        "wrong": "❌ 공부하기 시작했어요 (gong-bu-ha-gi si-ja-kae-sseo-yo). Means: I started studying.",
+        "correct": "✅ 공부하고 있어요 (gong-bu-ha-go i-sseo-yo). Means: I'm studying now."
       }
     ],
     "compare": [],
@@ -9142,8 +9142,8 @@
         "correct": "✅ 갈 거예요. (Gal geo-ye-yo.) Means: I'll go."
       },
       {
-        "wrong": "❌ 가고 싶어요. Means: I want to go.",
-        "correct": "✅ 갈 거예요. Means: I'm going to go."
+         "wrong": "❌ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go.",
+         "correct": "✅ 갈 거예요 (gal geo-ye-yo). Means: I'm going to go."
       }
     ],
     "compare": [],
@@ -9240,8 +9240,8 @@
         "correct": "✅ 가려고 해요. (Ga-ryeo-go hae-yo.) Means: I'm planning to go. (Plan / intention)"
       },
       {
-        "wrong": "❌ 가고 싶어요. Means: I want to go.",
-        "correct": "✅ 가려고 해요. Means: I'm planning to go."
+         "wrong": "❌ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go.",
+         "correct": "✅ 가려고 해요 (ga-ryeo-go hae-yo). Means: I'm planning to go."
       }
     ],
     "compare": [],
@@ -9334,8 +9334,8 @@
     "nativeTip": "Koreans often pair this grammar with 먼저 (meon-jeo)\n\nmeaning\n\nfirst.\n\nExample:\n\n먼저 숙제를 하고 자기 전에 책을 읽어요. (Meon-jeo suk-je-reul ha-go ja-gi jeo-ne chae-geul il-geo-yo.)\n\nFirst I do my homework, then I read before sleeping.",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹은 후에 Means: After eating",
-        "correct": "✅ 먹기 전에 Means: Before eating"
+        "wrong": "❌ 먹은 후에 (meo-geun hu-e) Means: After eating",
+        "correct": "✅ 먹기 전에 (meok-gi jeon-e) Means: Before eating"
       }
     ],
     "compare": [],
@@ -9428,8 +9428,8 @@
     "nativeTip": "In everyday conversation,\n\nKoreans often shorten\n\n후에 (hue)\n\nto simply\n\n후 (hu)\n\nExample:\n\n식사 후 커피를 마셔요. (Sik-sa hu keo-pi-reul ma-syeo-yo.)\n\nI drink coffee after the meal.\n\nThis sounds very natural.",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹기 전에 Means: Before eating",
-        "correct": "✅ 먹은 후에 Means: After eating"
+        "wrong": "❌ 먹기 전에 meog-gi jeon-e Means: Before eating",
+        "correct": "✅ 먹은 후에 meog-eun hue-e Means: After eating"
       }
     ],
     "compare": [],
