@@ -8946,7 +8946,7 @@
     "nativeTip": "If something is continuing, Koreans often use:\n\n-고 있어요 (-go isseoyo)\n\nExample:\n\n비가 오기 시작했어요. (Bi-ga o-gi si-ja-kae-sseo-yo.)\n\nIt started to rain.\n\n↓\n\n비가 오고 있어요. (Bi-ga o-go i-sseo-yo.)\n\nIt is raining.",
     "commonMistakes": [
       {
-        "wrong": "❌ 공부하고 있어요. (Gong-bu-ha-go i-sseo-yo.) Means: I'm studying.",
+        "wrong": "❌ 공부하고 있어요. (Gong-bu-ha-go i-sseo-yo) Means: I'm studying.",
         "correct": "✅ 공부하기 시작했어요. (Gong-bu-ha-gi si-ja-kae-sseo-yo.) Means: I started studying."
       }
     ],
