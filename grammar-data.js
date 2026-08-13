@@ -9902,7 +9902,7 @@
     "nativeTip": "-아 / 어서 is not usually used with commands or suggestions. (-a / eoseo is not usually used with commands or suggestions.)\n\nInstead of:\n\n❌\n\n배고파서 먹으세요. (baegopaseo meokeuseyo.)\n\nUse:\n\n✅\n\n배가 고프니까 먹으세요. (Bae-ga go-peu-ni-kka meo-geu-se-yo.)\n\nBecause you're hungry, please eat.",
     "commonMistakes": [
       {
-        "wrong": "❌ 비가 와서 가세요. Wrong for giving a command.",
+        "wrong": "❌ 비가 와서 가세요 (bi-ga wa-seo ga-se-yo). Wrong for giving a command.",
         "correct": "✅ 비가 오니까 가세요. (Bi-ga o-ni-kka ga-se-yo.) Because it's raining, please go."
       }
     ],
@@ -10369,7 +10369,7 @@
         "en": "I will call later."
       }
     ],
-    "nativeTip": "-(으)ㄹ 거예요 is the most common way to talk about the future in everyday Korean.",
+    "nativeTip": "-(으)ㄹ 거예요 geo-ye-yo is the most common way to talk about the future in everyday Korean.",
     "commonMistakes": [
       {
         "wrong": "❌ 갔어요. (Ga-sseo-yo.) I went. (Past)",
@@ -10466,8 +10466,8 @@
     "nativeTip": "In everyday Korean, you will hear -아요 constantly. (In everyday Korean, you will hear -ayo constantly.)\n\nBut don't think that every polite verb ends in -아요. (But don't think that every polite verb ends in -ayo.)\n\nThe choice depends on the vowel in the verb or adjective stem.\n\nFor example:\n\n가다 → 가요 (gada → gayo)\n\n먹다 → 먹어요 (meokda → meokeoyo)\n\nSo -아요 and -어요 work together as the basic everyday polite ending system. (So -ayo and -eoyo work together as the basic everyday polite ending system.)",
     "commonMistakes": [
       {
-        "wrong": "❌ 가아요. (ga-a-yo) Don't keep both vowels separately.",
-        "correct": "✅ 가요. (Ga-yo.) I go. 가 + 아요 → 가요 Another Common Pattern Some ㅗ verbs combine with -아요. 보다 (bo-da) to see / watch ↓ 보 + 아요 ↓ 봐요 (Bwa-yo.) I see / I watch."
+        "wrong": "❌ 가아요 (ga-a-yo). Don't keep both vowels separately.",
+        "correct": "✅ 가요 (ga-yo). I go. 가 (ga) + 아요 (a-yo) → 가요 (ga-yo). Another Common Pattern Some ㅗ verbs combine with -아요 (a-yo). 보다 (bo-da) to see / watch ↓ 보 (bo) + 아요 (a-yo) ↓ 봐요 (bwa-yo). I see / I watch."
       }
     ],
     "compare": [],
@@ -10557,11 +10557,11 @@
         "en": "I'm at home."
       }
     ],
-    "nativeTip": "Some -어요 forms change their pronunciation or spelling when vowels combine. (Some -eoyo forms change their pronunciation or spelling when vowels combine.)\n\nFor example:\n\n마시다 (ma-si-da)\n\n→\n\n마셔요 (ma-syeo-yo)\n\nYou don't say 마시어요 in normal everyday Korean. (You don't say masieoyo in normal everyday Korean.)",
+    "nativeTip": "Some -어요 forms change their pronunciation or spelling when vowels combine. (Some -eoyo forms change their pronunciation or spelling when vowels combine.)\n\nFor example:\n\n마시다 (ma-si-da)\n\n→\n\n마셔요 (ma-syeo-yo)\n\nYou don't say 마시어요 (ma si eo yo) in normal everyday Korean. (You don't say masieoyo in normal everyday Korean.)",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹아요. (Meo-ga-yo.) For 먹다, the stem vowel is ㅓ, so we use -어요.",
-        "correct": "✅ 먹어요. (Meo-geo-yo.) I eat. Another Common Pattern Some verbs with ㅣ combine naturally with -어요. 보다 (bo-da) → 봐요 but: 마시다 (ma-si-da) → 마셔요 This is why learning the actual common forms is important."
+        "wrong": "❌ 먹아요 (meo-ga-yo). For 먹다 (meok-da), the stem vowel is ㅓ, so we use -어요 (eo-yo).",
+        "correct": "✅ 먹어요 (meo-geo-yo). I eat. Another Common Pattern Some verbs with ㅣ combine naturally with -어요 (eo-yo). 보다 (bo-da) → 봐요 (bwa-yo) but: 마시다 (ma-si-da) → 마셔요 (ma-syeo-yo). This is why learning the actual common forms is important."
       }
     ],
     "compare": [],
@@ -10654,8 +10654,8 @@
     "nativeTip": "There are many 하다 verbs in Korean. (There are many hada verbs in Korean.)\n\nOnce you learn 하다 → 해요, you can immediately make many useful sentences. (Once you learn hada → haeyo, you can immediately make many useful sentences.)\n\nFor example:\n\n공부하다 → 공부해요 (gongbuhada → gongbuhaeyo)\n\nto study → study\n\n운동하다 → 운동해요 (undonghada → undonghaeyo)\n\nto exercise → exercise\n\n요리하다 → 요리해요 (yorihada → yorihaeyo)\n\nto cook → cook\n\n쇼핑하다 → 쇼핑해요 (syopinghada → syopinghaeyo)\n\nto shop → shop",
     "commonMistakes": [
       {
-        "wrong": "❌ 공부하어요. (gong-bu-ha-eo-yo) Don't add -어요 directly to 하다.",
-        "correct": "✅ 공부해요. (Gong-bu-hae-yo.) I study. The special contraction is: 하다 → 해요 Another Common Pattern 하다 can also attach to nouns. 예: 공부 + 하다 (gong-bu + ha-da) study + do ↓ 공부하다 (gong-bu-ha-da) to study ↓ 공부해요 (gong-bu-hae-yo) I study."
+        "wrong": "❌ 공부하어요. (gong-bu-ha-eo-yo) Don't add -어요 eo-yo directly to 하다 ha-da.",
+        "correct": "✅ 공부해요. (Gong-bu-hae-yo.) I study. The special contraction is: 하다 ha da → 해요 hae-yo Another Common Pattern 하다 ha da can also attach to nouns. ex: 공부 + 하다 (gong-bu + ha-da) study + do ↓ 공부하다 (gong-bu-ha-da) to study ↓ 공부해요 (gong-bu-hae-yo) I study."
       }
     ],
     "compare": [],
