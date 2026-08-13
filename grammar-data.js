@@ -9902,8 +9902,8 @@
     "nativeTip": "-아 / 어서 is not usually used with commands or suggestions. (-a / eoseo is not usually used with commands or suggestions.)\n\nInstead of:\n\n❌\n\n배고파서 먹으세요. (baegopaseo meokeuseyo.)\n\nUse:\n\n✅\n\n배가 고프니까 먹으세요. (Bae-ga go-peu-ni-kka meo-geu-se-yo.)\n\nBecause you're hungry, please eat.",
     "commonMistakes": [
       {
-        "wrong": "❌ 비가 와서 가세요. Wrong for giving a command.",
-        "correct": "✅ 비가 오니까 가세요. (Bi-ga o-ni-kka ga-se-yo.) Because it's raining, please go."
+        "wrong": "❌ 비가 와서 가세요 (bi-ga wa-seo ga-se-yo). Wrong for giving a command.",
+        "correct": "✅ 비가 오니까 가세요 (bi-ga o-ni-kka ga-se-yo). Because it's raining, please go."
       }
     ],
     "compare": [],
@@ -9996,8 +9996,8 @@
     "nativeTip": "When giving advice or instructions,\n\nKoreans usually prefer\n\n-(으)니까\n\ninstead of\n\n-아 / 어서. (-a / eoseo.)\n\nIt sounds much more natural.",
     "commonMistakes": [
       {
-        "wrong": "❌ 추워서 코트를 입으세요. Less natural.",
-        "correct": "✅ 추우니까 코트를 입으세요. (Chu-u-ni-kka ko-teu-reul i-beu-se-yo.) Because it's cold, please wear a coat."
+        "wrong": "❌ 추워서 코트를 입으세요 (chu-wo-seo ko-teu-reul i-beu-se-yo). Less natural.",
+        "correct": "✅ 추우니까 코트를 입으세요 (chu-u-ni-kka ko-teu-reul i-beu-se-yo). Because it's cold, please wear a coat."
       }
     ],
     "compare": [],
@@ -10090,7 +10090,7 @@
     "nativeTip": "Use -고 싶어요 only for your own desires. (Use -go sipeoyo only for your own desires.)\n\nFor someone else's wishes, Koreans usually use:\n\n-고 싶어 하다 (-go sipeo hada)\n\nExample:\n\n친구는 한국에 가고 싶어 해요. (Chin-gu-neun Han-gu-ge ga-go si-peo hae-yo.)\n\nMy friend wants to go to Korea.",
     "commonMistakes": [
       {
-        "wrong": "❌ 친구는 가고 싶어요. Means literally: My friend wants to go. This sounds unnatural because -고 싶어요 is mainly used for the speaker's own feelings.",
+        "wrong": "❌ 친구는 가고 싶어요 (Chin-gu-neun ga-go si peo yo). Means literally: My friend wants to go. This sounds unnatural because -고 싶어요 go sip peo yp is mainly used for the speaker's own feelings.",
         "correct": "✅ 친구는 가고 싶어 해요. (Chin-gu-neun ga-go si-peo hae-yo.) My friend wants to go."
       }
     ],
@@ -10466,8 +10466,8 @@
     "nativeTip": "In everyday Korean, you will hear -아요 constantly. (In everyday Korean, you will hear -ayo constantly.)\n\nBut don't think that every polite verb ends in -아요. (But don't think that every polite verb ends in -ayo.)\n\nThe choice depends on the vowel in the verb or adjective stem.\n\nFor example:\n\n가다 → 가요 (gada → gayo)\n\n먹다 → 먹어요 (meokda → meokeoyo)\n\nSo -아요 and -어요 work together as the basic everyday polite ending system. (So -ayo and -eoyo work together as the basic everyday polite ending system.)",
     "commonMistakes": [
       {
-        "wrong": "❌ 가아요. (ga-a-yo) Don't keep both vowels separately.",
-        "correct": "✅ 가요. (Ga-yo.) I go. 가 + 아요 → 가요 Another Common Pattern Some ㅗ verbs combine with -아요. 보다 (bo-da) to see / watch ↓ 보 + 아요 ↓ 봐요 (Bwa-yo.) I see / I watch."
+        "wrong": "❌ 가아요 (ga-a-yo). Don't keep both vowels separately.",
+        "correct": "✅ 가요 (ga-yo). I go. 가 (ga) + 아요 (a-yo) → 가요 (ga-yo). Another Common Pattern Some ㅗ verbs combine with -아요 (a-yo). 보다 (bo-da) to see / watch ↓ 보 (bo) + 아요 (a-yo) ↓ 봐요 (bwa-yo). I see / I watch."
       }
     ],
     "compare": [],
@@ -10560,8 +10560,8 @@
     "nativeTip": "Some -어요 forms change their pronunciation or spelling when vowels combine. (Some -eoyo forms change their pronunciation or spelling when vowels combine.)\n\nFor example:\n\n마시다 (ma-si-da)\n\n→\n\n마셔요 (ma-syeo-yo)\n\nYou don't say 마시어요 in normal everyday Korean. (You don't say masieoyo in normal everyday Korean.)",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹아요. (Meo-ga-yo.) For 먹다, the stem vowel is ㅓ, so we use -어요.",
-        "correct": "✅ 먹어요. (Meo-geo-yo.) I eat. Another Common Pattern Some verbs with ㅣ combine naturally with -어요. 보다 (bo-da) → 봐요 but: 마시다 (ma-si-da) → 마셔요 This is why learning the actual common forms is important."
+        "wrong": "❌ 먹아요 (meo-ga-yo). For 먹다 (meok-da), the stem vowel is ㅓ, so we use -어요 (eo-yo).",
+        "correct": "✅ 먹어요 (meo-geo-yo). I eat. Another Common Pattern Some verbs with ㅣ combine naturally with -어요 (eo-yo). 보다 (bo-da) → 봐요 (bwa-yo) but: 마시다 (ma-si-da) → 마셔요 (ma-syeo-yo). This is why learning the actual common forms is important."
       }
     ],
     "compare": [],
