@@ -10935,11 +10935,11 @@
         "en": "Be careful."
       }
     ],
-    "nativeTip": "-세요 is extremely common when speaking politely to someone. (-seyo is extremely common when speaking politely to someone.)\n\nFor example, a restaurant worker might say:\n\n많이 드세요. (Ma-ni deu-se-yo.)\n\nPlease enjoy your meal.\n\nA friend might say:\n\n천천히 하세요. (Cheon-cheon-hi ha-se-yo.)\n\nTake your time.",
+    "nativeTip": "-세요 se-yo is extremely common when speaking politely to someone. (-seyo is extremely common when speaking politely to someone.)\n\nFor example, a restaurant worker might say:\n\n많이 드세요. (Ma-ni deu-se-yo.)\n\nPlease enjoy your meal.\n\nA friend might say:\n\n천천히 하세요. (Cheon-cheon-hi ha-se-yo.)\n\nTake your time.",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹세요. (meok-se-yo) For a consonant-ending stem, you need 으세요.",
-        "correct": "✅ 먹으세요. (Meo-geu-se-yo.) Please eat. Important ㄹ Pattern When the verb stem ends in ㄹ, the ㄹ disappears before -세요. 살다 (sal-da) to live ↓ 사세요 (Sa-se-yo.) Please live."
+        "wrong": "❌ 먹세요. (meok-se-yo) For a consonant-ending stem, you need 으세요 eu-se-yo.",
+        "correct": "✅ 먹으세요. (Meo-geu-se-yo.) Please eat. Important ㄹ Pattern When the verb stem ends in ㄹ, the ㄹ disappears before -세요 se-y. 살다 (sal-da) to live ↓ 사세요 (Sa-se-yo.) Please live."
       }
     ],
     "compare": [],
