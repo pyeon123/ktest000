@@ -8064,15 +8064,15 @@
         "en": "If I go to Korea, I'll meet my friend."
       }
     ],
-    "nativeTip": "-(으)면 can mean both if and when, depending on the context.\n\nExample:\n\n집에 가면 연락하세요. (Ji-be ga-myeon yeon-rak-ha-se-yo.)\n\nWhen you get home, contact me.",
+    "nativeTip": "-(으)면 (myeon) can mean both if and when, depending on the context.\n\nExample:\n\n집에 가면 연락하세요. (Ji-be ga-myeon yeon-rak-ha-se-yo.)\n\nWhen you get home, contact me.",
     "commonMistakes": [
       {
-        "wrong": "❌ 가기 때문에 Means: Because (someone) goes",
-        "correct": "✅ 가면 (Ga-myeon) Means: If (someone) goes"
+        "wrong": "❌ 가기 때문에(ga-gi ttae-mun-e) Means: Because (someone) goes",
+        "correct": "✅ 가면 (Ga-myeon) Means: If (someone) goes."
       },
       {
-        "wrong": "❌ 먹어서 Means: Because I ate",
-        "correct": "✅ 먹으면 Means: If (you) eat"
+        "wrong": "❌ 먹어서 (meo-geo-seo) Means: Because I ate",
+        "correct": "✅ 먹으면 (meo-geu-myeon) Means: If (you) eat."
       }
     ],
     "compare": [],
@@ -8169,8 +8169,8 @@
         "correct": "✅ 가도 돼요. (Ga-do dwae-yo.) Means: You may go."
       },
       {
-        "wrong": "❌ 먹지 마세요. Means: Don't eat.",
-        "correct": "✅ 먹어도 돼요. Means: You may eat."
+        "wrong": "❌ 먹지 마세요 (meok-ji ma-se-yo). Means: Don't eat.",
+        "correct": "✅ 먹어도 돼요 (meo-geo-do dwae-yo). Means: You may eat."
       }
     ],
     "compare": [],
