@@ -8260,15 +8260,15 @@
         "en": "You have to sleep early."
       }
     ],
-    "nativeTip": "In casual conversations, Koreans often shorten\n\n돼요 (dwaeyo)\n\nto\n\n해요 only in some expressions, but -아/어야 돼요 is the standard form and is used most often. (haeyo only in some expressions, but -a/eoya dwaeyo is the standard form and is used most often.)",
+    "nativeTip": "In casual conversations, Koreans often shorten\n\n돼요 (dwaeyo)\n\nto\n\n해요 only in some expressions, but -아/어야 돼요 a/eoya dwae-yo is the standard form and is used most often. (haeyo only in some expressions, but -a/eoya dwaeyo is the standard form and is used most often.)",
     "commonMistakes": [
       {
         "wrong": "❌ 가도 돼요. (Ga-do dwae-yo.) Means: You may go.",
         "correct": "✅ 가야 돼요. (Ga-ya dwae-yo.) Means: You have to go."
       },
       {
-        "wrong": "❌ 먹어도 돼요. Means: You may eat.",
-        "correct": "✅ 먹어야 돼요. Means: You have to eat."
+        "wrong": "❌ 먹어도 돼요 (meo-geo-do dwae-yo). Means: You may eat.",
+        "correct": "✅ 먹어야 돼요 (meo-geo-ya dwae-yo). Means: You have to eat."
       }
     ],
     "compare": [],
@@ -8365,8 +8365,8 @@
         "correct": "✅ 친구가 가고 싶어 해요. (Chin-gu-ga ga-go si-peo hae-yo.) My friend wants to go. Correct."
       },
       {
-        "wrong": "❌ 가려고 해요. Means: I'm planning to go.",
-        "correct": "✅ 가고 싶어요. Means: I want to go."
+        "wrong": "❌ 가려고 해요 (ga-ryeo-go hae-yo). Means: I'm planning to go.",
+        "correct": "✅ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go.
       }
     ],
     "compare": [],
@@ -8554,15 +8554,15 @@
         "en": "Please enjoy your meal."
       }
     ],
-    "nativeTip": "-(으)세요 is used when giving general polite instructions.\n\nIf you're asking someone to do something for you, Koreans usually prefer:\n\n-아 / 어 주세요 (-a / eo juseyo)\n\nExample:\n\n문을 닫아 주세요. (Mu-neul da-ra ju-se-yo.)\n\nPlease close the door (for me).",
+    "nativeTip": "-(으)세요 (eu)se-yo is used when giving general polite instructions.\n\nIf you're asking someone to do something for you, Koreans usually prefer:\n\n-아 / 어 주세요 (-a / eo juseyo)\n\nExample:\n\n문을 닫아 주세요. (Mu-neul da-ra ju-se-yo.)\n\nPlease close the door (for me).",
     "commonMistakes": [
       {
         "wrong": "❌ 먹어 주세요. (Meo-geo ju-se-yo.) Means: Please eat (for me / as a request).",
         "correct": "✅ 먹으세요. (Meo-geu-se-yo.) Means: Please eat. A polite invitation."
       },
       {
-        "wrong": "❌ 앉아 주세요. Can be correct, but often implies: Please sit down (because I want you to).",
-        "correct": "✅ 앉으세요. More natural as a polite instruction."
+        "wrong": "❌ 앉아 주세요 (an-ja ju-se-yo). Can be correct, but often implies: Please sit down (because I want you to).",
+        "correct": "✅ 앉으세요 (an-jeu-se-yo). More natural as a polite instruction."
       }
     ],
     "compare": [],
@@ -8660,8 +8660,8 @@
         "correct": "✅ 가지 못해요. (Ga-ji mot-hae-yo.) I can't go. (No ability / impossible)"
       },
       {
-        "wrong": "❌ 안 먹어요. Means: I don't eat.",
-        "correct": "✅ 먹지 못해요. Means: I can't eat."
+        "wrong": "❌ 안 먹어요 (an meo-geo-yo). Means: I don't eat.",
+        "correct": "✅ 먹지 못해요 (meok-ji mo-tae-yo). Means: I can't eat."
       }
     ],
     "compare": [],
@@ -8758,8 +8758,8 @@
         "correct": "✅ 가지 않아요. (Ga-ji a-na-yo.) Means: I don't go. (My choice)"
       },
       {
-        "wrong": "❌ 못 먹어요. Means: I can't eat.",
-        "correct": "✅ 먹지 않아요. Means: I don't eat."
+        "wrong": "❌ 못 먹어요 (mot meo-geo-yo). Means: I can't eat.",
+        "correct": "✅ 먹지 않아요 (meok-ji a-na-yo). Means: I don't eat."
       }
     ],
     "compare": [],
