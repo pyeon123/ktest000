@@ -10843,8 +10843,8 @@
     "nativeTip": "Korean often drops the subject when it's obvious.\n\nFor example:\n\n의사예요. (Ui-sa-ye-yo.)\n\ncan simply mean:\n\nI'm a doctor.\n\nYou don't always need to say:\n\n저는 (jeo-neun)\n\nI / as for me",
     "commonMistakes": [
       {
-        "wrong": "❌ 의사이에요. (ui-sa-i-e-yo) The noun 의사 ends in a vowel, so don't use 이에요.",
-        "correct": "✅ 의사예요. (Ui-sa-ye-yo.) I'm a doctor. Another Common Pattern When the noun has no final consonant (받침): 의사 + 예요 ↓ 의사예요. 친구 + 예요 ↓ 친구예요. 학교 + 예요 ↓ 학교예요."
+        "wrong": "❌ 의사이에요. (ui-sa-i-e-yo) The noun 의사 (ui-sa) ends in a vowel, so don't use 이에요 i-e-yo.",
+        "correct": "✅ 의사예요. (Ui-sa-ye-yo.) I'm a doctor. Another Common Pattern When the noun has no final consonant (받침): 의사 (ui-sa)  + 예요 (ye-yo) ↓ 의사예요. (Ui-sa ye-yo.)  I'm a friend. 친구 (chingu) friend + 예요 (ye-yo) ↓ 친구 예요 chingu ye-yo ."
       }
     ],
     "compare": [],
@@ -10939,7 +10939,7 @@
     "commonMistakes": [
       {
         "wrong": "❌ 먹세요. (meok-se-yo) For a consonant-ending stem, you need 으세요 eu-se-yo.",
-        "correct": "✅ 먹으세요. (Meo-geu-se-yo.) Please eat. Important ㄹ Pattern When the verb stem ends in ㄹ, the ㄹ disappears before -세요 se-y. 살다 (sal-da) to live ↓ 사세요 (Sa-se-yo.) Please live."
+        "correct": "✅ 먹으세요. (Meo-geu-se-yo.) Please eat. Important ㄹ Pattern When the verb stem ends in ㄹ, the ㄹ disappears before -세요 se-yo. 살다 (sal-da) to live ↓ 사세요 (Sa-se-yo.) Please live."
       }
     ],
     "compare": [],
