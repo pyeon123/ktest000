@@ -8366,7 +8366,7 @@
       },
       {
         "wrong": "❌ 가려고 해요 (ga-ryeo-go hae-yo). Means: I'm planning to go.",
-        "correct": "✅ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go.
+        "correct": "✅ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go."
       }
     ],
     "compare": [],
