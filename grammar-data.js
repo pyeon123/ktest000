@@ -10748,8 +10748,8 @@
     "nativeTip": "In natural Korean, the subject is often omitted when it's obvious.\n\nFor example:\n\n학생이에요. (Hak-saeng-i-e-yo.)\n\ncan simply mean:\n\nI'm a student.\n\nYou don't always need to say:\n\n저는 (jeo-neun)\n\nI / as for me",
     "commonMistakes": [
       {
-        "wrong": "❌ 학생예요. (hak-saeng-ye-yo) A noun ending in a consonant needs 이에요.",
-        "correct": "✅ 학생이에요. (Hak-saeng-i-e-yo.) I'm a student. Another Common Pattern If the noun ends in a consonant, keep 이. 학생 + 이에요 ↓ 학생이에요. 책 + 이에요 ↓ 책이에요."
+        "wrong": "❌ 학생예요 (hak-saeng-ye-yo). A noun ending in a consonant needs 이에요 (i-e-yo).",
+        "correct": "✅ 학생이에요 (hak-saeng-i-e-yo). I'm a student. Another Common Pattern If the noun ends in a consonant, keep 이. 학생 (hak-saeng) + 이에요 (i-e-yo) ↓ 학생이에요 (hak-saeng-i-e-yo). 책 (chaek) + 이에요 (i-e-yo) ↓ 책이에요 (chaek-i-e-yo)."
       }
     ],
     "compare": [],
