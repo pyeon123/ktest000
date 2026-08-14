@@ -1228,7 +1228,7 @@ Use the page sentence as the main example first if relevant.
 `.trim();
  
   // ⚠️ 이제 Gemini를 브라우저에서 직접 호출하지 않습니다. API 키는 서버(Edge Function)에만 있어요.
-  const ASK_TUTOR_ENDPOINT = "https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/ask-tutor";
+  const ASK_TUTOR_ENDPOINT = "https://";
   const USE_GEMINI = true;
 
   // 로그인 안 한 사용자를 구분하기 위한 익명 기기 ID (브라우저에 한 번 생성해서 저장)
@@ -1986,9 +1986,9 @@ function getPageSentences(){
         console.error('[AI Tutor] Stream error:', errMsg);
         const th = document.getElementById('ai-thinking');
         if(th) th.remove();
-        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>For more detailed questions, please use the search bar below.</b>`;
         log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-          + `<div id="ai-error-box">⚠️ 서버 연결 실패, 기본 답변으로 대체했어요.<br>에러: ${errMsg}</div>`
+          + `<div id="ai-error-box">⚠️ The official service will be available starting August 20th.<br>에러: ${errMsg}</div>`
           + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
         log.scrollTop = log.scrollHeight;
       }
