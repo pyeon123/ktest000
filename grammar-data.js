@@ -6628,7 +6628,7 @@
         "correct": "✅ 비가 오는 것 같아요. (Bi-ga o-neun geot gat-a-yo.) I think it's raining. Correct."
       },
       {
-        "wrong": "❌ 학생 같아요.(hak-saeng ga-ta-yo) This can be natural in conversation, but beginners should first learn the full pattern.",
+        "wrong": "❌ 학생 같아요. This can be natural in conversation, but beginners should first learn the full pattern.",
         "correct": "✅ 학생인 것 같아요. (Hak-saeng-in geot gat-a-yo.) I think he/she is a student."
       }
     ],
@@ -7005,7 +7005,7 @@
         "en": "Wow, you speak Korean well."
       }
     ],
-    "nativeTip": "Native Koreans use -네요 ne-yo when they notice something at that moment. (Native Koreans use -neyo when they notice something at that moment.)\n\nExample:\n\n와! 예쁘네요! (Wa! Ye-ppeu-ne-yo!)\n\nWow! It's beautiful!\n\nIt sounds warm and natural.",
+    "nativeTip": "Native Koreans use -네요 when they notice something at that moment. (Native Koreans use -neyo when they notice something at that moment.)\n\nExample:\n\n와! 예쁘네요! (Wa! Ye-ppeu-ne-yo!)\n\nWow! It's beautiful!\n\nIt sounds warm and natural.",
     "commonMistakes": [
       {
         "wrong": "❌ 맛있어요. (Ma-si-sseo-yo.) This simply states a fact: It's delicious.",
@@ -7197,7 +7197,7 @@
         "en": "I'm going to eat dinner."
       }
     ],
-    "nativeTip": "-(으)려고 해요 (eu)lyeogo haeyo sounds stronger than -고 싶어요 go sip-eoyo.\n\n먹고 싶어요. → I want to eat. (meokgo sipeoyo. → I want to eat.)\n\n먹으려고 해요. → I'm planning to eat. (meokeuryeogo haeyo. → I'm planning to eat.)\n\nThe second means you've already decided.",
+    "nativeTip": "-(으)려고 해요 sounds stronger than -고 싶어요.\n\n먹고 싶어요. → I want to eat. (meokgo sipeoyo. → I want to eat.)\n\n먹으려고 해요. → I'm planning to eat. (meokeuryeogo haeyo. → I'm planning to eat.)\n\nThe second means you've already decided.",
     "commonMistakes": [
       {
         "wrong": "❌ 먹고 싶어 해요. (Meok-go si-peo hae-yo.) This means Someone else wants to eat.",
@@ -7389,15 +7389,15 @@
         "en": "I'll call."
       }
     ],
-    "nativeTip": "When talking about your own plans, Koreans often use\n\n-(으)려고 해요 (eu)lyeogo haeyo\n\nmore frequently.\n\nBut\n\n-겠어요 (-gesseoyo)\n\nsounds more formal and is often used for:\n\nOffering help\n\nMaking polite promises\n\nPredictions",
+    "nativeTip": "When talking about your own plans, Koreans often use\n\n-(으)려고 해요\n\nmore frequently.\n\nBut\n\n-겠어요 (-gesseoyo)\n\nsounds more formal and is often used for:\n\nOffering help\n\nMaking polite promises\n\nPredictions",
     "commonMistakes": [
       {
         "wrong": "❌ 맛있어요. (Ma-si-sseo-yo.) Means: It is delicious.",
         "correct": "✅ 맛있겠어요. (Ma-sit-get-sseo-yo.) Means: It looks delicious. You haven't eaten it yet."
       },
       {
-        "wrong": "❌ 가려고 해요 (ga-ryeo-go hae-yo). Means: I'm planning to go.",
-        "correct": "✅ 가겠어요 (ga-ge-sseo-yo). Means: I'll go. A decision made at the moment."
+        "wrong": "❌ 가려고 해요. Means: I'm planning to go.",
+        "correct": "✅ 가겠어요. Means: I'll go. A decision made at the moment."
       }
     ],
     "compare": [],
@@ -7676,14 +7676,14 @@
         "en": "I drink coffee before studying."
       }
     ],
-    "nativeTip": "This grammar is extremely common in daily routines.\n\nExamples:\n\n자기 전에 ja-gi jeon-e (before sleeping)\n\n집에 가기 전에 jib-e ga-gi jeon-e (before going home)\n\n일하기 전에 il-hagi jeon-e (before working)\n\nYou'll hear these expressions every day in Korea.",
+    "nativeTip": "This grammar is extremely common in daily routines.\n\nExamples:\n\n자기 전에 (before sleeping)\n\n집에 가기 전에 (before going home)\n\n일하기 전에 (before working)\n\nYou'll hear these expressions every day in Korea.",
     "commonMistakes": [
       {
         "wrong": "❌ 먹기 후에 (Meok-gi hu-e) This means after eating, not before eating.",
         "correct": "✅ 먹기 전에 (Meok-gi jeon-e) Before eating Correct."
       },
       {
-        "wrong": "❌ 가기 먼저 (ga-gi meonj-eo) Not natural.",
+        "wrong": "❌ 가기 먼저 Not natural.",
         "correct": "✅ 가기 전에 (Ga-gi jeon-e) Correct."
       }
     ],
@@ -7781,8 +7781,8 @@
         "correct": "✅ 먹고 나서 커피를 마셔요. (Meok-go na-seo keo-pi-reul ma-syeo-yo.) I drink coffee after eating. Correct."
       },
       {
-        "wrong": "❌ 먹어서 커피를 마셔요 (meo-geo-seo keo-pi-reul ma-syeo-yo). This sounds unnatural if you simply want to show order.",
-        "correct": "✅ 먹고 나서 커피를 마셔요 (meok-go na-seo keo-pi-reul ma-syeo-yo). Correct."
+        "wrong": "❌ 먹어서 커피를 마셔요. This sounds unnatural if you simply want to show order.",
+        "correct": "✅ 먹고 나서 커피를 마셔요. Correct."
       }
     ],
     "compare": [],
@@ -7973,8 +7973,8 @@
         "correct": "✅ 먹어 보세요. (Meo-geo bo-se-yo.) Means: Try eating it. Much softer and more natural."
       },
       {
-        "wrong": "❌ 가겠어요 (ga-ge-sseo-yo). Means: I'll go.",
-        "correct": "✅ 가 보세요 (ga bo-se-yo). Means: Try going."
+        "wrong": "❌ 가겠어요. Means: I'll go.",
+        "correct": "✅ 가 보세요. Means: Try going."
       }
     ],
     "compare": [],
@@ -8064,15 +8064,15 @@
         "en": "If I go to Korea, I'll meet my friend."
       }
     ],
-    "nativeTip": "-(으)면 (myeon) can mean both if and when, depending on the context.\n\nExample:\n\n집에 가면 연락하세요. (Ji-be ga-myeon yeon-rak-ha-se-yo.)\n\nWhen you get home, contact me.",
+    "nativeTip": "-(으)면 can mean both if and when, depending on the context.\n\nExample:\n\n집에 가면 연락하세요. (Ji-be ga-myeon yeon-rak-ha-se-yo.)\n\nWhen you get home, contact me.",
     "commonMistakes": [
       {
-        "wrong": "❌ 가기 때문에(ga-gi ttae-mun-e) Means: Because (someone) goes",
-        "correct": "✅ 가면 (Ga-myeon) Means: If (someone) goes."
+        "wrong": "❌ 가기 때문에 Means: Because (someone) goes",
+        "correct": "✅ 가면 (Ga-myeon) Means: If (someone) goes"
       },
       {
-        "wrong": "❌ 먹어서 (meo-geo-seo) Means: Because I ate",
-        "correct": "✅ 먹으면 (meo-geu-myeon) Means: If (you) eat."
+        "wrong": "❌ 먹어서 Means: Because I ate",
+        "correct": "✅ 먹으면 Means: If (you) eat"
       }
     ],
     "compare": [],
@@ -8169,8 +8169,8 @@
         "correct": "✅ 가도 돼요. (Ga-do dwae-yo.) Means: You may go."
       },
       {
-        "wrong": "❌ 먹지 마세요 (meok-ji ma-se-yo). Means: Don't eat.",
-        "correct": "✅ 먹어도 돼요 (meo-geo-do dwae-yo). Means: You may eat."
+        "wrong": "❌ 먹지 마세요. Means: Don't eat.",
+        "correct": "✅ 먹어도 돼요. Means: You may eat."
       }
     ],
     "compare": [],
@@ -8260,15 +8260,15 @@
         "en": "You have to sleep early."
       }
     ],
-    "nativeTip": "In casual conversations, Koreans often shorten\n\n돼요 (dwaeyo)\n\nto\n\n해요 only in some expressions, but -아/어야 돼요 a/eoya dwae-yo is the standard form and is used most often. (haeyo only in some expressions, but -a/eoya dwaeyo is the standard form and is used most often.)",
+    "nativeTip": "In casual conversations, Koreans often shorten\n\n돼요 (dwaeyo)\n\nto\n\n해요 only in some expressions, but -아/어야 돼요 is the standard form and is used most often. (haeyo only in some expressions, but -a/eoya dwaeyo is the standard form and is used most often.)",
     "commonMistakes": [
       {
         "wrong": "❌ 가도 돼요. (Ga-do dwae-yo.) Means: You may go.",
         "correct": "✅ 가야 돼요. (Ga-ya dwae-yo.) Means: You have to go."
       },
       {
-        "wrong": "❌ 먹어도 돼요 (meo-geo-do dwae-yo). Means: You may eat.",
-        "correct": "✅ 먹어야 돼요 (meo-geo-ya dwae-yo). Means: You have to eat."
+        "wrong": "❌ 먹어도 돼요. Means: You may eat.",
+        "correct": "✅ 먹어야 돼요. Means: You have to eat."
       }
     ],
     "compare": [],
@@ -8365,8 +8365,8 @@
         "correct": "✅ 친구가 가고 싶어 해요. (Chin-gu-ga ga-go si-peo hae-yo.) My friend wants to go. Correct."
       },
       {
-        "wrong": "❌ 가려고 해요 (ga-ryeo-go hae-yo). Means: I'm planning to go.",
-        "correct": "✅ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go."
+        "wrong": "❌ 가려고 해요. Means: I'm planning to go.",
+        "correct": "✅ 가고 싶어요. Means: I want to go."
       }
     ],
     "compare": [],
@@ -8554,15 +8554,15 @@
         "en": "Please enjoy your meal."
       }
     ],
-    "nativeTip": "-(으)세요 (eu)se-yo is used when giving general polite instructions.\n\nIf you're asking someone to do something for you, Koreans usually prefer:\n\n-아 / 어 주세요 (-a / eo juseyo)\n\nExample:\n\n문을 닫아 주세요. (Mu-neul da-ra ju-se-yo.)\n\nPlease close the door (for me).",
+    "nativeTip": "-(으)세요 is used when giving general polite instructions.\n\nIf you're asking someone to do something for you, Koreans usually prefer:\n\n-아 / 어 주세요 (-a / eo juseyo)\n\nExample:\n\n문을 닫아 주세요. (Mu-neul da-ra ju-se-yo.)\n\nPlease close the door (for me).",
     "commonMistakes": [
       {
         "wrong": "❌ 먹어 주세요. (Meo-geo ju-se-yo.) Means: Please eat (for me / as a request).",
         "correct": "✅ 먹으세요. (Meo-geu-se-yo.) Means: Please eat. A polite invitation."
       },
       {
-        "wrong": "❌ 앉아 주세요 (an-ja ju-se-yo). Can be correct, but often implies: Please sit down (because I want you to).",
-        "correct": "✅ 앉으세요 (an-jeu-se-yo). More natural as a polite instruction."
+        "wrong": "❌ 앉아 주세요. Can be correct, but often implies: Please sit down (because I want you to).",
+        "correct": "✅ 앉으세요. More natural as a polite instruction."
       }
     ],
     "compare": [],
@@ -8660,8 +8660,8 @@
         "correct": "✅ 가지 못해요. (Ga-ji mot-hae-yo.) I can't go. (No ability / impossible)"
       },
       {
-        "wrong": "❌ 안 먹어요 (an meo-geo-yo). Means: I don't eat.",
-        "correct": "✅ 먹지 못해요 (meok-ji mo-tae-yo). Means: I can't eat."
+        "wrong": "❌ 안 먹어요. Means: I don't eat.",
+        "correct": "✅ 먹지 못해요. Means: I can't eat."
       }
     ],
     "compare": [],
@@ -8758,8 +8758,8 @@
         "correct": "✅ 가지 않아요. (Ga-ji a-na-yo.) Means: I don't go. (My choice)"
       },
       {
-        "wrong": "❌ 못 먹어요 (mot meo-geo-yo). Means: I can't eat.",
-        "correct": "✅ 먹지 않아요 (meok-ji a-na-yo). Means: I don't eat."
+        "wrong": "❌ 못 먹어요. Means: I can't eat.",
+        "correct": "✅ 먹지 않아요. Means: I don't eat."
       }
     ],
     "compare": [],
@@ -8852,7 +8852,7 @@
     "nativeTip": "This grammar is only used with 가다 (go) and 오다 (come).\n\nIt expresses the purpose of movement.",
     "commonMistakes": [
       {
-        "wrong": "❌ 학교에 공부해서 가요.(hag-gyo gong bu hae seo ga-yo) Wrong.",
+        "wrong": "❌ 학교에 공부해서 가요. Wrong.",
         "correct": "✅ 학교에 공부하러 가요. (Hak-gyo-e gong-bu-ha-reo ga-yo.) I'm going to school to study. Correct."
       }
     ],
@@ -8946,7 +8946,7 @@
     "nativeTip": "If something is continuing, Koreans often use:\n\n-고 있어요 (-go isseoyo)\n\nExample:\n\n비가 오기 시작했어요. (Bi-ga o-gi si-ja-kae-sseo-yo.)\n\nIt started to rain.\n\n↓\n\n비가 오고 있어요. (Bi-ga o-go i-sseo-yo.)\n\nIt is raining.",
     "commonMistakes": [
       {
-        "wrong": "❌ 공부하고 있어요. (Gong-bu-ha-go i-sseo-yo) Means: I'm studying.",
+        "wrong": "❌ 공부하고 있어요. (Gong-bu-ha-go i-sseo-yo.) Means: I'm studying.",
         "correct": "✅ 공부하기 시작했어요. (Gong-bu-ha-gi si-ja-kae-sseo-yo.) Means: I started studying."
       }
     ],
@@ -9037,15 +9037,15 @@
         "en": "I'm waiting for my friend."
       }
     ],
-    "nativeTip": "Koreans often omit\n\n지금 ji-geum (now)\n\nbecause\n\n-고 있어요 (-go isseoyo)\n\nalready implies that the action is happening now.\n\nExample:\n\n뭐 하고 있어요? (Mwo ha-go i-sseo-yo?)\n\nWhat are you doing?\n\nOne of the most common Korean questions.",
+    "nativeTip": "Koreans often omit\n\n지금 (now)\n\nbecause\n\n-고 있어요 (-go isseoyo)\n\nalready implies that the action is happening now.\n\nExample:\n\n뭐 하고 있어요? (Mwo ha-go i-sseo-yo?)\n\nWhat are you doing?\n\nOne of the most common Korean questions.",
     "commonMistakes": [
       {
         "wrong": "❌ 먹어요. (Meo-geo-yo.) Means: I eat / I'm eating (general)",
         "correct": "✅ 먹고 있어요. (Meok-go i-sseo-yo.) Means: I'm eating right now."
       },
       {
-        "wrong": "❌ 공부하기 시작했어요 (gong-bu-ha-gi si-ja-kae-sseo-yo). Means: I started studying.",
-        "correct": "✅ 공부하고 있어요 (gong-bu-ha-go i-sseo-yo). Means: I'm studying now."
+        "wrong": "❌ 공부하기 시작했어요. Means: I started studying.",
+        "correct": "✅ 공부하고 있어요. Means: I'm studying now."
       }
     ],
     "compare": [],
@@ -9142,8 +9142,8 @@
         "correct": "✅ 갈 거예요. (Gal geo-ye-yo.) Means: I'll go."
       },
       {
-         "wrong": "❌ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go.",
-         "correct": "✅ 갈 거예요 (gal geo-ye-yo). Means: I'm going to go."
+        "wrong": "❌ 가고 싶어요. Means: I want to go.",
+        "correct": "✅ 갈 거예요. Means: I'm going to go."
       }
     ],
     "compare": [],
@@ -9240,8 +9240,8 @@
         "correct": "✅ 가려고 해요. (Ga-ryeo-go hae-yo.) Means: I'm planning to go. (Plan / intention)"
       },
       {
-         "wrong": "❌ 가고 싶어요 (ga-go si-peo-yo). Means: I want to go.",
-         "correct": "✅ 가려고 해요 (ga-ryeo-go hae-yo). Means: I'm planning to go."
+        "wrong": "❌ 가고 싶어요. Means: I want to go.",
+        "correct": "✅ 가려고 해요. Means: I'm planning to go."
       }
     ],
     "compare": [],
@@ -9334,8 +9334,8 @@
     "nativeTip": "Koreans often pair this grammar with 먼저 (meon-jeo)\n\nmeaning\n\nfirst.\n\nExample:\n\n먼저 숙제를 하고 자기 전에 책을 읽어요. (Meon-jeo suk-je-reul ha-go ja-gi jeo-ne chae-geul il-geo-yo.)\n\nFirst I do my homework, then I read before sleeping.",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹은 후에 (meo-geun hu-e) Means: After eating",
-        "correct": "✅ 먹기 전에 (meok-gi jeon-e) Means: Before eating"
+        "wrong": "❌ 먹은 후에 Means: After eating",
+        "correct": "✅ 먹기 전에 Means: Before eating"
       }
     ],
     "compare": [],
@@ -9428,8 +9428,8 @@
     "nativeTip": "In everyday conversation,\n\nKoreans often shorten\n\n후에 (hue)\n\nto simply\n\n후 (hu)\n\nExample:\n\n식사 후 커피를 마셔요. (Sik-sa hu keo-pi-reul ma-syeo-yo.)\n\nI drink coffee after the meal.\n\nThis sounds very natural.",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹기 전에 meog-gi jeon-e Means: Before eating",
-        "correct": "✅ 먹은 후에 meog-eun hue-e Means: After eating"
+        "wrong": "❌ 먹기 전에 Means: Before eating",
+        "correct": "✅ 먹은 후에 Means: After eating"
       }
     ],
     "compare": [],
@@ -9902,7 +9902,7 @@
     "nativeTip": "-아 / 어서 is not usually used with commands or suggestions. (-a / eoseo is not usually used with commands or suggestions.)\n\nInstead of:\n\n❌\n\n배고파서 먹으세요. (baegopaseo meokeuseyo.)\n\nUse:\n\n✅\n\n배가 고프니까 먹으세요. (Bae-ga go-peu-ni-kka meo-geu-se-yo.)\n\nBecause you're hungry, please eat.",
     "commonMistakes": [
       {
-        "wrong": "❌ 비가 와서 가세요 (bi-ga wa-seo ga-se-yo). Wrong for giving a command.",
+        "wrong": "❌ 비가 와서 가세요. Wrong for giving a command.",
         "correct": "✅ 비가 오니까 가세요. (Bi-ga o-ni-kka ga-se-yo.) Because it's raining, please go."
       }
     ],
@@ -10369,7 +10369,7 @@
         "en": "I will call later."
       }
     ],
-    "nativeTip": "-(으)ㄹ 거예요 geo-ye-yo is the most common way to talk about the future in everyday Korean.",
+    "nativeTip": "-(으)ㄹ 거예요 is the most common way to talk about the future in everyday Korean.",
     "commonMistakes": [
       {
         "wrong": "❌ 갔어요. (Ga-sseo-yo.) I went. (Past)",
@@ -10466,8 +10466,8 @@
     "nativeTip": "In everyday Korean, you will hear -아요 constantly. (In everyday Korean, you will hear -ayo constantly.)\n\nBut don't think that every polite verb ends in -아요. (But don't think that every polite verb ends in -ayo.)\n\nThe choice depends on the vowel in the verb or adjective stem.\n\nFor example:\n\n가다 → 가요 (gada → gayo)\n\n먹다 → 먹어요 (meokda → meokeoyo)\n\nSo -아요 and -어요 work together as the basic everyday polite ending system. (So -ayo and -eoyo work together as the basic everyday polite ending system.)",
     "commonMistakes": [
       {
-        "wrong": "❌ 가아요 (ga-a-yo). Don't keep both vowels separately.",
-        "correct": "✅ 가요 (ga-yo). I go. 가 (ga) + 아요 (a-yo) → 가요 (ga-yo). Another Common Pattern Some ㅗ verbs combine with -아요 (a-yo). 보다 (bo-da) to see / watch ↓ 보 (bo) + 아요 (a-yo) ↓ 봐요 (bwa-yo). I see / I watch."
+        "wrong": "❌ 가아요. (ga-a-yo) Don't keep both vowels separately.",
+        "correct": "✅ 가요. (Ga-yo.) I go. 가 + 아요 → 가요 Another Common Pattern Some ㅗ verbs combine with -아요. 보다 (bo-da) to see / watch ↓ 보 + 아요 ↓ 봐요 (Bwa-yo.) I see / I watch."
       }
     ],
     "compare": [],
@@ -10557,11 +10557,11 @@
         "en": "I'm at home."
       }
     ],
-    "nativeTip": "Some -어요 forms change their pronunciation or spelling when vowels combine. (Some -eoyo forms change their pronunciation or spelling when vowels combine.)\n\nFor example:\n\n마시다 (ma-si-da)\n\n→\n\n마셔요 (ma-syeo-yo)\n\nYou don't say 마시어요 (ma si eo yo) in normal everyday Korean. (You don't say masieoyo in normal everyday Korean.)",
+    "nativeTip": "Some -어요 forms change their pronunciation or spelling when vowels combine. (Some -eoyo forms change their pronunciation or spelling when vowels combine.)\n\nFor example:\n\n마시다 (ma-si-da)\n\n→\n\n마셔요 (ma-syeo-yo)\n\nYou don't say 마시어요 in normal everyday Korean. (You don't say masieoyo in normal everyday Korean.)",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹아요 (meo-ga-yo). For 먹다 (meok-da), the stem vowel is ㅓ, so we use -어요 (eo-yo).",
-        "correct": "✅ 먹어요 (meo-geo-yo). I eat. Another Common Pattern Some verbs with ㅣ combine naturally with -어요 (eo-yo). 보다 (bo-da) → 봐요 (bwa-yo) but: 마시다 (ma-si-da) → 마셔요 (ma-syeo-yo). This is why learning the actual common forms is important."
+        "wrong": "❌ 먹아요. (Meo-ga-yo.) For 먹다, the stem vowel is ㅓ, so we use -어요.",
+        "correct": "✅ 먹어요. (Meo-geo-yo.) I eat. Another Common Pattern Some verbs with ㅣ combine naturally with -어요. 보다 (bo-da) → 봐요 but: 마시다 (ma-si-da) → 마셔요 This is why learning the actual common forms is important."
       }
     ],
     "compare": [],
@@ -10654,8 +10654,8 @@
     "nativeTip": "There are many 하다 verbs in Korean. (There are many hada verbs in Korean.)\n\nOnce you learn 하다 → 해요, you can immediately make many useful sentences. (Once you learn hada → haeyo, you can immediately make many useful sentences.)\n\nFor example:\n\n공부하다 → 공부해요 (gongbuhada → gongbuhaeyo)\n\nto study → study\n\n운동하다 → 운동해요 (undonghada → undonghaeyo)\n\nto exercise → exercise\n\n요리하다 → 요리해요 (yorihada → yorihaeyo)\n\nto cook → cook\n\n쇼핑하다 → 쇼핑해요 (syopinghada → syopinghaeyo)\n\nto shop → shop",
     "commonMistakes": [
       {
-        "wrong": "❌ 공부하어요. (gong-bu-ha-eo-yo) Don't add -어요 eo-yo directly to 하다 ha-da.",
-        "correct": "✅ 공부해요. (Gong-bu-hae-yo.) I study. The special contraction is: 하다 ha da → 해요 hae-yo Another Common Pattern 하다 ha da can also attach to nouns. ex: 공부 + 하다 (gong-bu + ha-da) study + do ↓ 공부하다 (gong-bu-ha-da) to study ↓ 공부해요 (gong-bu-hae-yo) I study."
+        "wrong": "❌ 공부하어요. (gong-bu-ha-eo-yo) Don't add -어요 directly to 하다.",
+        "correct": "✅ 공부해요. (Gong-bu-hae-yo.) I study. The special contraction is: 하다 → 해요 Another Common Pattern 하다 can also attach to nouns. 예: 공부 + 하다 (gong-bu + ha-da) study + do ↓ 공부하다 (gong-bu-ha-da) to study ↓ 공부해요 (gong-bu-hae-yo) I study."
       }
     ],
     "compare": [],
@@ -10748,8 +10748,8 @@
     "nativeTip": "In natural Korean, the subject is often omitted when it's obvious.\n\nFor example:\n\n학생이에요. (Hak-saeng-i-e-yo.)\n\ncan simply mean:\n\nI'm a student.\n\nYou don't always need to say:\n\n저는 (jeo-neun)\n\nI / as for me",
     "commonMistakes": [
       {
-        "wrong": "❌ 학생예요. (hak-saeng-ye-yo) A noun ending in a consonant needs 이에요 i-e-yo.",
-        "correct": "✅ 학생이에요. (Hak-saeng-i-e-yo.) I'm a student. Another Common Pattern If the noun ends in a consonant, keep 이 i. 학생 (Hak-saeng) student + 이에요 i-e-yo  ↓ 학생이에요 Hak-saeng-i-e-yo. 책 (chaeg) BOOK + 이에요 i-e-yo  ↓ 책이에요 chaeg i-e-yo   ."
+        "wrong": "❌ 학생예요. (hak-saeng-ye-yo) A noun ending in a consonant needs 이에요.",
+        "correct": "✅ 학생이에요. (Hak-saeng-i-e-yo.) I'm a student. Another Common Pattern If the noun ends in a consonant, keep 이. 학생 + 이에요 ↓ 학생이에요. 책 + 이에요 ↓ 책이에요."
       }
     ],
     "compare": [],
@@ -10843,8 +10843,8 @@
     "nativeTip": "Korean often drops the subject when it's obvious.\n\nFor example:\n\n의사예요. (Ui-sa-ye-yo.)\n\ncan simply mean:\n\nI'm a doctor.\n\nYou don't always need to say:\n\n저는 (jeo-neun)\n\nI / as for me",
     "commonMistakes": [
       {
-        "wrong": "❌ 의사이에요. (ui-sa-i-e-yo) The noun 의사 (ui-sa) ends in a vowel, so don't use 이에요 i-e-yo.",
-        "correct": "✅ 의사예요. (Ui-sa-ye-yo.) I'm a doctor. Another Common Pattern When the noun has no final consonant (받침): 의사 (ui-sa)  + 예요 (ye-yo) ↓ 의사예요. (Ui-sa ye-yo.)  I'm a friend. 친구 (chingu) friend + 예요 (ye-yo) ↓ 친구 예요 chingu ye-yo ."
+        "wrong": "❌ 의사이에요. (ui-sa-i-e-yo) The noun 의사 ends in a vowel, so don't use 이에요.",
+        "correct": "✅ 의사예요. (Ui-sa-ye-yo.) I'm a doctor. Another Common Pattern When the noun has no final consonant (받침): 의사 + 예요 ↓ 의사예요. 친구 + 예요 ↓ 친구예요. 학교 + 예요 ↓ 학교예요."
       }
     ],
     "compare": [],
@@ -10935,11 +10935,11 @@
         "en": "Be careful."
       }
     ],
-    "nativeTip": "-세요 se-yo is extremely common when speaking politely to someone. (-seyo is extremely common when speaking politely to someone.)\n\nFor example, a restaurant worker might say:\n\n많이 드세요. (Ma-ni deu-se-yo.)\n\nPlease enjoy your meal.\n\nA friend might say:\n\n천천히 하세요. (Cheon-cheon-hi ha-se-yo.)\n\nTake your time.",
+    "nativeTip": "-세요 is extremely common when speaking politely to someone. (-seyo is extremely common when speaking politely to someone.)\n\nFor example, a restaurant worker might say:\n\n많이 드세요. (Ma-ni deu-se-yo.)\n\nPlease enjoy your meal.\n\nA friend might say:\n\n천천히 하세요. (Cheon-cheon-hi ha-se-yo.)\n\nTake your time.",
     "commonMistakes": [
       {
-        "wrong": "❌ 먹세요. (meok-se-yo) For a consonant-ending stem, you need 으세요 eu-se-yo.",
-        "correct": "✅ 먹으세요. (Meo-geu-se-yo.) Please eat. Important ㄹ Pattern When the verb stem ends in ㄹ, the ㄹ disappears before -세요 se-yo. 살다 (sal-da) to live ↓ 사세요 (Sa-se-yo.) Please live."
+        "wrong": "❌ 먹세요. (meok-se-yo) For a consonant-ending stem, you need 으세요.",
+        "correct": "✅ 먹으세요. (Meo-geu-se-yo.) Please eat. Important ㄹ Pattern When the verb stem ends in ㄹ, the ㄹ disappears before -세요. 살다 (sal-da) to live ↓ 사세요 (Sa-se-yo.) Please live."
       }
     ],
     "compare": [],
@@ -10994,5 +10994,2086 @@
       }
     ],
     "teacherNote": "Core function: Please... / Do... / Are you...?. Use page examples first, then Grammar DB examples, then generate new examples if needed."
+     },
+     {
+    "id": "G138",
+    "grammar": "-ㅂ니다",
+    "romanization": "-mnida",
+    "title": "Formal Polite Ending",
+    "keywords": [
+      "-ㅂ니다",
+      "mnida",
+      "formal Korean",
+      "formal polite ending",
+      "Korean formal speech"
+    ],
+    "sentencePatterns": [
+      "-ㅂ니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are speaking politely in a formal situation.\n\nYou are talking to a customer, giving a presentation, or speaking in a workplace.\n\nKorean uses -ㅂ니다 (-mnida) to make a statement sound formal and polite.",
+    "memoryTrick": "🟨 -ㅂ니다 (-mnida) = Formal polite statement\n\nThink:\n\n\"I am saying this formally.\"\n\n\"I am speaking respectfully.\"",
+    "easyExplanation": "-ㅂ니다 (-mnida) is a formal and polite Korean sentence ending.\n\nIt is commonly used in formal situations, presentations, announcements, workplaces, news, and customer service.\n\nIt is more formal than -아요 / -어요. (It is more formal than -ayo / -eoyo.)",
+    "basicRule": "✅ If the verb or adjective stem ends in a vowel → use -ㅂ니다 (-mnida)\n\nExample:\n\n가다 (ga-da) to go ↓ 갑니다 (gam-ni-da) I go / I am going\n\n✅ If the stem ends in a consonant → use -습니다 (-seum-ni-da)\n\nExample:\n\n먹다 (meok-da) to eat ↓ 먹습니다 (meok-seum-ni-da) I eat / I am eating\n\n⚠️ -ㅂ니다 and -습니다 are the two forms of the same formal polite style. (⚠️ -ㅂnida and -seubnida are the two forms of the same formal polite style.)",
+    "examples": [
+      {
+        "kr": "갑니다.",
+        "rom": "Gam-ni-da.",
+        "en": "I go. / I'm going."
+      },
+      {
+        "kr": "옵니다.",
+        "rom": "Om-ni-da.",
+        "en": "I come. / I'm coming."
+      },
+      {
+        "kr": "공부합니다.",
+        "rom": "Gong-bu-ham-ni-da.",
+        "en": "I study. / I am studying."
+      }
+    ],
+    "nativeTip": "Native Koreans use -ㅂ니다 (-mnida) when they want to sound formal and respectful. You will often hear it in news reports, presentations, public announcements, workplaces, and customer-service situations.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가습니다 (Ga-seum-ni-da) I go. Wrong",
+        "correct": "✅ 갑니다 (Gam-ni-da) I go. Correct"
+      },
+      {
+        "wrong": "❌ 먹ㅂ니다 (Meok-bm-ni-da) I eat. Wrong",
+        "correct": "✅ 먹습니다 (Meok-seum-ni-da) I eat. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-ㅂ니다 (-mnida)",
+        "meaning": "Formal polite statement",
+        "mainJob": "Makes a statement formal and respectful"
+      },
+      {
+        "grammar": "-아요 / -어요 (-a-yo / -eo-yo)",
+        "meaning": "Everyday polite",
+        "mainJob": "Used in normal everyday conversation"
+      },
+      {
+        "grammar": "-ㅂ니까? / -습니까? (-mnikka / -seumnikka)",
+        "meaning": "Formal polite question",
+        "mainJob": "Asks a formal question"
+      }
+    ],
+    "miniQuiz": {
+      "question": "가__ (Ga __ ) I go. / I'm going.",
+      "options": [
+        "① ㅂ니다 (mnida) Formal Ending",
+        "② 습니다 (seumnida) Formal Ending"
+      ],
+      "answer": "✅ Answer: ㅂ니다 (mnida) Formal Ending",
+      "reason": "Because 가다 (ga-da) has the vowel-ending stem 가-."
+    },
+    "speakingPractice": {
+      "kr": "한국에 갑니다.",
+      "rom": "Han-gu-ge gam-ni-da.",
+      "en": "I am going to Korea.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "학교에 갑__. (Hak-gyo-e gap__. ) I am going to school.",
+      "answer": "✅ Answer: 갑니다 (Gam-ni-da) I am going."
+    },
+    "relatedGrammar": [
+      "-습니다 (-seum-ni-da) Formal Polite Ending",
+      "-아요 / -어요 (-a-yo / -eo-yo) Everyday Polite Ending",
+      "-ㅂ니까? / -습니까? (-mnikka / -seumnikka) Formal Question Ending"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "오다",
+        "rom": "o-da",
+        "en": "to come"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      }
+    ]
+  },
+  {
+    "id": "G139",
+    "grammar": "-습니다",
+    "romanization": "-seumnida",
+    "title": "Formal Polite Ending",
+    "keywords": [
+      "-습니다",
+      "seumnida",
+      "formal Korean",
+      "formal polite ending",
+      "Korean formal speech"
+    ],
+    "sentencePatterns": [
+      "-습니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are speaking Korean in a formal or professional situation.\n\nYou want to sound polite, respectful, and formal.\n\nKorean uses -습니다 (-seumnida) to make a statement formal and polite.",
+    "memoryTrick": "🟨 -습니다 (-seumnida) = Formal polite statement\n\nThink:\n\n\"I am saying this formally and respectfully.\"",
+    "easyExplanation": "-습니다 (-seumnida) is the formal polite form used after verb or adjective stems that end in a consonant.\n\nIt is common in presentations, announcements, workplaces, news, customer service, and other formal situations.\n\nThe vowel-ending version is -ㅂ니다. (The vowel-ending version is -ㅂnida.)",
+    "basicRule": "✅ After a consonant-ending stem → use -습니다 (-seumnida)\n\nExample:\n\n먹다 (meok-da) to eat ↓ 먹습니다 (meok-seum-ni-da) I eat / I am eating\n\n읽다 (ik-da) to read ↓ 읽습니다 (ik-seum-ni-da) I read / I am reading\n\n⚠️ After a vowel-ending stem, use -ㅂ니다 instead. (⚠️ After a vowel-ending stem, use -ㅂnida instead.)\n\nExample:\n\n가다 (ga-da) → 갑니다 (gam-ni-da)",
+    "examples": [
+      {
+        "kr": "먹습니다.",
+        "rom": "Meok-seum-ni-da.",
+        "en": "I eat. / I'm eating."
+      },
+      {
+        "kr": "읽습니다.",
+        "rom": "Ik-seum-ni-da.",
+        "en": "I read. / I'm reading."
+      },
+      {
+        "kr": "좋습니다.",
+        "rom": "Jo-seum-ni-da.",
+        "en": "It's good. / That's good."
+      }
+    ],
+    "nativeTip": "Native Koreans use -습니다 (-seumnida) when they want to sound formal and respectful. You will hear it frequently in news, presentations, public announcements, workplaces, military settings, and customer-service situations.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 먹ㅂ니다 (Meok-bm-ni-da) I eat. Wrong",
+        "correct": "✅ 먹습니다 (Meok-seum-ni-da) I eat. Correct"
+      },
+      {
+        "wrong": "❌ 가습니다 (Ga-seum-ni-da) I go. Wrong",
+        "correct": "✅ 갑니다 (Gam-ni-da) I go. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-습니다 (-seumnida)",
+        "meaning": "Formal polite statement",
+        "mainJob": "Makes a statement formal and respectful after a consonant"
+      },
+      {
+        "grammar": "-ㅂ니다 (-mnida)",
+        "meaning": "Formal polite statement",
+        "mainJob": "Makes a statement formal and respectful after a vowel"
+      },
+      {
+        "grammar": "-아요 / -어요 (-a-yo / -eo-yo)",
+        "meaning": "Everyday polite",
+        "mainJob": "Used in normal everyday conversation"
+      }
+    ],
+    "miniQuiz": {
+      "question": "먹__ (Meok __ ) I eat. / I'm eating.",
+      "options": [
+        "① ㅂ니다 (mnida) Formal Ending",
+        "② 습니다 (seumnida) Formal Ending"
+      ],
+      "answer": "✅ Answer: 습니다 (seumnida) Formal Ending",
+      "reason": "Because 먹다 (meok-da) has the consonant-ending stem 먹-."
+    },
+    "speakingPractice": {
+      "kr": "한국 음식을 먹습니다.",
+      "rom": "Han-guk eum-si-geul meok-seum-ni-da.",
+      "en": "I eat Korean food.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "책을 읽__. (Chae-geul ik__. ) I read a book.",
+      "answer": "✅ Answer: 읽습니다 (Ik-seum-ni-da) I read."
+    },
+    "relatedGrammar": [
+      "-ㅂ니다 (-mnida) Formal Polite Ending",
+      "-ㅂ니까? (-mnikka) Formal Question Ending",
+      "-습니까? (-seumnikka) Formal Question Ending"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "읽다",
+        "rom": "ik-da",
+        "en": "to read"
+      },
+      {
+        "kr": "좋다",
+        "rom": "jot-da",
+        "en": "to be good"
+      }
+    ]
+  },
+  {
+    "id": "G140",
+    "grammar": "-ㅂ니까?",
+    "romanization": "-mnikka?",
+    "title": "Formal Polite Question Ending",
+    "keywords": [
+      "-ㅂ니까?",
+      "mnikka",
+      "formal Korean question",
+      "formal polite question",
+      "Korean question ending"
+    ],
+    "sentencePatterns": [
+      "-ㅂ니까?"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are speaking Korean in a formal situation.\n\nYou are asking a customer, teacher, coworker, or audience a polite question.\n\nKorean uses -ㅂ니까? (-mnikka?) to make a question formal and respectful.",
+    "memoryTrick": "🟨 -ㅂ니까? (-mnikka?) = Formal polite question\n\nThink:\n\n\"I am asking this formally.\"",
+    "easyExplanation": "-ㅂ니까? (-mnikka?) is a formal and polite Korean question ending.\n\nIt is used after vowel-ending verb or adjective stems.\n\nIt is common in formal conversations, presentations, interviews, announcements, news, military situations, and customer service.",
+    "basicRule": "✅ After a vowel-ending stem → use -ㅂ니까? (-mnikka?)\n\nExample:\n\n가다 (ga-da) to go ↓ 갑니까? (gam-ni-kka?) Do you go? / Are you going?\n\n오다 (o-da) to come ↓ 옵니까? (om-ni-kka?) Do you come? / Are you coming?\n\n⚠️ After a consonant-ending stem, use -습니까? instead. (⚠️ After a consonant-ending stem, use -seubnikka? instead.)\n\nExample:\n\n먹다 (meok-da) → 먹습니까? (meok-seum-ni-kka?)",
+    "examples": [
+      {
+        "kr": "갑니까?",
+        "rom": "Gam-ni-kka?",
+        "en": "Are you going? / Do you go?"
+      },
+      {
+        "kr": "옵니까?",
+        "rom": "Om-ni-kka?",
+        "en": "Are you coming? / Do you come?"
+      },
+      {
+        "kr": "공부합니까?",
+        "rom": "Gong-bu-ham-ni-kka?",
+        "en": "Do you study? / Are you studying?"
+      }
+    ],
+    "nativeTip": "You will hear -ㅂ니까? in formal situations such as interviews, official questions, presentations, news, announcements, and professional settings. In casual everyday conversation, Koreans usually use -아요? / -어요? instead. (You will hear -ㅂnikka? in formal situations such as interviews, official questions, presentations, news, announcements, and professional settings. In casual everyday conversation, Koreans usually use -ayo? / -eoyo? instead.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가습니까? (Ga-seum-ni-kka?) Are you going? Wrong",
+        "correct": "✅ 갑니까? (Gam-ni-kka?) Are you going? Correct"
+      },
+      {
+        "wrong": "❌ 먹ㅂ니까? (Meok-bm-ni-kka?) Do you eat? Wrong",
+        "correct": "✅ 먹습니까? (Meok-seum-ni-kka?) Do you eat? Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-ㅂ니까? (-mnikka?)",
+        "meaning": "Formal polite question",
+        "mainJob": "Asks a formal question after a vowel"
+      },
+      {
+        "grammar": "-습니까? (-seumnikka?)",
+        "meaning": "Formal polite question",
+        "mainJob": "Asks a formal question after a consonant"
+      },
+      {
+        "grammar": "-아요? / -어요? (-a-yo? / -eo-yo?)",
+        "meaning": "Everyday polite question",
+        "mainJob": "Used in normal everyday conversation"
+      }
+    ],
+    "miniQuiz": {
+      "question": "가__? (Ga __?) Are you going?",
+      "options": [
+        "① ㅂ니까? (mnikka?) Formal Question",
+        "② 습니까? (seumnikka?) Formal Question"
+      ],
+      "answer": "✅ Answer: ㅂ니까? (mnikka?) Formal Question",
+      "reason": "Because 가다 (ga-da) has the vowel-ending stem 가-."
+    },
+    "speakingPractice": {
+      "kr": "한국에 갑니까?",
+      "rom": "Han-gu-ge gam-ni-kka?",
+      "en": "Are you going to Korea?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "지금 옵__? (Ji-geum om__?) Are you coming now?",
+      "answer": "✅ Answer: 옵니까? (Om-ni-kka?) Are you coming?"
+    },
+    "relatedGrammar": [
+      "-습니다 (-seumnida) Formal Polite Ending",
+      "-ㅂ니다 (-mnida) Formal Polite Ending",
+      "-습니까? (-seumnikka?) Formal Polite Question Ending"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "오다",
+        "rom": "o-da",
+        "en": "to come"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      }
+    ]
+  },
+  {
+    "id": "G141",
+    "grammar": "-습니까?",
+    "romanization": "-seumnikka?",
+    "title": "Formal Polite Question Ending",
+    "keywords": [
+      "-습니까?",
+      "seumnikka",
+      "formal Korean question",
+      "formal polite question",
+      "Korean question ending"
+    ],
+    "sentencePatterns": [
+      "-습니까?"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are asking a question in a formal Korean situation.\n\nYou are speaking to a customer, teacher, interviewer, coworker, or audience.\n\nKorean uses -습니까? (-seumnikka?) to ask a formal and respectful question after a consonant-ending stem.",
+    "memoryTrick": "🟨 -습니까? (-seumnikka?) = Formal polite question\n\nThink:\n\n\"I'm asking this formally and respectfully.\"",
+    "easyExplanation": "-습니까? (-seumnikka?) is a formal and polite Korean question ending.\n\nUse it after a verb or adjective stem that ends in a consonant.\n\nIt is commonly heard in interviews, presentations, announcements, news, workplaces, and other formal situations.",
+    "basicRule": "✅ After a consonant-ending stem → use -습니까? (-seumnikka?)\n\nExample:\n\n먹다 (meok-da) to eat ↓ 먹습니까? (meok-seum-ni-kka?) Do you eat? / Are you eating?\n\n읽다 (ik-da) to read ↓ 읽습니까? (ik-seum-ni-kka?) Do you read?\n\n⚠️ After a vowel-ending stem, use -ㅂ니까? instead. (⚠️ After a vowel-ending stem, use -ㅂnikka? instead.)\n\nExample:\n\n가다 (ga-da) → 갑니까? (gam-ni-kka?)",
+    "examples": [
+      {
+        "kr": "먹습니까?",
+        "rom": "Meok-seum-ni-kka?",
+        "en": "Do you eat? / Are you eating?"
+      },
+      {
+        "kr": "읽습니까?",
+        "rom": "Ik-seum-ni-kka?",
+        "en": "Do you read? / Are you reading?"
+      },
+      {
+        "kr": "좋습니까?",
+        "rom": "Jo-seum-ni-kka?",
+        "en": "Is it good?"
+      }
+    ],
+    "nativeTip": "Native Koreans use -습니까? (-seumnikka?) when asking questions formally and respectfully. In everyday casual conversation, -아요? / -어요? is much more common.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 먹ㅂ니까? (Meok-bm-ni-kka?) Do you eat? Wrong",
+        "correct": "✅ 먹습니까? (Meok-seum-ni-kka?) Do you eat? Correct"
+      },
+      {
+        "wrong": "❌ 가습니까? (Ga-seum-ni-kka?) Are you going? Wrong",
+        "correct": "✅ 갑니까? (Gam-ni-kka?) Are you going? Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-습니까? (-seumnikka?)",
+        "meaning": "Formal polite question",
+        "mainJob": "Asks a formal question after a consonant"
+      },
+      {
+        "grammar": "-ㅂ니까? (-mnikka?)",
+        "meaning": "Formal polite question",
+        "mainJob": "Asks a formal question after a vowel"
+      },
+      {
+        "grammar": "-아요? / -어요? (-a-yo? / -eo-yo?)",
+        "meaning": "Everyday polite question",
+        "mainJob": "Used in normal everyday conversation"
+      }
+    ],
+    "miniQuiz": {
+      "question": "먹__? (Meok __?) Do you eat?",
+      "options": [
+        "① ㅂ니까? (mnikka?) Formal Question",
+        "② 습니까? (seumnikka?) Formal Question"
+      ],
+      "answer": "✅ Answer: 습니까? (seumnikka?) Formal Question",
+      "reason": "Because 먹다 (meok-da) has the consonant-ending stem 먹-."
+    },
+    "speakingPractice": {
+      "kr": "한국 음식을 먹습니까?",
+      "rom": "Han-guk eum-si-geul meok-seum-ni-kka?",
+      "en": "Do you eat Korean food?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "이것이 좋__? (I-geot-i jo__?) Is this good?",
+      "answer": "✅ Answer: 좋습니까? (Jo-seum-ni-kka?) Is this good?"
+    },
+    "relatedGrammar": [
+      "-ㅂ니다 (-mnida) Formal Polite Ending",
+      "-습니다 (-seumnida) Formal Polite Ending",
+      "-ㅂ니까? (-mnikka?) Formal Polite Question Ending"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "읽다",
+        "rom": "ik-da",
+        "en": "to read"
+      },
+      {
+        "kr": "좋다",
+        "rom": "jot-da",
+        "en": "to be good"
+      }
+    ]
+  },
+  {
+    "id": "G142",
+    "grammar": "했습니다",
+    "romanization": "haet-seumnida",
+    "title": "Formal Past Tense",
+    "keywords": [
+      "했습니다",
+      "haetseumnida",
+      "formal past tense",
+      "formal Korean past tense",
+      "did in Korean"
+    ],
+    "sentencePatterns": [
+      "했습니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are giving a formal report about something you already did.\n\nYou want to say:\n\n\"I did it.\"\n\nKorean uses 했습니다 (haet-seumnida) to express a completed action in a formal and polite way.",
+    "memoryTrick": "🟨 했습니다 (haet-seumnida) = I did / I have done\n\nThink:\n\n하다 (to do) → 했습니다 (I did)",
+    "easyExplanation": "했습니다 (haet-seumnida) is the formal polite past-tense form of 하다 (ha-da), meaning \"to do.\"\n\nIt is used when talking about something that was completed in the past in a formal or respectful situation.\n\nYou will often hear it in presentations, reports, interviews, announcements, workplaces, and news.",
+    "basicRule": "하다 (ha-da) to do\n\n↓\n\n했- + 습니다 (haess- + seubnida)\n\n↓\n\n했습니다 (haet-seum-ni-da)\n\nThe same pattern appears with many 하다 verbs: (The same pattern appears with many hada verbs:)\n\n공부하다 (gong-bu-ha-da) to study → 공부했습니다 (gong-bu-haet-seum-ni-da) studied\n\n일하다 (il-ha-da) to work → 일했습니다 (il-haet-seum-ni-da) worked\n\n운동하다 (un-dong-ha-da) to exercise → 운동했습니다 (un-dong-haet-seum-ni-da) exercised",
+    "examples": [
+      {
+        "kr": "했습니다.",
+        "rom": "Haet-seum-ni-da.",
+        "en": "I did it."
+      },
+      {
+        "kr": "공부했습니다.",
+        "rom": "Gong-bu-haet-seum-ni-da.",
+        "en": "I studied."
+      },
+      {
+        "kr": "일했습니다.",
+        "rom": "Il-haet-seum-ni-da.",
+        "en": "I worked."
+      }
+    ],
+    "nativeTip": "했습니다 is very common in formal Korean. It sounds much more formal than 했어요. You may hear it when someone gives a report, explains what they did, or speaks in an official setting. (haessseubnida is very common in formal Korean. It sounds much more formal than haesseoyo. You may hear it when someone gives a report, explains what they did, or speaks in an official setting.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 하습니다 (Ha-seum-ni-da) I did. Wrong",
+        "correct": "✅ 했습니다 (Haet-seum-ni-da) I did. Correct"
+      },
+      {
+        "wrong": "❌ 했어요니다 (Haet-eo-yo-ni-da) I did. Wrong",
+        "correct": "✅ 했습니다 (Haet-seum-ni-da) I did. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "했습니다 (haet-seumnida)",
+        "meaning": "I did / I have done",
+        "mainJob": "Formal polite past"
+      },
+      {
+        "grammar": "했어요 (hae-sseo-yo)",
+        "meaning": "I did / I have done",
+        "mainJob": "Everyday polite past"
+      },
+      {
+        "grammar": "합니다 (hamnida)",
+        "meaning": "I do / I am doing",
+        "mainJob": "Formal polite present"
+      }
+    ],
+    "miniQuiz": {
+      "question": "하다 → 했___. (Ha-da → haet___.) I did it.",
+      "options": [
+        "① 습니다 (seumnida)",
+        "② ㅂ니다 (mnida)"
+      ],
+      "answer": "✅ Answer: 습니다 (seumnida)",
+      "reason": "The past form of 하다 is 했- and the formal polite ending is 습니다."
+    },
+    "speakingPractice": {
+      "kr": "한국어를 공부했습니다.",
+      "rom": "Han-gu-geo-reul gong-bu-haet-seum-ni-da.",
+      "en": "I studied Korean.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "어제 운동했__. (Eo-je un-dong-haet__.) I exercised yesterday.",
+      "answer": "✅ Answer: 운동했습니다 (Un-dong-haet-seum-ni-da) I exercised."
+    },
+    "relatedGrammar": [
+      "-ㅂ니다 (-mnida) Formal Polite Ending",
+      "-습니다 (-seumnida) Formal Polite Ending",
+      "-았/었어요 (-at/eot-seo-yo) Polite Past Tense",
+      "했어요 (hae-sseo-yo) Everyday Polite Past"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "일하다",
+        "rom": "il-ha-da",
+        "en": "to work"
+      },
+      {
+        "kr": "운동하다",
+        "rom": "un-dong-ha-da",
+        "en": "to exercise"
+      }
+    ]
+  },
+  {
+    "id": "G143",
+    "grammar": "-입니다",
+    "romanization": "-imnida",
+    "title": "Formal Polite 'Am / Is / Are'",
+    "keywords": [
+      "-입니다",
+      "imnida",
+      "formal Korean",
+      "formal polite Korean",
+      "am is are in Korean",
+      "Korean copula"
+    ],
+    "sentencePatterns": [
+      "-입니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are introducing yourself in a formal situation.\n\nYou want to say who you are, what you do, or what something is.\n\nKorean uses -입니다 (-imnida) to say:\n\n\"I am...\"\n\n\"It is...\"\n\n\"This is...\"",
+    "memoryTrick": "🟨 -입니다 (-imnida) = am / is / are\n\nThink:\n\n\"This is...\"\n\n\"I am...\"\n\n\"It is...\"",
+    "easyExplanation": "-입니다 (-imnida) is the formal and polite form used after a noun.\n\nIt is used to identify a person, thing, job, nationality, or other noun.\n\nIt is more formal than 이에요 / 예요 and is very common in introductions, presentations, workplaces, announcements, and formal conversations. (It is more formal than ieyo / yeyo and is very common in introductions, presentations, workplaces, announcements, and formal conversations.)",
+    "basicRule": "✅ After a consonant-ending noun → use 입니다 (-imnida)\n\nExample:\n\n학생 (hak-saeng) student ↓ 학생입니다 (hak-saeng-im-ni-da) I am a student.\n\n한국 사람 (han-guk sa-ram) Korean person ↓ 한국 사람입니다 (han-guk sa-ra-mim-ni-da) I am Korean.\n\n⚠️ -입니다 is used after nouns. (⚠️ -ibnida is used after nouns.)\n\nIt is not attached directly to a verb like 가다 or 먹다. (It is not attached directly to a verb like gada or meokda.)",
+    "examples": [
+      {
+        "kr": "학생입니다.",
+        "rom": "Hak-saeng-im-ni-da.",
+        "en": "I am a student."
+      },
+      {
+        "kr": "한국 사람입니다.",
+        "rom": "Han-guk sa-ra-mim-ni-da.",
+        "en": "I am Korean."
+      },
+      {
+        "kr": "선생님입니다.",
+        "rom": "Seon-saeng-nim-im-ni-da.",
+        "en": "I am a teacher."
+      }
+    ],
+    "nativeTip": "Native Koreans often use -입니다 (-imnida) when introducing themselves or identifying something in formal situations. You will hear it frequently in presentations, interviews, workplaces, announcements, and formal introductions.",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 학생예요니다 (Hak-saeng-ye-yo-ni-da) I am a student. Wrong",
+        "correct": "✅ 학생입니다 (Hak-saeng-im-ni-da) I am a student. Correct"
+      },
+      {
+        "wrong": "❌ 학생합니다 (Hak-saeng-ham-ni-da) I am a student. Wrong",
+        "correct": "✅ 학생입니다 (Hak-saeng-im-ni-da) I am a student. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-입니다 (-imnida)",
+        "meaning": "am / is / are",
+        "mainJob": "Formal identification after a noun"
+      },
+      {
+        "grammar": "이에요 / 예요 (i-e-yo / ye-yo)",
+        "meaning": "am / is / are",
+        "mainJob": "Everyday polite identification after a noun"
+      },
+      {
+        "grammar": "-합니다 (-hamnida)",
+        "meaning": "do / does / am doing",
+        "mainJob": "Formal polite verb ending"
+      }
+    ],
+    "miniQuiz": {
+      "question": "학생___. (Hak-saeng ___.) I am a student.",
+      "options": [
+        "① 입니다 (imnida) Formal Ending",
+        "② 합니다 (hamnida) Formal Ending"
+      ],
+      "answer": "✅ Answer: ① 입니다 (imnida) Formal Ending",
+      "reason": "학생 (hak-saeng) is a noun, so use -입니다 (-imnida) to identify yourself as a student."
+    },
+    "speakingPractice": {
+      "kr": "저는 학생입니다.",
+      "rom": "Jeo-neun hak-saeng-im-ni-da.",
+      "en": "I am a student.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "저는 한국 사람___. (Jeo-neun han-guk sa-ram ___.) I am Korean.",
+      "answer": "✅ Answer: 한국 사람입니다 (Han-guk sa-ra-mim-ni-da) I am Korean."
+    },
+    "relatedGrammar": [
+      "이에요 / 예요 (i-e-yo / ye-yo) Everyday Polite Copula",
+      "-입니까? (-imnikka?) Formal Question",
+      "-합니다 (-hamnida) Formal Polite Verb Ending"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "학생",
+        "rom": "hak-saeng",
+        "en": "student"
+      },
+      {
+        "kr": "한국 사람",
+        "rom": "han-guk sa-ram",
+        "en": "Korean person"
+      },
+      {
+        "kr": "선생님",
+        "rom": "seon-saeng-nim",
+        "en": "teacher"
+      }
+    ]
+  },
+  {
+    "id": "G144",
+    "grammar": "-입니까?",
+    "romanization": "-imnikka?",
+    "title": "Formal Polite 'Am / Is / Are?'",
+    "keywords": [
+      "-입니까?",
+      "imnikka",
+      "formal Korean question",
+      "formal polite question",
+      "am I in Korean",
+      "is it in Korean",
+      "are you in Korean"
+    ],
+    "sentencePatterns": [
+      "-입니까?"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are meeting someone in a formal situation.\n\nYou want to politely ask who they are, what they do, or what something is.\n\nKorean uses -입니까? (-imnikka?) to ask:\n\n\"Are you...?\"\n\n\"Is it...?\"\n\n\"Are they...?\"",
+    "memoryTrick": "🟨 -입니까? (-imnikka?) = Am / Is / Are...?\n\nThink:\n\n\"Is this...?\"\n\n\"Are you...?\"\n\n\"Is it...?\"",
+    "easyExplanation": "-입니까? (-imnikka?) is the formal and polite question form of -입니다 (-imnida).\n\nIt is used after a noun when asking for identification or information.\n\nIt is common in formal introductions, interviews, presentations, workplaces, announcements, and official situations.",
+    "basicRule": "Noun + 입니까? (Noun + ibnikka?)\n\nExample:\n\n학생 (hak-saeng) student ↓ 학생입니까? (hak-saeng-im-ni-kka?) Are you a student?\n\n한국 사람 (han-guk sa-ram) Korean person ↓ 한국 사람입니까? (han-guk sa-ra-mim-ni-kka?) Are you Korean?\n\n⚠️ -입니까? is used after nouns. (⚠️ -ibnikka? is used after nouns.)\n\nThe statement form is -입니다. (The statement form is -ibnida.)",
+    "examples": [
+      {
+        "kr": "학생입니까?",
+        "rom": "Hak-saeng-im-ni-kka?",
+        "en": "Are you a student?"
+      },
+      {
+        "kr": "한국 사람입니까?",
+        "rom": "Han-guk sa-ra-mim-ni-kka?",
+        "en": "Are you Korean?"
+      },
+      {
+        "kr": "선생님입니까?",
+        "rom": "Seon-saeng-nim-im-ni-kka?",
+        "en": "Are you a teacher?"
+      }
+    ],
+    "nativeTip": "Native Koreans use -입니까? when they want to ask a question formally and respectfully. In normal everyday conversation, 이에요? / 예요? is much more common. (Native Koreans use -ibnikka? when they want to ask a question formally and respectfully. In normal everyday conversation, ieyo? / yeyo? is much more common.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 학생입니다? (Hak-saeng-im-ni-da?) Are you a student? Wrong",
+        "correct": "✅ 학생입니까? (Hak-saeng-im-ni-kka?) Are you a student? Correct"
+      },
+      {
+        "wrong": "❌ 학생합니까? (Hak-saeng-ham-ni-kka?) Are you a student? Wrong",
+        "correct": "✅ 학생입니까? (Hak-saeng-im-ni-kka?) Are you a student? Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-입니까? (-imnikka?)",
+        "meaning": "Am / Is / Are...?",
+        "mainJob": "Formal question after a noun"
+      },
+      {
+        "grammar": "-입니다 (-imnida)",
+        "meaning": "Am / Is / Are",
+        "mainJob": "Formal identification after a noun"
+      },
+      {
+        "grammar": "이에요 / 예요? (i-e-yo? / ye-yo?)",
+        "meaning": "Am / Is / Are...?",
+        "mainJob": "Everyday polite question after a noun"
+      }
+    ],
+    "miniQuiz": {
+      "question": "학생___? (Hak-saeng ___?) Are you a student?",
+      "options": [
+        "① 입니다? (imnida?)",
+        "② 입니까? (imnikka?)"
+      ],
+      "answer": "✅ Answer: ② 입니까? (imnikka?)",
+      "reason": "Because -입니까? is the formal polite question form used after a noun."
+    },
+    "speakingPractice": {
+      "kr": "한국 사람입니까?",
+      "rom": "Han-guk sa-ra-mim-ni-kka?",
+      "en": "Are you Korean?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "학생___? (Hak-saeng ___?) Are you a student?",
+      "answer": "✅ Answer: 학생입니까? (Hak-saeng-im-ni-kka?) Are you a student?"
+    },
+    "relatedGrammar": [
+      "-입니다 (-imnida) Formal Polite Statement",
+      "이에요 / 예요 (i-e-yo / ye-yo) Everyday Polite Copula",
+      "-합니다 (-hamnida) Formal Polite Verb Ending"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "학생",
+        "rom": "hak-saeng",
+        "en": "student"
+      },
+      {
+        "kr": "한국 사람",
+        "rom": "han-guk sa-ram",
+        "en": "Korean person"
+      },
+      {
+        "kr": "선생님",
+        "rom": "seon-saeng-nim",
+        "en": "teacher"
+      }
+    ]
+  },
+  {
+    "id": "G145",
+    "grammar": "-합니다",
+    "romanization": "-hamnida",
+    "title": "Formal Polite Verb Ending",
+    "keywords": [
+      "-합니다",
+      "hamnida",
+      "formal Korean",
+      "formal polite ending",
+      "formal verb ending",
+      "Korean formal speech"
+    ],
+    "sentencePatterns": [
+      "-합니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are speaking Korean in a formal situation.\n\nYou are giving a presentation, speaking at work, making an announcement, or talking to customers.\n\nKorean uses -합니다 (-hamnida) to make a verb sound formal and polite.",
+    "memoryTrick": "🟨 -합니다 (-hamnida) = Formal polite \"do\"\n\nThink:\n\n하다 (ha-da) → 합니다 (ham-ni-da)\n\n\"I do it formally.\"",
+    "easyExplanation": "-합니다 (-hamnida) is the formal polite present-tense form of 하다 (ha-da), meaning \"to do.\"\n\nIt is also used with many 하다 verbs such as 공부하다, 일하다, 운동하다, and 좋아하다. (It is also used with many hada verbs such as gongbuhada, ilhada, undonghada, and johahada.)\n\nIt is very common in formal Korean.",
+    "basicRule": "하다 (ha-da) to do\n\n↓\n\n하 + ㅂ니다 (ha + ㅂnida)\n\n↓\n\n합니다 (ham-ni-da)\n\nMany 하다 verbs follow the same pattern: (Many hada verbs follow the same pattern:)\n\n공부하다 (gong-bu-ha-da) → 공부합니다 (gong-bu-ham-ni-da)\n\n일하다 (il-ha-da) → 일합니다 (il-ham-ni-da)\n\n운동하다 (un-dong-ha-da) → 운동합니다 (un-dong-ham-ni-da)",
+    "examples": [
+      {
+        "kr": "합니다.",
+        "rom": "Ham-ni-da.",
+        "en": "I do it. / I do."
+      },
+      {
+        "kr": "공부합니다.",
+        "rom": "Gong-bu-ham-ni-da.",
+        "en": "I study. / I am studying."
+      },
+      {
+        "kr": "운동합니다.",
+        "rom": "Un-dong-ham-ni-da.",
+        "en": "I exercise. / I am exercising."
+      }
+    ],
+    "nativeTip": "합니다 is one of the most recognizable formal Korean endings. You will hear it in news, presentations, public announcements, workplaces, customer service, and official speech. (habnida is one of the most recognizable formal Korean endings. You will hear it in news, presentations, public announcements, workplaces, customer service, and official speech.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 하습니다 (Ha-seum-ni-da) I do. Wrong",
+        "correct": "✅ 합니다 (Ham-ni-da) I do. Correct"
+      },
+      {
+        "wrong": "❌ 공부하습니다 (Gong-bu-ha-seum-ni-da) I study. Wrong",
+        "correct": "✅ 공부합니다 (Gong-bu-ham-ni-da) I study. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-합니다 (-hamnida)",
+        "meaning": "I do / I am doing",
+        "mainJob": "Formal polite verb ending for 하다 verbs"
+      },
+      {
+        "grammar": "-ㅂ니다 / -습니다 (-mnida / -seumnida)",
+        "meaning": "Formal polite statement",
+        "mainJob": "Formal ending used with other verbs and adjectives"
+      },
+      {
+        "grammar": "-해요 (-hae-yo)",
+        "meaning": "I do / I am doing",
+        "mainJob": "Everyday polite form of 하다"
+      }
+    ],
+    "miniQuiz": {
+      "question": "공부하___ (Gong-bu-ha ___) I study.",
+      "options": [
+        "① 합니다 (hamnida)",
+        "② 습니다 (seumnida)"
+      ],
+      "answer": "✅ Answer: ① 합니다 (hamnida)",
+      "reason": "공부하다 (gong-bu-ha-da) is a 하다 verb, so its formal polite form is 공부합니다 (gong-bu-ham-ni-da)."
+    },
+    "speakingPractice": {
+      "kr": "한국어를 공부합니다.",
+      "rom": "Han-gu-geo-reul gong-bu-ham-ni-da.",
+      "en": "I study Korean.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "매일 운동하___. (Mae-il un-dong-ha___.) I exercise every day.",
+      "answer": "✅ Answer: 운동합니다 (Un-dong-ham-ni-da) I exercise every day."
+    },
+    "relatedGrammar": [
+      "-ㅂ니다 (-mnida) Formal Polite Ending",
+      "-습니다 (-seumnida) Formal Polite Ending",
+      "-합니까? (-hamnikka?) Formal Question",
+      "해요 (-hae-yo) Everyday Polite Form"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "운동하다",
+        "rom": "un-dong-ha-da",
+        "en": "to exercise"
+      }
+    ]
+  },
+  {
+    "id": "G146",
+    "grammar": "-합니까?",
+    "romanization": "-hamnikka?",
+    "title": "Formal Polite Question with 하다",
+    "keywords": [
+      "-합니까?",
+      "hamnikka",
+      "formal Korean question",
+      "formal polite question",
+      "하다 question",
+      "Korean formal question ending"
+    ],
+    "sentencePatterns": [
+      "-합니까?"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are asking someone a question in a formal Korean situation.\n\nYou want to ask what someone does, studies, or likes.\n\nKorean uses -합니까? (-hamnikka?) with 하다 verbs to make the question formal and polite.",
+    "memoryTrick": "🟨 -합니까? (-hamnikka?) = Do you...? / Are you...?\n\nThink:\n\n하다 → 합니다 → 합니까? (hada → habnida → habnikka?)\n\n\"Do you do it?\"",
+    "easyExplanation": "-합니까? (-hamnikka?) is the formal polite question form of 하다 (ha-da), meaning \"to do.\"\n\nIt is also used with many 하다 verbs such as 공부하다, 일하다, 운동하다, and 좋아하다. (It is also used with many hada verbs such as gongbuhada, ilhada, undonghada, and johahada.)\n\nIt is common in formal conversations, interviews, presentations, workplaces, announcements, and customer service.",
+    "basicRule": "하다 (ha-da) to do\n\n↓\n\n하 + ㅂ니까? (ha + ㅂnikka?)\n\n↓\n\n합니까? (ham-ni-kka?)\n\nMany 하다 verbs follow the same pattern: (Many hada verbs follow the same pattern:)\n\n공부하다 (gong-bu-ha-da) → 공부합니까? (gong-bu-ham-ni-kka?)\n\n일하다 (il-ha-da) → 일합니까? (il-ham-ni-kka?)\n\n운동하다 (un-dong-ha-da) → 운동합니까? (un-dong-ham-ni-kka?)",
+    "examples": [
+      {
+        "kr": "무엇을 합니까?",
+        "rom": "Mu-eo-seul ham-ni-kka?",
+        "en": "What do you do?"
+      },
+      {
+        "kr": "공부합니까?",
+        "rom": "Gong-bu-ham-ni-kka?",
+        "en": "Do you study? / Are you studying?"
+      },
+      {
+        "kr": "운동합니까?",
+        "rom": "Un-dong-ham-ni-kka?",
+        "en": "Do you exercise?"
+      }
+    ],
+    "nativeTip": "합니까? is a very formal question form. You will often hear it in interviews, news, official announcements, presentations, and professional situations. In everyday conversation, Koreans usually say 해요? instead. (habnikka? is a very formal question form. You will often hear it in interviews, news, official announcements, presentations, and professional situations. In everyday conversation, Koreans usually say haeyo? instead.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 하습니까? (Ha-seum-ni-kka?) Do you do it? Wrong",
+        "correct": "✅ 합니까? (Ham-ni-kka?) Do you do it? Correct"
+      },
+      {
+        "wrong": "❌ 공부하습니까? (Gong-bu-ha-seum-ni-kka?) Do you study? Wrong",
+        "correct": "✅ 공부합니까? (Gong-bu-ham-ni-kka?) Do you study? Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-합니까? (-hamnikka?)",
+        "meaning": "Do you...? / Are you...?",
+        "mainJob": "Formal question with 하다 verbs"
+      },
+      {
+        "grammar": "-ㅂ니까? (-mnikka?)",
+        "meaning": "Do...? / Are...?",
+        "mainJob": "Formal question after a vowel-ending stem"
+      },
+      {
+        "grammar": "-습니까? (-seumnikka?)",
+        "meaning": "Do...? / Are...?",
+        "mainJob": "Formal question after a consonant-ending stem"
+      },
+      {
+        "grammar": "해요? (hae-yo?)",
+        "meaning": "Do you...? / Are you...?",
+        "mainJob": "Everyday polite question with 하다"
+      }
+    ],
+    "miniQuiz": {
+      "question": "공부하___? (Gong-bu-ha ___?) Do you study?",
+      "options": [
+        "① 합니까? (hamnikka?)",
+        "② 습니까? (seumnikka?)"
+      ],
+      "answer": "✅ Answer: ① 합니까? (hamnikka?)",
+      "reason": "공부하다 (gong-bu-ha-da) is a 하다 verb, so the formal question form is 공부합니까? (gong-bu-ham-ni-kka?)."
+    },
+    "speakingPractice": {
+      "kr": "한국어를 공부합니까?",
+      "rom": "Han-gu-geo-reul gong-bu-ham-ni-kka?",
+      "en": "Do you study Korean?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "매일 운동하__? (Mae-il un-dong-ha__?) Do you exercise every day?",
+      "answer": "✅ Answer: 운동합니까? (Un-dong-ham-ni-kka?) Do you exercise?"
+    },
+    "relatedGrammar": [
+      "-합니다 (-hamnida) Formal Polite Ending",
+      "-ㅂ니다 (-mnida) Formal Polite Ending",
+      "-습니다 (-seumnida) Formal Polite Ending",
+      "해요? (hae-yo?) Everyday Polite Question"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "운동하다",
+        "rom": "un-dong-ha-da",
+        "en": "to exercise"
+      },
+      {
+        "kr": "일하다",
+        "rom": "il-ha-da",
+        "en": "to work"
+      }
+    ]
+  },
+  {
+    "id": "G147",
+    "grammar": "했습니다",
+    "romanization": "haet-seumnida",
+    "title": "Formal Polite Past Tense",
+    "keywords": [
+      "했습니다",
+      "haet-seumnida",
+      "formal past tense",
+      "formal Korean past",
+      "did in Korean",
+      "Korean past tense"
+    ],
+    "sentencePatterns": [
+      "했습니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are giving a formal report about something you already did.\n\nYou want to say:\n\n\"I did it.\"\n\n\"I completed it.\"\n\nKorean uses 했습니다 (haet-seumnida) to talk about a completed action in a formal and polite way.",
+    "memoryTrick": "🟨 했습니다 (haet-seumnida) = I did / I have done\n\nThink:\n\n하다 (ha-da) → 했습니다 (haet-seumnida)\n\n\"I did it formally.\"",
+    "easyExplanation": "했습니다 (haet-seumnida) is the formal polite past-tense form of 하다 (ha-da), meaning \"to do.\"\n\nIt describes an action that was completed in the past.\n\nIt is common in formal reports, presentations, interviews, workplaces, announcements, and official situations.",
+    "basicRule": "하다 (ha-da) to do\n\n↓\n\n했- + 습니다 (haess- + seubnida)\n\n↓\n\n했습니다 (haet-seum-ni-da)\n\nMany 하다 verbs follow the same pattern: (Many hada verbs follow the same pattern:)\n\n공부하다 (gong-bu-ha-da) to study → 공부했습니다 (gong-bu-haet-seum-ni-da) I studied\n\n일하다 (il-ha-da) to work → 일했습니다 (il-haet-seum-ni-da) I worked\n\n운동하다 (un-dong-ha-da) to exercise → 운동했습니다 (un-dong-haet-seum-ni-da) I exercised",
+    "examples": [
+      {
+        "kr": "했습니다.",
+        "rom": "Haet-seum-ni-da.",
+        "en": "I did it."
+      },
+      {
+        "kr": "공부했습니다.",
+        "rom": "Gong-bu-haet-seum-ni-da.",
+        "en": "I studied."
+      },
+      {
+        "kr": "일했습니다.",
+        "rom": "Il-haet-seum-ni-da.",
+        "en": "I worked."
+      }
+    ],
+    "nativeTip": "했습니다 is very common in formal Korean. You will hear it when someone gives a report, explains what they completed, or speaks in an official or professional setting. In everyday conversation, 했어요 is much more common. (haessseubnida is very common in formal Korean. You will hear it when someone gives a report, explains what they completed, or speaks in an official or professional setting. In everyday conversation, haesseoyo is much more common.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 하습니다 (Ha-seum-ni-da) I did. Wrong",
+        "correct": "✅ 했습니다 (Haet-seum-ni-da) I did. Correct"
+      },
+      {
+        "wrong": "❌ 했어요니다 (Haet-eo-yo-ni-da) I did. Wrong",
+        "correct": "✅ 했습니다 (Haet-seum-ni-da) I did. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "했습니다 (haet-seumnida)",
+        "meaning": "I did / I have done",
+        "mainJob": "Formal polite past"
+      },
+      {
+        "grammar": "했습니다? (haet-seumnikka?)",
+        "meaning": "Did you...? / Have you...?",
+        "mainJob": "Formal polite past question"
+      },
+      {
+        "grammar": "했어요 (hae-sseo-yo)",
+        "meaning": "I did / I have done",
+        "mainJob": "Everyday polite past"
+      },
+      {
+        "grammar": "합니다 (hamnida)",
+        "meaning": "I do / I am doing",
+        "mainJob": "Formal polite present"
+      }
+    ],
+    "miniQuiz": {
+      "question": "공부하___. (Gong-bu-ha___.) I studied.",
+      "options": [
+        "① 합니다 (hamnida)",
+        "② 했습니다 (haet-seumnida)"
+      ],
+      "answer": "✅ Answer: ② 했습니다 (haet-seumnida)",
+      "reason": "The action happened in the past, so 하다 becomes 했습니다 in formal polite speech."
+    },
+    "speakingPractice": {
+      "kr": "한국어를 공부했습니다.",
+      "rom": "Han-gu-geo-reul gong-bu-haet-seum-ni-da.",
+      "en": "I studied Korean.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "어제 운동했__. (Eo-je un-dong-haet__.) I exercised yesterday.",
+      "answer": "✅ Answer: 운동했습니다 (Un-dong-haet-seum-ni-da) I exercised."
+    },
+    "relatedGrammar": [
+      "-합니다 (-hamnida) Formal Polite Present",
+      "-습니다 (-seumnida) Formal Polite Ending",
+      "했어요 (hae-sseo-yo) Everyday Polite Past",
+      "했습니다? (haet-seumnikka?) Formal Polite Past Question"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "일하다",
+        "rom": "il-ha-da",
+        "en": "to work"
+      },
+      {
+        "kr": "운동하다",
+        "rom": "un-dong-ha-da",
+        "en": "to exercise"
+      }
+    ]
+  },
+  {
+    "id": "G148",
+    "grammar": "했습니다?",
+    "romanization": "haet-seumnikka?",
+    "title": "Formal Polite Past Question",
+    "keywords": [
+      "했습니다?",
+      "haet-seumnikka",
+      "formal past question",
+      "formal Korean question",
+      "did you in Korean",
+      "Korean past question"
+    ],
+    "sentencePatterns": [
+      "했습니다?"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are asking someone formally whether they completed something.\n\nYou want to politely ask:\n\n\"Did you do it?\"\n\n\"Did you study?\"\n\n\"Did you finish it?\"\n\nKorean uses 했습니다? (haet-seumnikka?) for a formal past-tense question.",
+    "memoryTrick": "🟨 했습니다? (haet-seumnikka?) = Did you...? / Have you...?\n\nThink:\n\n했습니다 = I did. (haessseubnida = I did.)\n\n했습니다? = Did you do it? (haessseubnida? = Did you do it?)",
+    "easyExplanation": "했습니다? (haet-seumnikka?) is the formal polite past-tense question form of 하다 (ha-da), meaning \"to do.\"\n\nIt asks whether an action was completed in the past.\n\nIt is commonly used in formal interviews, workplaces, reports, presentations, announcements, and official situations.",
+    "basicRule": "하다 (ha-da) → 했습니다 (haet-seum-ni-da)\n\nTo make it a formal question:\n\n했습니다 → 했습니까? (haessseubnida → haessseubnikka?)\n\nExample:\n\n공부하다 (gong-bu-ha-da) → 공부했습니다 (gong-bu-haet-seum-ni-da)\n\n→ 공부했습니까? (gong-bu-haet-seum-ni-kka?)\n\n⚠️ The natural formal question form is **-했습니까?**, not **-했습니다?** when you are specifically asking a question. (⚠️ The natural formal question form is **-haessseubnikka?**, not **-haessseubnida?** when you are specifically asking a question.)",
+    "examples": [
+      {
+        "kr": "했습니까?",
+        "rom": "Haet-seum-ni-kka?",
+        "en": "Did you do it?"
+      },
+      {
+        "kr": "공부했습니까?",
+        "rom": "Gong-bu-haet-seum-ni-kka?",
+        "en": "Did you study?"
+      },
+      {
+        "kr": "운동했습니까?",
+        "rom": "Un-dong-haet-seum-ni-kka?",
+        "en": "Did you exercise?"
+      }
+    ],
+    "nativeTip": "In formal Korean, the statement is 했습니다 and the question is 했습니까? This distinction is important. In everyday conversation, Koreans normally use 했어요? instead. (In formal Korean, the statement is haessseubnida and the question is haessseubnikka? This distinction is important. In everyday conversation, Koreans normally use haesseoyo? instead.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 했습니다? (Haet-seum-ni-da?) Did you do it? Formal question",
+        "correct": "✅ 했습니까? (Haet-seum-ni-kka?) Did you do it? Correct formal question"
+      },
+      {
+        "wrong": "❌ 공부했습니다? (Gong-bu-haet-seum-ni-da?) Did you study? Wrong formal question",
+        "correct": "✅ 공부했습니까? (Gong-bu-haet-seum-ni-kka?) Did you study? Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "했습니까? (haet-seumnikka?)",
+        "meaning": "Did you...? / Have you...?",
+        "mainJob": "Formal polite past question"
+      },
+      {
+        "grammar": "했습니다 (haet-seumnida)",
+        "meaning": "I did / I have done",
+        "mainJob": "Formal polite past statement"
+      },
+      {
+        "grammar": "했어요? (hae-sseo-yo?)",
+        "meaning": "Did you...? / Have you...?",
+        "mainJob": "Everyday polite past question"
+      }
+    ],
+    "miniQuiz": {
+      "question": "공부했___? (Gong-bu-haet ___?) Did you study?",
+      "options": [
+        "① 습니다? (seumnida?)",
+        "② 습니까? (seumnikka?)"
+      ],
+      "answer": "✅ Answer: ② 습니까? (seumnikka?)",
+      "reason": "A formal past question uses -습니까?, giving 공부했습니까? (gong-bu-haet-seum-ni-kka?)."
+    },
+    "speakingPractice": {
+      "kr": "한국어를 공부했습니까?",
+      "rom": "Han-gu-geo-reul gong-bu-haet-seum-ni-kka?",
+      "en": "Did you study Korean?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "어제 운동했__? (Eo-je un-dong-haet__?) Did you exercise yesterday?",
+      "answer": "✅ Answer: 운동했습니까? (Un-dong-haet-seum-ni-kka?) Did you exercise?"
+    },
+    "relatedGrammar": [
+      "했습니다 (haet-seumnida) Formal Polite Past",
+      "-습니까? (-seumnikka?) Formal Polite Question",
+      "했어요? (hae-sseo-yo?) Everyday Polite Past Question"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do"
+      },
+      {
+        "kr": "공부하다",
+        "rom": "gong-bu-ha-da",
+        "en": "to study"
+      },
+      {
+        "kr": "운동하다",
+        "rom": "un-dong-ha-da",
+        "en": "to exercise"
+      }
+    ]
+  },
+  {
+    "id": "G149",
+    "grammar": "-았습니다",
+    "romanization": "-atseumnida",
+    "title": "Formal Polite Past Tense",
+    "keywords": [
+      "-았습니다",
+      "atseumnida",
+      "formal past tense",
+      "formal Korean past tense",
+      "Korean past ending",
+      "formal polite past"
+    ],
+    "sentencePatterns": [
+      "-았습니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are speaking formally about something that happened in the past.\n\nYou want to report what happened in a polite and respectful way.\n\nKorean uses -았습니다 (-atseumnida) after certain vowel-ending stems to express a completed past action or state.",
+    "memoryTrick": "🟨 -았습니다 (-atseumnida) = Formal past\n\nThink:\n\n\"It happened / I did it — formally.\"",
+    "easyExplanation": "-았습니다 (-atseumnida) is a formal polite past-tense ending.\n\nIt is used after verb or adjective stems that contain the appropriate ㅏ or ㅗ vowel pattern.\n\nIn everyday conversation, the corresponding polite form is usually -았어요 (-asseoyo).",
+    "basicRule": "✅ After a stem with ㅏ or ㅗ → use -았습니다 (-atseumnida)\n\nExample:\n\n가다 (ga-da) → 갔습니다 (gat-seum-ni-da) I went.\n\n좋다 (jot-da) → 좋았습니다 (jo-at-seum-ni-da) It was good.\n\n⚠️ In many common verbs, the vowel combines with 아, so the actual sentence may appear contracted. (⚠️ In many common verbs, the vowel combines with a, so the actual sentence may appear contracted.)\n\nExample:\n\n가다 → 갔습니다, not 가았습니다. (gada → gassseubnida, not gaassseubnida.)",
+    "examples": [
+      {
+        "kr": "갔습니다.",
+        "rom": "Gat-seum-ni-da.",
+        "en": "I went."
+      },
+      {
+        "kr": "좋았습니다.",
+        "rom": "Jo-at-seum-ni-da.",
+        "en": "It was good."
+      },
+      {
+        "kr": "만났습니다.",
+        "rom": "Man-nat-seum-ni-da.",
+        "en": "I met someone."
+      }
+    ],
+    "nativeTip": "-았습니다 is the formal counterpart of -았어요. In real Korean, you will often see the contracted forms such as 갔습니다 rather than the full combination 가았습니다. (-assseubnida is the formal counterpart of -asseoyo. In real Korean, you will often see the contracted forms such as gassseubnida rather than the full combination gaassseubnida.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가았습니다 (Ga-at-seum-ni-da) I went. Wrong",
+        "correct": "✅ 갔습니다 (Gat-seum-ni-da) I went. Correct"
+      },
+      {
+        "wrong": "❌ 좋었습니다 (Jo-seot-seum-ni-da) It was good. Wrong",
+        "correct": "✅ 좋았습니다 (Jo-at-seum-ni-da) It was good. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-았습니다 (-atseumnida)",
+        "meaning": "did / was — formal",
+        "mainJob": "Formal past after the ㅏ/ㅗ vowel pattern"
+      },
+      {
+        "grammar": "-었습니다 (-eotseumnida)",
+        "meaning": "did / was — formal",
+        "mainJob": "Formal past after other vowel patterns"
+      },
+      {
+        "grammar": "-았어요 (-asseoyo)",
+        "meaning": "did / was",
+        "mainJob": "Everyday polite past"
+      }
+    ],
+    "miniQuiz": {
+      "question": "가다 → 갔___. (Ga-da → gat___.) I went.",
+      "options": [
+        "① 습니다 (seumnida)",
+        "② 었습니다 (eotseumnida)"
+      ],
+      "answer": "✅ Answer: ① 습니다 (seumnida)",
+      "reason": "가다 (ga-da) follows the ㅏ vowel pattern, giving 갔습니다 (gat-seum-ni-da)."
+    },
+    "speakingPractice": {
+      "kr": "어제 한국에 갔습니다.",
+      "rom": "Eo-je Han-gu-ge gat-seum-ni-da.",
+      "en": "I went to Korea yesterday.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "어제 친구를 만났__. (Eo-je chin-gu-reul man-nat__.) I met a friend yesterday.",
+      "answer": "✅ Answer: 만났습니다 (Man-nat-seum-ni-da) I met a friend."
+    },
+    "relatedGrammar": [
+      "-었습니다 (-eotseumnida) Formal Polite Past",
+      "-았어요 (-asseoyo) Everyday Polite Past",
+      "-었어요 (-eosseoyo) Everyday Polite Past",
+      "했습니다 (haet-seumnida) Formal Past of 하다"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "좋다",
+        "rom": "jot-da",
+        "en": "to be good"
+      },
+      {
+        "kr": "만나다",
+        "rom": "man-na-da",
+        "en": "to meet"
+      }
+    ]
+  },
+  {
+    "id": "G150",
+    "grammar": "-었습니다",
+    "romanization": "-eotseumnida",
+    "title": "Formal Polite Past Tense",
+    "keywords": [
+      "-었습니다",
+      "eotseumnida",
+      "formal past tense",
+      "formal Korean past tense",
+      "Korean past ending",
+      "formal polite past"
+    ],
+    "sentencePatterns": [
+      "-었습니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are formally explaining something that happened in the past.\n\nYou want to sound polite, respectful, and professional.\n\nKorean uses -었습니다 (-eotseumnida) for formal past statements after stems that do not follow the ㅏ / ㅗ pattern.",
+    "memoryTrick": "🟨 -었습니다 (-eotseumnida) = Formal past\n\nThink:\n\n\"It happened / I did it — formally.\"",
+    "easyExplanation": "-었습니다 (-eotseumnida) is a formal polite past-tense ending.\n\nIt is generally used after verb or adjective stems with vowels other than ㅏ or ㅗ.\n\nThe everyday polite counterpart is usually -었어요 (-eosseoyo).",
+    "basicRule": "✅ After a stem with a vowel other than ㅏ or ㅗ → use -었습니다 (-eotseumnida)\n\nExample:\n\n먹다 (meok-da) → 먹었습니다 (meok-eot-seum-ni-da) I ate.\n\n읽다 (ik-da) → 읽었습니다 (ik-eot-seum-ni-da) I read.\n\n⚠️ Many Korean forms contract naturally.\n\nThe important pattern is:\n\n먹다 → 먹었습니다 (meokda → meokeossseubnida)\n\n읽다 → 읽었습니다 (ilgda → ilgeossseubnida)",
+    "examples": [
+      {
+        "kr": "먹었습니다.",
+        "rom": "Meo-geot-seum-ni-da.",
+        "en": "I ate."
+      },
+      {
+        "kr": "읽었습니다.",
+        "rom": "Il-geot-seum-ni-da.",
+        "en": "I read."
+      },
+      {
+        "kr": "재미있었습니다.",
+        "rom": "Jae-mi-it-seot-seum-ni-da.",
+        "en": "It was fun."
+      }
+    ],
+    "nativeTip": "-었습니다 is the formal counterpart of -었어요. It is common in formal reports, presentations, interviews, news, and official speech. (-eossseubnida is the formal counterpart of -eosseoyo. It is common in formal reports, presentations, interviews, news, and official speech.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 먹았습니다 (Meo-gat-seum-ni-da) I ate. Wrong",
+        "correct": "✅ 먹었습니다 (Meo-geot-seum-ni-da) I ate. Correct"
+      },
+      {
+        "wrong": "❌ 읽았습니다 (Il-gat-seum-ni-da) I read. Wrong",
+        "correct": "✅ 읽었습니다 (Il-geot-seum-ni-da) I read. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-었습니다 (-eotseumnida)",
+        "meaning": "did / was — formal",
+        "mainJob": "Formal past after the non-ㅏ/ㅗ vowel pattern"
+      },
+      {
+        "grammar": "-았습니다 (-atseumnida)",
+        "meaning": "did / was — formal",
+        "mainJob": "Formal past after the ㅏ/ㅗ vowel pattern"
+      },
+      {
+        "grammar": "-었어요 (-eosseoyo)",
+        "meaning": "did / was",
+        "mainJob": "Everyday polite past"
+      }
+    ],
+    "miniQuiz": {
+      "question": "먹다 → 먹었___. (Meok-da → meo-geot___.) I ate.",
+      "options": [
+        "① 습니다 (seumnida)",
+        "② ㅂ니다 (mnida)"
+      ],
+      "answer": "✅ Answer: ① 습니다 (seumnida)",
+      "reason": "먹다 (meok-da) uses the past form 먹었- and the formal ending -습니다, giving 먹었습니다."
+    },
+    "speakingPractice": {
+      "kr": "어제 한국 음식을 먹었습니다.",
+      "rom": "Eo-je Han-guk eum-si-geul meo-geot-seum-ni-da.",
+      "en": "I ate Korean food yesterday.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "어제 책을 읽었__. (Eo-je chae-geul il-geot__.) I read a book yesterday.",
+      "answer": "✅ Answer: 읽었습니다 (Il-geot-seum-ni-da) I read a book."
+    },
+    "relatedGrammar": [
+      "-았습니다 (-atseumnida) Formal Polite Past",
+      "-았어요 (-asseoyo) Everyday Polite Past",
+      "-었어요 (-eosseoyo) Everyday Polite Past",
+      "했습니다 (haet-seumnida) Formal Past of 하다"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "읽다",
+        "rom": "ik-da",
+        "en": "to read"
+      },
+      {
+        "kr": "재미있다",
+        "rom": "jae-mi-it-da",
+        "en": "to be fun / interesting"
+      }
+    ]
+  },
+  {
+    "id": "G151",
+    "grammar": "-았습니까?",
+    "romanization": "-atseumnikka?",
+    "title": "Formal Polite Past Question",
+    "keywords": [
+      "-았습니까?",
+      "atseumnikka",
+      "formal past question",
+      "formal Korean question",
+      "did you in Korean",
+      "Korean past question"
+    ],
+    "sentencePatterns": [
+      "-았습니까?"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are asking someone formally about something that happened in the past.\n\nYou want to ask:\n\n\"Did you go?\"\n\n\"Was it good?\"\n\n\"Did you meet them?\"\n\nKorean uses -았습니까? (-atseumnikka?) for formal past questions after the ㅏ / ㅗ vowel pattern.",
+    "memoryTrick": "🟨 -았습니까? (-atseumnikka?) = Did...? / Was...?\n\nThink:\n\n-았습니다 = did / was (-assseubnida = did / was)\n\n-았습니까? = Did...? / Was...? (-assseubnikka? = Did...? / Was...?)",
+    "easyExplanation": "-았습니까? (-atseumnikka?) is a formal and polite past-tense question ending.\n\nIt is generally used after the ㅏ or ㅗ vowel pattern.\n\nThe statement form is -았습니다 (-atseumnida).",
+    "basicRule": "✅ ㅏ / ㅗ vowel pattern → -았습니다 for statements and -았습니까? for questions (✅ ㅏ / ㅗ vowel pattern → -assseubnida for statements and -assseubnikka? for questions)\n\nExample:\n\n가다 (ga-da) → 갔습니다 (gat-seum-ni-da) I went.\n\n→ 갔습니까? (gat-seum-ni-kka?) Did you go?\n\n좋다 (jot-da) → 좋았습니다 (jo-at-seum-ni-da) It was good.\n\n→ 좋았습니까? (jo-at-seum-ni-kka?) Was it good?\n\n⚠️ The form contracts naturally.\n\n가다 → 가았습니다 ❌ (gada → gaassseubnida ❌)\n\n가다 → 갔습니다 / 갔습니까? ✅ (gada → gassseubnida / gassseubnikka? ✅)",
+    "examples": [
+      {
+        "kr": "갔습니까?",
+        "rom": "Gat-seum-ni-kka?",
+        "en": "Did you go?"
+      },
+      {
+        "kr": "좋았습니까?",
+        "rom": "Jo-at-seum-ni-kka?",
+        "en": "Was it good?"
+      },
+      {
+        "kr": "만났습니까?",
+        "rom": "Man-nat-seum-ni-kka?",
+        "en": "Did you meet someone?"
+      }
+    ],
+    "nativeTip": "You will hear -았습니까? in formal interviews, reports, official questions, presentations, and other respectful situations. In everyday conversation, Koreans usually use -았어요? instead. (You will hear -assseubnikka? in formal interviews, reports, official questions, presentations, and other respectful situations. In everyday conversation, Koreans usually use -asseoyo? instead.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가았습니까? (Ga-at-seum-ni-kka?) Did you go? Wrong",
+        "correct": "✅ 갔습니까? (Gat-seum-ni-kka?) Did you go? Correct"
+      },
+      {
+        "wrong": "❌ 좋었습니까? (Jo-eot-seum-ni-kka?) Was it good? Wrong",
+        "correct": "✅ 좋았습니까? (Jo-at-seum-ni-kka?) Was it good? Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-았습니까? (-atseumnikka?)",
+        "meaning": "Did...? / Was...?",
+        "mainJob": "Formal past question after the ㅏ / ㅗ pattern"
+      },
+      {
+        "grammar": "-었습니까? (-eotseumnikka?)",
+        "meaning": "Did...? / Was...?",
+        "mainJob": "Formal past question after other vowel patterns"
+      },
+      {
+        "grammar": "-았습니다 (-atseumnida)",
+        "meaning": "did / was",
+        "mainJob": "Formal past statement"
+      },
+      {
+        "grammar": "-았어요? (-asseoyo?)",
+        "meaning": "Did...? / Was...?",
+        "mainJob": "Everyday polite past question"
+      }
+    ],
+    "miniQuiz": {
+      "question": "가다 → 갔___? (Ga-da → gat ___?) Did you go?",
+      "options": [
+        "① 습니까? (seumnikka?)",
+        "② 었습니까? (eotseumnikka?)"
+      ],
+      "answer": "✅ Answer: ① 습니까? (seumnikka?)",
+      "reason": "가다 (ga-da) follows the ㅏ vowel pattern, so the formal past question is 갔습니까? (gat-seum-ni-kka?)."
+    },
+    "speakingPractice": {
+      "kr": "어제 한국에 갔습니까?",
+      "rom": "Eo-je Han-gu-ge gat-seum-ni-kka?",
+      "en": "Did you go to Korea yesterday?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "어제 친구를 만났__? (Eo-je chin-gu-reul man-nat__?) Did you meet a friend yesterday?",
+      "answer": "✅ Answer: 만났습니까? (Man-nat-seum-ni-kka?) Did you meet a friend?"
+    },
+    "relatedGrammar": [
+      "-었습니다 (-eotseumnida) Formal Polite Past",
+      "-었습니까? (-eotseumnikka?) Formal Polite Past Question",
+      "-았어요? (-asseoyo?) Everyday Polite Past Question",
+      "-았습니다 (-atseumnida) Formal Polite Past"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "좋다",
+        "rom": "jot-da",
+        "en": "to be good"
+      },
+      {
+        "kr": "만나다",
+        "rom": "man-na-da",
+        "en": "to meet"
+      }
+    ]
+  },
+  {
+    "id": "G152",
+    "grammar": "-었습니까?",
+    "romanization": "-eotseumnikka?",
+    "title": "Formal Polite Past Question",
+    "keywords": [
+      "-었습니까?",
+      "eotseumnikka",
+      "formal past question",
+      "formal Korean question",
+      "did you in Korean",
+      "Korean past question"
+    ],
+    "sentencePatterns": [
+      "-었습니까?"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are asking someone formally about something that happened in the past.\n\nYou want to ask:\n\n\"Did you eat?\"\n\n\"Did you read it?\"\n\n\"Was it interesting?\"\n\nKorean uses -었습니까? (-eotseumnikka?) for formal past questions after stems that do not follow the ㅏ / ㅗ pattern.",
+    "memoryTrick": "🟨 -었습니까? (-eotseumnikka?) = Did...? / Was...?\n\nThink:\n\n-었습니다 = did / was (-eossseubnida = did / was)\n\n-었습니까? = Did...? / Was...? (-eossseubnikka? = Did...? / Was...?)",
+    "easyExplanation": "-었습니까? (-eotseumnikka?) is a formal and polite past-tense question ending.\n\nIt is generally used after verb or adjective stems with vowels other than ㅏ or ㅗ.\n\nThe statement form is -었습니다 (-eotseumnida).",
+    "basicRule": "✅ After a stem with a vowel other than ㅏ or ㅗ → use -었습니다 for statements and -었습니까? for questions. (✅ After a stem with a vowel other than ㅏ or ㅗ → use -eossseubnida for statements and -eossseubnikka? for questions.)\n\nExample:\n\n먹다 (meok-da) → 먹었습니다 (meo-geot-seum-ni-da) I ate.\n\n→ 먹었습니까? (meo-geot-seum-ni-kka?) Did you eat?\n\n읽다 (ik-da) → 읽었습니다 (il-geot-seum-ni-da) I read.\n\n→ 읽었습니까? (il-geot-seum-ni-kka?) Did you read?\n\n⚠️ The form contracts naturally where appropriate.",
+    "examples": [
+      {
+        "kr": "먹었습니까?",
+        "rom": "Meo-geot-seum-ni-kka?",
+        "en": "Did you eat?"
+      },
+      {
+        "kr": "읽었습니까?",
+        "rom": "Il-geot-seum-ni-kka?",
+        "en": "Did you read?"
+      },
+      {
+        "kr": "재미있었습니까?",
+        "rom": "Jae-mi-it-seot-seum-ni-kka?",
+        "en": "Was it fun?"
+      }
+    ],
+    "nativeTip": "You will hear -었습니까? in formal interviews, reports, official questions, presentations, news, and professional situations. In everyday conversation, Koreans normally use -었어요? instead. (You will hear -eossseubnikka? in formal interviews, reports, official questions, presentations, news, and professional situations. In everyday conversation, Koreans normally use -eosseoyo? instead.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 먹았습니까? (Meo-gat-seum-ni-kka?) Did you eat? Wrong",
+        "correct": "✅ 먹었습니까? (Meo-geot-seum-ni-kka?) Did you eat? Correct"
+      },
+      {
+        "wrong": "❌ 읽았습니까? (Il-gat-seum-ni-kka?) Did you read? Wrong",
+        "correct": "✅ 읽었습니까? (Il-geot-seum-ni-kka?) Did you read? Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-었습니까? (-eotseumnikka?)",
+        "meaning": "Did...? / Was...?",
+        "mainJob": "Formal past question after the non-ㅏ/ㅗ pattern"
+      },
+      {
+        "grammar": "-았습니까? (-atseumnikka?)",
+        "meaning": "Did...? / Was...?",
+        "mainJob": "Formal past question after the ㅏ / ㅗ pattern"
+      },
+      {
+        "grammar": "-었습니다 (-eotseumnida)",
+        "meaning": "did / was",
+        "mainJob": "Formal past statement"
+      },
+      {
+        "grammar": "-었어요? (-eosseoyo?)",
+        "meaning": "Did...? / Was...?",
+        "mainJob": "Everyday polite past question"
+      }
+    ],
+    "miniQuiz": {
+      "question": "먹다 → 먹었___? (Meok-da → meo-geot ___?) Did you eat?",
+      "options": [
+        "① 습니까? (seumnikka?)",
+        "② ㅂ니까? (mnikka?)"
+      ],
+      "answer": "✅ Answer: ① 습니까? (seumnikka?)",
+      "reason": "먹다 (meok-da) uses the past form 먹었- and the formal question ending -습니까?, giving 먹었습니까?."
+    },
+    "speakingPractice": {
+      "kr": "어제 한국 음식을 먹었습니까?",
+      "rom": "Eo-je Han-guk eum-si-geul meo-geot-seum-ni-kka?",
+      "en": "Did you eat Korean food yesterday?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "어제 책을 읽었__? (Eo-je chae-geul il-geot__?) Did you read a book yesterday?",
+      "answer": "✅ Answer: 읽었습니까? (Il-geot-seum-ni-kka?) Did you read a book?"
+    },
+    "relatedGrammar": [
+      "-았습니다 (-atseumnida) Formal Polite Past",
+      "-었어요 (-eosseoyo) Everyday Polite Past",
+      "-았어요 (-asseoyo) Everyday Polite Past",
+      "했습니까? (haet-seumnikka?) Formal Past Question"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "먹다",
+        "rom": "meok-da",
+        "en": "to eat"
+      },
+      {
+        "kr": "읽다",
+        "rom": "ik-da",
+        "en": "to read"
+      },
+      {
+        "kr": "재미있다",
+        "rom": "jae-mi-it-da",
+        "en": "to be fun / interesting"
+      }
+    ]
+  },
+  {
+    "id": "G153",
+    "grammar": "-겠습니다",
+    "romanization": "-get-seumnida",
+    "title": "Formal Intention / Future Ending",
+    "keywords": [
+      "-겠습니다",
+      "getseumnida",
+      "formal future Korean",
+      "formal intention",
+      "Korean intention ending",
+      "I will in Korean"
+    ],
+    "sentencePatterns": [
+      "-겠습니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are making a formal promise or saying what you will do.\n\nYou want to sound polite, determined, and respectful.\n\nKorean uses -겠습니다 (-get-seumnida) to say:\n\n\"I will...\"\n\n\"I intend to...\"\n\n\"I will do my best.\"",
+    "memoryTrick": "🟨 -겠습니다 (-get-seumnida) = I will / I intend to\n\nThink:\n\n\"I will do it.\"",
+    "easyExplanation": "-겠습니다 (-get-seumnida) is a formal Korean ending used to express intention, willingness, determination, or a future action.\n\nIt is especially common in formal speech, announcements, customer service, presentations, and polite promises.\n\nIt can also express a speaker's decision or willingness to do something.",
+    "basicRule": "Verb stem + 겠습니다 (Verb stem + gessseubnida)\n\nExample:\n\n가다 (ga-da) to go → 가겠습니다 (ga-get-seum-ni-da) I will go.\n\n하다 (ha-da) to do → 하겠습니다 (ha-get-seum-ni-da) I will do it.\n\n공부하다 (gong-bu-ha-da) to study → 공부하겠습니다 (gong-bu-ha-get-seum-ni-da) I will study.\n\n⚠️ -겠습니다 is not simply a neutral future tense. It often carries the feeling of intention, willingness, determination, or a formal promise. (⚠️ -gessseubnida is not simply a neutral future tense. It often carries the feeling of intention, willingness, determination, or a formal promise.)",
+    "examples": [
+      {
+        "kr": "가겠습니다.",
+        "rom": "Ga-get-seum-ni-da.",
+        "en": "I will go."
+      },
+      {
+        "kr": "열심히 하겠습니다.",
+        "rom": "Yeol-sim-hi ha-get-seum-ni-da.",
+        "en": "I will do my best."
+      },
+      {
+        "kr": "다시 연락하겠습니다.",
+        "rom": "Da-si yeol-lak-ha-get-seum-ni-da.",
+        "en": "I will contact you again."
+      }
+    ],
+    "nativeTip": "-겠습니다 is very common in formal Korean. You may hear employees say 알겠습니다 (al-get-seum-ni-da), meaning \"Okay, I understand,\" or speakers say 최선을 다하겠습니다 (choe-seon-eul da-ha-get-seum-ni-da), meaning \"I will do my best.\"",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가습니다 (Ga-seum-ni-da) I will go. Wrong",
+        "correct": "✅ 가겠습니다 (Ga-get-seum-ni-da) I will go. Correct"
+      },
+      {
+        "wrong": "❌ 하습니다 (Ha-seum-ni-da) I will do it. Wrong",
+        "correct": "✅ 하겠습니다 (Ha-get-seum-ni-da) I will do it. Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-겠습니다 (-getseumnida)",
+        "meaning": "I will / I intend to",
+        "mainJob": "Formal intention, willingness, or determination"
+      },
+      {
+        "grammar": "-ㅂ니다 / -습니다 (-mnida / -seumnida)",
+        "meaning": "I do / it is",
+        "mainJob": "Formal present statement"
+      },
+      {
+        "grammar": "-을 거예요 / -ㄹ 거예요 (-eul geo-ye-yo / -l geo-ye-yo)",
+        "meaning": "will / going to",
+        "mainJob": "Common everyday future"
+      }
+    ],
+    "miniQuiz": {
+      "question": "가___ (Ga ___) I will go.",
+      "options": [
+        "① 겠습니다 (getseumnida)",
+        "② 습니다 (seumnida)"
+      ],
+      "answer": "✅ Answer: ① 겠습니다 (getseumnida)",
+      "reason": "-겠습니다 expresses a formal intention or willingness to do something."
+    },
+    "speakingPractice": {
+      "kr": "열심히 공부하겠습니다.",
+      "rom": "Yeol-sim-hi gong-bu-ha-get-seum-ni-da.",
+      "en": "I will study hard.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "다시 연락하__. (Da-si yeol-lak-ha__.) I will contact you again.",
+      "answer": "✅ Answer: 다시 연락하겠습니다 (Da-si yeol-lak-ha-get-seum-ni-da) I will contact you again."
+    },
+    "relatedGrammar": [
+      "-ㅂ니다 (-mnida) Formal Polite Ending",
+      "-습니다 (-seumnida) Formal Polite Ending",
+      "-을 거예요 / -ㄹ 거예요 (-eul geo-ye-yo / -l geo-ye-yo) Everyday Future",
+      "-겠습니다? (-getseumnikka?) Formal Question"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do"
+      },
+      {
+        "kr": "연락하다",
+        "rom": "yeol-lak-ha-da",
+        "en": "to contact"
+      }
+    ]
+  },
+  {
+    "id": "G154",
+    "grammar": "-겠습니까?",
+    "romanization": "-getseumnikka?",
+    "title": "Formal Intention / Future Question",
+    "keywords": [
+      "-겠습니까?",
+      "getseumnikka",
+      "formal Korean question",
+      "formal future question",
+      "will you in Korean",
+      "Korean intention question"
+    ],
+    "sentencePatterns": [
+      "-겠습니까?"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are asking someone formally about their intention or willingness to do something.\n\nYou want to ask:\n\n\"Will you...?\"\n\n\"Would you...?\"\n\n\"Are you willing to...?\"\n\nKorean uses -겠습니까? (-getseumnikka?) to ask formally about intention, willingness, or a possible future action.",
+    "memoryTrick": "🟨 -겠습니까? (-getseumnikka?) = Will...? / Would...?\n\nThink:\n\n-겠습니다 = I will. (-gessseubnida = I will.)\n\n-겠습니까? = Will you? (-gessseubnikka? = Will you?)",
+    "easyExplanation": "-겠습니까? (-getseumnikka?) is a formal and polite question form of -겠습니다.\n\nIt is used to ask about someone's intention, willingness, decision, or a possible future action.\n\nIt is especially common in formal situations, interviews, announcements, customer service, and professional speech.",
+    "basicRule": "Verb stem + 겠습니까? (Verb stem + gessseubnikka?)\n\nExample:\n\n가다 (ga-da) → 가겠습니까? (ga-get-seum-ni-kka?) Will you go?\n\n하다 (ha-da) → 하겠습니까? (ha-get-seum-ni-kka?) Will you do it?\n\n도와주다 (do-wa-ju-da) → 도와주시겠습니까? (do-wa-ju-si-get-seum-ni-kka?) Would you help me?\n\n⚠️ -겠습니까? can sound very formal. In everyday conversation, Koreans often use -을 거예요? / -ㄹ 거예요? or other more natural question forms depending on the situation. (⚠️ -gessseubnikka? can sound very formal. In everyday conversation, Koreans often use -eul geoyeyo? / -ㄹ geoyeyo? or other more natural question forms depending on the situation.)",
+    "examples": [
+      {
+        "kr": "가겠습니까?",
+        "rom": "Ga-get-seum-ni-kka?",
+        "en": "Will you go?"
+      },
+      {
+        "kr": "하시겠습니까?",
+        "rom": "Ha-si-get-seum-ni-kka?",
+        "en": "Will you do it? / Would you like to do it?"
+      },
+      {
+        "kr": "도와주시겠습니까?",
+        "rom": "Do-wa-ju-si-get-seum-ni-kka?",
+        "en": "Would you help me?"
+      }
+    ],
+    "nativeTip": "-겠습니까? is often used when asking formally about willingness or intention. Expressions like 도와주시겠습니까? are especially useful because they sound polite and professional. (-gessseubnikka? is often used when asking formally about willingness or intention. Expressions like dowajusigessseubnikka? are especially useful because they sound polite and professional.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 가습니까? (Ga-seum-ni-kka?) Will you go? Wrong",
+        "correct": "✅ 가겠습니까? (Ga-get-seum-ni-kka?) Will you go? Correct"
+      },
+      {
+        "wrong": "❌ 하겠니다? (Ha-get-ni-da?) Will you do it? Wrong",
+        "correct": "✅ 하겠습니까? (Ha-get-seum-ni-kka?) Will you do it? Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-겠습니까? (-getseumnikka?)",
+        "meaning": "Will...? / Would...?",
+        "mainJob": "Formal question about intention or willingness"
+      },
+      {
+        "grammar": "-겠습니다 (-getseumnida)",
+        "meaning": "I will / I intend to",
+        "mainJob": "Formal intention or willingness"
+      },
+      {
+        "grammar": "-을 거예요? / -ㄹ 거예요? (-eul geo-ye-yo? / -l geo-ye-yo?)",
+        "meaning": "Will...? / Are you going to...?",
+        "mainJob": "Common everyday future question"
+      }
+    ],
+    "miniQuiz": {
+      "question": "도와주___? (Do-wa-ju ___?) Would you help me?",
+      "options": [
+        "① 겠습니까? (getseumnikka?)",
+        "② 습니까? (seumnikka?)"
+      ],
+      "answer": "✅ Answer: ① 겠습니까? (getseumnikka?)",
+      "reason": "-겠습니까? asks formally about willingness or intention."
+    },
+    "speakingPractice": {
+      "kr": "도와주시겠습니까?",
+      "rom": "Do-wa-ju-si-get-seum-ni-kka?",
+      "en": "Would you help me?",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "다시 설명해 주시겠__? (Da-si seol-myeong-hae ju-si-get__?) Would you explain it again?",
+      "answer": "✅ Answer: 다시 설명해 주시겠습니까? (Da-si seol-myeong-hae ju-si-get-seum-ni-kka?) Would you explain it again?"
+    },
+    "relatedGrammar": [
+      "-겠습니다 (-getseumnida) Formal Intention / Future",
+      "-습니까? (-seumnikka?) Formal Polite Question",
+      "-을 거예요? / -ㄹ 거예요? (-eul geo-ye-yo? / -l geo-ye-yo?) Everyday Future Question"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "가다",
+        "rom": "ga-da",
+        "en": "to go"
+      },
+      {
+        "kr": "하다",
+        "rom": "ha-da",
+        "en": "to do"
+      },
+      {
+        "kr": "도와주다",
+        "rom": "do-wa-ju-da",
+        "en": "to help"
+      }
+    ]
+  },
+  {
+    "id": "G155",
+    "grammar": "-라고 합니다",
+    "romanization": "-rago hamnida",
+    "title": "It's Called... / They Say...",
+    "keywords": [
+      "-라고 합니다",
+      "rago hamnida",
+      "it's called in Korean",
+      "they say in Korean",
+      "called in Korean",
+      "quoted speech"
+    ],
+    "sentencePatterns": [
+      "-라고 합니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine someone asks,\n\n\"What's this called in Korean?\"\n\nYou answer:\n\n김치라고 합니다. (gimchirago habnida.)\n\n(Kim-chi-ra-go ham-ni-da.)\n\n\"It's called kimchi.\"\n\nKorean also uses -라고 합니다 when saying, (Korean also uses -rago habnida when saying,)\n\n\"They say...\"",
+    "memoryTrick": "🟨 -라고 합니다 (-rago hamnida) = It's called... / They say...\n\nThink:\n\nName + \"called\"",
+    "easyExplanation": "-라고 합니다 (-rago hamnida) is used after words that end in a vowel.\n\nIt has two very common meanings:\n\n1. \"It's called...\"\n\n2. \"They say...\"\n\nIt is frequently used when introducing names, explaining vocabulary, or reporting information.",
+    "basicRule": "✅ After a vowel-ending word → use -라고 합니다 (-rago hamnida)\n\nExample:\n\n김치 (gim-chi) ↓ 김치라고 합니다. (Kim-chi-ra-go ham-ni-da.) It's called kimchi.\n\n⚠️ If the word ends in a consonant, use -이라고 합니다 instead. (⚠️ If the word ends in a consonant, use -irago habnida instead.)",
+    "examples": [
+      {
+        "kr": "김치라고 합니다.",
+        "rom": "Kim-chi-ra-go ham-ni-da.",
+        "en": "It's called kimchi."
+      },
+      {
+        "kr": "이것을 라면이라고 합니다.",
+        "rom": "I-geo-seul ra-myeon-i-ra-go ham-ni-da.",
+        "en": "This is called ramen."
+      },
+      {
+        "kr": "내일 비가 온다고 합니다.",
+        "rom": "Nae-il bi-ga on-da-go ham-ni-da.",
+        "en": "They say it will rain tomorrow."
+      }
+    ],
+    "nativeTip": "Native Koreans use -라고 합니다 when explaining names or reporting what someone said. You will hear it often in conversations, TV shows, news, and educational videos. (Native Koreans use -rago habnida when explaining names or reporting what someone said. You will hear it often in conversations, TV shows, news, and educational videos.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 김치이라고 합니다. (Kim-chi-i-ra-go ham-ni-da.) Wrong",
+        "correct": "✅ 김치라고 합니다. (Kim-chi-ra-go ham-ni-da.) Correct"
+      },
+      {
+        "wrong": "❌ 학생라고 합니다. (Hak-saeng-ra-go ham-ni-da.) Wrong",
+        "correct": "✅ 학생이라고 합니다. (Hak-saeng-i-ra-go ham-ni-da.) Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-라고 합니다 (-rago hamnida)",
+        "meaning": "It's called... / They say...",
+        "mainJob": "Used after vowel-ending words"
+      },
+      {
+        "grammar": "-이라고 합니다 (-irago hamnida)",
+        "meaning": "It's called... / I am called...",
+        "mainJob": "Used after consonant-ending words"
+      }
+    ],
+    "miniQuiz": {
+      "question": "김치___. (Gim-chi ___.) It's called kimchi.",
+      "options": [
+        "① 라고 합니다 (rago hamnida)",
+        "② 이라고 합니다 (irago hamnida)"
+      ],
+      "answer": "✅ Answer: ① 라고 합니다 (rago hamnida)",
+      "reason": "김치 ends with a vowel, so use -라고 합니다."
+    },
+    "speakingPractice": {
+      "kr": "김치라고 합니다.",
+      "rom": "Kim-chi-ra-go ham-ni-da.",
+      "en": "It's called kimchi.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "이 음식을 김치___. (I eum-si-geul gim-chi ___.) This food is called kimchi.",
+      "answer": "✅ Answer: 김치라고 합니다. (Kim-chi-ra-go ham-ni-da.)"
+    },
+    "relatedGrammar": [
+      "-이라고 합니다 (-irago hamnida)",
+      "뭐라고 해요? (mwo-rago hae-yo?) How do you say it?"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "김치",
+        "rom": "gim-chi",
+        "en": "kimchi"
+      },
+      {
+        "kr": "라면",
+        "rom": "ra-myeon",
+        "en": "ramen"
+      },
+      {
+        "kr": "이름",
+        "rom": "i-reum",
+        "en": "name"
+      }
+    ]
+  },
+  {
+    "id": "G156",
+    "grammar": "-이라고 합니다",
+    "romanization": "-irago hamnida",
+    "title": "It's Called... / I Am Called...",
+    "keywords": [
+      "-이라고 합니다",
+      "irago hamnida",
+      "it's called in Korean",
+      "I am called in Korean",
+      "formal quoted speech",
+      "Korean name introduction"
+    ],
+    "sentencePatterns": [
+      "-이라고 합니다"
+    ],
+    "rating": "★★★★★ Used Every Day",
+    "imagine": "Imagine you are introducing your name or explaining what something is called in Korean.\n\nThe word before -이라고 합니다 ends in a consonant. (The word before -irago habnida ends in a consonant.)\n\nKorean uses -이라고 합니다 (-irago hamnida) to say:\n\n\"It's called...\"\n\n\"I am called...\"",
+    "memoryTrick": "🟨 -이라고 합니다 (-irago hamnida) = It's called... / I am called...\n\nThink:\n\nConsonant + 이라고 합니다 (Consonant + irago habnida)",
+    "easyExplanation": "-이라고 합니다 (-irago hamnida) is used after a consonant-ending noun when formally saying what something is called or what someone's name is.\n\nIt is also used when quoting or reporting a noun phrase.\n\nThe vowel-ending counterpart is -라고 합니다. (The vowel-ending counterpart is -rago habnida.)",
+    "basicRule": "✅ After a consonant-ending noun → use -이라고 합니다 (-irago hamnida)\n\n학생 (hak-saeng) student → 학생이라고 합니다 (hak-saeng-i-ra-go ham-ni-da) I am called a student / It is called a student.\n\n이름이 민수입니다. 민수라고 합니다. (ireumi minsuibnida. minsurago habnida.)\n\n(I-reum-i Min-su-im-ni-da. Min-su-ra-go ham-ni-da.)\n\nMy name is Minsu. I am called Minsu.\n\n⚠️ After a vowel-ending noun → use -라고 합니다. (⚠️ After a vowel-ending noun → use -rago habnida.)\n\n김치 (gim-chi) → 김치라고 합니다.",
+    "examples": [
+      {
+        "kr": "학생이라고 합니다.",
+        "rom": "Hak-saeng-i-ra-go ham-ni-da.",
+        "en": "It is called a student. / I am called a student."
+      },
+      {
+        "kr": "한국 사람이라고 합니다.",
+        "rom": "Han-guk sa-ra-mi-ra-go ham-ni-da.",
+        "en": "I am called a Korean person."
+      },
+      {
+        "kr": "제 이름은 민수라고 합니다.",
+        "rom": "Je i-reum-eun Min-su-ra-go ham-ni-da.",
+        "en": "My name is Minsu."
+      }
+    ],
+    "nativeTip": "For personal introductions, Koreans commonly say 이름은 ___라고 합니다 or 저는 ___라고 합니다. -이라고 합니다 is used when the quoted noun ends in a consonant, while -라고 합니다 is used after a vowel. (For personal introductions, Koreans commonly say ireumeun ___rago habnida or jeoneun ___rago habnida. -irago habnida is used when the quoted noun ends in a consonant, while -rago habnida is used after a vowel.)",
+    "commonMistakes": [
+      {
+        "wrong": "❌ 학생라고 합니다 (Hak-saeng-ra-go ham-ni-da) I am called a student. Wrong",
+        "correct": "✅ 학생이라고 합니다 (Hak-saeng-i-ra-go ham-ni-da) Correct"
+      },
+      {
+        "wrong": "❌ 김치이라고 합니다 (Gim-chi-i-ra-go ham-ni-da) It is called kimchi. Wrong",
+        "correct": "✅ 김치라고 합니다 (Gim-chi-ra-go ham-ni-da) Correct"
+      }
+    ],
+    "compare": [
+      {
+        "grammar": "-이라고 합니다 (-irago hamnida)",
+        "meaning": "It's called... / I am called...",
+        "mainJob": "Used after consonant-ending nouns"
+      },
+      {
+        "grammar": "-라고 합니다 (-rago hamnida)",
+        "meaning": "It's called... / I am called...",
+        "mainJob": "Used after vowel-ending nouns"
+      }
+    ],
+    "miniQuiz": {
+      "question": "학생___. (Hak-saeng ___.) It is called a student.",
+      "options": [
+        "① 라고 합니다 (rago hamnida)",
+        "② 이라고 합니다 (irago hamnida)"
+      ],
+      "answer": "✅ Answer: ② 이라고 합니다 (irago hamnida)",
+      "reason": "학생 (hak-saeng) ends in a consonant, so use -이라고 합니다."
+    },
+    "speakingPractice": {
+      "kr": "제 이름은 민수라고 합니다.",
+      "rom": "Je i-reum-eun Min-su-ra-go ham-ni-da.",
+      "en": "My name is Minsu.",
+      "repeat": 3
+    },
+    "practiceChallenge": {
+      "question": "제 이름은 준호___. (Je i-reum-eun Jun-ho ___.) My name is Junho.",
+      "answer": "✅ Answer: 제 이름은 준호라고 합니다. (Je i-reum-eun Jun-ho-ra-go ham-ni-da.)"
+    },
+    "relatedGrammar": [
+      "-라고 합니다 (-rago hamnida)",
+      "-입니다 (-imnida) Formal Polite Copula",
+      "-입니까? (-imnikka?) Formal Question"
+    ],
+    "relatedVocabulary": [
+      {
+        "kr": "학생",
+        "rom": "hak-saeng",
+        "en": "student"
+      },
+      {
+        "kr": "한국 사람",
+        "rom": "han-guk sa-ram",
+        "en": "Korean person"
+      },
+      {
+        "kr": "이름",
+        "rom": "i-reum",
+        "en": "name"
+      }
+    ]
   }
 ];
