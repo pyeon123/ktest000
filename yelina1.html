@@ -137,50 +137,22 @@
                 </div>
                 <div style="font-size: 0.9rem; font-weight: bold; color: #64748b; margin-top:15px;">1,000+ Essential Korean sentences / free</div><a href="https://k-sentence.netlify.app/" target="_blank" class="wide-slim-banner"></a>
             </div>
-
-            <style>
-            /* eSIM 강제 숨김 - script.js가 만들어도 절대 안 보이게 */
-            a[href*="breezesim"]{display:none !important; pointer-events:none !important;}
-            .game-ad-bar:has(a[href*="breezesim"]){display:none !important;}
-            </style>
             <script>
-            // ULTRA: eSIM 영구 제거 - script.js가 계속 만들어도 계속 지움
+            // SEO + 속도 최적화: eSIM 재주입 방지 (MutationObserver, 3초 후 자동 해제)
             (function(){
               const clean = () => {
                 document.querySelectorAll('a[href*="breezesim"]').forEach(a=>{
                   const bar = a.closest('.game-ad-bar');
-                  if(bar && bar.id !== 'ai-tutor-bar'){
-                    bar.style.display='none';
-                    bar.remove();
-                  }
-                });
-                // 텍스트로도 찾기
-                document.querySelectorAll('.game-ad-bar').forEach(bar=>{
-                  if(bar.id === 'ai-tutor-bar') return;
-                  const txt = bar.innerText || '';
-                  if(txt.includes('Get Korea eSIM') || txt.includes('No internet in Korea') || txt.includes('Available in 200 countries')){
-                    bar.style.display='none';
-                    bar.remove();
-                  }
+                  if(bar && bar.id !== 'ai-tutor-bar') bar.remove();
                 });
               };
-              // 즉시 1회
-              clean();
-              // 영구 감시 - 절대 해제 안 함
               const observer = new MutationObserver(clean);
               observer.observe(document.documentElement, {childList:true, subtree:true});
               document.addEventListener('DOMContentLoaded', clean);
-              window.addEventListener('load', clean);
-              // 혹시 모르니 0.5초, 1초, 2초 후에도 한 번씩 더
-              setTimeout(clean, 500);
-              setTimeout(clean, 1000);
-              setTimeout(clean, 2000);
-              setTimeout(clean, 5000);
-              // script.js의 함수 덮어쓰기 시도
-              window.showEsimAd = function(){ return false; };
+              window.addEventListener('load', ()=> setTimeout(()=>{ clean(); observer.disconnect(); }, 3000));
             })();
             function getDynamicPhrase(){
-              let t=document.getElementById('seo-title')?.innerText||document.getElementById('main-header')?.innerText||"";
+              let t=document.getElementById('seo-title')?.innerText||"";
               let m=t.match(/"([^"]+)"/);
               return m && m[1] ? '"'+m[1]+'"' : '"I Have a Fever"';
             }
@@ -192,11 +164,9 @@
             }
             function openAiTutorChat(){
               if(window.showAiTutor) window.showAiTutor();
-              let btn = document.getElementById('ai-tutor-btn');
-              if(btn) btn.click();
+              document.getElementById('ai-tutor-btn')?.click();
             }
             </script>
-
         </div>
         <!-- FAQ Section -->
         <div style="margin: 30px auto; max-width: 600px; padding: 0 15px;">
