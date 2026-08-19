@@ -24,7 +24,7 @@
         .seo-learning-details[open] summary { border-bottom: 1px solid #e2e8f0; }
         .seo-learning-content { width: 100%; margin: 0 auto; padding: 15px; color: #334155; line-height: 1.7; }
         .seo-word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
-        .seo-word-item { background: #f8fafc; cursor:pointer; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; cursor:pointer; text-decoration:none; display:block; transition: all .15s; }
+        .seo-word-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px; cursor:pointer; text-decoration:none; display:block; transition: all .15s; }
         .seo-word-item:hover { border-color:#4f46e5; background:#eef2ff; transform: translateY(-1px); }
         .seo-word-item .kr { font-weight: 800; color: #1e293b; font-size: 1.05rem; }
         .seo-word-item .rom { color: #64748b; font-size: 0.85rem; }
@@ -137,7 +137,7 @@
                 </div>
                 <div id="ai-promo-detail" style="display:none; background:#ffffff; border:2px solid #4285f4; border-top:none; border-radius:0 0 16px 16px; padding:20px; margin-top:-2px; text-align:left; box-shadow: 0 8px 20px rgba(0,0,0,0.08);">
                     <div style="font-size:1.1rem; font-weight:900; color:#1e293b; line-height:1.5;">
-                        🤖 Want to try using <span id="dynamic-phrase" style="color:#4285f4; background:#eef2ff; padding:2px 8px; border-radius:8px;">these family titles</span> in real life?
+                        🤖 Want to try using <span id="dynamic-phrase" style="color:#4285f4; background:#eef2ff; padding:2px 8px; border-radius:8px;">these food words</span> in real life?
                     </div>
                     <div style="font-size:0.92rem; color:#475569; margin-top:10px; line-height:1.6;">
                         Tap the answer above to practice listening and speaking with examples. Got questions? Ask the AI Tutor and double your learning!
@@ -166,7 +166,7 @@
             function getDynamicPhrase(){
               let t=document.getElementById('seo-title')?.innerText||"";
               let m=t.match(/"([^"]+)"/);
-              return m && m[1] ? '"'+m[1]+'"' : 'these family titles';
+              return m && m[1] ? '"'+m[1]+'"' : 'these food words';
             }
             function toggleAiTutorPromo(){
               const d=document.getElementById('ai-promo-detail');
@@ -199,52 +199,52 @@
 <div class="control-panel" style="clear: both !important; display: block !important; text-align: center; margin: 25px auto; width: 100%; max-width: 600px; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif;">
 
     <!-- 업그레이드된 Full List: 동적 생성 + 검색 + SEO -->
-    <details class="seo-learning-details">
-        <summary id="seo-full-list-title">Full List: All Korean Family Titles (A-Z) - 40 words</summary>
+    <details class="seo-learning-details" id="seo-full-list" open>
+        <summary id="seo-full-list-title">Full List: All Korean Food Titles (A-Z) - 40 words</summary>
         <div class="seo-learning-content">
-            <p style="margin: 0 0 12px; font-size: 0.95rem;">Below is the complete list of Korean family titles covered in this quiz, with romanization and English meaning. Tap any word to jump straight to its quiz. Search in English or Korean!</p>
-            <input type="text" id="seo-search" class="seo-search-box" placeholder="🔍 Search: e.g. mother, 아버지, cousin..." oninput="filterSeoList()">
+            <p style="margin: 0 0 12px; font-size: 0.95rem;">Below is the complete list of Korean food &amp; drink words covered in this quiz, with romanization and English meaning. Tap any word to jump straight to its quiz. Search in English or Korean!</p>
+            <input type="text" id="seo-search" class="seo-search-box" placeholder="🔍 Search: e.g. rice, 김치, noodles..." oninput="filterSeoList()">
             <div class="seo-word-grid" id="full-word-list">
-<a href="javascript:void(0);" onclick="startWordQuiz(0)" class="seo-word-item"><div class="kr">우유 (U-yu)</div><div class="en">Milk</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(1)" class="seo-word-item"><div class="kr">고기 (Go-gi)</div><div class="en">Meat</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(2)" class="seo-word-item"><div class="kr">사과 (Sa-gwa)</div><div class="en">Apple</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(3)" class="seo-word-item"><div class="kr">포도 (Po-do)</div><div class="en">Grape</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(4)" class="seo-word-item"><div class="kr">바나나 (Ba-na-na)</div><div class="en">Banana</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(5)" class="seo-word-item"><div class="kr">김치 (Gim-chi)</div><div class="en">Kimchi</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(6)" class="seo-word-item"><div class="kr">커피 (Keo-pi)</div><div class="en">Coffee</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(7)" class="seo-word-item"><div class="kr">라면 (Ra-myeon)</div><div class="en">Ramen</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(8)" class="seo-word-item"><div class="kr">소금 (So-geum)</div><div class="en">Salt</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(9)" class="seo-word-item"><div class="kr">설탕 (Seol-tang)</div><div class="en">Sugar</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(10)" class="seo-word-item"><div class="kr">만두 (Man-du)</div><div class="en">Dumpling</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(11)" class="seo-word-item"><div class="kr">피자 (Pi-ja)</div><div class="en">Pizza</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(12)" class="seo-word-item"><div class="kr">콜라 (Kol-la)</div><div class="en">Cola</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(13)" class="seo-word-item"><div class="kr">식사 (Sik-sa)</div><div class="en">Meal</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(14)" class="seo-word-item"><div class="kr">된장 (Doen-jang)</div><div class="en">Bean Paste</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(15)" class="seo-word-item"><div class="kr">빵 (Ppang)</div><div class="en">Bread</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(16)" class="seo-word-item"><div class="kr">계란 (Gye-ran)</div><div class="en">Egg</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(17)" class="seo-word-item"><div class="kr">물 (Mul)</div><div class="en">Water</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(18)" class="seo-word-item"><div class="kr">밥 (Bap)</div><div class="en">Rice</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(19)" class="seo-word-item"><div class="kr">치즈 (Chi-jeu)</div><div class="en">Cheese</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(20)" class="seo-word-item"><div class="kr">국수 (Guk-su)</div><div class="en">Noodles</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(21)" class="seo-word-item"><div class="kr">튀김 (Twi-gim)</div><div class="en">Fried food</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(22)" class="seo-word-item"><div class="kr">순대 (Sun-dae)</div><div class="en">Blood sausage</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(23)" class="seo-word-item"><div class="kr">냉면 (Naeng-myeon)</div><div class="en">Cold noodles</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(24)" class="seo-word-item"><div class="kr">찌개 (Jji-gae)</div><div class="en">Stew</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(25)" class="seo-word-item"><div class="kr">반찬 (Ban-chan)</div><div class="en">Side dish</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(26)" class="seo-word-item"><div class="kr">생선 (Saeng-seon)</div><div class="en">Fish</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(27)" class="seo-word-item"><div class="kr">버터 (Beo-teo)</div><div class="en">Butter</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(28)" class="seo-word-item"><div class="kr">꿀 (Kkul)</div><div class="en">Honey</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(29)" class="seo-word-item"><div class="kr">과자 (Gwa-ja)</div><div class="en">Snack</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(30)" class="seo-word-item"><div class="kr">사탕 (Sa-tang)</div><div class="en">Candy</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(31)" class="seo-word-item"><div class="kr">초콜릿 (Cho-kol-lit)</div><div class="en">Chocolate</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(32)" class="seo-word-item"><div class="kr">주스 (Ju-seu)</div><div class="en">Juice</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(33)" class="seo-word-item"><div class="kr">술 (Sul)</div><div class="en">Alcohol</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(34)" class="seo-word-item"><div class="kr">맥주 (Maek-ju)</div><div class="en">Beer</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(35)" class="seo-word-item"><div class="kr">와인 (Wa-in)</div><div class="en">Wine</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(36)" class="seo-word-item"><div class="kr">떡볶이 (Tteok-bok-ki)</div><div class="en">Tteokbokki</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(37)" class="seo-word-item"><div class="kr">비빔밥 (Bi-bim-bap)</div><div class="en">Bibimbap</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(38)" class="seo-word-item"><div class="kr">불고기 (Bul-go-gi)</div><div class="en">Bulgogi</div></a>
-<a href="javascript:void(0);" onclick="startWordQuiz(39)" class="seo-word-item"><div class="kr">삼겹살 (Sam-gyeop-sal)</div><div class="en">Pork belly</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(0)" class="seo-word-item" data-search="우유 u-yu milk"><div class="kr">우유 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(U-yu)</span></div><div class="en">Milk</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(1)" class="seo-word-item" data-search="고기 go-gi meat"><div class="kr">고기 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Go-gi)</span></div><div class="en">Meat</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(2)" class="seo-word-item" data-search="사과 sa-gwa apple"><div class="kr">사과 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Sa-gwa)</span></div><div class="en">Apple</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(3)" class="seo-word-item" data-search="포도 po-do grape"><div class="kr">포도 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Po-do)</span></div><div class="en">Grape</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(4)" class="seo-word-item" data-search="바나나 ba-na-na banana"><div class="kr">바나나 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Ba-na-na)</span></div><div class="en">Banana</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(5)" class="seo-word-item" data-search="김치 gim-chi kimchi"><div class="kr">김치 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Gim-chi)</span></div><div class="en">Kimchi</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(6)" class="seo-word-item" data-search="커피 keo-pi coffee"><div class="kr">커피 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Keo-pi)</span></div><div class="en">Coffee</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(7)" class="seo-word-item" data-search="라면 ra-myeon ramen"><div class="kr">라면 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Ra-myeon)</span></div><div class="en">Ramen</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(8)" class="seo-word-item" data-search="소금 so-geum salt"><div class="kr">소금 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(So-geum)</span></div><div class="en">Salt</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(9)" class="seo-word-item" data-search="설탕 seol-tang sugar"><div class="kr">설탕 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Seol-tang)</span></div><div class="en">Sugar</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(10)" class="seo-word-item" data-search="만두 man-du dumpling"><div class="kr">만두 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Man-du)</span></div><div class="en">Dumpling</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(11)" class="seo-word-item" data-search="피자 pi-ja pizza"><div class="kr">피자 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Pi-ja)</span></div><div class="en">Pizza</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(12)" class="seo-word-item" data-search="콜라 kol-la cola"><div class="kr">콜라 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Kol-la)</span></div><div class="en">Cola</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(13)" class="seo-word-item" data-search="식사 sik-sa meal"><div class="kr">식사 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Sik-sa)</span></div><div class="en">Meal</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(14)" class="seo-word-item" data-search="된장 doen-jang bean paste"><div class="kr">된장 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Doen-jang)</span></div><div class="en">Bean Paste</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(15)" class="seo-word-item" data-search="빵 ppang bread"><div class="kr">빵 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Ppang)</span></div><div class="en">Bread</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(16)" class="seo-word-item" data-search="계란 gye-ran egg"><div class="kr">계란 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Gye-ran)</span></div><div class="en">Egg</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(17)" class="seo-word-item" data-search="물 mul water"><div class="kr">물 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Mul)</span></div><div class="en">Water</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(18)" class="seo-word-item" data-search="밥 bap rice"><div class="kr">밥 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Bap)</span></div><div class="en">Rice</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(19)" class="seo-word-item" data-search="치즈 chi-jeu cheese"><div class="kr">치즈 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Chi-jeu)</span></div><div class="en">Cheese</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(20)" class="seo-word-item" data-search="국수 guk-su noodles"><div class="kr">국수 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Guk-su)</span></div><div class="en">Noodles</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(21)" class="seo-word-item" data-search="튀김 twi-gim fried food"><div class="kr">튀김 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Twi-gim)</span></div><div class="en">Fried food</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(22)" class="seo-word-item" data-search="순대 sun-dae blood sausage"><div class="kr">순대 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Sun-dae)</span></div><div class="en">Blood sausage</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(23)" class="seo-word-item" data-search="냉면 naeng-myeon cold noodles"><div class="kr">냉면 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Naeng-myeon)</span></div><div class="en">Cold noodles</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(24)" class="seo-word-item" data-search="찌개 jji-gae stew"><div class="kr">찌개 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Jji-gae)</span></div><div class="en">Stew</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(25)" class="seo-word-item" data-search="반찬 ban-chan side dish"><div class="kr">반찬 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Ban-chan)</span></div><div class="en">Side dish</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(26)" class="seo-word-item" data-search="생선 saeng-seon fish"><div class="kr">생선 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Saeng-seon)</span></div><div class="en">Fish</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(27)" class="seo-word-item" data-search="버터 beo-teo butter"><div class="kr">버터 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Beo-teo)</span></div><div class="en">Butter</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(28)" class="seo-word-item" data-search="꿀 kkul honey"><div class="kr">꿀 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Kkul)</span></div><div class="en">Honey</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(29)" class="seo-word-item" data-search="과자 gwa-ja snack"><div class="kr">과자 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Gwa-ja)</span></div><div class="en">Snack</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(30)" class="seo-word-item" data-search="사탕 sa-tang candy"><div class="kr">사탕 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Sa-tang)</span></div><div class="en">Candy</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(31)" class="seo-word-item" data-search="초콜릿 cho-kol-lit chocolate"><div class="kr">초콜릿 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Cho-kol-lit)</span></div><div class="en">Chocolate</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(32)" class="seo-word-item" data-search="주스 ju-seu juice"><div class="kr">주스 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Ju-seu)</span></div><div class="en">Juice</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(33)" class="seo-word-item" data-search="술 sul alcohol"><div class="kr">술 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Sul)</span></div><div class="en">Alcohol</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(34)" class="seo-word-item" data-search="맥주 maek-ju beer"><div class="kr">맥주 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Maek-ju)</span></div><div class="en">Beer</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(35)" class="seo-word-item" data-search="와인 wa-in wine"><div class="kr">와인 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Wa-in)</span></div><div class="en">Wine</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(36)" class="seo-word-item" data-search="떡볶이 tteok-bok-ki tteokbokki"><div class="kr">떡볶이 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Tteok-bok-ki)</span></div><div class="en">Tteokbokki</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(37)" class="seo-word-item" data-search="비빔밥 bi-bim-bap bibimbap"><div class="kr">비빔밥 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Bi-bim-bap)</span></div><div class="en">Bibimbap</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(38)" class="seo-word-item" data-search="불고기 bul-go-gi bulgogi"><div class="kr">불고기 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Bul-go-gi)</span></div><div class="en">Bulgogi</div></a>
+<a href="javascript:void(0);" onclick="startWordQuiz(39)" class="seo-word-item" data-search="삼겹살 sam-gyeop-sal pork belly"><div class="kr">삼겹살 <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(Sam-gyeop-sal)</span></div><div class="en">Pork belly</div></a>
 </div>
         </div>
     </details>
@@ -305,7 +305,7 @@
         }catch(e){}
         if(data.length===0 && window.currentCategoryData) data = window.currentCategoryData;
         if(data.length===0) return;
-        titleEl.textContent = `Full List: All Korean ${window.allQuizData[CURRENT_CAT]?.name||'Family'} Titles (A-Z) - ${data.length} words`;
+        titleEl.textContent = `Full List: All Korean ${window.allQuizData[CURRENT_CAT]?.name||'Food'} Titles (A-Z) - ${data.length} words`;
         container.innerHTML = data.map((w,i)=>`
             <a href="javascript:void(0);" onclick="startWordQuiz(${i})" class="seo-word-item" data-search="${(w.kr+' '+w.rom+' '+w.en).toLowerCase()}">
                 <div class="kr">${w.kr} <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(${w.rom})</span></div>
@@ -330,48 +330,6 @@
         if(kr) history.replaceState(null,'','#word-'+encodeURIComponent(kr));
         document.getElementById('quiz-screen')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    
-    function startWordQuiz(wordIndex){
-        try{
-            const catId = (typeof CURRENT_CAT !== 'undefined' && CURRENT_CAT) ? CURRENT_CAT : (typeof activeCatId !== 'undefined' && activeCatId ? activeCatId : 'cat_01');
-            const allData = (window.allQuizData && window.allQuizData[catId] && window.allQuizData[catId].data) ? window.allQuizData[catId].data : null;
-            if(!allData || !allData[wordIndex]){ console.warn('no data', catId, wordIndex); return; }
-            // Set global vars used by script.js
-            window.activeCatId = catId;
-            if(typeof activeCatId !== 'undefined') activeCatId = catId;
-            if(typeof currentCategoryData !== 'undefined') currentCategoryData = allData;
-            window.currentCategoryData = allData;
-            if(typeof currentIdx !== 'undefined') currentIdx = wordIndex;
-            window.currentIdx = wordIndex;
-            window.currentCategoryName = allData[wordIndex].kr;
-            if(typeof activeCategoryName !== 'undefined') activeCategoryName = allData[wordIndex].kr;
-            
-            // Switch screens manually (script.js startQuiz does same but this is failsafe)
-            const menuScreen = document.getElementById('menu-screen');
-            const quizScreen = document.getElementById('quiz-screen');
-            if(menuScreen){ menuScreen.classList.remove('active'); menuScreen.style.display='none'; }
-            if(quizScreen){ quizScreen.classList.add('active'); quizScreen.style.display='block'; }
-            
-            // Now load quiz
-            if(typeof loadQuiz === 'function'){ loadQuiz(true); }
-            else if(typeof startQuiz === 'function'){ startQuiz(catId, false); setTimeout(()=>{ if(typeof currentIdx !== 'undefined') currentIdx = wordIndex; if(typeof loadQuiz==='function') loadQuiz(true); }, 100); }
-            
-            const kr = allData[wordIndex].kr || '';
-            if(kr){ try{ history.replaceState(null,'','#word-'+encodeURIComponent(kr)); }catch(e){ location.hash='#word-'+encodeURIComponent(kr); } }
-            document.getElementById('quiz-screen')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }catch(e){ console.error('startWordQuiz error', e); }
-    }
-    // Also allow clicking via KR directly
-    function jumpToWordByKr(kr){
-        try{
-            const catId = (typeof CURRENT_CAT !== 'undefined' && CURRENT_CAT) ? CURRENT_CAT : 'cat_01';
-            const allData = window.allQuizData && window.allQuizData[catId] && window.allQuizData[catId].data;
-            if(!allData) return;
-            const idx = allData.findIndex(x=>x.kr===kr);
-            if(idx>=0) startWordQuiz(idx);
-        }catch(e){}
-    }
-
     function checkHashDeepLink(){
         const hash = decodeURIComponent(location.hash||'');
         if(hash.startsWith('#word-')){
