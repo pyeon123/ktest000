@@ -126,15 +126,13 @@
             })();
             </script>
             <!-- ============================================================
-     📧 Email Subscribe Box
+    🎯 TOPIK I / EPS-TOPIK Promo Banner (Link Type)
 ============================================================ -->
-
-<div id="subscribe-wrapper"
+<div id="topik-banner-wrapper"
      style="width:100%;max-width:550px;margin:0 auto 30px auto;padding:0 15px;box-sizing:border-box;">
 
-    <!-- 닫힌 상태 -->
-    <div id="subscribe-section"
-         onclick="expandSubscribeBox()"
+    <div id="topik-banner"
+         onclick="location.href='#'" 
          style="
             width:100%;
             padding:20px 15px;
@@ -150,158 +148,21 @@
          onmouseover="this.style.transform='scale(1.02)'"
          onmouseout="this.style.transform='scale(1)'">
 
-        <div style="font-size:20px;font-weight:800;">
-           📬 Get a FREE Secret Phrase Every Day
+        <!-- TOPIK Title -->
+        <div style="font-size:16px;font-weight:800;color:#fde047;margin-bottom:8px;">
+           [ 🎯 TOPIK I / EPS-TOPIK Official Prep ]
         </div>
 
-        <div style="
-            font-size:15px;
-            font-weight:700;
-            margin-top:6px;
-            opacity:.95;">
-            Click to Subscribe
+        <!-- Sub Text -->
+        <div style="font-size:15px;font-weight:700;line-height:1.4;margin-bottom:6px;">
+            Memorize with Quizzes & Get 1:1 AI Corrections!
         </div>
 
-    </div>
-
-    <!-- 펼쳐지는 부분 -->
-    <div id="subscribe-content"
-         style="
-            display:none;
-            margin-top:12px;
-            padding:20px;
-            background:linear-gradient(135deg,#4f46e5,#7c3aed);
-            border-radius:15px;
-            box-shadow:0 4px 12px rgba(79,70,229,.3);
-            box-sizing:border-box;
-         ">
-
-        <p style="
-            color:#e0e7ff;
-            font-size:0.95rem;
-            line-height:1.5;
-            text-align:center;
-            margin:0 0 18px 0;">
-
-          Subscribe to receive 1 daily Listen & Speak practice phrase!- Practice in secret, then suddenly speak like a Korean and shock everyone!
-            <br>
-            🎁 100% FREE
-
-        </p>
-
-        <form id="subscribeForm"
-              name="daily-korean-subscribe"
-              method="POST"
-              data-netlify="true"
-              netlify-honeypot="bot-field"
-              onsubmit="return handleSubscribeSubmit(event)"
-              style="
-                  display:flex;
-                  flex-direction:column;
-                  gap:12px;
-                  max-width:380px;
-                  margin:0 auto;
-              ">
-
-            <input type="hidden"
-                   name="form-name"
-                   value="daily-korean-subscribe">
-
-            <p style="display:none;">
-                <label>
-                    Don't fill this out if you're human:
-                    <input name="bot-field">
-                </label>
-            </p>
-
-            <input
-                type="email"
-                id="subscribe-email"
-                name="email"
-                required
-                placeholder="Enter your email address"
-                style="
-                    padding:14px 16px;
-                    border:none;
-                    border-radius:10px;
-                    font-size:16px;
-                    outline:none;
-                    width:100%;
-                    box-sizing:border-box;
-                ">
-
-            <button
-                type="submit"
-                style="
-                    padding:14px;
-                    background:#fff;
-                    color:#4f46e5;
-                    border:none;
-                    border-radius:10px;
-                    font-size:17px;
-                    font-weight:800;
-                    cursor:pointer;
-                    transition:transform .2s;
-                "
-                onmouseover="this.style.transform='scale(1.02)'"
-                onmouseout="this.style.transform='scale(1)'">
-
-                🔔 Subscribe FREE
-
-            </button>
-
-        </form>
-
-        <div id="subscribe-success"
-             style="
-                display:none;
-                margin-top:15px;
-                padding:12px;
-                border-radius:10px;
-                background:rgba(255,255,255,.15);
-                color:#fff;
-                text-align:center;
-                font-weight:700;
-             ">
-            ✅ Thank you! Check your inbox tomorrow.
+        <!-- Description -->
+        <div style="font-size:13px;opacity:.95;line-height:1.4;">
+            Master essential sentences with 100% FREE quizzes,<br>
+            and correct your grammar with an AI Tutor.
         </div>
-
-        <div id="subscribe-error"
-             style="
-                display:none;
-                margin-top:15px;
-                padding:12px;
-                border-radius:10px;
-                background:rgba(239,68,68,.2);
-                color:#fff;
-                text-align:center;
-                font-weight:700;
-             ">
-            ⚠️ Something went wrong. Please try again.
-        </div>
-
-        <p style="
-            color:#c7d2fe;
-            text-align:center;
-            font-size:12px;
-            margin-top:15px;">
-            No spam. Unsubscribe anytime.
-        </p>
-
-        <button
-            onclick="closeSubscribeBox()"
-            style="
-                width:100%;
-                margin-top:12px;
-                padding:10px;
-                border:none;
-                border-radius:8px;
-                background:rgba(255,255,255,.15);
-                color:#fff;
-                cursor:pointer;
-            ">
-            ✖ Close
-        </button>
 
     </div>
 
