@@ -14,7 +14,7 @@
 <meta id="seo-desc" name="description" content="Master Korean food vocabulary! Learn how to say delicious, water, and popular Korean dishes with this fun, interactive quiz. Perfect for travelers and K-food fans!">
 <meta name="keywords" content="Korean food vocabulary, Korean drink vocabulary, learn Korean food words, Korean cuisine terms, Korean vocabulary quiz">
 <link rel="canonical" href="https://pyeon123.github.io/ktest000/food.html" />
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
     <style>
         .seo-learning-details { width: 100%; max-width: 600px; margin: 0 auto 25px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); overflow: hidden; }
         .seo-learning-details summary { cursor: pointer; padding: 16px 18px; font-size: 1rem; font-weight: 800; color: #1e293b; list-style: none; text-align: left; }
@@ -199,7 +199,7 @@
 <div class="control-panel" style="clear: both !important; display: block !important; text-align: center; margin: 25px auto; width: 100%; max-width: 600px; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif;">
 
     <!-- 업그레이드된 Full List: 동적 생성 + 검색 + SEO -->
-    <details class="seo-learning-details" id="seo-full-list" open>
+    <details class="seo-learning-details" id="seo-full-list">
         <summary id="seo-full-list-title">Full List: All Korean Family Titles (A-Z) - 40 words</summary>
         <div class="seo-learning-content">
             <p style="margin: 0 0 12px; font-size: 0.95rem;">Below is the complete list of Korean family titles covered in this quiz, with romanization and English meaning. Tap any word to jump straight to its quiz. Search in English or Korean!</p>
@@ -306,10 +306,10 @@
         if(data.length===0) return;
         titleEl.textContent = `Full List: All Korean ${window.allQuizData[CURRENT_CAT]?.name||'Family'} Titles (A-Z) - ${data.length} words`;
         container.innerHTML = data.map((w,i)=>`
-            <a href="javascript:void(0);" onclick="startWordQuiz(${i})" class="seo-word-item" data-search="${(w.kr+' '+w.rom+' '+w.en).toLowerCase()}">
+            <div onclick="startWordQuiz(${i})" class="seo-word-item" style="cursor:pointer;" data-search="${(w.kr+' '+w.rom+' '+w.en).toLowerCase()}">
                 <div class="kr">${w.kr} <span style="font-weight:400; font-size:0.85rem; color:#64748b;">(${w.rom})</span></div>
                 <div class="en">${w.en}</div>
-            </a>`).join('');
+            </div>`).join('');
     }
     function filterSeoList(){
         const q = document.getElementById('seo-search').value.toLowerCase().trim();
@@ -318,18 +318,6 @@
             el.style.display = s.includes(q) ? 'block' : 'none';
         });
     }
-    function startWordQuiz(wordIndex) {
-        if (typeof startQuiz !== 'function') return;
-        startQuiz(CURRENT_CAT, true);
-        if (typeof currentCategoryData !== 'undefined' && currentCategoryData[wordIndex]) {
-            currentIdx = wordIndex;
-            if (typeof loadQuiz === 'function') loadQuiz(true);
-        }
-        const kr = (currentCategoryData && currentCategoryData[wordIndex] && currentCategoryData[wordIndex].kr) || '';
-        if(kr) history.replaceState(null,'','#word-'+encodeURIComponent(kr));
-        document.getElementById('quiz-screen')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    
     function startWordQuiz(wordIndex){
         try{
             const catId = (typeof CURRENT_CAT !== 'undefined' && CURRENT_CAT) ? CURRENT_CAT : (typeof activeCatId !== 'undefined' && activeCatId ? activeCatId : 'cat_01');
