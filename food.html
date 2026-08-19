@@ -1,3 +1,4 @@
+ Fixed
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,9 +11,9 @@
       gtag('config', 'G-8QTRE4CGNE');
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<title id="seo-title">Learn Korean Food & Drink: Essential Vocabulary Quiz</title>
+<title id="seo-title">How to Say Food and Ingredients in Korean: Essential Word Quiz</title>
 <meta id="seo-desc" name="description" content="Master Korean food vocabulary! Learn how to say delicious, water, and popular Korean dishes with this fun, interactive quiz. Perfect for travelers and K-food fans!">
-<meta name="keywords" content="Korean food vocabulary, Korean drink vocabulary, learn Korean food words, Korean cuisine terms, Korean vocabulary quiz">
+<meta name="keywords" content="how to say food in Korean, Korean food vocabulary, learn Korean words, Korean nouns quiz, basic Korean everyday words, Korean vocabulary game">
 <link rel="canonical" href="https://pyeon123.github.io/food.html" />
     <link rel="stylesheet" href="style.css">
     <style>
@@ -244,7 +245,7 @@
     let trendingWords = [];
     let currentSelectedLetter = null;
 
-        function initDynamicFullList(){
+    function initDynamicFullList(){
         const titleEl = document.getElementById('seo-full-list-title');
         if(!titleEl) return;
         try{
@@ -256,66 +257,36 @@
         }catch(e){}
     }
 
-    
-    window.FOOD_FALLBACK = [{"kr": "우유", "rom": "U-yu", "en": "Milk", "tip": "How to ask for a common white dairy drink in Korean? Perfect for breakfast or with cereal.", "situation": "Use this at a cafe or supermarket."}, {"kr": "고기", "rom": "Go-gi", "en": "Meat", "tip": "How to refer to animal protein in Korean? Essential for ordering Korean BBQ!", "situation": "Use this at a restaurant."}, {"kr": "사과", "rom": "Sa-gwa", "en": "Apple", "tip": "How to say a popular red fruit in Korean? This word also means 'apology'.", "situation": "Use this at a market."}, {"kr": "포도", "rom": "Po-do", "en": "Grape", "tip": "How to refer to small purple or green fruits in Korean? Often grown in clusters.", "situation": "Use this at a fruit shop."}, {"kr": "바나나", "rom": "Ba-na-na", "en": "Banana", "tip": "How to say this yellow tropical fruit in Korean? The pronunciation is very similar to English!", "situation": "Use this at a supermarket."}, {"kr": "김치", "rom": "Gim-chi", "en": "Kimchi", "tip": "How to name the most famous fermented vegetable side dish in Korean? The soul food of Korea.", "situation": "Use this during meals."}, {"kr": "커피", "rom": "Keo-pi", "en": "Coffee", "tip": "How to order your morning caffeine in Korean? You can find a cafe on every corner in Seoul.", "situation": "Use this at a cafe."}, {"kr": "라면", "rom": "Ra-myeon", "en": "Ramen", "tip": "How to ask for popular spicy instant noodles in Korean? A favorite late-night snack.", "situation": "Use this when cooking at home."}, {"kr": "소금", "rom": "So-geum", "en": "Salt", "tip": "How to refer to the basic white seasoning for saltiness in Korean? Use this if your food is too bland.", "situation": "Use this while cooking."}, {"kr": "설탕", "rom": "Seol-tang", "en": "Sugar", "tip": "How to ask for a sweet white powder in Korean? Essential for sweetening your tea or coffee.", "situation": "Use this at a cafe or home."}, {"kr": "만두", "rom": "Man-du", "en": "Dumpling", "tip": "How to say steamed or fried dough filled with meat and veggies in Korean? A delicious snack or meal.", "situation": "Use this at a snack shop."}, {"kr": "피자", "rom": "Pi-ja", "en": "Pizza", "tip": "How to order a flatbread with cheese and toppings in Korean? A very popular international food.", "situation": "Use this when ordering delivery."}, {"kr": "콜라", "rom": "Kol-la", "en": "Cola", "tip": "How to ask for a dark fizzy soda in Korean? Perfect for refreshing your throat.", "situation": "Use this at a fast-food restaurant."}, {"kr": "식사", "rom": "Sik-sa", "en": "Meal", "tip": "How to refer to the act of eating or a prepared set of food in Korean? A formal way to talk about breakfast, lunch, or dinner.", "situation": "Use this when inviting someone to eat."}, {"kr": "된장", "rom": "Doen-jang", "en": "Bean Paste", "tip": "How to name the fermented soybean paste used in many Korean stews? It has a deep, savory flavor.", "situation": "Use this when cooking."}, {"kr": "빵", "rom": "Ppang", "en": "Bread", "tip": "How to say bakery items or toast in Korean? Originates from the Portuguese word for the same food.", "situation": "Use this at a bakery."}, {"kr": "계란", "rom": "Gye-ran", "en": "Egg", "tip": "How to refer to a common protein from chickens in Korean? Often served fried or boiled with meals.", "situation": "Use this when cooking."}, {"kr": "물", "rom": "Mul", "en": "Water", "tip": "How to ask for the most basic clear liquid in Korean? Usually provided for free in restaurants.", "situation": "Use this at a restaurant."}, {"kr": "밥", "rom": "Bap", "en": "Rice", "tip": "How to refer to the staple grain of Korean cuisine? Also means 'a meal' in general conversation.", "situation": "Use this during meals."}, {"kr": "치즈", "rom": "Chi-jeu", "en": "Cheese", "tip": "How to say this dairy product often added to ramen or spicy rice cakes in Korean? Very popular in modern fusion dishes.", "situation": "Use this when cooking or at a cafe."}, {"kr": "국수", "rom": "Guk-su", "en": "Noodles", "tip": "How to refer to long wheat or buckwheat strips in Korean? Often served in a warm broth.", "situation": "Use this at a noodle shop."}, {"kr": "튀김", "rom": "Twi-gim", "en": "Fried food", "tip": "How to say deep-fried snacks in Korean? A popular street food found at snack stalls.", "situation": "Use this at a snack street."}, {"kr": "순대", "rom": "Sun-dae", "en": "Blood sausage", "tip": "How to name the traditional Korean sausage filled with glass noodles in Korean? A must-try street food.", "situation": "Use this at a market."}, {"kr": "냉면", "rom": "Naeng-myeon", "en": "Cold noodles", "tip": "How to order chilled noodles in a refreshing icy broth in Korean? Perfect for hot summer days.", "situation": "Use this in summer."}, {"kr": "찌개", "rom": "Jji-gae", "en": "Stew", "tip": "How to refer to a thick, flavorful Korean soup in Korean? Usually served boiling hot in a stone pot.", "situation": "Use this at a restaurant."}, {"kr": "반찬", "rom": "Ban-chan", "en": "Side dish", "tip": "How to refer to the small dishes served alongside rice in Korean? A unique part of the local dining experience.", "situation": "Use this during meals."}, {"kr": "생선", "rom": "Saeng-seon", "en": "Fish", "tip": "How to refer to seafood protein in Korean? Often served grilled or in a spicy soup at Korean tables.", "situation": "Use this at a restaurant."}, {"kr": "버터", "rom": "Beo-teo", "en": "Butter", "tip": "How to say this yellow dairy fat in Korean? Used for spreading on bread or cooking delicious snacks.", "situation": "Use this while cooking."}, {"kr": "꿀", "rom": "Kkul", "en": "Honey", "tip": "How to refer to the sweet liquid made by bees in Korean? Used as a natural sweetener in teas and desserts.", "situation": "Use this at a cafe or kitchen."}, {"kr": "과자", "rom": "Gwa-ja", "en": "Snack", "tip": "How to say crispy treats or chips in Korean? You'll find a huge variety of these in Korean convenience stores.", "situation": "Use this when buying snacks."}, {"kr": "사탕", "rom": "Sa-tang", "en": "Candy", "tip": "How to refer to small, hard sweet treats in Korean? Often given to children or as a quick sugar boost.", "situation": "Use this when sharing sweets."}, {"kr": "초콜릿", "rom": "Cho-kol-lit", "en": "Chocolate", "tip": "How to say this popular cocoa-based sweet in Korean? A favorite gift for Valentine's Day.", "situation": "Use this for special occasions."}, {"kr": "주스", "rom": "Ju-seu", "en": "Juice", "tip": "How to order a fruit-based drink in Korean? Usually served cold in flavors like orange or apple.", "situation": "Use this at a cafe."}, {"kr": "술", "rom": "Sul", "en": "Alcohol", "tip": "How to refer to alcoholic beverages in general in Korean? A key part of Korean social and gathering culture.", "situation": "Use this at a social gathering."}, {"kr": "맥주", "rom": "Maek-ju", "en": "Beer", "tip": "How to order a cold carbonated alcoholic drink in Korean? Perfect with fried chicken (Chimaek)!", "situation": "Use this at a pub."}, {"kr": "와인", "rom": "Wa-in", "en": "Wine", "tip": "How to refer to fermented grape alcohol in Korean? Becoming increasingly popular in trendy Korean bars.", "situation": "Use this at a restaurant."}, {"kr": "떡볶이", "rom": "Tteok-bok-ki", "en": "Tteokbokki", "tip": "How to name the famous spicy stir-fried rice cakes in Korean? The king of Korean street food!", "situation": "Use this at a snack street."}, {"kr": "비빔밥", "rom": "Bi-bim-bap", "en": "Bibimbap", "tip": "How to order a bowl of rice mixed with various vegetables and meat in Korean? Healthy and colorful.", "situation": "Use this at a restaurant."}, {"kr": "불고기", "rom": "Bul-go-gi", "en": "Bulgogi", "tip": "How to name the famous thin slices of marinated grilled beef in Korean? It has a sweet and savory taste.", "situation": "Use this at a restaurant."}, {"kr": "삼겹살", "rom": "Sam-gyeop-sal", "en": "Pork belly", "tip": "How to order the popular thick slices of pork belly for grilling in Korean? Often eaten wrapped in lettuce.", "situation": "Use this at a Korean BBQ."}];
-
     function startWordQuiz(wordIndex){
         try{
-            const catId = (typeof CURRENT_CAT !== 'undefined' && CURRENT_CAT) ? CURRENT_CAT : 'cat_02';
+            const catId = (typeof CURRENT_CAT !== 'undefined' && CURRENT_CAT) ? CURRENT_CAT : (typeof activeCatId !== 'undefined' && activeCatId ? activeCatId : 'cat_02');
             let allData = null;
             if(window.allQuizData && window.allQuizData[catId] && window.allQuizData[catId].data) allData = window.allQuizData[catId].data;
-            if(!allData && window.currentCategoryData && window.currentCategoryData.length>0) allData = window.currentCategoryData;
-            if(!allData || allData.length===0) allData = window.FOOD_FALLBACK;
-            if(!allData || !allData[wordIndex]) return;
+            if(!allData && window.currentCategoryData) allData = window.currentCategoryData;
+            if(!allData || !allData[wordIndex]){
+                console.warn('no data for', catId, wordIndex);
+                if(typeof startQuiz === 'function') startQuiz(catId, true);
+                return;
+            }
+            window.activeCatId = catId;
+            if(typeof activeCatId !== 'undefined') activeCatId = catId;
+            if(typeof currentCategoryData !== 'undefined') currentCategoryData = allData;
+            window.currentCategoryData = allData;
+            window.currentIdx = wordIndex;
+            if(typeof currentIdx !== 'undefined') currentIdx = wordIndex;
+            if(typeof activeCategoryName !== 'undefined') activeCategoryName = allData[wordIndex].kr;
+            window.currentCategoryName = allData[wordIndex].kr;
             const menuScreen = document.getElementById('menu-screen');
             const quizScreen = document.getElementById('quiz-screen');
             if(menuScreen){ menuScreen.classList.remove('active'); menuScreen.style.display='none'; }
             if(quizScreen){ quizScreen.classList.add('active'); quizScreen.style.display='block'; }
-            window.activeCatId = catId;
-            if(typeof activeCatId !== 'undefined') activeCatId = catId;
-            window.currentCategoryData = allData;
-            if(typeof currentCategoryData !== 'undefined') currentCategoryData = allData;
-            window.currentIdx = wordIndex;
-            if(typeof currentIdx !== 'undefined') currentIdx = wordIndex;
-            window.currentCategoryName = allData[wordIndex].kr;
-            if(window.FOOD_FALLBACK && allData === window.FOOD_FALLBACK){
-                const w = allData[wordIndex];
-                document.getElementById('situation').textContent = w.situation;
-                document.getElementById('category-tip-text').textContent = w.tip;
-                document.getElementById('korean-sentence').textContent = w.kr;
-                document.getElementById('romanization').textContent = w.rom;
-                document.getElementById('feedback').textContent = '';
-                const optEl = document.getElementById('options-container');
-                if(optEl){
-                    let pool = allData.map(x=>x.en).filter((_,i)=>i!==wordIndex);
-                    pool.sort(()=>0.5-Math.random());
-                    let choices=[w.en, ...pool.slice(0,3)];
-                    choices.sort(()=>0.5-Math.random());
-                    const correct = w.en;
-                    optEl.innerHTML='';
-                    choices.forEach(en=>{
-                        const btn=document.createElement('button');
-                        btn.textContent=en;
-                        btn.className='option-btn';
-                        btn.style.cssText='display:block;width:100%;margin:6px 0;padding:12px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;cursor:pointer;font-weight:700;';
-                        btn.onclick=function(){
-                            if(this.textContent===correct){ this.style.background='#22c55e'; document.getElementById('feedback').textContent='✅ Correct!'; }
-                            else { this.style.background='#ef4444'; document.getElementById('feedback').textContent='❌ Answer: '+correct; }
-                            this.style.color='#fff';
-                        };
-                        optEl.appendChild(btn);
-                    });
-                }
-            } else {
-                if(typeof loadQuiz === 'function'){ loadQuiz(true); }
-                else if(typeof startQuiz === 'function'){ startQuiz(catId, false); setTimeout(()=>{ if(typeof currentIdx !== 'undefined') currentIdx = wordIndex; if(typeof loadQuiz==='function') loadQuiz(true); }, 100); }
-            }
+            if(typeof loadQuiz === 'function'){ loadQuiz(true); }
+            else if(typeof startQuiz === 'function'){ startQuiz(catId, false); setTimeout(()=>{ if(typeof currentIdx !== 'undefined') currentIdx = wordIndex; loadQuiz(true); }, 100); }
             const kr = allData[wordIndex].kr || '';
             if(kr){ try{ history.replaceState(null,'','#word-'+encodeURIComponent(kr)); }catch(e){ location.hash='#word-'+encodeURIComponent(kr); } }
             document.getElementById('quiz-screen')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }catch(e){ console.error('startWordQuiz error', e); }
     }
-
 
     function checkHashDeepLink(){
         const hash = decodeURIComponent(location.hash||'');
@@ -335,7 +306,7 @@
         try{
             const cat = window.allQuizData && window.allQuizData[CURRENT_CAT];
             if(!cat) return;
-            const items = (cat.data||[]).slice(0,40).map((w,i)=>({"@type":"ListItem","position":i+1,"name":`${w.kr} (${w.rom}) - ${w.en}`,"url":`https://pyeon123.github.io/food.html#word-${encodeURIComponent(w.kr)}`}));
+            const items = (cat.data||[]).slice(0,40).map((w,i)=>({"@type":"ListItem","position":i+1,"name":`${w.kr} (${w.rom}) - ${w.en}`,"url":`https://k-free.netlify.app/food.html#word-${encodeURIComponent(w.kr)}`}));
             const json = {"@context":"https://schema.org","@type":"ItemList","name":document.getElementById('seo-title')?.innerText||cat.name,"description":document.getElementById('seo-desc')?.content||"","itemListElement":items};
             document.getElementById('seo-jsonld').textContent = JSON.stringify(json);
         }catch(e){}
