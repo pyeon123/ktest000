@@ -12,7 +12,7 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     
-<title id="seo-title">How to Say Academy in Korean: ha gwon</title>
+<title id="seo-title">How to Say Academy in Korean: Essential School Life Word Quiz</title>
 <meta id="seo-desc" name="description" content="How to say 'academy' or 'school' in Korean? Master essential Korean education vocabulary, learning words like Hagwon, Seonsaengnim, and Siheom with this fun, interactive quiz. Great for beginners!">
 <meta name="keywords" content="how to say academy in Korean, how to say hagwon in Korean, learn Korean school words, Korean education nouns quiz, basic Korean everyday words, Korean school game, hagwon, seonsaengnim, siheom">
 <link class="notranslate" rel="canonical" href="https://pyeon123.github.io/ktest000/academy.html" />
@@ -50,7 +50,7 @@
 <body>
 <div class="quiz-app">
     <div id="top-open-btn" class="top-window-notice" onclick="forceExternalBrowser()">🔗 FB.TikTok / Sound Problem? >> Click here to open in New Window</div>
-    <h1 id="main-header" class="header">How to Say Academy in Korean: ha gwon</h1>
+    <h1 id="main-header" class="header">How to Say Academy in Korean: Essential School Life Word Quiz</h1>
     <div class="content-area">
         <div id="menu-screen" class="screen active">
             <div style="text-align: center; padding: 20px 0 10px 0;">
@@ -74,6 +74,24 @@
                 </div>
             </div>
             <div class="menu-intro" style="text-align: center; margin-bottom: 15px;"><h2>Can you guess this Korean expression?</h2></div>
+
+
+        <div id="ai-tutor-section" style="margin: 15px auto; max-width: 550px; text-align: center;">
+            <button id="ask-ai-btn" onclick="toggleAiTutor()" style="background: linear-gradient(135deg,#4f46e5,#7c3aed); color: white; border: none; border-radius: 25px; padding: 10px 20px; font-weight: 800; font-size: 0.95rem; cursor: pointer; box-shadow: 0 4px 12px rgba(79,70,229,0.3); display: inline-flex; align-items: center; gap: 8px;">
+                <span>🤖</span> ASK AI Tutor
+            </button>
+            <div id="ai-guide-content" style="display: none; background: #f8fafc; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; margin-top: 12px; text-align: left;">
+                <h3 style="font-size: 0.85rem; color: #1e293b; margin: 0 0 6px 0; font-weight: bold;">🤖 AI Learning Guide</h3>
+                <p id="ai-guide-text" style="font-size: 0.85rem; color: #475569; line-height: 1.5; margin: 0;">
+                    Want to try using this expression in real life?
+                </p>
+                <div style="margin-top:10px; display:flex; gap:8px;">
+                    <button onclick="speak()" style="flex:1; background:#e0e7ff; color:#4f46e5; border:none; border-radius:8px; padding:8px; font-weight:700; cursor:pointer;">🔊 Listen</button>
+                    <button onclick="document.getElementById('ai-guide-content').style.display='none'" style="flex:1; background:#f1f5f9; color:#64748b; border:none; border-radius:8px; padding:8px; font-weight:600; cursor:pointer;">Close</button>
+                </div>
+            </div>
+        </div>
+
             <div id="today-quiz-section" class="game-ad-bar" onclick="expandTodayQuiz()" style="width: 100%; max-width: 550px; padding: 20px; cursor: pointer; margin: 0 auto 30px auto; transition: all 0.3s; box-sizing: border-box;">
                 <div class="korea-badge">🎁</div>
                 <div id="today-title" style="font-weight: 900; color: var(--primary); margin-bottom: 0px; font-size: 1.5rem; text-align: center;">TODAY'S QUIZ</div>
@@ -216,7 +234,7 @@
                                                             const academyData = {
         "id": "Academy",
         "emoji": "✍",
-        "name": "How to say academy or hagwon in Korean & School ha gwon",
+        "name": "How to say academy or hagwon in Korean & School Life",
         "data": [
             {
                 "kr": "학원",
@@ -337,22 +355,22 @@
                 4. <strong>Homework:</strong> 숙제가 많아요 (Much homework)</p>
                 <h2>Real-Life Examples</h2>
                 <div class="seo-example">
-                    <strong>오늘 학원 몇 시에 가요?</strong>
+                    <strong>오늘 학원 몇 시에 가요? (o-neul ha-gwon myeot si-e ga-yo?)</strong>
                     <span>o-neul ha-gwon myeot si-e ga-yo?</span>
                     <p>What time do you go to academy today?</p>
                 </div>
                 <div class="seo-example">
-                    <strong>선생님, 질문 있어요.</strong>
+                    <strong>선생님, 질문 있어요. (seon-saeng-nim, jil-mun iss-eo-yo.)</strong>
                     <span>seon-saeng-nim, jil-mun iss-eo-yo.</span>
                     <p>Teacher, I have a question.</p>
                 </div>
                 <div class="seo-example">
-                    <strong>내일 시험이야. 공부해야 해.</strong>
+                    <strong>내일 시험이야. 공부해야 해. (nae-il si-heom-i-ya. gong-bu-hae-ya hae.)</strong>
                     <span>nae-il si-heom-i-ya. gong-bu-hae-ya hae.</span>
                     <p>Tomorrow is exam. I have to study.</p>
                 </div>
                 <div class="seo-example">
-                    <strong>학원 버스가 노랗다.</strong>
+                    <strong>학원 버스가 노랗다. (ha-gwon beo-seu-ga no-rah-da.)</strong>
                     <span>ha-gwon beo-seu-ga no-rah-da.</span>
                     <p>The academy bus is yellow.</p>
                 </div>
@@ -477,5 +495,39 @@
     }
     document.addEventListener("DOMContentLoaded", () => { loadQuizDBFromMain(); });
 </script>
+
+<script>
+function toggleAiTutor(){
+    const content = document.getElementById('ai-guide-content');
+    const textEl = document.getElementById('ai-guide-text');
+    const isHidden = content.style.display === 'none' || content.style.display === '';
+    if(isHidden){
+        // Get quiz title from seo-title or main header or CURRENT_CAT data
+        let title = '';
+        try {
+            const seoTitle = document.getElementById('seo-title')?.innerText || '';
+            // Extract main keyword: e.g., "How to Say Academy in Korean..." -> use first Korean word from page data
+            const krEl = document.getElementById('korean-sentence');
+            const header = document.getElementById('main-header')?.innerText || '';
+            // Prefer Korean sentence if quiz loaded
+            if(krEl && krEl.innerText && krEl.innerText.trim() !== '---'){
+                title = krEl.innerText.trim() + ' (' + (document.getElementById('romanization')?.innerText || '') + ')';
+            } else if(typeof window.CURRENT_CAT !== 'undefined' && window.allQuizData && window.allQuizData[window.CURRENT_CAT]){
+                const data = window.allQuizData[window.CURRENT_CAT].data;
+                if(data && data.length>0) title = data[0].kr + ' (' + data[0].rom + ')';
+            }
+            if(!title) title = seoTitle.replace('Daily Conversation Quiz','').replace('Essential School Life Word Quiz','').trim() || header;
+        } catch(e){ title = document.getElementById('seo-title')?.innerText || 'this expression'; }
+        
+        // Build message: Want to try using [title] in real life?
+        textEl.innerHTML = `Want to try using <b id="guide-keyword" style="color:#4f46e5;">${title}</b> in real life? <br><br>Test your pronunciation with <b>LISTEN</b> and <b>SPEAK</b> buttons, and practice real dialogues below! 🎤`;
+        content.style.display = 'block';
+        content.scrollIntoView({behavior:'smooth', block:'center'});
+    } else {
+        content.style.display = 'none';
+    }
+}
+</script>
+
 </body>
 </html>
