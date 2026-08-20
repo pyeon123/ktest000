@@ -319,7 +319,11 @@ function startQuiz(catId, updateHistory = false) {
     updateSEOData(catId);
     currentIdx = 0;
     document.getElementById('menu-screen').classList.remove('active');
-    document.getElementById('quiz-screen').classList.add('active');
+    const quizScreen = document.getElementById('quiz-screen');
+    quizScreen.classList.add('active');
+    quizScreen.style.display = 'block';
+    const detailArea = document.getElementById('detail-area');
+    if (detailArea) { detailArea.classList.remove('active'); detailArea.style.display = 'none'; }
     document.getElementById('top-open-btn').style.display = 'block';
     loadQuiz(true);
 }
