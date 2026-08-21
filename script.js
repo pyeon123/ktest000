@@ -2043,6 +2043,47 @@ log.innerHTML = `
 
 faq.style.display = 'flex';
 log.scrollTop = 0;
+
+ function escapeAttr(value) {
+
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function compareKoreanSentence(spoken, target) {
+
+  const normalize = text =>
+    String(text)
+      .replace(/[.,!?'"“”‘’]/g, '')
+      .replace(/\s+/g, '')
+      .trim();
+
+  const a = normalize(spoken);
+  const b = normalize(target);
+
+  if (!a || !b) return 0;
+
+  if (a === b) return 1;
+
+  let same = 0;
+
+  for (
+    let i = 0;
+    i < Math.min(a.length, b.length);
+    i++
+  ) {
+    if (a[i] === b[i]) {
+      same++;
+    }
+  }
+
+  return same / Math.max(a.length, b.length);
+}      
+      
  
   // 문장 칩 클릭 시: 문장 안 문법을 스캔해서 DB에 있는 건 즉시 렌더링, 없으면 일반 질문으로 처리(API)
   function handleSentenceClick(s){
