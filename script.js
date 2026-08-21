@@ -1347,22 +1347,29 @@ Use the page sentence as the main example first if relevant.
     return t;
   }
  
-  // HTML을 태그는 즉시, 글자는 하나씩 타이핑하는 효과. 클릭하면 즉시 전체 표시로 스킵.
-  function typeWriterHTML(container, html, speed, onDone){
-    const tokens = html.match(/<[^>]+>|[^<]/g) || [];
-    let i = 0;
-    let skipped = false;
-    container.innerHTML = '';
-    container.style.cursor = 'pointer';
-    function skipToEnd(){
-      if(skipped) return;
-      skipped = true;
-      container.innerHTML = html;
-      container.style.cursor = 'default';
-      log.scrollTop = log.scrollHeight;
-      if(onDone) onDone();
-    }
-    container.addEventListener('click', skipToEnd, { once:true });
+ function typeWriterHTML(container, html, speed = 30, onDone) {
+  if (!container) return;
+
+  const tokens = html.match(/<[^>]+>|[^<]/g) || [];
+  let i = 0;
+  let skipped = false;
+  let timerId = null;
+
+  container.innerHTML = '';
+  container.style.cursor = 'pointer';
+
+  function skipToEnd() {
+    if (skipped) return;
+    skipped = true;
+    if (timerId) clearTimeout(timerId); // 스킵 클릭 시 이전 타이머 중단
+
+    container.innerHTML = html;
+    container.style.cursor = 'default';
+    container.scrollTop = container.scrollHeight;
+    if (onDone) onDone();
+  }
+
+  container.addEventListener('click', skipToEnd, { once: true });
     function step(){
       if(skipped) return;
       if(i >= tokens.length){
