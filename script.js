@@ -1232,7 +1232,7 @@ Use the page sentence as the main example first if relevant.
 `.trim();
  
   // ⚠️ 이제 Gemini를 브라우저에서 직접 호출하지 않습니다. API 키는 서버(Edge Function)에만 있어요.
-  const ASK_TUTOR_ENDPOINT = "https://";
+  const ASK_TUTOR_ENDPOINT = "https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/ask-tutor";
   const USE_GEMINI = true;
 
   // 로그인 안 한 사용자를 구분하기 위한 익명 기기 ID (브라우저에 한 번 생성해서 저장)
@@ -1347,29 +1347,22 @@ Use the page sentence as the main example first if relevant.
     return t;
   }
  
- function typeWriterHTML(container, html, speed = 30, onDone) {
-  if (!container) return;
-
-  const tokens = html.match(/<[^>]+>|[^<]/g) || [];
-  let i = 0;
-  let skipped = false;
-  let timerId = null;
-
-  container.innerHTML = '';
-  container.style.cursor = 'pointer';
-
-  function skipToEnd() {
-    if (skipped) return;
-    skipped = true;
-    if (timerId) clearTimeout(timerId); // 스킵 클릭 시 이전 타이머 중단
-
-    container.innerHTML = html;
-    container.style.cursor = 'default';
-    container.scrollTop = container.scrollHeight;
-    if (onDone) onDone();
-  }
-
-  container.addEventListener('click', skipToEnd, { once: true });
+  // HTML을 태그는 즉시, 글자는 하나씩 타이핑하는 효과. 클릭하면 즉시 전체 표시로 스킵.
+  function typeWriterHTML(container, html, speed, onDone){
+    const tokens = html.match(/<[^>]+>|[^<]/g) || [];
+    let i = 0;
+    let skipped = false;
+    container.innerHTML = '';
+    container.style.cursor = 'pointer';
+    function skipToEnd(){
+      if(skipped) return;
+      skipped = true;
+      container.innerHTML = html;
+      container.style.cursor = 'default';
+      log.scrollTop = log.scrollHeight;
+      if(onDone) onDone();
+    }
+    container.addEventListener('click', skipToEnd, { once:true });
     function step(){
       if(skipped) return;
       if(i >= tokens.length){
@@ -1778,319 +1771,30 @@ function getPageSentences(){
       return;
     }
  
-    faq.innerHTML = sentences.map((s,i) => `
-  <div
-    class="ai-sentence-card"
-    style="
-      background:#fff;
-      border:1px solid #e2e8f0;
-      border-radius:14px;
-      padding:12px;
-      margin-bottom:10px;
-    "
-  >
-
-    <!-- 현재 페이지 문장 -->
-    <button
-      class="faq-chip"
-      data-sidx="${i}"
-      style="
-        width:100%;
-        text-align:left;
-        border:none;
-        background:transparent;
-        padding:0;
-        cursor:pointer;
-      "
-    >
-      <div
-        style="
-          font-size:.82em;
-          font-weight:700;
-        "
-      >
-        ${s.kr}
-      </div>
-
-      <div
-        style="
-          font-size:.9em;
-          font-weight:700;
-          opacity:.95;
-          margin-top:5px;
-        "
-      >
-        ${s.rom ? '(' + s.rom + ') ' : ''}${s.en || ''}
-      </div>
-    </button>
-
-    <!-- 듣기 / 말하기 -->
-    <div
-      style="
-        display:flex;
-        gap:8px;
-        margin-top:10px;
-      "
-    >
-
-      <button
-        type="button"
-        class="ai-listen-btn"
-        data-text="${escapeAttr(s.kr)}"
-        style="
-          flex:1;
-          border:none;
-          border-radius:9px;
-          padding:8px 10px;
-          background:#eef2ff;
-          color:#4f46e5;
-          font-weight:800;
-          cursor:pointer;
-        "
-      >
-        🔊 Listen
-      </button>
-
-      <button
-        type="button"
-        class="ai-speak-btn"
-        data-text="${escapeAttr(s.kr)}"
-        style="
-          flex:1;
-          border:none;
-          border-radius:9px;
-          padding:8px 10px;
-          background:#ecfdf5;
-          color:#047857;
-          font-weight:800;
-          cursor:pointer;
-        "
-      >
-        🎤 Speak
-      </button>
-
+    faq.innerHTML = sentences.map((s,i) =>
+  `<button class="faq-chip" data-sidx="${i}">
+    <div style="font-size:.82em;font-weight:700;">
+      ${s.kr}
     </div>
-
-  </div>
-`).join('');
-
-
-/* =========================================================
-   기존 문장 클릭 → AI 문법 설명
-   ========================================================= */
-wrap.querySelectorAll('.faq-chip').forEach(c => {
-
-  c.onclick = () => {
-
-    const idx =
-      parseInt(
-        c.getAttribute('data-sidx'),
-        10
-      );
-
-    const s =
-      sentences[idx];
-
-    if (s) {
-      handleSentenceClick(s);
-    }
-  };
-
-});
-
-
-/* =========================================================
-   🔊 Listen
-   ========================================================= */
-faq.querySelectorAll('.ai-listen-btn').forEach(btn => {
-
-  btn.onclick = (e) => {
-
-    e.stopPropagation();
-
-    const text =
-      btn.getAttribute('data-text');
-
-    if (!text) return;
-
-    if (!('speechSynthesis' in window)) {
-
-      alert(
-        'Korean audio is not supported in this browser.'
-      );
-
-      return;
-    }
-
-    speechSynthesis.cancel();
-
-    const utterance =
-      new SpeechSynthesisUtterance(text);
-
-    utterance.lang = 'ko-KR';
-    utterance.rate = 0.85;
-    utterance.pitch = 1;
-
-    speechSynthesis.speak(
-      utterance
-    );
-  };
-
-});
-
-
-/* =========================================================
-   🎤 Speak
-   ========================================================= */
-faq.querySelectorAll('.ai-speak-btn').forEach(btn => {
-
-  btn.onclick = (e) => {
-
-    e.stopPropagation();
-
-    const target =
-      btn.getAttribute('data-text');
-
-    if (!target) return;
-
-    const SpeechRecognition =
-      window.SpeechRecognition ||
-      window.webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-
-      alert(
-        'Speech recognition is not supported in this browser.'
-      );
-
-      return;
-    }
-
-    const recognition =
-      new SpeechRecognition();
-
-    recognition.lang = 'ko-KR';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    btn.innerText =
-      '🎤 Listening...';
-
-    recognition.onresult =
-      (event) => {
-
-        const spoken =
-          event.results[0][0].transcript;
-
-        const score =
-          compareKoreanSentence(
-            spoken,
-            target
-          );
-
-        if (score >= 0.75) {
-
-          btn.innerText =
-            '✅ Great!';
-
-        } else {
-
-          btn.innerText =
-            '🔄 Try Again';
-
-        }
-
-        setTimeout(() => {
-
-          btn.innerText =
-            '🎤 Speak';
-
-        }, 1800);
+    <div style="font-size:.9em;font-weight:700;opacity:.95;margin-top:5px;">
+      ${s.rom ? '('+s.rom+') ' : ''}${s.en || ''}
+    </div>
+  </button>`
+).join('');
+ 
+    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 Tap the sentence above to explore grammar rules. For deeper explanations or questions, please use the search bar below.</div>`;
+ 
+    faq.style.display='flex';
+    log.scrollTop = 0;
+ 
+    wrap.querySelectorAll('.faq-chip').forEach(c=>{
+      c.onclick=()=>{
+        const idx = parseInt(c.getAttribute('data-sidx'), 10);
+        const s = sentences[idx];
+        if(s) handleSentenceClick(s);
       };
-
-    recognition.onerror = () => {
-
-      btn.innerText =
-        '🎤 Speak';
-
-    };
-
-    recognition.onend = () => {
-
-      if (
-        btn.innerText ===
-        '🎤 Listening...'
-      ) {
-        btn.innerText =
-          '🎤 Speak';
-      }
-
-    };
-
-    recognition.start();
-  };
-
-});
-
-
-log.innerHTML = `
-  <div
-    style="
-      background:#f5f3ff;
-      padding:10px 12px;
-      border-radius:14px;
-      font-size:0.85rem;
-      color:#64748b;
-    "
-  >
-    👆 Tap the sentence above to explore grammar rules.
-    For deeper explanations or questions, please use the search bar below.
-  </div>
-`;
-
-faq.style.display = 'flex';
-log.scrollTop = 0;
-
- function escapeAttr(value) {
-
-  return String(value || '')
-    .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
-
-function compareKoreanSentence(spoken, target) {
-
-  const normalize = text =>
-    String(text)
-      .replace(/[.,!?'"“”‘’]/g, '')
-      .replace(/\s+/g, '')
-      .trim();
-
-  const a = normalize(spoken);
-  const b = normalize(target);
-
-  if (!a || !b) return 0;
-
-  if (a === b) return 1;
-
-  let same = 0;
-
-  for (
-    let i = 0;
-    i < Math.min(a.length, b.length);
-    i++
-  ) {
-    if (a[i] === b[i]) {
-      same++;
-    }
+    });
   }
-
-  return same / Math.max(a.length, b.length);
-}      
-      
  
   // 문장 칩 클릭 시: 문장 안 문법을 스캔해서 DB에 있는 건 즉시 렌더링, 없으면 일반 질문으로 처리(API)
   function handleSentenceClick(s){
