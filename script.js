@@ -1771,30 +1771,278 @@ function getPageSentences(){
       return;
     }
  
-    faq.innerHTML = sentences.map((s,i) =>
-  `<button class="faq-chip" data-sidx="${i}">
-    <div style="font-size:.82em;font-weight:700;">
-      ${s.kr}
+    faq.innerHTML = sentences.map((s,i) => `
+  <div
+    class="ai-sentence-card"
+    style="
+      background:#fff;
+      border:1px solid #e2e8f0;
+      border-radius:14px;
+      padding:12px;
+      margin-bottom:10px;
+    "
+  >
+
+    <!-- 현재 페이지 문장 -->
+    <button
+      class="faq-chip"
+      data-sidx="${i}"
+      style="
+        width:100%;
+        text-align:left;
+        border:none;
+        background:transparent;
+        padding:0;
+        cursor:pointer;
+      "
+    >
+      <div
+        style="
+          font-size:.82em;
+          font-weight:700;
+        "
+      >
+        ${s.kr}
+      </div>
+
+      <div
+        style="
+          font-size:.9em;
+          font-weight:700;
+          opacity:.95;
+          margin-top:5px;
+        "
+      >
+        ${s.rom ? '(' + s.rom + ') ' : ''}${s.en || ''}
+      </div>
+    </button>
+
+    <!-- 듣기 / 말하기 -->
+    <div
+      style="
+        display:flex;
+        gap:8px;
+        margin-top:10px;
+      "
+    >
+
+      <button
+        type="button"
+        class="ai-listen-btn"
+        data-text="${escapeAttr(s.kr)}"
+        style="
+          flex:1;
+          border:none;
+          border-radius:9px;
+          padding:8px 10px;
+          background:#eef2ff;
+          color:#4f46e5;
+          font-weight:800;
+          cursor:pointer;
+        "
+      >
+        🔊 Listen
+      </button>
+
+      <button
+        type="button"
+        class="ai-speak-btn"
+        data-text="${escapeAttr(s.kr)}"
+        style="
+          flex:1;
+          border:none;
+          border-radius:9px;
+          padding:8px 10px;
+          background:#ecfdf5;
+          color:#047857;
+          font-weight:800;
+          cursor:pointer;
+        "
+      >
+        🎤 Speak
+      </button>
+
     </div>
-    <div style="font-size:.9em;font-weight:700;opacity:.95;margin-top:5px;">
-      ${s.rom ? '('+s.rom+') ' : ''}${s.en || ''}
-    </div>
-  </button>`
-).join('');
- 
-    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 Tap the sentence above to explore grammar rules. For deeper explanations or questions, please use the search bar below.</div>`;
- 
-    faq.style.display='flex';
-    log.scrollTop = 0;
- 
-    wrap.querySelectorAll('.faq-chip').forEach(c=>{
-      c.onclick=()=>{
-        const idx = parseInt(c.getAttribute('data-sidx'), 10);
-        const s = sentences[idx];
-        if(s) handleSentenceClick(s);
+
+  </div>
+`).join('');
+
+
+/* =========================================================
+   기존 문장 클릭 → AI 문법 설명
+   ========================================================= */
+wrap.querySelectorAll('.faq-chip').forEach(c => {
+
+  c.onclick = () => {
+
+    const idx =
+      parseInt(
+        c.getAttribute('data-sidx'),
+        10
+      );
+
+    const s =
+      sentences[idx];
+
+    if (s) {
+      handleSentenceClick(s);
+    }
+  };
+
+});
+
+
+/* =========================================================
+   🔊 Listen
+   ========================================================= */
+faq.querySelectorAll('.ai-listen-btn').forEach(btn => {
+
+  btn.onclick = (e) => {
+
+    e.stopPropagation();
+
+    const text =
+      btn.getAttribute('data-text');
+
+    if (!text) return;
+
+    if (!('speechSynthesis' in window)) {
+
+      alert(
+        'Korean audio is not supported in this browser.'
+      );
+
+      return;
+    }
+
+    speechSynthesis.cancel();
+
+    const utterance =
+      new SpeechSynthesisUtterance(text);
+
+    utterance.lang = 'ko-KR';
+    utterance.rate = 0.85;
+    utterance.pitch = 1;
+
+    speechSynthesis.speak(
+      utterance
+    );
+  };
+
+});
+
+
+/* =========================================================
+   🎤 Speak
+   ========================================================= */
+faq.querySelectorAll('.ai-speak-btn').forEach(btn => {
+
+  btn.onclick = (e) => {
+
+    e.stopPropagation();
+
+    const target =
+      btn.getAttribute('data-text');
+
+    if (!target) return;
+
+    const SpeechRecognition =
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+
+      alert(
+        'Speech recognition is not supported in this browser.'
+      );
+
+      return;
+    }
+
+    const recognition =
+      new SpeechRecognition();
+
+    recognition.lang = 'ko-KR';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    btn.innerText =
+      '🎤 Listening...';
+
+    recognition.onresult =
+      (event) => {
+
+        const spoken =
+          event.results[0][0].transcript;
+
+        const score =
+          compareKoreanSentence(
+            spoken,
+            target
+          );
+
+        if (score >= 0.75) {
+
+          btn.innerText =
+            '✅ Great!';
+
+        } else {
+
+          btn.innerText =
+            '🔄 Try Again';
+
+        }
+
+        setTimeout(() => {
+
+          btn.innerText =
+            '🎤 Speak';
+
+        }, 1800);
       };
-    });
-  }
+
+    recognition.onerror = () => {
+
+      btn.innerText =
+        '🎤 Speak';
+
+    };
+
+    recognition.onend = () => {
+
+      if (
+        btn.innerText ===
+        '🎤 Listening...'
+      ) {
+        btn.innerText =
+          '🎤 Speak';
+      }
+
+    };
+
+    recognition.start();
+  };
+
+});
+
+
+log.innerHTML = `
+  <div
+    style="
+      background:#f5f3ff;
+      padding:10px 12px;
+      border-radius:14px;
+      font-size:0.85rem;
+      color:#64748b;
+    "
+  >
+    👆 Tap the sentence above to explore grammar rules.
+    For deeper explanations or questions, please use the search bar below.
+  </div>
+`;
+
+faq.style.display = 'flex';
+log.scrollTop = 0;
  
   // 문장 칩 클릭 시: 문장 안 문법을 스캔해서 DB에 있는 건 즉시 렌더링, 없으면 일반 질문으로 처리(API)
   function handleSentenceClick(s){
