@@ -269,14 +269,20 @@
          (아코디언으로 접어두었을 뿐, 소스에는 처음부터 존재).
          위치: Today's Most Viewed Quiz 바로 위
     ============================================================= -->
-    <details class="seo-learning-details">
-    <summary style="padding: 15px 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer;">
+   <details class="seo-learning-details" style="border: 1px solid #e2e8f0; border-radius: 12px; margin-bottom: 20px; overflow: hidden; background: #ffffff;">
+    <!-- 1. 이 제목을 누르면 전체가 접히고 펼쳐집니다 -->
+    <summary style="padding: 15px 20px; font-size: 1.1rem; font-weight: bold; cursor: pointer; background-color: #f8fafc; color: #1e293b;">
         Full List: All Korean Electronics & Tech Words (A-Z)
     </summary>
-    <div class="seo-learning-content" style="padding: 0 10px 10px 10px;">
-        <p style="margin: 10px 0; font-size: 1rem; line-height: 1.7; padding: 15px; background-color: #f8fafc; border-radius: 8px; color: #334155;">
+    
+    <!-- 2. 이 안쪽에 들어가 있는 모든 내용(설명 + 단어 리스트)이 함께 접힙니다 -->
+    <div class="seo-learning-content" style="padding: 20px; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0 0 15px 0; font-size: 1rem; line-height: 1.7; color: #475569;">
             Below is the complete list of Korean words covered in this quiz, with romanization and English meaning. Tap any word to jump straight to its quiz.
         </p>
+        
+        <!-- 단어 리스트나 추가 내용들은 여기에 들어가야 같이 접힙니다 -->
+        <!-- 예시: <ul style="margin: 0; padding-left: 20px;">...</ul> -->
     </div>
 </details>
             <div class="seo-word-grid" id="full-word-list">
