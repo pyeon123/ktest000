@@ -91,6 +91,7 @@ window.quizDB = window.quizDB || [
     { title: "Ramen", url: "ramen.html", keywords: "ramen food noodle" },
     { title: "Restroom", url: "restroom.html", keywords: "restroom bathroom toilet" },
     { title: "Sadness", url: "sadness.html", keywords: "sadness emotion feelings" },
+    { title: "Salary", url: "salary.html", keywords: "salary money work pay job" },
     { title: "Samgyeopsal", url: "samgyeopsal.html", keywords: "samgyeopsal food korean meat" },
     { title: "School", url: "school.html", keywords: "school study education" },
     { title: "Sea", url: "sea.html", keywords: "sea ocean water nature" },
@@ -233,7 +234,6 @@ window.quizDB = window.quizDB || [
     { title: "This Is My Friend", url: "jechinguyeoyo1.html", keywords: "this is my friend friend introduction" },
     { title: "That's Perfect", url: "wanbyeokhaeyo1.html", keywords: "that's perfect perfect excellent great" },
     { title: "That's Enough", url: "chungbunhaeyo1.html", keywords: "that's enough enough stop sufficient" },
-    { title: "Salary", url: "salary.html", keywords: "salary monthly salary paycheck wages pay wol-geup wage workplace EPS-TOPIK" },
     { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
 ];
 const quizDB = window.quizDB;
@@ -320,11 +320,7 @@ function startQuiz(catId, updateHistory = false) {
     updateSEOData(catId);
     currentIdx = 0;
     document.getElementById('menu-screen').classList.remove('active');
-    const quizScreen = document.getElementById('quiz-screen');
-    quizScreen.classList.add('active');
-    quizScreen.style.display = 'block';
-    const detailArea = document.getElementById('detail-area');
-    if (detailArea) { detailArea.classList.remove('active'); detailArea.style.display = 'none'; }
+    document.getElementById('quiz-screen').classList.add('active');
     document.getElementById('top-open-btn').style.display = 'block';
     loadQuiz(true);
 }
@@ -1991,9 +1987,9 @@ function getPageSentences(){
         console.error('[AI Tutor] Stream error:', errMsg);
         const th = document.getElementById('ai-thinking');
         if(th) th.remove();
-        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>For more detailed questions, please use the search bar below.</b>`;
+        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
         log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-          + `<div id="ai-error-box">⚠️ The official service will be available starting August 20th.<br>에러: ${errMsg}</div>`
+          + `<div id="ai-error-box">⚠️ 서버 연결 실패, 기본 답변으로 대체했어요.<br>에러: ${errMsg}</div>`
           + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
         log.scrollTop = log.scrollHeight;
       }
