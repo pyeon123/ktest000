@@ -16,7 +16,7 @@
 <meta id="seo-desc" name="description" content="EPS-TOPIK beginner vocabulary: how to say 'go to work' in Korean for the Korean employment exam. Master essential workplace words like Chulgeun, Wolgeup, and Sajangnim with this fun, interactive quiz. Great for EPS-TOPIK beginners!">
 <meta name="keywords" content="EPS-TOPIK vocabulary, EPS-TOPIK workplace Korean words, how to say chulgeun in Korean, learn Korean work words, EPS-TOPIK beginner quiz, Korean employment exam words, Korean workplace nouns quiz">
 
-<link class="notranslate" rel="canonical" href="https://pyeon123.github.io/ktest000/eps-topik-work.html" />
+<link class="notranslate" rel="canonical" href="https://k-free.netlify.app/eps-topik-work.html" />
 <meta property="og:site_name" content="K-Free Korean">
 <meta property="og:title" content='EPS-TOPIK: "출근" Korean Workplace Word Quiz'>
 <meta property="og:description" content="Learn EPS-TOPIK workplace vocabulary in Korean for real work situations with interactive quizzes and audio.">
@@ -164,6 +164,78 @@
                     <span class="icon">⏭️</span><span>NEXT</span>
                 </button>
             </div>
+
+            <button id="save-review-btn" class="back-link" style="width: 100%; margin-top: 15px; box-sizing: border-box; background-color: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; font-weight: 800;" onclick="toggleSaveToReview()">
+                💾 <span id="save-review-label">Save to My Review List</span>
+            </button>
+
+            <div class="related-pages-container" style="margin-top: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; text-align: left;">
+                <div style="font-weight: 800; color: #1e293b; font-size: 0.85rem; margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase;">📎 Related Words</div>
+                <div id="related-pages-list" style="display: flex; flex-direction: column; gap: 6px;"></div>
+            </div>
+            <script>
+            (function(){
+                function getReviewKey(){
+                    const kr = document.getElementById('korean-sentence')?.textContent?.trim() || 'word';
+                    return 'kfree_review_' + encodeURIComponent(kr);
+                }
+                window.toggleSaveToReview = function(){
+                    try {
+                        const key = getReviewKey();
+                        const label = document.getElementById('save-review-label');
+                        const btn = document.getElementById('save-review-btn');
+                        const isSaved = localStorage.getItem(key);
+                        if (isSaved) {
+                            localStorage.removeItem(key);
+                            label.textContent = 'Save to My Review List';
+                            btn.style.background = '#fff7ed';
+                            btn.style.color = '#c2410c';
+                        } else {
+                            localStorage.setItem(key, JSON.stringify({
+                                kr: document.getElementById('korean-sentence')?.textContent?.trim() || '',
+                                rom: document.getElementById('romanization')?.textContent?.trim() || '',
+                                savedAt: Date.now()
+                            }));
+                            label.textContent = 'Saved ✓';
+                            btn.style.background = '#dcfce7';
+                            btn.style.color = '#15803d';
+                        }
+                    } catch(e) { console.error('Review list save failed:', e); }
+                };
+
+                // 연관 페이지 3개: 원본과 동일하게 script.js가 이미 채워둔
+                // window.quizDB (전체 단어 목록)에서 그대로 가져와서 렌더링.
+                // 새 URL을 지어내지 않고, 실제 존재하는 페이지만 연결한다.
+                function renderRelatedPages(){
+                    const listEl = document.getElementById('related-pages-list');
+                    if (!listEl) return;
+                    if (typeof window.quizDB === 'undefined' || !Array.isArray(window.quizDB) || window.quizDB.length === 0) {
+                        listEl.parentElement.style.display = 'none';
+                        return;
+                    }
+                    const workKeywords = ['job', 'company', 'commute', 'money', 'exam'];
+                    const currentUrl = (window.location.pathname.split('/').pop() || '').toLowerCase();
+                    const matches = window.quizDB.filter(item => {
+                        if (!item.url || item.url.toLowerCase() === currentUrl) return false;
+                        const kw = (item.keywords || '').toLowerCase();
+                        return workKeywords.some(k => kw.includes(k));
+                    }).slice(0, 3);
+                    if (matches.length === 0) {
+                        listEl.parentElement.style.display = 'none';
+                        return;
+                    }
+                    listEl.innerHTML = matches.map(item =>
+                        `<a href="${item.url}" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; text-decoration: none; color: #334155; font-size: 0.88rem; font-weight: 600;"><span>${item.title}</span><span style="color:#94a3b8;">›</span></a>`
+                    ).join('');
+                }
+
+                if (document.readyState === 'interactive' || document.readyState === 'complete') {
+                    renderRelatedPages();
+                } else {
+                    document.addEventListener('DOMContentLoaded', renderRelatedPages);
+                }
+            })();
+            </script>
 
             <div id="feedback" style="height: 35px; font-weight: 900; font-size: 1.4rem; margin-bottom: 10px; text-align: center;"></div>
             <div class="options-container" id="options-container"></div>
@@ -391,70 +463,6 @@
                     { "kr": "관리자", "rom": "gwal-li-ja", "en": "Manager - A person responsible for supervising work and staff" }
                 ],
                 "optionAudio": true
-            },
-            {
-                "kr": "퇴근",
-                "rom": "toe-geun",
-                "en": "Leave Work / Finish Work",
-                "tip": "What you do at the end of the day when your shift ends and you head home. What is it?",
-                "situation": "Knowing this word helps EPS-TOPIK workers understand their daily schedule and talk about their work hours clearly. Depending on the factory or job site, this can happen at a fixed time or may be delayed if there is extra work, so workers often use this word together with time expressions when discussing their day with coworkers or family.",
-                "forms": {
-                    "casual": "퇴근이야 (toe-geun-i-ya)",
-                    "polite": "퇴근이에요 / 퇴근합니다 (toe-geun-i-e-yo / toe-geun-ham-ni-da)"
-                },
-                "grammar": {
-                    "title": "📚 Simple Grammar",
-                    "korean": "퇴근",
-                    "romanization": "toe-geun",
-                    "breakdown": [
-                        { "kr": "퇴", "rom": "toe", "en": "leave / retreat" },
-                        { "kr": "근", "rom": "geun", "en": "work / duty" }
-                    ],
-                    "meaning": "퇴근 = leave + duty → to finish your shift and leave work."
-                },
-                "examples": [
-                    { "kr": "저녁 6시에 퇴근해요", "en": "I leave work at 6 PM", "rom": "jeo-nyeok yeo-seot-si-e toe-geun-hae-yo" },
-                    { "kr": "오늘 늦게 퇴근해요", "en": "I leave work late today", "rom": "o-neul neut-ge toe-geun-hae-yo" },
-                    { "kr": "퇴근하고 집에 가요", "en": "I go home after work", "rom": "toe-geun-ha-go jib-e ga-yo" }
-                ],
-                "options": [
-                    { "kr": "출근", "rom": "chul-geun", "en": "Go to Work - To arrive at the workplace and start your shift" },
-                    { "kr": "야근", "rom": "ya-geun", "en": "Overtime - Working extra hours after the normal shift ends" },
-                    { "kr": "휴식", "rom": "hyu-sik", "en": "Rest - A short break to relax during or after work" }
-                ],
-                "optionAudio": true
-            },
-            {
-                "kr": "동료",
-                "rom": "dong-nyo",
-                "en": "Colleague / Coworker",
-                "tip": "The person who works at the same company as you and does similar tasks. What do you call this person?",
-                "situation": "Building good relationships with these people is important for EPS-TOPIK workers, since much of factory and workplace life involves teamwork. Workers often help each other learn tasks, share meals during breaks, and translate instructions for newer employees, so knowing this word helps you talk naturally about your daily work relationships.",
-                "forms": {
-                    "casual": "동료야 (dong-nyo-ya)",
-                    "polite": "동료예요 / 동료입니다 (dong-nyo-ye-yo / dong-nyo-im-ni-da)"
-                },
-                "grammar": {
-                    "title": "📚 Simple Grammar",
-                    "korean": "동료",
-                    "romanization": "dong-nyo",
-                    "breakdown": [
-                        { "kr": "동", "rom": "dong", "en": "same / together" },
-                        { "kr": "료", "rom": "nyo", "en": "companion / colleague" }
-                    ],
-                    "meaning": "동료 = same + companion → a person you work together with, a coworker."
-                },
-                "examples": [
-                    { "kr": "동료와 같이 일해요", "en": "I work together with my colleague", "rom": "dong-nyo-wa gat-i il-hae-yo" },
-                    { "kr": "동료가 도와줘요", "en": "My colleague helps me", "rom": "dong-nyo-ga do-wa-jwo-yo" },
-                    { "kr": "좋은 동료예요", "en": "He/She is a good colleague", "rom": "jo-eun dong-nyo-ye-yo" }
-                ],
-                "options": [
-                    { "kr": "친구", "rom": "chin-gu", "en": "Friend - A person you have a close personal relationship with" },
-                    { "kr": "가족", "rom": "ga-jok", "en": "Family - The people related to you by blood or marriage" },
-                    { "kr": "상사", "rom": "sang-sa", "en": "Superior - A person of higher rank who supervises your work" }
-                ],
-                "optionAudio": true
             }
         ]
       };
@@ -558,7 +566,7 @@
                 2. <strong>Talking with your 사장님 (boss):</strong> Reporting arrival, being on time, and asking about shift changes.<br>
                 3. <strong>Related workplace words:</strong> Knowing 출근 together with 퇴근 (leave work), 월급 (salary), and 동료 (colleague) covers most beginner-level EPS-TOPIK workplace listening and reading questions.</p>
 
-                <h2>Related Korean Sentences</h2>
+                <h2>Key Sentences</h2>
                 <div class="seo-example">
                     <strong>출근해요. 오늘 늦으면 안 돼요.</strong>
                     <span>chul-geun-hae-yo. o-neul neuj-eu-myeon an dwae-yo.</span>
@@ -575,7 +583,7 @@
                     <p>I received this month's salary and went to work.</p>
                 </div>
 
-                <h2>Similar Expressions</h2>
+                <h2>Related Words</h2>
                 <p>• <strong>퇴근 (toe-geun)</strong> - Leave work / finish shift<br>
                 • <strong>지각 (ji-gak)</strong> - Being late (for work or class)<br>
                 • <strong>야근 (ya-geun)</strong> - Working overtime / night shift</p>
