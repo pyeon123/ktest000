@@ -561,13 +561,13 @@ function showGotoworkQuiz(index){
   if(!data || !data[index]) return;
   const word = data[index];
 
-  // 화면 전환
+  // 페이지 자체 이동 - NEXT QUIZ처럼
   const menu=document.getElementById('menu-screen');
   const quiz=document.getElementById('quiz-screen');
   if(menu){ menu.style.display='none'; menu.classList.remove('active'); }
   if(quiz){ quiz.style.display='block'; quiz.classList.add('active'); }
 
-  // 기본 퀴즈 정보 채우기 (출근 페이지 스타일 그대로)
+  // 기존 nextQuiz가 하는 것과 동일하게 퀴즈 문제만 표시 (정답 전 상태)
   const kEl=document.getElementById('korean-sentence');
   const rEl=document.getElementById('romanization');
   const sEl=document.getElementById('situation');
@@ -579,67 +579,66 @@ function showGotoworkQuiz(index){
   if(rEl) rEl.textContent=word.rom;
   if(sEl) sEl.textContent=word.situation;
   if(tEl) tEl.textContent=word.tip;
-  if(fEl){ fEl.textContent=`✅ ${word.kr} (${word.rom}) - 이미 생성된 예문 보기`; fEl.style.color='#16a34a'; }
+  if(fEl){ fEl.textContent=''; fEl.style.color='#1e293b'; }
+
+  // 이전 상세 제거
+  let existing=document.getElementById('user-detail');
+  if(existing) existing.remove();
 
   if(optCont){
     optCont.innerHTML='';
-    // 정답 + 오답 버튼 (기존 5개 퀴즈 방식)
-    const allOpts=[{kr:word.kr,rom:word.rom,en:word.en,correct:true}, ...(word.options||[])];
+    // NEXT QUIZ처럼 선택지 표시 (정답 하이라이트 없이)
+    const allOpts=[{kr:word.kr,rom:word.rom,en:word.en,correct:true}, ...(word.options||[])].sort(()=>Math.random()-0.5);
     allOpts.forEach(opt=>{
       const btn=document.createElement('button');
       btn.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#ffffff;border:1.5px solid #e2e8f0;border-radius:12px;width:100%;margin-bottom:8px;cursor:pointer;text-align:left;font-weight:600';
-      btn.innerHTML=`<span><strong>${opt.kr}</strong> <small style="color:#64748b">(${opt.rom})</small> - <span style="color:#475569">${opt.en}</span></span><span>${opt.correct?'✅':''}</span>`;
+      btn.innerHTML=`<span><strong>${opt.kr}</strong> <small style="color:#64748b">(${opt.rom})</small> - <span style="color:#475569">${opt.en}</span></span>`;
       btn.onclick=()=>{
-        if(fEl){
-          if(opt.correct){ fEl.textContent='✅ Correct! 정답!'; fEl.style.color='#16a34a'; }
-          else{ fEl.textContent='❌ Try again!'; fEl.style.color='#dc2626'; }
+        // 정답 클릭 시 - Correct 페이지로 이동 (기존 로직과 동일)
+        if(opt.correct){
+          if(fEl){ fEl.innerHTML=`✅ Correct! <strong>${word.kr} (${word.rom})</strong>`; fEl.style.color='#16a34a'; }
+          // 정답 하이라이트
+          Array.from(optCont.children).forEach(b=>{ b.style.background='#f8fafc'; b.style.borderColor='#e2e8f0'; });
+          btn.style.background='#dcfce7'; btn.style.borderColor='#16a34a';
+          
+          // 각 단어에 맞는 correct 상세 - 이미 생성된 예문+관련단어 표시
+          let detail=document.getElementById('user-detail');
+          if(detail) detail.remove();
+          detail=document.createElement('div');
+          detail.id='user-detail';
+          detail.style.cssText='margin-top:22px;text-align:left';
+          detail.innerHTML=`
+            <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:14px;padding:16px;margin-bottom:14px">
+              <h4 style="margin:0 0 10px 0;font-weight:900;font-size:1.05rem;color:#166534">📚 Key Sentences (핵심 예문) - 위</h4>
+              ${(word.examples||[]).map(ex=>`
+                <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin:9px 0">
+                  <strong>${ex.kr}</strong><br><small style="color:#64748b">${ex.rom}</small><br><span style="color:#334155">${ex.en}</span>
+                </div>
+              `).join('')}
+            </div>
+            <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:14px;padding:16px">
+              <h4 style="margin:0 0 10px 0;font-weight:900;font-size:1.05rem;color:#9a3412">🔗 Related Words (관련 단어) - 아래</h4>
+              ${(word.options||[]).map(op=>`
+                <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0">
+                  <span><strong>${op.kr}</strong> <small>(${op.rom})</small></span><span style="color:#475569;font-size:.9rem">${op.en}</span>
+                </div>
+              `).join('')}
+            </div>
+            <div style="text-align:center;margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+              <button onclick="goHomeAndShowList()" style="padding:10px 18px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:20px;font-weight:700;cursor:pointer">🏠 5개 목록</button>
+              <button onclick="nextGotoworkQuiz(${index})" style="padding:10px 18px;background:#4285f4;color:#fff;border:none;border-radius:20px;font-weight:800;cursor:pointer">다음 단어 ▶</button>
+            </div>
+          `;
+          optCont.parentNode.appendChild(detail);
+          if(typeof speak==='function'){ try{ speak(); }catch(e){} }
+        }else{
+          if(fEl){ fEl.textContent='❌ Try again!'; fEl.style.color='#dc2626'; }
+          btn.style.background='#fee2e2'; btn.style.borderColor='#dc2626';
         }
       };
       optCont.appendChild(btn);
     });
-
-    // 이미 생성되어 있는 예문 + 관련단어 바로 표시 (Key Sentences 위 / Related Words 아래)
-    let existing=document.getElementById('user-detail');
-    if(existing) existing.remove();
-
-    const detail=document.createElement('div');
-    detail.id='user-detail';
-    detail.style.cssText='margin-top:22px;text-align:left';
-    detail.innerHTML=`
-      <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:14px;padding:16px;margin-bottom:14px">
-        <h4 style="margin:0 0 10px 0;font-weight:900;font-size:1.05rem;color:#166534">📚 Key Sentences (핵심 예문) - 위</h4>
-        ${(word.examples||[]).map(ex=>`
-          <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin:9px 0">
-            <strong style="font-size:1.05rem">${ex.kr}</strong><br>
-            <small style="color:#64748b;font-size:.9rem">${ex.rom}</small><br>
-            <span style="color:#334155;font-size:.92rem">${ex.en}</span>
-          </div>
-        `).join('')}
-      </div>
-      <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:14px;padding:16px">
-        <h4 style="margin:0 0 10px 0;font-weight:900;font-size:1.05rem;color:#9a3412">🔗 Related Words (관련 단어) - 아래</h4>
-        ${(word.options||[]).map(op=>`
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #e2e8f0">
-            <span><strong>${op.kr}</strong> <small style="color:#64748b">(${op.rom})</small></span>
-            <span style="color:#475569;font-size:.9rem">${op.en}</span>
-          </div>
-        `).join('')}
-      </div>
-      <div style="text-align:center;margin-top:16px;display:flex;gap:10px;justify-content:center">
-        <button onclick="goHomeAndShowList()" style="padding:10px 18px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:20px;font-weight:700;cursor:pointer">🏠 5개 목록으로</button>
-        <button onclick="nextGotoworkQuiz(${index})" style="padding:10px 18px;background:#4285f4;color:#fff;border:none;border-radius:20px;font-weight:800;cursor:pointer">다음 단어 ▶</button>
-      </div>
-    `;
-    optCont.parentNode.appendChild(detail);
   }
-}
-
-function goHomeAndShowList(){
-  const menu=document.getElementById('menu-screen');
-  const quiz=document.getElementById('quiz-screen');
-  if(quiz){ quiz.style.display='none'; quiz.classList.remove('active'); }
-  if(menu){ menu.style.display='block'; menu.classList.add('active'); }
-  renderFiveWordsList();
   window.scrollTo(0,0);
 }
 
