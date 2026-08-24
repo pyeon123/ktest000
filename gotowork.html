@@ -96,30 +96,11 @@
                 </div>
             </div>
             
-<div id="user-word-generator" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:22px 18px;max-width:550px;margin:0 auto 28px auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
-<h3 style="font-size:1.25rem;font-weight:900;color:#1e293b;margin:0 0 6px 0">🎁 나만의 EPS-TOPIK 단어 만들기</h3>
-<p style="font-size:.92rem;color:#475569;margin:0 0 14px 0;line-height:1.5">공부하다 모르는 단어? 입력하면 <strong>공장 예문 + Related Words</strong>가 EPS-TOPIK 스타일로 생성되어 <strong>바로 퀴즈 페이지</strong>로 넘어갑니다!</p>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-<input id="gen-kr" placeholder="한국어 (예: 안전모)" oninput="autoRom()" style="width:100%;padding:12px 14px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.95rem;font-weight:600" />
-<input id="gen-rom" placeholder="로마자 (예: an-jeon-mo)" style="width:100%;padding:12px 14px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.95rem;font-weight:600" />
-<input id="gen-en" placeholder="영어 뜻 (예: safety helmet)" style="grid-column:1/-1;width:100%;padding:12px 14px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.95rem;font-weight:600" />
-<select id="gen-cat" style="grid-column:1/-1;width:100%;padding:12px 14px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.95rem;font-weight:600">
-<option value="safety">Safety - 안전용품</option>
-<option value="tools">Tools - 공구</option>
-<option value="attendance" selected>Attendance - 출퇴근</option>
-<option value="daily">Daily - 일상</option>
-</select>
-</div>
-<button onclick="generateUserWordQuiz()" style="width:100%;background:#4285f4;color:#fff;border:none;border-radius:12px;padding:14px;font-weight:900;font-size:1.05rem;cursor:pointer">⚡ 퀴즈 생성하기 - 바로 공부하기</button>
-<div id="gen-validation" style="margin-top:10px;font-size:.85rem;font-weight:700"></div>
-<div style="font-size:.8rem;color:#64748b;margin-top:10px;background:#f1f5f9;padding:8px 10px;border-radius:8px">✅ 한글 옆에 (rom) 표기 무조건 포함 / 정답 시 Key Sentences 위 / Related Words 아래</div>
-</div>
 
 <div style="text-align: center; margin-bottom: 15px;"><p style="font-size: 1.1rem; font-weight: 700; color: #64748b; letter-spacing: 1px; text-transform: uppercase; margin: 0;">Category</p></div>
             <div id="category-list" class="category-grid"></div>
             <br>
-            <div style="text-align: center; font-size: 0.9rem; font-weight: bold; color: #64748b;">1,000+ Essential Korean sentences / free</div>
-            <a href="https://k-sentence.netlify.app/" target="_blank" class="wide-slim-banner"></a>
+            
         </div>
         <div id="quiz-screen" class="quiz-screen">
             <div class="situation-tag" id="situation" style="font-size: 0.95rem; line-height: 1.4; padding: 8px 12px;">---</div>
@@ -153,7 +134,23 @@
                     <div style="font-size:0.92rem; color:#475569; margin-top:10px; line-height:1.6;">Tap the answer above to practice listening and speaking with examples. Got questions? Ask the AI Tutor and double your learning!</div>
                     <button onclick="openAiTutorChat()" style="width:100%; margin-top:14px; background:#4285f4; color:white; border:none; border-radius:10px; padding:13px; font-weight:900; font-size:1rem; cursor:pointer;">💬 Start Chatting <span style="font-weight:400; opacity:0.9; font-size:0.85rem;">(3 Free Tries)</span></button>
                 </div>
-                <div style="font-size: 0.9rem; font-weight: bold; color: #64748b; margin-top:15px;">1,000+ Essential Korean sentences / free</div><a href="https://k-sentence.netlify.app/" target="_blank" class="wide-slim-banner"></a>
+                <div id="user-word-generator-quiz" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:22px 18px;max-width:100%;margin:15px auto 0 auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
+<h3 style="font-size:1.2rem;font-weight:900;color:#1e293b;margin:0 0 6px 0">🎁 나만의 EPS-TOPIK 단어 만들기</h3>
+<p style="font-size:.88rem;color:#475569;margin:0 0 12px 0;line-height:1.5">모르는 단어? 입력하면 <strong>공장 예문 + Related Words</strong> EPS-TOPIK 스타일로 생성되어 <strong>바로 퀴즈로 공부</strong>!</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+<input id="gen-kr-q" placeholder="한국어 (예: 안전모)" oninput="autoRomQ()" style="width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600" />
+<input id="gen-rom-q" placeholder="로마자 (예: an-jeon-mo)" style="width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600" />
+<input id="gen-en-q" placeholder="영어 뜻 (예: safety helmet)" style="grid-column:1/-1;width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600" />
+<select id="gen-cat-q" style="grid-column:1/-1;width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600">
+<option value="safety">Safety - 안전용품</option>
+<option value="tools">Tools - 공구</option>
+<option value="attendance" selected>Attendance - 출퇴근</option>
+<option value="daily">Daily - 일상</option>
+</select>
+</div>
+<button onclick="generateUserWordQuizQ()" style="width:100%;background:#4285f4;color:#fff;border:none;border-radius:12px;padding:13px;font-weight:900;font-size:1rem;cursor:pointer">⚡ 퀴즈 생성하기</button>
+<div id="gen-validation-q" style="margin-top:8px;font-size:.82rem;font-weight:700"></div>
+</div>
             </div>
             <script>
             (function(){
@@ -584,10 +581,115 @@ const EPS_TEMPLATES = {
   }
 };
 function autoRom(){
-  const kr=document.getElementById('gen-kr').value.trim();
+  const el=document.getElementById('gen-kr');
+  if(!el) return;
+  const kr=el.value.trim();
   if(kr && !document.getElementById('gen-rom').value){
     document.getElementById('gen-validation').innerHTML='<span style="color:#dc2626">⚠️ 로마자도 입력 (예: an-jeon-mo) - 한글 (rom) 형식 필수</span>';
   }
+}
+function autoRomQ(){
+  const el=document.getElementById('gen-kr-q');
+  if(!el) return;
+  const kr=el.value.trim();
+  if(kr && !document.getElementById('gen-rom-q').value){
+    document.getElementById('gen-validation-q').innerHTML='<span style="color:#dc2626">⚠️ 로마자도 입력 (예: an-jeon-mo)</span>';
+  }
+}
+function generateUserWordQuizQ(){
+  // Q버전은 기존 함수로 리다이렉트
+  const kr=document.getElementById('gen-kr-q').value.trim();
+  const rom=document.getElementById('gen-rom-q').value.trim();
+  const en=document.getElementById('gen-en-q').value.trim();
+  const cat=document.getElementById('gen-cat-q').value;
+  // 기존 ID로 복사
+  const genKr=document.getElementById('gen-kr');
+  const genRom=document.getElementById('gen-rom');
+  const genEn=document.getElementById('gen-en');
+  const genCat=document.getElementById('gen-cat');
+  const genVal=document.getElementById('gen-validation');
+  if(genKr){ genKr.value=kr; }
+  if(genRom){ genRom.value=rom; }
+  if(genEn){ genEn.value=en; }
+  if(genCat){ genCat.value=cat; }
+  // 임시로 Q validation을 메인 validation으로 사용
+  if(!kr||!rom||!en){
+    document.getElementById('gen-validation-q').innerHTML='<span style="color:#dc2626">❌ 한국어/로마자/영어 모두 입력!</span>';
+    return;
+  }
+  // 원래 함수 로직을 그대로 실행하되, Q validation에 결과 표시
+  const template=EPS_TEMPLATES[cat]||EPS_TEMPLATES.attendance;
+  const examples=template.examples(kr,rom);
+  const relatedPool=template.related.filter(r=>r.kr!==kr).slice(0,3);
+  while(relatedPool.length<3){ relatedPool.push({kr:"작업",rom:"ja-geob",en:"Work"}); }
+  const newWord={
+    kr:kr, rom:rom, en:en,
+    tip:`공장에서 매일 사용하는 ${kr} (${rom}). 무엇일까요?`,
+    situation:`${kr} (${rom})는 공장 (gong-jang)에서 작업 (ja-geob)할 때 꼭 필요한 EPS-TOPIK 필수 단어입니다. 사장님 (sa-jang-nim)이 항상 확인해요.`,
+    forms:{casual:`${kr}야 (${rom}-ya)`, polite:`${kr}예요 / ${kr}입니다 (${rom}-ye-yo)`},
+    grammar:{title:"📚 Simple Grammar",korean:kr,romanization:rom,breakdown:[{kr:kr.charAt(0),rom:rom.split('-')[0],en:"part"}],meaning:`${kr} (${rom}) = ${en}`},
+    examples:examples,
+    options:relatedPool.map(r=>({kr:r.kr,rom:r.rom,en:r.en})),
+    optionAudio:true
+  };
+  const userCatId='cat_user_'+Date.now();
+  const userData={
+    id:'User_'+kr,
+    emoji:'✨',
+    name:`${kr} (${rom}) - ${en}`,
+    data:[newWord, ...template.related.slice(0,4).map(r=>({
+      kr:r.kr, rom:r.rom, en:r.en,
+      tip:`${r.kr} (${r.rom}) - What is it?`,
+      situation:`${r.kr} (${r.rom})는 ${kr} (${rom})와 함께 사용하는 EPS-TOPIK 단어입니다.`,
+      forms:{casual:`${r.kr}야 (${r.rom}-ya)`, polite:`${r.kr}예요`},
+      grammar:{title:"📚 Simple Grammar",korean:r.kr,romanization:r.rom,breakdown:[{kr:r.kr.charAt(0),rom:r.rom.split('-')[0],en:"part"}],meaning:`${r.kr}=${r.en}`},
+      examples: (EPS_TEMPLATES[cat].examples)(r.kr,r.rom),
+      options:[{kr:kr,rom:rom,en:en},{kr:"공장",rom:"gong-jang",en:"Factory"},{kr:"작업",rom:"ja-geob",en:"Work"}],
+      optionAudio:true
+    }))]
+  };
+  if(window.allQuizData){ window.allQuizData[userCatId]=userData; }
+  document.getElementById('gen-validation-q').innerHTML=`<span style="color:#16a34a">✅ ${kr} (${rom}) 생성 완료! 공부 페이지로 이동...</span>`;
+  setTimeout(()=>{
+    const menu=document.getElementById('menu-screen');
+    const quiz=document.getElementById('quiz-screen');
+    if(menu){ menu.classList.remove('active'); menu.style.setProperty('display','none','important'); }
+    if(quiz){ quiz.classList.add('active'); quiz.style.setProperty('display','block','important'); }
+    if(typeof startQuiz==='function'){
+      try{ startQuiz(userCatId, false); return; }catch(e){}
+    }
+    document.getElementById('korean-sentence').textContent=newWord.kr;
+    document.getElementById('romanization').textContent=newWord.rom;
+    document.getElementById('situation').textContent=newWord.situation;
+    document.getElementById('category-tip-text').textContent=newWord.tip;
+    document.getElementById('feedback').textContent='';
+    const optCont=document.getElementById('options-container');
+    optCont.innerHTML='';
+    const allOpts=[{kr:newWord.kr,rom:newWord.rom,en:newWord.en,correct:true}, ...newWord.options];
+    allOpts.sort(()=>Math.random()-0.5).forEach(opt=>{
+      const btn=document.createElement('button');
+      btn.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;width:100%;margin-bottom:8px;cursor:pointer;text-align:left;font-weight:600';
+      btn.innerHTML=`<span><strong>${opt.kr}</strong> <small style="color:#64748b">(${opt.rom})</small> - ${opt.en}</span>`;
+      btn.onclick=()=>{
+        if(opt.correct){
+          document.getElementById('feedback').textContent='✅ Correct! 정답!';
+          document.getElementById('feedback').style.color='#16a34a';
+          let detailHtml=`<div id="user-detail" style="margin-top:20px;text-align:left">`;
+          detailHtml+=`<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:15px;margin-bottom:12px"><h4 style="margin:0 0 8px 0;font-weight:800">📚 Key Sentences (핵심 예문) - 위</h4>`;
+          newWord.examples.forEach(ex=>{ detailHtml+=`<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px;margin:8px 0"><strong>${ex.kr}</strong><br><small style="color:#64748b">${ex.rom}</small><br><span>${ex.en}</span></div>`; });
+          detailHtml+=`</div><div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:15px"><h4 style="margin:0 0 8px 0;font-weight:800">🔗 Related Words (관련 단어) - 아래</h4>`;
+          newWord.options.forEach(op=>{ detailHtml+=`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #e2e8f0"><span><strong>${op.kr}</strong> (${op.rom})</span><span style="color:#475569;font-size:.9rem">${op.en}</span></div>`; });
+          detailHtml+=`</div></div>`;
+          let existing=document.getElementById('user-detail'); if(existing) existing.remove();
+          const div=document.createElement('div'); div.innerHTML=detailHtml; optCont.parentNode.appendChild(div.firstChild);
+        }else{
+          document.getElementById('feedback').textContent='❌ Try again!';
+          document.getElementById('feedback').style.color='#dc2626';
+        }
+      };
+      optCont.appendChild(btn);
+    });
+  },400);
 }
 function generateUserWordQuiz(){
   const kr=document.getElementById('gen-kr').value.trim();
