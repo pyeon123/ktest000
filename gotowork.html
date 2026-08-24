@@ -13,7 +13,7 @@
 <title id="seo-title">How to Say "Go to Work" in Korean | chulgeun</title>
 <meta id="seo-desc" name="description" content="How to say 'go to work' in Korean? Master essential EPS-TOPIK workplace attendance vocabulary, learning words like Chulgeun, Jigak, and Gyeolgeun with this fun, interactive quiz. Great for beginners!">
 <meta name="keywords" content="how to say go to work in Korean, how to say chulgeun in Korean, EPS-TOPIK vocabulary, Korean workplace attendance quiz, basic Korean everyday words, Korean factory work game">
-<link class="notranslate" rel="canonical" href="https://pyeon123.github.io/ktest000/gotowork.html" />
+<link class="notranslate" rel="canonical" href="https://k-free.netlify.app/gotowork.html" />
 <meta property="og:site_name" content="K-Free Korean">
 <meta property="og:title" content='Go to Work: "출근" Korean Workplace Attendance Quiz'>
 <meta property="og:description" content="Learn how to say 'go to work' in Korean for real-life EPS-TOPIK workplace attendance situations with interactive quizzes and audio.">
@@ -508,5 +508,136 @@
     }
     document.addEventListener("DOMContentLoaded", () => { loadQuizDBFromMain(); });
 </script>
+
+<!-- ✅ Correct 페이지: Key Sentences 위 / Related Words 아래로 위치 변경 패치 -->
+<script>
+(function(){
+  // 기존 showCorrectAnswer / showTargetAnswer 등을 래핑
+  function reorderCorrectDetail(){
+    // quiz-screen 안에서 설명 영역을 찾음
+    const quizScreen = document.getElementById('quiz-screen');
+    if(!quizScreen) return;
+    
+    // 여러 템플릿 대응: 제목에 Related Words / Key Sentences / Examples / 관련 단어 / 핵심 문장이 들어간 섹션을 찾음
+    const allBlocks = quizScreen.querySelectorAll('div, section');
+    let relatedBlock = null;
+    let keySentencesBlock = null;
+
+    // 텍스트 기반 탐색
+    quizScreen.querySelectorAll('*').forEach(el => {
+      const txt = (el.textContent || '').trim();
+      // 정확히 섹션 헤더 역할을 하는 요소만
+      if(txt.length > 60) return; // 너무 긴 문장 제외
+      if(/Related Words|관련 단어/i.test(txt)){
+        // 헤더의 부모 컨테이너를 관련단어 블록으로 간주
+        let container = el.closest('div');
+        // 가장 가까운 큰 박스 찾기 (options-container 이후 생성되는 박스)
+        if(container && container.parentElement){
+          relatedBlock = container.parentElement;
+          // 만약 헤더 자체가 div 라면 그 다음 형제나 부모를 쓰는게 더 정확할 수 있어서 보정
+          if(relatedBlock.id === 'quiz-screen') relatedBlock = container;
+        }
+      }
+      if(/Key Sentences|핵심 문장|예문/i.test(txt)){
+        let container = el.closest('div');
+        if(container && container.parentElement){
+          keySentencesBlock = container.parentElement;
+          if(keySentencesBlock.id === 'quiz-screen') keySentencesBlock = container;
+        }
+      }
+    });
+
+    // 더 정확한 방법 2: options-container 다음에 동적으로 추가되는 설명 DOM을 직접 찾기
+    // 일반적인 K-Free 템플릿에서는 #options-container 다음에 detail이 붙음
+    const optContainer = document.getElementById('options-container');
+    if(optContainer){
+      // detail wrapper가 optContainer 뒤에 생기는 경우
+      let sibling = optContainer.nextElementSibling;
+      while(sibling){
+        if(sibling.querySelector && (sibling.textContent.includes('Related Words') || sibling.textContent.includes('Key Sentences'))){
+          // 이 sibling 안에 두 섹션이 같이 있는 경우 내부 순서 변경
+          const children = Array.from(sibling.children);
+          let relEl = null, keyEl = null;
+          children.forEach(ch=>{
+            if(/Related Words|관련 단어/.test(ch.textContent)) relEl = ch;
+            if(/Key Sentences|핵심 문장|예문/.test(ch.textContent)) keyEl = ch;
+          });
+          if(relEl && keyEl && relEl.compareDocumentPosition(keyEl) & Node.DOCUMENT_POSITION_FOLLOWING){
+            // 현재 Related가 Key보다 위에 있으면 -> Key를 위로 올림
+            sibling.insertBefore(keyEl, relEl);
+            console.log('[K-Free Patch] Key Sentences moved above Related Words (inner)');
+          }
+        }
+        sibling = sibling.nextElementSibling;
+      }
+    }
+
+    // 방법 3: quiz-screen 직계 자식 중 Related, Key가 각각 별도 블록으로 있는 경우
+    const directChildren = Array.from(quizScreen.children).filter(c => c.textContent && (c.textContent.includes('Related Words') || c.textContent.includes('Key Sentences')));
+    if(directChildren.length >= 2){
+      let rel = directChildren.find(c => /Related Words|관련 단어/.test(c.textContent));
+      let key = directChildren.find(c => /Key Sentences|핵심 문장/.test(c.textContent));
+      if(rel && key && quizScreen.contains(rel) && quizScreen.contains(key)){
+        // key가 rel보다 뒤에 있으면 앞으로 이동
+        if(rel.compareDocumentPosition(key) & Node.DOCUMENT_POSITION_FOLLOWING){
+          quizScreen.insertBefore(key, rel);
+          console.log('[K-Free Patch] Key Sentences moved above Related Words (direct children)');
+        }
+      }
+    }
+
+    // 방법 4: 범용 - 가장 마지막 수단: 두 블록을 찾아 순서 강제
+    if(relatedBlock && keySentencesBlock && relatedBlock !== keySentencesBlock){
+      if(relatedBlock.compareDocumentPosition(keySentencesBlock) & Node.DOCUMENT_POSITION_FOLLOWING){
+        // related가 앞에 있음 -> key를 related 앞으로
+        relatedBlock.parentNode.insertBefore(keySentencesBlock, relatedBlock);
+        console.log('[K-Free Patch] Swapped via block reference');
+      }
+    }
+  }
+
+  // MutationObserver로 Correct 페이지 생성 감지
+  const observer = new MutationObserver(() => {
+    // 정답 클릭 후에만 동작하도록 feedback에 Correct가 있는지 체크
+    const fb = document.getElementById('feedback');
+    if(fb && /correct|정답/i.test(fb.textContent)){
+      setTimeout(reorderCorrectDetail, 50);
+      setTimeout(reorderCorrectDetail, 300);
+    }
+  });
+  observer.observe(document.body, {childList:true, subtree:true});
+
+  // 기존 함수 래핑해서 클릭 직후에도 실행
+  const wrapFn = (fnName) => {
+    if(typeof window[fnName] === 'function'){
+      const orig = window[fnName];
+      window[fnName] = function(){
+        const res = orig.apply(this, arguments);
+        setTimeout(reorderCorrectDetail, 100);
+        setTimeout(reorderCorrectDetail, 500);
+        return res;
+      };
+    }
+  };
+  // 로드 후 래핑 시도
+  window.addEventListener('load', ()=>{
+    ['showCorrectAnswer','showTargetAnswer','showAnswer','checkAnswer'].forEach(wrapFn);
+    // 옵션 클릭 이벤트도 직접 감시
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.options-container button, .options-container div, #options-container *');
+      if(btn){
+        setTimeout(reorderCorrectDetail, 100);
+        setTimeout(reorderCorrectDetail, 600);
+      }
+    });
+  });
+})();
+</script>
+
+<style>
+/* 혹시 flex로 되어있을 경우를 대비해 order로도 강제 */
+#quiz-screen .detail-key-sentences { order: 1 !important; }
+#quiz-screen .detail-related-words { order: 2 !important; }
+</style>
 </body>
 </html>
