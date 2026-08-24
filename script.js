@@ -61,6 +61,7 @@ window.quizDB = window.quizDB || [
     { title: "Furniture", url: "furniture.html", keywords: "furniture house bed chair" },
     { title: "Gift", url: "gift.html", keywords: "gift present surprise" },
     { title: "Gimbap", url: "gimbap.html", keywords: "gimbap food korean" },
+    { title: "Go to Work", url: "gotowork.html", keywords: "work attendance late absence commute" },
     { title: "Happiness", url: "happiness.html", keywords: "happiness joy emotion" },
     { title: "Health", url: "health.html", keywords: "health body exercise" },
     { title: "Hobbies", url: "hobbies.html", keywords: "hobbies activity free time" },
@@ -91,6 +92,7 @@ window.quizDB = window.quizDB || [
     { title: "Ramen", url: "ramen.html", keywords: "ramen food noodle" },
     { title: "Restroom", url: "restroom.html", keywords: "restroom bathroom toilet" },
     { title: "Sadness", url: "sadness.html", keywords: "sadness emotion feelings" },
+    { title: "Salary", url: "salary.html", keywords: "salary money work pay job" },
     { title: "Samgyeopsal", url: "samgyeopsal.html", keywords: "samgyeopsal food korean meat" },
     { title: "School", url: "school.html", keywords: "school study education" },
     { title: "Sea", url: "sea.html", keywords: "sea ocean water nature" },
@@ -421,7 +423,12 @@ function checkAnswer(isCorrect, quiz) {
                 const score = words.filter(w => currentKeywords.includes(w)).length;
                 return { ...item, score };
             }).filter(item => item.score > 0).sort((a, b) => b.score - a.score);
-        const chosenList = relatedList.slice(0, 3);
+        // Fallback: page not yet registered in quizDB (or no keyword match found) → show 3 random links instead of none
+        let chosenList = relatedList.slice(0, 3);
+        if (chosenList.length === 0) {
+            const fallbackPool = quizDB.filter(item => item.url !== currentFileName);
+            chosenList = fallbackPool.sort(() => Math.random() - 0.5).slice(0, 3);
+        }
         const recHtml = chosenList.length > 0
     ? `<div style="margin-bottom:15px;">
         <div style="font-size:0.9rem;font-weight:bold;color:#64748b;margin-bottom:8px;text-align:center;">
@@ -477,7 +484,7 @@ function checkAnswer(isCorrect, quiz) {
             examplesHtml = `<h3 style="margin-top: 25px; color: #1e293b;">📚 Key Sentences</h3><ul style="list-style: none; padding: 0; margin-bottom: 20px;">${quiz.examples.map((ex, idx) => `<li style="margin-bottom: 15px; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);"><strong style="font-size: 1.3rem; display: block; margin-bottom: 5px; color: #1e293b;">${ex.kr}</strong><span style="font-size: 1.1rem; color: #64748b; display: block; margin-bottom: 5px;">${ex.en}</span><em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${ex.rom || ''}</em><div class="control-group" style="scale: 0.85; margin: 10px 0 0 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); speakExampleText('${ex.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="ex-mic-btn-${idx}" onclick="event.stopPropagation(); startExampleRecognition('${ex.kr.replace(/'/g, "\\'")}', ${idx})"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="ex-feedback-${idx}" style="height: 25px; font-weight: 900; font-size: 1.1rem; margin-top: 5px; text-align: center;"></div></li>`).join('')}</ul>`;
         }
         const situationText = quiz.situation || "No context provided.";
-        detailArea.innerHTML = `<div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;"><h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2><div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;"><p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>${formsHtml}</div>${grammarHtml}${optionsHtml}${examplesHtml}<div style="margin-top: 25px;">${favoriteHtml}${recHtml}<button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭</button><button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button></div></div>`;
+        detailArea.innerHTML = `<div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;"><h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2><div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;"><p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>${formsHtml}</div>${grammarHtml}${examplesHtml}${optionsHtml}<div style="margin-top: 25px;">${favoriteHtml}${recHtml}<button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭</button><button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button></div></div>`;
         detailArea.classList.add('active'); detailArea.style.display = 'block'; window.scrollTo(0, 0);
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
@@ -1757,22 +1764,7 @@ function getPageSentences(){
   function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
  
   // FAQ 칩 = 지금 화면(퀴즈)에 있는 Key Sentence / Related Words. 소개 문구(Native Tip 등)는 없음.
-  // B안: Correct 페이지에서는 FAQ 절대 노출 안 함
-  function isCorrectPageActive(){
-    var d=document.getElementById('detail-area');
-    return d && d.style.display!=='none' && d.classList.contains('active') && d.innerText.includes('Correct');
-  }
-
   function renderFaq(){
-    // B안 수정: Correct 페이지에서는 FAQ 칩만 숨기고, TUTOR는 작동
-    if(isCorrectPageActive()){
-      faq.innerHTML = '';
-      faq.style.display='none';
-      // Correct 페이지에서는 검색창만 쓸 수 있게 안내 문구
-      log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">💬 Correct! 궁금한 문법이 있으면 아래에 질문해보세요.<br>FAQ 문장은 메인 퀴즈 화면에서 볼 수 있어요.</div>`;
-      return;
-    }
-
     var sentences = getPageSentences();
  
     if(sentences.length === 0){
@@ -2011,40 +2003,13 @@ function getPageSentences(){
   }
  
   window.openShare=openShare;
-  btn.onclick=()=>{
-    open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();
-  };
+  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
   wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
   input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
   wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
  
-  // B안 수정: TUTOR 버튼은 항상 작동, FAQ 칩은 Correct 페이지에서만 숨김
-  window.showAiTutor=()=>{
-    // 퀴즈 화면이나 정답 화면 둘 다에서 버튼은 보여야 함
-    var qs=document.getElementById('quiz-screen');
-    var ds=document.getElementById('detail-area');
-    var isQuizActive = qs && qs.classList.contains('active') && qs.style.display!=='none';
-    var isDetailActive = ds && ds.classList.contains('active') && ds.style.display!=='none';
-    if(isQuizActive || isDetailActive){
-      btn.style.display='flex';
-    } else {
-      // 메뉴 화면 등에서는 숨김
-      if(!isCorrectPageActive()){
-        // 메인 메뉴에서는 원래 로직대로 숨김 유지할지, 보이게 할지 선택 - 여기서는 퀴즈/정답에서만 보이게
-      }
-    }
-    // Correct 페이지면 FAQ는 미리 비워둠
-    if(isCorrectPageActive()){
-      faq.innerHTML='';
-      faq.style.display='none';
-    }
-  };
-  window.hideAiTutor=()=>{
-    // B안 수정: hide는 모달만 닫고 버튼은 showAiTutor가 다시 결정
-    modal.style.display='none';
-    open=false;
-    // FAQ는 Correct 페이지 상태에 따라 showAiTutor가 처리
-  };
+  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
   var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
  
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
