@@ -61,6 +61,7 @@ window.quizDB = window.quizDB || [
     { title: "Furniture", url: "furniture.html", keywords: "furniture house bed chair" },
     { title: "Gift", url: "gift.html", keywords: "gift present surprise" },
     { title: "Gimbap", url: "gimbap.html", keywords: "gimbap food korean" },
+    { title: "Go to Work", url: "gotowork.html", keywords: "work attendance late absence commute" },
     { title: "Happiness", url: "happiness.html", keywords: "happiness joy emotion" },
     { title: "Health", url: "health.html", keywords: "health body exercise" },
     { title: "Hobbies", url: "hobbies.html", keywords: "hobbies activity free time" },
@@ -422,7 +423,12 @@ function checkAnswer(isCorrect, quiz) {
                 const score = words.filter(w => currentKeywords.includes(w)).length;
                 return { ...item, score };
             }).filter(item => item.score > 0).sort((a, b) => b.score - a.score);
-        const chosenList = relatedList.slice(0, 3);
+        // Fallback: page not yet registered in quizDB (or no keyword match found) → show 3 random links instead of none
+        let chosenList = relatedList.slice(0, 3);
+        if (chosenList.length === 0) {
+            const fallbackPool = quizDB.filter(item => item.url !== currentFileName);
+            chosenList = fallbackPool.sort(() => Math.random() - 0.5).slice(0, 3);
+        }
         const recHtml = chosenList.length > 0
     ? `<div style="margin-bottom:15px;">
         <div style="font-size:0.9rem;font-weight:bold;color:#64748b;margin-bottom:8px;text-align:center;">
@@ -478,7 +484,7 @@ function checkAnswer(isCorrect, quiz) {
             examplesHtml = `<h3 style="margin-top: 25px; color: #1e293b;">📚 Key Sentences</h3><ul style="list-style: none; padding: 0; margin-bottom: 20px;">${quiz.examples.map((ex, idx) => `<li style="margin-bottom: 15px; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);"><strong style="font-size: 1.3rem; display: block; margin-bottom: 5px; color: #1e293b;">${ex.kr}</strong><span style="font-size: 1.1rem; color: #64748b; display: block; margin-bottom: 5px;">${ex.en}</span><em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${ex.rom || ''}</em><div class="control-group" style="scale: 0.85; margin: 10px 0 0 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); speakExampleText('${ex.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="ex-mic-btn-${idx}" onclick="event.stopPropagation(); startExampleRecognition('${ex.kr.replace(/'/g, "\\'")}', ${idx})"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="ex-feedback-${idx}" style="height: 25px; font-weight: 900; font-size: 1.1rem; margin-top: 5px; text-align: center;"></div></li>`).join('')}</ul>`;
         }
         const situationText = quiz.situation || "No context provided.";
-        detailArea.innerHTML = `<div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;"><h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2><div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;"><p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>${formsHtml}</div>${grammarHtml}${optionsHtml}${examplesHtml}<div style="margin-top: 25px;">${favoriteHtml}${recHtml}<button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭</button><button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button></div></div>`;
+        detailArea.innerHTML = `<div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;"><h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2><div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;"><p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>${formsHtml}</div>${grammarHtml}${examplesHtml}${optionsHtml}<div style="margin-top: 25px;">${favoriteHtml}${recHtml}<button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭</button><button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button></div></div>`;
         detailArea.classList.add('active'); detailArea.style.display = 'block'; window.scrollTo(0, 0);
         document.getElementById('next-btn').onclick = nextQuiz;
         document.getElementById('home-btn').onclick = () => window.location.href = 'index.html';
