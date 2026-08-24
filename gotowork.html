@@ -23,6 +23,100 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
     <link rel="stylesheet" href="style.css">
+
+<script>
+// 출근 5개 퀴즈 데이터 - 이미 생성되어 있음
+const baseGotoworkData = {
+  id: 'cat_gotowork',
+  data: [
+    {
+      kr: '출근', rom: 'chul-geun', en: 'Go to Work / Clock In',
+      tip: '공장 (gong-jang)에 출근 (chul-geun)할 때 사용하는 단어',
+      situation: '출근 (chul-geun)은 매일 아침 공장 (gong-jang)에 가서 일을 시작하는 것을 말해요. 사장님 (sa-jang-nim)이 출근 (chul-geun) 시간을 확인해요.',
+      forms: {casual:'출근이야 (chul-geun-i-ya)', polite:'출근이에요 (chul-geun-i-e-yo)'},
+      examples: [
+        {kr:'매일 아침 8시에 출근해요', rom:'mae-il a-chim yeo-deol-si-e chul-geun-hae-yo', en:'I go to work at 8 every morning'},
+        {kr:'출근 시간이 언제예요?', rom:'chul-geun si-gan-i eon-je-ye-yo', en:'What time do you start work?'},
+        {kr:'오늘 일찍 출근했어요', rom:'o-neul il-jjik chul-geun-hae-sseo-yo', en:'I came to work early today'}
+      ],
+      options: [
+        {kr:'퇴근', rom:'toe-geun', en:'Leave work'},
+        {kr:'야근', rom:'ya-geun', en:'Overtime'},
+        {kr:'휴가', rom:'hyu-ga', en:'Vacation'}
+      ]
+    },
+    {
+      kr: '지각', rom: 'ji-gak', en: 'Being Late',
+      tip: '지각 (ji-gak)하면 안 돼요!',
+      situation: '지각 (ji-gak)은 출근 (chul-geun) 시간보다 늦게 오는 것이에요. 공장 (gong-jang)에서 지각 (ji-gak)하면 사장님 (sa-jang-nim)에게 혼나요.',
+      forms: {casual:'지각이야 (ji-gak-i-ya)', polite:'지각이에요 (ji-gak-i-e-yo)'},
+      examples: [
+        {kr:'버스를 놓쳐서 지각했어요', rom:'beo-seu-reul no-chyeo-seo ji-ga-kae-sseo-yo', en:'I was late because I missed the bus'},
+        {kr:'지각하면 안 돼요', rom:'ji-ga-ka-myeon an dwae-yo', en:'You must not be late'},
+        {kr:'오늘 지각했어요', rom:'o-neul ji-ga-kae-sseo-yo', en:'I was late today'}
+      ],
+      options: [
+        {kr:'출근', rom:'chul-geun', en:'Go to work'},
+        {kr:'결근', rom:'gyeol-geun', en:'Absence'},
+        {kr:'조퇴', rom:'jo-toe', en:'Leaving early'}
+      ]
+    },
+    {
+      kr: '결근', rom: 'gyeol-geun', en: 'Absence',
+      tip: '결근 (gyeol-geun)은 회사에 안 오는 것',
+      situation: '결근 (gyeol-geun)은 아파서 공장 (gong-jang)에 못 가는 것이에요. 결근 (gyeol-geun)하면 사장님 (sa-jang-nim)에게 전화해야 해요.',
+      forms: {casual:'결근이야', polite:'결근이에요'},
+      examples: [
+        {kr:'몸이 아파서 결근했어요', rom:'mo-mi a-pa-seo gyeol-geun-hae-sseo-yo', en:'I was absent because I was sick'},
+        {kr:'결근하면 연락해야 해요', rom:'gyeol-geun-ha-myeon yeon-ra-kae-ya hae-yo', en:'If absent, you must contact'},
+        {kr:'어제 결근했어요', rom:'eo-je gyeol-geun-hae-sseo-yo', en:'I was absent yesterday'}
+      ],
+      options: [
+        {kr:'출근', rom:'chul-geun', en:'Go to work'},
+        {kr:'지각', rom:'ji-gak', en:'Lateness'},
+        {kr:'조퇴', rom:'jo-toe', en:'Leaving early'}
+      ]
+    },
+    {
+      kr: '조퇴', rom: 'jo-toe', en: 'Leaving Work Early',
+      tip: '조퇴 (jo-toe)는 일찍 퇴근하는 것',
+      situation: '조퇴 (jo-toe)는 아파서 공장 (gong-jang)에서 일찍 집에 가는 것이에요. 조퇴 (jo-toe)하려면 사장님 (sa-jang-nim)에게 말해야 해요.',
+      forms: {casual:'조퇴야', polite:'조퇴예요'},
+      examples: [
+        {kr:'몸이 안 좋아서 조퇴했어', rom:'mo-mi an jo-a-seo jo-toe-hae-sseo', en:'I left early because I felt sick'},
+        {kr:'조퇴하고 싶어요', rom:'jo-toe-ha-go si-peo-yo', en:'I want to leave early'},
+        {kr:'어제 조퇴했어요', rom:'eo-je jo-toe-hae-sseo-yo', en:'I left early yesterday'}
+      ],
+      options: [
+        {kr:'출근', rom:'chul-geun', en:'Go to work'},
+        {kr:'퇴근', rom:'toe-geun', en:'Leave work'},
+        {kr:'결근', rom:'gyeol-geun', en:'Absence'}
+      ]
+    },
+    {
+      kr: '출근카드', rom: 'chul-geun-ka-deu', en: 'Time Card',
+      tip: '출근카드 (chul-geun-ka-deu)로 출근 확인',
+      situation: '출근카드 (chul-geun-ka-deu)는 매일 출근 (chul-geun)할 때 찍는 카드예요. 공장 (gong-jang) 입구에서 출근카드 (chul-geun-ka-deu)를 찍어요.',
+      forms: {casual:'출근카드야', polite:'출근카드예요'},
+      examples: [
+        {kr:'매일 출근카드를 확인합니다', rom:'mae-il chul-geun-ka-deu-reul hwa-gin-ham-ni-da', en:'I check my time card every day'},
+        {kr:'출근카드를 찍었어요?', rom:'chul-geun-ka-deu-reul jjik-eo-sseo-yo', en:'Did you punch your time card?'},
+        {kr:'출근카드를 잃어버렸어요', rom:'chul-geun-ka-deu-reul il-eo-beo-ryeo-sseo-yo', en:'I lost my time card'}
+      ],
+      options: [
+        {kr:'출근', rom:'chul-geun', en:'Go to work'},
+        {kr:'지각', rom:'ji-gak', en:'Lateness'},
+        {kr:'사원증', rom:'sa-won-jeung', en:'Employee ID'}
+      ]
+    }
+  ]
+};
+
+// allQuizData에 등록 (기존 script.js가 사용)
+if(!window.allQuizData) window.allQuizData={};
+window.allQuizData['cat_gotowork']=baseGotoworkData;
+</script>
+
     <style>
         html, body { overflow-x: hidden; max-width: 100vw; }
         * { box-sizing: border-box; }
@@ -74,7 +168,13 @@
                     </div>
                 </div>
             </div>
-            <div class="menu-intro" style="text-align: center; margin-bottom: 15px;"><h2>Can you guess this Korean word?</h2></div>
+            
+<div id="gotowork-5words-list" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:20px 18px;max-width:550px;margin:20px auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
+<h3 style="font-size:1.25rem;font-weight:900;color:#1e293b;margin:0 0 14px 0">📚 출근 퀴즈 5개 - 단어 누르면 바로 이동</h3>
+<div id="five-words-container" style="display:flex;flex-direction:column;gap:10px"></div>
+</div>
+
+<div class="menu-intro" style="text-align: center; margin-bottom: 15px;"><h2>Can you guess this Korean word?</h2></div>
             <div id="today-quiz-section" class="game-ad-bar" onclick="expandTodayQuiz()" style="width: 100%; max-width: 550px; padding: 20px; cursor: pointer; margin: 0 auto 30px auto; transition: all 0.3s; box-sizing: border-box;">
                 <div class="korea-badge">🎁</div>
                 <div id="today-title" style="font-weight: 900; color: var(--primary); margin-bottom: 0px; font-size: 1.5rem; text-align: center;">TODAY'S QUIZ</div>
@@ -95,21 +195,11 @@
                     <button class="back-link" style="width: 100%; margin-top: 10px; background-color: #f1f5f9; color: #64748b; box-sizing: border-box;" onclick="event.stopPropagation(); closeTodayQuiz();">✖ Close</button>
                 </div>
             </div>
-            
-
-
-<div id="gotowork-5words-list" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:20px 18px;max-width:550px;margin:15px auto 25px auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
-<h3 style="font-size:1.25rem;font-weight:900;color:#1e293b;margin:0 0 12px 0;display:flex;align-items:center;gap:8px">📚 출근 페이지 퀴즈 5개 - 눌러서 공부하기</h3>
-<p style="font-size:.9rem;color:#475569;margin:0 0 14px 0">단어를 누르면 예문과 관련단어가 이미 생성된 퀴즈 페이지로 바로 이동합니다!</p>
-<div id="five-words-container" style="display:flex;flex-direction:column;gap:10px">
-<!-- JS로 5개 단어 버튼이 여기에 자동 생성됨 -->
-</div>
-</div>
-
-<div style="text-align: center; margin-bottom: 15px;"><p style="font-size: 1.1rem; font-weight: 700; color: #64748b; letter-spacing: 1px; text-transform: uppercase; margin: 0;">Category</p></div>
+            <div style="text-align: center; margin-bottom: 15px;"><p style="font-size: 1.1rem; font-weight: 700; color: #64748b; letter-spacing: 1px; text-transform: uppercase; margin: 0;">Category</p></div>
             <div id="category-list" class="category-grid"></div>
             <br>
-            
+            <div style="text-align: center; font-size: 0.9rem; font-weight: bold; color: #64748b;">1,000+ Essential Korean sentences / free</div>
+            <a href="https://k-sentence.netlify.app/" target="_blank" class="wide-slim-banner"></a>
         </div>
         <div id="quiz-screen" class="quiz-screen">
             <div class="situation-tag" id="situation" style="font-size: 0.95rem; line-height: 1.4; padding: 8px 12px;">---</div>
@@ -141,18 +231,14 @@
                 <div id="ai-promo-detail" style="display:none; background:#ffffff; border:2px solid #4285f4; border-top:none; border-radius:0 0 16px 16px; padding:20px; margin-top:-2px; text-align:left; box-shadow: 0 8px 20px rgba(0,0,0,0.08);">
                     <div style="font-size:1.1rem; font-weight:900; color:#1e293b; line-height:1.5;">🤖 Want to try using <span id="dynamic-phrase" style="color:#4285f4; background:#eef2ff; padding:2px 8px; border-radius:8px;">"Go to Work"</span> in real life?</div>
                     <div style="font-size:0.92rem; color:#475569; margin-top:10px; line-height:1.6;">Tap the answer above to practice listening and speaking with examples. Got questions? Ask the AI Tutor and double your learning!</div>
+<div id="gotowork-5words-list-quiz" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:20px 18px;max-width:550px;margin:20px auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
+<h3 style="font-size:1.25rem;font-weight:900;color:#1e293b;margin:0 0 14px 0">📚 출근 퀴즈 5개 - 단어 누르면 바로 이동</h3>
+<div id="five-words-container-quiz" style="display:flex;flex-direction:column;gap:10px"></div>
+</div>
+
                     <button onclick="openAiTutorChat()" style="width:100%; margin-top:14px; background:#4285f4; color:white; border:none; border-radius:10px; padding:13px; font-weight:900; font-size:1rem; cursor:pointer;">💬 Start Chatting <span style="font-weight:400; opacity:0.9; font-size:0.85rem;">(3 Free Tries)</span></button>
                 </div>
-
-<div id="gotowork-5words-list-quiz" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:20px 18px;max-width:550px;margin:15px auto 25px auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
-<h3 style="font-size:1.25rem;font-weight:900;color:#1e293b;margin:0 0 12px 0;display:flex;align-items:center;gap:8px">📚 출근 페이지 퀴즈 5개 - 눌러서 공부하기</h3>
-<p style="font-size:.9rem;color:#475569;margin:0 0 14px 0">단어를 누르면 예문과 관련단어가 이미 생성된 퀴즈 페이지로 바로 이동합니다!</p>
-<div id="five-words-container-quiz" style="display:flex;flex-direction:column;gap:10px">
-<!-- JS로 5개 단어 버튼이 여기에 자동 생성됨 -->
-</div>
-</div>
-
-                
+                <div style="font-size: 0.9rem; font-weight: bold; color: #64748b; margin-top:15px;">1,000+ Essential Korean sentences / free</div><a href="https://k-sentence.netlify.app/" target="_blank" class="wide-slim-banner"></a>
             </div>
             <script>
             (function(){
@@ -529,27 +615,17 @@
 </script>
 
 <script>
-// ========= 5개 단어 리스트 표시 + 클릭 시 이미 생성된 예문/관련단어 바로 보기 =========
+// 5개 단어 리스트 렌더링 + 바로 이동 (뭐 만들지 말고 바로 이동)
 function renderFiveWordsList(){
-  const data = (window.allQuizData && window.allQuizData['cat_gotowork'] && window.allQuizData['cat_gotowork'].data) || (typeof baseGotoworkData !== 'undefined' ? baseGotoworkData.data : []);
-  if(!data || data.length===0) return;
-  
+  const data = baseGotoworkData.data;
   const containers = [document.getElementById('five-words-container'), document.getElementById('five-words-container-quiz')];
   containers.forEach(cont=>{
     if(!cont) return;
     cont.innerHTML='';
     data.forEach((word, idx)=>{
       const btn=document.createElement('button');
-      btn.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;width:100%;cursor:pointer;text-align:left;transition:all .15s';
-      btn.onmouseenter=()=>{ btn.style.background='#eef2ff'; btn.style.borderColor='#4285f4'; };
-      btn.onmouseleave=()=>{ btn.style.background='#f8fafc'; btn.style.borderColor='#e2e8f0'; };
-      btn.innerHTML=`
-        <span style="display:flex;flex-direction:column;gap:2px">
-          <span style="font-weight:900;font-size:1.1rem;color:#1e293b">${word.kr} <small style="color:#64748b;font-weight:600">(${word.rom})</small></span>
-          <span style="font-size:.9rem;color:#475569">${word.en}</span>
-        </span>
-        <span style="background:#4285f4;color:#fff;padding:6px 12px;border-radius:20px;font-size:.8rem;font-weight:800">공부하기 ▶</span>
-      `;
+      btn.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;width:100%;cursor:pointer;text-align:left;font-weight:700;';
+      btn.innerHTML=`<span><strong style="font-size:1.1rem">${word.kr}</strong> <small style="color:#64748b">(${word.rom})</small> - <span style="color:#475569">${word.en}</span></span><span style="background:#4285f4;color:#fff;padding:6px 12px;border-radius:20px;font-size:.8rem">바로가기 ▶</span>`;
       btn.onclick=()=>{ showGotoworkQuiz(idx); };
       cont.appendChild(btn);
     });
@@ -557,238 +633,61 @@ function renderFiveWordsList(){
 }
 
 function showGotoworkQuiz(index){
-  const data = (window.allQuizData && window.allQuizData['cat_gotowork'] && window.allQuizData['cat_gotowork'].data) || (typeof baseGotoworkData !== 'undefined' ? baseGotoworkData.data : []);
-  if(!data || !data[index]) return;
-  const word = data[index];
+  const word = baseGotoworkData.data[index];
+  if(!word) return;
 
-  // 페이지 자체 이동 - NEXT QUIZ처럼
+  // 페이지 자체가 완전히 이동 - NEXT QUIZ처럼
   const menu=document.getElementById('menu-screen');
   const quiz=document.getElementById('quiz-screen');
   if(menu){ menu.style.display='none'; menu.classList.remove('active'); }
   if(quiz){ quiz.style.display='block'; quiz.classList.add('active'); }
 
-  // 기존 nextQuiz가 하는 것과 동일하게 퀴즈 문제만 표시 (정답 전 상태)
-  const kEl=document.getElementById('korean-sentence');
-  const rEl=document.getElementById('romanization');
-  const sEl=document.getElementById('situation');
-  const tEl=document.getElementById('category-tip-text');
-  const fEl=document.getElementById('feedback');
+  // 퀴즈 나오고 선택지 있는 페이지로 바로 이동
+  document.getElementById('korean-sentence').textContent=word.kr;
+  document.getElementById('romanization').textContent=word.rom;
+  document.getElementById('situation').textContent=word.situation;
+  document.getElementById('category-tip-text').textContent=word.tip;
+  document.getElementById('feedback').textContent='';
+  
   const optCont=document.getElementById('options-container');
-
-  if(kEl) kEl.textContent=word.kr;
-  if(rEl) rEl.textContent=word.rom;
-  if(sEl) sEl.textContent=word.situation;
-  if(tEl) tEl.textContent=word.tip;
-  if(fEl){ fEl.textContent=''; fEl.style.color='#1e293b'; }
-
-  // 이전 상세 제거
-  let existing=document.getElementById('user-detail');
-  if(existing) existing.remove();
-
-  if(optCont){
-    optCont.innerHTML='';
-    // NEXT QUIZ처럼 선택지 표시 (정답 하이라이트 없이)
-    const allOpts=[{kr:word.kr,rom:word.rom,en:word.en,correct:true}, ...(word.options||[])].sort(()=>Math.random()-0.5);
-    allOpts.forEach(opt=>{
-      const btn=document.createElement('button');
-      btn.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#ffffff;border:1.5px solid #e2e8f0;border-radius:12px;width:100%;margin-bottom:8px;cursor:pointer;text-align:left;font-weight:600';
-      btn.innerHTML=`<span><strong>${opt.kr}</strong> <small style="color:#64748b">(${opt.rom})</small> - <span style="color:#475569">${opt.en}</span></span>`;
-      btn.onclick=()=>{
-        // 정답 클릭 시 - Correct 페이지로 이동 (기존 로직과 동일)
-        if(opt.correct){
-          if(fEl){ fEl.innerHTML=`✅ Correct! <strong>${word.kr} (${word.rom})</strong>`; fEl.style.color='#16a34a'; }
-          // 정답 하이라이트
-          Array.from(optCont.children).forEach(b=>{ b.style.background='#f8fafc'; b.style.borderColor='#e2e8f0'; });
-          btn.style.background='#dcfce7'; btn.style.borderColor='#16a34a';
-          
-          // 각 단어에 맞는 correct 상세 - 이미 생성된 예문+관련단어 표시
-          let detail=document.getElementById('user-detail');
-          if(detail) detail.remove();
-          detail=document.createElement('div');
-          detail.id='user-detail';
-          detail.style.cssText='margin-top:22px;text-align:left';
-          detail.innerHTML=`
-            <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:14px;padding:16px;margin-bottom:14px">
-              <h4 style="margin:0 0 10px 0;font-weight:900;font-size:1.05rem;color:#166534">📚 Key Sentences (핵심 예문) - 위</h4>
-              ${(word.examples||[]).map(ex=>`
-                <div style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin:9px 0">
-                  <strong>${ex.kr}</strong><br><small style="color:#64748b">${ex.rom}</small><br><span style="color:#334155">${ex.en}</span>
-                </div>
-              `).join('')}
-            </div>
-            <div style="background:#fff7ed;border:1.5px solid #fed7aa;border-radius:14px;padding:16px">
-              <h4 style="margin:0 0 10px 0;font-weight:900;font-size:1.05rem;color:#9a3412">🔗 Related Words (관련 단어) - 아래</h4>
-              ${(word.options||[]).map(op=>`
-                <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0">
-                  <span><strong>${op.kr}</strong> <small>(${op.rom})</small></span><span style="color:#475569;font-size:.9rem">${op.en}</span>
-                </div>
-              `).join('')}
-            </div>
-            <div style="text-align:center;margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-              <button onclick="goHomeAndShowList()" style="padding:10px 18px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:20px;font-weight:700;cursor:pointer">🏠 5개 목록</button>
-              <button onclick="nextGotoworkQuiz(${index})" style="padding:10px 18px;background:#4285f4;color:#fff;border:none;border-radius:20px;font-weight:800;cursor:pointer">다음 단어 ▶</button>
-            </div>
-          `;
-          optCont.parentNode.appendChild(detail);
-          if(typeof speak==='function'){ try{ speak(); }catch(e){} }
-        }else{
-          if(fEl){ fEl.textContent='❌ Try again!'; fEl.style.color='#dc2626'; }
-          btn.style.background='#fee2e2'; btn.style.borderColor='#dc2626';
-        }
-      };
-      optCont.appendChild(btn);
-    });
-  }
+  optCont.innerHTML='';
+  // 선택지 있는 페이지
+  const opts=[{kr:word.kr,rom:word.rom,en:word.en,correct:true}, ...word.options].sort(()=>Math.random()-0.5);
+  opts.forEach(opt=>{
+    const b=document.createElement('button');
+    b.style.cssText='display:flex;justify-content:space-between;padding:12px 16px;background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;width:100%;margin-bottom:8px;cursor:pointer;text-align:left;font-weight:600';
+    b.innerHTML=`<span><strong>${opt.kr}</strong> <small>(${opt.rom})</small> - ${opt.en}</span>`;
+    b.onclick=()=>{
+      const fb=document.getElementById('feedback');
+      if(opt.correct){
+        fb.textContent=`✅ Correct! ${word.kr} (${word.rom})`;
+        fb.style.color='#16a34a';
+        // Correct 페이지로 - 이미 생성된 예문/관련단어 표시
+        let d=document.getElementById('user-detail'); if(d) d.remove();
+        d=document.createElement('div'); d.id='user-detail'; d.style.marginTop='20px';
+        d.innerHTML=`
+          <div style="background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:14px;padding:16px;margin-bottom:12px">
+            <h4>📚 Key Sentences - ${word.kr}</h4>
+            ${word.examples.map(e=>`<div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:10px;margin:8px 0"><strong>${e.kr}</strong><br><small>${e.rom}</small><br>${e.en}</div>`).join('')}
+          </div>
+          <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:14px;padding:16px">
+            <h4>🔗 Related Words</h4>
+            ${word.options.map(o=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #e2e8f0"><span><strong>${o.kr}</strong> (${o.rom})</span><span>${o.en}</span></div>`).join('')}
+          </div>
+        `;
+        optCont.parentNode.appendChild(d);
+      }else{
+        fb.textContent='❌ Try again!'; fb.style.color='#dc2626';
+      }
+    };
+    optCont.appendChild(b);
+  });
   window.scrollTo(0,0);
 }
 
-function nextGotoworkQuiz(currentIdx){
-  const data = (window.allQuizData && window.allQuizData['cat_gotowork'] && window.allQuizData['cat_gotowork'].data) || [];
-  const nextIdx = (currentIdx + 1) % data.length;
-  showGotoworkQuiz(nextIdx);
-}
-
-// 페이지 로드 후 5개 리스트 렌더링
-document.addEventListener('DOMContentLoaded', ()=>{
-  setTimeout(renderFiveWordsList, 800);
-});
-window.addEventListener('load', ()=>{
-  setTimeout(renderFiveWordsList, 1000);
-  setTimeout(renderFiveWordsList, 2000);
-});
+document.addEventListener('DOMContentLoaded', ()=>setTimeout(renderFiveWordsList, 500));
+window.addEventListener('load', ()=>{ setTimeout(renderFiveWordsList, 800); setTimeout(renderFiveWordsList, 1500); });
 </script>
 
-<!-- ✅ Correct 페이지: Key Sentences 위 / Related Words 아래로 위치 변경 패치 -->
- 페이지: Key Sentences 위 / Related Words 아래로 위치 변경 패치 -->
-
-<script>
-(function(){
-  // 기존 showCorrectAnswer / showTargetAnswer 등을 래핑
-  function reorderCorrectDetail(){
-    // quiz-screen 안에서 설명 영역을 찾음
-    const quizScreen = document.getElementById('quiz-screen');
-    if(!quizScreen) return;
-    
-    // 여러 템플릿 대응: 제목에 Related Words / Key Sentences / Examples / 관련 단어 / 핵심 문장이 들어간 섹션을 찾음
-    const allBlocks = quizScreen.querySelectorAll('div, section');
-    let relatedBlock = null;
-    let keySentencesBlock = null;
-
-    // 텍스트 기반 탐색
-    quizScreen.querySelectorAll('*').forEach(el => {
-      const txt = (el.textContent || '').trim();
-      // 정확히 섹션 헤더 역할을 하는 요소만
-      if(txt.length > 60) return; // 너무 긴 문장 제외
-      if(/Related Words|관련 단어/i.test(txt)){
-        // 헤더의 부모 컨테이너를 관련단어 블록으로 간주
-        let container = el.closest('div');
-        // 가장 가까운 큰 박스 찾기 (options-container 이후 생성되는 박스)
-        if(container && container.parentElement){
-          relatedBlock = container.parentElement;
-          // 만약 헤더 자체가 div 라면 그 다음 형제나 부모를 쓰는게 더 정확할 수 있어서 보정
-          if(relatedBlock.id === 'quiz-screen') relatedBlock = container;
-        }
-      }
-      if(/Key Sentences|핵심 문장|예문/i.test(txt)){
-        let container = el.closest('div');
-        if(container && container.parentElement){
-          keySentencesBlock = container.parentElement;
-          if(keySentencesBlock.id === 'quiz-screen') keySentencesBlock = container;
-        }
-      }
-    });
-
-    // 더 정확한 방법 2: options-container 다음에 동적으로 추가되는 설명 DOM을 직접 찾기
-    // 일반적인 K-Free 템플릿에서는 #options-container 다음에 detail이 붙음
-    const optContainer = document.getElementById('options-container');
-    if(optContainer){
-      // detail wrapper가 optContainer 뒤에 생기는 경우
-      let sibling = optContainer.nextElementSibling;
-      while(sibling){
-        if(sibling.querySelector && (sibling.textContent.includes('Related Words') || sibling.textContent.includes('Key Sentences'))){
-          // 이 sibling 안에 두 섹션이 같이 있는 경우 내부 순서 변경
-          const children = Array.from(sibling.children);
-          let relEl = null, keyEl = null;
-          children.forEach(ch=>{
-            if(/Related Words|관련 단어/.test(ch.textContent)) relEl = ch;
-            if(/Key Sentences|핵심 문장|예문/.test(ch.textContent)) keyEl = ch;
-          });
-          if(relEl && keyEl && relEl.compareDocumentPosition(keyEl) & Node.DOCUMENT_POSITION_FOLLOWING){
-            // 현재 Related가 Key보다 위에 있으면 -> Key를 위로 올림
-            sibling.insertBefore(keyEl, relEl);
-            console.log('[K-Free Patch] Key Sentences moved above Related Words (inner)');
-          }
-        }
-        sibling = sibling.nextElementSibling;
-      }
-    }
-
-    // 방법 3: quiz-screen 직계 자식 중 Related, Key가 각각 별도 블록으로 있는 경우
-    const directChildren = Array.from(quizScreen.children).filter(c => c.textContent && (c.textContent.includes('Related Words') || c.textContent.includes('Key Sentences')));
-    if(directChildren.length >= 2){
-      let rel = directChildren.find(c => /Related Words|관련 단어/.test(c.textContent));
-      let key = directChildren.find(c => /Key Sentences|핵심 문장/.test(c.textContent));
-      if(rel && key && quizScreen.contains(rel) && quizScreen.contains(key)){
-        // key가 rel보다 뒤에 있으면 앞으로 이동
-        if(rel.compareDocumentPosition(key) & Node.DOCUMENT_POSITION_FOLLOWING){
-          quizScreen.insertBefore(key, rel);
-          console.log('[K-Free Patch] Key Sentences moved above Related Words (direct children)');
-        }
-      }
-    }
-
-    // 방법 4: 범용 - 가장 마지막 수단: 두 블록을 찾아 순서 강제
-    if(relatedBlock && keySentencesBlock && relatedBlock !== keySentencesBlock){
-      if(relatedBlock.compareDocumentPosition(keySentencesBlock) & Node.DOCUMENT_POSITION_FOLLOWING){
-        // related가 앞에 있음 -> key를 related 앞으로
-        relatedBlock.parentNode.insertBefore(keySentencesBlock, relatedBlock);
-        console.log('[K-Free Patch] Swapped via block reference');
-      }
-    }
-  }
-
-  // MutationObserver로 Correct 페이지 생성 감지
-  const observer = new MutationObserver(() => {
-    // 정답 클릭 후에만 동작하도록 feedback에 Correct가 있는지 체크
-    const fb = document.getElementById('feedback');
-    if(fb && /correct|정답/i.test(fb.textContent)){
-      setTimeout(reorderCorrectDetail, 50);
-      setTimeout(reorderCorrectDetail, 300);
-    }
-  });
-  observer.observe(document.body, {childList:true, subtree:true});
-
-  // 기존 함수 래핑해서 클릭 직후에도 실행
-  const wrapFn = (fnName) => {
-    if(typeof window[fnName] === 'function'){
-      const orig = window[fnName];
-      window[fnName] = function(){
-        const res = orig.apply(this, arguments);
-        setTimeout(reorderCorrectDetail, 100);
-        setTimeout(reorderCorrectDetail, 500);
-        return res;
-      };
-    }
-  };
-  // 로드 후 래핑 시도
-  window.addEventListener('load', ()=>{
-    ['showCorrectAnswer','showTargetAnswer','showAnswer','checkAnswer'].forEach(wrapFn);
-    // 옵션 클릭 이벤트도 직접 감시
-    document.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.options-container button, .options-container div, #options-container *');
-      if(btn){
-        setTimeout(reorderCorrectDetail, 100);
-        setTimeout(reorderCorrectDetail, 600);
-      }
-    });
-  });
-})();
-</script>
-
-<style>
-/* 혹시 flex로 되어있을 경우를 대비해 order로도 강제 */
-#quiz-screen .detail-key-sentences { order: 1 !important; }
-#quiz-screen .detail-related-words { order: 2 !important; }
-</style>
 </body>
 </html>
