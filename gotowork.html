@@ -169,6 +169,25 @@ window.allQuizData['cat_gotowork']=baseGotoworkData;
                 </div>
             </div>
             
+
+<div id="user-word-generator" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:22px 18px;max-width:550px;margin:20px auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
+<h3 style="font-size:1.2rem;font-weight:900;color:#1e293b;margin:0 0 6px 0">🎁 나만의 EPS-TOPIK 단어 만들기</h3>
+<p style="font-size:.88rem;color:#475569;margin:0 0 12px 0;line-height:1.5">단어 입력하면 <strong>5개 리스트에 추가</strong>되고 바로 퀴즈로 공부!</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+<input id="gen-kr" placeholder="한국어 (예: 안전모)" style="width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600" />
+<input id="gen-rom" placeholder="로마자 (예: an-jeon-mo)" style="width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600" />
+<input id="gen-en" placeholder="영어 뜻 (예: safety helmet)" style="grid-column:1/-1;width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600" />
+<select id="gen-cat" style="grid-column:1/-1;width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600">
+<option value="safety">Safety - 안전용품</option>
+<option value="tools">Tools - 공구</option>
+<option value="attendance" selected>Attendance - 출퇴근</option>
+<option value="daily">Daily - 일상</option>
+</select>
+</div>
+<button onclick="generateUserWordQuiz()" style="width:100%;background:#4285f4;color:#fff;border:none;border-radius:12px;padding:13px;font-weight:900;font-size:1rem;cursor:pointer">⚡ 단어 추가하고 바로 공부하기</button>
+<div id="gen-validation" style="margin-top:8px;font-size:.82rem;font-weight:700"></div>
+</div>
+
 <div id="gotowork-5words-list" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:20px 18px;max-width:550px;margin:20px auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
 <h3 style="font-size:1.25rem;font-weight:900;color:#1e293b;margin:0 0 14px 0">📚 출근 퀴즈 5개 - 단어 누르면 바로 이동</h3>
 <div id="five-words-container" style="display:flex;flex-direction:column;gap:10px"></div>
@@ -231,6 +250,25 @@ window.allQuizData['cat_gotowork']=baseGotoworkData;
                 <div id="ai-promo-detail" style="display:none; background:#ffffff; border:2px solid #4285f4; border-top:none; border-radius:0 0 16px 16px; padding:20px; margin-top:-2px; text-align:left; box-shadow: 0 8px 20px rgba(0,0,0,0.08);">
                     <div style="font-size:1.1rem; font-weight:900; color:#1e293b; line-height:1.5;">🤖 Want to try using <span id="dynamic-phrase" style="color:#4285f4; background:#eef2ff; padding:2px 8px; border-radius:8px;">"Go to Work"</span> in real life?</div>
                     <div style="font-size:0.92rem; color:#475569; margin-top:10px; line-height:1.6;">Tap the answer above to practice listening and speaking with examples. Got questions? Ask the AI Tutor and double your learning!</div>
+
+<div id="user-word-generator-quiz" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:22px 18px;max-width:550px;margin:20px auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
+<h3 style="font-size:1.2rem;font-weight:900;color:#1e293b;margin:0 0 6px 0">🎁 나만의 EPS-TOPIK 단어 만들기</h3>
+<p style="font-size:.88rem;color:#475569;margin:0 0 12px 0;line-height:1.5">단어 입력하면 <strong>5개 리스트에 추가</strong>되고 바로 퀴즈로 공부!</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+<input id="gen-kr-q" placeholder="한국어 (예: 안전모)" style="width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600" />
+<input id="gen-rom-q" placeholder="로마자 (예: an-jeon-mo)" style="width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600" />
+<input id="gen-en-q" placeholder="영어 뜻 (예: safety helmet)" style="grid-column:1/-1;width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600" />
+<select id="gen-cat-q" style="grid-column:1/-1;width:100%;padding:11px 12px;border:1.5px solid #cbd5e1;border-radius:10px;font-size:.9rem;font-weight:600">
+<option value="safety">Safety - 안전용품</option>
+<option value="tools">Tools - 공구</option>
+<option value="attendance" selected>Attendance - 출퇴근</option>
+<option value="daily">Daily - 일상</option>
+</select>
+</div>
+<button onclick="generateUserWordQuizQ()" style="width:100%;background:#4285f4;color:#fff;border:none;border-radius:12px;padding:13px;font-weight:900;font-size:1rem;cursor:pointer">⚡ 단어 추가하고 바로 공부하기</button>
+<div id="gen-validation-q" style="margin-top:8px;font-size:.82rem;font-weight:700"></div>
+</div>
+
 <div id="gotowork-5words-list-quiz" style="background:#ffffff;border:2.5px solid #4285f4;border-radius:18px;padding:20px 18px;max-width:550px;margin:20px auto;box-shadow:0 8px 24px rgba(66,133,244,.12);text-align:left">
 <h3 style="font-size:1.25rem;font-weight:900;color:#1e293b;margin:0 0 14px 0">📚 출근 퀴즈 5개 - 단어 누르면 바로 이동</h3>
 <div id="five-words-container-quiz" style="display:flex;flex-direction:column;gap:10px"></div>
@@ -687,6 +725,71 @@ function showGotoworkQuiz(index){
 
 document.addEventListener('DOMContentLoaded', ()=>setTimeout(renderFiveWordsList, 500));
 window.addEventListener('load', ()=>{ setTimeout(renderFiveWordsList, 800); setTimeout(renderFiveWordsList, 1500); });
+</script>
+
+
+<script>
+// 생성기 - 입력하면 5개 리스트에 추가하고 바로 그 단어 퀴즈로 이동
+function generateUserWordQuiz(){
+  const kr=document.getElementById('gen-kr')?.value.trim() || document.getElementById('gen-kr-q')?.value.trim();
+  const rom=document.getElementById('gen-rom')?.value.trim() || document.getElementById('gen-rom-q')?.value.trim();
+  const en=document.getElementById('gen-en')?.value.trim() || document.getElementById('gen-en-q')?.value.trim();
+  const catEl=document.getElementById('gen-cat') || document.getElementById('gen-cat-q');
+  const cat=catEl?.value || 'safety';
+  const valEl=document.getElementById('gen-validation') || document.getElementById('gen-validation-q');
+  
+  if(!kr||!rom||!en){
+    if(valEl) valEl.innerHTML='<span style="color:#dc2626">❌ 한국어, 로마자, 영어 모두 입력!</span>';
+    return;
+  }
+
+  const examples=[
+    {kr:`매일 아침 ${kr}를 써요`, rom:`mae-il a-chim ${rom}-reul sseo-yo`, en:`I wear ${kr} every morning at factory`},
+    {kr:`${kr}를 안 쓰면 위험해요`, rom:`${rom}-reul an sseu-myeon wi-heom-hae-yo`, en:`It's dangerous without ${kr}`},
+    {kr:`사장님 (sa-jang-nim)이 ${kr}를 확인해요`, rom:`sa-jang-nim-i ${rom}-reul hwa-gin-hae-yo`, en:`Boss checks ${kr}`}
+  ];
+
+  const related={
+    safety:[{kr:'안전모',rom:'an-jeon-mo',en:'Safety helmet'},{kr:'장갑',rom:'jang-gap',en:'Gloves'},{kr:'안전화',rom:'an-jeon-hwa',en:'Safety shoes'}],
+    attendance:[{kr:'출근',rom:'chul-geun',en:'Go to work'},{kr:'지각',rom:'ji-gak',en:'Lateness'},{kr:'결근',rom:'gyeol-geun',en:'Absence'}],
+    tools:[{kr:'망치',rom:'mang-chi',en:'Hammer'},{kr:'드라이버',rom:'deu-ra-i-beo',en:'Screwdriver'}],
+    daily:[{kr:'식당',rom:'sik-dang',en:'Cafeteria'},{kr:'기숙사',rom:'gi-suk-sa',en:'Dormitory'}]
+  };
+
+  const newWord={
+    kr:kr, rom:rom, en:en,
+    tip:`공장에서 매일 사용하는 ${kr} (${rom}). 무엇일까요?`,
+    situation:`${kr} (${rom})는 공장 (gong-jang)에서 작업 (ja-geob)할 때 꼭 필요한 EPS-TOPIK 단어입니다. 사장님 (sa-jang-nim)이 항상 확인해요.`,
+    forms:{casual:`${kr}야 (${rom}-ya)`, polite:`${kr}예요`},
+    examples:examples,
+    options:(related[cat]||related.safety).slice(0,3)
+  };
+
+  // 5개 리스트에 추가
+  baseGotoworkData.data.push(newWord);
+  if(window.allQuizData && window.allQuizData['cat_gotowork']){
+    window.allQuizData['cat_gotowork'].data=baseGotoworkData.data;
+  }
+
+  if(valEl) valEl.innerHTML=`<span style="color:#16a34a">✅ ${kr} (${rom}) 추가! 이제 ${baseGotoworkData.data.length}개가 됐어요. 바로 이동!</span>`;
+
+  renderFiveWordsList();
+
+  // 바로 그 단어 퀴즈로 이동 (퀴즈 나오고 선택지 있는 페이지)
+  setTimeout(()=>{ showGotoworkQuiz(baseGotoworkData.data.length-1); }, 400);
+}
+
+function generateUserWordQuizQ(){
+  // quiz-screen에 있는 생성기용 - 같은 함수 호출
+  const krQ=document.getElementById('gen-kr-q')?.value.trim();
+  const romQ=document.getElementById('gen-rom-q')?.value.trim();
+  const enQ=document.getElementById('gen-en-q')?.value.trim();
+  // 값을 메인 생성기로 복사
+  const krEl=document.getElementById('gen-kr'); if(krEl) krEl.value=krQ||'';
+  const romEl=document.getElementById('gen-rom'); if(romEl) romEl.value=romQ||'';
+  const enEl=document.getElementById('gen-en'); if(enEl) enEl.value=enQ||'';
+  generateUserWordQuiz();
+}
 </script>
 
 </body>
