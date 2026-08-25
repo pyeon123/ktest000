@@ -286,3 +286,7 @@ html, body { width: 100% !important; max-width: 100% !important; overflow-x: hid
     opacity: 0.35;
   }
 }
+.wide-slim-banner {
+    pointer-events: none !important;
+    cursor: default !important;
+}
