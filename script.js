@@ -2065,3 +2065,42 @@ function getPageSentences(){
   setInterval(syncFaqVisibility, 800);
  
 })();
+(function moveFaqAboveTrending(){
+ 
+  function findFaqSection(){
+    const headers = document.querySelectorAll('h3');
+    for(const h of headers){
+      if(h.textContent.trim() === 'Frequently Asked Questions'){
+        return h.closest('div');
+      }
+    }
+    return null;
+  }
+ 
+  function moveFaq(){
+    const faqSection = findFaqSection();
+    const trending = document.querySelector('.trending-container');
+    if(!faqSection || !trending) return;
+ 
+    // 이미 trending 바로 앞에 있으면 다시 옮길 필요 없음
+    if(trending.previousElementSibling === faqSection) return;
+ 
+    // trending-container 바로 앞자리로 FAQ 섹션을 이동
+    trending.insertAdjacentElement('beforebegin', faqSection);
+  }
+ 
+  function init(){
+    moveFaq();
+    // trending-container가 늦게 렌더링되는 경우 대비, 약간의 지연 후 재시도
+    setTimeout(moveFaq, 500);
+    setTimeout(moveFaq, 1500);
+  }
+ 
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  window.addEventListener('load', moveFaq);
+ 
+})();
