@@ -1331,12 +1331,287 @@ Use the page sentence as the main example first if relevant.
  
   var btn=wrap.querySelector('#ai-tutor-btn'), modal=wrap.querySelector('#ai-tutor-modal'), log=wrap.querySelector('#ai-chat-log'), faq=wrap.querySelector('#ai-faq-chips'), input=wrap.querySelector('#ai-in'), open=false;
  
-  function getCtx(){
-    const krEl=document.getElementById('korean-sentence')||document.querySelector('.kr-text');
-    const romEl=document.getElementById('romanization')||document.querySelector('.rom-text');
-    const tipEl=document.getElementById('category-tip-text');
-    return { kr: (krEl&&krEl.innerText.trim())||'가족', rom: (romEl&&romEl.innerText.trim())||'ga-jok', en: (tipEl&&tipEl.innerText.trim().slice(0,120))||'family' };
+  function getCtx() {
+
+  /* =========================================================
+     1. CURRENT QUIZ DATA
+     ========================================================= */
+
+  let data = null;
+
+  if (
+    Array.isArray(currentCategoryData) &&
+    currentCategoryData.length > 0 &&
+    typeof currentIdx === 'number'
+  ) {
+    data = currentCategoryData[currentIdx] || null;
   }
+
+
+  /* =========================================================
+     2. CURRENT PAGE BASIC INFORMATION
+     ========================================================= */
+
+  const krEl =
+    document.getElementById('korean-sentence') ||
+    document.querySelector('.kr-text');
+
+  const romEl =
+    document.getElementById('romanization') ||
+    document.querySelector('.rom-text');
+
+  const tipEl =
+    document.getElementById('category-tip-text');
+
+  const pageTitle =
+    document.title || '';
+
+  const pageUrl =
+    window.location.href;
+
+  const pagePath =
+    window.location.pathname;
+
+
+  /* =========================================================
+     3. CATEGORY
+     ========================================================= */
+
+  let category = '';
+
+  try {
+    if (
+      typeof activeCatId !== 'undefined' &&
+      typeof allQuizData !== 'undefined' &&
+      allQuizData &&
+      allQuizData[activeCatId]
+    ) {
+      category =
+        allQuizData[activeCatId].name ||
+        '';
+    }
+  } catch (e) {
+    category = '';
+  }
+
+
+  /* =========================================================
+     4. BASIC LESSON DATA
+     ========================================================= */
+
+  const kr =
+    (data?.kr ||
+      (krEl ? krEl.innerText.trim() : '') ||
+      '').trim();
+
+  const rom =
+    (data?.rom ||
+      (romEl ? romEl.innerText.trim() : '') ||
+      '').trim();
+
+  const en =
+    (data?.en || '').trim();
+
+  const tip =
+    (data?.tip ||
+      (tipEl ? tipEl.innerText.trim() : '') ||
+      '').trim();
+
+  const situation =
+    (data?.situation || '').trim();
+
+
+  /* =========================================================
+     5. FORMS
+     ========================================================= */
+
+  const forms = data?.forms
+    ? {
+        casual: data.forms.casual || '',
+        polite: data.forms.polite || '',
+        formal: data.forms.formal || ''
+      }
+    : null;
+
+
+  /* =========================================================
+     6. EXAMPLES
+     ========================================================= */
+
+  const examples = Array.isArray(data?.examples)
+    ? data.examples.slice(0, 10).map(example => ({
+        korean: example?.kr || '',
+        romanization: example?.rom || '',
+        english: example?.en || ''
+      }))
+    : [];
+
+
+  /* =========================================================
+     7. OPTIONS
+     ========================================================= */
+
+  const options = Array.isArray(data?.options)
+    ? data.options.slice(0, 10).map(option => ({
+        korean: option?.kr || '',
+        romanization: option?.rom || '',
+        english: option?.en || ''
+      }))
+    : [];
+
+
+  /* =========================================================
+     8. EPS-TOPIK PAGE CONTENT
+     
+     The page already contains:
+       EPS TOPIK
+       Learn More: How to Say...
+       Grammar Breakdown
+       When to Use It
+       Real-Life Examples
+     
+     Read the actual visible HTML content automatically.
+     ========================================================= */
+
+  let epsTopikContent = '';
+
+  try {
+
+    const epsContainer =
+      document.querySelector('.seo-learning-content');
+
+    if (epsContainer) {
+
+      // Clone so we don't modify the real page
+      const clone =
+        epsContainer.cloneNode(true);
+
+      // Remove unnecessary elements
+      clone
+        .querySelectorAll(
+          'script, style, button, audio, video'
+        )
+        .forEach(el => el.remove());
+
+      epsTopikContent =
+        clone.innerText
+          .replace(/\n{3,}/g, '\n\n')
+          .trim();
+
+    }
+
+  } catch (e) {
+
+    console.warn(
+      'EPS-TOPIK content extraction failed:',
+      e
+    );
+
+    epsTopikContent = '';
+
+  }
+
+
+  /* =========================================================
+     9. EPS-TOPIK HEADER
+     ========================================================= */
+
+  let epsTopikTitle = '';
+
+  try {
+
+    const details =
+      document.querySelector('.seo-learning-details');
+
+    if (details) {
+
+      const summary =
+        details.querySelector('summary');
+
+      if (summary) {
+        epsTopikTitle =
+          summary.innerText
+            .replace(/\s+/g, ' ')
+            .trim();
+      }
+
+    }
+
+  } catch (e) {
+
+    epsTopikTitle = '';
+
+  }
+
+
+  /* =========================================================
+     10. RETURN COMPLETE AI CONTEXT
+     ========================================================= */
+
+  return {
+
+    /* Existing fields */
+    kr: kr || '가족',
+    rom: rom || 'ga-jok',
+    en: en || 'family',
+
+    /* Page */
+    pageTitle,
+    pageUrl,
+    pagePath,
+
+    /* Category */
+    category,
+
+    categoryId:
+      typeof activeCatId !== 'undefined'
+        ? activeCatId
+        : '',
+
+    /* Lesson */
+    lesson: {
+      korean: kr,
+      romanization: rom,
+      english: en,
+      tip,
+      situation,
+      forms,
+      examples
+    },
+
+    /* Quiz */
+    quiz: data
+      ? {
+          id: data.id || '',
+          korean: data.kr || '',
+          romanization: data.rom || '',
+          english: data.en || '',
+          tip: data.tip || '',
+          situation: data.situation || '',
+          forms: forms,
+          examples: examples,
+          options: options
+        }
+      : null,
+
+    quizIndex:
+      typeof currentIdx === 'number'
+        ? currentIdx + 1
+        : 1,
+
+    quizCount:
+      Array.isArray(currentCategoryData)
+        ? currentCategoryData.length
+        : 0,
+
+    /* EPS-TOPIK */
+    epsTopik: {
+      title: epsTopikTitle,
+      content: epsTopikContent
+    }
+
+  };
+}
  
   function mdToHtml(text){
     let t = text;
@@ -1424,7 +1699,49 @@ if(user){
       const res = await fetch(ASK_TUTOR_ENDPOINT, {
         method:'POST',
         headers,
-        body: JSON.stringify({ kr: ctx.kr, rom: ctx.rom, en: ctx.en, q, ...bodyExtra })
+        body: JSON.stringify({
+
+  /* 기존 호환용 */
+  kr: ctx.kr,
+  rom: ctx.rom,
+  en: ctx.en,
+
+  /* 사용자 질문 */
+  q,
+
+  /* =====================================================
+     COMPLETE PAGE CONTEXT
+     ===================================================== */
+
+  pageContext: {
+
+    page: {
+      title: ctx.pageTitle,
+      url: ctx.pageUrl,
+      path: ctx.pagePath
+    },
+
+    category: {
+      id: ctx.categoryId,
+      name: ctx.category
+    },
+
+    lesson: ctx.lesson,
+
+    quiz: ctx.quiz,
+
+    quizProgress: {
+      current: ctx.quizIndex,
+      total: ctx.quizCount
+    },
+
+    /* EPS-TOPIK SEO/LESSON CONTENT */
+    epsTopik: ctx.epsTopik
+
+  },
+
+  ...bodyExtra
+})
       });
 
       if(res.status === 403){
