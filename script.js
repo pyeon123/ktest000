@@ -2014,7 +2014,7 @@ function getPageSentences(){
  
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions':'⚠️ Gemini disabled');
-})()
+})();
 (function autoHideFaqOnCorrectPage(){
  
   function findFaqSection(){
