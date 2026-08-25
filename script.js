@@ -2016,32 +2016,52 @@ function getPageSentences(){
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions':'⚠️ Gemini disabled');
 })()
 (function autoHideFaqOnCorrectPage(){
+ 
   function findFaqSection(){
     const headers = document.querySelectorAll('h3');
     for(const h of headers){
       if(h.textContent.trim() === 'Frequently Asked Questions'){
-        return h.parentElement;
+        return h.closest('div');
       }
     }
     return null;
   }
  
-  let faqSection = null;
- 
   function syncFaqVisibility(){
-    if(!faqSection){
-      faqSection = findFaqSection();
-      if(!faqSection) return;
-    }
+    const faqSection = findFaqSection();
+    if(!faqSection) return;
     const detailArea = document.getElementById('detail-area');
-    const onCorrectPage = detailArea && detailArea.style.display === 'block';
+    const onCorrectPage = !!(detailArea && detailArea.style.display === 'block');
     faqSection.style.display = onCorrectPage ? 'none' : '';
   }
  
-  const observer = new MutationObserver(syncFaqVisibility);
-  observer.observe(document.body, { attributes: true, attributeFilter: ['style'], subtree: true, childList: true });
+  // 원래 함수들을 감싸서, 실행 후 항상 동기화하도록 만듦
+  function wrap(fnName){
+    const original = window[fnName];
+    if(typeof original !== 'function') return;
+    window[fnName] = function(...args){
+      const result = original.apply(this, args);
+      // innerHTML 렌더링/화면 전환이 끝난 다음 프레임에 확인 (렌더링 완료 보장)
+      setTimeout(syncFaqVisibility, 0);
+      return result;
+    };
+  }
  
-  document.addEventListener('DOMContentLoaded', syncFaqVisibility);
+  function initHooks(){
+    wrap('checkAnswer');
+    wrap('nextQuiz');
+    wrap('goHome');
+    syncFaqVisibility();
+  }
+ 
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initHooks);
+  } else {
+    initHooks();
+  }
   window.addEventListener('load', syncFaqVisibility);
-  setTimeout(syncFaqVisibility, 500);
+ 
+  // 혹시 모를 지연 렌더링 대비 안전장치
+  setInterval(syncFaqVisibility, 800);
+ 
 })();
