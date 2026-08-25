@@ -1763,18 +1763,8 @@ function getPageSentences(){
  
   function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
  
-   function renderFaq(){
-    // correct 페이지(정답 화면)에서는 FAQ 칩을 숨김
-    var detailArea = document.getElementById('detail-area');
-    var onCorrectPage = detailArea && detailArea.style.display === 'block';
- 
-    if(onCorrectPage){
-      faq.innerHTML = '';
-      faq.style.display = 'none';
-      log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#64748b;">Ask me anything about Korean below!</div>`;
-      return;
-    }
- 
+  // FAQ 칩 = 지금 화면(퀴즈)에 있는 Key Sentence / Related Words. 소개 문구(Native Tip 등)는 없음.
+  function renderFaq(){
     var sentences = getPageSentences();
  
     if(sentences.length === 0){
