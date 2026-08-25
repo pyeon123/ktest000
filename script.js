@@ -2015,3 +2015,33 @@ function getPageSentences(){
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions':'⚠️ Gemini disabled');
 })()
+(function autoHideFaqOnCorrectPage(){
+  function findFaqSection(){
+    const headers = document.querySelectorAll('h3');
+    for(const h of headers){
+      if(h.textContent.trim() === 'Frequently Asked Questions'){
+        return h.parentElement;
+      }
+    }
+    return null;
+  }
+ 
+  let faqSection = null;
+ 
+  function syncFaqVisibility(){
+    if(!faqSection){
+      faqSection = findFaqSection();
+      if(!faqSection) return;
+    }
+    const detailArea = document.getElementById('detail-area');
+    const onCorrectPage = detailArea && detailArea.style.display === 'block';
+    faqSection.style.display = onCorrectPage ? 'none' : '';
+  }
+ 
+  const observer = new MutationObserver(syncFaqVisibility);
+  observer.observe(document.body, { attributes: true, attributeFilter: ['style'], subtree: true, childList: true });
+ 
+  document.addEventListener('DOMContentLoaded', syncFaqVisibility);
+  window.addEventListener('load', syncFaqVisibility);
+  setTimeout(syncFaqVisibility, 500);
+})();
