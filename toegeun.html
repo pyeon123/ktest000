@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="style.css">
     <style>
         html,body{overflow-x:hidden;max-width:100vw;}*{box-sizing:border-box;}
-  .kr-text,.rom-text,#teacher-tip-text,#category-tip-text{word-break:keep-all;overflow-wrap:break-word;}
-  .seo-learning-details{width:100%;max-width:600px;margin:0 auto 25px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);overflow:hidden;}
-  .seo-learning-details summary{cursor:pointer;padding:16px 18px;font-size:1rem;font-weight:800;color:#1e293b;list-style:none;text-align:left;}
-  .seo-learning-details summary::-webkit-details-marker{display:none;}
-  .seo-learning-details summary::after{content:"▼";float:right;color:#64748b;}
-  .seo-learning-details[open] summary::after{transform:rotate(180deg);}
-  .seo-learning-content{width:100%;max-width:600px;margin:30px auto;padding:0 15px;color:#334155;line-height:1.7;}
-  .seo-example,.seo-form{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 15px;margin:10px 0;}
+ .kr-text,.rom-text,#teacher-tip-text,#category-tip-text{word-break:keep-all;overflow-wrap:break-word;}
+ .seo-learning-details{width:100%;max-width:600px;margin:0 auto 25px;background:#fff;border:1px solid #e2e8f0;border-radius:16px;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);overflow:hidden;}
+ .seo-learning-details summary{cursor:pointer;padding:16px 18px;font-size:1rem;font-weight:800;color:#1e293b;list-style:none;text-align:left;}
+ .seo-learning-details summary::-webkit-details-marker{display:none;}
+ .seo-learning-details summary::after{content:"▼";float:right;color:#64748b;}
+ .seo-learning-details[open] summary::after{transform:rotate(180deg);}
+ .seo-learning-content{width:100%;max-width:600px;margin:30px auto;padding:0 15px;color:#334155;line-height:1.7;}
+ .seo-example,.seo-form{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px 15px;margin:10px 0;}
     </style>
 </head>
 <body>
@@ -93,7 +93,7 @@
                 </div>
                 <div id="ai-promo-detail" style="display:none;background:#fff;border:2px solid #4285f4;border-top:none;border-radius:0 0 16px 16px;padding:20px;margin-top:-2px;text-align:left;box-shadow:0 8px 20px rgba(0,0,0,0.08);">
                     <div style="font-size:1.1rem;font-weight:900;color:#1e293b;">🤖 Want to try using <span id="dynamic-phrase" style="color:#4285f4;background:#eef2ff;padding:2px 8px;border-radius:8px;">"Leave Work"</span> in real life?</div>
-                    <button onclick="openAiTutorChat()" style="width:100%;margin-top:14px;background:#4285f4;color:white;border:none;border-radius:10px;padding:13px;font-weight:900;font-size:1rem;cursor:pointer;">💬 Start Chatting <span style="font-weight:400;opacity:0.9;font-size:0.85rem;">(3 Free Tries)</span></button>
+                    <button onclick="openAiTutorChat()" style="width:100%;margin-top:14px;background:#4285f4;color:white;border:none;border-radius:10px;padding:13px;font-weight:900;font-size:1rem;cursor:pointer;">💬 Start Chatting</button>
                 </div>
             </div>
             <script>
@@ -190,7 +190,7 @@
                       { "kr": "A: 퇴근길 막혀요?", "en": "A: Is way home crowded?", "rom": "A: toe-geun-gil mak-hyeo-yo?" },
                       { "kr": "B: 네, 많이 막혀요.", "en": "B: Yes, very crowded.", "rom": "B: ne, man-i mak-hyeo-yo." },
                       { "kr": "A: 퇴근길 얼마나 걸려요?", "en": "A: How long is way home?", "rom": "A: toe-geun-gil eol-ma-na geol-lyeo-yo?" },
-                      { "kr": "B: 40분 걸려요.", "en": "B: It takes 40 minutes.", "rom": "B: ma-heun-bun geol-lyeo-yo." }
+                      { "kr": "B: 40분 걸려요.", "en": "B: It takes 40 minutes.", "rom": "B: sa-sip-bun geol-lyeo-yo." }
                   ],
                   "options": [
                       { "kr": "출근길", "rom": "chul-geun-gil", "en": "Way to work - Road from home to work" },
@@ -301,32 +301,18 @@
                     <p>B: I leave at 6 o'clock. - 퇴근([toe-geun/leave work])</p>
                 </div>
                 <div class="seo-example">
-                    <strong>A: 퇴근시간이 몇 시예요?</strong>
-                    <span>A: toe-geun-si-gan-i myeot si-ye-yo?</span>
-                    <p>A: What time is leaving time?</p>
-                    <strong>B: 6시예요.</strong>
-                    <span>B: yeo-seot-si-ye-yo.</span>
-                    <p>B: It's 6 o'clock.</p>
-                    <strong>A: 퇴근시간 지켜요?</strong>
-                    <span>A: toe-geun-si-gan ji-kyeo-yo?</span>
-                    <p>A: Do you keep leaving time?</p>
-                    <strong>B: 네, 6시에 퇴근해요.</strong>
-                    <span>B: ne, yeo-seot-si-e toe-geun-hae-yo.</span>
-                    <p>B: Yes, I leave at 6. - 퇴근시간([toe-geun-si-gan/leaving time])</p>
-                </div>
-                <div class="seo-example">
+                    <strong>A: 퇴근길 얼마나 걸려요?</strong>
+                    <span>A: toe-geun-gil eol-ma-na geol-lyeo-yo?</span>
+                    <p>A: How long is way home?</p>
+                    <strong>B: 40분 걸려요.</strong>
+                    <span>B: sa-sip-bun geol-lyeo-yo.</span>
+                    <p>B: It takes 40 minutes. - 퇴근길([toe-geun-gil/way home])</p>
                     <strong>A: 퇴근길 막혀요?</strong>
                     <span>A: toe-geun-gil mak-hyeo-yo?</span>
                     <p>A: Is way home crowded?</p>
                     <strong>B: 네, 많이 막혀요.</strong>
                     <span>B: ne, man-i mak-hyeo-yo.</span>
                     <p>B: Yes, very crowded.</p>
-                    <strong>A: 퇴근길 얼마나 걸려요?</strong>
-                    <span>A: toe-geun-gil eol-ma-na geol-lyeo-yo?</span>
-                    <p>A: How long is way home?</p>
-                    <strong>B: 40분 걸려요.</strong>
-                    <span>B: ma-heun-bun geol-lyeo-yo.</span>
-                    <p>B: It takes 40 minutes. - 퇴근길([toe-geun-gil/way home])</p>
                 </div>
                 <div class="seo-example">
                     <strong>A: 오늘 야근 있어요?</strong>
