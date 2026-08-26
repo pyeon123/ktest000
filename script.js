@@ -2526,7 +2526,7 @@ function getPageSentences(){
  
     // trending-container 바로 앞자리로 FAQ 섹션을 이동
     trending.insertAdjacentElement('beforebegin', faqSection);
-    faqSection.style.marginTop = '30px';  
+    faqSection.style.marginTop = '40px';  
   }
  
   function init(){
