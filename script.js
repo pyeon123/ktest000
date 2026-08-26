@@ -235,6 +235,7 @@ window.quizDB = window.quizDB || [
     { title: "This Is My Friend", url: "jechinguyeoyo1.html", keywords: "this is my friend friend introduction" },
     { title: "That's Perfect", url: "wanbyeokhaeyo1.html", keywords: "that's perfect perfect excellent great" },
     { title: "That's Enough", url: "chungbunhaeyo1.html", keywords: "that's enough enough stop sufficient" },
+    { title: "Sick Leave", url: "byeongga.html", keywords: "sick leave medical leave illness absence" },
     { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
 ];
 const quizDB = window.quizDB;
