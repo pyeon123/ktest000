@@ -1,3 +1,18 @@
+if(!window.TRANSLATIONS){
+  const s=document.createElement('script');
+  s.src='/translations.js';
+  document.head.appendChild(s);
+}
+let currentLang = localStorage.getItem('kfree-lang') || 'en';
+function t(text){
+  if(!text) return text;
+  if(/[가-힣]/.test(text)) return text; // 한글 절대 번역 안함
+  if(currentLang === 'en') return text;
+  try {
+    const dict = window.TRANSLATIONS?.[currentLang];
+    return dict?.[text.trim()] || dict?.[text] || text;
+  } catch(e) { return text; }
+}
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -2545,3 +2560,69 @@ function getPageSentences(){
   window.addEventListener('load', moveFaq);
  
 })();
+document.addEventListener('DOMContentLoaded', () => {
+  if(document.getElementById('kfree-lang')) return;
+  const sel = document.createElement('select');
+  sel.id = 'kfree-lang';
+  sel.innerHTML = `
+    <option value="en">🇺🇸 English</option>
+    <option value="tl">🇵🇭 Tagalog</option>
+    <option value="vi">🇻🇳 Tiếng Việt</option>
+    <option value="id">🇮🇩 Indonesia</option>
+    <option value="th">🇹🇭 ไทย</option>
+    <option value="my">🇲🇲 မြန်မာ</option>
+    <option value="km">🇰🇭 ខ្មែរ</option>
+    <option value="lo">🇱🇦 ລາວ</option>
+    <option value="ms">🇲🇾 Melayu</option>
+    <option value="si">🇱🇰 Sinhala</option>
+  `;
+  sel.style.cssText = 'position:fixed;top:75px;right:12px;z-index:99999;padding:8px 14px;border:2px solid #4285f4;border-radius:20px;background:white;font-weight:800;color:#1e293b;box-shadow:0 4px 12px rgba(0,0,0,0.1);cursor:pointer;';
+  sel.value = localStorage.getItem('kfree-lang') || 'en';
+  sel.onchange = () => { 
+    localStorage.setItem('kfree-lang', sel.value); 
+    location.reload(); 
+  };
+  document.body.appendChild(sel);
+
+  // 기존 영어 텍스트를 번역으로 교체
+  setTimeout(() => {
+    document.querySelectorAll('.opt-item, #situation, #today-title').forEach(el => {
+      if(el && el.textContent && !/[가-힣]/.test(el.textContent)) {
+        // 이미 t()가 적용된 곳은 스킵, UI 라벨만
+      }
+    });
+  }, 500);
+});
+
+// 기존 loadQuiz에서 영어만 번역되도록 패치 - 기존 함수 덮어쓰기
+const originalLoadQuiz = window.loadQuiz;
+if(originalLoadQuiz){
+  window.loadQuiz = function(autoSpeak){
+    resetRecognitionState();
+    const data = currentCategoryData[currentIdx];
+    const situationEl = document.getElementById('situation');
+    if(situationEl) situationEl.textContent = t(`${allQuizData[activeCatId].name}`);
+    const tipEl = document.getElementById('category-tip-text');
+    if (tipEl) { tipEl.textContent = t(data.tip || "Listen and repeat the phrase!"); }
+    document.getElementById('korean-sentence').textContent = data.kr;
+    document.getElementById('romanization').textContent = data.rom; 
+    document.getElementById('feedback').textContent = "";
+    const container = document.getElementById('options-container');
+    container.innerHTML = "";
+    let choices = [{text: data.en, isCorrect: true}];
+    let others = currentCategoryData.filter(item => item.en !== data.en);
+    shuffleArray(others);
+    if (others[0]) choices.push({text: others[0].en, isCorrect: false});
+    if (others[1]) choices.push({text: others[1].en, isCorrect: false});
+    shuffleArray(choices);
+    choices.forEach((choice, i) => {
+        const btn = document.createElement('button'); 
+        btn.className = 'opt-item';
+        btn.textContent = (i + 1) + ". " + t(choice.text);
+        btn.onclick = () => checkAnswer(choice.isCorrect, data);
+        container.appendChild(btn);
+    });
+    injectQuizSchema({ question: data.kr, answer: data.en });
+    if (autoSpeak) { setTimeout(speak, 1000); }
+  }
+}
