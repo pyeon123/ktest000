@@ -714,21 +714,22 @@ function toggleKFreeInfo(e, section) {
     3 free questions reset every day.
 </p>
 
-    <!-- STEP 1: 로그인 영역 -->
-    <div id="modal-login-section">
-      <button onclick="loginWithGoogle()" style="width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px;">
-        Continue with Google
-      </button>
-      
-      <div style="margin: 12px 0; color: #aaa; font-size: 12px;">or log in with email</div>
-      
-      <input type="email" id="auth-email" placeholder="Email address" style="width: 100%; padding: 10px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box;">
-      <input type="password" id="auth-password" placeholder="password" style="width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box;">
-      
-      <button onclick="loginWithEmail()" style="width: 100%; padding: 11px; background: #4F46E5; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">
-        Login / Sign Up
-      </button>
-    </div>
+   <!-- STEP 1: 로그인 영역 (수정본) -->
+<div id="modal-login-section">
+  <button onclick="loginWithGoogle()" style="width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px;">
+    Continue with Google
+  </button>
+  
+  <div style="margin: 12px 0; color: #aaa; font-size: 12px;">or log in with email</div>
+  
+  <form onsubmit="event.preventDefault(); loginWithEmail();" style="width: 100%; margin: 0; padding: 0;">
+    <input type="email" id="auth-email" autocomplete="username" placeholder="Email address" style="width: 100%; padding: 10px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box;" required>
+    <input type="password" id="auth-password" autocomplete="current-password" placeholder="password" style="width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box;" required>
+    <button type="submit" style="width: 100%; padding: 11px; background: #4F46E5; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px;">
+      Login / Sign Up
+    </button>
+  </form>
+</div>
 
     <!-- STEP 2: 로그인 성공 후 표시될 결제 영역 -->
     <div id="modal-pay-section" style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
