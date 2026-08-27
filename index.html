@@ -1,4 +1,4 @@
-조<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -35,7 +35,7 @@
             <div style="text-align: center; padding: 20px 0 10px 0;">
                 <div class="big-korea-badge" style="font-size: 3.5rem; margin-bottom: 5px;">🇰🇷</div>
                 <div class="logo" style="font-size: 2rem; font-weight: 900; color: var(--primary);">FREE-PHRASE QUIZ</div>
-                <p style="margin: 5px 0 0 0; color: #64748b; font-weight: 700;">TOPIK + EPS TOPIK + AI TUTER</p>
+                <p style="margin: 5px 0 0 0; color: #64748b; font-weight: 700;">TOPIK + Real- Life Korean</p>
                 <p style="margin-top: 10px; font-weight: bold; color: #4285f4; font-size: 1.1rem;">
                     🌐 Practice Korean in your language!
                 </p>
@@ -62,7 +62,7 @@
             </div>
 
             <div class="menu-intro" style="text-align: center; margin-bottom: 15px;">
-                <h2></h2>
+                <h2>Practice Free Korean & AI Tutor</h2>
             </div>
 
             <div id="today-quiz-section" class="game-ad-bar" onclick="expandTodayQuiz()" style="width: 100%; max-width: 550px; padding: 20px; cursor: pointer; margin: 0 auto 30px auto; transition: all 0.3s; box-sizing: border-box;">
@@ -735,7 +735,7 @@ function toggleKFreeInfo(e, section) {
       <p style="color: #059669; font-weight: bold; margin-bottom: 4px;">You have been logged in!</p>
       <p id="modal-plan-note" style="font-size: 13px; color: #555; margin-bottom: 15px;"></p>
  
-      <div id="paypal-button-container"></div>
+      <div id="payment-options-container"></div>
  
       <div id="modal-pay-status" style="display:none; margin-top:12px; padding:10px 12px; border-radius:8px; font-size:12.5px; line-height:1.5;"></div>
  
@@ -747,16 +747,18 @@ function toggleKFreeInfo(e, section) {
 <!-- Supabase SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- ⚠️ PayPal Client ID로 교체하세요 -->
-<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&vault=true&intent=subscription"></script>
-
 <script>
   // ★ 여기에 본인의 Supabase Project URL 및 anon key를 넣어주세요.
   const SUPABASE_URL = 'https://kwfiidykbaargsxuuvvy.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_VThH1zOjeve9iqeBqPWbTQ_1vB5CS_X';
 
   const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  let paypalRendered = false;
+  let paymentButtonsRendered = false;
+
+  // ⚠️ 아래 두 값은 각 서비스 가입 후 실제 값으로 교체하세요.
+  const PAYMONGO_PUBLIC_KEY = 'pk_test_XXXXXXXXXXXXXXXX'; // PayMongo 대시보드 > API Keys
+  const PAYMONGO_PRICE_PHP = 199; // GCash 결제 금액 (페소, 소수점 없이 정수)
+  const LEMONSQUEEZY_CHECKOUT_URL = 'https://k-free.lemonsqueezy.com/checkout/buy/8ac10442-4401-4d5e-9f9d-6cdefa908bea'; // Lemon Squeezy 상품 체크아웃 링크
 
   // 팝업 모달 열기 / 닫기
   function openAuthModal() {
@@ -833,7 +835,7 @@ function toggleKFreeInfo(e, section) {
 
   async function logout() {
     await supabaseClient.auth.signOut();
-    paypalRendered = false;
+    paymentButtonsRendered = false;
     checkUserStatus();
   }
 
@@ -849,11 +851,11 @@ function toggleKFreeInfo(e, section) {
       const planNote = document.getElementById('modal-plan-note');
       if (profile && profile.plan === 'paid') {
         planNote.innerHTML = `✅ You're on the <b>Paid plan</b> (20 questions/day). Thank you!`;
-        document.getElementById('paypal-button-container').style.display = 'none';
+        document.getElementById('payment-options-container').style.display = 'none';
       } else {
         planNote.innerHTML = `Free plan: <b>3 questions/day</b>. Upgrade below for 20/day.`;
-        document.getElementById('paypal-button-container').style.display = 'block';
-        renderPayPalButtonIfNeeded();
+        document.getElementById('payment-options-container').style.display = 'block';
+        renderPaymentButtons();
       }
     } else {
       document.getElementById('modal-login-section').style.display = 'block';
@@ -869,58 +871,79 @@ function toggleKFreeInfo(e, section) {
     box.style.color = type === 'error' ? '#dc2626' : (type === 'success' ? '#166534' : '#4338ca');
   }
 
-  // 진짜 PayPal 구독 버튼 렌더링 (로그인된 유저의 id를 custom_id로 실어보냄)
-  async function renderPayPalButtonIfNeeded() {
-    if (paypalRendered) return;
-    const user = await window.getKoreanAuthUser();
-    if (!user || typeof paypal === 'undefined') return;
-    paypalRendered = true;
+  // ==================== 결제 수단 선택 (PayMongo GCash / Lemon Squeezy 해외카드) ====================
+  // 사용자가 직접 자기 나라에 맞는 버튼을 고르는 방식입니다 (자동 국가감지 없음 = 제일 단순하고 오류 없음).
 
-    document.getElementById('paypal-button-container').innerHTML = '';
+  async function renderPaymentButtons() {
+    if (paymentButtonsRendered) return;
+    paymentButtonsRendered = true;
 
-    paypal.Buttons({
-      style: { shape: 'pill', color: 'gold', layout: 'vertical', label: 'subscribe' },
+    const container = document.getElementById('payment-options-container');
+    container.innerHTML = `
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button id="btn-pay-gcash" style="width:100%; padding:12px; background:#0070ba; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:bold; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px;">
+          🇵🇭 Pay with GCash / Maya (Philippines)
+        </button>
+        <button id="btn-pay-card" style="width:100%; padding:12px; background:#111827; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:bold; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px;">
+          🌍 Pay with Card (International)
+        </button>
+      </div>
+      <p style="font-size:11.5px; color:#94a3b8; text-align:center; margin-top:10px;">
+        Choose the option that matches where you're paying from.
+      </p>
+    `;
 
-      createSubscription: function (data, actions) {
-        return actions.subscription.create({
-          plan_id: 'YOUR_PAYPAL_PLAN_ID', // ⚠️ PayPal에서 만든 Billing Plan ID로 교체
-          custom_id: user.id
-        });
-      },
-
-      onApprove: function (data, actions) {
-        showPayStatus('Payment approved! Activating your account, please wait...', 'info');
-        pollForUpgrade();
-      },
-
-      onError: function (err) {
-        console.error('[PayPal] error:', err);
-        showPayStatus('Something went wrong with PayPal. Please try again.', 'error');
-      },
-
-      onCancel: function () {
-        showPayStatus('Payment cancelled.', 'error');
-      }
-    }).render('#paypal-button-container');
+    document.getElementById('btn-pay-gcash').onclick = payWithPayMongo;
+    document.getElementById('btn-pay-card').onclick = payWithLemonSqueezy;
   }
 
-  // 웹훅이 서버에 도착해서 DB가 바뀔 때까지 몇 초간 확인
-  async function pollForUpgrade() {
-    const user = await window.getKoreanAuthUser();
-    for (let i = 0; i < 10; i++) {
-      await new Promise(r => setTimeout(r, 2000));
-      const { data } = await supabaseClient
-        .from('profiles')
-        .select('plan')
-        .eq('id', user.id)
-        .single();
-      if (data && data.plan === 'paid') {
-        showPayStatus('🎉 You are now on the paid plan!', 'success');
-        setTimeout(() => { checkUserStatus(); }, 1200);
-        return;
+  // ---- 1) PayMongo: GCash/Maya (필리핀 전용, QRPH) --------------------------
+  // PayMongo Payment Links API를 서버(Edge Function)에서 생성해서 그 URL로 이동시키는 방식.
+  // (API 시크릿 키는 절대 브라우저 코드에 넣지 않고 Edge Function 안에서만 사용합니다.)
+  async function payWithPayMongo() {
+    try {
+      showPayStatus('Creating your payment link...', 'info');
+      const token = await window.getKoreanAuthToken();
+      const user = await window.getKoreanAuthUser();
+      if (!user) { showPayStatus('Please log in first.', 'error'); return; }
+
+      const res = await fetch('https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/create-paymongo-link', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ amount: PAYMONGO_PRICE_PHP })
+      });
+      const result = await res.json().catch(() => ({}));
+
+      if (res.ok && result.checkoutUrl) {
+        // GCash 결제 페이지로 이동. 결제 완료되면 PayMongo가 웹훅으로 우리 서버에 알려주고,
+        // 서버가 profiles.plan을 'paid'로 바꿔줍니다.
+        window.location.href = result.checkoutUrl;
+      } else {
+        showPayStatus('Could not start GCash payment. Please try again later.', 'error');
       }
+    } catch (e) {
+      console.error('[PayMongo] error:', e);
+      showPayStatus('Something went wrong. Please try again.', 'error');
     }
-    showPayStatus('Payment received, activation is taking longer than usual. Please reopen this menu in a minute.', 'error');
+  }
+
+  // ---- 2) Lemon Squeezy: 해외 카드결제 (Merchant of Record, 세금처리 자동) ------
+  // 체크아웃 URL에 로그인된 유저 id를 custom data로 실어보내서, 결제 완료 웹훅에서
+  // 어떤 유저를 'paid'로 바꿔야 할지 알 수 있게 합니다.
+  async function payWithLemonSqueezy() {
+    const user = await window.getKoreanAuthUser();
+    if (!user) { showPayStatus('Please log in first.', 'error'); return; }
+
+    const checkoutUrl = new URL(LEMONSQUEEZY_CHECKOUT_URL);
+    checkoutUrl.searchParams.set('checkout[custom][user_id]', user.id);
+    if (user.email) checkoutUrl.searchParams.set('checkout[email]', user.email);
+
+    // 새 탭으로 열어서, 원래 페이지는 그대로 두고 결제만 다녀오게 함
+    window.open(checkoutUrl.toString(), '_blank', 'noopener');
+    showPayStatus('Complete your payment in the new tab. Your plan will update automatically once payment is confirmed.', 'info');
   }
 
   window.addEventListener('DOMContentLoaded', checkUserStatus);
