@@ -2089,13 +2089,9 @@ function getPageSentences(){
       </div>
 
       <div style="margin-bottom:14px;background:white;border:1px solid #e0e7ff;padding:12px;border-radius:12px;">
-        <div style="font-weight:800;color:#6366f1;margin-bottom:10px;">
-          🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)
-        </div>
+        <div style="font-weight:800;color:#6366f1;margin-bottom:10px;">🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)</div>
         <div style="text-align:center;line-height:1.5;margin-bottom:12px;background:#f8fafc;padding:10px 12px;border-radius:10px;">
-          <div style="font-size:0.9rem;font-weight:900;color:#1e293b;">
-            20/day = <span style="color:#6366f1;">600/month</span> for just <b>$3.99</b> <span style="color:#94a3b8;font-weight:600;">(₱199)</span>
-          </div>
+          <div style="font-size:0.9rem;font-weight:900;color:#1e293b;">20/day = <span style="color:#6366f1;">600/month</span> for just <b>$3.99</b> <span style="color:#94a3b8;font-weight:600;">(₱199)</span></div>
           <div style="font-size:0.75rem;color:#94a3b8;margin-top:3px;">Less than a coffee ☕ · 20 questions every day</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
@@ -2104,11 +2100,18 @@ function getPageSentences(){
         </div>
       </div>
 
-      <div style="margin-bottom:12px;">
-        <div style="font-weight:800;color:#6366f1;">📚 Grammar Database — Unlimited & Free</div>
-        <div style="font-size:0.82rem;color:#475569;margin-top:3px;">Get unlimited grammar explanations for the sentences above. <b>(Tap a sentence.)</b></div>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:12px;border-radius:12px;margin-top:12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-weight:800;color:#15803d;font-size:0.82rem;">✅ FREE PLAN</div>
+          <div style="font-size:0.68rem;background:#dcfce7;color:#166534;padding:3px 8px;border-radius:999px;font-weight:800;">Always Free</div>
+        </div>
+        <div style="margin-top:8px;font-size:0.9rem;font-weight:800;color:#1e293b;">3000 Quizzes, Speaking & Listening — Unlimited!</div>
+        <div style="margin-top:10px;background:white;border:1px dashed #bbf7d0;padding:9px 10px;border-radius:10px;display:flex;align-items:center;gap:8px;">
+          <span>⏰</span>
+          <span style="font-size:0.82rem;color:#475569;">Your <b style="color:#15803d;">3 AI questions</b> will refill tomorrow</span>
+        </div>
       </div>
-      <div style="font-size:0.82rem;color:#475569;">✨ All other features, including quizzes, speaking, and listening practice, are completely free.</div>
+
     </div>
   `;
   log.innerHTML += limitMessage;
