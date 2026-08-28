@@ -1438,10 +1438,9 @@ function hasGrammarPattern(text, pattern){
 
   if(pattern.startsWith('-')){
     const actualPattern = pattern.slice(1).trim();
-    if(!actualPattern || actualPattern.length < 2) return false;
+    if(!actualPattern) return false;
     return hasTrailingHangulBoundary(text, actualPattern);
   }
-  if(pattern.length < 2) return false;
 
   return hasTrailingHangulBoundary(text, pattern);
 }
