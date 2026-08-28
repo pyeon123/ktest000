@@ -2131,11 +2131,38 @@ function getPageSentences(){
     );
   }
  
-  window.openShare=openShare;
+    window.openShare=openShare;
   btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
   wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
   input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
   wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
+
+  // 👇 검색창 하단 빈여백 사용법 - 최종본
+  (function addUsageGuide(){
+    if(document.getElementById('usageGuide')) return;
+    const guide = document.createElement('div');
+    guide.id = 'usageGuide';
+    guide.innerHTML = `
+      <div style="font-weight:700;color:#6366f1;margin-bottom:2px;">💡 How to use: Select and tap!</div>
+      📚 Tap top sentence → Free grammar (unlimited)<br>
+      💬 Tap middle sentence → Ask AI<br>
+      ✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain<br>
+      🔍 Search bar → Ask deeper questions
+    `;
+    guide.style.cssText = "background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-top:8px;color:#94a3b8;font-size:0.75rem;line-height:1.6;";
+    input.insertAdjacentElement('afterend', guide);
+
+    const hide = () => guide.style.display = 'none';
+    const show = () => guide.style.display = 'block';
+    show();
+    document.addEventListener('click', (e)=>{
+      if(e.target.closest('.faq-chip') || e.target.closest('button')){
+        if(!e.target.closest('#usageGuide')) hide();
+      }
+    });
+    input.addEventListener('focus', ()=>{ if(!input.value.trim()) show(); });
+    input.addEventListener('input', ()=>{ if(input.value.trim()) hide(); });
+  })();
  
   window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
   window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
