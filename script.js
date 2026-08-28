@@ -2136,10 +2136,9 @@ function getPageSentences(){
     open=!open; 
     modal.style.display=open?'flex':'none'; 
     if(open){ 
-      renderFaq(); 
+      renderFaq();
       setTimeout(()=>{
-        let g = document.getElementById('usageGuide');
-        if(g){ g.style.display='block'; return; }
+        if(document.getElementById('usageGuide')) return;
         const guide = document.createElement('div');
         guide.id = 'usageGuide';
         guide.innerHTML = `
@@ -2149,13 +2148,11 @@ function getPageSentences(){
           <div>✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain</div>
           <div>🔍 Search bar → Ask deeper questions</div>
         `;
-        guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:10px 0;color:#64748b;font-size:0.75rem;line-height:1.7;position:relative;z-index:10;";
-        const faqEl = document.getElementById('faq') || wrap.querySelector('#faq');
-        const logEl = document.getElementById('log');
-        if(faqEl) faqEl.insertAdjacentElement('afterend', guide);
-        else if(logEl) logEl.insertAdjacentElement('beforebegin', guide);
-        else wrap.prepend(guide);
-      },200);
+        guide.style.cssText = "display:block !important;background:#f0fdf4 !important;border:1px dashed #bbf7d0 !important;padding:12px !important;border-radius:10px !important;margin:10px !important;color:#475569 !important;font-size:0.78rem !important;line-height:1.7 !important;position:relative !important;z-index:99999 !important;width:calc(100% - 20px) !important;box-sizing:border-box !important;";
+        // 무조건 맨 위에 박기
+        wrap.prepend(guide);
+        console.log('✅ 가이드 강제 삽입 완료');
+      },300);
     }
   };
   wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
