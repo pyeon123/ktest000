@@ -2132,37 +2132,31 @@ function getPageSentences(){
   }
  
   window.openShare=openShare;
-  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); setTimeout(()=>{ const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; },100); }};
+  btn.onclick=()=>{
+    open=!open; 
+    modal.style.display=open?'flex':'none'; 
+    if(open){ 
+      renderFaq(); 
+      // 👇 모달 열린 후에 가이드 만들기 - 이게 핵심!
+      setTimeout(()=>{
+        let g = document.getElementById('usageGuide');
+        if(g){ g.style.display='block'; return; }
+        const guide = document.createElement('div');
+        guide.id = 'usageGuide';
+        guide.innerHTML = `💡 <b style="color:#6366f1;">How to use:</b> 📚 Top=Free Grammar · 💬 Middle=Ask AI · ✨ Bottom=More Quiz`;
+        guide.style.cssText = "display:block !important;background:yellow !important;border:2px solid red !important;padding:10px 12px;border-radius:10px;margin:10px;color:#000;font-size:0.8rem;z-index:9999;position:relative;";
+        const faqEl = document.getElementById('faq') || wrap.querySelector('#faq') || wrap.querySelector('[id*="faq"]');
+        const logEl = document.getElementById('log') || wrap.querySelector('#log');
+        if(faqEl) faqEl.insertAdjacentElement('afterend', guide);
+        else if(logEl) logEl.insertAdjacentElement('beforebegin', guide);
+        else wrap.prepend(guide);
+        console.log('✅ 가이드 생성됨:', guide);
+      },200);
+    }
+  };
   wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
   input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
   wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
-
-  // 👇 완전 위로 올린 버전 - FAQ 바로 아래
-  (function addUsageGuide(){
-    if(document.getElementById('usageGuide')) return;
-    const guide = document.createElement('div');
-    guide.id = 'usageGuide';
-    guide.innerHTML = `
-      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
-      <div style="line-height:1.5;">📚 Top → Free grammar · 💬 Middle → Ask AI · ✨ Bottom → More Quiz</div>
-    `;
-    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:8px 12px;border-radius:10px;margin:0 0 10px 0;color:#94a3b8;font-size:0.72rem;width:100%;box-sizing:border-box;";
-    
-    // FAQ 바로 아래에 넣어서 위로 올림
-    const faqEl = document.getElementById('faq') || wrap.querySelector('#faq');
-    if(faqEl){
-      faqEl.insertAdjacentElement('afterend', guide);
-    } else {
-      // faq 못찾으면 로그 위로
-      const logEl = document.getElementById('log');
-      if(logEl) logEl.insertAdjacentElement('beforebegin', guide);
-    }
-
-    const hide = () => guide.style.display = 'none';
-    document.addEventListener('click', (e)=>{
-      if(e.target.closest('.faq-chip')) hide();
-    });
-  })();
  
   window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
   window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
