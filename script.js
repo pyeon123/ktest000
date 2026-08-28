@@ -1611,95 +1611,105 @@ function getPageSentences(){
  
 
 
+
   function renderFaq(){
     var sentences = getPageSentences();
 
-    // 문장 3개에서 문법 3개 추출 (로컬 DB용)
-    let detectedFromSentences = [];
+    // 중간 문장 3개에서 각각 문법 1개씩 추출 -> 상단 3개에 넣기 (1:1 매핑)
+    let grammarsPerSentence = [];
     try{
       if(sentences.length>0){
-        const combinedText = sentences.map(s=>s.kr||'').join(' ');
-        detectedFromSentences = detectGrammarInText(combinedText).slice(0,3);
+        grammarsPerSentence = sentences.map(s=>{
+          const found = detectGrammarInText(s.kr||'');
+          return found.length>0 ? found[0] : null;
+        });
       }
-      // 만약 문장에서 못 찾으면 현재 레슨에서라도 찾기 (fallback)
-      if(detectedFromSentences.length===0){
-        const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
-          ? currentCategoryData[currentIdx] : null;
-        if(quiz){
-          let combined = (quiz.kr||'') + ' ';
-          if(Array.isArray(quiz.examples)) combined += quiz.examples.map(e=>e.kr||'').join(' ') + ' ';
-          detectedFromSentences = detectGrammarInText(combined).slice(0,3);
+      // 빈 곳은 현재 레슨에서 채우기
+      if(grammarsPerSentence.filter(Boolean).length===0){
+        const fallback = getDetectedGrammars();
+        for(let i=0;i<3;i++){
+          if(!grammarsPerSentence[i] && fallback[i]) grammarsPerSentence[i]=fallback[i];
         }
       }
     }catch(e){ console.warn(e); }
 
-    // 디자인 그대로 유지 - 상단 3개 = 문장 3개에서 뽑은 문법 (로컬 DB)
+    // 상단: 문장별 문법 DB 3개 (초록색)
     let modeButtonsHtml = '';
-    if(detectedFromSentences.length>0){
+    if(sentences.length>0){
       modeButtonsHtml = `<div style="width:100%;display:flex;gap:6px;">`
-        + detectedFromSentences.map((g,i)=>
-          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">`
-          + `📚<br>${escapeHtml(g.grammar)}<br><span style="font-size:.65rem;color:#64748b;">${escapeHtml(g.id)}</span>`
-          + `</button>`
-        ).join('')
+        + [0,1,2].map(i=>{
+          const g = grammarsPerSentence[i];
+          const sentence = sentences[i];
+          if(g){
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">`
+              + `📚<br>${escapeHtml(g.grammar)}<br><span style="font-size:.6rem;color:#64748b;">${i+1}번째 문법</span>`
+              + `</button>`;
+          } else {
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#fefce8;border-color:#fde68a;">`
+              + `📚<br>문법<br><span style="font-size:.6rem;color:#64748b;">${i+1}번째</span>`
+              + `</button>`;
+          }
+        }).join('')
         + `</div>`;
     } else {
-      // fallback: 문법을 못 찾았을 때 기존 라벨 유지
+      // 문장이 없을 때 fallback
       modeButtonsHtml = `<div style="width:100%;display:flex;gap:6px;">`
-        + `<button class="faq-chip" data-gram-idx="fallback-0" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>문법<br>DB</button>`
-        + `<button class="faq-chip" data-gram-idx="fallback-1" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>문법<br>DB</button>`
-        + `<button class="faq-chip" data-gram-idx="fallback-2" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>문법<br>DB</button>`
+        + `<button class="faq-chip" data-gram-idx="0" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>문법<br>DB</button>`
+        + `<button class="faq-chip" data-gram-idx="1" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>문법<br>DB</button>`
+        + `<button class="faq-chip" data-gram-idx="2" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>문법<br>DB</button>`
         + `</div>`;
     }
 
     if(sentences.length === 0){
       faq.innerHTML = modeButtonsHtml;
-      log.innerHTML = `<div style="background:#f0fdf4;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#166534;">📚 상단 3개는 이 레슨 문장에서 찾은 문법이에요 (무료)</div>`;
+      log.innerHTML = `<div style="background:#f0fdf4;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#166534;">📚 상단 3개는 문법 DB (무료) - 하단 문장이 생기면 그 문장에서 문법을 뽑아와요</div>`;
       faq.style.display='flex';
-      // 바인딩
       wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
         c.onclick=()=>{
           const idx = parseInt(c.getAttribute('data-gram-idx'),10);
-          if(!isNaN(idx)){
-            const g = detectedFromSentences[idx];
-            if(g) handleLocalGrammarDisplay(g);
-          } else {
-            handleLocalGrammarDisplay(null);
-          }
+          const g = grammarsPerSentence[idx];
+          if(g) handleLocalGrammarDisplay(g);
+          else handleLocalGrammarDisplay(null, grammarsPerSentence.filter(Boolean));
         };
       });
       return;
     }
 
-    // 하단: 문장 3개 = AI
-    faq.innerHTML = modeButtonsHtml + sentences.map((s,i) =>
-  `<button class="faq-chip" data-sidx="${i}" style="background:#f5f3ff;border-color:#ddd6fe;margin-top:6px;">
-    <div style="font-size:.82em;font-weight:700;">
+    // 하단: 중간 문장 3개 (보라색 - AI)
+    faq.innerHTML = modeButtonsHtml + `<div style="width:100%;height:1px;background:#e2e8f0;margin:8px 0;"></div>` + sentences.map((s,i) =>
+  `<button class="faq-chip" data-sidx="${i}" style="width:100%;background:#f5f3ff;border-color:#ddd6fe;text-align:left;">
+    <div style="font-size:.72rem;font-weight:800;color:#6366f1;margin-bottom:3px;">${i+1}번째 문장 → AI 설명</div>
+    <div style="font-size:.85em;font-weight:700;">
       ${escapeHtml(s.kr)}
     </div>
-    <div style="font-size:.9em;font-weight:700;opacity:.95;margin-top:5px;color:#6366f1;">
-      ${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')} → 🤖 AI
+    <div style="font-size:.8em;font-weight:600;opacity:.9;margin-top:4px;color:#475569;">
+      ${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')}
     </div>
   </button>`
 ).join('');
 
-    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 <b style="color:#16a34a;">상단 초록색 3개</b>는 아래 문장 3개에서 찾은 문법(무료 DB), <b style="color:#6366f1;">하단 보라색 문장</b>은 AI 설명이에요.</div>`;
+    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;line-height:1.5;">
+      👆 <b style="color:#16a34a;">상단 초록색 3개</b> = 중간 문장 3개 각각에서 뽑은 문법 (무료 DB)<br>
+      1번째 초록색 = 1번째 문장의 문법, 2번째 = 2번째 문장의 문법<br>
+      <b style="color:#6366f1;">하단 보라색 문장</b>을 누르면 AI 설명
+    </div>`;
 
     faq.style.display='flex';
     log.scrollTop = 0;
  
     wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
       c.onclick=()=>{
-        const attr = c.getAttribute('data-gram-idx');
-        const idx = parseInt(attr,10);
-        if(!isNaN(idx)){
-          const g = detectedFromSentences[idx];
-          if(g) handleLocalGrammarDisplay(g);
-        } else {
-          // fallback - 전체 문법 표시
-          const all = detectedFromSentences.length>0 ? detectedFromSentences : getDetectedGrammars();
-          if(all.length>0) handleLocalGrammarDisplay(null, all);
-          else handleLocalGrammarDisplay(null);
+        const idx = parseInt(c.getAttribute('data-gram-idx'),10);
+        const g = grammarsPerSentence[idx];
+        if(g) handleLocalGrammarDisplay(g);
+        else {
+          // 해당 문장에 문법이 없으면 그 문장 전체에서 다시 찾기
+          const s = sentences[idx];
+          if(s){
+            const found = detectGrammarInText(s.kr);
+            if(found.length>0) handleLocalGrammarDisplay(found[0]);
+            else handleLocalGrammarDisplay(null);
+          }
         }
       };
     });
