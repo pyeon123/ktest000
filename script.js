@@ -1,10 +1,4 @@
 console.log('🔥 AI_SCRIPT_CLEAN v999 - 절반높이+라벨삭제 버전 로드됨');
-// v1000-fix: 기능/디자인/구조 유지 - 보안/안정성 패치
-window.grammarData = window.grammarData || [];
-window.allQuizData = window.allQuizData || {};
-function safeGet(k, fb){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):fb; }catch(e){return fb;} }
-function safeSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
-
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -372,8 +366,8 @@ function loadQuiz(autoSpeak = false) {
 function renderLearningProgress() {
     const TOTAL_LESSONS = 3000;
     const currentPage = window.location.pathname.split("/").pop();
-    let learnedPages = safeGet("learnedPages", []);
-    if (!learnedPages.includes(currentPage)) { learnedPages.push(currentPage); safeSet("learnedPages", learnedPages); }
+    let learnedPages = JSON.parse(localStorage.getItem("learnedPages") || "[]");
+    if (!learnedPages.includes(currentPage)) { learnedPages.push(currentPage); localStorage.setItem("learnedPages", JSON.stringify(learnedPages)); }
     const learned = learnedPages.length;
     const percent = Math.min((learned / TOTAL_LESSONS) * 100, 100);
     const progressHtml = `<div style="margin:18px 0;padding:18px;background:#fff;border:2px solid #e5e7eb;border-radius:14px;text-align:center;box-shadow:0 3px 10px rgba(0,0,0,.05);"><div style="font-size:1.2rem;font-weight:bold;color:#2563eb;">📚 Your Korean Learning Progress</div><div style="font-size:1.6rem;font-weight:bold;margin-top:12px;">${learned} / ${TOTAL_LESSONS} Lessons</div><div style="width:100%;height:16px;background:#e5e7eb;border-radius:20px;overflow:hidden;margin-top:15px;"><div style="width:${percent}%;height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);transition:.5s;"></div></div><div style="margin-top:10px;font-weight:bold;color:#16a34a;">${percent.toFixed(1)}% Completed</div><div style="margin-top:12px;color:#64748b;font-size:14px;">🔥 Complete all 3,000 lessons and the Korean government might send you a Kimchi Refrigerator! 🧊</div></div>`;
@@ -384,10 +378,10 @@ function toggleFavorite() {
     const currentFile = window.location.pathname.split("/").pop();
     const currentItem = quizDB.find(item => item.url === currentFile);
     if (!currentItem) return;
-    let favorites = safeGet("favoriteLessons", []);
+    let favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
     const index = favorites.findIndex(x => x.url === currentItem.url);
     if (index === -1) { favorites.push(currentItem); } else { favorites.splice(index, 1); }
-    safeSet("favoriteLessons", favorites);
+    localStorage.setItem("favoriteLessons", JSON.stringify(favorites));
     updateFavoriteButton();
     renderFavoriteBox();
 }
@@ -395,7 +389,7 @@ function updateFavoriteButton() {
     const btn = document.getElementById("favorite-btn");
     if (!btn) return;
     const currentFile = window.location.pathname.split("/").pop();
-    const favorites = safeGet("favoriteLessons", []);
+    const favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
     const saved = favorites.some(x => x.url === currentFile);
     if (saved) {
         btn.innerHTML = "❤ Saved to My Review List";
@@ -409,7 +403,7 @@ function renderFavoriteBox() {
     const box = document.getElementById("favorite-box");
     if (!box) return;
     box.style.position = "relative"; box.style.width = "100%"; box.style.maxWidth = "500px"; box.style.margin = "0 auto 25px auto"; box.style.padding = "0 15px"; box.style.boxSizing = "border-box";
-    const favorites = safeGet("favoriteLessons", []);
+    const favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
     if (favorites.length === 0) {
         box.innerHTML = `<div style="width:100%;box-sizing:border-box;background:#fff;border:2px dashed #fecaca;border-radius:12px;padding:18px;text-align:center;color:#94a3b8;"><div style="font-size:1.05rem; font-weight:bold; color:#dc2626; margin-bottom:6px;">📖 My Review List (0)</div><div style="font-size:0.85rem; line-height:1.4;">Tap 🤍 Save on the quiz page</div></div>`;
         return;
@@ -419,7 +413,7 @@ function renderFavoriteBox() {
 }
 function openFavoriteList() { const content = document.getElementById("favorite-list-content"); if (!content) return; content.style.display = "block"; }
 function closeFavoriteList() { const content = document.getElementById("favorite-list-content"); if (!content) return; content.style.display = "none"; }
-function removeFavorite(url) { let favorites = safeGet("favoriteLessons", []); favorites = favorites.filter(x => x.url !== url); safeSet("favoriteLessons", favorites); renderFavoriteBox(); updateFavoriteButton(); }
+function removeFavorite(url) { let favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]"); favorites = favorites.filter(x => x.url !== url); localStorage.setItem("favoriteLessons", JSON.stringify(favorites)); renderFavoriteBox(); updateFavoriteButton(); }
 function checkAnswer(isCorrect, quiz) {
     if (isCorrect) {
         const quizScreen = document.getElementById('quiz-screen');
@@ -476,7 +470,7 @@ function checkAnswer(isCorrect, quiz) {
         </div>
     </div>`
     : "";
-        const favorites = safeGet("favoriteLessons", []);
+        const favorites = JSON.parse(localStorage.getItem("favoriteLessons") || "[]");
         const isSaved = favorites.some(x => x.url === currentFileName);
         const favoriteHtml = `<button id="favorite-btn" onclick="toggleFavorite()" style="display:block;width:100%;margin:0 0 15px 0;padding:12px 24px;font-size:15px;font-weight:bold;border-radius:30px;cursor:pointer;transition:all 0.2s ease;box-shadow:0 4px 10px rgba(0,0,0,0.08);border:2px solid ${isSaved ? '#dc2626' : '#fecaca'};background:${isSaved ? '#dc2626' : '#ffffff'};color:${isSaved ? '#ffffff' : '#dc2626'};">${isSaved ? '❤ Saved to My Review List' : '🤍 Save to My Review List'}</button>`;
         let formsHtml = "";
@@ -560,7 +554,7 @@ function goHome() {
 }
 const adTexts = ["Stuck on Korean grammar? Ask our AI Tutor! 🤖","Ask Any Korean Grammar Question — Instantly","Your Personal AI Korean Tutor — 100% Free","Tap the AI Tutor button for real-time help"];
 let adIdx = 0;
-if(!window.__adInterval) window.__adInterval = setInterval(() => {
+setInterval(() => {
     adIdx = (adIdx + 1) % adTexts.length;
     const el = document.getElementById("ad-content");
     if(el) { el.style.animation = 'none'; el.offsetHeight; el.style.animation = 'fadeMove 0.6s ease-out'; el.innerText = adTexts[adIdx]; }
@@ -726,44 +720,36 @@ function injectQuizSchema(data) {
     script.id = 'quiz-schema'; script.type = 'application/ld+json'; script.text = JSON.stringify(schemaData); document.head.appendChild(script);
 }
 function autoSearch() {
-    const inputEl = document.getElementById('searchInput');
+    const input = document.getElementById('searchInput')?.value.toLowerCase() || "";
     const container = document.getElementById('resultContainer');
     const list = document.getElementById('resultsList');
     if (!container || !list) return;
-    const input = (inputEl?.value || "").toLowerCase().trim();
     if (input.length < 1) { container.style.display = "none"; return; }
     container.style.display = "block"; list.innerHTML = "";
-    const frag = document.createDocumentFragment(); let found=false;
+    let found = false;
     (window.quizDB || []).forEach(item => {
         if (item.title.toLowerCase().includes(input) || item.keywords.toLowerCase().includes(input)) {
-            const li=document.createElement('li'); li.style.borderBottom="1px solid #eee";
-            const a=document.createElement('a'); a.href=item.url; a.textContent=item.title;
-            a.style.cssText="display:block;padding:15px;text-decoration:none;color:#333;";
-            li.appendChild(a); frag.appendChild(li); found=true;
+            list.innerHTML += `<li style="border-bottom: 1px solid #eee;"><a href="${item.url}" style="display: block; padding: 15px; text-decoration:none; color:#333;">${item.title}</a></li>`;
+            found = true;
         }
     });
-    if(!found){ const li=document.createElement('li'); li.style.padding="15px"; li.style.color="#999"; li.textContent="관련 퀴즈가 없습니다."; frag.appendChild(li); }
-    list.appendChild(frag);
+    if (!found) list.innerHTML = `<li style="padding: 15px; color:#999;">관련 퀴즈가 없습니다.</li>`;
 }
 function autoSearchTop() {
-    const inputEl = document.getElementById('searchInputTop');
+    const input = document.getElementById('searchInputTop')?.value.toLowerCase() || "";
     const container = document.getElementById('resultContainerTop');
     const list = document.getElementById('resultsListTop');
     if (!container || !list) return;
-    const input = (inputEl?.value || "").toLowerCase().trim();
     if (input.length < 1) { container.style.display = "none"; return; }
     container.style.display = "block"; list.innerHTML = "";
-    const frag = document.createDocumentFragment(); let found=false;
+    let found = false;
     (window.quizDB || []).forEach(item => {
         if (item.title.toLowerCase().includes(input) || item.keywords.toLowerCase().includes(input)) {
-            const li=document.createElement('li'); li.style.borderBottom="1px solid #eee";
-            const a=document.createElement('a'); a.href=item.url; a.textContent=item.title;
-            a.style.cssText="display:block;padding:15px;text-decoration:none;color:#333;";
-            li.appendChild(a); frag.appendChild(li); found=true;
+            list.innerHTML += `<li style="border-bottom: 1px solid #eee;"><a href="${item.url}" style="display: block; padding: 15px; text-decoration:none; color:#333;">${item.title}</a></li>`;
+            found = true;
         }
     });
-    if(!found){ const li=document.createElement('li'); li.style.padding="15px"; li.style.color="#999"; li.textContent="관련 퀴즈가 없습니다."; frag.appendChild(li); }
-    list.appendChild(frag);
+    if (!found) list.innerHTML = `<li style="padding: 15px; color:#999;">관련 퀴즈가 없습니다.</li>`;
 }
 document.addEventListener('click', function(e) {
     const c1 = document.getElementById('resultContainer');
@@ -833,8 +819,7 @@ function renderAlphabetWordList() {
     listContainer.innerHTML = listHtml;
 }
 function simulateLiveChart() {
-    if(window.__liveInterval) return;
-    window.__liveInterval = setInterval(() => {
+    setInterval(() => {
         if (trendingWords.length === 0) return;
         const randomIndex = Math.floor(Math.random() * Math.min(12, trendingWords.length));
         const states = ["up", "down", "same"];
@@ -964,56 +949,63 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   setTimeout(()=>{ window.toggleKFreeInfo = robustToggle; attach(); }, 1500);
 })();
 
-
 (function(){
-  // v1000-fix: grammarData 가드 추가 - 원본 기능 유지
-  window.grammarData = window.grammarData || [];
+   // 하위 호환 맵 (기존 GRAMMAR_DB 접근 코드가 있다면 계속 동작하도록)
   const GRAMMAR_DB = {};
-  if(typeof grammarData !== 'undefined' && Array.isArray(grammarData)){
-    grammarData.forEach(item => {
-      GRAMMAR_DB[item.id] = {
-        ...item,
-        k: item.grammar,
-        rom: item.romanization,
-        mean: item.title,
-        rule: item.basicRule,
-        ex: item.examples ? item.examples.map(e => `${e.kr} (${e.rom}) ${e.en}`).join(' / ') : '',
-        tip: item.nativeTip,
-        mistake: item.commonMistakes ? item.commonMistakes.map(m => `❌ ${m.wrong} → ✅ ${m.correct}`).join(' / ') : ''
-      };
-    });
-  }
+  grammarData.forEach(item => {
+    GRAMMAR_DB[item.id] = {
+      ...item,
+      k: item.grammar,
+      rom: item.romanization,
+      mean: item.title,
+      rule: item.basicRule,
+      ex: item.examples ? item.examples.map(e => `${e.kr} (${e.rom}) ${e.en}`).join(' / ') : '',
+      tip: item.nativeTip,
+      mistake: item.commonMistakes ? item.commonMistakes.map(m => `❌ ${m.wrong} → ✅ ${m.correct}`).join(' / ') : ''
+    };
+  });
+ 
+  // ==================== 여기부터 핵심 변경: 로컬 DB 매칭 + 렌더링 ====================
+ 
   function hasWordBoundary(text, token){
     const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const pattern = new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, 'i');
     return pattern.test(text);
   }
+ 
   function hasHangulBoundary(text, token){
     const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const pattern = new RegExp(`(^|[^가-힣])${escaped}([^가-힣]|$)`);
     return pattern.test(text);
   }
+ 
   function hasTrailingHangulBoundary(text, token){
     const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const pattern = new RegExp(`${escaped}([^가-힣]|$)`);
     return pattern.test(text);
   }
+ 
   function romanizationFlexRegex(token){
     const parts = token.split('-').map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
     return new RegExp(`\\b${parts.join('[\\s-]*')}\\b`, 'i');
   }
+ 
   function findAllGrammarMatches(q){
     if(!q) return [];
-    if(!window.grammarData || !window.grammarData.length) return [];
     const norm = q.toLowerCase().trim();
+ 
     const idMatch = grammarData.find(g => norm.includes(g.id.toLowerCase()));
     if(idMatch) return [idMatch];
-    const seen = new Set(); const results = [];
+ 
+    const seen = new Set();
+    const results = [];
     function addIfNew(g){ if(!seen.has(g.id)){ seen.add(g.id); results.push(g); } }
+ 
     for(const g of grammarData){
       const kws = g.keywords || [];
       for(const kw of kws){
-        const k = kw.toLowerCase(); let ok;
+        const k = kw.toLowerCase();
+        let ok;
         if(k.includes(' ')) ok = norm.includes(k);
         else if(k.length <= 3) ok = hasWordBoundary(norm, k);
         else ok = norm.includes(k);
@@ -1021,31 +1013,55 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       }
     }
     if(results.length > 0) return results;
+ 
     for(const g of grammarData){
       const romParts = g.romanization.split('/').map(s=>s.trim()).filter(Boolean);
       if(romParts.some(p => p.replace(/-/g,'').length>=2 && romanizationFlexRegex(p).test(norm))) addIfNew(g);
     }
     if(results.length > 0) return results;
+ 
     for(const g of grammarData){
       const parts = g.grammar.split('/').map(s=>s.trim()).filter(Boolean);
       if(parts.some(p => p.length>=1 && hasHangulBoundary(q, p))) addIfNew(g);
     }
     return results;
   }
+ 
   function renderFromDB(g, ctx){
     const exHtml = (g.examples||[]).map((e,i)=>`${i+1}. ${e.kr} (${e.rom}) ${e.en}`).join('<br>');
     const mistakeHtml = (g.commonMistakes||[]).map(m=>`❌ ${m.wrong} → ✅ ${m.correct}`).join('<br>') || '—';
     const compareHtml = (g.compare||[]).map(c=>`${c.grammar} = ${c.meaning} (${c.mainJob})`).join('<br>');
     const ruleHtml = (g.basicRule||'').replace(/\n/g,'<br>');
     const imagineHtml = g.imagine ? `<br><br>${g.imagine}` : '';
-    return `<b>Short Answer</b><br>${g.grammar} (${g.romanization}) ${g.title}<br><br><b>Easy Explanation</b><br>${g.easyExplanation||''}${imagineHtml}<br><br><b>Grammar</b><br>${ruleHtml}<br><br><b>Examples</b><br>${exHtml}<br><br><b>Native Tip</b><br>👩🏫 ${g.nativeTip||''}<br><br><b>Common Mistake</b><br>${mistakeHtml}<br><br>` + (compareHtml ? `<b>Compare</b><br>${compareHtml}<br><br>` : '') + `<b>Excellent! Keep practicing. You are improving every day.</b>`; 
+ 
+    return `<b>Short Answer</b><br>${g.grammar} (${g.romanization}) ${g.title}<br><br>`
+      + `<b>Easy Explanation</b><br>${g.easyExplanation||''}${imagineHtml}<br><br>`
+      + `<b>Grammar</b><br>${ruleHtml}<br><br>`
+      + `<b>Examples</b><br>${exHtml}<br><br>`
+      + `<b>Native Tip</b><br>👩‍🏫 ${g.nativeTip||''}<br><br>`
+      + `<b>Common Mistake</b><br>${mistakeHtml}<br><br>`
+      + (compareHtml ? `<b>Compare</b><br>${compareHtml}<br><br>` : '')
+      + `<b>Excellent! Keep practicing. You are improving every day.</b>`; 
+     
   }
+
+  // ==================== 학습 모드 박스 (EPS-TOPIK / Quiz / Example) ====================
+  // "Show questions" 버튼이 제대로 안 열리던 문제를 해결하면서, 동시에
+  // 처음 써서 뭘 물어봐야 할지 모르는 초보 사용자를 위해
+  // 현재 페이지 내용을 기준으로 바로 누를 수 있는 3가지 학습 모드 박스를 제공한다.
+
   function renderStudyModeButtons(){
-    return `<div class="ai-actions" style="margin-top:10px;"><button class="ai-action-btn" onclick="window.__aiTutorMode('epstopik')">📘 EPS-TOPIK</button><button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 Quiz</button><button class="ai-action-btn" onclick="window.__aiTutorMode('example')">💬 Example</button></div>`;
+    return `<div class="ai-actions" style="margin-top:10px;">`
+      + `<button class="ai-action-btn" onclick="window.__aiTutorMode('epstopik')">📘 EPS-TOPIK</button>`
+      + `<button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 Quiz</button>`
+      + `<button class="ai-action-btn" onclick="window.__aiTutorMode('example')">💬 Example</button>`
+      + `</div>`;
   }
+
   function getDetectedGrammars(){
     try{
-      const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined') ? currentCategoryData[currentIdx] : null;
+      const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
+        ? currentCategoryData[currentIdx] : null;
       if(!quiz) return [];
       let combined = (quiz.kr||'') + ' ';
       if(Array.isArray(quiz.examples)) combined += quiz.examples.map(e=>e.kr||'').join(' ') + ' ';
@@ -1053,28 +1069,45 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       return detectGrammarInText(combined).slice(0,3);
     }catch(e){ return []; }
   }
+
   function handleLocalGrammarDisplay(specificG, allGrams){
     let grams = [];
     if(specificG) grams = [specificG];
     else if(allGrams && allGrams.length>0) grams = allGrams;
     else grams = getDetectedGrammars();
+
     const ctx = getCtx();
     if(grams.length===0){
-      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠ 이 문장에서 감지된 문법이 없어요. 아래 검색창에 직접 질문해보세요.</div>`;
+      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠️ 이 문장에서 감지된 문법이 없어요. 아래 검색창에 직접 질문해보세요.</div>`;
       log.scrollTop = log.scrollHeight;
       return;
     }
     log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?escapeHtml(grams[0].grammar)+' 문법 보기':'문법 DB 보기'}</div>`;
-    let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">` + `<span class="ai-source-tag ai-source-db">📚 ${grams.length}개 문법 - 무료 무제한 (문장 3개에서 추출)</span>`;
+    let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
+      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length}개 문법 - 무료 무제한 (문장 3개에서 추출)</span>`;
     grams.forEach(g=>{
-      block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">` + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>` + renderFromDB(g, ctx) + `</div>`;
+      block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">`
+        + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
+        + renderFromDB(g, ctx)
+        + `</div>`;
     });
     block += makeActions(grams.map(g=>g.grammar).join(' / ').slice(0,200)) + renderStudyModeButtons() + `</div>`;
     log.innerHTML += block;
     log.scrollTop = log.scrollHeight;
   }
-  window.__localDbMode = function(mode){ handleLocalGrammarDisplay(); };
-  window.__aiSentenceMode = function(kr, en, rom){ const q = kr + (en? ' - '+en : ''); handleQuestion(q, null, true); };
+
+  // 상단 3개 버튼 = 로컬 DB (디자인 그대로 유지)
+  window.__localDbMode = function(mode){
+    handleLocalGrammarDisplay();
+  };
+
+  // 하단 문장 3개 = AI (디자인 그대로 유지)
+  window.__aiSentenceMode = function(kr, en, rom){
+    const q = kr + (en? ' - '+en : '');
+    handleQuestion(q, null, true);
+  };
+
+  // 기존 AI 모드 (답변 아래 작은 버튼들은 여전히 AI)
   window.__aiTutorMode = function(mode){
     const ctx = getCtx();
     const lessonLabel = ctx.kr ? `"${ctx.kr}"` : "this lesson";
@@ -1086,8 +1119,13 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     const q = presetQuestions[mode] || presetQuestions.epstopik;
     handleQuestion(q, null, true);
   };
+  // ==================== Gemini는 DB에 없는 "일반 질문"일 때만 호출 ====================
+  // 참고: 실제 시스템 프롬프트(V21_SYSTEM)는 서버(ask-tutor Edge Function)에만 존재합니다.
+  // 클라이언트는 kr/rom/en/q 및 pageContext만 만들어서 보내면 됩니다.
+ 
   const ASK_TUTOR_ENDPOINT = "https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/ask-tutor";
   const USE_GEMINI = true;
+
   function getDeviceId(){
     let id = localStorage.getItem('koreanAppDeviceId');
     if(!id){
@@ -1096,11 +1134,14 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     }
     return id;
   }
+ 
   var file = (location.pathname.split('/').pop()||'').toLowerCase();
   if(file===''||file==='index.html'||file==='/'||file==='index') return;
+ 
   var oldBtn=document.getElementById('ai-tutor-btn'); if(oldBtn) oldBtn.parentElement.remove();
   var oldStyle=document.getElementById('ai-tutor-style'); if(oldStyle) oldStyle.remove();
   var oldShare=document.getElementById('ai-share-modal'); if(oldShare) oldShare.remove();
+ 
   var css=document.createElement('style');
   css.id='ai-tutor-style';
   css.textContent=`
@@ -1124,9 +1165,1085 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   .share-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0;}
   .share-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;border:none;background:transparent;}
   .share-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:white;}
-  @media (max-width:600px){ #ai-tutor-modal{ top:10px !important; bottom:10px !important; left:8px !important; right:8px !important; width:auto !important; max-width:none !important; height:auto !important; max-height:none !important; border-radius:18px !important; } #ai-chat-log{ overflow-y:auto !important; -webkit-overflow-scrolling:touch; } }
+     @media (max-width:600px){
+    #ai-tutor-modal{
+      top:10px !important;
+      bottom:10px !important;
+      left:8px !important;
+      right:8px !important;
+      width:auto !important;
+      max-width:none !important;
+      height:auto !important;
+      max-height:none !important;
+      border-radius:18px !important;
+    }
+
+    #ai-chat-log{
+      overflow-y:auto !important;
+      -webkit-overflow-scrolling:touch;
+    }
+  }
+  
   `;
   document.head.appendChild(css);
-  // ... (나머지 AI 튜터 로직은 원본과 동일 - 기능/디자인 유지)
-  console.log('✅ AI Tutor v1000-fix loaded, grammarDB:', grammarData.length);
+ 
+  var shareModal=document.createElement('div');
+  shareModal.id='ai-share-modal';
+  shareModal.innerHTML=`<div id="ai-share-card"><div style="width:40px;height:4px;background:#e2e8f0;border-radius:10px;margin:0 auto 14px;"></div><div style="display:flex;justify-content:space-between;align-items:center;"><b>Share Korean Tip</b><span id="share-x" style="cursor:pointer;background:#f1f5f9;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span></div><div class="share-grid"><button class="share-item" data-type="kakao"><div class="share-icon" style="background:#FEE500;color:#000;">💬</div><span style="font-size:.7rem;font-weight:800;">Kakao</span></button><button class="share-item" data-type="facebook"><div class="share-icon" style="background:#1877F2;">📘</div><span style="font-size:.7rem;font-weight:800;">Facebook</span></button><button class="share-item" data-type="whatsapp"><div class="share-icon" style="background:#25D366;">📱</div><span style="font-size:.7rem;font-weight:800;">WhatsApp</span></button><button class="share-item" data-type="twitter"><div class="share-icon" style="background:#000;">𝕏</div><span style="font-size:.7rem;font-weight:800;">X</span></button><button class="share-item" data-type="email"><div class="share-icon" style="background:#64748b;">✉</div><span style="font-size:.7rem;font-weight:800;">E-mail</span></button><button class="share-item" data-type="copy"><div class="share-icon" style="background:#8b5cf6;">📋</div><span style="font-size:.7rem;font-weight:800;">Copy</span></button><button class="share-item" data-type="save"><div class="share-icon" style="background:#f59e0b;">💾</div><span style="font-size:.7rem;font-weight:800;">Save</span></button><button class="share-item" data-type="more"><div class="share-icon" style="background:#e2e8f0;color:#334155;">⋯</div><span style="font-size:.7rem;font-weight:800;">More</span></button></div></div>`;
+  document.body.appendChild(shareModal);
+ 
+  var wrap=document.createElement('div');
+  wrap.innerHTML=`<button id="ai-tutor-btn"><div class="ai-bubble">🤖</div><div class="ai-label">TUTOR V2.1</div></button><div id="ai-tutor-modal"><div style="padding:12px 14px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:white;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;"><div style="font-weight:900;font-size:0.9rem;">🤖 AI Tutor V2.1 + Grammar DB</div><span id="ai-x" style="cursor:pointer;background:rgba(255,255,255,0.25);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✖</span></div><div id="ai-faq-chips"></div><div id="ai-chat-log"></div><div style="padding:10px;background:#f8fafc;border-top:1px solid #eee;flex-shrink:0;display:flex;gap:8px;"><input id="ai-in" placeholder="Ask anything about Korean..." style="flex:1;min-width:0;padding:11px 14px;border-radius:24px;border:2px solid #e2e8f0;outline:none;font-size:0.9rem;"><button id="ai-send-btn" style="flex-shrink:0;width:44px;height:44px;border-radius:50%;border:none;background:#6366f1;color:white;font-size:1.1rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;">➤</button></div></div>`;
+  document.body.appendChild(wrap);
+ 
+  var currentShareText='';
+  function openShare(text){currentShareText=text; shareModal.style.display='flex';}
+  shareModal.querySelector('#share-x').onclick=()=>shareModal.style.display='none';
+  shareModal.onclick=(e)=>{if(e.target.id==='ai-share-modal') shareModal.style.display='none';};
+  shareModal.querySelectorAll('.share-item').forEach(btn=>{
+    btn.onclick=()=>{
+      var t=currentShareText; var url=location.href; var full=t+"\n\n"+url;
+      var type=btn.dataset.type;
+      if(type==='kakao'){window.open('https://sharer.kakao.com/talk/friends/picker/link?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(t));}
+      else if(type==='facebook'){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url)+'&quote='+encodeURIComponent(t),'_blank','width=600,height=400');}
+      else if(type==='whatsapp'){window.open('https://wa.me/?text='+encodeURIComponent(full),'_blank');}
+      else if(type==='twitter'){window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(t)+'&url='+encodeURIComponent(url),'_blank');}
+      else if(type==='email'){location.href='mailto:?subject='+encodeURIComponent('Korean Study Tip')+'&body='+encodeURIComponent(full);}
+      else if(type==='copy'){navigator.clipboard.writeText(full); btn.querySelector('span').innerText='Copied!'; setTimeout(()=>{btn.querySelector('span').innerText='Copy'; shareModal.style.display='none';},1000); return;}
+      else if(type==='save'){let s=JSON.parse(localStorage.getItem('aiSaved')||'[]'); s.push({txt:t,date:new Date().toLocaleDateString()}); localStorage.setItem('aiSaved',JSON.stringify(s)); btn.querySelector('span').innerText='Saved!'; setTimeout(()=>{btn.querySelector('span').innerText='Save'; shareModal.style.display='none';},1000); return;}
+      else if(type==='more'){if(navigator.share){navigator.share({title:'Korean Tip',text:t,url:url});} else {navigator.clipboard.writeText(full); alert('Copied!');}}
+      shareModal.style.display='none';
+    };
+  });
+ 
+  var btn=wrap.querySelector('#ai-tutor-btn'), modal=wrap.querySelector('#ai-tutor-modal'), log=wrap.querySelector('#ai-chat-log'), faq=wrap.querySelector('#ai-faq-chips'), input=wrap.querySelector('#ai-in'), open=false;
+ 
+ function getCurrentQuizData(){
+  try{
+    if(
+      typeof currentCategoryData !== 'undefined' &&
+      Array.isArray(currentCategoryData) &&
+      typeof currentIdx !== 'undefined' &&
+      currentCategoryData[currentIdx]
+    ){
+      return currentCategoryData[currentIdx];
+    }
+  }catch(e){
+    console.warn('[AI Tutor] getCurrentQuizData error:', e);
+  }
+
+  return null;
+}
+
+
+function getCtx(){
+
+  const quiz = getCurrentQuizData();
+
+  if(quiz){
+
+    return {
+      kr: String(quiz.kr || '').trim(),
+      rom: String(quiz.rom || '').trim(),
+      en: String(quiz.en || '').trim()
+    };
+
+  }
+
+  // 혹시 quizDB 방식 페이지라도 안전하게 fallback
+  const krEl =
+    document.getElementById('korean-sentence') ||
+    document.querySelector('.kr-text');
+
+  const romEl =
+    document.getElementById('romanization') ||
+    document.querySelector('.rom-text');
+
+  const enEl =
+    document.getElementById('english') ||
+    document.querySelector('.en-text');
+
+  return {
+    kr: krEl ? krEl.innerText.trim() : '',
+    rom: romEl ? romEl.innerText.trim() : '',
+    en: enEl ? enEl.innerText.trim() : ''
+  };
+}
+
+function buildPageContext(){
+
+  const quiz = getCurrentQuizData();
+
+  const pageTitle = document.title || '';
+  const pageUrl = window.location.href;
+  const pagePath = window.location.pathname;
+
+  const categoryId =
+    (typeof activeCatId !== 'undefined' && activeCatId)
+      ? activeCatId
+      : '';
+
+  const categoryName =
+    (typeof activeCategoryName !== 'undefined' && activeCategoryName)
+      ? activeCategoryName
+      : '';
+
+  const currentNumber =
+    (
+      typeof currentCategoryData !== 'undefined' &&
+      Array.isArray(currentCategoryData) &&
+      typeof currentIdx !== 'undefined'
+    )
+      ? currentIdx + 1
+      : 0;
+
+  const totalNumber =
+    (
+      typeof currentCategoryData !== 'undefined' &&
+      Array.isArray(currentCategoryData)
+    )
+      ? currentCategoryData.length
+      : 0;
+
+
+  const lesson = quiz ? {
+
+    korean: String(quiz.kr || ''),
+    romanization: String(quiz.rom || ''),
+    english: String(quiz.en || ''),
+
+    tip: String(quiz.tip || ''),
+    situation: String(quiz.situation || ''),
+
+    casual:
+      String(
+        (quiz.forms && quiz.forms.casual) ||
+        quiz.casual ||
+        ''
+      ),
+
+    polite:
+      String(
+        (quiz.forms && quiz.forms.polite) ||
+        quiz.polite ||
+        ''
+      ),
+
+    present:
+      String(
+        (quiz.forms && quiz.forms.present) ||
+        ''
+      ),
+
+    past:
+      String(
+        (quiz.forms && quiz.forms.past) ||
+        ''
+      ),
+
+    future:
+      String(
+        (quiz.forms && quiz.forms.future) ||
+        ''
+      ),
+
+    grammar: quiz.grammar || {},
+
+    examples:
+      Array.isArray(quiz.examples)
+        ? quiz.examples.map(e => ({
+            korean: String(e.kr || ''),
+            romanization: String(e.rom || ''),
+            english: String(e.en || '')
+          }))
+        : [],
+
+    options:
+      Array.isArray(quiz.options)
+        ? quiz.options.map(o => ({
+            korean: String(o.kr || ''),
+            romanization: String(o.rom || ''),
+            english: String(o.en || '')
+          }))
+        : []
+
+  } : {};
+
+
+  return {
+
+    page: {
+      title: pageTitle,
+      url: pageUrl,
+      path: pagePath
+    },
+
+    category: {
+      id: categoryId,
+      name: categoryName
+    },
+
+    lesson: lesson,
+
+    currentLesson: {
+      korean: lesson.korean || '',
+      romanization: lesson.romanization || '',
+      english: lesson.english || ''
+    },
+
+    quiz: quiz ? {
+
+      question: String(quiz.kr || ''),
+      answer: String(quiz.en || ''),
+
+      options:
+        Array.isArray(quiz.options)
+          ? quiz.options.map(o => ({
+              korean: String(o.kr || ''),
+              romanization: String(o.rom || ''),
+              english: String(o.en || '')
+            }))
+          : []
+
+    } : {},
+
+    quizProgress: {
+      current: currentNumber,
+      total: totalNumber
+    },
+
+    epsTopik: {
+
+      enabled: true,
+
+      target:
+        'EPS-TOPIK Korean learner',
+
+      lessonTitle:
+        pageTitle,
+
+      topic:
+        categoryName,
+
+      Korean:
+        lesson.korean || '',
+
+      English:
+        lesson.english || '',
+
+      grammar:
+        lesson.grammar || {},
+
+      situation:
+        lesson.situation || '',
+
+      vocabulary:
+        lesson.options || [],
+
+      examples:
+        lesson.examples || []
+
+    }
+
+  };
+}
+ 
+  function mdToHtml(text){
+    let t = text;
+    t = t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    t = t.replace(/^#{1,6}\s*(.+)$/gm, '<br><b style="color:#4f46e5;">$1</b><br>');
+    t = t.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+    t = t.replace(/^---+$/gm, '');
+    t = t.replace(/^[-*]\s+(.+)$/gm, '• $1<br>');
+    t = t.replace(/\n{2,}/g, '<br><br>');
+    t = t.replace(/\n/g, '<br>');
+    return t;
+  }
+ 
+  function typeWriterHTML(container, html, speed, onDone){
+    const tokens = html.match(/<[^>]+>|[^<]/g) || [];
+    let i = 0;
+    let skipped = false;
+    container.innerHTML = '';
+    container.style.cursor = 'pointer';
+    function skipToEnd(){
+      if(skipped) return;
+      skipped = true;
+      container.innerHTML = html;
+      container.style.cursor = 'default';
+      log.scrollTop = log.scrollHeight;
+      if(onDone) onDone();
+    }
+    container.addEventListener('click', skipToEnd, { once:true });
+    function step(){
+      if(skipped) return;
+      if(i >= tokens.length){
+        container.style.cursor = 'default';
+        if(onDone) onDone();
+        return;
+      }
+      let chunk = tokens[i];
+      i++;
+      while(i < tokens.length && !tokens[i].startsWith('<') && !chunk.endsWith('>') && chunk.length < 2){
+        chunk += tokens[i];
+        i++;
+      }
+      container.innerHTML += chunk;
+      log.scrollTop = log.scrollHeight;
+      setTimeout(step, speed);
+    }
+    step();
+  }
+ 
+  function escapeAndBr(text){
+    return text
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\n{2,}/g,'<br><br>')
+      .replace(/\n/g,'<br>');
+  }
+
+  // 사용자 입력을 화면(innerHTML)에 넣기 전 이스케이프 (XSS 방지)
+  function escapeHtml(text){
+    return String(text || '')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+ 
+  // 서버(ask-tutor Edge Function)를 통해 스트리밍 응답을 실시간으로 읽어서
+  // onChunk(누적된 전체 텍스트)를 계속 호출. 다 끝나면 onDone(최종 텍스트),
+  // 사용량 초과면 onQuotaExceeded(message, plan, isAnonymous), 그 외 실패는 onError(에러 메시지) 호출.
+  async function askTutorStream(ctx, q, onChunk, onDone, onQuotaExceeded, onError){
+    try{
+      const user = window.getKoreanAuthUser ? await window.getKoreanAuthUser() : null;
+      const headers = { 'Content-Type':'application/json' };
+      let bodyExtra = {};
+
+      const SUPABASE_ANON_KEY = "sb_publishable_VThH1zOjeve9iqeBqPWbTQ_1vB5CS_X";
+
+      if(user){
+        const token = window.getKoreanAuthToken ? await window.getKoreanAuthToken() : null;
+        if(token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        } else {
+            headers['Authorization'] = `Bearer ${SUPABASE_ANON_KEY}`;
+        }
+      } else {
+        bodyExtra.deviceId = getDeviceId(); 
+        headers['Authorization'] = `Bearer ${SUPABASE_ANON_KEY}`;
+      }
+     
+      const pageContext = buildPageContext();
+
+const res = await fetch(ASK_TUTOR_ENDPOINT, {
+  method: 'POST',
+  headers,
+
+  body: JSON.stringify({
+
+    // 현재 퀴즈
+    kr: ctx.kr,
+    rom: ctx.rom,
+    en: ctx.en,
+
+    // 사용자가 질문한 내용
+    q: q,
+
+    // 현재 페이지 전체 학습 context
+    pageContext: pageContext,
+
+    // 서버가 쉽게 사용할 수 있는 핵심 정보
+    currentPage: pageContext.page,
+    currentCategory: pageContext.category,
+    currentLesson: pageContext.lesson,
+    currentQuiz: pageContext.quiz,
+    quizProgress: pageContext.quizProgress,
+    epsTopik: pageContext.epsTopik,
+
+    ...bodyExtra
+
+  })
+});
+      
+
+      if(res.status === 403){
+        const data = await res.json().catch(()=>({}));
+        onQuotaExceeded(data.message || '오늘 질문 횟수를 다 쓰셨어요.', data.plan || 'free', !user);
+        return;
+      }
+
+      if(!res.ok || !res.body){
+        let msg = 'Unknown error';
+        try{ const data = await res.json(); msg = data?.error || msg; }catch(e){}
+        onError(`HTTP ${res.status} - ${msg}`);
+        return;
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder('utf-8');
+      let buffer = '';
+      let fullText = '';
+      while(true){
+        const { done, value } = await reader.read();
+        if(done) break;
+        buffer += decoder.decode(value, { stream:true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+        for(const line of lines){
+          const trimmed = line.trim();
+          if(!trimmed.startsWith('data:')) continue;
+          const jsonStr = trimmed.slice(5).trim();
+          if(!jsonStr || jsonStr === '[DONE]') continue;
+          try{
+            const obj = JSON.parse(jsonStr);
+            if(obj?.error){ onError(obj.error.message || 'Stream error'); return; }
+            const piece = obj?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if(piece){ fullText += piece; onChunk(fullText); }
+            const finishReason = obj?.candidates?.[0]?.finishReason;
+            if(finishReason && finishReason !== 'STOP'){
+              console.warn('[AI Tutor] finishReason:', finishReason, '(MAX_TOKENS면 답변이 잘린 것)');
+            }
+          }catch(e){ /* 아직 완성 안 된 JSON 조각일 수 있으니 무시하고 계속 */ }
+        }
+      }
+      onDone(fullText);
+    }catch(e){
+      onError('Network/Stream error: ' + e.message);
+    }
+  }
+ 
+  function hasSsBatchimBeforeEoyo(text){
+    for(let i=0; i<text.length-2; i++){
+      const ch = text[i];
+      const code = text.charCodeAt(i);
+      if(ch === '있') continue;
+      if(code >= 0xAC00 && code <= 0xD7A3){
+        const finalIdx = (code - 0xAC00) % 28;
+        if(finalIdx === 20 && text.slice(i+1, i+3) === '어요'){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+ 
+function hasGrammarPattern(text, pattern){
+  if(!text || !pattern) return false;
+
+  pattern = pattern.trim();
+
+  const parts = pattern
+    .split('/')
+    .map(p => p.trim())
+    .filter(Boolean);
+
+  if(parts.length > 1){
+    return parts.some(p => hasGrammarPattern(text, p));
+  }
+
+  pattern = parts[0];
+
+  if(pattern.startsWith('-')){
+    const actualPattern = pattern.slice(1).trim();
+    if(!actualPattern) return false;
+    return hasTrailingHangulBoundary(text, actualPattern);
+  }
+
+  return hasTrailingHangulBoundary(text, pattern);
+}
+
+function detectGrammarInText(text){
+  if(!text) return [];
+
+  const found = [];
+
+  for(const g of grammarData){
+
+    const rawPatterns = (
+      g.sentencePatterns && g.sentencePatterns.length
+        ? g.sentencePatterns
+        : g.grammar.split('/')
+    );
+
+    const patterns = rawPatterns
+      .flatMap(p => String(p).split('/'))
+      .map(p => p.trim())
+      .filter(Boolean);
+
+    let hit = patterns.some(
+      p => hasGrammarPattern(text, p)
+    );
+
+    if(
+      !hit &&
+      g.id === 'G014' &&
+      hasSsBatchimBeforeEoyo(text)
+    ){
+      hit = true;
+    }
+
+    if(hit){
+      found.push(g);
+    }
+  }
+
+  return found;
+}
+ 
+function getPageSentences(){
+
+  const list = [];
+
+  function normalizeSentence(text){
+    return String(text || '')
+      .trim()
+      .replace(/^[A-Za-z]\s*[:：.)]\s*/i, '')
+      .replace(/[.!?。！？]+$/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+  }
+
+  function cleanSentence(text){
+    return String(text || '')
+      .trim()
+      .replace(/^[A-Za-z]\s*[:：.)]\s*/i, '')
+      .trim();
+  }
+
+  function isSentence(item){
+
+    if(!item || !item.kr) return false;
+
+    const original = String(item.kr).trim();
+    const kr = cleanSentence(original);
+
+    if(!kr) return false;
+
+    if(/[.!?。！？]/.test(original)) return true;
+
+    if(/\s/.test(kr)) return true;
+
+    return false;
+  }
+
+  function isDuplicate(text){
+
+    const normalized = normalizeSentence(text);
+
+    return list.some(item =>
+      normalizeSentence(item.kr) === normalized
+    );
+  }
+
+  function addSentence(item){
+
+    if(list.length >= 3) return;
+
+    if(!isSentence(item)) return;
+
+    if(isDuplicate(item.kr)) return;
+
+    list.push({
+      kr: cleanSentence(item.kr),
+      rom: item.rom || '',
+      en: item.en || ''
+    });
+  }
+
+  try{
+
+    const quiz =
+      (
+        typeof currentCategoryData !== 'undefined' &&
+        Array.isArray(currentCategoryData) &&
+        typeof currentIdx !== 'undefined'
+      )
+      ? currentCategoryData[currentIdx]
+      : null;
+
+    if(quiz){
+
+      if(quiz.kr){
+
+        list.push({
+          kr: cleanSentence(quiz.kr),
+          rom: quiz.rom || '',
+          en: quiz.en || ''
+        });
+
+      }
+
+      if(Array.isArray(quiz.examples)){
+
+        for(const e of quiz.examples){
+
+          if(list.length >= 3) break;
+
+          addSentence(e);
+
+        }
+
+      }
+
+      if(Array.isArray(quiz.options)){
+
+        for(const o of quiz.options){
+
+          if(list.length >= 3) break;
+
+          addSentence(o);
+
+        }
+
+      }
+
+    }
+
+  }catch(e){
+
+    console.warn(
+      '[AI Tutor] getPageSentences error:',
+      e
+    );
+
+  }
+
+  return list.slice(0, 3);
+
+}
+ 
+  function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
+ 
+
+
+
+
+  function renderFaq(){
+    var sentences = getPageSentences();
+
+    // 중간 문장 3개에서 각각 문법 1개씩 추출 -> 상단 3개에 넣기 (1:1 매핑)
+    let grammarsPerSentence = [];
+    let fallbackPool = [];
+    try{
+      if(sentences.length>0){
+        const combinedText = sentences.map(s=>s.kr||'').join(' ');
+        fallbackPool = detectGrammarInText(combinedText);
+        grammarsPerSentence = sentences.map(s=>{
+          const found = detectGrammarInText(s.kr||'');
+          return found.length>0 ? found[0] : null;
+        });
+      }
+      // fallbackPool에 현재 레슨 전체 문법도 추가
+      const lessonFallback = getDetectedGrammars();
+      fallbackPool = [...fallbackPool, ...lessonFallback];
+      // 중복 제거
+      const seen = new Set();
+      const uniqueFallback = [];
+      for(const g of fallbackPool){
+        if(g && !seen.has(g.id)){
+          seen.add(g.id);
+          uniqueFallback.push(g);
+        }
+      }
+      fallbackPool = uniqueFallback;
+
+      // 빈 슬롯을 fallbackPool에서 채우기
+      let usedIds = new Set(grammarsPerSentence.filter(Boolean).map(g=>g.id));
+      for(let i=0;i<grammarsPerSentence.length;i++){
+        if(!grammarsPerSentence[i]){
+          const next = fallbackPool.find(g=>!usedIds.has(g.id));
+          if(next){
+            grammarsPerSentence[i]=next;
+            usedIds.add(next.id);
+          }
+        }
+      }
+      // 그래도 빈 곳이 있으면 fallbackPool에서 남은걸로 채우기
+      for(let i=0;i<3;i++){
+        if(i>=grammarsPerSentence.length) grammarsPerSentence[i]=null;
+      }
+      // fallbackPool이 3개 미만이면 전체에서라도 채우기
+      if(grammarsPerSentence.filter(Boolean).length < 3){
+        for(let i=0;i<3;i++){
+          if(!grammarsPerSentence[i]){
+            const next = fallbackPool.find(g=>!grammarsPerSentence.some(x=>x && x.id===g.id));
+            if(next) grammarsPerSentence[i]=next;
+          }
+        }
+      }
+    }catch(e){ console.warn(e); }
+
+    // 상단: 문장별 문법 DB 3개 (초록색) - 이제 절대 "문법 1번" 안 뜨게
+    let modeButtonsHtml = '';
+    if(sentences.length>0){
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
+        + [0,1,2].map(i=>{
+          const g = grammarsPerSentence[i];
+          const sentence = sentences[i];
+          if(g){
+            // 절반 높이, ID 삭제, 한글+로마자+영어 표시 (외국인용)
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;">`
+              + `<div style="font-size:.82rem;font-weight:900;color:#166534;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.grammar)}</div>`
+              + `<div style="font-size:.62rem;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.romanization||'')}</div>`
+              + `<div style="font-size:.6rem;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.title||'').slice(0,22)}</div>`
+              + `</button>`;
+          } else {
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;opacity:0.6;padding:5px 6px;line-height:1.2;min-height:auto;">`
+              + `<div style="font-size:.75rem;font-weight:800;">${escapeHtml((sentence&&sentence.kr||'').slice(0,6))}</div>`
+              + `<div style="font-size:.6rem;color:#64748b;">Grammar</div>`
+              + `</button>`;
+          }
+        }).join('') + `</div>`;
+    } else {
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
+        + (fallbackPool.slice(0,3).map((g,i)=>
+          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${escapeHtml(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${escapeHtml(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
+        ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(3))
+        + `</div>`;
+    }
+
+    if(sentences.length === 0){
+      faq.innerHTML = modeButtonsHtml;
+      log.innerHTML = ``;
+      faq.style.display='flex';
+      wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
+        c.onclick=()=>{
+          const idx = parseInt(c.getAttribute('data-gram-idx'),10);
+          const g = grammarsPerSentence[idx] || fallbackPool[idx];
+          if(g) handleLocalGrammarDisplay(g);
+          else handleLocalGrammarDisplay(null, grammarsPerSentence.filter(Boolean));
+        };
+      });
+      return;
+    }
+
+    // 하단: 중간 문장 3개 (보라색 - AI) - 라벨 삭제, 깔끔하게
+    faq.innerHTML = modeButtonsHtml + `<div style="width:100%;height:1px;background:#e2e8f0;margin:6px 0;"></div>` + sentences.map((s,i) =>
+  `<button class="faq-chip" data-sidx="${i}" style="width:100%;background:#f5f3ff;border-color:#ddd6fe;text-align:left;margin-bottom:5px;padding:8px 10px;">
+    <div style="font-size:.9em;font-weight:700;color:#1e293b;">${escapeHtml(s.kr)}</div>
+    <div style="font-size:.8em;font-weight:500;margin-top:3px;color:#64748b;">${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')}</div>
+  </button>`
+).join('');
+
+    // 설명창 삭제 - 로그 비우기 (공간 확보)
+    log.innerHTML = ``;
+
+    faq.style.display='flex';
+    log.scrollTop = 0;
+ 
+    wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
+      c.onclick=()=>{
+        const idx = parseInt(c.getAttribute('data-gram-idx'),10);
+        const g = grammarsPerSentence[idx] || fallbackPool[idx];
+        if(g) handleLocalGrammarDisplay(g);
+        else {
+          const s = sentences[idx];
+          if(s){ const f=detectGrammarInText(s.kr); if(f.length>0) handleLocalGrammarDisplay(f[0]); else handleLocalGrammarDisplay(null, fallbackPool); }
+        }
+      };
+    });
+    wrap.querySelectorAll('.faq-chip[data-sidx]').forEach(c=>{
+      c.onclick=()=>{
+        const idx = parseInt(c.getAttribute('data-sidx'), 10);
+        const s = sentences[idx];
+        if(s) window.__aiSentenceMode(s.kr, s.en, s.rom);
+      };
+    });
+  }
+
+ 
+    function handleSentenceClick(s){
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${escapeHtml(s.kr)}${s.rom?` (${escapeHtml(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
+    
+    log.scrollTop = log.scrollHeight;
+ 
+    const matches = detectGrammarInText(s.kr);
+ 
+    if(matches.length > 0){
+      let block = `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+  + `<span class="ai-source-tag ai-source-db">📚 ${matches.length} grammar point${matches.length === 1 ? '' : 's'} found in the sentence</span>`
+  + `<div style="font-size:0.72rem;color:#64748b;margin-top:4px;margin-bottom:8px;line-height:1.4;">`
+  + `📚 Grammar Database Answer — Unlimited use, no AI usage<br>`
+  + `💡 Want a deeper explanation? Ask the AI teacher below.`
+  + `</div>`;
+      matches.forEach(g=>{
+        block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
+          + renderFromDB(g, {kr:s.kr, rom:s.rom, en:s.en})
+          + `</div>`;
+      });
+      const plainForCopy = matches.map(g=>`${g.grammar} (${g.romanization}) ${g.title}`).join(' / ');
+      block += makeActions(plainForCopy)
+        + renderStudyModeButtons() + `</div>`;
+      log.innerHTML += block;
+      log.scrollTop = log.scrollHeight;
+    } else {
+      handleQuestion(s.kr);
+    }
+  }
+ 
+  // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
+  async function handleQuestion(q, gramForced, forceAiMode){
+    // forceAiMode=true면 로컬 DB 스킵하고 무조건 AI
+
+    var ctx=getCtx();
+    var grams = [];
+    if(!forceAiMode){
+      grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
+    }
+ 
+    // 사용자 입력을 화면에 넣기 전 이스케이프 처리 (XSS 방지)
+    const safeQ = escapeHtml(q);
+    log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
+    
+ 
+    if(grams.length > 0){
+      const cid = 'ai-content-' + Date.now();
+      const tag = `📚 ${grams.length} grammar point${grams.length === 1 ? '' : 's'} found in the sentence`;
+      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+        + `<span class="ai-source-tag ai-source-db">${tag}</span>`
+        + `<div id="${cid}"></div>`
+        + `<div id="${cid}-actions"></div></div>`;
+      log.scrollTop = log.scrollHeight;
+      const container = document.getElementById(cid);
+      let combinedPlain = '';
+ 
+      function typeNext(idx){
+        if(idx >= grams.length){
+          const actionsEl = document.getElementById(cid+'-actions');
+          if(actionsEl){
+            actionsEl.innerHTML = makeActions(combinedPlain.slice(0,200))
+              + renderStudyModeButtons();
+          }
+          return;
+        }
+        const g = grams[idx];
+        const headerDiv = document.createElement('div');
+        headerDiv.style.cssText = `font-size:0.85rem;color:#6366f1;font-weight:800;margin:${idx>0 ? '14px 0 6px;padding-top:10px;border-top:1px dashed #e2e8f0;' : '6px 0;'}`;
+        headerDiv.textContent = `🤖 ${g.grammar} (${g.id})`;
+        container.appendChild(headerDiv);
+        const bodyDiv = document.createElement('div');
+        container.appendChild(bodyDiv);
+        const finalAnswer = renderFromDB(g, ctx);
+        combinedPlain += (idx>0?' / ':'') + finalAnswer.replace(/<[^>]*>/g,'').slice(0,150);
+        typeWriterHTML(bodyDiv, finalAnswer, 6, ()=>{ typeNext(idx+1); });
+      }
+      typeNext(0);
+      return;
+    }
+ 
+    log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;animation:aiThinkingBlink 1.2s ease-in-out infinite;">👩‍🏫 Your teacher is preparing your answer...</div>`;
+    log.scrollTop=log.scrollHeight;
+ 
+    if(!USE_GEMINI){
+      const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
+      const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
+      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${fallback}</div>`;
+      log.scrollTop=log.scrollHeight;
+      return;
+    }
+ 
+    const cid2 = 'ai-content-' + Date.now();
+    let wrapperInserted = false;
+    let rawFullText = '';
+ 
+    function ensureWrapper(){
+      if(wrapperInserted) return;
+      wrapperInserted = true;
+      const th=document.getElementById('ai-thinking'); if(th) th.remove();
+      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+        + `<span class="ai-source-tag ai-source-api">>👩‍🏫 Teacher Response</span><br>`
+        + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>`
+        + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
+      log.scrollTop = log.scrollHeight;
+    }
+ 
+    askTutorStream(
+      ctx, q,
+      (accumulatedText)=>{
+        ensureWrapper();
+        rawFullText = accumulatedText;
+        const el = document.getElementById(cid2);
+        if(el){ el.innerHTML = escapeAndBr(accumulatedText); log.scrollTop = log.scrollHeight; }
+      },
+      (finalText)=>{
+        ensureWrapper();
+        const finalAnswer = escapeAndBr(finalText || rawFullText || '');
+        const el = document.getElementById(cid2);
+        if(el) el.innerHTML = finalAnswer;
+        const actionsEl2 = document.getElementById(cid2+'-actions');
+        if(actionsEl2){
+          actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
+            + renderStudyModeButtons();
+        }
+        log.scrollTop = log.scrollHeight;
+      },
+
+      (message, plan, isAnonymous)=>{
+        const th = document.getElementById('ai-thinking');
+        if(th) th.remove();
+
+        const signInNote = isAnonymous
+          ? `<div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#c2410c;">
+                🔑 Sign in to keep asking
+              </div>
+              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+                Sign in (still free!) to keep using the AI teacher.
+              </div>
+            </div>`
+          : '';
+
+        const limitMessage = `
+          <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
+
+            <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
+              ${escapeHtml(message)}
+            </div>
+
+            ${signInNote}
+
+            <div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#6366f1;">
+                🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)
+              </div>
+
+              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+                Need more help? Upgrade to Pro Mode for $3.99/month.
+              </div>
+            </div>
+
+            <div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#6366f1;">
+                📚 Grammar Database — Unlimited & Free
+              </div>
+
+              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
+                Get unlimited grammar explanations for the sentences above.
+                <b>(Tap a sentence.)</b>
+              </div>
+            </div>
+
+            <div style="font-size:0.82rem;color:#475569;">
+              ✨ All other features, including quizzes, speaking, and listening practice,
+              are completely free.
+            </div>
+
+          </div>
+        `;
+
+        log.innerHTML += limitMessage;
+        log.scrollTop = log.scrollHeight;
+
+        if(isAnonymous && window.requireKoreanAuth) window.requireKoreanAuth();
+      },
+
+      (errMsg)=>{
+        console.error('[AI Tutor] Stream error:', errMsg);
+        const th = document.getElementById('ai-thinking');
+        if(th) th.remove();
+        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+        log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+          + `<div id="ai-error-box">⚠️ 서버 연결 실패, 기본 답변으로 대체했어요.<br>에러: ${escapeHtml(errMsg)}</div>`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
+        log.scrollTop = log.scrollHeight;
+      }
+    );
+  }
+ 
+  window.openShare=openShare;
+  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
+  wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
+  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
+  wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
+ 
+  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
+  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
+ 
+  console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
+  console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions (with pageContext)':'⚠️ Gemini disabled');
+})();
+(function autoHideFaqOnCorrectPage(){
+ 
+  function findFaqSection(){
+    const headers = document.querySelectorAll('h3');
+    for(const h of headers){
+      if(h.textContent.trim() === 'Frequently Asked Questions'){
+        return h.closest('div');
+      }
+    }
+    return null;
+  }
+ 
+  function syncFaqVisibility(){
+    const faqSection = findFaqSection();
+    if(!faqSection) return;
+    const detailArea = document.getElementById('detail-area');
+    const onCorrectPage = !!(detailArea && detailArea.style.display === 'block');
+    faqSection.style.display = onCorrectPage ? 'none' : '';
+  }
+ 
+  function wrap(fnName){
+    const original = window[fnName];
+    if(typeof original !== 'function') return;
+    window[fnName] = function(...args){
+      const result = original.apply(this, args);
+      setTimeout(syncFaqVisibility, 0);
+      return result;
+    };
+  }
+ 
+  function initHooks(){
+    wrap('checkAnswer');
+    wrap('nextQuiz');
+    wrap('goHome');
+    syncFaqVisibility();
+  }
+ 
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', initHooks);
+  } else {
+    initHooks();
+  }
+  window.addEventListener('load', syncFaqVisibility);
+ 
+  setInterval(syncFaqVisibility, 800);
+ 
+})();
+(function moveFaqAboveTrending(){
+ 
+  function findFaqSection(){
+    const headers = document.querySelectorAll('h3');
+    for(const h of headers){
+      if(h.textContent.trim() === 'Frequently Asked Questions'){
+        return h.closest('div');
+      }
+    }
+    return null;
+  }
+ 
+  function moveFaq(){
+    const faqSection = findFaqSection();
+    const trending = document.querySelector('.trending-container');
+    if(!faqSection || !trending) return;
+ 
+    if(trending.previousElementSibling === faqSection) return;
+ 
+    trending.insertAdjacentElement('beforebegin', faqSection);
+    faqSection.style.marginTop = '30px';  
+  }
+ 
+  function init(){
+    moveFaq();
+    setTimeout(moveFaq, 500);
+    setTimeout(moveFaq, 1500);
+  }
+ 
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+  window.addEventListener('load', moveFaq);
+ 
 })();
