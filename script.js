@@ -1177,47 +1177,213 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     return { kr: (krEl&&krEl.innerText.trim())||'가족', rom: (romEl&&romEl.innerText.trim())||'ga-jok', en: (tipEl&&tipEl.innerText.trim().slice(0,120))||'family' };
   }
 
-  // 추가: 서버(ask-tutor)가 활용할 수 있는 pageContext를 만든다.
-  // 서버는 page/category/lesson/quiz/quizProgress/epsTopik 구조를 기대하므로 그 형태에 맞춘다.
-  function buildPageContext(){
-    const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
+function buildPageContext(){
+
+  const quiz =
+    (typeof currentCategoryData !== 'undefined' &&
+     Array.isArray(currentCategoryData) &&
+     typeof currentIdx !== 'undefined')
       ? currentCategoryData[currentIdx]
       : null;
 
-    return {
-      page: {
-        title: document.title || "",
-        url: window.location.href,
-        path: window.location.pathname
-      },
-      category: {
-        id: (typeof activeCatId !== 'undefined') ? activeCatId : "",
-        name: (typeof activeCategoryName !== 'undefined') ? activeCategoryName : ""
-      },
-      lesson: quiz ? {
-        korean: quiz.kr || "",
-        romanization: quiz.rom || "",
-        english: quiz.en || "",
-        tip: quiz.tip || "",
-        situation: quiz.situation || "",
-        forms: quiz.forms || {},
-        examples: quiz.examples || []
-      } : {},
-      quiz: quiz ? {
-        question: quiz.kr || "",
-        answer: quiz.en || "",
-        options: quiz.options || []
-      } : {},
-      quizProgress: (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined') ? {
-        current: currentIdx + 1,
-        total: currentCategoryData.length
-      } : {},
-      epsTopik: {
-        title: document.title || "",
-        content: (document.getElementById('category-tip-text')?.innerText || "").trim()
-      }
-    };
+
+  /* =========================================================
+     EPS-TOPIK PAGE CONTENT 자동 추출
+     .seo-learning-content 안의 실제 설명을 읽는다.
+     ========================================================= */
+
+  let epsTopikContent = '';
+
+  try {
+
+    const epsContainer =
+      document.querySelector('.seo-learning-content');
+
+    if (epsContainer) {
+
+      // 실제 페이지를 수정하지 않도록 복제
+      const clone =
+        epsContainer.cloneNode(true);
+
+      // 학습 내용과 관계없는 요소 제거
+      clone
+        .querySelectorAll(
+          'script, style, button, audio, video'
+        )
+        .forEach(el => el.remove());
+
+      epsTopikContent =
+        (clone.innerText || '')
+          .replace(/\n{3,}/g, '\n\n')
+          .trim();
+
+    }
+
+  } catch (e) {
+
+    console.warn(
+      '[AI Tutor] EPS-TOPIK content extraction failed:',
+      e
+    );
+
+    epsTopikContent = '';
+
   }
+
+
+  /* =========================================================
+     EPS-TOPIK TITLE
+     ========================================================= */
+
+  let epsTopikTitle = '';
+
+  try {
+
+    const details =
+      document.querySelector('.seo-learning-details');
+
+    if (details) {
+
+      const summary =
+        details.querySelector('summary');
+
+      if (summary) {
+
+        epsTopikTitle =
+          (summary.innerText || '')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+      }
+
+    }
+
+  } catch (e) {
+
+    epsTopikTitle = '';
+
+  }
+
+
+  /* summary가 없으면 페이지 제목 사용 */
+  if (!epsTopikTitle) {
+    epsTopikTitle = document.title || '';
+  }
+
+
+  /* =========================================================
+     COMPLETE PAGE CONTEXT
+     ========================================================= */
+
+  return {
+
+    page: {
+
+      title:
+        document.title || '',
+
+      url:
+        window.location.href,
+
+      path:
+        window.location.pathname
+
+    },
+
+
+    category: {
+
+      id:
+        (typeof activeCatId !== 'undefined')
+          ? activeCatId
+          : '',
+
+      name:
+        (typeof activeCategoryName !== 'undefined')
+          ? activeCategoryName
+          : ''
+
+    },
+
+
+    lesson: quiz ? {
+
+      korean:
+        quiz.kr || '',
+
+      romanization:
+        quiz.rom || '',
+
+      english:
+        quiz.en || '',
+
+      tip:
+        quiz.tip || '',
+
+      situation:
+        quiz.situation || '',
+
+      forms:
+        quiz.forms || {},
+
+      examples:
+        quiz.examples || []
+
+    } : {},
+
+
+    quiz: quiz ? {
+
+      question:
+        quiz.kr || '',
+
+      answer:
+        quiz.en || '',
+
+      options:
+        quiz.options || []
+
+    } : {},
+
+
+    quizProgress:
+
+      (typeof currentCategoryData !== 'undefined' &&
+       Array.isArray(currentCategoryData) &&
+       typeof currentIdx !== 'undefined')
+
+        ? {
+
+            current:
+              currentIdx + 1,
+
+            total:
+              currentCategoryData.length
+
+          }
+
+        : {},
+
+
+    /* =======================================================
+       ⭐ 핵심
+       페이지의 .seo-learning-content 전체를
+       EPS-TOPIK AI Tutor에게 전달
+       ======================================================= */
+
+    epsTopik: {
+
+      title:
+        epsTopikTitle,
+
+      content:
+        epsTopikContent
+
+    }
+
+  };
+
+}
  
   function mdToHtml(text){
     let t = text;
