@@ -1,4 +1,4 @@
-console.log('🔥 AI_SCRIPT_ULTRA_CLEAN v1000 로드됨 - 라벨, ID, 설명 전부 삭제');
+console.log('🔥 AI_SCRIPT_FINAL_WITH_BOTTOM v1001');
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -1070,21 +1070,18 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     }catch(e){ return []; }
   }
 
-  function handleLocalGrammarDisplay(specificG, allGrams){
-    let grams = [];
-    if(specificG) grams = [specificG];
-    else if(allGrams && allGrams.length>0) grams = allGrams;
-    else grams = getDetectedGrammars();
-
+  function handleLocalGrammarDisplay(){
+    const grams = getDetectedGrammars();
     const ctx = getCtx();
     if(grams.length===0){
-      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠️ 이 문장에서 감지된 문법이 없어요. 아래 검색창에 직접 질문해보세요.</div>`;
+      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠️ 이 레슨에서 감지된 문법이 없어요. 다른 문장을 눌러보거나 아래 검색창에 질문해보세요.</div>`;
       log.scrollTop = log.scrollHeight;
       return;
     }
-    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?escapeHtml(grams[0].grammar)+' 문법 보기':'문법 DB 보기'}</div>`;
+    // 로컬 DB 렌더링 (무료)
+    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 문법 DB 보기</div>`;
     let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
-      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length}개 문법 - 무료 무제한 (문장 3개에서 추출)</span>`;
+      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length}개 문법 - 무료 무제한</span>`;
     grams.forEach(g=>{
       block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">`
         + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
@@ -1439,9 +1436,10 @@ function hasGrammarPattern(text, pattern){
 
   if(pattern.startsWith('-')){
     const actualPattern = pattern.slice(1).trim();
-    if(!actualPattern) return false;
+    if(!actualPattern || actualPattern.length < 2) return false;
     return hasTrailingHangulBoundary(text, actualPattern);
   }
+  if(pattern.length < 2) return false;
 
   return hasTrailingHangulBoundary(text, pattern);
 }
@@ -1611,11 +1609,8 @@ function getPageSentences(){
  
 
 
-
-
-
   function renderFaq(){
-    console.log('🔥 CLEAN v1000 renderFaq 실행됨');
+    console.log('🔥 FINAL v1001 - 상단 절반+하단버튼복구');
     var sentences = getPageSentences();
     const faq = document.getElementById('ai-faq-chips');
     const log = document.getElementById('ai-chat-log');
@@ -1647,7 +1642,7 @@ function getPageSentences(){
       }
     }catch(e){ console.warn(e); }
 
-    // 상단 3개 - 절반 높이, ID 없음, 한글+로마자+영어
+    // 상단 3개 - 절반 높이 38px, ID 삭제, 한글+로마자+영어
     let topHtml = `<div style="width:100%;display:flex;gap:4px;">` +
       [0,1,2].map(i=>{
         const g = grammarsPerSentence[i] || fallbackPool[i];
@@ -1659,7 +1654,7 @@ function getPageSentences(){
         </button>`;
       }).join('') + `</div>`;
 
-    // 중간 3개 - 라벨 완전 삭제, 문장만
+    // 중간 3개 - 라벨 완전 삭제
     let midHtml = `<div style="width:100%;display:flex;flex-direction:column;gap:4px;margin-top:6px;">` +
       sentences.map((s,i)=>
         `<button class="faq-chip" data-sidx="${i}" style="width:100%;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:7px 10px;text-align:left;">
@@ -1673,7 +1668,6 @@ function getPageSentences(){
     faq.style.flexDirection = 'column';
     if(log) log.innerHTML = '';
 
-    // 클릭 이벤트
     faq.querySelectorAll('[data-gram-idx]').forEach(c=>{
       c.onclick=()=>{
         const idx = parseInt(c.getAttribute('data-gram-idx'),10);
