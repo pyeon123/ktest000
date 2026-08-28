@@ -1084,7 +1084,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     }
     log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?escapeHtml(grams[0].grammar)+' 문법 보기':'문법 DB 보기'}</div>`;
     let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
-      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length} Grammar - Free Unlimited Grammar / Important</span>`;
+      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length} Grammar - Free Unlimited Grammar </span>`;
     grams.forEach(g=>{
       block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">`
         + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
