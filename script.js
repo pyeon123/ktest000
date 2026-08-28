@@ -1068,7 +1068,8 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       example: `Please give me 2-3 additional natural example sentences using the vocabulary or grammar from ${lessonLabel}, each with Korean, romanization, and English meaning.`
     };
     const q = presetQuestions[mode] || presetQuestions.epstopik;
-    handleQuestion(q);
+    // FIX: 학습 모드 박스는 항상 AI로 가야 하므로 로컬 DB 매칭 스킵
+    handleQuestion(q, null, true);
   };
  
   // ==================== Gemini는 DB에 없는 "일반 질문"일 때만 호출 ====================
@@ -1177,213 +1178,47 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     return { kr: (krEl&&krEl.innerText.trim())||'가족', rom: (romEl&&romEl.innerText.trim())||'ga-jok', en: (tipEl&&tipEl.innerText.trim().slice(0,120))||'family' };
   }
 
-function buildPageContext(){
-
-  const quiz =
-    (typeof currentCategoryData !== 'undefined' &&
-     Array.isArray(currentCategoryData) &&
-     typeof currentIdx !== 'undefined')
+  // 추가: 서버(ask-tutor)가 활용할 수 있는 pageContext를 만든다.
+  // 서버는 page/category/lesson/quiz/quizProgress/epsTopik 구조를 기대하므로 그 형태에 맞춘다.
+  function buildPageContext(){
+    const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
       ? currentCategoryData[currentIdx]
       : null;
 
-
-  /* =========================================================
-     EPS-TOPIK PAGE CONTENT 자동 추출
-     .seo-learning-content 안의 실제 설명을 읽는다.
-     ========================================================= */
-
-  let epsTopikContent = '';
-
-  try {
-
-    const epsContainer =
-      document.querySelector('.seo-learning-content');
-
-    if (epsContainer) {
-
-      // 실제 페이지를 수정하지 않도록 복제
-      const clone =
-        epsContainer.cloneNode(true);
-
-      // 학습 내용과 관계없는 요소 제거
-      clone
-        .querySelectorAll(
-          'script, style, button, audio, video'
-        )
-        .forEach(el => el.remove());
-
-      epsTopikContent =
-        (clone.innerText || '')
-          .replace(/\n{3,}/g, '\n\n')
-          .trim();
-
-    }
-
-  } catch (e) {
-
-    console.warn(
-      '[AI Tutor] EPS-TOPIK content extraction failed:',
-      e
-    );
-
-    epsTopikContent = '';
-
-  }
-
-
-  /* =========================================================
-     EPS-TOPIK TITLE
-     ========================================================= */
-
-  let epsTopikTitle = '';
-
-  try {
-
-    const details =
-      document.querySelector('.seo-learning-details');
-
-    if (details) {
-
-      const summary =
-        details.querySelector('summary');
-
-      if (summary) {
-
-        epsTopikTitle =
-          (summary.innerText || '')
-            .replace(/\s+/g, ' ')
-            .trim();
-
+    return {
+      page: {
+        title: document.title || "",
+        url: window.location.href,
+        path: window.location.pathname
+      },
+      category: {
+        id: (typeof activeCatId !== 'undefined') ? activeCatId : "",
+        name: (typeof activeCategoryName !== 'undefined') ? activeCategoryName : ""
+      },
+      lesson: quiz ? {
+        korean: quiz.kr || "",
+        romanization: quiz.rom || "",
+        english: quiz.en || "",
+        tip: quiz.tip || "",
+        situation: quiz.situation || "",
+        forms: quiz.forms || {},
+        examples: quiz.examples || []
+      } : {},
+      quiz: quiz ? {
+        question: quiz.kr || "",
+        answer: quiz.en || "",
+        options: quiz.options || []
+      } : {},
+      quizProgress: (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined') ? {
+        current: currentIdx + 1,
+        total: currentCategoryData.length
+      } : {},
+      epsTopik: {
+        title: document.title || "",
+        content: (document.getElementById('category-tip-text')?.innerText || "").trim()
       }
-
-    }
-
-  } catch (e) {
-
-    epsTopikTitle = '';
-
+    };
   }
-
-
-  /* summary가 없으면 페이지 제목 사용 */
-  if (!epsTopikTitle) {
-    epsTopikTitle = document.title || '';
-  }
-
-
-  /* =========================================================
-     COMPLETE PAGE CONTEXT
-     ========================================================= */
-
-  return {
-
-    page: {
-
-      title:
-        document.title || '',
-
-      url:
-        window.location.href,
-
-      path:
-        window.location.pathname
-
-    },
-
-
-    category: {
-
-      id:
-        (typeof activeCatId !== 'undefined')
-          ? activeCatId
-          : '',
-
-      name:
-        (typeof activeCategoryName !== 'undefined')
-          ? activeCategoryName
-          : ''
-
-    },
-
-
-    lesson: quiz ? {
-
-      korean:
-        quiz.kr || '',
-
-      romanization:
-        quiz.rom || '',
-
-      english:
-        quiz.en || '',
-
-      tip:
-        quiz.tip || '',
-
-      situation:
-        quiz.situation || '',
-
-      forms:
-        quiz.forms || {},
-
-      examples:
-        quiz.examples || []
-
-    } : {},
-
-
-    quiz: quiz ? {
-
-      question:
-        quiz.kr || '',
-
-      answer:
-        quiz.en || '',
-
-      options:
-        quiz.options || []
-
-    } : {},
-
-
-    quizProgress:
-
-      (typeof currentCategoryData !== 'undefined' &&
-       Array.isArray(currentCategoryData) &&
-       typeof currentIdx !== 'undefined')
-
-        ? {
-
-            current:
-              currentIdx + 1,
-
-            total:
-              currentCategoryData.length
-
-          }
-
-        : {},
-
-
-    /* =======================================================
-       ⭐ 핵심
-       페이지의 .seo-learning-content 전체를
-       EPS-TOPIK AI Tutor에게 전달
-       ======================================================= */
-
-    epsTopik: {
-
-      title:
-        epsTopikTitle,
-
-      content:
-        epsTopikContent
-
-    }
-
-  };
-
-}
  
   function mdToHtml(text){
     let t = text;
@@ -1557,11 +1392,12 @@ function hasGrammarPattern(text, pattern){
 
   if(pattern.startsWith('-')){
     const actualPattern = pattern.slice(1).trim();
-
-    if(!actualPattern) return false;
-
+    // FIX: 한 글자 조사(가, 이, 는 등)는 오탐이 너무 많아서 무시
+    if(!actualPattern || actualPattern.length < 2) return false;
     return hasTrailingHangulBoundary(text, actualPattern);
   }
+  // FIX: 패턴 자체가 1글자면 무시
+  if(pattern.length < 2) return false;
 
   return hasTrailingHangulBoundary(text, pattern);
 }
@@ -1801,13 +1637,13 @@ function getPageSentences(){
     }
   }
  
-async function handleQuestion(q, gramForced, forceGemini = false){
-  var ctx=getCtx();
-
-  // EPS-TOPIK / Quiz / Example 버튼은 반드시 Gemini AI로 처리
-  var grams = forceGemini
-    ? []
-    : (gramForced ? [gramForced] : findAllGrammarMatches(q));
+  // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
+  async function handleQuestion(q, gramForced, forceAiMode){
+    var ctx=getCtx();
+    var grams = [];
+    if(!forceAiMode){
+      grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
+    }
  
     // 사용자 입력을 화면에 넣기 전 이스케이프 처리 (XSS 방지)
     const safeQ = escapeHtml(q);
