@@ -2133,18 +2133,18 @@ function getPageSentences(){
  
 window.openShare=openShare;
 
-/* =========================================
-   AI Tutor 사용법 안내
-   열기 → 표시
-   기능 선택 → 숨김
-   다시 열기 → 다시 표시
-   ========================================= */
+/* ================================
+   AI Tutor Usage Guide
+   ================================ */
 
-function createUsageGuide(){
-  let guide = document.getElementById('usageGuide');
+function getUsageGuide(){
+
+  let guide = wrap.querySelector('#usageGuide');
 
   if(!guide){
+
     guide = document.createElement('div');
+
     guide.id = 'usageGuide';
 
     guide.innerHTML = `
@@ -2157,115 +2157,115 @@ function createUsageGuide(){
       <div>🔍 Search bar → Ask deeper questions</div>
     `;
 
-    guide.style.cssText =
-      "display:block !important;" +
-      "background:#f0fdf4 !important;" +
-      "border:1px dashed #bbf7d0 !important;" +
-      "padding:12px !important;" +
-      "border-radius:10px !important;" +
-      "margin:10px !important;" +
-      "color:#475569 !important;" +
-      "font-size:0.78rem !important;" +
-      "line-height:1.7 !important;" +
-      "position:relative !important;" +
-      "z-index:99999 !important;" +
-      "width:calc(100% - 20px) !important;" +
-      "box-sizing:border-box !important;";
+    guide.style.cssText = `
+      background:#f0fdf4;
+      border:1px dashed #bbf7d0;
+      padding:12px;
+      border-radius:10px;
+      margin:10px;
+      color:#475569;
+      font-size:0.78rem;
+      line-height:1.7;
+      width:calc(100% - 20px);
+      box-sizing:border-box;
+      position:relative;
+      z-index:99999;
+    `;
 
-    // AI 창 안에서 맨 위
-    wrap.prepend(guide);
+    /*
+      AI Tutor wrap 안에서
+      modal보다 먼저 나오게 함
+    */
+    wrap.insertBefore(guide, modal);
+
   }
 
   return guide;
 }
 
-function showUsageGuide(){
-  const guide = createUsageGuide();
 
-  // 다시 열었을 때 무조건 표시
-  guide.style.setProperty('display','block','important');
-}
-
-function hideUsageGuide(){
-  const guide = document.getElementById('usageGuide');
-
-  if(guide){
-    guide.style.setProperty('display','none','important');
-  }
-}
-
-
-/* =========================================
+/* ================================
    AI Tutor 열기
-   ========================================= */
+   ================================ */
 
 btn.onclick=()=>{
+
   open=!open;
 
-  modal.style.display=open?'flex':'none';
+  modal.style.display=open ? 'flex' : 'none';
 
   if(open){
 
     renderFaq();
 
-    // AI 창을 열 때마다 안내창 표시
     setTimeout(()=>{
-      showUsageGuide();
-      console.log('✅ AI Tutor 열림 → 사용법 안내 표시');
-    },100);
+
+      const guide=getUsageGuide();
+
+      // ★ 다시 열면 무조건 보이게
+      guide.style.display='block';
+
+      console.log('✅ Usage Guide SHOW');
+
+    },300);
 
   }else{
 
-    // AI 창 닫으면 안내 숨김
-    hideUsageGuide();
+    const guide=wrap.querySelector('#usageGuide');
+
+    if(guide){
+      guide.style.display='none';
+    }
 
   }
+
 };
 
 
-/* =========================================
+/* ================================
    AI Tutor 닫기
-   ========================================= */
+   ================================ */
 
 wrap.querySelector('#ai-x').onclick=()=>{
+
   open=false;
+
   modal.style.display='none';
 
-  hideUsageGuide();
+  const guide=wrap.querySelector('#usageGuide');
+
+  if(guide){
+    guide.style.display='none';
+  }
+
 };
 
 
-/* =========================================
+/* ================================
    AI 내부 버튼 클릭
-   → 사용법 안내 숨김
-   ========================================= */
+   → Usage Guide 숨김
+   ================================ */
 
-wrap.addEventListener('click',e=>{
+wrap.addEventListener('click',function(e){
 
   const button=e.target.closest('button');
 
   if(!button) return;
 
-  // AI Tutor 열기 버튼은 제외
   if(button.id==='ai-tutor-btn') return;
 
-  // 닫기 버튼
-  if(button.id==='ai-x'){
-    hideUsageGuide();
-    return;
+  const guide=wrap.querySelector('#usageGuide');
+
+  if(guide){
+    guide.style.display='none';
   }
-
-  // 상단 / 중간 / 하단의 모든 버튼
-  hideUsageGuide();
-
-  console.log('ℹ️ AI 기능 선택 → 사용법 안내 숨김');
 
 });
 
 
-/* =========================================
+/* ================================
    검색창 Enter
-   ========================================= */
+   ================================ */
 
 input.addEventListener('keypress',e=>{
 
@@ -2274,22 +2274,26 @@ input.addEventListener('keypress',e=>{
     e.target.value.trim()
   ){
 
-    // 검색하기 전에 안내 숨김
-    hideUsageGuide();
+    const guide=wrap.querySelector('#usageGuide');
+
+    if(guide){
+      guide.style.display='none';
+    }
 
     var q=e.target.value.trim();
 
     e.target.value='';
 
     handleQuestion(q);
+
   }
 
 });
 
 
-/* =========================================
-   검색 ➤ 버튼
-   ========================================= */
+/* ================================
+   검색 버튼
+   ================================ */
 
 wrap.querySelector('#ai-send-btn').onclick=()=>{
 
@@ -2297,12 +2301,16 @@ wrap.querySelector('#ai-send-btn').onclick=()=>{
 
   if(q){
 
-    // 검색하기 전에 안내 숨김
-    hideUsageGuide();
+    const guide=wrap.querySelector('#usageGuide');
+
+    if(guide){
+      guide.style.display='none';
+    }
 
     input.value='';
 
     handleQuestion(q);
+
   }
 
 };
