@@ -1,4 +1,4 @@
-console.log('🔥 AI_SCRIPT_FINAL_WITH_BOTTOM v1001');
+console.log('🔥 AI_SCRIPT_CLEAN v999 - 절반높이+라벨삭제 버전 로드됨');
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -1070,18 +1070,21 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     }catch(e){ return []; }
   }
 
-  function handleLocalGrammarDisplay(){
-    const grams = getDetectedGrammars();
+  function handleLocalGrammarDisplay(specificG, allGrams){
+    let grams = [];
+    if(specificG) grams = [specificG];
+    else if(allGrams && allGrams.length>0) grams = allGrams;
+    else grams = getDetectedGrammars();
+
     const ctx = getCtx();
     if(grams.length===0){
-      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠️ 이 레슨에서 감지된 문법이 없어요. 다른 문장을 눌러보거나 아래 검색창에 질문해보세요.</div>`;
+      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠️ 이 문장에서 감지된 문법이 없어요. 아래 검색창에 직접 질문해보세요.</div>`;
       log.scrollTop = log.scrollHeight;
       return;
     }
-    // 로컬 DB 렌더링 (무료)
-    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 문법 DB 보기</div>`;
+    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?escapeHtml(grams[0].grammar)+' 문법 보기':'문법 DB 보기'}</div>`;
     let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
-      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length}개 문법 - 무료 무제한</span>`;
+      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length}개 문법 - 무료 무제한 (문장 3개에서 추출)</span>`;
     grams.forEach(g=>{
       block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">`
         + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
@@ -1436,10 +1439,9 @@ function hasGrammarPattern(text, pattern){
 
   if(pattern.startsWith('-')){
     const actualPattern = pattern.slice(1).trim();
-    if(!actualPattern || actualPattern.length < 2) return false;
+    if(!actualPattern) return false;
     return hasTrailingHangulBoundary(text, actualPattern);
   }
-  if(pattern.length < 2) return false;
 
   return hasTrailingHangulBoundary(text, pattern);
 }
@@ -1609,13 +1611,12 @@ function getPageSentences(){
  
 
 
-  function renderFaq(){
-    console.log('🔥 FINAL v1001 - 상단 절반+하단버튼복구');
-    var sentences = getPageSentences();
-    const faq = document.getElementById('ai-faq-chips');
-    const log = document.getElementById('ai-chat-log');
-    if(!faq) return;
 
+
+  function renderFaq(){
+    var sentences = getPageSentences();
+
+    // 중간 문장 3개에서 각각 문법 1개씩 추출 -> 상단 3개에 넣기 (1:1 매핑)
     let grammarsPerSentence = [];
     let fallbackPool = [];
     try{
@@ -1627,64 +1628,125 @@ function getPageSentences(){
           return found.length>0 ? found[0] : null;
         });
       }
+      // fallbackPool에 현재 레슨 전체 문법도 추가
       const lessonFallback = getDetectedGrammars();
       fallbackPool = [...fallbackPool, ...lessonFallback];
+      // 중복 제거
       const seen = new Set();
-      const unique = [];
-      for(const g of fallbackPool){ if(g && !seen.has(g.id)){ seen.add(g.id); unique.push(g); } }
-      fallbackPool = unique;
-      let used = new Set(grammarsPerSentence.filter(Boolean).map(g=>g.id));
+      const uniqueFallback = [];
+      for(const g of fallbackPool){
+        if(g && !seen.has(g.id)){
+          seen.add(g.id);
+          uniqueFallback.push(g);
+        }
+      }
+      fallbackPool = uniqueFallback;
+
+      // 빈 슬롯을 fallbackPool에서 채우기
+      let usedIds = new Set(grammarsPerSentence.filter(Boolean).map(g=>g.id));
       for(let i=0;i<grammarsPerSentence.length;i++){
         if(!grammarsPerSentence[i]){
-          const nxt = fallbackPool.find(g=>!used.has(g.id));
-          if(nxt){ grammarsPerSentence[i]=nxt; used.add(nxt.id); }
+          const next = fallbackPool.find(g=>!usedIds.has(g.id));
+          if(next){
+            grammarsPerSentence[i]=next;
+            usedIds.add(next.id);
+          }
+        }
+      }
+      // 그래도 빈 곳이 있으면 fallbackPool에서 남은걸로 채우기
+      for(let i=0;i<3;i++){
+        if(i>=grammarsPerSentence.length) grammarsPerSentence[i]=null;
+      }
+      // fallbackPool이 3개 미만이면 전체에서라도 채우기
+      if(grammarsPerSentence.filter(Boolean).length < 3){
+        for(let i=0;i<3;i++){
+          if(!grammarsPerSentence[i]){
+            const next = fallbackPool.find(g=>!grammarsPerSentence.some(x=>x && x.id===g.id));
+            if(next) grammarsPerSentence[i]=next;
+          }
         }
       }
     }catch(e){ console.warn(e); }
 
-    // 상단 3개 - 절반 높이 38px, ID 삭제, 한글+로마자+영어
-    let topHtml = `<div style="width:100%;display:flex;gap:4px;">` +
-      [0,1,2].map(i=>{
-        const g = grammarsPerSentence[i] || fallbackPool[i];
-        if(!g) return `<div style="flex:1;"></div>`;
-        return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:4px 5px !important;line-height:1.15 !important;min-height:32px !important;height:38px !important;text-align:center;overflow:hidden;">
-          <div style="font-size:13px;font-weight:900;color:#166534;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.grammar)}</div>
-          <div style="font-size:10px;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.romanization||'')}</div>
-          <div style="font-size:9px;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.title||'').slice(0,20)}</div>
-        </button>`;
-      }).join('') + `</div>`;
+    // 상단: 문장별 문법 DB 3개 (초록색) - 이제 절대 "문법 1번" 안 뜨게
+    let modeButtonsHtml = '';
+    if(sentences.length>0){
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
+        + [0,1,2].map(i=>{
+          const g = grammarsPerSentence[i];
+          const sentence = sentences[i];
+          if(g){
+            // 절반 높이, ID 삭제, 한글+로마자+영어 표시 (외국인용)
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;">`
+              + `<div style="font-size:.82rem;font-weight:900;color:#166534;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.grammar)}</div>`
+              + `<div style="font-size:.62rem;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.romanization||'')}</div>`
+              + `<div style="font-size:.6rem;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.title||'').slice(0,22)}</div>`
+              + `</button>`;
+          } else {
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;opacity:0.6;padding:5px 6px;line-height:1.2;min-height:auto;">`
+              + `<div style="font-size:.75rem;font-weight:800;">${escapeHtml((sentence&&sentence.kr||'').slice(0,6))}</div>`
+              + `<div style="font-size:.6rem;color:#64748b;">Grammar</div>`
+              + `</button>`;
+          }
+        }).join('') + `</div>`;
+    } else {
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
+        + (fallbackPool.slice(0,3).map((g,i)=>
+          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${escapeHtml(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${escapeHtml(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
+        ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(3))
+        + `</div>`;
+    }
 
-    // 중간 3개 - 라벨 완전 삭제
-    let midHtml = `<div style="width:100%;display:flex;flex-direction:column;gap:4px;margin-top:6px;">` +
-      sentences.map((s,i)=>
-        `<button class="faq-chip" data-sidx="${i}" style="width:100%;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:10px;padding:7px 10px;text-align:left;">
-          <div style="font-size:14px;font-weight:700;color:#1e293b;line-height:1.3;">${escapeHtml(s.kr)}</div>
-          <div style="font-size:11px;color:#64748b;margin-top:2px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')}</div>
-        </button>`
-      ).join('') + `</div>`;
+    if(sentences.length === 0){
+      faq.innerHTML = modeButtonsHtml;
+      log.innerHTML = ``;
+      faq.style.display='flex';
+      wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
+        c.onclick=()=>{
+          const idx = parseInt(c.getAttribute('data-gram-idx'),10);
+          const g = grammarsPerSentence[idx] || fallbackPool[idx];
+          if(g) handleLocalGrammarDisplay(g);
+          else handleLocalGrammarDisplay(null, grammarsPerSentence.filter(Boolean));
+        };
+      });
+      return;
+    }
 
-    faq.innerHTML = topHtml + midHtml;
-    faq.style.display = 'flex';
-    faq.style.flexDirection = 'column';
-    if(log) log.innerHTML = '';
+    // 하단: 중간 문장 3개 (보라색 - AI) - 라벨 삭제, 깔끔하게
+    faq.innerHTML = modeButtonsHtml + `<div style="width:100%;height:1px;background:#e2e8f0;margin:6px 0;"></div>` + sentences.map((s,i) =>
+  `<button class="faq-chip" data-sidx="${i}" style="width:100%;background:#f5f3ff;border-color:#ddd6fe;text-align:left;margin-bottom:5px;padding:8px 10px;">
+    <div style="font-size:.9em;font-weight:700;color:#1e293b;">${escapeHtml(s.kr)}</div>
+    <div style="font-size:.8em;font-weight:500;margin-top:3px;color:#64748b;">${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')}</div>
+  </button>`
+).join('');
 
-    faq.querySelectorAll('[data-gram-idx]').forEach(c=>{
+    // 설명창 삭제 - 로그 비우기 (공간 확보)
+    log.innerHTML = ``;
+
+    faq.style.display='flex';
+    log.scrollTop = 0;
+ 
+    wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
       c.onclick=()=>{
         const idx = parseInt(c.getAttribute('data-gram-idx'),10);
         const g = grammarsPerSentence[idx] || fallbackPool[idx];
         if(g) handleLocalGrammarDisplay(g);
+        else {
+          const s = sentences[idx];
+          if(s){ const f=detectGrammarInText(s.kr); if(f.length>0) handleLocalGrammarDisplay(f[0]); else handleLocalGrammarDisplay(null, fallbackPool); }
+        }
       };
     });
-    faq.querySelectorAll('[data-sidx]').forEach(c=>{
+    wrap.querySelectorAll('.faq-chip[data-sidx]').forEach(c=>{
       c.onclick=()=>{
-        const idx = parseInt(c.getAttribute('data-sidx'),10);
+        const idx = parseInt(c.getAttribute('data-sidx'), 10);
         const s = sentences[idx];
         if(s) window.__aiSentenceMode(s.kr, s.en, s.rom);
       };
     });
   }
 
-
+ 
     function handleSentenceClick(s){
     log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${escapeHtml(s.kr)}${s.rom?` (${escapeHtml(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
     
