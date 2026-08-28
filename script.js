@@ -1670,26 +1670,29 @@ function getPageSentences(){
     // 상단: 문장별 문법 DB 3개 (초록색) - 이제 절대 "문법 1번" 안 뜨게
     let modeButtonsHtml = '';
     if(sentences.length>0){
-      modeButtonsHtml = `<div style="width:100%;display:flex;gap:6px;">`
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
         + [0,1,2].map(i=>{
           const g = grammarsPerSentence[i];
           const sentence = sentences[i];
           if(g){
-            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">`
-              + `📚<br>${escapeHtml(g.grammar)}<br><span style="font-size:.6rem;color:#166534;">${escapeHtml(g.id)}</span>`
+            // 절반 높이, ID 삭제, 한글+로마자+영어 표시 (외국인용)
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;">`
+              + `<div style="font-size:.82rem;font-weight:900;color:#166534;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.grammar)}</div>`
+              + `<div style="font-size:.62rem;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.romanization||'')}</div>`
+              + `<div style="font-size:.6rem;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.title||'').slice(0,22)}</div>`
               + `</button>`;
           } else {
-            // 진짜 문법이 하나도 없을 때만 표시 (거의 안 뜨게 됨)
-            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;opacity:0.6;">`
-              + `📚<br>${escapeHtml((sentence&&sentence.kr||'').slice(0,6))}<br><span style="font-size:.6rem;color:#64748b;">문법</span>`
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;opacity:0.6;padding:5px 6px;line-height:1.2;min-height:auto;">`
+              + `<div style="font-size:.75rem;font-weight:800;">${escapeHtml((sentence&&sentence.kr||'').slice(0,6))}</div>`
+              + `<div style="font-size:.6rem;color:#64748b;">Grammar</div>`
               + `</button>`;
           }
         }).join('') + `</div>`;
     } else {
-      modeButtonsHtml = `<div style="width:100%;display:flex;gap:6px;">`
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
         + (fallbackPool.slice(0,3).map((g,i)=>
-          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>${escapeHtml(g.grammar)}<br><span style="font-size:.6rem;color:#64748b;">${escapeHtml(g.id)}</span></button>`
-        ).join('') || `<button class="faq-chip" style="flex:1;">📚 문법 DB</button>`.repeat(3))
+          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${escapeHtml(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${escapeHtml(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
+        ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(3))
         + `</div>`;
     }
 
