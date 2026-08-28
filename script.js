@@ -2137,20 +2137,24 @@ function getPageSentences(){
     modal.style.display=open?'flex':'none'; 
     if(open){ 
       renderFaq(); 
-      // 👇 모달 열린 후에 가이드 만들기 - 이게 핵심!
       setTimeout(()=>{
         let g = document.getElementById('usageGuide');
         if(g){ g.style.display='block'; return; }
         const guide = document.createElement('div');
         guide.id = 'usageGuide';
-        guide.innerHTML = `💡 <b style="color:#6366f1;">How to use:</b> 📚 Top=Free Grammar · 💬 Middle=Ask AI · ✨ Bottom=More Quiz`;
-        guide.style.cssText = "display:block !important;background:yellow !important;border:2px solid red !important;padding:10px 12px;border-radius:10px;margin:10px;color:#000;font-size:0.8rem;z-index:9999;position:relative;";
-        const faqEl = document.getElementById('faq') || wrap.querySelector('#faq') || wrap.querySelector('[id*="faq"]');
-        const logEl = document.getElementById('log') || wrap.querySelector('#log');
+        guide.innerHTML = `
+          <div style="font-weight:800;color:#6366f1;margin-bottom:6px;">💡 How to use: Select and tap!</div>
+          <div>📚 Tap top sentence → Free grammar (unlimited)</div>
+          <div>💬 Tap middle sentence → Ask AI</div>
+          <div>✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain</div>
+          <div>🔍 Search bar → Ask deeper questions</div>
+        `;
+        guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:10px 0;color:#64748b;font-size:0.75rem;line-height:1.7;position:relative;z-index:10;";
+        const faqEl = document.getElementById('faq') || wrap.querySelector('#faq');
+        const logEl = document.getElementById('log');
         if(faqEl) faqEl.insertAdjacentElement('afterend', guide);
         else if(logEl) logEl.insertAdjacentElement('beforebegin', guide);
         else wrap.prepend(guide);
-        console.log('✅ 가이드 생성됨:', guide);
       },200);
     }
   };
