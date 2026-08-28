@@ -2082,31 +2082,14 @@ function getPageSentences(){
         const th = document.getElementById('ai-thinking');
         if(th) th.remove();
 
-        const signInNote = isAnonymous
-          ? `<div style="margin-bottom:16px;background:#fff7ed;border:1px solid #fed7aa;padding:12px;border-radius:12px;">
-              <div style="font-weight:800;color:#c2410c;">
-                🔑 Sign in to keep asking
-              </div>
-              <div style="font-size:0.82rem;color:#475569;margin-top:3px;margin-bottom:10px;">
-                Sign in (still free!) to keep using the AI teacher.
-              </div>
-              <button onclick="window.requireKoreanAuth ? window.requireKoreanAuth() : window.openAuthModal && window.openAuthModal()"
-                style="display:inline-flex;align-items:center;gap:6px;background:#f97316;color:#fff;padding:8px 16px;border-radius:999px;font-weight:800;font-size:0.85rem;border:none;cursor:pointer;">
-                Sign in Free →
-              </button>
-            </div>`
-          : '';
-
         const limitMessage = `
           <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
 
-            <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
+            <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:14px;">
               ${escapeHtml(message)}
             </div>
 
-            ${signInNote}
-
-            <div style="margin-bottom:14px;background:white;border:1px solid #e0e7ff;padding:12px;border-radius:12px;">
+            <div style="background:white;border:1px solid #e0e7ff;padding:12px;border-radius:12px;margin-bottom:14px;">
               <div style="font-weight:800;color:#6366f1;">
                 🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)
               </div>
@@ -2114,7 +2097,6 @@ function getPageSentences(){
                 Free: 3 questions/day · Pro: 20/day + unlimited. $3.99/month (₱199)
               </div>
               
-              <!-- 결제 바로가기 버튼 2개 -->
               <div style="display:flex;flex-direction:column;gap:8px;">
                 <button onclick="window.payWithPayMongo ? window.payWithPayMongo() : window.openAuthModal && window.openAuthModal()"
                   style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">
@@ -2123,10 +2105,6 @@ function getPageSentences(){
                 <button onclick="window.payWithLemonSqueezy ? window.payWithLemonSqueezy() : window.openAuthModal && window.openAuthModal()"
                   style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">
                   🌍 Pay with Card — $3.99/mo
-                </button>
-                <button onclick="window.openAuthModal && window.openAuthModal()"
-                  style="width:100%;padding:8px;background:transparent;color:#6366f1;border:1px solid #e0e7ff;border-radius:10px;font-weight:700;font-size:0.8rem;cursor:pointer;">
-                  Log in / Pro Details →
                 </button>
               </div>
               <div style="font-size:0.7rem;color:#94a3b8;margin-top:8px;text-align:center;">Secure payment · Cancel anytime</div>
