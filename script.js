@@ -1801,10 +1801,13 @@ function getPageSentences(){
     }
   }
  
-  // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
-  async function handleQuestion(q, gramForced){
-    var ctx=getCtx();
-    var grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
+async function handleQuestion(q, gramForced, forceGemini = false){
+  var ctx=getCtx();
+
+  // EPS-TOPIK / Quiz / Example 버튼은 반드시 Gemini AI로 처리
+  var grams = forceGemini
+    ? []
+    : (gramForced ? [gramForced] : findAllGrammarMatches(q));
  
     // 사용자 입력을 화면에 넣기 전 이스케이프 처리 (XSS 방지)
     const safeQ = escapeHtml(q);
