@@ -1567,7 +1567,7 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
 
       if(res.status === 403){
         const data = await res.json().catch(()=>({}));
-        onQuotaExceeded(data.message || '오늘 질문 횟수를 다 쓰셨어요.', data.plan || 'free', !user);
+        onQuotaExceeded(data.message || 'You have used up all your questions for today.', data.plan || 'free', !user);
         return;
       }
 
