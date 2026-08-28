@@ -2131,18 +2131,11 @@ function getPageSentences(){
     );
   }
  
-// 1. 전역 변수명 변경 (open -> isAiOpen) 및 DOM 요소 참조 객체 선언
-let isAiOpen = false;
-const wrap = document.getElementById('wrap') || document.body; // 실제 wrap 요소의 ID/클래스로 지정
-const btn = document.getElementById('ai-btn');                 // AI 버튼 요소 지정
-const modal = document.getElementById('ai-modal');             // 모달 요소 지정
-const input = document.getElementById('ai-input');             // 입력창 요소 지정
+window.openShare=openShare;
 
-window.openShare = openShare;
-
-function getUsageGuide() {
+function getUsageGuide(){
   let guide = document.getElementById('usageGuide');
-  if (!guide && wrap) {
+  if(!guide){
     guide = document.createElement('div');
     guide.id = 'usageGuide';
     guide.innerHTML = `
@@ -2158,61 +2151,53 @@ function getUsageGuide() {
   return guide;
 }
 
-if (btn && modal) {
-  btn.onclick = () => {
-    isAiOpen = !isAiOpen;
-    modal.style.display = isAiOpen ? 'flex' : 'none';
-    if (isAiOpen) {
-      if (typeof renderFaq === 'function') renderFaq();
-      setTimeout(() => {
-        const guide = getUsageGuide();
-        if (guide) guide.style.display = 'block';
-      }, 150);
-    }
-  };
-}
-
-if (wrap) {
-  const closeBtn = wrap.querySelector('#ai-x');
-  if (closeBtn) {
-    closeBtn.onclick = () => {
-      isAiOpen = false;
-      if (modal) modal.style.display = 'none';
-    };
+btn.onclick=()=>{
+  open=!open;
+  modal.style.display=open ? 'flex' : 'none';
+  if(open){
+    renderFaq();
+    setTimeout(()=>{
+      const guide=getUsageGuide();
+      guide.style.display='block';
+    },150);
   }
+};
 
-  wrap.addEventListener('click', function(e) {
-    if (e.target.closest('.faq-chip') || e.target.closest('#ai-send-btn')) {
-      const g = document.getElementById('usageGuide');
-      if (g) g.style.display = 'none';
-    }
-  });
+wrap.querySelector('#ai-x').onclick=()=>{
+  open=false;
+  modal.style.display='none';
+};
 
-  const sendBtn = wrap.querySelector('#ai-send-btn');
-  if (sendBtn && input) {
-    sendBtn.onclick = () => {
-      var q = input.value.trim();
-      if (q) {
-        const g = document.getElementById('usageGuide');
-        if (g) g.style.display = 'none';
-        input.value = '';
-        if (typeof handleQuestion === 'function') handleQuestion(q);
-      }
-    };
+wrap.addEventListener('click',function(e){
+  if(e.target.closest('.faq-chip') || e.target.closest('#ai-send-btn')){
+    const g=document.getElementById('usageGuide');
+    if(g) g.style.display='none';
   }
-}
+});
 
-if (input) {
-  input.addEventListener('keypress', e => {
-    if (e.key === 'Enter' && e.target.value.trim()) {
-      const g = document.getElementById('usageGuide');
-      if (g) g.style.display = 'none';
-      var q = e.target.value.trim();
-      e.target.value = '';
-      if (typeof handleQuestion === 'function') handleQuestion(q);
-    }
-  });
-}
+input.addEventListener('keypress',e=>{
+  if(e.key==='Enter' && e.target.value.trim()){
+    const g=document.getElementById('usageGuide');
+    if(g) g.style.display='none';
+    var q=e.target.value.trim();
+    e.target.value='';
+    handleQuestion(q);
+  }
+});
+
+wrap.querySelector('#ai-send-btn').onclick=()=>{
+  var q=input.value.trim();
+  if(q){
+    const g=document.getElementById('usageGuide');
+    if(g) g.style.display='none';
+    input.value='';
+    handleQuestion(q);
+  }
+};
+
+  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
+  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
 
 window.showAiTutor = () => {
   var d = document.getElementById('detail-area');
