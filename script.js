@@ -2137,31 +2137,28 @@ function getPageSentences(){
   input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
   wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
 
-  // 👇 고친 버전 - 이제 무조건 보임!
+  // 👇 위로 올린 버전 - 검색창을 안가림
   (function addUsageGuide(){
     if(document.getElementById('usageGuide')) return;
     const guide = document.createElement('div');
     guide.id = 'usageGuide';
     guide.innerHTML = `
       <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
-      <div style="line-height:1.6;">
-      📚 Tap top sentence → Free grammar (unlimited)<br>
-      💬 Tap middle sentence → Ask AI<br>
-      ✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain<br>
-      🔍 Search bar → Ask deeper questions
-      </div>
+      📚 Top → Free grammar (unlimited)<br>
+      💬 Middle → Ask AI<br>
+      ✨ Bottom → EPSTOPIK · More Quiz · More Explain
     `;
-    guide.style.cssText = "display:block !important;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-top:10px;color:#94a3b8;font-size:0.75rem;width:100%;box-sizing:border-box;";
-    input.insertAdjacentElement('afterend', guide);
+    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.73rem;line-height:1.5;width:100%;box-sizing:border-box;";
+    
+    // 검색창 위로 올림 (검색창을 안가리게)
+    const searchRow = input.parentElement;
+    searchRow.insertAdjacentElement('beforebegin', guide);
 
     const hide = () => guide.style.display = 'none';
     const show = () => guide.style.display = 'block';
 
-    // 문법/문장 칩 누를 때만 숨김 (AI버튼은 제외!)
     document.addEventListener('click', (e)=>{
-      if(e.target.closest('.faq-chip')){
-        hide();
-      }
+      if(e.target.closest('.faq-chip')) hide();
     });
     input.addEventListener('focus', ()=>{ if(!input.value.trim()) show(); });
   })();
