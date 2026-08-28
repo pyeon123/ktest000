@@ -1218,54 +1218,235 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
  
   var btn=wrap.querySelector('#ai-tutor-btn'), modal=wrap.querySelector('#ai-tutor-modal'), log=wrap.querySelector('#ai-chat-log'), faq=wrap.querySelector('#ai-faq-chips'), input=wrap.querySelector('#ai-in'), open=false;
  
-  function getCtx(){
-    const krEl=document.getElementById('korean-sentence')||document.querySelector('.kr-text');
-    const romEl=document.getElementById('romanization')||document.querySelector('.rom-text');
-    const tipEl=document.getElementById('category-tip-text');
-    return { kr: (krEl&&krEl.innerText.trim())||'가족', rom: (romEl&&romEl.innerText.trim())||'ga-jok', en: (tipEl&&tipEl.innerText.trim().slice(0,120))||'family' };
+ function getCurrentQuizData(){
+  try{
+    if(
+      typeof currentCategoryData !== 'undefined' &&
+      Array.isArray(currentCategoryData) &&
+      typeof currentIdx !== 'undefined' &&
+      currentCategoryData[currentIdx]
+    ){
+      return currentCategoryData[currentIdx];
+    }
+  }catch(e){
+    console.warn('[AI Tutor] getCurrentQuizData error:', e);
   }
 
-  // 추가: 서버(ask-tutor)가 활용할 수 있는 pageContext를 만든다.
-  // 서버는 page/category/lesson/quiz/quizProgress/epsTopik 구조를 기대하므로 그 형태에 맞춘다.
-  function buildPageContext(){
-    const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
-      ? currentCategoryData[currentIdx]
-      : null;
+  return null;
+}
+
+
+function getCtx(){
+
+  const quiz = getCurrentQuizData();
+
+  if(quiz){
 
     return {
-      page: {
-        title: document.title || "",
-        url: window.location.href,
-        path: window.location.pathname
-      },
-      category: {
-        id: (typeof activeCatId !== 'undefined') ? activeCatId : "",
-        name: (typeof activeCategoryName !== 'undefined') ? activeCategoryName : ""
-      },
-      lesson: quiz ? {
-        korean: quiz.kr || "",
-        romanization: quiz.rom || "",
-        english: quiz.en || "",
-        tip: quiz.tip || "",
-        situation: quiz.situation || "",
-        forms: quiz.forms || {},
-        examples: quiz.examples || []
-      } : {},
-      quiz: quiz ? {
-        question: quiz.kr || "",
-        answer: quiz.en || "",
-        options: quiz.options || []
-      } : {},
-      quizProgress: (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined') ? {
-        current: currentIdx + 1,
-        total: currentCategoryData.length
-      } : {},
-      epsTopik: {
-        title: document.title || "",
-        content: (document.getElementById('category-tip-text')?.innerText || "").trim()
-      }
+      kr: String(quiz.kr || '').trim(),
+      rom: String(quiz.rom || '').trim(),
+      en: String(quiz.en || '').trim()
     };
+
   }
+
+  // 혹시 quizDB 방식 페이지라도 안전하게 fallback
+  const krEl =
+    document.getElementById('korean-sentence') ||
+    document.querySelector('.kr-text');
+
+  const romEl =
+    document.getElementById('romanization') ||
+    document.querySelector('.rom-text');
+
+  const enEl =
+    document.getElementById('english') ||
+    document.querySelector('.en-text');
+
+  return {
+    kr: krEl ? krEl.innerText.trim() : '',
+    rom: romEl ? romEl.innerText.trim() : '',
+    en: enEl ? enEl.innerText.trim() : ''
+  };
+}
+
+function buildPageContext(){
+
+  const quiz = getCurrentQuizData();
+
+  const pageTitle = document.title || '';
+  const pageUrl = window.location.href;
+  const pagePath = window.location.pathname;
+
+  const categoryId =
+    (typeof activeCatId !== 'undefined' && activeCatId)
+      ? activeCatId
+      : '';
+
+  const categoryName =
+    (typeof activeCategoryName !== 'undefined' && activeCategoryName)
+      ? activeCategoryName
+      : '';
+
+  const currentNumber =
+    (
+      typeof currentCategoryData !== 'undefined' &&
+      Array.isArray(currentCategoryData) &&
+      typeof currentIdx !== 'undefined'
+    )
+      ? currentIdx + 1
+      : 0;
+
+  const totalNumber =
+    (
+      typeof currentCategoryData !== 'undefined' &&
+      Array.isArray(currentCategoryData)
+    )
+      ? currentCategoryData.length
+      : 0;
+
+
+  const lesson = quiz ? {
+
+    korean: String(quiz.kr || ''),
+    romanization: String(quiz.rom || ''),
+    english: String(quiz.en || ''),
+
+    tip: String(quiz.tip || ''),
+    situation: String(quiz.situation || ''),
+
+    casual:
+      String(
+        (quiz.forms && quiz.forms.casual) ||
+        quiz.casual ||
+        ''
+      ),
+
+    polite:
+      String(
+        (quiz.forms && quiz.forms.polite) ||
+        quiz.polite ||
+        ''
+      ),
+
+    present:
+      String(
+        (quiz.forms && quiz.forms.present) ||
+        ''
+      ),
+
+    past:
+      String(
+        (quiz.forms && quiz.forms.past) ||
+        ''
+      ),
+
+    future:
+      String(
+        (quiz.forms && quiz.forms.future) ||
+        ''
+      ),
+
+    grammar: quiz.grammar || {},
+
+    examples:
+      Array.isArray(quiz.examples)
+        ? quiz.examples.map(e => ({
+            korean: String(e.kr || ''),
+            romanization: String(e.rom || ''),
+            english: String(e.en || '')
+          }))
+        : [],
+
+    options:
+      Array.isArray(quiz.options)
+        ? quiz.options.map(o => ({
+            korean: String(o.kr || ''),
+            romanization: String(o.rom || ''),
+            english: String(o.en || '')
+          }))
+        : []
+
+  } : {};
+
+
+  return {
+
+    page: {
+      title: pageTitle,
+      url: pageUrl,
+      path: pagePath
+    },
+
+    category: {
+      id: categoryId,
+      name: categoryName
+    },
+
+    lesson: lesson,
+
+    currentLesson: {
+      korean: lesson.korean || '',
+      romanization: lesson.romanization || '',
+      english: lesson.english || ''
+    },
+
+    quiz: quiz ? {
+
+      question: String(quiz.kr || ''),
+      answer: String(quiz.en || ''),
+
+      options:
+        Array.isArray(quiz.options)
+          ? quiz.options.map(o => ({
+              korean: String(o.kr || ''),
+              romanization: String(o.rom || ''),
+              english: String(o.en || '')
+            }))
+          : []
+
+    } : {},
+
+    quizProgress: {
+      current: currentNumber,
+      total: totalNumber
+    },
+
+    epsTopik: {
+
+      enabled: true,
+
+      target:
+        'EPS-TOPIK Korean learner',
+
+      lessonTitle:
+        pageTitle,
+
+      topic:
+        categoryName,
+
+      Korean:
+        lesson.korean || '',
+
+      English:
+        lesson.english || '',
+
+      grammar:
+        lesson.grammar || {},
+
+      situation:
+        lesson.situation || '',
+
+      vocabulary:
+        lesson.options || [],
+
+      examples:
+        lesson.examples || []
+
+    }
+
+  };
+}
  
   function mdToHtml(text){
     let t = text;
@@ -1350,16 +1531,39 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
         bodyExtra.deviceId = getDeviceId(); 
         headers['Authorization'] = `Bearer ${SUPABASE_ANON_KEY}`;
       }
+     
+      const pageContext = buildPageContext();
 
-      const res = await fetch(ASK_TUTOR_ENDPOINT, {
-        method:'POST',
-        headers,
-        body: JSON.stringify({
-          kr: ctx.kr, rom: ctx.rom, en: ctx.en, q,
-          pageContext: buildPageContext(),   // 서버의 EPS-TOPIK 컨텍스트 활용을 위해 추가
-          ...bodyExtra
-        })
-      });
+const res = await fetch(ASK_TUTOR_ENDPOINT, {
+  method: 'POST',
+  headers,
+
+  body: JSON.stringify({
+
+    // 현재 퀴즈
+    kr: ctx.kr,
+    rom: ctx.rom,
+    en: ctx.en,
+
+    // 사용자가 질문한 내용
+    q: q,
+
+    // 현재 페이지 전체 학습 context
+    pageContext: pageContext,
+
+    // 서버가 쉽게 사용할 수 있는 핵심 정보
+    currentPage: pageContext.page,
+    currentCategory: pageContext.category,
+    currentLesson: pageContext.lesson,
+    currentQuiz: pageContext.quiz,
+    quizProgress: pageContext.quizProgress,
+    epsTopik: pageContext.epsTopik,
+
+    ...bodyExtra
+
+  })
+});
+      
 
       if(res.status === 403){
         const data = await res.json().catch(()=>({}));
