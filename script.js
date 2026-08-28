@@ -1048,6 +1048,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   // "Show questions" 버튼이 제대로 안 열리던 문제를 해결하면서, 동시에
   // 처음 써서 뭘 물어봐야 할지 모르는 초보 사용자를 위해
   // 현재 페이지 내용을 기준으로 바로 누를 수 있는 3가지 학습 모드 박스를 제공한다.
+
   function renderStudyModeButtons(){
     return `<div class="ai-actions" style="margin-top:10px;">`
       + `<button class="ai-action-btn" onclick="window.__aiTutorMode('epstopik')">📘 EPS-TOPIK</button>`
@@ -1056,9 +1057,56 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       + `</div>`;
   }
 
-  // 각 모드 버튼을 누르면 현재 페이지(pageContext)를 기준으로 서버에 정형화된 질문을 보낸다.
-  // 서버(ask-tutor)의 시스템 프롬프트가 이미 EPS-TOPIK/Quiz/Vocabulary 등 섹션별 답변 규칙을
-  // 갖고 있으므로, 여기서는 그 규칙이 발동되도록 질문 문구만 명확하게 만들어주면 된다.
+  function getDetectedGrammars(){
+    try{
+      const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
+        ? currentCategoryData[currentIdx] : null;
+      if(!quiz) return [];
+      let combined = (quiz.kr||'') + ' ';
+      if(Array.isArray(quiz.examples)) combined += quiz.examples.map(e=>e.kr||'').join(' ') + ' ';
+      if(Array.isArray(quiz.options)) combined += quiz.options.map(o=>o.kr||'').join(' ') + ' ';
+      return detectGrammarInText(combined).slice(0,3);
+    }catch(e){ return []; }
+  }
+
+  function handleLocalGrammarDisplay(specificG, allGrams){
+    let grams = [];
+    if(specificG) grams = [specificG];
+    else if(allGrams && allGrams.length>0) grams = allGrams;
+    else grams = getDetectedGrammars();
+
+    const ctx = getCtx();
+    if(grams.length===0){
+      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠️ 이 문장에서 감지된 문법이 없어요. 아래 검색창에 직접 질문해보세요.</div>`;
+      log.scrollTop = log.scrollHeight;
+      return;
+    }
+    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?escapeHtml(grams[0].grammar)+' 문법 보기':'문법 DB 보기'}</div>`;
+    let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
+      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length}개 문법 - 무료 무제한 (문장 3개에서 추출)</span>`;
+    grams.forEach(g=>{
+      block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">`
+        + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
+        + renderFromDB(g, ctx)
+        + `</div>`;
+    });
+    block += makeActions(grams.map(g=>g.grammar).join(' / ').slice(0,200)) + renderStudyModeButtons() + `</div>`;
+    log.innerHTML += block;
+    log.scrollTop = log.scrollHeight;
+  }
+
+  // 상단 3개 버튼 = 로컬 DB (디자인 그대로 유지)
+  window.__localDbMode = function(mode){
+    handleLocalGrammarDisplay();
+  };
+
+  // 하단 문장 3개 = AI (디자인 그대로 유지)
+  window.__aiSentenceMode = function(kr, en, rom){
+    const q = kr + (en? ' - '+en : '');
+    handleQuestion(q, null, true);
+  };
+
+  // 기존 AI 모드 (답변 아래 작은 버튼들은 여전히 AI)
   window.__aiTutorMode = function(mode){
     const ctx = getCtx();
     const lessonLabel = ctx.kr ? `"${ctx.kr}"` : "this lesson";
@@ -1068,10 +1116,8 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       example: `Please give me 2-3 additional natural example sentences using the vocabulary or grammar from ${lessonLabel}, each with Korean, romanization, and English meaning.`
     };
     const q = presetQuestions[mode] || presetQuestions.epstopik;
-    // FIX: 학습 모드 박스는 항상 AI로 가야 하므로 로컬 DB 매칭 스킵
     handleQuestion(q, null, true);
   };
- 
   // ==================== Gemini는 DB에 없는 "일반 질문"일 때만 호출 ====================
   // 참고: 실제 시스템 프롬프트(V21_SYSTEM)는 서버(ask-tutor Edge Function)에만 존재합니다.
   // 클라이언트는 kr/rom/en/q 및 pageContext만 만들어서 보내면 됩니다.
@@ -1392,11 +1438,9 @@ function hasGrammarPattern(text, pattern){
 
   if(pattern.startsWith('-')){
     const actualPattern = pattern.slice(1).trim();
-    // FIX: 한 글자 조사(가, 이, 는 등)는 오탐이 너무 많아서 무시
     if(!actualPattern || actualPattern.length < 2) return false;
     return hasTrailingHangulBoundary(text, actualPattern);
   }
-  // FIX: 패턴 자체가 1글자면 무시
   if(pattern.length < 2) return false;
 
   return hasTrailingHangulBoundary(text, pattern);
@@ -1565,121 +1609,111 @@ function getPageSentences(){
  
   function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
  
-  
-  function getDetectedGrammars(){
-    try{
-      const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
-        ? currentCategoryData[currentIdx]
-        : null;
-      if(!quiz) return [];
-      let combined = (quiz.kr||'') + ' ';
-      if(Array.isArray(quiz.examples)) combined += quiz.examples.map(e=>e.kr||'').join(' ') + ' ';
-      if(Array.isArray(quiz.options)) combined += quiz.options.map(o=>o.kr||'').join(' ') + ' ';
-      const found = detectGrammarInText(combined);
-      // dedup already in detectGrammarInText, take top 3
-      return found.slice(0,3);
-    }catch(e){
-      console.warn('[AI Tutor] getDetectedGrammars error', e);
-      return [];
-    }
-  }
 
-  function handleGrammarChipClick(g){
-    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)}) 문법 보기</div>`;
-    log.scrollTop = log.scrollHeight;
-    const cid = 'ai-content-' + Date.now();
-    const block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
-      + `<span class="ai-source-tag ai-source-db">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)}) - 무료 무제한</span>`
-      + `<div style="margin-top:8px;">${renderFromDB(g, getCtx())}</div>`
-      + `<div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">`
-      + `<button class="ai-action-btn" onclick="handleQuestion('${(g.examples&&g.examples[0]?g.examples[0].kr:'').replace(/'/g,'').slice(0,30)}', null, true)">🤖 AI에게 더 물어보기</button>`
-      + `</div>`
-      + makeActions((g.grammar+' '+g.title).slice(0,200))
-      + renderStudyModeButtons() + `</div>`;
-    log.innerHTML += block;
-    log.scrollTop = log.scrollHeight;
-  }
-
-  function handleAiSentenceClick(s){
-    // 하이브리드: 문장 칩은 무조건 AI로
-    handleQuestion(s.kr + (s.en? ' - '+s.en : ''), null, true);
-  }
 
   function renderFaq(){
     var sentences = getPageSentences();
-    var detectedGrammars = getDetectedGrammars();
 
-    const modeButtonsHtml = `<div style="width:100%;display:flex;gap:6px;">`
-      + `<button class="faq-chip" style="flex:1;text-align:center;" onclick="window.__aiTutorMode('epstopik')">📘<br>EPS-TOPIK</button>`
-      + `<button class="faq-chip" style="flex:1;text-align:center;" onclick="window.__aiTutorMode('quiz')">🎯<br>Quiz</button>`
-      + `<button class="faq-chip" style="flex:1;text-align:center;" onclick="window.__aiTutorMode('example')">💬<br>Example</button>`
-      + `</div>`;
+    // 문장 3개에서 문법 3개 추출 (로컬 DB용)
+    let detectedFromSentences = [];
+    try{
+      if(sentences.length>0){
+        const combinedText = sentences.map(s=>s.kr||'').join(' ');
+        detectedFromSentences = detectGrammarInText(combinedText).slice(0,3);
+      }
+      // 만약 문장에서 못 찾으면 현재 레슨에서라도 찾기 (fallback)
+      if(detectedFromSentences.length===0){
+        const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
+          ? currentCategoryData[currentIdx] : null;
+        if(quiz){
+          let combined = (quiz.kr||'') + ' ';
+          if(Array.isArray(quiz.examples)) combined += quiz.examples.map(e=>e.kr||'').join(' ') + ' ';
+          detectedFromSentences = detectGrammarInText(combined).slice(0,3);
+        }
+      }
+    }catch(e){ console.warn(e); }
 
-    let html = '';
-
-    // 1. 상단: 문법 DB (무료)
-    if(detectedGrammars.length > 0){
-      html += `<div style="width:100%;margin-bottom:10px;">`
-        + `<div style="font-size:.72rem;font-weight:900;color:#16a34a;margin-bottom:5px;letter-spacing:0.2px;">📚 이 레슨 문법 (무료·무제한) - 탭하면 문법 DB</div>`
-        + `<div style="display:flex;gap:6px;flex-wrap:wrap;">`
-        + detectedGrammars.map((g,i) => 
-          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;min-width:80px;text-align:center;border-color:#bbf7d0;background:#f0fdf4;">`
-          + `<div style="font-weight:900;color:#166534;">${escapeHtml(g.grammar)}</div>`
-          + `<div style="font-size:.68rem;color:#64748b;margin-top:2px;">${escapeHtml(g.id)}</div>`
-          + `</button>`
-        ).join('')
-        + `</div></div>`;
-    }
-
-    // 2. 중단: 문장 AI (유료)
-    if(sentences.length > 0){
-      html += `<div style="width:100%;margin-bottom:10px;">`
-        + `<div style="font-size:.72rem;font-weight:900;color:#6366f1;margin-bottom:5px;">💬 레슨 문장 (AI 설명) - 탭하면 AI 답변</div>`
-        + sentences.map((s,i) =>
-          `<button class="faq-chip" data-sidx="${i}" style="width:100%;margin-bottom:6px;background:#f5f3ff;border-color:#ddd6fe;">`
-          + `<div style="font-size:.82em;font-weight:700;">${escapeHtml(s.kr)}</div>`
-          + `<div style="font-size:.78em;font-weight:600;opacity:.9;margin-top:4px;color:#475569;">${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')}</div>`
+    // 디자인 그대로 유지 - 상단 3개 = 문장 3개에서 뽑은 문법 (로컬 DB)
+    let modeButtonsHtml = '';
+    if(detectedFromSentences.length>0){
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:6px;">`
+        + detectedFromSentences.map((g,i)=>
+          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">`
+          + `📚<br>${escapeHtml(g.grammar)}<br><span style="font-size:.65rem;color:#64748b;">${escapeHtml(g.id)}</span>`
           + `</button>`
         ).join('')
         + `</div>`;
-    }
-
-    // 3. 하단: 학습 모드 AI
-    html += `<div style="width:100%;">`
-      + `<div style="font-size:.72rem;font-weight:900;color:#6366f1;margin-bottom:5px;">🎯 학습 모드 (AI)</div>`
-      + modeButtonsHtml
-      + `</div>`;
-
-    faq.innerHTML = html;
-
-    if(sentences.length===0 && detectedGrammars.length===0){
-      log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#64748b;">👆 상단에서 문법을 무료로 보고, 문장을 탭하면 AI가 설명해줘요!</div>`;
     } else {
-      log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 <b style="color:#16a34a;">초록색</b>은 무료 문법 DB, <b style="color:#6366f1;">보라색</b>은 AI 설명이에요. 원하는걸 탭해보세요!</div>`;
+      // fallback: 문법을 못 찾았을 때 기존 라벨 유지
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:6px;">`
+        + `<button class="faq-chip" data-gram-idx="fallback-0" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>문법<br>DB</button>`
+        + `<button class="faq-chip" data-gram-idx="fallback-1" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>문법<br>DB</button>`
+        + `<button class="faq-chip" data-gram-idx="fallback-2" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;">📚<br>문법<br>DB</button>`
+        + `</div>`;
     }
+
+    if(sentences.length === 0){
+      faq.innerHTML = modeButtonsHtml;
+      log.innerHTML = `<div style="background:#f0fdf4;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#166534;">📚 상단 3개는 이 레슨 문장에서 찾은 문법이에요 (무료)</div>`;
+      faq.style.display='flex';
+      // 바인딩
+      wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
+        c.onclick=()=>{
+          const idx = parseInt(c.getAttribute('data-gram-idx'),10);
+          if(!isNaN(idx)){
+            const g = detectedFromSentences[idx];
+            if(g) handleLocalGrammarDisplay(g);
+          } else {
+            handleLocalGrammarDisplay(null);
+          }
+        };
+      });
+      return;
+    }
+
+    // 하단: 문장 3개 = AI
+    faq.innerHTML = modeButtonsHtml + sentences.map((s,i) =>
+  `<button class="faq-chip" data-sidx="${i}" style="background:#f5f3ff;border-color:#ddd6fe;margin-top:6px;">
+    <div style="font-size:.82em;font-weight:700;">
+      ${escapeHtml(s.kr)}
+    </div>
+    <div style="font-size:.9em;font-weight:700;opacity:.95;margin-top:5px;color:#6366f1;">
+      ${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')} → 🤖 AI
+    </div>
+  </button>`
+).join('');
+
+    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 <b style="color:#16a34a;">상단 초록색 3개</b>는 아래 문장 3개에서 찾은 문법(무료 DB), <b style="color:#6366f1;">하단 보라색 문장</b>은 AI 설명이에요.</div>`;
 
     faq.style.display='flex';
     log.scrollTop = 0;
  
-    // 이벤트 바인딩
     wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
       c.onclick=()=>{
-        const idx = parseInt(c.getAttribute('data-gram-idx'), 10);
-        const g = detectedGrammars[idx];
-        if(g) handleGrammarChipClick(g);
+        const attr = c.getAttribute('data-gram-idx');
+        const idx = parseInt(attr,10);
+        if(!isNaN(idx)){
+          const g = detectedFromSentences[idx];
+          if(g) handleLocalGrammarDisplay(g);
+        } else {
+          // fallback - 전체 문법 표시
+          const all = detectedFromSentences.length>0 ? detectedFromSentences : getDetectedGrammars();
+          if(all.length>0) handleLocalGrammarDisplay(null, all);
+          else handleLocalGrammarDisplay(null);
+        }
       };
     });
     wrap.querySelectorAll('.faq-chip[data-sidx]').forEach(c=>{
       c.onclick=()=>{
         const idx = parseInt(c.getAttribute('data-sidx'), 10);
         const s = sentences[idx];
-        if(s) handleAiSentenceClick(s);
+        if(s) window.__aiSentenceMode(s.kr, s.en, s.rom);
       };
     });
   }
 
  
-  function handleSentenceClick(s){
+    function handleSentenceClick(s){
     log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${escapeHtml(s.kr)}${s.rom?` (${escapeHtml(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
     
     log.scrollTop = log.scrollHeight;
@@ -1711,6 +1745,8 @@ function getPageSentences(){
  
   // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
   async function handleQuestion(q, gramForced, forceAiMode){
+    // forceAiMode=true면 로컬 DB 스킵하고 무조건 AI
+
     var ctx=getCtx();
     var grams = [];
     if(!forceAiMode){
