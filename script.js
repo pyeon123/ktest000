@@ -2133,187 +2133,71 @@ function getPageSentences(){
  
 window.openShare=openShare;
 
-/* ================================
-   AI Tutor Usage Guide
-   ================================ */
-
 function getUsageGuide(){
-
-  let guide = wrap.querySelector('#usageGuide');
-
+  let guide = document.getElementById('usageGuide');
   if(!guide){
-
     guide = document.createElement('div');
-
     guide.id = 'usageGuide';
-
     guide.innerHTML = `
-      <div style="font-weight:800;color:#6366f1;margin-bottom:6px;">
-        💡 How to use: Select and tap!
-      </div>
+      <div style="font-weight:800;color:#6366f1;margin-bottom:6px;">💡 How to use: Select and tap!</div>
       <div>📚 Tap top sentence → Free grammar (unlimited)</div>
       <div>💬 Tap middle sentence → Ask AI</div>
       <div>✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain</div>
       <div>🔍 Search bar → Ask deeper questions</div>
     `;
-
-    guide.style.cssText = `
-      background:#f0fdf4;
-      border:1px dashed #bbf7d0;
-      padding:12px;
-      border-radius:10px;
-      margin:10px;
-      color:#475569;
-      font-size:0.78rem;
-      line-height:1.7;
-      width:calc(100% - 20px);
-      box-sizing:border-box;
-      position:relative;
-      z-index:99999;
-    `;
-
-    /*
-      AI Tutor wrap 안에서
-      modal보다 먼저 나오게 함
-    */
-    wrap.insertBefore(guide, modal);
-
+    guide.style.cssText = "background:#f0fdf4;border:1px dashed #bbf7d0;padding:12px;border-radius:10px;margin:10px;color:#475569;font-size:0.78rem;line-height:1.7;width:calc(100% - 20px);box-sizing:border-box;display:block;";
+    wrap.prepend(guide);
   }
-
   return guide;
 }
 
-
-/* ================================
-   AI Tutor 열기
-   ================================ */
-
 btn.onclick=()=>{
-
   open=!open;
-
   modal.style.display=open ? 'flex' : 'none';
-
   if(open){
-
     renderFaq();
-
     setTimeout(()=>{
-
       const guide=getUsageGuide();
-
-      // ★ 다시 열면 무조건 보이게
       guide.style.display='block';
-
-      console.log('✅ Usage Guide SHOW');
-
-    },300);
-
-  }else{
-
-    const guide=wrap.querySelector('#usageGuide');
-
-    if(guide){
-      guide.style.display='none';
-    }
-
+    },150);
   }
-
 };
-
-
-/* ================================
-   AI Tutor 닫기
-   ================================ */
 
 wrap.querySelector('#ai-x').onclick=()=>{
-
   open=false;
-
   modal.style.display='none';
-
-  const guide=wrap.querySelector('#usageGuide');
-
-  if(guide){
-    guide.style.display='none';
-  }
-
 };
-
-
-/* ================================
-   AI 내부 버튼 클릭
-   → Usage Guide 숨김
-   ================================ */
 
 wrap.addEventListener('click',function(e){
-
-  const button=e.target.closest('button');
-
-  if(!button) return;
-
-  if(button.id==='ai-tutor-btn') return;
-
-  const guide=wrap.querySelector('#usageGuide');
-
-  if(guide){
-    guide.style.display='none';
+  if(e.target.closest('.faq-chip') || e.target.closest('#ai-send-btn')){
+    const g=document.getElementById('usageGuide');
+    if(g) g.style.display='none';
   }
-
 });
-
-
-/* ================================
-   검색창 Enter
-   ================================ */
 
 input.addEventListener('keypress',e=>{
-
-  if(
-    e.key==='Enter' &&
-    e.target.value.trim()
-  ){
-
-    const guide=wrap.querySelector('#usageGuide');
-
-    if(guide){
-      guide.style.display='none';
-    }
-
+  if(e.key==='Enter' && e.target.value.trim()){
+    const g=document.getElementById('usageGuide');
+    if(g) g.style.display='none';
     var q=e.target.value.trim();
-
     e.target.value='';
-
     handleQuestion(q);
-
   }
-
 });
 
-
-/* ================================
-   검색 버튼
-   ================================ */
-
 wrap.querySelector('#ai-send-btn').onclick=()=>{
-
   var q=input.value.trim();
-
   if(q){
-
-    const guide=wrap.querySelector('#usageGuide');
-
-    if(guide){
-      guide.style.display='none';
-    }
-
+    const g=document.getElementById('usageGuide');
+    if(g) g.style.display='none';
     input.value='';
-
     handleQuestion(q);
-
   }
-
 };
+
+  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
+  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
  
   window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
   window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
