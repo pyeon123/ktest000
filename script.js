@@ -2149,7 +2149,7 @@ wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q)
   guide.id = 'usageGuide';
   guide.innerHTML = `
     <div style="font-weight:800;color:#6366f1;margin-bottom:6px;font-size:0.9rem;">💡 How to use: Select and tap!</div>
-    <span style="font-size:0.82rem;">📚 Tap top sentence → Free grammar (unlimited)<br>
+    <span style="font-size:0.82rem;">📚 Tap top grammar → Free grammar (unlimited)<br>
     💬 Tap middle sentence → Ask AI<br>
     ✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain</span>
      
