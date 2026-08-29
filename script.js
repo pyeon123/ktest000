@@ -1871,12 +1871,12 @@ function getPageSentences(){
     const guide = document.createElement('div');
     guide.id = 'usageGuide';
     guide.innerHTML = `
-      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.9rem;">💡 How to use: Select and tap!</div>
+      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.95rem;">💡 How to use: Select and tap!</div>
       📚 Top → Free grammar (unlimited)<br>
-      💬 Middle → Ask AI<br>
+      💬 Middle sentence → Ask AI<br>
       ✨ Bottom → EPSTOPIK · More Quiz · More Explain
     `;
-    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.83rem;line-height:1.5;width:100%;box-sizing:border-box;";
+    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.93rem;line-height:1.5;width:100%;box-sizing:border-box;";
 
     // 위치: 입력창 위가 아니라 채팅 상단(칩 영역) 바로 위로 이동
     if (faq && faq.parentElement) {
