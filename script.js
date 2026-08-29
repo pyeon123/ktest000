@@ -2132,35 +2132,25 @@ function getPageSentences(){
   }
  
 window.openShare=openShare;
-btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); setTimeout(()=>{ const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; },100); }};
+btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); }};
 wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
 input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
 wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
 
-// 👇 검색창에서 분리해서 상단으로 올린 버전
+// 설명은 검색창 위 빈 여백에만 고정
 (function addUsageGuide(){
   if(document.getElementById('usageGuide')) return;
   const guide = document.createElement('div');
   guide.id = 'usageGuide';
   guide.innerHTML = `
-    <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
-    📚 Top → Free grammar (unlimited)<br>
-    💬 Middle → Ask AI<br>
-    ✨ Bottom → EPSTOPIK · More Quiz · More Explain
+    <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use</div>
+    📚 위 = 무료 문법 (무제한)<br>
+    💬 중간 = AI 질문<br>
+    ✨ 아래 = EPS-TOPIK / 퀴즈 / 예문
   `;
-  // 검색창에 붙어있던 margin-bottom만 쓰던걸 4방향 마진으로 변경
- guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:0px 12px 8px 12px;transform:translateY(-4px);color:#94a3b8;font-size:0.73rem;line-height:1.5;width:auto;box-sizing:border-box;flex-shrink:0;position:relative;z-index:2;";
-
-  // 핵심: 검색창(input.parentElement) 앞에 넣지 말고, FAQ칩 위로 이동
-  const faqEl = document.getElementById('ai-faq-chips');
-  if(faqEl && faqEl.parentElement){
-    faqEl.parentElement.insertBefore(guide, faqEl);
-  }
-
-  const hide = () => guide.style.display = 'none';
-  document.addEventListener('click', (e)=>{
-    if(e.target.closest('.faq-chip')) hide();
-  });
+  guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:10px 12px 12px 12px;color:#94a3b8;font-size:0.72rem;line-height:1.5;box-sizing:border-box;flex-shrink:0;";
+  const searchRow = input.parentElement;
+  searchRow.insertAdjacentElement('beforebegin', guide);
 })();
 
 window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
