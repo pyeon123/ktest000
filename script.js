@@ -2131,41 +2131,42 @@ function getPageSentences(){
     );
   }
  
-  window.openShare=openShare;
-  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); setTimeout(()=>{ const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; },100); }};
-  wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
-  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
-  wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
+(function addUsageGuide(){
+  if(document.getElementById('usageGuide')) return;
+  const guide = document.createElement('div');
+  guide.id = 'usageGuide';
+  guide.innerHTML = `
+    <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
+    📚 Top → Free grammar (unlimited)<br>
+    💬 Middle → Ask AI<br>
+    ✨ Bottom → EPSTOPIK · More Quiz · More Explain
+  `;
+  guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.73rem;line-height:1.5;width:100%;box-sizing:border-box;";
 
-  // 👇 위로 올린 버전 - 검색창을 안가림
-  (function addUsageGuide(){
-    if(document.getElementById('usageGuide')) return;
-    const guide = document.createElement('div');
-    guide.id = 'usageGuide';
-    guide.innerHTML = `
-      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
-      📚 Top → Free grammar (unlimited)<br>
-      💬 Middle → Ask AI<br>
-      ✨ Bottom → EPSTOPIK · More Quiz · More Explain
-    `;
-    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.73rem;line-height:1.5;width:100%;box-sizing:border-box;";
-    
-    // 검색창 위로 올림 (검색창을 안가리게)
+  // 위치 변경: 입력창 바로 위 → 채팅창 상단(칩 영역 바로 위)로 이동
+  const faqEl = wrap.querySelector('#ai-faq-chips');
+  if (faqEl) {
+    faqEl.insertAdjacentElement('beforebegin', guide);
+  } else {
     const searchRow = input.parentElement;
     searchRow.insertAdjacentElement('beforebegin', guide);
+  }
 
-    const hide = () => guide.style.display = 'none';
-    const show = () => guide.style.display = 'block';
+  const hide = () => guide.style.display = 'none';
+  const show = () => guide.style.display = 'block';
 
-    document.addEventListener('click', (e)=>{
-      if(e.target.closest('.faq-chip')) hide();
-    });
-    input.addEventListener('focus', ()=>{ if(!input.value.trim()) show(); });
-  })();
- 
-  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
-  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
-  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
+  // 검색창을 포함한 모든 버튼 클릭 시 안내박스 숨김
+  document.addEventListener('click', (e)=>{
+    if(
+      e.target.closest('.faq-chip') ||
+      e.target.closest('.ai-action-btn') ||
+      e.target === wrap.querySelector('#ai-send-btn')
+    ) hide();
+  });
+
+  // 검색창에 포커스(탭) 되면 즉시 숨김 (기존엔 반대로 되어 있던 버그)
+  input.addEventListener('focus', hide);
+})();
  
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions (with pageContext)':'⚠️ Gemini disabled');
