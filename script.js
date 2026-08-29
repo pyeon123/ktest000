@@ -2132,10 +2132,15 @@ function getPageSentences(){
   }
  
 window.openShare=openShare;
-btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); }};
+btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; }};
 wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
-input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
-wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
+
+// 검색창 클릭 / 포커스 하면 설명 사라짐
+input.addEventListener('focus', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
+input.addEventListener('click', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
+
+input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; document.getElementById('usageGuide')?.style.setProperty('display','none'); handleQuestion(q);}});
+wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ document.getElementById('usageGuide')?.style.setProperty('display','none'); input.value=''; handleQuestion(q); } };
 
 // 설명은 검색창 위 빈 여백에만 고정
 (function addUsageGuide(){
@@ -2151,6 +2156,12 @@ wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q)
   guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:-12px 12px 8px 12px;transform:translateY(-18px);position:relative;z-index:2;color:#94a3b8;font-size:0.72rem;line-height:1.5;box-sizing:border-box;flex-shrink:0;";
   const searchRow = input.parentElement;
   searchRow.insertAdjacentElement('beforebegin', guide);
+
+  document.addEventListener('click', (e)=>{
+    if(e.target.closest('.faq-chip')){
+      guide.style.display='none';
+    }
+  });
 })();
 
 window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
