@@ -2149,7 +2149,7 @@ wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q)
     ✨ Bottom → EPSTOPIK · More Quiz · More Explain
   `;
   // 검색창에 붙어있던 margin-bottom만 쓰던걸 4방향 마진으로 변경
-  guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:12px 12px 10px 12px;color:#94a3b8;font-size:0.73rem;line-height:1.5;width:auto;box-sizing:border-box;flex-shrink:0;";
+ guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:0px 12px 8px 12px;transform:translateY(-8px);color:#94a3b8;font-size:0.73rem;line-height:1.5;width:auto;box-sizing:border-box;flex-shrink:0;position:relative;z-index:2;";
 
   // 핵심: 검색창(input.parentElement) 앞에 넣지 말고, FAQ칩 위로 이동
   const faqEl = document.getElementById('ai-faq-chips');
