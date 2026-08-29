@@ -2148,10 +2148,10 @@ wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q)
   const guide = document.createElement('div');
   guide.id = 'usageGuide';
   guide.innerHTML = `
-    <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use</div>
-    📚 위 = 무료 문법 (무제한)<br>
+    <div style="font-weight:800;color:#6366f1;margin-bottom:6px;font-size:1.05rem;">💡 How to use</div>
+    <span style="font-size:0.92rem;">📚 위 = 무료 문법 (무제한)<br>
     💬 중간 = AI 질문<br>
-    ✨ 아래 = EPS-TOPIK / 퀴즈 / 예문
+    ✨ 아래 = EPS-TOPIK / 퀴즈 / 예문</span>
   `;
   guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:-12px 12px 8px 12px;transform:translateY(-18px);position:relative;z-index:2;color:#94a3b8;font-size:0.72rem;line-height:1.5;box-sizing:border-box;flex-shrink:0;";
   const searchRow = input.parentElement;
