@@ -2148,11 +2148,11 @@ wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q)
   const guide = document.createElement('div');
   guide.id = 'usageGuide';
   guide.innerHTML = `
-    <div style="font-weight:800;color:#6366f1;margin-bottom:6px;font-size:1.05rem;">💡 How to use: Select and tap!</div>
-    <span style="font-size:0.92rem;">📚 Tap top sentence → Free grammar (unlimited)<br>
+    <div style="font-weight:800;color:#6366f1;margin-bottom:6px;font-size:0.9rem;">💡 How to use: Select and tap!</div>
+    <span style="font-size:0.82rem;">📚 Tap top sentence → Free grammar (unlimited)<br>
     💬 Tap middle sentence → Ask AI<br>
     ✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain</span>
-     🔍 Search bar → Ask deeper questions
+     
   `;
   guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:-12px 12px 8px 12px;transform:translateY(-18px);position:relative;z-index:2;color:#94a3b8;font-size:0.72rem;line-height:1.5;box-sizing:border-box;flex-shrink:0;";
   const searchRow = input.parentElement;
