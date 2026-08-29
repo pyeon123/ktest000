@@ -2131,41 +2131,41 @@ function getPageSentences(){
     );
   }
  
-  window.openShare=openShare;
-  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); setTimeout(()=>{ const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; },100); }};
-  wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
-  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
-  wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
+window.openShare=openShare;
+btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); setTimeout(()=>{ const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; },100); }};
+wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
+input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
+wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
 
-  // 👇 위로 올린 버전 - 검색창을 안가림
-  (function addUsageGuide(){
-    if(document.getElementById('usageGuide')) return;
-    const guide = document.createElement('div');
-    guide.id = 'usageGuide';
-    guide.innerHTML = `
-      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
-      📚 Top → Free grammar (unlimited)<br>
-      💬 Middle → Ask AI<br>
-      ✨ Bottom → EPSTOPIK · More Quiz · More Explain
-    `;
-    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.73rem;line-height:1.5;width:100%;box-sizing:border-box;";
-    
-    // 검색창 위로 올림 (검색창을 안가리게)
-    const searchRow = input.parentElement;
-    searchRow.insertAdjacentElement('beforebegin', guide);
+// 👇 검색창에서 분리해서 상단으로 올린 버전
+(function addUsageGuide(){
+  if(document.getElementById('usageGuide')) return;
+  const guide = document.createElement('div');
+  guide.id = 'usageGuide';
+  guide.innerHTML = `
+    <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
+    📚 Top → Free grammar (unlimited)<br>
+    💬 Middle → Ask AI<br>
+    ✨ Bottom → EPSTOPIK · More Quiz · More Explain
+  `;
+  // 검색창에 붙어있던 margin-bottom만 쓰던걸 4방향 마진으로 변경
+  guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:12px 12px 10px 12px;color:#94a3b8;font-size:0.73rem;line-height:1.5;width:auto;box-sizing:border-box;flex-shrink:0;";
 
-    const hide = () => guide.style.display = 'none';
-    const show = () => guide.style.display = 'block';
+  // 핵심: 검색창(input.parentElement) 앞에 넣지 말고, FAQ칩 위로 이동
+  const faqEl = document.getElementById('ai-faq-chips');
+  if(faqEl && faqEl.parentElement){
+    faqEl.parentElement.insertBefore(guide, faqEl);
+  }
 
-    document.addEventListener('click', (e)=>{
-      if(e.target.closest('.faq-chip')) hide();
-    });
-    input.addEventListener('focus', ()=>{ if(!input.value.trim()) show(); });
-  })();
- 
-  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
-  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
-  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
+  const hide = () => guide.style.display = 'none';
+  document.addEventListener('click', (e)=>{
+    if(e.target.closest('.faq-chip')) hide();
+  });
+})();
+
+window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
+var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
  
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions (with pageContext)':'⚠️ Gemini disabled');
