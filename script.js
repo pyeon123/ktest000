@@ -13,7 +13,7 @@ let todayQuizData = null;
 const recognition = (window.SpeechRecognition || window.webkitSpeechRecognition) ? new (window.SpeechRecognition || window.webkitSpeechRecognition)() : null;
 if (recognition) { recognition.lang = 'ko-KR'; }
 
-window.quizDB = window.quizDB || [];
+window.quizDB = window.quizDB || [
     { title: "Academy", url: "academy.html", keywords: "academy school study education" },
     { title: "Airplane", url: "airplane.html", keywords: "airplane flight travel sky" },
     { title: "Airport", url: "airport.html", keywords: "airport travel flight airplane" },
