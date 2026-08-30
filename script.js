@@ -16,6 +16,28 @@ if (recognition) { recognition.lang = 'ko-KR'; }
 window.quizDB = window.quizDB || [];
 const quizDB = window.quizDB;
 
+// ==================== 번역 방지 헬퍼 (전역) ====================
+// 한글 문장/단어와 그 로마자 표기는 사용자 자국어로 자동번역되면 안 되므로,
+// notranslate 클래스 + translate="no" 속성으로 감싼다.
+// 1) krSafe: 필드 하나(예: quiz.kr, 로마자 표기)를 통째로 감쌀 때 사용
+function krSafe(text){
+  const raw = String(text == null ? '' : text);
+  if(!raw) return '';
+  const escaped = raw
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  return `<span class="notranslate" translate="no">${escaped}</span>`;
+}
+// 2) protectKoreanNoTranslate: AI가 자유 형식으로 생성한 텍스트(영어+한글 혼합)에서
+//    한글 구간(및 바로 뒤에 오는 로마자 괄호)만 찾아서 감쌈. 영어 설명 부분은 그대로 번역 가능하게 둠.
+function protectKoreanNoTranslate(html){
+  if(!html) return html;
+  return String(html).replace(
+    /[가-힣][가-힣\s.,!?~"'“”‘’、，。！？]*(?:\s*\([^)가-힣]{0,80}\))?/g,
+    (m) => `<span class="notranslate" translate="no">${m}</span>`
+  );
+}
+
 function shareApp() {
     if (navigator.share) {
         navigator.share({
@@ -240,24 +262,24 @@ function checkAnswer(isCorrect, quiz) {
         const favoriteHtml = `<button id="favorite-btn" onclick="toggleFavorite()" style="display:block;width:100%;margin:0 0 15px 0;padding:12px 24px;font-size:15px;font-weight:bold;border-radius:30px;cursor:pointer;transition:all 0.2s ease;box-shadow:0 4px 10px rgba(0,0,0,0.08);border:2px solid ${isSaved ? '#dc2626' : '#fecaca'};background:${isSaved ? '#dc2626' : '#ffffff'};color:${isSaved ? '#ffffff' : '#dc2626'};">${isSaved ? '❤ Saved to My Review List' : '🤍 Save to My Review List'}</button>`;
         let formsHtml = "";
         if (quiz.forms && (quiz.forms.present || quiz.forms.past || quiz.forms.future)) {
-            formsHtml = `<p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #10b981;"><strong>Present:</strong> ${quiz.forms.present || '---'}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Past:</strong> ${quiz.forms.past || '---'}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Future:</strong> ${quiz.forms.future || '---'}</p>`;
+            formsHtml = `<p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #10b981;"><strong>Present:</strong> ${krSafe(quiz.forms.present || '---')}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Past:</strong> ${krSafe(quiz.forms.past || '---')}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Future:</strong> ${krSafe(quiz.forms.future || '---')}</p>`;
         } else {
             const casualText = (quiz.forms && quiz.forms.casual) || quiz.casual || quiz.kr || "---";
             const politeText = (quiz.forms && quiz.forms.polite) || quiz.polite || quiz.kr || "---";
-            formsHtml = `<p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${casualText}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${politeText}</p>`;
+            formsHtml = `<p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${krSafe(casualText)}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${krSafe(politeText)}</p>`;
         }
         let grammarHtml = "";
         if (quiz.grammar && Array.isArray(quiz.grammar.breakdown)) {
-            grammarHtml = `<div style="margin-top: 20px; padding: 15px; background: #eff6ff; border-radius: 10px; border-left: 4px solid #3b82f6;"><h4 style="margin: 0 0 10px 0; color: #1e293b;">${quiz.grammar.title || '📚 Simple Grammar'}</h4>${quiz.grammar.breakdown.map(b => `<p style="margin: 5px 0; font-size: 0.95rem; color: #334155;"><strong>${b.kr}</strong> <span style="color:#64748b;">(${b.rom})</span> — ${b.en}</p>`).join('')}<p style="margin-top: 10px; font-weight: 700; color: #1e40af;">${quiz.grammar.meaning || ''}</p></div>`;
+            grammarHtml = `<div style="margin-top: 20px; padding: 15px; background: #eff6ff; border-radius: 10px; border-left: 4px solid #3b82f6;"><h4 style="margin: 0 0 10px 0; color: #1e293b;">${quiz.grammar.title || '📚 Simple Grammar'}</h4>${quiz.grammar.breakdown.map(b => `<p style="margin: 5px 0; font-size: 0.95rem; color: #334155;"><strong>${krSafe(b.kr)}</strong> <span style="color:#64748b;">(${krSafe(b.rom)})</span> — ${b.en}</p>`).join('')}<p style="margin-top: 10px; font-weight: 700; color: #1e40af;">${quiz.grammar.meaning || ''}</p></div>`;
         }
         let optionsHtml = "";
         if (quiz.options && Array.isArray(quiz.options)) {
             const showOptionAudio = quiz.optionAudio === true;
-            optionsHtml = `<h3 style="margin-top: 25px; color: #1e293b;">💡 Related Words</h3><div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">${quiz.options.map((opt, idx) => `<div style="padding: 12px 15px; background: #f1f5f9; border-radius: 10px; border-left: 4px solid #64748b; display: flex; flex-direction: column; gap: 10px;"><div style="display: flex; justify-content: space-between; align-items: center;"><div><strong style="font-size: 1.2rem; color: #1e293b;">${opt.kr}</strong><span style="font-size: 0.95rem; color: #64748b; margin-left: 6px;">(${opt.rom})</span></div><span style="font-size: 1.05rem; font-weight: bold; color: #475569;">${opt.en}</span></div>${showOptionAudio ? `<div class="control-group" style="scale: 0.85; margin: 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); window.speakOption('${opt.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="opt-mic-btn-${idx}" onclick="event.stopPropagation(); window.startOptionMic('${opt.kr.replace(/'/g, "\\'")}', 'opt-feedback-${idx}')"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="opt-feedback-${idx}" style="height: 20px; font-weight: 900; font-size: 1rem; text-align: center;"></div>` : ``}</div>`).join('')}</div>`;
+            optionsHtml = `<h3 style="margin-top: 25px; color: #1e293b;">💡 Related Words</h3><div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">${quiz.options.map((opt, idx) => `<div style="padding: 12px 15px; background: #f1f5f9; border-radius: 10px; border-left: 4px solid #64748b; display: flex; flex-direction: column; gap: 10px;"><div style="display: flex; justify-content: space-between; align-items: center;"><div><strong style="font-size: 1.2rem; color: #1e293b;">${krSafe(opt.kr)}</strong><span style="font-size: 0.95rem; color: #64748b; margin-left: 6px;">(${krSafe(opt.rom)})</span></div><span style="font-size: 1.05rem; font-weight: bold; color: #475569;">${opt.en}</span></div>${showOptionAudio ? `<div class="control-group" style="scale: 0.85; margin: 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); window.speakOption('${opt.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="opt-mic-btn-${idx}" onclick="event.stopPropagation(); window.startOptionMic('${opt.kr.replace(/'/g, "\\'")}', 'opt-feedback-${idx}')"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="opt-feedback-${idx}" style="height: 20px; font-weight: 900; font-size: 1rem; text-align: center;"></div>` : ``}</div>`).join('')}</div>`;
         }
         let examplesHtml = "";
         if (quiz.examples && Array.isArray(quiz.examples)) {
-            examplesHtml = `<h3 style="margin-top: 25px; color: #1e293b;">📚 Key Sentences</h3><ul style="list-style: none; padding: 0; margin-bottom: 20px;">${quiz.examples.map((ex, idx) => `<li style="margin-bottom: 15px; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);"><strong style="font-size: 1.3rem; display: block; margin-bottom: 5px; color: #1e293b;">${ex.kr}</strong><span style="font-size: 1.1rem; color: #64748b; display: block; margin-bottom: 5px;">${ex.en}</span><em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${ex.rom || ''}</em><div class="control-group" style="scale: 0.85; margin: 10px 0 0 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); speakExampleText('${ex.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="ex-mic-btn-${idx}" onclick="event.stopPropagation(); startExampleRecognition('${ex.kr.replace(/'/g, "\\'")}', ${idx})"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="ex-feedback-${idx}" style="height: 25px; font-weight: 900; font-size: 1.1rem; margin-top: 5px; text-align: center;"></div></li>`).join('')}</ul>`;
+            examplesHtml = `<h3 style="margin-top: 25px; color: #1e293b;">📚 Key Sentences</h3><ul style="list-style: none; padding: 0; margin-bottom: 20px;">${quiz.examples.map((ex, idx) => `<li style="margin-bottom: 15px; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);"><strong style="font-size: 1.3rem; display: block; margin-bottom: 5px; color: #1e293b;">${krSafe(ex.kr)}</strong><span style="font-size: 1.1rem; color: #64748b; display: block; margin-bottom: 5px;">${ex.en}</span><em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${krSafe(ex.rom || '')}</em><div class="control-group" style="scale: 0.85; margin: 10px 0 0 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); speakExampleText('${ex.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="ex-mic-btn-${idx}" onclick="event.stopPropagation(); startExampleRecognition('${ex.kr.replace(/'/g, "\\'")}', ${idx})"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="ex-feedback-${idx}" style="height: 25px; font-weight: 900; font-size: 1.1rem; margin-top: 5px; text-align: center;"></div></li>`).join('')}</ul>`;
         }
         const situationText = quiz.situation || "No context provided.";
         detailArea.innerHTML = `<div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;"><h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2><div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;"><p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>${formsHtml}</div>${grammarHtml}${examplesHtml}${optionsHtml}<div style="margin-top: 25px;">${favoriteHtml}${recHtml}<button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭</button><button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button></div></div>`;
@@ -790,13 +812,13 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   }
  
   function renderFromDB(g, ctx){
-    const exHtml = (g.examples||[]).map((e,i)=>`${i+1}. ${e.kr} (${e.rom}) ${e.en}`).join('<br>');
-    const mistakeHtml = (g.commonMistakes||[]).map(m=>`❌ ${m.wrong} → ✅ ${m.correct}`).join('<br>') || '—';
-    const compareHtml = (g.compare||[]).map(c=>`${c.grammar} = ${c.meaning} (${c.mainJob})`).join('<br>');
+    const exHtml = (g.examples||[]).map((e,i)=>`${i+1}. ${krSafe(e.kr)} (${krSafe(e.rom)}) ${e.en}`).join('<br>');
+    const mistakeHtml = (g.commonMistakes||[]).map(m=>`❌ ${krSafe(m.wrong)} → ✅ ${krSafe(m.correct)}`).join('<br>') || '—';
+    const compareHtml = (g.compare||[]).map(c=>`${krSafe(c.grammar)} = ${c.meaning} (${c.mainJob})`).join('<br>');
     const ruleHtml = (g.basicRule||'').replace(/\n/g,'<br>');
     const imagineHtml = g.imagine ? `<br><br>${g.imagine}` : '';
  
-    return `<b>Short Answer</b><br>${g.grammar} (${g.romanization}) ${g.title}<br><br>`
+    return `<b>Short Answer</b><br>${krSafe(g.grammar)} (${krSafe(g.romanization)}) ${g.title}<br><br>`
       + `<b>Easy Explanation</b><br>${g.easyExplanation||''}${imagineHtml}<br><br>`
       + `<b>Grammar</b><br>${ruleHtml}<br><br>`
       + `<b>Examples</b><br>${exHtml}<br><br>`
@@ -839,12 +861,12 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       log.scrollTop = log.scrollHeight;
       return;
     }
-    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?escapeHtml(grams[0].grammar)+' View grammar':'View Grammar DB'}</div>`;
+    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?krSafe(grams[0].grammar)+' View grammar':'View Grammar DB'}</div>`;
     let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
       + `<span class="ai-source-tag ai-source-db">📚 ${grams.length} Grammar - Free Unlimited Grammar </span>`;
     grams.forEach(g=>{
       block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">`
-        + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
+        + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${krSafe(g.grammar)} (${escapeHtml(g.id)})</div>`
         + renderFromDB(g, ctx)
         + `</div>`;
     });
@@ -1616,8 +1638,8 @@ function getPageSentences(){
           const sentence = sentences[i];
           if(g){
             return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;">`
-              + `<div style="font-size:.82rem;font-weight:900;color:#166534;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.grammar)}</div>`
-              + `<div style="font-size:.62rem;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.romanization||'')}</div>`
+              + `<div style="font-size:.82rem;font-weight:900;color:#166534;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${krSafe(g.grammar)}</div>`
+              + `<div style="font-size:.62rem;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${krSafe(g.romanization||'')}</div>`
               + `<div style="font-size:.6rem;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.title||'').slice(0,22)}</div>`
               + `</button>`;
           } else {
@@ -1630,7 +1652,7 @@ function getPageSentences(){
     } else {
       modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
         + (fallbackPool.slice(0,3).map((g,i)=>
-          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${escapeHtml(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${escapeHtml(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
+          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${krSafe(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${krSafe(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
         ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(3))
         + `</div>`;
     }
@@ -1652,8 +1674,8 @@ function getPageSentences(){
 
     faq.innerHTML = modeButtonsHtml + `<div style="width:100%;height:1px;background:#e2e8f0;margin:6px 0;"></div>` + sentences.map((s,i) =>
   `<button class="faq-chip" data-sidx="${i}" style="width:100%;background:#f5f3ff;border-color:#ddd6fe;text-align:left;margin-bottom:5px;padding:8px 10px;">
-    <div style="font-size:.9em;font-weight:700;color:#1e293b;">${escapeHtml(s.kr)}</div>
-    <div style="font-size:.8em;font-weight:500;margin-top:3px;color:#64748b;">${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')}</div>
+    <div style="font-size:.9em;font-weight:700;color:#1e293b;">${krSafe(s.kr)}</div>
+    <div style="font-size:.8em;font-weight:500;margin-top:3px;color:#64748b;">${s.rom ? '('+krSafe(s.rom)+') ' : ''}${escapeHtml(s.en || '')}</div>
   </button>`
 ).join('');
 
@@ -1684,7 +1706,7 @@ function getPageSentences(){
 
  
     function handleSentenceClick(s){
-    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${escapeHtml(s.kr)}${s.rom?` (${escapeHtml(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${krSafe(s.kr)}${s.rom?` (${krSafe(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
     
     log.scrollTop = log.scrollHeight;
  
@@ -1699,7 +1721,7 @@ function getPageSentences(){
   + `</div>`;
       matches.forEach(g=>{
         block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
-          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${krSafe(g.grammar)} (${escapeHtml(g.id)})</div>`
           + renderFromDB(g, {kr:s.kr, rom:s.rom, en:s.en})
           + `</div>`;
       });
@@ -1720,7 +1742,7 @@ function getPageSentences(){
       grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
     }
  
-    const safeQ = escapeHtml(q);
+    const safeQ = protectKoreanNoTranslate(escapeHtml(q));
     log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
     
  
@@ -1747,7 +1769,7 @@ function getPageSentences(){
         const g = grams[idx];
         const headerDiv = document.createElement('div');
         headerDiv.style.cssText = `font-size:0.85rem;color:#6366f1;font-weight:800;margin:${idx>0 ? '14px 0 6px;padding-top:10px;border-top:1px dashed #e2e8f0;' : '6px 0;'}`;
-        headerDiv.textContent = `🤖 ${g.grammar} (${g.id})`;
+        headerDiv.innerHTML = `🤖 ${krSafe(g.grammar)} (${escapeHtml(g.id)})`;
         container.appendChild(headerDiv);
         const bodyDiv = document.createElement('div');
         container.appendChild(bodyDiv);
@@ -1764,7 +1786,7 @@ function getPageSentences(){
  
     if(!USE_GEMINI){
       const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
-      const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
+      const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
       log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${fallback}</div>`;
       log.scrollTop=log.scrollHeight;
       return;
@@ -1791,11 +1813,11 @@ function getPageSentences(){
         ensureWrapper();
         rawFullText = accumulatedText;
         const el = document.getElementById(cid2);
-        if(el){ el.innerHTML = escapeAndBr(accumulatedText); log.scrollTop = log.scrollHeight; }
+        if(el){ el.innerHTML = protectKoreanNoTranslate(escapeAndBr(accumulatedText)); log.scrollTop = log.scrollHeight; }
       },
       (finalText)=>{
         ensureWrapper();
-        const finalAnswer = escapeAndBr(finalText || rawFullText || '');
+        const finalAnswer = protectKoreanNoTranslate(escapeAndBr(finalText || rawFullText || ''));
         const el = document.getElementById(cid2);
         if(el) el.innerHTML = finalAnswer;
         const actionsEl2 = document.getElementById(cid2+'-actions');
@@ -1850,7 +1872,7 @@ function getPageSentences(){
         console.error('[AI Tutor] Stream error:', errMsg);
         const th = document.getElementById('ai-thinking');
         if(th) th.remove();
-        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+        const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
         log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
           + `<div id="ai-error-box">⚠️ Server connection failed, showing a fallback answer.<br>Error: ${escapeHtml(errMsg)}</div>`
           + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
@@ -1871,12 +1893,12 @@ function getPageSentences(){
     const guide = document.createElement('div');
     guide.id = 'usageGuide';
     guide.innerHTML = `
-      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.99rem;">💡 How to use: Select and tap!</div>
+      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
       📚 Top → Free grammar (unlimited)<br>
-      💬 Middle → sentence  Ask AI<br>
-      ✨ Bottom → EPSTOPIK · Quiz · Explain
+      💬 Middle → Ask AI<br>
+      ✨ Bottom → EPSTOPIK · More Quiz · More Explain
     `;
-    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.99rem;line-height:1.5;width:100%;box-sizing:border-box;";
+    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.73rem;line-height:1.5;width:100%;box-sizing:border-box;";
 
     // 위치: 입력창 위가 아니라 채팅 상단(칩 영역) 바로 위로 이동
     if (faq && faq.parentElement) {
