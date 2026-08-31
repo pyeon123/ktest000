@@ -234,6 +234,66 @@ window.quizDB = window.quizDB || [
     { title: "This Is My Friend", url: "jechinguyeoyo1.html", keywords: "this is my friend friend introduction" },
     { title: "That's Perfect", url: "wanbyeokhaeyo1.html", keywords: "that's perfect perfect excellent great" },
     { title: "That's Enough", url: "chungbunhaeyo1.html", keywords: "that's enough enough stop sufficient" },
+    { title: "Sick Leave", url: "byeongga.html", keywords: "sick leave medical leave illness absence" },
+    { title: "Vacation", url: "hyuga.html", keywords: "vacation holiday time off leave" },
+    { title: "Lateness", url: "jigak.html", keywords: "lateness late tardiness arriving late" },
+    { title: "Leaving Early", url: "jotoe.html", keywords: "leaving early early departure leave work early" },
+    { title: "Absence", url: "gyeolgeun.html", keywords: "absence absent missing work attendance" },
+    { title: "Special Shift Work", url: "teukgeun.html", keywords: "special shift work special duty work shift" },
+    { title: "Night Overtime", url: "yageun.html", keywords: "night overtime overtime work night shift" },
+    { title: "Leave Work", url: "toegeun.html", keywords: "leave work clock out finish work leaving work" },
+    { title: "Go to Work", url: "chulgeun.html", keywords: "go to work commute arrive at work attendance" },
+    { title: "Remaining Work", url: "janeop.html", keywords: "remaining work unfinished work leftover work" },
+    { title: "Foreman", url: "banjang.html", keywords: "foreman supervisor work leader" },
+    { title: "Employer", url: "saeopju.html", keywords: "employer boss company owner" },
+    { title: "Workplace", url: "geunmuji.html", keywords: "workplace place of work job site" },
+    { title: "Contract Period", url: "gyeyak-gigan.html", keywords: "contract period employment period contract duration" },
+    { title: "Labor Contract", url: "geunro-gyeyakseo.html", keywords: "labor contract employment contract work contract" },
+    { title: "Payslip", url: "geupyeo-myeongseoseo.html", keywords: "payslip pay statement salary statement wage slip" },
+    { title: "Allowance", url: "sudang.html", keywords: "allowance extra pay benefit work allowance" },
+    { title: "Hourly Wage", url: "sigeup.html", keywords: "hourly wage hourly pay wage per hour" },
+    { title: "Monthly Salary", url: "wolgeup.html", keywords: "monthly salary monthly pay wages" },
+    { title: "Worker", url: "geunroja.html", keywords: "worker employee laborer" },
+    { title: "Team Leader", url: "timjang.html", keywords: "team leader supervisor team manager" },
+    { title: "President", url: "sajang.html", keywords: "president company president boss owner" },
+    { title: "Co-worker", url: "dongryo.html", keywords: "co-worker coworker colleague workmate" },
+    { title: "Shift Work", url: "gyodae-geunmu.html", keywords: "shift work rotating shifts work shift" },
+    { title: "Base Pay", url: "gibongeup.html", keywords: "base pay basic salary basic wage" },
+    { title: "Bonus", url: "sangyeogeum.html", keywords: "bonus incentive extra payment" },
+    { title: "Deduction", url: "gongje.html", keywords: "deduction salary deduction wage deduction" },
+    { title: "Tax", url: "segeum.html", keywords: "tax income tax wage tax" },
+    { title: "Net Pay", url: "silsuryeongae.html", keywords: "net pay take home pay after tax" },
+    { title: "Severance Pay", url: "toejikgeum.html", keywords: "severance pay retirement allowance retirement pay" },
+    { title: "Dismissal / Firing", url: "haego.html", keywords: "dismissal firing termination fired from work" },
+    { title: "Resignation", url: "sajik.html", keywords: "resignation quit leaving a job" },
+    { title: "Re-contract / Renewal", url: "jaegyeyak.html", keywords: "re-contract renewal contract renewal employment renewal" },
+    { title: "Probationary Period", url: "suseupgigan.html", keywords: "probationary period probation trial period" },
+    { title: "Employment Rules", url: "chwieopgyuchik.html", keywords: "employment rules workplace rules labor rules" },
+    { title: "Minimum Wage", url: "choejeoimgeum.html", keywords: "minimum wage lowest wage legal minimum pay" },
+    { title: "Working Hours", url: "geunrosigan.html", keywords: "working hours work hours hours of work" },
+    { title: "Annual Leave", url: "yeonchahyuga.html", keywords: "annual leave paid leave vacation days" },
+    { title: "Monthly Leave", url: "wolcha.html", keywords: "monthly leave monthly vacation leave" },
+    { title: "Alien Registration Card", url: "oegugindeungrokjeung.html", keywords: "alien registration card ARC foreigner registration card" },
+    { title: "Passport", url: "yeogwon.html", keywords: "passport travel document" },
+    { title: "Visa", url: "bija.html", keywords: "visa entry visa Korean visa" },
+    { title: "Period of Stay", url: "cheryugigan.html", keywords: "period of stay length of stay visa stay period" },
+    { title: "Extension of Stay", url: "cheryuyeonjang.html", keywords: "extension of stay visa extension stay extension" },
+    { title: "Re-entry", url: "jaeipguk.html", keywords: "re-entry return to Korea reentry" },
+    { title: "Ministry of Employment and Labor", url: "goyongnodongbu.html", keywords: "Ministry of Employment and Labor labor ministry employment ministry" },
+    { title: "Employment Center", url: "goyongcenter.html", keywords: "employment center job center employment office" },
+    { title: "Industrial Accident", url: "saneupjaehae.html", keywords: "industrial accident workplace accident work injury" },
+    { title: "Industrial Accident Insurance", url: "sanjaeboheom.html", keywords: "industrial accident insurance workplace injury insurance" },
+    { title: "National Health Insurance", url: "gukmingeongangboheom.html", keywords: "national health insurance health insurance Korea" },
+    { title: "Application Form", url: "sincheongseo.html", keywords: "application form application document form" },
+    { title: "Stamp / Seal", url: "dojang.html", keywords: "stamp seal official seal signature stamp" },
+    { title: "Signature", url: "seomyeong.html", keywords: "signature sign signing" },
+    { title: "ID Card", url: "sinbunjeung.html", keywords: "ID card identification identity card" },
+    { title: "Exchange Rate", url: "hwanyul.html", keywords: "exchange rate currency exchange rate" },
+    { title: "Money Transfer", url: "songgeum.html", keywords: "money transfer remittance send money" },
+    { title: "Account Number", url: "gyejwabeonho.html", keywords: "account number bank account number" },
+    { title: "Employment Insurance", url: "goyongboheom.html", keywords: "employment insurance unemployment insurance" },
+    { title: "National Pension", url: "gukminyeongeum.html", keywords: "national pension pension Korea" },
+    { title: "Bank Account", url: "tongjang.html", keywords: "bank account bankbook account" },
     { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
 ];
 const quizDB = window.quizDB;
@@ -259,6 +319,91 @@ function protectKoreanNoTranslate(html){
     (m) => `<span class="notranslate" translate="no">${m}</span>`
   );
 }
+
+// ==================== 전체 사이트 자동 번역 방지 스캐너 ====================
+// script.js는 index.html과 모든 개별 레슨 페이지(250개+)에 공통으로 로드되므로,
+// 이 함수 하나로 사이트 전체(FAQ 섹션, EPS-TOPIK 설명, 퀴즈 정답 화면, AI 튜터 채팅 등
+// 어디에 있든)의 한글 텍스트를 자동으로 찾아서 notranslate 처리한다.
+// 각 페이지 HTML을 일일이 수정할 필요가 없다.
+(function setupGlobalKoreanTranslateGuard(){
+  const KOREAN_RUN_REGEX = /[가-힣][가-힣\s.,!?~"'“”‘’、，。！？]*(?:\s*\([^)가-힣]{0,80}\))?/g;
+
+  function shouldSkip(el){
+    if(!el || !el.closest) return true;
+    return !!el.closest('.notranslate, script, style, textarea, input, [translate="no"]');
+  }
+
+  function wrapTextNode(node){
+    const text = node.nodeValue;
+    if(!text || !/[가-힣]/.test(text)) return;
+    const parent = node.parentNode;
+    if(!parent) return;
+    if(shouldSkip(node.parentElement)) return;
+
+    KOREAN_RUN_REGEX.lastIndex = 0;
+    let lastIndex = 0, m, matched = false;
+    const frag = document.createDocumentFragment();
+    while((m = KOREAN_RUN_REGEX.exec(text)) !== null){
+      matched = true;
+      if(m.index > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, m.index)));
+      const span = document.createElement('span');
+      span.className = 'notranslate';
+      span.setAttribute('translate', 'no');
+      span.textContent = m[0];
+      frag.appendChild(span);
+      lastIndex = KOREAN_RUN_REGEX.lastIndex;
+    }
+    if(!matched) return;
+    if(lastIndex < text.length) frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+    parent.replaceChild(frag, node);
+  }
+
+  function scan(root){
+    if(!root || root.nodeType === undefined) return;
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    const nodes = [];
+    let n;
+    while((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(wrapTextNode);
+  }
+
+  function runInitialScan(){
+    scan(document.body);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', runInitialScan);
+  } else {
+    runInitialScan();
+  }
+
+  // 퀴즈 정답 화면, AI 튜터 채팅, FAQ 펼치기 등으로 새로 추가되는 콘텐츠도 계속 감시해서 보호
+  let pending = [];
+  let scheduled = false;
+  function flush(){
+    scheduled = false;
+    const targets = pending;
+    pending = [];
+    targets.forEach(scan);
+  }
+  function startObserver(){
+    if(!document.body) { setTimeout(startObserver, 50); return; }
+    const observer = new MutationObserver((mutations)=>{
+      mutations.forEach(mut=>{
+        if(mut.addedNodes) mut.addedNodes.forEach(node=>{
+          if(node.nodeType === 1) pending.push(node);
+          else if(node.nodeType === 3 && node.parentNode) pending.push(node.parentNode);
+        });
+      });
+      if(pending.length && !scheduled){
+        scheduled = true;
+        setTimeout(flush, 150);
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+  startObserver();
+})();
 
 function shareApp() {
     if (navigator.share) {
@@ -2115,12 +2260,12 @@ function getPageSentences(){
     const guide = document.createElement('div');
     guide.id = 'usageGuide';
     guide.innerHTML = `
-      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.99rem;">💡 How to use: Select and tap!</div>
+      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
       📚 Top → Free grammar (unlimited)<br>
-      💬 Middle → sentence  Ask AI<br>
-      ✨ Bottom → EPSTOPIK · Quiz · Explain
+      💬 Middle → Ask AI<br>
+      ✨ Bottom → EPSTOPIK · More Quiz · More Explain
     `;
-    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.99rem;line-height:1.5;width:100%;box-sizing:border-box;";
+    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.73rem;line-height:1.5;width:100%;box-sizing:border-box;";
 
     // 위치: 입력창 위가 아니라 채팅 상단(칩 영역) 바로 위로 이동
     if (faq && faq.parentElement) {
