@@ -315,7 +315,7 @@ function krSafe(text){
 function protectKoreanNoTranslate(html){
   if(!html) return html;
   return String(html).replace(
-    /[가-힣][가-힣\s.,!?~"'“”‘’、，。！？]*(?:\s*\([^)가-힣]{0,80}\))?/g,
+    /[가-힣][가-힣\s.,!?~"'“”‘’、，。！？]*(?:[^가-힣(]{0,10}\([^)가-힣]{0,80}\))?/gu,
     (m) => `<span class="notranslate" translate="no">${m}</span>`
   );
 }
@@ -326,7 +326,7 @@ function protectKoreanNoTranslate(html){
 // 어디에 있든)의 한글 텍스트를 자동으로 찾아서 notranslate 처리한다.
 // 각 페이지 HTML을 일일이 수정할 필요가 없다.
 (function setupGlobalKoreanTranslateGuard(){
-  const KOREAN_RUN_REGEX = /[가-힣][가-힣\s.,!?~"'“”‘’、，。！？]*(?:\s*\([^)가-힣]{0,80}\))?/g;
+  const KOREAN_RUN_REGEX = /[가-힣][가-힣\s.,!?~"'“”‘’、，。！？]*(?:[^가-힣(]{0,10}\([^)가-힣]{0,80}\))?/gu;
 
   function shouldSkip(el){
     if(!el || !el.closest) return true;
