@@ -14,7 +14,7 @@ const recognition = (window.SpeechRecognition || window.webkitSpeechRecognition)
 if (recognition) { recognition.lang = 'ko-KR'; }
 
 window.quizDB = window.quizDB || [
-    { title: "Academy", url: "academy.html", keywords: "academy school study education" },
+     { title: "Academy", url: "academy.html", keywords: "academy school study education" },
     { title: "Airplane", url: "airplane.html", keywords: "airplane flight travel sky" },
     { title: "Airport", url: "airport.html", keywords: "airport travel flight airplane" },
     { title: "Animals", url: "animals.html", keywords: "animals pet nature zoo" },
@@ -295,7 +295,7 @@ window.quizDB = window.quizDB || [
     { title: "National Pension", url: "gukminyeongeum.html", keywords: "national pension pension Korea" },
     { title: "Bank Account", url: "tongjang.html", keywords: "bank account bankbook account" },
     { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
-];
+];   
 const quizDB = window.quizDB;
 
 // ==================== 번역 방지 헬퍼 (전역) ====================
