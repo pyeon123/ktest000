@@ -295,7 +295,7 @@ window.quizDB = window.quizDB || [
     { title: "National Pension", url: "gukminyeongeum.html", keywords: "national pension pension Korea" },
     { title: "Bank Account", url: "tongjang.html", keywords: "bank account bankbook account" },
     { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
-];
+];    
 const quizDB = window.quizDB;
 
 // ==================== 번역 방지 헬퍼 (전역) ====================
@@ -333,12 +333,42 @@ function protectKoreanNoTranslate(html){
     return !!el.closest('.notranslate, script, style, textarea, input, [translate="no"]');
   }
 
+  // "보고 싶어요 (bo-go sip-eo-yo)"처럼 한글 옆에 로마자가 붙어있는 경우는 KOREAN_RUN_REGEX가 잡지만,
+  // "Real-Life Examples"의 <strong>한글</strong><span>로마자만</span> 처럼 로마자가
+  // 한글 없이 완전히 별도 태그로 떨어져 있으면 한글 감지로는 못 잡는다.
+  // 이런 경우를 위해 "하이픈으로 음절이 이어진 로마자 표기" 패턴을 별도로 감지한다.
+  // (예: "bo-go sip-eo-yo. man-hi bo-go sip-eo-yo." → 각 단어가 자음-모음 하이픈으로 연결됨)
+  function looksLikeRomanization(text){
+    const words = text.trim().split(/\s+/).filter(Boolean);
+    if(words.length === 0) return false;
+    let hyphenated = 0;
+    words.forEach(w=>{
+      const clean = w.replace(/[.,!?]+$/,'');
+      if(/^[a-zA-Z]+(-[a-zA-Z]+)+$/.test(clean)) hyphenated++;
+    });
+    return (hyphenated / words.length) >= 0.5;
+  }
+
   function wrapTextNode(node){
     const text = node.nodeValue;
-    if(!text || !/[가-힣]/.test(text)) return;
+    if(!text || !text.trim()) return;
     const parent = node.parentNode;
     if(!parent) return;
     if(shouldSkip(node.parentElement)) return;
+
+    const hasHangul = /[가-힣]/.test(text);
+
+    if(!hasHangul){
+      // 한글은 없지만 하이픈 로마자 패턴으로 보이면 통째로 보호 (Real-Life Examples 등)
+      if(looksLikeRomanization(text)){
+        const span = document.createElement('span');
+        span.className = 'notranslate';
+        span.setAttribute('translate', 'no');
+        span.textContent = text;
+        parent.replaceChild(span, node);
+      }
+      return;
+    }
 
     KOREAN_RUN_REGEX.lastIndex = 0;
     let lastIndex = 0, m, matched = false;
@@ -358,8 +388,22 @@ function protectKoreanNoTranslate(html){
     parent.replaceChild(frag, node);
   }
 
+  // 사이트 전반에서 로마자 전용으로 쓰이는 걸로 알려진 클래스/ID는
+  // 하이픈 유무와 상관없이 무조건 보호 (짧은 로마자, 하이픈 없는 경우의 백업)
+  function protectKnownRomanizationContainers(root){
+    const selector = '.seo-example span, .rom-text, #romanization, #today-rom';
+    let nodes = [];
+    if(root.querySelectorAll) nodes = Array.from(root.querySelectorAll(selector));
+    if(root.matches && root.matches(selector)) nodes.push(root);
+    nodes.forEach(el=>{
+      if(!el.classList.contains('notranslate')) el.classList.add('notranslate');
+      el.setAttribute('translate', 'no');
+    });
+  }
+
   function scan(root){
     if(!root || root.nodeType === undefined) return;
+    protectKnownRomanizationContainers(root);
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     const nodes = [];
     let n;
