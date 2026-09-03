@@ -1247,6 +1247,12 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       + `<button class="ai-action-btn" onclick="window.__aiTutorMode('example')">💬 Example</button>`
       + `</div>`;
   }
+   // ==================== AI QUIZ STATE ====================
+let aiQuizState = {
+  active: false,
+  questionText: '',
+  lastAnswerText: ''
+}; 
 
   function getDetectedGrammars(){
     try{
@@ -1295,17 +1301,79 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     handleQuestion(q, null, true);
   };
 
-  window.__aiTutorMode = function(mode){
-    const ctx = getCtx();
-    const lessonLabel = ctx.kr ? `"${ctx.kr}"` : "this lesson";
-    const presetQuestions = {
-      epstopik: `Please explain ${lessonLabel} in EPS-TOPIK exam style. Cover the key vocabulary and grammar I need to know for the exam, using the current lesson as the main material.`,
-      quiz: `Please give me a short EPS-TOPIK-style quiz question based on ${lessonLabel}. Wait for my answer, then explain why it is correct or incorrect.`,
-      example: `Please give me 2-3 additional natural example sentences using the vocabulary or grammar from ${lessonLabel}, each with Korean, romanization, and English meaning.`
-    };
-    const q = presetQuestions[mode] || presetQuestions.epstopik;
-    handleQuestion(q, null, true);
+window.__aiTutorMode = function(mode){
+
+  const ctx = getCtx();
+  const lessonLabel = ctx.kr ? `"${ctx.kr}"` : "this lesson";
+
+  const presetQuestions = {
+
+    epstopik:
+`Teach me the CURRENT PAGE as an EPS-TOPIK lesson.
+
+Use the current page content as the primary source.
+Explain the important vocabulary, grammar, meaning, usage, and EPS-TOPIK points.
+
+Do not use the local Grammar Database.
+Answer in the learner's language.`,
+
+    quiz:
+`Start an EPS-TOPIK quiz based on the CURRENT PAGE.
+
+IMPORTANT:
+Give me ONE multiple-choice question with exactly four choices.
+
+Format the choices clearly:
+1. ...
+2. ...
+3. ...
+4. ...
+
+Then STOP and wait for my answer.
+
+When I answer with 1, 2, 3, or 4:
+DO NOT create a new question.
+DO NOT replace the current question.
+Evaluate my answer against the EXACT question and choices you just gave.
+
+Tell me:
+1. Whether my answer is correct or incorrect.
+2. The correct answer.
+3. Why the correct answer is correct.
+4. Why my selected answer is correct or incorrect.
+5. A short Korean learning explanation.
+
+Only after explaining the current answer may you ask whether I want the next question.
+
+The current page is the primary lesson context.`,
+
+    example:
+`Create 3 natural Korean example sentences using the CURRENT PAGE lesson.
+
+Use the vocabulary or grammar from this page first.
+
+For every sentence show:
+Korean
+Romanization
+English meaning
+
+Explain briefly why each sentence is useful.
+
+Answer in the learner's language.`
   };
+
+  const q =
+    presetQuestions[mode] ||
+    presetQuestions.epstopik;
+
+  if(mode === 'quiz'){
+    aiQuizState.active = true;
+    aiQuizState.questionText = '';
+    aiQuizState.lastAnswerText = '';
+  }
+
+  handleQuestion(q, null, true);
+};
 
   const ASK_TUTOR_ENDPOINT = "https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/ask-tutor";
   const USE_GEMINI = true;
