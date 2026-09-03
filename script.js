@@ -2214,151 +2214,356 @@ function getPageSentences(){
     }
   }
  
-  async function handleQuestion(q, gramForced, forceAiMode){
-    var ctx=getCtx();
-    var grams = [];
-    if(!forceAiMode){
-      grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
-    }
- 
-    const safeQ = protectKoreanNoTranslate(escapeHtml(q));
-    log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
-    
- 
-    if(grams.length > 0){
-      const cid = 'ai-content-' + Date.now();
-      const tag = `📚 ${grams.length} grammar point${grams.length === 1 ? '' : 's'} found in the sentence`;
-      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-        + `<span class="ai-source-tag ai-source-db">${tag}</span>`
-        + `<div id="${cid}"></div>`
-        + `<div id="${cid}-actions"></div></div>`;
-      log.scrollTop = log.scrollHeight;
-      const container = document.getElementById(cid);
-      let combinedPlain = '';
- 
-      function typeNext(idx){
-        if(idx >= grams.length){
-          const actionsEl = document.getElementById(cid+'-actions');
-          if(actionsEl){
-            actionsEl.innerHTML = makeActions(combinedPlain.slice(0,200))
-              + renderStudyModeButtons();
-          }
-          return;
-        }
-        const g = grams[idx];
-        const headerDiv = document.createElement('div');
-        headerDiv.style.cssText = `font-size:0.85rem;color:#6366f1;font-weight:800;margin:${idx>0 ? '14px 0 6px;padding-top:10px;border-top:1px dashed #e2e8f0;' : '6px 0;'}`;
-        headerDiv.innerHTML = `🤖 ${krSafe(g.grammar)} (${escapeHtml(g.id)})`;
-        container.appendChild(headerDiv);
-        const bodyDiv = document.createElement('div');
-        container.appendChild(bodyDiv);
-        const finalAnswer = renderFromDB(g, ctx);
-        combinedPlain += (idx>0?' / ':'') + finalAnswer.replace(/<[^>]*>/g,'').slice(0,150);
-        typeWriterHTML(bodyDiv, finalAnswer, 6, ()=>{ typeNext(idx+1); });
-      }
-      typeNext(0);
-      return;
-    }
- 
-    log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;animation:aiThinkingBlink 1.2s ease-in-out infinite;">👩‍🏫 Your teacher is preparing your answer...</div>`;
-    log.scrollTop=log.scrollHeight;
- 
-    if(!USE_GEMINI){
-      const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
-      const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
-      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${fallback}</div>`;
-      log.scrollTop=log.scrollHeight;
-      return;
-    }
- 
-    const cid2 = 'ai-content-' + Date.now();
-    let wrapperInserted = false;
-    let rawFullText = '';
- 
-    function ensureWrapper(){
-      if(wrapperInserted) return;
-      wrapperInserted = true;
-      const th=document.getElementById('ai-thinking'); if(th) th.remove();
-      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-        + `<span class="ai-source-tag ai-source-api">>👩‍🏫 Teacher Response</span><br>`
-        + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>`
-        + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
-      log.scrollTop = log.scrollHeight;
-    }
- 
+async function handleQuestion(q, gramForced, forceAI = false){
+
+  var ctx = getCtx();
+
+  // =====================================================
+  // AI QUIZ ANSWER
+  // 사용자가 1 / 2 / 3 / 4를 입력하면
+  // 새 문제가 아니라 "방금 AI가 낸 문제"의 답으로 처리
+  // =====================================================
+  const quizAnswer = String(q || '').trim();
+
+  if(
+    aiQuizState.active &&
+    /^[1-4]$/.test(quizAnswer) &&
+    aiQuizState.questionText
+  ){
+
+    const selectedNumber = quizAnswer;
+
+    const answerPrompt = `
+The learner is answering the CURRENT AI QUIZ QUESTION.
+
+VERY IMPORTANT:
+Do NOT create a new question.
+Do NOT change the question.
+Do NOT generate another quiz yet.
+
+Here is the EXACT quiz question that you previously gave:
+
+----- CURRENT QUIZ QUESTION -----
+${aiQuizState.questionText}
+----- END CURRENT QUIZ QUESTION -----
+
+The learner selected:
+
+${selectedNumber}
+
+Evaluate this answer against the EXACT question and choices above.
+
+Give the learner:
+
+1. Correct or incorrect
+2. The correct answer
+3. Why the correct answer is correct
+4. Why the learner's selected answer is correct or incorrect
+5. A short Korean learning explanation
+6. Korean + romanization + English when useful
+
+Do NOT make a new question.
+
+Wait until the learner asks for the next question.
+
+Answer in the learner's language.
+`;
+
+    // 화면에 사용자 답 표시
+    const safeAnswer = escapeHtml(selectedNumber);
+
+    log.innerHTML +=
+      `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeAnswer}</div>`;
+
+    log.scrollTop = log.scrollHeight;
+
+    const cidAnswer = 'ai-content-' + Date.now();
+
+    log.innerHTML +=
+      `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+      + `<span class="ai-source-tag ai-source-api">👩‍🏫 Teacher Response</span>`
+      + `<div id="${cidAnswer}"></div>`
+      + `</div>`;
+
+    log.scrollTop = log.scrollHeight;
+
+    const answerEl = document.getElementById(cidAnswer);
+
     askTutorStream(
-      ctx, q,
+      ctx,
+      answerPrompt,
+
       (accumulatedText)=>{
-        ensureWrapper();
-        rawFullText = accumulatedText;
-        const el = document.getElementById(cid2);
-        if(el){ el.innerHTML = protectKoreanNoTranslate(escapeAndBr(accumulatedText)); log.scrollTop = log.scrollHeight; }
-      },
-      (finalText)=>{
-        ensureWrapper();
-        const finalAnswer = protectKoreanNoTranslate(escapeAndBr(finalText || rawFullText || ''));
-        const el = document.getElementById(cid2);
-        if(el) el.innerHTML = finalAnswer;
-        const actionsEl2 = document.getElementById(cid2+'-actions');
-        if(actionsEl2){
-          actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
-            + renderStudyModeButtons();
+        if(answerEl){
+          answerEl.innerHTML = escapeAndBr(accumulatedText);
+          log.scrollTop = log.scrollHeight;
         }
+      },
+
+      (finalText)=>{
+        if(answerEl){
+          answerEl.innerHTML =
+            escapeAndBr(finalText || '');
+        }
+
         log.scrollTop = log.scrollHeight;
       },
 
-(message, plan, isAnonymous)=>{
-  const th = document.getElementById('ai-thinking');
-  if(th) th.remove();
-
-  const limitMessage = `
-    <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
-      <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
-        ${escapeHtml(message)}
-      </div>
-
-      <div style="margin-bottom:14px;background:white;border:1px solid #e0e7ff;padding:12px;border-radius:12px;">
-        <div style="font-weight:800;color:#6366f1;margin-bottom:10px;">🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)</div>
-        <div style="text-align:center;line-height:1.5;margin-bottom:12px;background:#f8fafc;padding:10px 12px;border-radius:10px;">
-          <div style="font-size:0.9rem;font-weight:900;color:#1e293b;">20/day = <span style="color:#6366f1;">600/month</span> for just <b>$3.99</b> <span style="color:#94a3b8;font-weight:600;">(₱199)</span></div>
-          <div style="font-size:0.75rem;color:#94a3b8;margin-top:3px;">Less than a coffee ☕ · 20 questions every day</div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <button onclick="window.location.href='index.html?returnTo='+encodeURIComponent(window.location.pathname)+'&openPro=1&method=gcash'" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
-          <button onclick="window.location.href='index.html?returnTo='+encodeURIComponent(window.location.pathname)+'&openPro=1&method=card'" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
-        </div>
-      </div>
-
-      <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:12px;border-radius:12px;margin-top:12px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div style="font-weight:800;color:#15803d;font-size:0.82rem;">✅ FREE PLAN</div>
-          <div style="font-size:0.68rem;background:#dcfce7;color:#166534;padding:3px 8px;border-radius:999px;font-weight:800;">Always Free</div>
-        </div>
-        <div style="margin-top:8px;font-size:0.9rem;font-weight:800;color:#1e293b;">3000 Quizzes, Speaking & Listening — Unlimited!</div>
-        <div style="margin-top:10px;background:white;border:1px dashed #bbf7d0;padding:9px 10px;border-radius:10px;display:flex;align-items:center;gap:8px;">
-          <span>⏰</span>
-          <span style="font-size:0.82rem;color:#475569;">Your <b style="color:#15803d;">3 AI questions</b> will refill tomorrow</span>
-        </div>
-      </div>
-
-    </div>
-  `;
-  log.innerHTML += limitMessage;
-  log.scrollTop = log.scrollHeight;
-},
+      (message)=>{
+        if(answerEl){
+          answerEl.innerHTML =
+            `<div style="color:#dc2626;">${escapeHtml(message || 'Quiz answer failed.')}</div>`;
+        }
+      },
 
       (errMsg)=>{
-        console.error('[AI Tutor] Stream error:', errMsg);
-        const th = document.getElementById('ai-thinking');
-        if(th) th.remove();
-        const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
-        log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-          + `<div id="ai-error-box">⚠️ Server connection failed, showing a fallback answer.<br>Error: ${escapeHtml(errMsg)}</div>`
-          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
-        log.scrollTop = log.scrollHeight;
+        if(answerEl){
+          answerEl.innerHTML =
+            `<div style="color:#dc2626;">${escapeHtml(errMsg || 'Quiz answer failed.')}</div>`;
+        }
       }
     );
+
+    return;
   }
+
+  // =====================================================
+  // NORMAL QUESTION / AI MODE
+  // =====================================================
+
+  var grams = forceAI
+    ? []
+    : (gramForced ? [gramForced] : findAllGrammarMatches(q));
+
+  // 사용자 입력을 화면에 넣기 전 이스케이프 처리
+  const safeQ = escapeHtml(q);
+
+  log.innerHTML +=
+    `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
+
+  log.scrollTop = log.scrollHeight;
+
+  if(grams.length > 0){
+
+    const cid = 'ai-content-' + Date.now();
+
+    const tag =
+      `📚 ${grams.length} grammar point${grams.length === 1 ? '' : 's'} found in the sentence`;
+
+    log.innerHTML +=
+      `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+      + `<span class="ai-source-tag ai-source-db">${tag}</span>`
+      + `<div id="${cid}"></div>`
+      + `<div id="${cid}-actions"></div></div>`;
+
+    log.scrollTop = log.scrollHeight;
+
+    const container = document.getElementById(cid);
+    let combinedPlain = '';
+
+    function typeNext(idx){
+
+      if(idx >= grams.length){
+
+        const actionsEl =
+          document.getElementById(cid+'-actions');
+
+        if(actionsEl){
+
+          actionsEl.innerHTML =
+            makeActions(combinedPlain.slice(0,200))
+            + renderStudyModeButtons();
+
+        }
+
+        return;
+      }
+
+      const g = grams[idx];
+
+      const headerDiv =
+        document.createElement('div');
+
+      headerDiv.style.cssText =
+        `font-size:0.85rem;color:#6366f1;font-weight:800;margin:${idx>0 ? '14px 0 6px;padding-top:10px;border-top:1px dashed #e2e8f0;' : '6px 0;'}`;
+
+      headerDiv.textContent =
+        `🤖 ${g.grammar} (${g.id})`;
+
+      container.appendChild(headerDiv);
+
+      const bodyDiv =
+        document.createElement('div');
+
+      container.appendChild(bodyDiv);
+
+      const finalAnswer =
+        renderFromDB(g, ctx);
+
+      combinedPlain +=
+        (idx>0 ? '\n\n' : '') + finalAnswer;
+
+      bodyDiv.innerHTML =
+        finalAnswer;
+
+      typeNext(idx + 1);
+    }
+
+    typeNext(0);
+    return;
+  }
+
+  // =====================================================
+  // Gemini AI
+  // =====================================================
+
+  const cid2 = 'ai-content-' + Date.now();
+
+  let wrapperInserted = false;
+  let rawFullText = '';
+
+  function ensureWrapper(){
+
+    if(wrapperInserted) return;
+
+    wrapperInserted = true;
+
+    const th =
+      document.getElementById('ai-thinking');
+
+    if(th) th.remove();
+
+    log.innerHTML +=
+      `<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+      + `<span class="ai-source-tag ai-source-api">👩‍🏫 Teacher Response</span><br>`
+      + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>`
+      + `<div id="${cid2}"></div>`
+      + `<div id="${cid2}-actions"></div>`
+      + `</div>`;
+
+    log.scrollTop = log.scrollHeight;
+  }
+
+  askTutorStream(
+    ctx,
+    q,
+
+    (accumulatedText)=>{
+
+      ensureWrapper();
+
+      rawFullText = accumulatedText;
+
+      const el =
+        document.getElementById(cid2);
+
+      if(el){
+        el.innerHTML =
+          escapeAndBr(accumulatedText);
+
+        log.scrollTop =
+          log.scrollHeight;
+      }
+    },
+
+    (finalText)=>{
+
+      ensureWrapper();
+
+      const finalAnswer =
+        escapeAndBr(
+          finalText ||
+          rawFullText ||
+          ''
+        );
+
+      const el =
+        document.getElementById(cid2);
+
+      if(el){
+        el.innerHTML =
+          finalAnswer;
+      }
+
+      // =================================================
+      // ⭐ AI QUIZ 문제 저장
+      // AI가 방금 낸 문제 전체를 그대로 저장
+      // =================================================
+
+      if(aiQuizState.active){
+
+        aiQuizState.questionText =
+          finalText ||
+          rawFullText ||
+          '';
+
+        aiQuizState.lastAnswerText = '';
+
+        console.log(
+          '🎯 AI Quiz question saved:',
+          aiQuizState.questionText
+        );
+      }
+
+      const actionsEl2 =
+        document.getElementById(cid2+'-actions');
+
+      if(actionsEl2){
+
+        actionsEl2.innerHTML =
+          makeActions(
+            (finalText || '').slice(0,200)
+          )
+          + renderStudyModeButtons();
+      }
+
+      log.scrollTop =
+        log.scrollHeight;
+    },
+
+    (message, plan, isAnonymous)=>{
+
+      const th =
+        document.getElementById('ai-thinking');
+
+      if(th) th.remove();
+
+      const signInNote =
+        isAnonymous
+          ? `<div style="margin-bottom:12px;">
+              <div style="font-weight:800;color:#c2410c;">
+                🔑 Sign in to keep asking
+              </div>
+            </div>`
+          : '';
+
+      log.innerHTML +=
+        `<div style="background:#fff7ed;border:2px solid #fed7aa;padding:12px;border-radius:14px;">
+          ${signInNote}
+          ${escapeHtml(message || 'Usage limit reached.')}
+        </div>`;
+
+      log.scrollTop =
+        log.scrollHeight;
+    },
+
+    (errMsg)=>{
+
+      const th =
+        document.getElementById('ai-thinking');
+
+      if(th) th.remove();
+
+      log.innerHTML +=
+        `<div style="background:#fff7ed;border:2px solid #fed7aa;padding:12px;border-radius:14px;">
+          ⚠️ ${escapeHtml(errMsg || 'AI connection failed.')}
+        </div>`;
+
+      log.scrollTop =
+        log.scrollHeight;
+    }
+  );
+}
  
   window.openShare=openShare;
   btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); setTimeout(()=>{ const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; },100); }};
