@@ -2186,14 +2186,55 @@ function getPageSentences(){
   }
  
   async function handleQuestion(q, gramForced, forceAiMode){
-    var ctx=getCtx();
-    var grams = [];
-    if(!forceAiMode){
-      grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
-    }
+   var ctx=getCtx();
+
+// ==================== AI QUIZ ANSWER CHECK ====================
+// 1 / 2 / 3 / 4 입력은 새 질문이 아니라 현재 퀴즈의 정답 선택
+const originalQ = String(q || '').trim();
+
+const isQuizAnswer =
+  aiQuizState.active &&
+  /^[1-4]$/.test(originalQ) &&
+  aiQuizState.questionText;
+
+if(isQuizAnswer){
+  const selectedAnswer = originalQ;
+
+  aiQuizState.lastAnswerText = selectedAnswer;
+
+  q = `
+You are checking the learner's answer to the CURRENT AI quiz.
+
+CURRENT QUIZ:
+${aiQuizState.questionText}
+
+LEARNER'S ANSWER:
+Choice ${selectedAnswer}
+
+IMPORTANT:
+- Do NOT create a new quiz question.
+- Do NOT give another question.
+- Check ONLY whether Choice ${selectedAnswer} is correct for the CURRENT quiz.
+- Clearly say whether the answer is CORRECT or INCORRECT.
+- Give the correct answer.
+- Briefly explain why.
+- If incorrect, explain why the selected choice is wrong.
+`;
+
+  // 퀴즈 정답 확인은 무조건 AI로 처리
+  forceAiMode = true;
+}
+
+var grams = [];
+
+if(!forceAiMode){
+  grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
+}
  
-    const safeQ = protectKoreanNoTranslate(escapeHtml(q));
-    log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
+    const displayQ = isQuizAnswer ? originalQ : q;
+const safeQ = escapeHtml(displayQ);
+
+log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
     
  
     if(grams.length > 0){
@@ -2267,6 +2308,10 @@ function getPageSentences(){
       },
       (finalText)=>{
         ensureWrapper();
+        // AI가 출제한 현재 퀴즈 문제를 기억
+if(aiQuizState.active && !isQuizAnswer){
+  aiQuizState.questionText = finalText || rawFullText || '';
+}  
         const finalAnswer = protectKoreanNoTranslate(escapeAndBr(finalText || rawFullText || ''));
         const el = document.getElementById(cid2);
         if(el) el.innerHTML = finalAnswer;
