@@ -1,3 +1,4 @@
+console.log('🔥 AI_SCRIPT_CLEAN v999 - 절반높이+라벨삭제 버전 로드됨');
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
@@ -1048,6 +1049,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   // "Show questions" 버튼이 제대로 안 열리던 문제를 해결하면서, 동시에
   // 처음 써서 뭘 물어봐야 할지 모르는 초보 사용자를 위해
   // 현재 페이지 내용을 기준으로 바로 누를 수 있는 3가지 학습 모드 박스를 제공한다.
+
   function renderStudyModeButtons(){
     return `<div class="ai-actions" style="margin-top:10px;">`
       + `<button class="ai-action-btn" onclick="window.__aiTutorMode('epstopik')">📘 EPS-TOPIK</button>`
@@ -1056,9 +1058,56 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       + `</div>`;
   }
 
-  // 각 모드 버튼을 누르면 현재 페이지(pageContext)를 기준으로 서버에 정형화된 질문을 보낸다.
-  // 서버(ask-tutor)의 시스템 프롬프트가 이미 EPS-TOPIK/Quiz/Vocabulary 등 섹션별 답변 규칙을
-  // 갖고 있으므로, 여기서는 그 규칙이 발동되도록 질문 문구만 명확하게 만들어주면 된다.
+  function getDetectedGrammars(){
+    try{
+      const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
+        ? currentCategoryData[currentIdx] : null;
+      if(!quiz) return [];
+      let combined = (quiz.kr||'') + ' ';
+      if(Array.isArray(quiz.examples)) combined += quiz.examples.map(e=>e.kr||'').join(' ') + ' ';
+      if(Array.isArray(quiz.options)) combined += quiz.options.map(o=>o.kr||'').join(' ') + ' ';
+      return detectGrammarInText(combined).slice(0,3);
+    }catch(e){ return []; }
+  }
+
+  function handleLocalGrammarDisplay(specificG, allGrams){
+    let grams = [];
+    if(specificG) grams = [specificG];
+    else if(allGrams && allGrams.length>0) grams = allGrams;
+    else grams = getDetectedGrammars();
+
+    const ctx = getCtx();
+    if(grams.length===0){
+      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠️ 이 문장에서 감지된 문법이 없어요. 아래 검색창에 직접 질문해보세요.</div>`;
+      log.scrollTop = log.scrollHeight;
+      return;
+    }
+    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?escapeHtml(grams[0].grammar)+' 문법 보기':'문법 DB 보기'}</div>`;
+    let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
+      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length}개 문법 - 무료 무제한 (문장 3개에서 추출)</span>`;
+    grams.forEach(g=>{
+      block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">`
+        + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
+        + renderFromDB(g, ctx)
+        + `</div>`;
+    });
+    block += makeActions(grams.map(g=>g.grammar).join(' / ').slice(0,200)) + renderStudyModeButtons() + `</div>`;
+    log.innerHTML += block;
+    log.scrollTop = log.scrollHeight;
+  }
+
+  // 상단 3개 버튼 = 로컬 DB (디자인 그대로 유지)
+  window.__localDbMode = function(mode){
+    handleLocalGrammarDisplay();
+  };
+
+  // 하단 문장 3개 = AI (디자인 그대로 유지)
+  window.__aiSentenceMode = function(kr, en, rom){
+    const q = kr + (en? ' - '+en : '');
+    handleQuestion(q, null, true);
+  };
+
+  // 기존 AI 모드 (답변 아래 작은 버튼들은 여전히 AI)
   window.__aiTutorMode = function(mode){
     const ctx = getCtx();
     const lessonLabel = ctx.kr ? `"${ctx.kr}"` : "this lesson";
@@ -1068,9 +1117,8 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       example: `Please give me 2-3 additional natural example sentences using the vocabulary or grammar from ${lessonLabel}, each with Korean, romanization, and English meaning.`
     };
     const q = presetQuestions[mode] || presetQuestions.epstopik;
-    handleQuestion(q);
+    handleQuestion(q, null, true);
   };
- 
   // ==================== Gemini는 DB에 없는 "일반 질문"일 때만 호출 ====================
   // 참고: 실제 시스템 프롬프트(V21_SYSTEM)는 서버(ask-tutor Edge Function)에만 존재합니다.
   // 클라이언트는 kr/rom/en/q 및 pageContext만 만들어서 보내면 됩니다.
@@ -1170,54 +1218,235 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
  
   var btn=wrap.querySelector('#ai-tutor-btn'), modal=wrap.querySelector('#ai-tutor-modal'), log=wrap.querySelector('#ai-chat-log'), faq=wrap.querySelector('#ai-faq-chips'), input=wrap.querySelector('#ai-in'), open=false;
  
-  function getCtx(){
-    const krEl=document.getElementById('korean-sentence')||document.querySelector('.kr-text');
-    const romEl=document.getElementById('romanization')||document.querySelector('.rom-text');
-    const tipEl=document.getElementById('category-tip-text');
-    return { kr: (krEl&&krEl.innerText.trim())||'가족', rom: (romEl&&romEl.innerText.trim())||'ga-jok', en: (tipEl&&tipEl.innerText.trim().slice(0,120))||'family' };
+ function getCurrentQuizData(){
+  try{
+    if(
+      typeof currentCategoryData !== 'undefined' &&
+      Array.isArray(currentCategoryData) &&
+      typeof currentIdx !== 'undefined' &&
+      currentCategoryData[currentIdx]
+    ){
+      return currentCategoryData[currentIdx];
+    }
+  }catch(e){
+    console.warn('[AI Tutor] getCurrentQuizData error:', e);
   }
 
-  // 추가: 서버(ask-tutor)가 활용할 수 있는 pageContext를 만든다.
-  // 서버는 page/category/lesson/quiz/quizProgress/epsTopik 구조를 기대하므로 그 형태에 맞춘다.
-  function buildPageContext(){
-    const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
-      ? currentCategoryData[currentIdx]
-      : null;
+  return null;
+}
+
+
+function getCtx(){
+
+  const quiz = getCurrentQuizData();
+
+  if(quiz){
 
     return {
-      page: {
-        title: document.title || "",
-        url: window.location.href,
-        path: window.location.pathname
-      },
-      category: {
-        id: (typeof activeCatId !== 'undefined') ? activeCatId : "",
-        name: (typeof activeCategoryName !== 'undefined') ? activeCategoryName : ""
-      },
-      lesson: quiz ? {
-        korean: quiz.kr || "",
-        romanization: quiz.rom || "",
-        english: quiz.en || "",
-        tip: quiz.tip || "",
-        situation: quiz.situation || "",
-        forms: quiz.forms || {},
-        examples: quiz.examples || []
-      } : {},
-      quiz: quiz ? {
-        question: quiz.kr || "",
-        answer: quiz.en || "",
-        options: quiz.options || []
-      } : {},
-      quizProgress: (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined') ? {
-        current: currentIdx + 1,
-        total: currentCategoryData.length
-      } : {},
-      epsTopik: {
-        title: document.title || "",
-        content: (document.getElementById('category-tip-text')?.innerText || "").trim()
-      }
+      kr: String(quiz.kr || '').trim(),
+      rom: String(quiz.rom || '').trim(),
+      en: String(quiz.en || '').trim()
     };
+
   }
+
+  // 혹시 quizDB 방식 페이지라도 안전하게 fallback
+  const krEl =
+    document.getElementById('korean-sentence') ||
+    document.querySelector('.kr-text');
+
+  const romEl =
+    document.getElementById('romanization') ||
+    document.querySelector('.rom-text');
+
+  const enEl =
+    document.getElementById('english') ||
+    document.querySelector('.en-text');
+
+  return {
+    kr: krEl ? krEl.innerText.trim() : '',
+    rom: romEl ? romEl.innerText.trim() : '',
+    en: enEl ? enEl.innerText.trim() : ''
+  };
+}
+
+function buildPageContext(){
+
+  const quiz = getCurrentQuizData();
+
+  const pageTitle = document.title || '';
+  const pageUrl = window.location.href;
+  const pagePath = window.location.pathname;
+
+  const categoryId =
+    (typeof activeCatId !== 'undefined' && activeCatId)
+      ? activeCatId
+      : '';
+
+  const categoryName =
+    (typeof activeCategoryName !== 'undefined' && activeCategoryName)
+      ? activeCategoryName
+      : '';
+
+  const currentNumber =
+    (
+      typeof currentCategoryData !== 'undefined' &&
+      Array.isArray(currentCategoryData) &&
+      typeof currentIdx !== 'undefined'
+    )
+      ? currentIdx + 1
+      : 0;
+
+  const totalNumber =
+    (
+      typeof currentCategoryData !== 'undefined' &&
+      Array.isArray(currentCategoryData)
+    )
+      ? currentCategoryData.length
+      : 0;
+
+
+  const lesson = quiz ? {
+
+    korean: String(quiz.kr || ''),
+    romanization: String(quiz.rom || ''),
+    english: String(quiz.en || ''),
+
+    tip: String(quiz.tip || ''),
+    situation: String(quiz.situation || ''),
+
+    casual:
+      String(
+        (quiz.forms && quiz.forms.casual) ||
+        quiz.casual ||
+        ''
+      ),
+
+    polite:
+      String(
+        (quiz.forms && quiz.forms.polite) ||
+        quiz.polite ||
+        ''
+      ),
+
+    present:
+      String(
+        (quiz.forms && quiz.forms.present) ||
+        ''
+      ),
+
+    past:
+      String(
+        (quiz.forms && quiz.forms.past) ||
+        ''
+      ),
+
+    future:
+      String(
+        (quiz.forms && quiz.forms.future) ||
+        ''
+      ),
+
+    grammar: quiz.grammar || {},
+
+    examples:
+      Array.isArray(quiz.examples)
+        ? quiz.examples.map(e => ({
+            korean: String(e.kr || ''),
+            romanization: String(e.rom || ''),
+            english: String(e.en || '')
+          }))
+        : [],
+
+    options:
+      Array.isArray(quiz.options)
+        ? quiz.options.map(o => ({
+            korean: String(o.kr || ''),
+            romanization: String(o.rom || ''),
+            english: String(o.en || '')
+          }))
+        : []
+
+  } : {};
+
+
+  return {
+
+    page: {
+      title: pageTitle,
+      url: pageUrl,
+      path: pagePath
+    },
+
+    category: {
+      id: categoryId,
+      name: categoryName
+    },
+
+    lesson: lesson,
+
+    currentLesson: {
+      korean: lesson.korean || '',
+      romanization: lesson.romanization || '',
+      english: lesson.english || ''
+    },
+
+    quiz: quiz ? {
+
+      question: String(quiz.kr || ''),
+      answer: String(quiz.en || ''),
+
+      options:
+        Array.isArray(quiz.options)
+          ? quiz.options.map(o => ({
+              korean: String(o.kr || ''),
+              romanization: String(o.rom || ''),
+              english: String(o.en || '')
+            }))
+          : []
+
+    } : {},
+
+    quizProgress: {
+      current: currentNumber,
+      total: totalNumber
+    },
+
+    epsTopik: {
+
+      enabled: true,
+
+      target:
+        'EPS-TOPIK Korean learner',
+
+      lessonTitle:
+        pageTitle,
+
+      topic:
+        categoryName,
+
+      Korean:
+        lesson.korean || '',
+
+      English:
+        lesson.english || '',
+
+      grammar:
+        lesson.grammar || {},
+
+      situation:
+        lesson.situation || '',
+
+      vocabulary:
+        lesson.options || [],
+
+      examples:
+        lesson.examples || []
+
+    }
+
+  };
+}
  
   function mdToHtml(text){
     let t = text;
@@ -1302,16 +1531,39 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
         bodyExtra.deviceId = getDeviceId(); 
         headers['Authorization'] = `Bearer ${SUPABASE_ANON_KEY}`;
       }
+     
+      const pageContext = buildPageContext();
 
-      const res = await fetch(ASK_TUTOR_ENDPOINT, {
-        method:'POST',
-        headers,
-        body: JSON.stringify({
-          kr: ctx.kr, rom: ctx.rom, en: ctx.en, q,
-          pageContext: buildPageContext(),   // 서버의 EPS-TOPIK 컨텍스트 활용을 위해 추가
-          ...bodyExtra
-        })
-      });
+const res = await fetch(ASK_TUTOR_ENDPOINT, {
+  method: 'POST',
+  headers,
+
+  body: JSON.stringify({
+
+    // 현재 퀴즈
+    kr: ctx.kr,
+    rom: ctx.rom,
+    en: ctx.en,
+
+    // 사용자가 질문한 내용
+    q: q,
+
+    // 현재 페이지 전체 학습 context
+    pageContext: pageContext,
+
+    // 서버가 쉽게 사용할 수 있는 핵심 정보
+    currentPage: pageContext.page,
+    currentCategory: pageContext.category,
+    currentLesson: pageContext.lesson,
+    currentQuiz: pageContext.quiz,
+    quizProgress: pageContext.quizProgress,
+    epsTopik: pageContext.epsTopik,
+
+    ...bodyExtra
+
+  })
+});
+      
 
       if(res.status === 403){
         const data = await res.json().catch(()=>({}));
@@ -1391,9 +1643,7 @@ function hasGrammarPattern(text, pattern){
 
   if(pattern.startsWith('-')){
     const actualPattern = pattern.slice(1).trim();
-
     if(!actualPattern) return false;
-
     return hasTrailingHangulBoundary(text, actualPattern);
   }
 
@@ -1563,49 +1813,145 @@ function getPageSentences(){
  
   function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
  
+
+
+
+
   function renderFaq(){
     var sentences = getPageSentences();
 
-    // 학습 모드 박스는 문장 유무와 관계없이 항상 표시 (뭘 물어야 할지 모르는 사용자를 위한 진입점)
-    const modeButtonsHtml = `<div style="width:100%;display:flex;gap:6px;">`
-      + `<button class="faq-chip" style="flex:1;text-align:center;" onclick="window.__aiTutorMode('epstopik')">📘<br>EPS-TOPIK</button>`
-      + `<button class="faq-chip" style="flex:1;text-align:center;" onclick="window.__aiTutorMode('quiz')">🎯<br>Quiz</button>`
-      + `<button class="faq-chip" style="flex:1;text-align:center;" onclick="window.__aiTutorMode('example')">💬<br>Example</button>`
-      + `</div>`;
+    // 중간 문장 3개에서 각각 문법 1개씩 추출 -> 상단 3개에 넣기 (1:1 매핑)
+    let grammarsPerSentence = [];
+    let fallbackPool = [];
+    try{
+      if(sentences.length>0){
+        const combinedText = sentences.map(s=>s.kr||'').join(' ');
+        fallbackPool = detectGrammarInText(combinedText);
+        grammarsPerSentence = sentences.map(s=>{
+          const found = detectGrammarInText(s.kr||'');
+          return found.length>0 ? found[0] : null;
+        });
+      }
+      // fallbackPool에 현재 레슨 전체 문법도 추가
+      const lessonFallback = getDetectedGrammars();
+      fallbackPool = [...fallbackPool, ...lessonFallback];
+      // 중복 제거
+      const seen = new Set();
+      const uniqueFallback = [];
+      for(const g of fallbackPool){
+        if(g && !seen.has(g.id)){
+          seen.add(g.id);
+          uniqueFallback.push(g);
+        }
+      }
+      fallbackPool = uniqueFallback;
+
+      // 빈 슬롯을 fallbackPool에서 채우기
+      let usedIds = new Set(grammarsPerSentence.filter(Boolean).map(g=>g.id));
+      for(let i=0;i<grammarsPerSentence.length;i++){
+        if(!grammarsPerSentence[i]){
+          const next = fallbackPool.find(g=>!usedIds.has(g.id));
+          if(next){
+            grammarsPerSentence[i]=next;
+            usedIds.add(next.id);
+          }
+        }
+      }
+      // 그래도 빈 곳이 있으면 fallbackPool에서 남은걸로 채우기
+      for(let i=0;i<3;i++){
+        if(i>=grammarsPerSentence.length) grammarsPerSentence[i]=null;
+      }
+      // fallbackPool이 3개 미만이면 전체에서라도 채우기
+      if(grammarsPerSentence.filter(Boolean).length < 3){
+        for(let i=0;i<3;i++){
+          if(!grammarsPerSentence[i]){
+            const next = fallbackPool.find(g=>!grammarsPerSentence.some(x=>x && x.id===g.id));
+            if(next) grammarsPerSentence[i]=next;
+          }
+        }
+      }
+    }catch(e){ console.warn(e); }
+
+    // 상단: 문장별 문법 DB 3개 (초록색) - 이제 절대 "문법 1번" 안 뜨게
+    let modeButtonsHtml = '';
+    if(sentences.length>0){
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
+        + [0,1,2].map(i=>{
+          const g = grammarsPerSentence[i];
+          const sentence = sentences[i];
+          if(g){
+            // 절반 높이, ID 삭제, 한글+로마자+영어 표시 (외국인용)
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;">`
+              + `<div style="font-size:.82rem;font-weight:900;color:#166534;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.grammar)}</div>`
+              + `<div style="font-size:.62rem;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.romanization||'')}</div>`
+              + `<div style="font-size:.6rem;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.title||'').slice(0,22)}</div>`
+              + `</button>`;
+          } else {
+            return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;opacity:0.6;padding:5px 6px;line-height:1.2;min-height:auto;">`
+              + `<div style="font-size:.75rem;font-weight:800;">${escapeHtml((sentence&&sentence.kr||'').slice(0,6))}</div>`
+              + `<div style="font-size:.6rem;color:#64748b;">Grammar</div>`
+              + `</button>`;
+          }
+        }).join('') + `</div>`;
+    } else {
+      modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
+        + (fallbackPool.slice(0,3).map((g,i)=>
+          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${escapeHtml(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${escapeHtml(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
+        ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(3))
+        + `</div>`;
+    }
 
     if(sentences.length === 0){
       faq.innerHTML = modeButtonsHtml;
-      log.innerHTML = `<div style="background:#f5f3ff;padding:12px;border-radius:14px;line-height:1.6;font-size:0.85rem;color:#64748b;">👆 Tap a box above to study this lesson, or ask me anything about Korean below!</div>`;
+      log.innerHTML = ``;
       faq.style.display='flex';
+      wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
+        c.onclick=()=>{
+          const idx = parseInt(c.getAttribute('data-gram-idx'),10);
+          const g = grammarsPerSentence[idx] || fallbackPool[idx];
+          if(g) handleLocalGrammarDisplay(g);
+          else handleLocalGrammarDisplay(null, grammarsPerSentence.filter(Boolean));
+        };
+      });
       return;
     }
 
-    faq.innerHTML = modeButtonsHtml + sentences.map((s,i) =>
-  `<button class="faq-chip" data-sidx="${i}">
-    <div style="font-size:.82em;font-weight:700;">
-      ${escapeHtml(s.kr)}
-    </div>
-    <div style="font-size:.9em;font-weight:700;opacity:.95;margin-top:5px;">
-      ${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')}
-    </div>
+    // 하단: 중간 문장 3개 (보라색 - AI) - 라벨 삭제, 깔끔하게
+    faq.innerHTML = modeButtonsHtml + `<div style="width:100%;height:1px;background:#e2e8f0;margin:6px 0;"></div>` + sentences.map((s,i) =>
+  `<button class="faq-chip" data-sidx="${i}" style="width:100%;background:#f5f3ff;border-color:#ddd6fe;text-align:left;margin-bottom:5px;padding:8px 10px;">
+    <div style="font-size:.9em;font-weight:700;color:#1e293b;">${escapeHtml(s.kr)}</div>
+    <div style="font-size:.8em;font-weight:500;margin-top:3px;color:#64748b;">${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')}</div>
   </button>`
 ).join('');
 
-    log.innerHTML = `<div style="background:#f5f3ff;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;">👆 Tap a study mode box, or tap a sentence to explore grammar rules. For deeper questions, use the search bar below.</div>`;
+    // 설명창 삭제 - 로그 비우기 (공간 확보)
+    log.innerHTML = ``;
 
     faq.style.display='flex';
     log.scrollTop = 0;
  
-    wrap.querySelectorAll('.faq-chip').forEach(c=>{
+    wrap.querySelectorAll('.faq-chip[data-gram-idx]').forEach(c=>{
+      c.onclick=()=>{
+        const idx = parseInt(c.getAttribute('data-gram-idx'),10);
+        const g = grammarsPerSentence[idx] || fallbackPool[idx];
+        if(g) handleLocalGrammarDisplay(g);
+        else {
+          const s = sentences[idx];
+          if(s){ const f=detectGrammarInText(s.kr); if(f.length>0) handleLocalGrammarDisplay(f[0]); else handleLocalGrammarDisplay(null, fallbackPool); }
+        }
+      };
+    });
+    wrap.querySelectorAll('.faq-chip[data-sidx]').forEach(c=>{
       c.onclick=()=>{
         const idx = parseInt(c.getAttribute('data-sidx'), 10);
         const s = sentences[idx];
-        if(s) handleSentenceClick(s);
+        if(s) window.__aiSentenceMode(s.kr, s.en, s.rom);
       };
     });
   }
+
  
-  function handleSentenceClick(s){
+    function handleSentenceClick(s){
     log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${escapeHtml(s.kr)}${s.rom?` (${escapeHtml(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
     
     log.scrollTop = log.scrollHeight;
@@ -1636,9 +1982,14 @@ function getPageSentences(){
   }
  
   // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
-  async function handleQuestion(q, gramForced){
+  async function handleQuestion(q, gramForced, forceAiMode){
+    // forceAiMode=true면 로컬 DB 스킵하고 무조건 AI
+
     var ctx=getCtx();
-    var grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
+    var grams = [];
+    if(!forceAiMode){
+      grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
+    }
  
     // 사용자 입력을 화면에 넣기 전 이스케이프 처리 (XSS 방지)
     const safeQ = escapeHtml(q);
@@ -1727,64 +2078,45 @@ function getPageSentences(){
         log.scrollTop = log.scrollHeight;
       },
 
-      (message, plan, isAnonymous)=>{
-        const th = document.getElementById('ai-thinking');
-        if(th) th.remove();
+(message, plan, isAnonymous)=>{
+  const th = document.getElementById('ai-thinking');
+  if(th) th.remove();
 
-        const signInNote = isAnonymous
-          ? `<div style="margin-bottom:12px;">
-              <div style="font-weight:800;color:#c2410c;">
-                🔑 Sign in to keep asking
-              </div>
-              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
-                Sign in (still free!) to keep using the AI teacher.
-              </div>
-            </div>`
-          : '';
+  const limitMessage = `
+    <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
+      <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
+        ${escapeHtml(message)}
+      </div>
 
-        const limitMessage = `
-          <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
+      <div style="margin-bottom:14px;background:white;border:1px solid #e0e7ff;padding:12px;border-radius:12px;">
+        <div style="font-weight:800;color:#6366f1;margin-bottom:10px;">🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)</div>
+        <div style="text-align:center;line-height:1.5;margin-bottom:12px;background:#f8fafc;padding:10px 12px;border-radius:10px;">
+          <div style="font-size:0.9rem;font-weight:900;color:#1e293b;">20/day = <span style="color:#6366f1;">600/month</span> for just <b>$3.99</b> <span style="color:#94a3b8;font-weight:600;">(₱199)</span></div>
+          <div style="font-size:0.75rem;color:#94a3b8;margin-top:3px;">Less than a coffee ☕ · 20 questions every day</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button onclick="window.payWithPayMongo ? window.payWithPayMongo() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
+          <button onclick="window.payWithLemonSqueezy ? window.payWithLemonSqueezy() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
+        </div>
+      </div>
 
-            <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
-              ${escapeHtml(message)}
-            </div>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:12px;border-radius:12px;margin-top:12px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div style="font-weight:800;color:#15803d;font-size:0.82rem;">✅ FREE PLAN</div>
+          <div style="font-size:0.68rem;background:#dcfce7;color:#166534;padding:3px 8px;border-radius:999px;font-weight:800;">Always Free</div>
+        </div>
+        <div style="margin-top:8px;font-size:0.9rem;font-weight:800;color:#1e293b;">3000 Quizzes, Speaking & Listening — Unlimited!</div>
+        <div style="margin-top:10px;background:white;border:1px dashed #bbf7d0;padding:9px 10px;border-radius:10px;display:flex;align-items:center;gap:8px;">
+          <span>⏰</span>
+          <span style="font-size:0.82rem;color:#475569;">Your <b style="color:#15803d;">3 AI questions</b> will refill tomorrow</span>
+        </div>
+      </div>
 
-            ${signInNote}
-
-            <div style="margin-bottom:12px;">
-              <div style="font-weight:800;color:#6366f1;">
-                🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)
-              </div>
-
-              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
-                Need more help? Upgrade to Pro Mode for $3.99/month.
-              </div>
-            </div>
-
-            <div style="margin-bottom:12px;">
-              <div style="font-weight:800;color:#6366f1;">
-                📚 Grammar Database — Unlimited & Free
-              </div>
-
-              <div style="font-size:0.82rem;color:#475569;margin-top:3px;">
-                Get unlimited grammar explanations for the sentences above.
-                <b>(Tap a sentence.)</b>
-              </div>
-            </div>
-
-            <div style="font-size:0.82rem;color:#475569;">
-              ✨ All other features, including quizzes, speaking, and listening practice,
-              are completely free.
-            </div>
-
-          </div>
-        `;
-
-        log.innerHTML += limitMessage;
-        log.scrollTop = log.scrollHeight;
-
-        if(isAnonymous && window.requireKoreanAuth) window.requireKoreanAuth();
-      },
+    </div>
+  `;
+  log.innerHTML += limitMessage;
+  log.scrollTop = log.scrollHeight;
+},
 
       (errMsg)=>{
         console.error('[AI Tutor] Stream error:', errMsg);
@@ -1799,15 +2131,43 @@ function getPageSentences(){
     );
   }
  
-  window.openShare=openShare;
-  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open) renderFaq();};
-  wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
-  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
-  wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
- 
-  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
-  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
-  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
+window.openShare=openShare;
+btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; }};
+wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
+
+// 검색창 클릭 / 포커스 하면 설명 사라짐
+input.addEventListener('focus', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
+input.addEventListener('click', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
+
+input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; document.getElementById('usageGuide')?.style.setProperty('display','none'); handleQuestion(q);}});
+wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ document.getElementById('usageGuide')?.style.setProperty('display','none'); input.value=''; handleQuestion(q); } };
+
+// 설명은 검색창 위 빈 여백에만 고정
+(function addUsageGuide(){
+  if(document.getElementById('usageGuide')) return;
+  const guide = document.createElement('div');
+  guide.id = 'usageGuide';
+  guide.innerHTML = `
+    <div style="font-weight:800;color:#6366f1;margin-bottom:6px;font-size:0.9rem;">💡 How to use: Select and tap!</div>
+    <span style="font-size:0.82rem;">📚 Tap top grammar → Free grammar (unlimited)<br>
+    💬 Tap middle sentence → Ask AI<br>
+    ✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain</span>
+     
+  `;
+  guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:-12px 12px 8px 12px;transform:translateY(-18px);position:relative;z-index:2;color:#94a3b8;font-size:0.72rem;line-height:1.5;box-sizing:border-box;flex-shrink:0;";
+  const searchRow = input.parentElement;
+  searchRow.insertAdjacentElement('beforebegin', guide);
+
+  document.addEventListener('click', (e)=>{
+    if(e.target.closest('.faq-chip')){
+      guide.style.display='none';
+    }
+  });
+})();
+
+window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
+var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
  
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions (with pageContext)':'⚠️ Gemini disabled');
