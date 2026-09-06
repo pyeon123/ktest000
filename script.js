@@ -333,6 +333,105 @@ window.quizDB = window.quizDB || [
     { title: "Polishing", url: "yeonma.html", keywords: "polishing grinding polishing work" },
     { title: "Plating", url: "dogeum.html", keywords: "plating metal plating coating" },
     { title: "Casting", url: "jujo.html", keywords: "casting metal casting molding" },
+    { title: "Injection Molding", url: "sachul.html", keywords: "injection molding plastic molding molding process" },
+    { title: "Pressing", url: "peureseu.html", keywords: "pressing press press work pressing process" },
+    { title: "Cutting", url: "jaedan.html", keywords: "cutting cutting work cut material" },
+    { title: "Sewing", url: "bongje.html", keywords: "sewing sewing work stitching" },
+    { title: "Embroidery", url: "jasu.html", keywords: "embroidery embroidery work stitching" },
+    { title: "Dyeing", url: "yeomsaek.html", keywords: "dyeing dye coloring textile dyeing" },
+    { title: "Sorting", url: "seonbyeol.html", keywords: "sorting selection classification separate" },
+    { title: "Measurement", url: "cheukjeong.html", keywords: "measurement measuring measure size" },
+    { title: "Adjustment", url: "jojeol.html", keywords: "adjustment adjust control setting" },
+    { title: "Fastening", url: "gojeong.html", keywords: "fastening fixing securing fasten" },
+    { title: "Disassembly", url: "bunhae.html", keywords: "disassembly dismantling taking apart" },
+    { title: "Joining", url: "gyeolhap.html", keywords: "joining connection connecting combine" },
+    { title: "Unloading", url: "hayeok.html", keywords: "unloading unloading goods cargo" },
+    { title: "Loading onto Vehicle", url: "sangcha.html", keywords: "loading onto vehicle loading cargo vehicle" },
+    { title: "Unloading from Vehicle", url: "hacha.html", keywords: "unloading from vehicle unloading cargo vehicle" },
+    { title: "Inventory / Stock", url: "jaego.html", keywords: "inventory stock goods in stock warehouse stock" },
+    { title: "Shortage of Quantity", url: "suryangbujok.html", keywords: "shortage quantity shortage insufficient amount" },
+    { title: "Damage / Breakage", url: "pason.html", keywords: "damage breakage damaged broken goods" },
+    { title: "Standard / Specification", url: "gyugyeok.html", keywords: "standard specification requirements size specifications" },
+    { title: "Dimensions / Size", url: "chisu.html", keywords: "dimensions size measurement length width height" },
+    { title: "Weight", url: "muge.html", keywords: "weight heavy light kilograms weight measurement" },
+    { title: "Capacity", url: "yongryang.html", keywords: "capacity volume maximum capacity amount" },
+    { title: "Sample / Prototype", url: "sample_sijepum.html", keywords: "sample prototype test product model" },
+    { title: "Production Volume", url: "saengsallyang.html", keywords: "production volume production quantity output" },
+    { title: "Target Quantity", url: "mokpyoryang.html", keywords: "target quantity target amount production target" },
+    { title: "Efficiency", url: "neungnyul.html", keywords: "efficiency productivity work efficiency" },
+    { title: "Calibration", url: "gyojeong.html", keywords: "calibration adjustment measurement calibration" },
+    { title: "Setting / Configuration", url: "seoljeong.html", keywords: "setting configuration setup machine setting" },
+    { title: "Operation", url: "jakdong.html", keywords: "operation operating machine operation" },
+    { title: "Stop / Halt", url: "jeongji.html", keywords: "stop halt shutdown machine stop" },
+    { title: "Operation / Running", url: "gadong.html", keywords: "operation running machine running operating" },
+    { title: "Overload", url: "gwabuhwa.html", keywords: "overload excessive load machine overload" },
+    { title: "Malfunction", url: "ojakdong.html", keywords: "malfunction faulty operation abnormal operation" },
+    { title: "Breakdown", url: "gojang.html", keywords: "breakdown machine failure equipment failure" },
+    { title: "Neglect", url: "bangchi.html", keywords: "neglect leave unattended ignore" },
+    { title: "Management / Care", url: "gwalli.html", keywords: "management care handling maintenance" },
+    { title: "Maintenance", url: "yujibosu.html", keywords: "maintenance repair upkeep equipment maintenance" },
+    { title: "Test Run", url: "siunjeon.html", keywords: "test run trial operation testing" },
+    { title: "Waste Material", url: "pyegimul.html", keywords: "waste material waste scrap discarded material" },
+    { title: "Residue", url: "janjaemul.html", keywords: "residue leftover material remaining material" },
+    { title: "Recycling", url: "jaehwalyong.html", keywords: "recycling reuse recyclable material" },
+    { title: "Collection", url: "sugeo.html", keywords: "collection gathering collecting waste" },
+    { title: "Compression", url: "apchuk.html", keywords: "compression compress pressing" },
+    { title: "Bundle", url: "mukkeum.html", keywords: "bundle bundling tie together package" },
+    { title: "Labeling", url: "rabelling.html", keywords: "labeling label marking product label" },
+    { title: "Barcode", url: "bakodeu.html", keywords: "barcode barcode scanner product code" },
+    { title: "Serial Number", url: "ilryeonbeonho.html", keywords: "serial number identification number product number" },
+    { title: "Quality Control", url: "pumjilgwanri.html", keywords: "quality control quality management inspection QC" },
+    { title: "Improvement", url: "gongjeonggaeseon.html", keywords: "improvement process improvement production improvement" },
+    { title: "Safety Helmet", url: "anjeonmo.html", keywords: "safety helmet hard hat protective helmet" },
+    { title: "Safety Shoes", url: "anjeonhwa.html", keywords: "safety shoes protective footwear work shoes" },
+    { title: "Safety Gloves", url: "anjeonjanggap.html", keywords: "safety gloves protective gloves work gloves" },
+    { title: "Safety Goggles", url: "boangyeong.html", keywords: "safety goggles protective glasses eye protection" },
+    { title: "Dust Mask", url: "bangjinmaseukeu.html", keywords: "dust mask protective mask respirator" },
+    { title: "Earplug", url: "gwimagae.html", keywords: "earplug ear protection hearing protection" },
+    { title: "Safety Harness", url: "anjeondae.html", keywords: "safety harness fall protection harness" },
+    { title: "Emergency Exit", url: "bisanggu.html", keywords: "emergency exit escape exit evacuation" },
+    { title: "Gas Mask", url: "bangdokmaseukeu.html", keywords: "gas mask respirator protective mask" },
+    { title: "Fire Extinguisher", url: "sohwagi.html", keywords: "fire extinguisher fire safety extinguisher" },
+    { title: "Alarm", url: "gyeongbogi.html", keywords: "alarm warning alarm safety alarm" },
+    { title: "First Aid Kit", url: "gugeupham.html", keywords: "first aid kit emergency medical kit" },
+    { title: "Electric Shock", url: "gamjeon.html", keywords: "electric shock electrical accident shock" },
+    { title: "Fall from Height", url: "churak.html", keywords: "fall from height falling accident fall" },
+    { title: "Slip / Trip", url: "jeondo.html", keywords: "slip trip falling accident slippery" },
+    { title: "Jamming / Pinched", url: "hyeopchak.html", keywords: "jamming pinched caught accident machine" },
+    { title: "Collision", url: "chungdol.html", keywords: "collision impact crash accident" },
+    { title: "Fire", url: "hwajae.html", keywords: "fire workplace fire fire accident" },
+    { title: "Explosion", url: "pokbal.html", keywords: "explosion explosive accident blast" },
+    { title: "Burn", url: "hwasang.html", keywords: "burn burn injury heat injury" },
+    { title: "Suffocation", url: "jilsik.html", keywords: "suffocation choking lack of oxygen" },
+    { title: "Danger", url: "wiheom.html", keywords: "danger hazard risk dangerous" },
+    { title: "Warning", url: "gyeonggo.html", keywords: "warning caution alert" },
+    { title: "Prohibition", url: "geumji.html", keywords: "prohibition prohibited forbidden" },
+    { title: "Caution", url: "juui.html", keywords: "caution care attention warning" },
+    { title: "Maintenance", url: "jeongbi.html", keywords: "maintenance repair equipment servicing" },
+    { title: "Cleaning", url: "cheongso.html", keywords: "cleaning clean workplace cleaning" },
+    { title: "Tidying Up", url: "jeongrijeongdon.html", keywords: "tidying up organizing cleaning arrange" },
+    { title: "Ventilation", url: "hwangi.html", keywords: "ventilation ventilation system air circulation" },
+    { title: "Disinfection", url: "sodok.html", keywords: "disinfection disinfect sterilization" },
+    { title: "Protective Gear", url: "bohogu.html", keywords: "protective gear safety equipment PPE" },
+    { title: "Electricity Leakage", url: "nujeon.html", keywords: "electricity leakage electrical leakage power leakage" },
+    { title: "Short Circuit", url: "hapseon.html", keywords: "short circuit electrical short circuit" },
+    { title: "Gas Leak", url: "gaseunuchul.html", keywords: "gas leak gas leakage leaking gas" },
+    { title: "Hazardous Material", url: "yuhaemuljil.html", keywords: "hazardous material dangerous substance toxic material" },
+    { title: "Flammability", url: "inhwasung.html", keywords: "flammability flammable fire risk" },
+    { title: "Corrosiveness", url: "busiksung.html", keywords: "corrosiveness corrosive material corrosion" },
+    { title: "Emergency Bell", url: "bisangbel.html", keywords: "emergency bell alarm safety bell" },
+    { title: "Evacuation", url: "daepi.html", keywords: "evacuation escape emergency evacuation" },
+    { title: "Report / Notification", url: "singo.html", keywords: "report notification report an accident notify" },
+    { title: "First Aid", url: "eunggeupcheochi.html", keywords: "first aid emergency treatment immediate treatment" },
+    { title: "Wound", url: "sangcheo.html", keywords: "wound cut injury wound care" },
+    { title: "Injury", url: "busang.html", keywords: "injury accident injury hurt" },
+    { title: "Fracture", url: "goljeol.html", keywords: "fracture broken bone bone fracture" },
+    { title: "Bleeding", url: "chulhyeol.html", keywords: "bleeding blood loss wound bleeding" },
+    { title: "Bandage", url: "bungdae.html", keywords: "bandage wound dressing medical bandage" },
+    { title: "Adhesive Plaster", url: "banchanggo.html", keywords: "adhesive plaster band aid wound plaster" },
+    { title: "Ointment", url: "yeongo.html", keywords: "ointment medicine cream wound ointment" },
+    { title: "Antiseptic", url: "sodongyak.html", keywords: "antiseptic disinfectant wound medicine" },
+    { title: "Pain Relief Patch", url: "paseu.html", keywords: "pain relief patch pain patch muscle pain patch" },
     { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
  ];    
 const quizDB = window.quizDB;
@@ -2154,9 +2253,39 @@ function getPageSentences(){
     });
   }
 
- 
-    function handleSentenceClick(s){
-    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${krSafe(s.kr)}${s.rom?` (${krSafe(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
+ // [수정된 부분] 1. AI 퀴즈 정답을 저장할 전역 상태 추가
+let currentGeneratedQuiz = {
+  correctAnswerIndex: null,
+  options: []
+};
+
+// [수정된 부분] 2. 1~4번 보기 클릭 시 JS가 직접 채점하고 AI에게 해설만 요청하는 함수 추가
+window.handleOptionClick = function(userSelectedIndex) {
+  const correctIndex = currentGeneratedQuiz.correctAnswerIndex;
+  const isCorrect = (userSelectedIndex === correctIndex);
+
+  // 기존 필수 UI 기능 유지 (함수가 존재할 경우 안전하게 호출)
+  if(typeof showCorrectIncorrectDisplay === 'function') showCorrectIncorrectDisplay(isCorrect);
+  if(typeof playResultAudio === 'function') playResultAudio(isCorrect);
+  if(typeof enableListenAgainButton === 'function') enableListenAgainButton();
+  if(typeof enableMicrophoneButton === 'function') enableMicrophoneButton();
+  if(typeof displayHandEmoji === 'function') displayHandEmoji();
+
+  // 채팅창에 사용자의 선택과 채점 결과 표시
+  const resultMark = isCorrect ? "✅ Correct!" : "❌ Incorrect!";
+  const bgColor = isCorrect ? "#10b981" : "#ef4444";
+  log.innerHTML += `<div style="align-self:flex-end;background:${bgColor};color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;margin-top:10px;">Selected: Option ${userSelectedIndex} (${resultMark})</div>`;
+  log.scrollTop = log.scrollHeight;
+
+  // AI에게 정답 추론을 맡기지 않고, '이미 확정된 결과'를 주입하여 해설만 요청
+  const explanationPrompt = `The user selected option ${userSelectedIndex}, but the correct answer is option ${correctIndex}. Result: ${isCorrect ? 'Correct' : 'Incorrect'}. Please explain briefly why option ${correctIndex} is the correct answer and why the other options are wrong, based solely on the current lesson context.`;
+  
+  // 강제 AI 모드로 해설 요청 (문법 DB 매칭 스킵)
+  handleQuestion(explanationPrompt, null, true);
+};
+
+  function handleSentenceClick(s){
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${escapeHtml(s.kr)}${s.rom?` (${escapeHtml(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
     
     log.scrollTop = log.scrollHeight;
  
@@ -2171,7 +2300,7 @@ function getPageSentences(){
   + `</div>`;
       matches.forEach(g=>{
         block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
-          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${krSafe(g.grammar)} (${escapeHtml(g.id)})</div>`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
           + renderFromDB(g, {kr:s.kr, rom:s.rom, en:s.en})
           + `</div>`;
       });
@@ -2185,56 +2314,21 @@ function getPageSentences(){
     }
   }
  
+  // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
   async function handleQuestion(q, gramForced, forceAiMode){
-   var ctx=getCtx();
-
-// ==================== AI QUIZ ANSWER CHECK ====================
-// 1 / 2 / 3 / 4 입력은 새 질문이 아니라 현재 퀴즈의 정답 선택
-const originalQ = String(q || '').trim();
-
-const isQuizAnswer =
-  aiQuizState.active &&
-  /^[1-4]$/.test(originalQ) &&
-  aiQuizState.questionText;
-
-if(isQuizAnswer){
-  const selectedAnswer = originalQ;
-
-  aiQuizState.lastAnswerText = selectedAnswer;
-
-  q = `
-You are checking the learner's answer to the CURRENT AI quiz.
-
-CURRENT QUIZ:
-${aiQuizState.questionText}
-
-LEARNER'S ANSWER:
-Choice ${selectedAnswer}
-
-IMPORTANT:
-- Do NOT create a new quiz question.
-- Do NOT give another question.
-- Check ONLY whether Choice ${selectedAnswer} is correct for the CURRENT quiz.
-- Clearly say whether the answer is CORRECT or INCORRECT.
-- Give the correct answer.
-- Briefly explain why.
-- If incorrect, explain why the selected choice is wrong.
-`;
-
-  // 퀴즈 정답 확인은 무조건 AI로 처리
-  forceAiMode = true;
-}
-
-var grams = [];
-
-if(!forceAiMode){
-  grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
-}
+    // forceAiMode=true면 로컬 DB 스킵하고 무조건 AI
+    var ctx=getCtx();
+    var grams = [];
+    if(!forceAiMode){
+      grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
+    }
  
-    const displayQ = isQuizAnswer ? originalQ : q;
-const safeQ = escapeHtml(displayQ);
-
-log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
+    // 사용자 입력을 화면에 넣기 전 이스케이프 처리 (XSS 방지)
+    // [수정된 부분] AI 해설 요청(내부 프롬프트)일 때는 사용자 화면에 프롬프트를 숨기거나 다르게 표시
+    const safeQ = escapeHtml(q);
+    if (!forceAiMode) {
+      log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
+    }
     
  
     if(grams.length > 0){
@@ -2260,7 +2354,7 @@ log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;p
         const g = grams[idx];
         const headerDiv = document.createElement('div');
         headerDiv.style.cssText = `font-size:0.85rem;color:#6366f1;font-weight:800;margin:${idx>0 ? '14px 0 6px;padding-top:10px;border-top:1px dashed #e2e8f0;' : '6px 0;'}`;
-        headerDiv.innerHTML = `🤖 ${krSafe(g.grammar)} (${escapeHtml(g.id)})`;
+        headerDiv.textContent = `🤖 ${g.grammar} (${g.id})`;
         container.appendChild(headerDiv);
         const bodyDiv = document.createElement('div');
         container.appendChild(bodyDiv);
@@ -2277,7 +2371,7 @@ log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;p
  
     if(!USE_GEMINI){
       const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
-      const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
+      const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
       log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${fallback}</div>`;
       log.scrollTop=log.scrollHeight;
       return;
@@ -2304,17 +2398,39 @@ log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;p
         ensureWrapper();
         rawFullText = accumulatedText;
         const el = document.getElementById(cid2);
-        if(el){ el.innerHTML = protectKoreanNoTranslate(escapeAndBr(accumulatedText)); log.scrollTop = log.scrollHeight; }
+        // [수정된 부분] JSON 스트리밍 중에는 임시로 텍스트 렌더링 생략 (깜빡임 방지)
+        if(el && !accumulatedText.includes('correctAnswerIndex')){ 
+           el.innerHTML = escapeAndBr(accumulatedText); 
+           log.scrollTop = log.scrollHeight; 
+        }
       },
       (finalText)=>{
         ensureWrapper();
-        // AI가 출제한 현재 퀴즈 문제를 기억
-if(aiQuizState.active && !isQuizAnswer){
-  aiQuizState.questionText = finalText || rawFullText || '';
-}  
-        const finalAnswer = protectKoreanNoTranslate(escapeAndBr(finalText || rawFullText || ''));
+        let rawText = finalText || rawFullText || '';
+        let finalAnswerHtml = '';
+
+        // [수정된 부분] 3. AI 응답이 퀴즈 JSON 구조인지 파싱하여 버튼 렌더링
+        try {
+          const cleanText = rawText.replace(/```json|```/g, '').trim();
+          if(cleanText.startsWith('{') && cleanText.includes('correctAnswerIndex')) {
+            const quizData = JSON.parse(cleanText);
+            currentGeneratedQuiz.correctAnswerIndex = quizData.correctAnswerIndex;
+            currentGeneratedQuiz.options = quizData.options;
+
+            finalAnswerHtml = `<div style="font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;">${escapeHtml(quizData.question)}</div>`;
+            quizData.options.forEach((opt, idx) => {
+              const optNum = idx + 1;
+              finalAnswerHtml += `<button onclick="handleOptionClick(${optNum})" style="display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;transition:all 0.2s;">${optNum}. ${escapeHtml(opt)}</button>`;
+            });
+          } else {
+            finalAnswerHtml = escapeAndBr(rawText);
+          }
+        } catch(e) {
+          finalAnswerHtml = escapeAndBr(rawText);
+        }
+
         const el = document.getElementById(cid2);
-        if(el) el.innerHTML = finalAnswer;
+        if(el) el.innerHTML = finalAnswerHtml;
         const actionsEl2 = document.getElementById(cid2+'-actions');
         if(actionsEl2){
           actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
@@ -2340,8 +2456,8 @@ if(aiQuizState.active && !isQuizAnswer){
           <div style="font-size:0.75rem;color:#94a3b8;margin-top:3px;">Less than a coffee ☕ · 20 questions every day</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <button onclick="window.location.href='index.html?returnTo='+encodeURIComponent(window.location.pathname)+'&openPro=1&method=gcash'" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
-          <button onclick="window.location.href='index.html?returnTo='+encodeURIComponent(window.location.pathname)+'&openPro=1&method=card'" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
+          <button onclick="window.payWithPayMongo ? window.payWithPayMongo() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
+          <button onclick="window.payWithLemonSqueezy ? window.payWithLemonSqueezy() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
         </div>
       </div>
 
@@ -2367,61 +2483,52 @@ if(aiQuizState.active && !isQuizAnswer){
         console.error('[AI Tutor] Stream error:', errMsg);
         const th = document.getElementById('ai-thinking');
         if(th) th.remove();
-        const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
         log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-          + `<div id="ai-error-box">⚠️ Server connection failed, showing a fallback answer.<br>Error: ${escapeHtml(errMsg)}</div>`
+          + `<div id="ai-error-box">⚠️ 서버 연결 실패, 기본 답변으로 대체했어요.<br>에러: ${escapeHtml(errMsg)}</div>`
           + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
         log.scrollTop = log.scrollHeight;
       }
     );
   }
  
-  window.openShare=openShare;
-  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); setTimeout(()=>{ const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; },100); }};
-  wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
-  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
-  wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
+window.openShare=openShare;
+btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; }};
+wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
 
-  // 안내 배너: faq(칩 영역) 바로 위에 배치. 검색창/버튼 클릭 시 숨기고, AI 튜터 재오픈 시 다시 보임(btn.onclick에서 처리)
-  (function addUsageGuide(){
-    if(document.getElementById('usageGuide')) return;
-    const guide = document.createElement('div');
-    guide.id = 'usageGuide';
-    guide.innerHTML = `
-      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:1.10rem;">💡 How to use: Select and tap!</div>
-      📚 Top → Free grammar (unlimited)<br>
-      💬 Middle → sentence  Ask AI<br>
-      ✨ Bottom → EPSTOPIK · Quiz · Explain
-    `;
-    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.89rem;line-height:1.5;width:100%;box-sizing:border-box;";
+// 검색창 클릭 / 포커스 하면 설명 사라짐
+input.addEventListener('focus', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
+input.addEventListener('click', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
 
-    // 위치: 입력창 위가 아니라 채팅 상단(칩 영역) 바로 위로 이동
-    if (faq && faq.parentElement) {
-      faq.insertAdjacentElement('beforebegin', guide);
-    } else {
-      const searchRow = input.parentElement;
-      searchRow.insertAdjacentElement('beforebegin', guide);
+input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; document.getElementById('usageGuide')?.style.setProperty('display','none'); handleQuestion(q);}});
+wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ document.getElementById('usageGuide')?.style.setProperty('display','none'); input.value=''; handleQuestion(q); } };
+
+// 설명은 검색창 위 빈 여백에만 고정
+(function addUsageGuide(){
+  if(document.getElementById('usageGuide')) return;
+  const guide = document.createElement('div');
+  guide.id = 'usageGuide';
+  guide.innerHTML = `
+    <div style="font-weight:800;color:#6366f1;margin-bottom:6px;font-size:0.9rem;">💡 How to use: Select and tap!</div>
+    <span style="font-size:0.82rem;">📚 Tap top grammar → Free grammar (unlimited)<br>
+    💬 Tap middle sentence → Ask AI<br>
+    ✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain</span>
+      
+  `;
+  guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:-12px 12px 8px 12px;transform:translateY(-18px);position:relative;z-index:2;color:#94a3b8;font-size:0.72rem;line-height:1.5;box-sizing:border-box;flex-shrink:0;";
+  const searchRow = input.parentElement;
+  searchRow.insertAdjacentElement('beforebegin', guide);
+
+  document.addEventListener('click', (e)=>{
+    if(e.target.closest('.faq-chip')){
+      guide.style.display='none';
     }
+  });
+})();
 
-    const hide = () => guide.style.display = 'none';
-    const show = () => guide.style.display = 'block';
-
-    // 칩, 액션 버튼, 전송 버튼 클릭 시 모두 숨김
-    document.addEventListener('click', (e)=>{
-      if(
-        e.target.closest('.faq-chip') ||
-        e.target.closest('.ai-action-btn') ||
-        e.target === wrap.querySelector('#ai-send-btn')
-      ) hide();
-    });
-
-    // 검색창을 탭(포커스)하면 즉시 숨김 (이전 버전은 반대로 되어 있던 버그)
-    input.addEventListener('focus', hide);
-  })();
- 
-  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
-  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
-  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
+window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
+var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
  
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions (with pageContext)':'⚠️ Gemini disabled');
