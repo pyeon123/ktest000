@@ -62,7 +62,6 @@ window.quizDB = window.quizDB || [
     { title: "Furniture", url: "furniture.html", keywords: "furniture house bed chair" },
     { title: "Gift", url: "gift.html", keywords: "gift present surprise" },
     { title: "Gimbap", url: "gimbap.html", keywords: "gimbap food korean" },
-    { title: "Go to Work", url: "gotowork.html", keywords: "work attendance late absence commute" },
     { title: "Happiness", url: "happiness.html", keywords: "happiness joy emotion" },
     { title: "Health", url: "health.html", keywords: "health body exercise" },
     { title: "Hobbies", url: "hobbies.html", keywords: "hobbies activity free time" },
@@ -93,7 +92,6 @@ window.quizDB = window.quizDB || [
     { title: "Ramen", url: "ramen.html", keywords: "ramen food noodle" },
     { title: "Restroom", url: "restroom.html", keywords: "restroom bathroom toilet" },
     { title: "Sadness", url: "sadness.html", keywords: "sadness emotion feelings" },
-    { title: "Salary", url: "salary.html", keywords: "salary money work pay job" },
     { title: "Samgyeopsal", url: "samgyeopsal.html", keywords: "samgyeopsal food korean meat" },
     { title: "School", url: "school.html", keywords: "school study education" },
     { title: "Sea", url: "sea.html", keywords: "sea ocean water nature" },
@@ -246,9 +244,249 @@ window.quizDB = window.quizDB || [
     { title: "Leave Work", url: "toegeun.html", keywords: "leave work clock out finish work leaving work" },
     { title: "Go to Work", url: "chulgeun.html", keywords: "go to work commute arrive at work attendance" },
     { title: "Remaining Work", url: "janeop.html", keywords: "remaining work unfinished work leftover work" },
+    { title: "Foreman", url: "banjang.html", keywords: "foreman supervisor work leader" },
+    { title: "Employer", url: "saeopju.html", keywords: "employer boss company owner" },
+    { title: "Workplace", url: "geunmuji.html", keywords: "workplace place of work job site" },
+    { title: "Contract Period", url: "gyeyak-gigan.html", keywords: "contract period employment period contract duration" },
+    { title: "Labor Contract", url: "geunro-gyeyakseo.html", keywords: "labor contract employment contract work contract" },
+    { title: "Payslip", url: "geupyeo-myeongseoseo.html", keywords: "payslip pay statement salary statement wage slip" },
+    { title: "Allowance", url: "sudang.html", keywords: "allowance extra pay benefit work allowance" },
+    { title: "Hourly Wage", url: "sigeup.html", keywords: "hourly wage hourly pay wage per hour" },
+    { title: "Monthly Salary", url: "wolgeup.html", keywords: "monthly salary monthly pay wages" },
+    { title: "Worker", url: "geunroja.html", keywords: "worker employee laborer" },
+    { title: "Team Leader", url: "timjang.html", keywords: "team leader supervisor team manager" },
+    { title: "President", url: "sajang.html", keywords: "president company president boss owner" },
+    { title: "Co-worker", url: "dongryo.html", keywords: "co-worker coworker colleague workmate" },
+    { title: "Shift Work", url: "gyodae-geunmu.html", keywords: "shift work rotating shifts work shift" },
+    { title: "Base Pay", url: "gibongeup.html", keywords: "base pay basic salary basic wage" },
+    { title: "Bonus", url: "sangyeogeum.html", keywords: "bonus incentive extra payment" },
+    { title: "Deduction", url: "gongje.html", keywords: "deduction salary deduction wage deduction" },
+    { title: "Tax", url: "segeum.html", keywords: "tax income tax wage tax" },
+    { title: "Net Pay", url: "silsuryeongae.html", keywords: "net pay take home pay after tax" },
+    { title: "Severance Pay", url: "toejikgeum.html", keywords: "severance pay retirement allowance retirement pay" },
+    { title: "Dismissal / Firing", url: "haego.html", keywords: "dismissal firing termination fired from work" },
+    { title: "Resignation", url: "sajik.html", keywords: "resignation quit leaving a job" },
+    { title: "Re-contract / Renewal", url: "jaegyeyak.html", keywords: "re-contract renewal contract renewal employment renewal" },
+    { title: "Probationary Period", url: "suseupgigan.html", keywords: "probationary period probation trial period" },
+    { title: "Employment Rules", url: "chwieopgyuchik.html", keywords: "employment rules workplace rules labor rules" },
+    { title: "Minimum Wage", url: "choejeoimgeum.html", keywords: "minimum wage lowest wage legal minimum pay" },
+    { title: "Working Hours", url: "geunrosigan.html", keywords: "working hours work hours hours of work" },
+    { title: "Annual Leave", url: "yeonchahyuga.html", keywords: "annual leave paid leave vacation days" },
+    { title: "Monthly Leave", url: "wolcha.html", keywords: "monthly leave monthly vacation leave" },
+    { title: "Alien Registration Card", url: "oegugindeungrokjeung.html", keywords: "alien registration card ARC foreigner registration card" },
+    { title: "Passport", url: "yeogwon.html", keywords: "passport travel document" },
+    { title: "Visa", url: "bija.html", keywords: "visa entry visa Korean visa" },
+    { title: "Period of Stay", url: "cheryugigan.html", keywords: "period of stay length of stay visa stay period" },
+    { title: "Extension of Stay", url: "cheryuyeonjang.html", keywords: "extension of stay visa extension stay extension" },
+    { title: "Re-entry", url: "jaeipguk.html", keywords: "re-entry return to Korea reentry" },
+    { title: "Ministry of Employment and Labor", url: "goyongnodongbu.html", keywords: "Ministry of Employment and Labor labor ministry employment ministry" },
+    { title: "Employment Center", url: "goyongcenter.html", keywords: "employment center job center employment office" },
+    { title: "Industrial Accident", url: "saneupjaehae.html", keywords: "industrial accident workplace accident work injury" },
+    { title: "Industrial Accident Insurance", url: "sanjaeboheom.html", keywords: "industrial accident insurance workplace injury insurance" },
+    { title: "National Health Insurance", url: "gukmingeongangboheom.html", keywords: "national health insurance health insurance Korea" },
+    { title: "Application Form", url: "sincheongseo.html", keywords: "application form application document form" },
+    { title: "Stamp / Seal", url: "dojang.html", keywords: "stamp seal official seal signature stamp" },
+    { title: "Signature", url: "seomyeong.html", keywords: "signature sign signing" },
+    { title: "ID Card", url: "sinbunjeung.html", keywords: "ID card identification identity card" },
+    { title: "Exchange Rate", url: "hwanyul.html", keywords: "exchange rate currency exchange rate" },
+    { title: "Money Transfer", url: "songgeum.html", keywords: "money transfer remittance send money" },
+    { title: "Account Number", url: "gyejwabeonho.html", keywords: "account number bank account number" },
+    { title: "Employment Insurance", url: "goyongboheom.html", keywords: "employment insurance unemployment insurance" },
+    { title: "National Pension", url: "gukminyeongeum.html", keywords: "national pension pension Korea" },
+    { title: "Bank Account", url: "tongjang.html", keywords: "bank account bankbook account" },
+    { title: "Fee", url: "susuryo.html", keywords: "fee charge cost service fee" },
+    { title: "Certificate", url: "jeungmyeongseo.html", keywords: "certificate document proof certification" },
+    { title: "Reception / Filing", url: "jeopsu.html", keywords: "reception filing submission application received" },
+    { title: "Approval", url: "seungin.html", keywords: "approval permission authorization approved" },
+    { title: "Rejection", url: "geojeol.html", keywords: "rejection refusal rejected denial" },
+    { title: "Consent / Agreement", url: "dongui.html", keywords: "consent agreement approval permission" },
+    { title: "Documents", url: "eoryu.html", keywords: "documents paperwork papers forms" },
+    { title: "Identity Verification", url: "sinwon_hwagin.html", keywords: "identity verification identity check identification" },
+    { title: "Meal Allowance", url: "sikdae.html", keywords: "meal allowance food allowance meal benefit" },
+    { title: "Dormitory", url: "gisuksa.html", keywords: "dormitory dorm accommodation worker housing" },
+    { title: "Work", url: "jakeop.html", keywords: "work job task labor" },
+    { title: "Process", url: "gongjeong.html", keywords: "process production manufacturing process" },
+    { title: "Product", url: "jepum.html", keywords: "product goods manufactured product" },
+    { title: "Parts", url: "bupum.html", keywords: "parts components machine parts" },
+    { title: "Raw Materials", url: "wonjajae.html", keywords: "raw materials material manufacturing materials" },
+    { title: "Packaging", url: "pojang.html", keywords: "packaging packing package" },
+    { title: "Assembly", url: "jorip.html", keywords: "assembly assembling put together" },
+    { title: "Transport", url: "unban.html", keywords: "transport transportation carrying moving goods" },
+    { title: "Loading / Stacking", url: "jeokjae.html", keywords: "loading stacking loading goods cargo" },
+    { title: "Inspection", url: "geomsa.html", keywords: "inspection examination quality inspection" },
+    { title: "Sorting / Classification", url: "bunryu.html", keywords: "sorting classification categorize separate" },
+    { title: "Processing / Machining", url: "gagong.html", keywords: "processing machining manufacturing processing" },
+    { title: "Welding", url: "yongjeop.html", keywords: "welding weld welder" },
+    { title: "Cutting", url: "jeoldan.html", keywords: "cutting cut material cutting work" },
+    { title: "Quantity", url: "suryang.html", keywords: "quantity amount number of items" },
+    { title: "Defective Product", url: "bulryangpum.html", keywords: "defective product defective goods faulty product" },
+    { title: "Finished Product", url: "wanseongpum.html", keywords: "finished product completed product final product" },
+    { title: "Delivery", url: "napgi.html", keywords: "delivery delivering goods delivery date" },
+    { title: "Warehouse", url: "changgo.html", keywords: "warehouse storage warehouse goods" },
+    { title: "Shipping Out", url: "chulha.html", keywords: "shipping out shipment dispatch goods" },
+    { title: "Receiving Goods", url: "ipgo.html", keywords: "receiving goods receiving stock goods received" },
+    { title: "Replacement", url: "gyoche.html", keywords: "replacement replace exchange change" },
+    { title: "Checking / Inspection", url: "jeomgeom.html", keywords: "checking inspection checking condition examination" },
+    { title: "Repair", url: "suri.html", keywords: "repair fixing maintenance repair work" },
+    { title: "Washing / Cleaning", url: "secheok.html", keywords: "washing cleaning wash clean" },
+    { title: "Drying", url: "geonjo.html", keywords: "drying dry drying process" },
+    { title: "Polishing", url: "yeonma.html", keywords: "polishing grinding polishing work" },
+    { title: "Plating", url: "dogeum.html", keywords: "plating metal plating coating" },
+    { title: "Casting", url: "jujo.html", keywords: "casting metal casting molding" },
     { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
-];
+ ];    
 const quizDB = window.quizDB;
+
+// ==================== 번역 방지 헬퍼 (전역) ====================
+// 한글 문장/단어와 그 로마자 표기는 사용자 자국어로 자동번역되면 안 되므로,
+// notranslate 클래스 + translate="no" 속성으로 감싼다.
+// 1) krSafe: 필드 하나(예: quiz.kr, 로마자 표기)를 통째로 감쌀 때 사용
+function krSafe(text){
+  const raw = String(text == null ? '' : text);
+  if(!raw) return '';
+  const escaped = raw
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  return `<span class="notranslate" translate="no">${escaped}</span>`;
+}
+// 2) protectKoreanNoTranslate: AI가 자유 형식으로 생성한 텍스트(영어+한글 혼합)에서
+//    한글 구간(및 바로 뒤에 오는 로마자 괄호)만 찾아서 감쌈. 영어 설명 부분은 그대로 번역 가능하게 둠.
+function protectKoreanNoTranslate(html){
+  if(!html) return html;
+  return String(html).replace(
+    /[가-힣][가-힣\s.,!?~"'“”‘’、，。！？]*(?:[^가-힣(]{0,10}\([^)가-힣]{0,80}\))?/gu,
+    (m) => `<span class="notranslate" translate="no">${m}</span>`
+  );
+}
+
+// ==================== 전체 사이트 자동 번역 방지 스캐너 ====================
+// script.js는 index.html과 모든 개별 레슨 페이지(250개+)에 공통으로 로드되므로,
+// 이 함수 하나로 사이트 전체(FAQ 섹션, EPS-TOPIK 설명, 퀴즈 정답 화면, AI 튜터 채팅 등
+// 어디에 있든)의 한글 텍스트를 자동으로 찾아서 notranslate 처리한다.
+// 각 페이지 HTML을 일일이 수정할 필요가 없다.
+(function setupGlobalKoreanTranslateGuard(){
+  const KOREAN_RUN_REGEX = /[가-힣][가-힣\s.,!?~"'“”‘’、，。！？]*(?:[^가-힣(]{0,10}\([^)가-힣]{0,80}\))?/gu;
+
+  function shouldSkip(el){
+    if(!el || !el.closest) return true;
+    return !!el.closest('.notranslate, script, style, textarea, input, [translate="no"]');
+  }
+
+  // "보고 싶어요 (bo-go sip-eo-yo)"처럼 한글 옆에 로마자가 붙어있는 경우는 KOREAN_RUN_REGEX가 잡지만,
+  // "Real-Life Examples"의 <strong>한글</strong><span>로마자만</span> 처럼 로마자가
+  // 한글 없이 완전히 별도 태그로 떨어져 있으면 한글 감지로는 못 잡는다.
+  // 이런 경우를 위해 "하이픈으로 음절이 이어진 로마자 표기" 패턴을 별도로 감지한다.
+  // (예: "bo-go sip-eo-yo. man-hi bo-go sip-eo-yo." → 각 단어가 자음-모음 하이픈으로 연결됨)
+  function looksLikeRomanization(text){
+    const words = text.trim().split(/\s+/).filter(Boolean);
+    if(words.length === 0) return false;
+    let hyphenated = 0;
+    words.forEach(w=>{
+      const clean = w.replace(/[.,!?]+$/,'');
+      if(/^[a-zA-Z]+(-[a-zA-Z]+)+$/.test(clean)) hyphenated++;
+    });
+    return (hyphenated / words.length) >= 0.5;
+  }
+
+  function wrapTextNode(node){
+    const text = node.nodeValue;
+    if(!text || !text.trim()) return;
+    const parent = node.parentNode;
+    if(!parent) return;
+    if(shouldSkip(node.parentElement)) return;
+
+    const hasHangul = /[가-힣]/.test(text);
+
+    if(!hasHangul){
+      // 한글은 없지만 하이픈 로마자 패턴으로 보이면 통째로 보호 (Real-Life Examples 등)
+      if(looksLikeRomanization(text)){
+        const span = document.createElement('span');
+        span.className = 'notranslate';
+        span.setAttribute('translate', 'no');
+        span.textContent = text;
+        parent.replaceChild(span, node);
+      }
+      return;
+    }
+
+    KOREAN_RUN_REGEX.lastIndex = 0;
+    let lastIndex = 0, m, matched = false;
+    const frag = document.createDocumentFragment();
+    while((m = KOREAN_RUN_REGEX.exec(text)) !== null){
+      matched = true;
+      if(m.index > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, m.index)));
+      const span = document.createElement('span');
+      span.className = 'notranslate';
+      span.setAttribute('translate', 'no');
+      span.textContent = m[0];
+      frag.appendChild(span);
+      lastIndex = KOREAN_RUN_REGEX.lastIndex;
+    }
+    if(!matched) return;
+    if(lastIndex < text.length) frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+    parent.replaceChild(frag, node);
+  }
+
+  // 사이트 전반에서 로마자 전용으로 쓰이는 걸로 알려진 클래스/ID는
+  // 하이픈 유무와 상관없이 무조건 보호 (짧은 로마자, 하이픈 없는 경우의 백업)
+  function protectKnownRomanizationContainers(root){
+    const selector = '.seo-example span, .rom-text, #romanization, #today-rom';
+    let nodes = [];
+    if(root.querySelectorAll) nodes = Array.from(root.querySelectorAll(selector));
+    if(root.matches && root.matches(selector)) nodes.push(root);
+    nodes.forEach(el=>{
+      if(!el.classList.contains('notranslate')) el.classList.add('notranslate');
+      el.setAttribute('translate', 'no');
+    });
+  }
+
+  function scan(root){
+    if(!root || root.nodeType === undefined) return;
+    protectKnownRomanizationContainers(root);
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    const nodes = [];
+    let n;
+    while((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(wrapTextNode);
+  }
+
+  function runInitialScan(){
+    scan(document.body);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', runInitialScan);
+  } else {
+    runInitialScan();
+  }
+
+  // 퀴즈 정답 화면, AI 튜터 채팅, FAQ 펼치기 등으로 새로 추가되는 콘텐츠도 계속 감시해서 보호
+  let pending = [];
+  let scheduled = false;
+  function flush(){
+    scheduled = false;
+    const targets = pending;
+    pending = [];
+    targets.forEach(scan);
+  }
+  function startObserver(){
+    if(!document.body) { setTimeout(startObserver, 50); return; }
+    const observer = new MutationObserver((mutations)=>{
+      mutations.forEach(mut=>{
+        if(mut.addedNodes) mut.addedNodes.forEach(node=>{
+          if(node.nodeType === 1) pending.push(node);
+          else if(node.nodeType === 3 && node.parentNode) pending.push(node.parentNode);
+        });
+      });
+      if(pending.length && !scheduled){
+        scheduled = true;
+        setTimeout(flush, 150);
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
+  startObserver();
+})();
 
 function shareApp() {
     if (navigator.share) {
@@ -434,7 +672,6 @@ function checkAnswer(isCorrect, quiz) {
                 const score = words.filter(w => currentKeywords.includes(w)).length;
                 return { ...item, score };
             }).filter(item => item.score > 0).sort((a, b) => b.score - a.score);
-        // Fallback: page not yet registered in quizDB (or no keyword match found) → show 3 random links instead of none
         let chosenList = relatedList.slice(0, 3);
         if (chosenList.length === 0) {
             const fallbackPool = quizDB.filter(item => item.url !== currentFileName);
@@ -475,24 +712,24 @@ function checkAnswer(isCorrect, quiz) {
         const favoriteHtml = `<button id="favorite-btn" onclick="toggleFavorite()" style="display:block;width:100%;margin:0 0 15px 0;padding:12px 24px;font-size:15px;font-weight:bold;border-radius:30px;cursor:pointer;transition:all 0.2s ease;box-shadow:0 4px 10px rgba(0,0,0,0.08);border:2px solid ${isSaved ? '#dc2626' : '#fecaca'};background:${isSaved ? '#dc2626' : '#ffffff'};color:${isSaved ? '#ffffff' : '#dc2626'};">${isSaved ? '❤ Saved to My Review List' : '🤍 Save to My Review List'}</button>`;
         let formsHtml = "";
         if (quiz.forms && (quiz.forms.present || quiz.forms.past || quiz.forms.future)) {
-            formsHtml = `<p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #10b981;"><strong>Present:</strong> ${quiz.forms.present || '---'}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Past:</strong> ${quiz.forms.past || '---'}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Future:</strong> ${quiz.forms.future || '---'}</p>`;
+            formsHtml = `<p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #10b981;"><strong>Present:</strong> ${krSafe(quiz.forms.present || '---')}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Past:</strong> ${krSafe(quiz.forms.past || '---')}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Future:</strong> ${krSafe(quiz.forms.future || '---')}</p>`;
         } else {
             const casualText = (quiz.forms && quiz.forms.casual) || quiz.casual || quiz.kr || "---";
             const politeText = (quiz.forms && quiz.forms.polite) || quiz.polite || quiz.kr || "---";
-            formsHtml = `<p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${casualText}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${politeText}</p>`;
+            formsHtml = `<p style="margin: 10px 0 5px 0; font-size: 1.1rem; color: #ef4444;"><strong>Casual:</strong> ${krSafe(casualText)}</p><p style="margin: 5px 0; font-size: 1.1rem; color: #3b82f6;"><strong>Polite:</strong> ${krSafe(politeText)}</p>`;
         }
         let grammarHtml = "";
         if (quiz.grammar && Array.isArray(quiz.grammar.breakdown)) {
-            grammarHtml = `<div style="margin-top: 20px; padding: 15px; background: #eff6ff; border-radius: 10px; border-left: 4px solid #3b82f6;"><h4 style="margin: 0 0 10px 0; color: #1e293b;">${quiz.grammar.title || '📚 Simple Grammar'}</h4>${quiz.grammar.breakdown.map(b => `<p style="margin: 5px 0; font-size: 0.95rem; color: #334155;"><strong>${b.kr}</strong> <span style="color:#64748b;">(${b.rom})</span> — ${b.en}</p>`).join('')}<p style="margin-top: 10px; font-weight: 700; color: #1e40af;">${quiz.grammar.meaning || ''}</p></div>`;
+            grammarHtml = `<div style="margin-top: 20px; padding: 15px; background: #eff6ff; border-radius: 10px; border-left: 4px solid #3b82f6;"><h4 style="margin: 0 0 10px 0; color: #1e293b;">${quiz.grammar.title || '📚 Simple Grammar'}</h4>${quiz.grammar.breakdown.map(b => `<p style="margin: 5px 0; font-size: 0.95rem; color: #334155;"><strong>${krSafe(b.kr)}</strong> <span style="color:#64748b;">(${krSafe(b.rom)})</span> — ${b.en}</p>`).join('')}<p style="margin-top: 10px; font-weight: 700; color: #1e40af;">${quiz.grammar.meaning || ''}</p></div>`;
         }
         let optionsHtml = "";
         if (quiz.options && Array.isArray(quiz.options)) {
             const showOptionAudio = quiz.optionAudio === true;
-            optionsHtml = `<h3 style="margin-top: 25px; color: #1e293b;">💡 Related Words</h3><div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">${quiz.options.map((opt, idx) => `<div style="padding: 12px 15px; background: #f1f5f9; border-radius: 10px; border-left: 4px solid #64748b; display: flex; flex-direction: column; gap: 10px;"><div style="display: flex; justify-content: space-between; align-items: center;"><div><strong style="font-size: 1.2rem; color: #1e293b;">${opt.kr}</strong><span style="font-size: 0.95rem; color: #64748b; margin-left: 6px;">(${opt.rom})</span></div><span style="font-size: 1.05rem; font-weight: bold; color: #475569;">${opt.en}</span></div>${showOptionAudio ? `<div class="control-group" style="scale: 0.85; margin: 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); window.speakOption('${opt.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="opt-mic-btn-${idx}" onclick="event.stopPropagation(); window.startOptionMic('${opt.kr.replace(/'/g, "\\'")}', 'opt-feedback-${idx}')"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="opt-feedback-${idx}" style="height: 20px; font-weight: 900; font-size: 1rem; text-align: center;"></div>` : ``}</div>`).join('')}</div>`;
+            optionsHtml = `<h3 style="margin-top: 25px; color: #1e293b;">💡 Related Words</h3><div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">${quiz.options.map((opt, idx) => `<div style="padding: 12px 15px; background: #f1f5f9; border-radius: 10px; border-left: 4px solid #64748b; display: flex; flex-direction: column; gap: 10px;"><div style="display: flex; justify-content: space-between; align-items: center;"><div><strong style="font-size: 1.2rem; color: #1e293b;">${krSafe(opt.kr)}</strong><span style="font-size: 0.95rem; color: #64748b; margin-left: 6px;">(${krSafe(opt.rom)})</span></div><span style="font-size: 1.05rem; font-weight: bold; color: #475569;">${opt.en}</span></div>${showOptionAudio ? `<div class="control-group" style="scale: 0.85; margin: 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); window.speakOption('${opt.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="opt-mic-btn-${idx}" onclick="event.stopPropagation(); window.startOptionMic('${opt.kr.replace(/'/g, "\\'")}', 'opt-feedback-${idx}')"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="opt-feedback-${idx}" style="height: 20px; font-weight: 900; font-size: 1rem; text-align: center;"></div>` : ``}</div>`).join('')}</div>`;
         }
         let examplesHtml = "";
         if (quiz.examples && Array.isArray(quiz.examples)) {
-            examplesHtml = `<h3 style="margin-top: 25px; color: #1e293b;">📚 Key Sentences</h3><ul style="list-style: none; padding: 0; margin-bottom: 20px;">${quiz.examples.map((ex, idx) => `<li style="margin-bottom: 15px; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);"><strong style="font-size: 1.3rem; display: block; margin-bottom: 5px; color: #1e293b;">${ex.kr}</strong><span style="font-size: 1.1rem; color: #64748b; display: block; margin-bottom: 5px;">${ex.en}</span><em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${ex.rom || ''}</em><div class="control-group" style="scale: 0.85; margin: 10px 0 0 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); speakExampleText('${ex.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="ex-mic-btn-${idx}" onclick="event.stopPropagation(); startExampleRecognition('${ex.kr.replace(/'/g, "\\'")}', ${idx})"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="ex-feedback-${idx}" style="height: 25px; font-weight: 900; font-size: 1.1rem; margin-top: 5px; text-align: center;"></div></li>`).join('')}</ul>`;
+            examplesHtml = `<h3 style="margin-top: 25px; color: #1e293b;">📚 Key Sentences</h3><ul style="list-style: none; padding: 0; margin-bottom: 20px;">${quiz.examples.map((ex, idx) => `<li style="margin-bottom: 15px; padding: 15px; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);"><strong style="font-size: 1.3rem; display: block; margin-bottom: 5px; color: #1e293b;">${krSafe(ex.kr)}</strong><span style="font-size: 1.1rem; color: #64748b; display: block; margin-bottom: 5px;">${ex.en}</span><em style="color: var(--primary); font-size: 1rem; display: block; margin-bottom: 10px;">${krSafe(ex.rom || '')}</em><div class="control-group" style="scale: 0.85; margin: 10px 0 0 0; justify-content: center; gap: 10px;"><button class="btn-main" onclick="event.stopPropagation(); speakExampleText('${ex.kr.replace(/'/g, "\\'")}')"><span class="icon">🔊</span><span style="font-size: 0.8rem;">LISTEN</span></button><button class="btn-main" id="ex-mic-btn-${idx}" onclick="event.stopPropagation(); startExampleRecognition('${ex.kr.replace(/'/g, "\\'")}', ${idx})"><span class="icon">🎤</span><span style="font-size: 0.8rem;">SPEAK</span></button></div><div id="ex-feedback-${idx}" style="height: 25px; font-weight: 900; font-size: 1.1rem; margin-top: 5px; text-align: center;"></div></li>`).join('')}</ul>`;
         }
         const situationText = quiz.situation || "No context provided.";
         detailArea.innerHTML = `<div class="result-container" style="padding: 20px; width: 100%; max-width: 600px; margin: 0 auto;"><h2 style="text-align: center; color: var(--primary);">⭕ Correct! 🎉</h2><div class="info-box" style="margin: 15px 0; padding: 15px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;"><p style="margin: 5px 0; font-size: 1.1rem;"><strong>Context:</strong> ${situationText}</p>${formsHtml}</div>${grammarHtml}${examplesHtml}${optionsHtml}<div style="margin-top: 25px;">${favoriteHtml}${recHtml}<button id="next-btn" class="esim-btn-link" style="width: 100%; margin-bottom: 15px; padding: 15px; border: none; cursor: pointer;">Next Quiz ⏭</button><button id="home-btn" class="esim-btn-link" style="width: 100%; padding: 15px; background: #64748b; border: none; cursor: pointer;">🏠 Home</button></div></div>`;
@@ -733,7 +970,7 @@ function autoSearch() {
             found = true;
         }
     });
-    if (!found) list.innerHTML = `<li style="padding: 15px; color:#999;">관련 퀴즈가 없습니다.</li>`;
+    if (!found) list.innerHTML = `<li style="padding: 15px; color:#999;">No matching quizzes found.</li>`;
 }
 function autoSearchTop() {
     const input = document.getElementById('searchInputTop')?.value.toLowerCase() || "";
@@ -749,7 +986,7 @@ function autoSearchTop() {
             found = true;
         }
     });
-    if (!found) list.innerHTML = `<li style="padding: 15px; color:#999;">관련 퀴즈가 없습니다.</li>`;
+    if (!found) list.innerHTML = `<li style="padding: 15px; color:#999;">No matching quizzes found.</li>`;
 }
 document.addEventListener('click', function(e) {
     const c1 = document.getElementById('resultContainer');
@@ -950,7 +1187,6 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 })();
 
 (function(){
-   // 하위 호환 맵 (기존 GRAMMAR_DB 접근 코드가 있다면 계속 동작하도록)
   const GRAMMAR_DB = {};
   grammarData.forEach(item => {
     GRAMMAR_DB[item.id] = {
@@ -964,8 +1200,6 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       mistake: item.commonMistakes ? item.commonMistakes.map(m => `❌ ${m.wrong} → ✅ ${m.correct}`).join(' / ') : ''
     };
   });
- 
-  // ==================== 여기부터 핵심 변경: 로컬 DB 매칭 + 렌더링 ====================
  
   function hasWordBoundary(text, token){
     const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -1028,13 +1262,13 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   }
  
   function renderFromDB(g, ctx){
-    const exHtml = (g.examples||[]).map((e,i)=>`${i+1}. ${e.kr} (${e.rom}) ${e.en}`).join('<br>');
-    const mistakeHtml = (g.commonMistakes||[]).map(m=>`❌ ${m.wrong} → ✅ ${m.correct}`).join('<br>') || '—';
-    const compareHtml = (g.compare||[]).map(c=>`${c.grammar} = ${c.meaning} (${c.mainJob})`).join('<br>');
+    const exHtml = (g.examples||[]).map((e,i)=>`${i+1}. ${krSafe(e.kr)} (${krSafe(e.rom)}) ${e.en}`).join('<br>');
+    const mistakeHtml = (g.commonMistakes||[]).map(m=>`❌ ${krSafe(m.wrong)} → ✅ ${krSafe(m.correct)}`).join('<br>') || '—';
+    const compareHtml = (g.compare||[]).map(c=>`${krSafe(c.grammar)} = ${c.meaning} (${c.mainJob})`).join('<br>');
     const ruleHtml = (g.basicRule||'').replace(/\n/g,'<br>');
     const imagineHtml = g.imagine ? `<br><br>${g.imagine}` : '';
  
-    return `<b>Short Answer</b><br>${g.grammar} (${g.romanization}) ${g.title}<br><br>`
+    return `<b>Short Answer</b><br>${krSafe(g.grammar)} (${krSafe(g.romanization)}) ${g.title}<br><br>`
       + `<b>Easy Explanation</b><br>${g.easyExplanation||''}${imagineHtml}<br><br>`
       + `<b>Grammar</b><br>${ruleHtml}<br><br>`
       + `<b>Examples</b><br>${exHtml}<br><br>`
@@ -1044,11 +1278,6 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       + `<b>Excellent! Keep practicing. You are improving every day.</b>`; 
      
   }
-
-  // ==================== 학습 모드 박스 (EPS-TOPIK / Quiz / Example) ====================
-  // "Show questions" 버튼이 제대로 안 열리던 문제를 해결하면서, 동시에
-  // 처음 써서 뭘 물어봐야 할지 모르는 초보 사용자를 위해
-  // 현재 페이지 내용을 기준으로 바로 누를 수 있는 3가지 학습 모드 박스를 제공한다.
 
   function renderStudyModeButtons(){
     return `<div class="ai-actions" style="margin-top:10px;">`
@@ -1078,16 +1307,16 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 
     const ctx = getCtx();
     if(grams.length===0){
-      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠️ 이 문장에서 감지된 문법이 없어요. 아래 검색창에 직접 질문해보세요.</div>`;
+      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:12px 14px;border-radius:14px;font-size:.85rem;">⚠️ No grammar point was detected for this sentence. Try asking a question in the search bar below.</div>`;
       log.scrollTop = log.scrollHeight;
       return;
     }
-    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?escapeHtml(grams[0].grammar)+' 문법 보기':'문법 DB 보기'}</div>`;
+    log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?krSafe(grams[0].grammar)+' View grammar':'View Grammar DB'}</div>`;
     let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
-      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length}개 문법 - 무료 무제한 (문장 3개에서 추출)</span>`;
+      + `<span class="ai-source-tag ai-source-db">📚 ${grams.length} Grammar - Free Unlimited Grammar </span>`;
     grams.forEach(g=>{
       block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">`
-        + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
+        + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${krSafe(g.grammar)} (${escapeHtml(g.id)})</div>`
         + renderFromDB(g, ctx)
         + `</div>`;
     });
@@ -1096,18 +1325,15 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     log.scrollTop = log.scrollHeight;
   }
 
-  // 상단 3개 버튼 = 로컬 DB (디자인 그대로 유지)
   window.__localDbMode = function(mode){
     handleLocalGrammarDisplay();
   };
 
-  // 하단 문장 3개 = AI (디자인 그대로 유지)
   window.__aiSentenceMode = function(kr, en, rom){
     const q = kr + (en? ' - '+en : '');
     handleQuestion(q, null, true);
   };
 
-  // 기존 AI 모드 (답변 아래 작은 버튼들은 여전히 AI)
   window.__aiTutorMode = function(mode){
     const ctx = getCtx();
     const lessonLabel = ctx.kr ? `"${ctx.kr}"` : "this lesson";
@@ -1119,10 +1345,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     const q = presetQuestions[mode] || presetQuestions.epstopik;
     handleQuestion(q, null, true);
   };
-  // ==================== Gemini는 DB에 없는 "일반 질문"일 때만 호출 ====================
-  // 참고: 실제 시스템 프롬프트(V21_SYSTEM)는 서버(ask-tutor Edge Function)에만 존재합니다.
-  // 클라이언트는 kr/rom/en/q 및 pageContext만 만들어서 보내면 됩니다.
- 
+
   const ASK_TUTOR_ENDPOINT = "https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/ask-tutor";
   const USE_GEMINI = true;
 
@@ -1250,7 +1473,6 @@ function getCtx(){
 
   }
 
-  // 혹시 quizDB 방식 페이지라도 안전하게 fallback
   const krEl =
     document.getElementById('korean-sentence') ||
     document.querySelector('.kr-text');
@@ -1502,16 +1724,12 @@ function buildPageContext(){
       .replace(/\n/g,'<br>');
   }
 
-  // 사용자 입력을 화면(innerHTML)에 넣기 전 이스케이프 (XSS 방지)
   function escapeHtml(text){
     return String(text || '')
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
  
-  // 서버(ask-tutor Edge Function)를 통해 스트리밍 응답을 실시간으로 읽어서
-  // onChunk(누적된 전체 텍스트)를 계속 호출. 다 끝나면 onDone(최종 텍스트),
-  // 사용량 초과면 onQuotaExceeded(message, plan, isAnonymous), 그 외 실패는 onError(에러 메시지) 호출.
   async function askTutorStream(ctx, q, onChunk, onDone, onQuotaExceeded, onError){
     try{
       const user = window.getKoreanAuthUser ? await window.getKoreanAuthUser() : null;
@@ -1540,18 +1758,14 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
 
   body: JSON.stringify({
 
-    // 현재 퀴즈
     kr: ctx.kr,
     rom: ctx.rom,
     en: ctx.en,
 
-    // 사용자가 질문한 내용
     q: q,
 
-    // 현재 페이지 전체 학습 context
     pageContext: pageContext,
 
-    // 서버가 쉽게 사용할 수 있는 핵심 정보
     currentPage: pageContext.page,
     currentCategory: pageContext.category,
     currentLesson: pageContext.lesson,
@@ -1567,7 +1781,7 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
 
       if(res.status === 403){
         const data = await res.json().catch(()=>({}));
-        onQuotaExceeded(data.message || '오늘 질문 횟수를 다 쓰셨어요.', data.plan || 'free', !user);
+        onQuotaExceeded(data.message || 'You have used up all your questions for today.', data.plan || 'free', !user);
         return;
       }
 
@@ -1820,7 +2034,6 @@ function getPageSentences(){
   function renderFaq(){
     var sentences = getPageSentences();
 
-    // 중간 문장 3개에서 각각 문법 1개씩 추출 -> 상단 3개에 넣기 (1:1 매핑)
     let grammarsPerSentence = [];
     let fallbackPool = [];
     try{
@@ -1832,10 +2045,8 @@ function getPageSentences(){
           return found.length>0 ? found[0] : null;
         });
       }
-      // fallbackPool에 현재 레슨 전체 문법도 추가
       const lessonFallback = getDetectedGrammars();
       fallbackPool = [...fallbackPool, ...lessonFallback];
-      // 중복 제거
       const seen = new Set();
       const uniqueFallback = [];
       for(const g of fallbackPool){
@@ -1846,7 +2057,6 @@ function getPageSentences(){
       }
       fallbackPool = uniqueFallback;
 
-      // 빈 슬롯을 fallbackPool에서 채우기
       let usedIds = new Set(grammarsPerSentence.filter(Boolean).map(g=>g.id));
       for(let i=0;i<grammarsPerSentence.length;i++){
         if(!grammarsPerSentence[i]){
@@ -1857,11 +2067,9 @@ function getPageSentences(){
           }
         }
       }
-      // 그래도 빈 곳이 있으면 fallbackPool에서 남은걸로 채우기
       for(let i=0;i<3;i++){
         if(i>=grammarsPerSentence.length) grammarsPerSentence[i]=null;
       }
-      // fallbackPool이 3개 미만이면 전체에서라도 채우기
       if(grammarsPerSentence.filter(Boolean).length < 3){
         for(let i=0;i<3;i++){
           if(!grammarsPerSentence[i]){
@@ -1872,7 +2080,6 @@ function getPageSentences(){
       }
     }catch(e){ console.warn(e); }
 
-    // 상단: 문장별 문법 DB 3개 (초록색) - 이제 절대 "문법 1번" 안 뜨게
     let modeButtonsHtml = '';
     if(sentences.length>0){
       modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
@@ -1880,10 +2087,9 @@ function getPageSentences(){
           const g = grammarsPerSentence[i];
           const sentence = sentences[i];
           if(g){
-            // 절반 높이, ID 삭제, 한글+로마자+영어 표시 (외국인용)
             return `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;">`
-              + `<div style="font-size:.82rem;font-weight:900;color:#166534;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.grammar)}</div>`
-              + `<div style="font-size:.62rem;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.romanization||'')}</div>`
+              + `<div style="font-size:.82rem;font-weight:900;color:#166534;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${krSafe(g.grammar)}</div>`
+              + `<div style="font-size:.62rem;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${krSafe(g.romanization||'')}</div>`
               + `<div style="font-size:.6rem;color:#475569;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escapeHtml(g.title||'').slice(0,22)}</div>`
               + `</button>`;
           } else {
@@ -1896,7 +2102,7 @@ function getPageSentences(){
     } else {
       modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
         + (fallbackPool.slice(0,3).map((g,i)=>
-          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${escapeHtml(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${escapeHtml(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
+          `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${krSafe(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${krSafe(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
         ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(3))
         + `</div>`;
     }
@@ -1916,15 +2122,13 @@ function getPageSentences(){
       return;
     }
 
-    // 하단: 중간 문장 3개 (보라색 - AI) - 라벨 삭제, 깔끔하게
     faq.innerHTML = modeButtonsHtml + `<div style="width:100%;height:1px;background:#e2e8f0;margin:6px 0;"></div>` + sentences.map((s,i) =>
   `<button class="faq-chip" data-sidx="${i}" style="width:100%;background:#f5f3ff;border-color:#ddd6fe;text-align:left;margin-bottom:5px;padding:8px 10px;">
-    <div style="font-size:.9em;font-weight:700;color:#1e293b;">${escapeHtml(s.kr)}</div>
-    <div style="font-size:.8em;font-weight:500;margin-top:3px;color:#64748b;">${s.rom ? '('+escapeHtml(s.rom)+') ' : ''}${escapeHtml(s.en || '')}</div>
+    <div style="font-size:.9em;font-weight:700;color:#1e293b;">${krSafe(s.kr)}</div>
+    <div style="font-size:.8em;font-weight:500;margin-top:3px;color:#64748b;">${s.rom ? '('+krSafe(s.rom)+') ' : ''}${escapeHtml(s.en || '')}</div>
   </button>`
 ).join('');
 
-    // 설명창 삭제 - 로그 비우기 (공간 확보)
     log.innerHTML = ``;
 
     faq.style.display='flex';
@@ -1952,7 +2156,7 @@ function getPageSentences(){
 
  
     function handleSentenceClick(s){
-    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${escapeHtml(s.kr)}${s.rom?` (${escapeHtml(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${krSafe(s.kr)}${s.rom?` (${krSafe(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
     
     log.scrollTop = log.scrollHeight;
  
@@ -1967,7 +2171,7 @@ function getPageSentences(){
   + `</div>`;
       matches.forEach(g=>{
         block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
-          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${krSafe(g.grammar)} (${escapeHtml(g.id)})</div>`
           + renderFromDB(g, {kr:s.kr, rom:s.rom, en:s.en})
           + `</div>`;
       });
@@ -1981,19 +2185,56 @@ function getPageSentences(){
     }
   }
  
-  // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
   async function handleQuestion(q, gramForced, forceAiMode){
-    // forceAiMode=true면 로컬 DB 스킵하고 무조건 AI
+   var ctx=getCtx();
 
-    var ctx=getCtx();
-    var grams = [];
-    if(!forceAiMode){
-      grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
-    }
+// ==================== AI QUIZ ANSWER CHECK ====================
+// 1 / 2 / 3 / 4 입력은 새 질문이 아니라 현재 퀴즈의 정답 선택
+const originalQ = String(q || '').trim();
+
+const isQuizAnswer =
+  aiQuizState.active &&
+  /^[1-4]$/.test(originalQ) &&
+  aiQuizState.questionText;
+
+if(isQuizAnswer){
+  const selectedAnswer = originalQ;
+
+  aiQuizState.lastAnswerText = selectedAnswer;
+
+  q = `
+You are checking the learner's answer to the CURRENT AI quiz.
+
+CURRENT QUIZ:
+${aiQuizState.questionText}
+
+LEARNER'S ANSWER:
+Choice ${selectedAnswer}
+
+IMPORTANT:
+- Do NOT create a new quiz question.
+- Do NOT give another question.
+- Check ONLY whether Choice ${selectedAnswer} is correct for the CURRENT quiz.
+- Clearly say whether the answer is CORRECT or INCORRECT.
+- Give the correct answer.
+- Briefly explain why.
+- If incorrect, explain why the selected choice is wrong.
+`;
+
+  // 퀴즈 정답 확인은 무조건 AI로 처리
+  forceAiMode = true;
+}
+
+var grams = [];
+
+if(!forceAiMode){
+  grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
+}
  
-    // 사용자 입력을 화면에 넣기 전 이스케이프 처리 (XSS 방지)
-    const safeQ = escapeHtml(q);
-    log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
+    const displayQ = isQuizAnswer ? originalQ : q;
+const safeQ = escapeHtml(displayQ);
+
+log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
     
  
     if(grams.length > 0){
@@ -2019,7 +2260,7 @@ function getPageSentences(){
         const g = grams[idx];
         const headerDiv = document.createElement('div');
         headerDiv.style.cssText = `font-size:0.85rem;color:#6366f1;font-weight:800;margin:${idx>0 ? '14px 0 6px;padding-top:10px;border-top:1px dashed #e2e8f0;' : '6px 0;'}`;
-        headerDiv.textContent = `🤖 ${g.grammar} (${g.id})`;
+        headerDiv.innerHTML = `🤖 ${krSafe(g.grammar)} (${escapeHtml(g.id)})`;
         container.appendChild(headerDiv);
         const bodyDiv = document.createElement('div');
         container.appendChild(bodyDiv);
@@ -2036,7 +2277,7 @@ function getPageSentences(){
  
     if(!USE_GEMINI){
       const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
-      const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
+      const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
       log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${fallback}</div>`;
       log.scrollTop=log.scrollHeight;
       return;
@@ -2063,11 +2304,15 @@ function getPageSentences(){
         ensureWrapper();
         rawFullText = accumulatedText;
         const el = document.getElementById(cid2);
-        if(el){ el.innerHTML = escapeAndBr(accumulatedText); log.scrollTop = log.scrollHeight; }
+        if(el){ el.innerHTML = protectKoreanNoTranslate(escapeAndBr(accumulatedText)); log.scrollTop = log.scrollHeight; }
       },
       (finalText)=>{
         ensureWrapper();
-        const finalAnswer = escapeAndBr(finalText || rawFullText || '');
+        // AI가 출제한 현재 퀴즈 문제를 기억
+if(aiQuizState.active && !isQuizAnswer){
+  aiQuizState.questionText = finalText || rawFullText || '';
+}  
+        const finalAnswer = protectKoreanNoTranslate(escapeAndBr(finalText || rawFullText || ''));
         const el = document.getElementById(cid2);
         if(el) el.innerHTML = finalAnswer;
         const actionsEl2 = document.getElementById(cid2+'-actions');
@@ -2095,8 +2340,8 @@ function getPageSentences(){
           <div style="font-size:0.75rem;color:#94a3b8;margin-top:3px;">Less than a coffee ☕ · 20 questions every day</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <button onclick="window.payWithPayMongo ? window.payWithPayMongo() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
-          <button onclick="window.payWithLemonSqueezy ? window.payWithLemonSqueezy() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
+          <button onclick="window.location.href='index.html?returnTo='+encodeURIComponent(window.location.pathname)+'&openPro=1&method=gcash'" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
+          <button onclick="window.location.href='index.html?returnTo='+encodeURIComponent(window.location.pathname)+'&openPro=1&method=card'" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
         </div>
       </div>
 
@@ -2122,52 +2367,61 @@ function getPageSentences(){
         console.error('[AI Tutor] Stream error:', errMsg);
         const th = document.getElementById('ai-thinking');
         if(th) th.remove();
-        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+        const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
         log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-          + `<div id="ai-error-box">⚠️ 서버 연결 실패, 기본 답변으로 대체했어요.<br>에러: ${escapeHtml(errMsg)}</div>`
+          + `<div id="ai-error-box">⚠️ Server connection failed, showing a fallback answer.<br>Error: ${escapeHtml(errMsg)}</div>`
           + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
         log.scrollTop = log.scrollHeight;
       }
     );
   }
  
-window.openShare=openShare;
-btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; }};
-wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
+  window.openShare=openShare;
+  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); setTimeout(()=>{ const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; },100); }};
+  wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
+  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
+  wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
 
-// 검색창 클릭 / 포커스 하면 설명 사라짐
-input.addEventListener('focus', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
-input.addEventListener('click', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
+  // 안내 배너: faq(칩 영역) 바로 위에 배치. 검색창/버튼 클릭 시 숨기고, AI 튜터 재오픈 시 다시 보임(btn.onclick에서 처리)
+  (function addUsageGuide(){
+    if(document.getElementById('usageGuide')) return;
+    const guide = document.createElement('div');
+    guide.id = 'usageGuide';
+    guide.innerHTML = `
+      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:1.10rem;">💡 How to use: Select and tap!</div>
+      📚 Top → Free grammar (unlimited)<br>
+      💬 Middle → sentence  Ask AI<br>
+      ✨ Bottom → EPSTOPIK · Quiz · Explain
+    `;
+    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.89rem;line-height:1.5;width:100%;box-sizing:border-box;";
 
-input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; document.getElementById('usageGuide')?.style.setProperty('display','none'); handleQuestion(q);}});
-wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ document.getElementById('usageGuide')?.style.setProperty('display','none'); input.value=''; handleQuestion(q); } };
-
-// 설명은 검색창 위 빈 여백에만 고정
-(function addUsageGuide(){
-  if(document.getElementById('usageGuide')) return;
-  const guide = document.createElement('div');
-  guide.id = 'usageGuide';
-  guide.innerHTML = `
-    <div style="font-weight:800;color:#6366f1;margin-bottom:6px;font-size:0.9rem;">💡 How to use: Select and tap!</div>
-    <span style="font-size:0.82rem;">📚 Tap top grammar → Free grammar (unlimited)<br>
-    💬 Tap middle sentence → Ask AI<br>
-    ✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain</span>
-     
-  `;
-  guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:-12px 12px 8px 12px;transform:translateY(-18px);position:relative;z-index:2;color:#94a3b8;font-size:0.72rem;line-height:1.5;box-sizing:border-box;flex-shrink:0;";
-  const searchRow = input.parentElement;
-  searchRow.insertAdjacentElement('beforebegin', guide);
-
-  document.addEventListener('click', (e)=>{
-    if(e.target.closest('.faq-chip')){
-      guide.style.display='none';
+    // 위치: 입력창 위가 아니라 채팅 상단(칩 영역) 바로 위로 이동
+    if (faq && faq.parentElement) {
+      faq.insertAdjacentElement('beforebegin', guide);
+    } else {
+      const searchRow = input.parentElement;
+      searchRow.insertAdjacentElement('beforebegin', guide);
     }
-  });
-})();
 
-window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
-window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
-var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
+    const hide = () => guide.style.display = 'none';
+    const show = () => guide.style.display = 'block';
+
+    // 칩, 액션 버튼, 전송 버튼 클릭 시 모두 숨김
+    document.addEventListener('click', (e)=>{
+      if(
+        e.target.closest('.faq-chip') ||
+        e.target.closest('.ai-action-btn') ||
+        e.target === wrap.querySelector('#ai-send-btn')
+      ) hide();
+    });
+
+    // 검색창을 탭(포커스)하면 즉시 숨김 (이전 버전은 반대로 되어 있던 버그)
+    input.addEventListener('focus', hide);
+  })();
+ 
+  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
+  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
  
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions (with pageContext)':'⚠️ Gemini disabled');
