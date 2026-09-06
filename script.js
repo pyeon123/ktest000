@@ -2600,7 +2600,7 @@ var oldR=window.renderLearningProgress; window.renderLearningProgress=function()
     if(trending.previousElementSibling === faqSection) return;
  
     trending.insertAdjacentElement('beforebegin', faqSection);
-    faqSection.style.marginTop = '30px';  
+    faqSection.style.marginTop = '50px';  
   }
  
   function init(){
