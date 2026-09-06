@@ -13,465 +13,7 @@ let todayQuizData = null;
 const recognition = (window.SpeechRecognition || window.webkitSpeechRecognition) ? new (window.SpeechRecognition || window.webkitSpeechRecognition)() : null;
 if (recognition) { recognition.lang = 'ko-KR'; }
 
-window.quizDB = window.quizDB || [
-    { title: "Academy", url: "academy.html", keywords: "academy school study education" },
-    { title: "Airplane", url: "airplane.html", keywords: "airplane flight travel sky" },
-    { title: "Airport", url: "airport.html", keywords: "airport travel flight airplane" },
-    { title: "Animals", url: "animals.html", keywords: "animals pet nature zoo" },
-    { title: "Apartment", url: "apartment.html", keywords: "apartment house living room" },
-    { title: "Apple", url: "apple.html", keywords: "apple fruit food red" },
-    { title: "Autumn", url: "autumn.html", keywords: "autumn fall season weather" },
-    { title: "Baby", url: "baby.html", keywords: "baby child kid family" },
-    { title: "Bed", url: "bed.html", keywords: "bed furniture sleep" },
-    { title: "Bibimbap", url: "bibimbap.html", keywords: "bibimbap food korean rice" },
-    { title: "Bird", url: "bird.html", keywords: "bird animal sky fly" },
-    { title: "Body", url: "body.html", keywords: "body human health" },
-    { title: "Book", url: "book.html", keywords: "book reading library study" },
-    { title: "Bread", url: "bread.html", keywords: "bread food bakery" },
-    { title: "Brother", url: "brother.html", keywords: "brother family sibling" },
-    { title: "Buildings", url: "buildings.html", keywords: "buildings house city" },
-    { title: "Bulgogi", url: "bulgogi.html", keywords: "bulgogi food korean meat" },
-    { title: "Bus", url: "bus.html", keywords: "bus transport commute" },
-    { title: "Cash", url: "cash.html", keywords: "cash money currency" },
-    { title: "Cat", url: "cat.html", keywords: "cat animal pet" },
-    { title: "Chair", url: "chair.html", keywords: "chair furniture seat" },
-    { title: "City", url: "city.html", keywords: "city buildings urban" },
-    { title: "Class", url: "class.html", keywords: "class school study student" },
-    { title: "Clothes", url: "clothes.html", keywords: "clothes fashion wear" },
-    { title: "Colors", url: "colors.html", keywords: "colors red blue green" },
-    { title: "Commute", url: "commute.html", keywords: "commute work transport travel" },
-    { title: "Company", url: "company.html", keywords: "company work job business" },
-    { title: "Cooking", url: "cooking.html", keywords: "cooking food kitchen" },
-    { title: "Dad", url: "dad.html", keywords: "dad father family parent" },
-    { title: "Dawn", url: "dawn.html", keywords: "dawn morning time" },
-    { title: "Desk", url: "desk.html", keywords: "desk furniture study school" },
-    { title: "Dog", url: "dog.html", keywords: "dog animal pet puppy" },
-    { title: "Door", url: "door.html", keywords: "door house entrance" },
-    { title: "Economy", url: "economy.html", keywords: "economy money finance" },
-    { title: "Electronics", url: "electronics.html", keywords: "electronics tech device" },
-    { title: "Emotions", url: "emotions.html", keywords: "emotions feelings mood" },
-    { title: "Evening", url: "evening.html", keywords: "evening night time" },
-    { title: "Exam", url: "exam.html", keywords: "exam test study school" },
-    { title: "Family", url: "family.html", keywords: "family parents child sibling" },
-    { title: "Feelings", url: "feelings.html", keywords: "feelings mood emotion" },
-    { title: "Fish", url: "fish.html", keywords: "fish animal sea ocean" },
-    { title: "Flower", url: "flower.html", keywords: "flower nature plant" },
-    { title: "Food", url: "food.html", keywords: "food eat meal" },
-    { title: "Friend", url: "friend.html", keywords: "friend person relationship" },
-    { title: "Fruit", url: "fruit.html", keywords: "fruit food healthy" },
-    { title: "Furniture", url: "furniture.html", keywords: "furniture house bed chair" },
-    { title: "Gift", url: "gift.html", keywords: "gift present surprise" },
-    { title: "Gimbap", url: "gimbap.html", keywords: "gimbap food korean" },
-    { title: "Happiness", url: "happiness.html", keywords: "happiness joy emotion" },
-    { title: "Health", url: "health.html", keywords: "health body exercise" },
-    { title: "Hobbies", url: "hobbies.html", keywords: "hobbies activity free time" },
-    { title: "Homework", url: "homework.html", keywords: "homework study school" },
-    { title: "House", url: "house.html", keywords: "house home living" },
-    { title: "Jobs", url: "jobs.html", keywords: "jobs work profession" },
-    { title: "Joy", url: "joy.html", keywords: "joy happiness emotion" },
-    { title: "Kimchi", url: "kimchi1.html", keywords: "kimchi food korean spicy" },
-    { title: "Kitchen", url: "kitchen.html", keywords: "kitchen cooking house" },
-    { title: "Landscapes", url: "landscapes.html", keywords: "landscapes nature scenery" },
-    { title: "Lion", url: "lion.html", keywords: "lion animal nature" },
-    { title: "LivingRoom", url: "livingRoom.html", keywords: "livingRoom house home" },
-    { title: "Love", url: "love.html", keywords: "love emotion feelings" },
-    { title: "Lunch", url: "lunch.html", keywords: "lunch food meal time" },
-    { title: "Market", url: "market.html", keywords: "market shopping store" },
-    { title: "Meat", url: "meat.html", keywords: "meat food protein" },
-    { title: "Money", url: "money.html", keywords: "money cash finance" },
-    { title: "Mood", url: "mood.html", keywords: "mood emotion feelings" },
-    { title: "Morning", url: "morning.html", keywords: "morning dawn time" },
-    { title: "Mother", url: "mother.html", keywords: "mother mom family parent" },
-    { title: "Mountain", url: "mountain.html", keywords: "mountain nature hiking" },
-    { title: "Nature", url: "nature.html", keywords: "nature plant scenery" },
-    { title: "Parents", url: "parents.html", keywords: "parents family mom dad" },
-    { title: "Pencil", url: "pencil.html", keywords: "pencil school writing" },
-    { title: "Places", url: "places.html", keywords: "places location travel" },
-    { title: "Purchase", url: "purchase.html", keywords: "purchase shopping buy" },
-    { title: "Rain", url: "rain.html", keywords: "rain weather nature" },
-    { title: "Ramen", url: "ramen.html", keywords: "ramen food noodle" },
-    { title: "Restroom", url: "restroom.html", keywords: "restroom bathroom toilet" },
-    { title: "Sadness", url: "sadness.html", keywords: "sadness emotion feelings" },
-    { title: "Samgyeopsal", url: "samgyeopsal.html", keywords: "samgyeopsal food korean meat" },
-    { title: "School", url: "school.html", keywords: "school study education" },
-    { title: "Sea", url: "sea.html", keywords: "sea ocean water nature" },
-    { title: "Sister", url: "sister.html", keywords: "sister family sibling" },
-    { title: "Sky", url: "sky.html", keywords: "sky nature weather" },
-    { title: "Snow", url: "snow.html", keywords: "snow winter weather" },
-    { title: "Soup", url: "soup.html", keywords: "soup food meal" },
-    { title: "Sports", url: "sports.html", keywords: "sports exercise activity" },
-    { title: "Spring", url: "spring.html", keywords: "spring season weather" },
-    { title: "Store", url: "store.html", keywords: "store market shopping" },
-    { title: "Student", url: "student.html", keywords: "student school study" },
-    { title: "Study", url: "study.html", keywords: "study learn school" },
-    { title: "Summer", url: "summer.html", keywords: "summer season weather" },
-    { title: "Taxi", url: "taxi.html", keywords: "taxi transport car" },
-    { title: "Teacher", url: "teacher.html", keywords: "teacher school education" },
-    { title: "Textbook", url: "textbook.html", keywords: "textbook study school" },
-    { title: "Time", url: "time.html", keywords: "time clock schedule" },
-    { title: "Today", url: "today.html", keywords: "today time" },
-    { title: "Tomorrow", url: "tomorrow.html", keywords: "tomorrow time" },
-    { title: "Tourism", url: "tourism.html", keywords: "tourism travel trip" },
-    { title: "Train", url: "train.html", keywords: "train transport travel" },
-    { title: "Transport", url: "transport.html", keywords: "transport commute car bus" },
-    { title: "Travel", url: "travel.html", keywords: "travel trip tourism" },
-    { title: "Tteokbokki", url: "tteokbokki.html", keywords: "tteokbokki food korean spicy" },
-    { title: "Vocabulary", url: "vocabulary.html", keywords: "vocabulary words study" },
-    { title: "Water", url: "water.html", keywords: "water drink nature" },
-    { title: "Weather", url: "weather.html", keywords: "weather sky rain snow" },
-    { title: "Window", url: "window.html", keywords: "window house glass" },
-    { title: "Word", url: "word.html", keywords: "word vocabulary language" },
-    { title: "lover sentence", url: "sentencelover1.html", keywords: "sentence lover study korean phrase" },
-    { title: "Hello", url: "annyeonghaseyo1.html", keywords: "hello hi greeting korean greeting" },
-    { title: "Thank You", url: "gamsahamnida1.html", keywords: "thank you thanks gratitude appreciation" },
-    { title: "It's Fun", url: "jaemiisseoyo1.html", keywords: "it's fun fun interesting enjoyable" },
-    { title: "Good Night", url: "jaljayo1.html", keywords: "good night sleep bedtime" },
-    { title: "What's Your Name", url: "irum1.html", keywords: "what's your name name introduction" },
-    { title: "Nice to Meet You", url: "bangawoyo1.html", keywords: "nice to meet you introduction greeting" },
-    { title: "How Have You Been", url: "jaljinaesseoyo1.html", keywords: "how have you been greeting conversation" },
-    { title: "It's Okay", url: "gwaenchanayo1.html", keywords: "it's okay okay no problem fine" },
-    { title: "Im Sorry", url: "mianhaeyo1.html", keywords: "i'm sorry sorry apology excuse me" },
-    { title: "I Love You", url: "saranghaeyo1.html", keywords: "i love you love romance affection" },
-    { title: "Please Speak Slowly", url: "cheoncheonhi1.html", keywords: "please speak slowly slow speaking conversation" },
-    { title: "I'm Learning Korean", url: "hangukeo1.html", keywords: "i'm learning korean study korean language" },
-    { title: "Help Me", url: "dowajuseyo1.html", keywords: "help me help emergency assistance" },
-    { title: "Where Is the Restroom?", url: "hwajangsil1.html", keywords: "where is the restroom restroom bathroom toilet" },
-    { title: "How Much Is It", url: "eolmayeyo1.html", keywords: "how much is it price cost shopping" },
-    { title: "Where Is It", url: "eodi1.html", keywords: "where is it where location directions" },
-    { title: "Im Happy", url: "haengbok1.html", keywords: "i'm happy happy feeling emotion" },
-    { title: "Im Sleepy", url: "jollyeo1.html", keywords: "i'm sleepy sleepy tired bedtime" },
-    { title: "Im Tired", url: "pigon1.html", keywords: "i'm tired tired exhausted fatigue" },
-    { title: "Im Thirsty", url: "mongmalla1.html", keywords: "i'm thirsty thirsty drink water" },
-    { title: "I'm Hungry", url: "baegopa1.html", keywords: "i'm hungry hungry food meal" },
-    { title: "I Don't Understand", url: "ihaemot1.html", keywords: "i don't understand understand confusion learning" },
-    { title: "I Understand", url: "ihae1.html", keywords: "i understand understand got it learning" },
-    { title: "Im Sad", url: "seulpeo1.html", keywords: "i'm sad sad emotion feeling" },
-    { title: "Im Angry", url: "hwana1.html", keywords: "i'm angry angry mad emotion" },
-    { title: "Im Scared", url: "museowo1.html", keywords: "i'm scared scared afraid fear" },
-    { title: "I Miss You", url: "bogosipeo1.html", keywords: "i miss you miss longing affection" },
-    { title: "Im Sick", url: "apayo1.html", keywords: "i'm sick sick ill health" },
-    { title: "Im Nervous", url: "ginjang1.html", keywords: "i'm nervous nervous anxious feeling" },
-    { title: "I Feel Good", url: "gibun1.html", keywords: "i feel good good feeling mood" },
-    { title: "Im Busy", url: "bappa1.html", keywords: "i'm busy busy work schedule" },
-    { title: "Im Free", url: "sigan1.html", keywords: "i'm free available free time schedule" },
-    { title: "Don't Worry", url: "geokjeong1.html", keywords: "don't worry worry relax comfort" },
-    { title: "I Like It", url: "joayo1.html", keywords: "i like it like favorite preference" },
-    { title: "I Don't Like It", url: "anjoa1.html", keywords: "i don't like it dislike don't like preference" },
-    { title: "I Love It", url: "jeongmal1.html", keywords: "i love it love favorite really like" },
-    { title: "I Hate It", url: "sireo1.html", keywords: "i hate it hate dislike emotion" },
-    { title: "Im Ready", url: "junbi1.html", keywords: "i'm ready ready prepared let's go" },
-    { title: "Not Yet", url: "ajig1.html", keywords: "not yet wait later unfinished" },
-    { title: "Please Wait", url: "gidaryeo1.html", keywords: "please wait wait hold on moment" },
-    { title: "Hurry Up", url: "ppalli1.html", keywords: "hurry up quick faster rush" },
-    { title: "Let's Eat", url: "meogeo1.html", keywords: "let's eat eat meal food" },
-    { title: "Let's Drink", url: "masyeo1.html", keywords: "let's drink drink beverage together" },
-    { title: "Let's Study", url: "gongbu1.html", keywords: "let's study study learn korean" },
-    { title: "Good Morning", url: "joheun1.html", keywords: "good morning morning greeting" },
-    { title: "See You Later", url: "najunge1.html", keywords: "see you later goodbye farewell" },
-    { title: "See You Tomorrow", url: "naeil1.html", keywords: "see you tomorrow tomorrow goodbye farewell" },
-    { title: "You're Welcome", url: "cheonman1.html", keywords: "you're welcome welcome no problem thanks" },
-    { title: "Excuse Me", url: "sillye1.html", keywords: "excuse me pardon attention polite" },
-    { title: "No Problem", url: "munje1.html", keywords: "no problem okay it's fine don't worry" },
-    { title: "What Does This Mean?", url: "ige1.html", keywords: "what does this mean meaning translation korean" },
-    { title: "It's Too Expensive", url: "bissayo1.html", keywords: "it's too expensive expensive price shopping" },
-    { title: "It's Cheap", url: "ssayo1.html", keywords: "it's cheap cheap affordable price shopping" },
-    { title: "Water Please", url: "muljuseyo1.html", keywords: "water please water drink beverage" },
-    { title: "It's Cold", url: "chagawo1.html", keywords: "it's cold cold weather temperature" },
-    { title: "It's Hot", url: "tteugeo1.html", keywords: "it's hot hot weather temperature" },
-    { title: "It's Salty", url: "jjayo1.html", keywords: "it's salty salty taste food" },
-    { title: "It's Sweet", url: "dalayo1.html", keywords: "it's sweet sweet taste dessert" },
-    { title: "It's Spicy", url: "maewoyo1.html", keywords: "it's spicy spicy hot food" },
-    { title: "It's Delicious", url: "masisseo1.html", keywords: "it's delicious delicious tasty food" },
-    { title: "Let's Go", url: "gayo1.html", keywords: "let's go go together invitation" },
-    { title: "Wait a Moment", url: "jamsiman1.html", keywords: "wait a moment wait hold on please" },
-    { title: "Coffee Please", url: "keopijuseyo1.html", keywords: "coffee please coffee drink beverage" },
-    { title: "What Happened?", url: "museunirieyo1.html", keywords: "what happened happened problem situation" },
-    { title: "Why?", url: "waeyo1.html", keywords: "why question reason" },
-    { title: "Really?", url: "jeongmalyo1.html", keywords: "really surprise question" },
-    { title: "Happy Birthday", url: "saengilchukha1.html", keywords: "happy birthday birthday celebration greeting" },
-    { title: "Good Luck", url: "haenguneulbireoyo1.html", keywords: "good luck luck encouragement wish" },
-    { title: "Good Job", url: "jalhaesseoyo1.html", keywords: "good job well done praise encouragement" },
-    { title: "Be Careful", url: "josimhaseyo1.html", keywords: "be careful careful safety warning" },
-    { title: "Stand Up", url: "ireonaseyo1.html", keywords: "stand up get up classroom instruction" },
-    { title: "Sit Down", url: "aneuseyo1.html", keywords: "sit down take a seat classroom instruction" },
-    { title: "Are You Okay?", url: "gwaenchanayo1.html", keywords: "are you okay okay concern health" },
-    { title: "I'm Full", url: "baebulleoyo1.html", keywords: "i'm full full food meal" },
-    { title: "See You Soon", url: "ttaobwayo1.html", keywords: "see you soon goodbye farewell" },
-    { title: "Have a Nice Day", url: "joeunharubonaeseyo1.html", keywords: "have a nice day greeting farewell" },
-    { title: "Come In", url: "deureooseyo1.html", keywords: "come in enter welcome invitation" },
-    { title: "Please Wait", url: "gidaryeojuseyo1.html", keywords: "please wait wait hold on moment" },
-    { title: "I Don't Know", url: "moreugesseoyo1.html", keywords: "i don't know don't know answer" },
-    { title: "That's Right", url: "majayo1.html", keywords: "that's right correct yes agree" },
-    { title: "That's Cool", url: "meotjyeoyo1.html", keywords: "that's cool cool awesome compliment" },
-    { title: "That's Cute", url: "gwiyeowoyo1.html", keywords: "that's cute cute adorable compliment" },
-    { title: "That's Beautiful", url: "areumdawoyo1.html", keywords: "that's beautiful beautiful pretty compliment" },
-    { title: "That's Amazing", url: "nollawoyo1.html", keywords: "that's amazing amazing incredible surprise" },
-    { title: "That's Interesting", url: "heungmirowoyo1.html", keywords: "that's interesting interesting curious conversation" },
-    { title: "That's Awesome", url: "jeongmalmeotjyeoyo1.html", keywords: "that's awesome awesome excellent compliment" },
-    { title: "Good Bye", url: "bye2.html", keywords: "good bye goodbye farewell see you" },
-    { title: "That's Great", url: "jeongmaljoayo1.html", keywords: "that's great great excellent praise" },
-    { title: "I Agree", url: "donguihaeyo1.html", keywords: "i agree agree opinion conversation" },
-    { title: "That's Wrong", url: "teullyeosseoyo1.html", keywords: "that's wrong wrong incorrect mistake" },
-    { title: "My Tooth Hurts", url: "igaapayo1.html", keywords: "my tooth hurts toothache dental pain teeth" },
-    { title: "My Head Hurts", url: "meorigaapayo1.html", keywords: "my head hurts headache head pain" },
-    { title: "I Have a Fever", url: "yeorinayo1.html", keywords: "i have a fever fever sick temperature" },
-    { title: "Call the Police", url: "gyeongchalbulleojuseyo1.html", keywords: "call the police police emergency help" },
-    { title: "I Need Help", url: "doumipilyohaeyo1.html", keywords: "i need help help emergency assistance" },
-    { title: "Follow Me", url: "ttaraoseyo1.html", keywords: "follow me come with me directions" },
-    { title: "Which Way?", url: "eoneujjokieyo1.html", keywords: "which way direction where navigation" },
-    { title: "Is It Close?", url: "gakkawoyo1.html", keywords: "is it close nearby distance location" },
-    { title: "Is It Far?", url: "meoreoyo1.html", keywords: "is it far far away distance location" },
-    { title: "Stop Here", url: "yeogiseosewojuseyo1.html", keywords: "stop here stop taxi transportation" },
-    { title: "Go Straight", url: "jikjinhaseyo1.html", keywords: "go straight straight directions navigation" },
-    { title: "Turn Right", url: "oreunjjogeurodoseyo1.html", keywords: "turn right right directions navigation" },
-    { title: "Turn Left", url: "oenjjogeurodoseyo1.html", keywords: "turn left left directions navigation" },
-    { title: "I'm Lost", url: "gireulireosseoyo1.html", keywords: "i'm lost lost directions help" },
-    { title: "I'm Early", url: "iljjikwasseoyo1.html", keywords: "i'm early early arrive on time" },
-    { title: "I'm Late", url: "neujeosseoyo1.html", keywords: "i'm late late sorry time" },
-    { title: "What Time Is It?", url: "jigeummyeotsiyeyo1.html", keywords: "what time is it time clock question" },
-    { title: "I Have a Question", url: "jilmunisseoyo1.html", keywords: "i have a question question ask help" },
-    { title: "This Is My Family", url: "jegajogieyo1.html", keywords: "this is my family family introduction" },
-    { title: "This Is My Friend", url: "jechinguyeoyo1.html", keywords: "this is my friend friend introduction" },
-    { title: "That's Perfect", url: "wanbyeokhaeyo1.html", keywords: "that's perfect perfect excellent great" },
-    { title: "That's Enough", url: "chungbunhaeyo1.html", keywords: "that's enough enough stop sufficient" },
-    { title: "Sick Leave", url: "byeongga.html", keywords: "sick leave medical leave illness absence" },
-    { title: "Vacation", url: "hyuga.html", keywords: "vacation holiday time off leave" },
-    { title: "Lateness", url: "jigak.html", keywords: "lateness late tardiness arriving late" },
-    { title: "Leaving Early", url: "jotoe.html", keywords: "leaving early early departure leave work early" },
-    { title: "Absence", url: "gyeolgeun.html", keywords: "absence absent missing work attendance" },
-    { title: "Special Shift Work", url: "teukgeun.html", keywords: "special shift work special duty work shift" },
-    { title: "Night Overtime", url: "yageun.html", keywords: "night overtime overtime work night shift" },
-    { title: "Leave Work", url: "toegeun.html", keywords: "leave work clock out finish work leaving work" },
-    { title: "Go to Work", url: "chulgeun.html", keywords: "go to work commute arrive at work attendance" },
-    { title: "Remaining Work", url: "janeop.html", keywords: "remaining work unfinished work leftover work" },
-    { title: "Foreman", url: "banjang.html", keywords: "foreman supervisor work leader" },
-    { title: "Employer", url: "saeopju.html", keywords: "employer boss company owner" },
-    { title: "Workplace", url: "geunmuji.html", keywords: "workplace place of work job site" },
-    { title: "Contract Period", url: "gyeyak-gigan.html", keywords: "contract period employment period contract duration" },
-    { title: "Labor Contract", url: "geunro-gyeyakseo.html", keywords: "labor contract employment contract work contract" },
-    { title: "Payslip", url: "geupyeo-myeongseoseo.html", keywords: "payslip pay statement salary statement wage slip" },
-    { title: "Allowance", url: "sudang.html", keywords: "allowance extra pay benefit work allowance" },
-    { title: "Hourly Wage", url: "sigeup.html", keywords: "hourly wage hourly pay wage per hour" },
-    { title: "Monthly Salary", url: "wolgeup.html", keywords: "monthly salary monthly pay wages" },
-    { title: "Worker", url: "geunroja.html", keywords: "worker employee laborer" },
-    { title: "Team Leader", url: "timjang.html", keywords: "team leader supervisor team manager" },
-    { title: "President", url: "sajang.html", keywords: "president company president boss owner" },
-    { title: "Co-worker", url: "dongryo.html", keywords: "co-worker coworker colleague workmate" },
-    { title: "Shift Work", url: "gyodae-geunmu.html", keywords: "shift work rotating shifts work shift" },
-    { title: "Base Pay", url: "gibongeup.html", keywords: "base pay basic salary basic wage" },
-    { title: "Bonus", url: "sangyeogeum.html", keywords: "bonus incentive extra payment" },
-    { title: "Deduction", url: "gongje.html", keywords: "deduction salary deduction wage deduction" },
-    { title: "Tax", url: "segeum.html", keywords: "tax income tax wage tax" },
-    { title: "Net Pay", url: "silsuryeongae.html", keywords: "net pay take home pay after tax" },
-    { title: "Severance Pay", url: "toejikgeum.html", keywords: "severance pay retirement allowance retirement pay" },
-    { title: "Dismissal / Firing", url: "haego.html", keywords: "dismissal firing termination fired from work" },
-    { title: "Resignation", url: "sajik.html", keywords: "resignation quit leaving a job" },
-    { title: "Re-contract / Renewal", url: "jaegyeyak.html", keywords: "re-contract renewal contract renewal employment renewal" },
-    { title: "Probationary Period", url: "suseupgigan.html", keywords: "probationary period probation trial period" },
-    { title: "Employment Rules", url: "chwieopgyuchik.html", keywords: "employment rules workplace rules labor rules" },
-    { title: "Minimum Wage", url: "choejeoimgeum.html", keywords: "minimum wage lowest wage legal minimum pay" },
-    { title: "Working Hours", url: "geunrosigan.html", keywords: "working hours work hours hours of work" },
-    { title: "Annual Leave", url: "yeonchahyuga.html", keywords: "annual leave paid leave vacation days" },
-    { title: "Monthly Leave", url: "wolcha.html", keywords: "monthly leave monthly vacation leave" },
-    { title: "Alien Registration Card", url: "oegugindeungrokjeung.html", keywords: "alien registration card ARC foreigner registration card" },
-    { title: "Passport", url: "yeogwon.html", keywords: "passport travel document" },
-    { title: "Visa", url: "bija.html", keywords: "visa entry visa Korean visa" },
-    { title: "Period of Stay", url: "cheryugigan.html", keywords: "period of stay length of stay visa stay period" },
-    { title: "Extension of Stay", url: "cheryuyeonjang.html", keywords: "extension of stay visa extension stay extension" },
-    { title: "Re-entry", url: "jaeipguk.html", keywords: "re-entry return to Korea reentry" },
-    { title: "Ministry of Employment and Labor", url: "goyongnodongbu.html", keywords: "Ministry of Employment and Labor labor ministry employment ministry" },
-    { title: "Employment Center", url: "goyongcenter.html", keywords: "employment center job center employment office" },
-    { title: "Industrial Accident", url: "saneupjaehae.html", keywords: "industrial accident workplace accident work injury" },
-    { title: "Industrial Accident Insurance", url: "sanjaeboheom.html", keywords: "industrial accident insurance workplace injury insurance" },
-    { title: "National Health Insurance", url: "gukmingeongangboheom.html", keywords: "national health insurance health insurance Korea" },
-    { title: "Application Form", url: "sincheongseo.html", keywords: "application form application document form" },
-    { title: "Stamp / Seal", url: "dojang.html", keywords: "stamp seal official seal signature stamp" },
-    { title: "Signature", url: "seomyeong.html", keywords: "signature sign signing" },
-    { title: "ID Card", url: "sinbunjeung.html", keywords: "ID card identification identity card" },
-    { title: "Exchange Rate", url: "hwanyul.html", keywords: "exchange rate currency exchange rate" },
-    { title: "Money Transfer", url: "songgeum.html", keywords: "money transfer remittance send money" },
-    { title: "Account Number", url: "gyejwabeonho.html", keywords: "account number bank account number" },
-    { title: "Employment Insurance", url: "goyongboheom.html", keywords: "employment insurance unemployment insurance" },
-    { title: "National Pension", url: "gukminyeongeum.html", keywords: "national pension pension Korea" },
-    { title: "Bank Account", url: "tongjang.html", keywords: "bank account bankbook account" },
-    { title: "Fee", url: "susuryo.html", keywords: "fee charge cost service fee" },
-    { title: "Certificate", url: "jeungmyeongseo.html", keywords: "certificate document proof certification" },
-    { title: "Reception / Filing", url: "jeopsu.html", keywords: "reception filing submission application received" },
-    { title: "Approval", url: "seungin.html", keywords: "approval permission authorization approved" },
-    { title: "Rejection", url: "geojeol.html", keywords: "rejection refusal rejected denial" },
-    { title: "Consent / Agreement", url: "dongui.html", keywords: "consent agreement approval permission" },
-    { title: "Documents", url: "eoryu.html", keywords: "documents paperwork papers forms" },
-    { title: "Identity Verification", url: "sinwon_hwagin.html", keywords: "identity verification identity check identification" },
-    { title: "Meal Allowance", url: "sikdae.html", keywords: "meal allowance food allowance meal benefit" },
-    { title: "Dormitory", url: "gisuksa.html", keywords: "dormitory dorm accommodation worker housing" },
-    { title: "Work", url: "jakeop.html", keywords: "work job task labor" },
-    { title: "Process", url: "gongjeong.html", keywords: "process production manufacturing process" },
-    { title: "Product", url: "jepum.html", keywords: "product goods manufactured product" },
-    { title: "Parts", url: "bupum.html", keywords: "parts components machine parts" },
-    { title: "Raw Materials", url: "wonjajae.html", keywords: "raw materials material manufacturing materials" },
-    { title: "Packaging", url: "pojang.html", keywords: "packaging packing package" },
-    { title: "Assembly", url: "jorip.html", keywords: "assembly assembling put together" },
-    { title: "Transport", url: "unban.html", keywords: "transport transportation carrying moving goods" },
-    { title: "Loading / Stacking", url: "jeokjae.html", keywords: "loading stacking loading goods cargo" },
-    { title: "Inspection", url: "geomsa.html", keywords: "inspection examination quality inspection" },
-    { title: "Sorting / Classification", url: "bunryu.html", keywords: "sorting classification categorize separate" },
-    { title: "Processing / Machining", url: "gagong.html", keywords: "processing machining manufacturing processing" },
-    { title: "Welding", url: "yongjeop.html", keywords: "welding weld welder" },
-    { title: "Cutting", url: "jeoldan.html", keywords: "cutting cut material cutting work" },
-    { title: "Quantity", url: "suryang.html", keywords: "quantity amount number of items" },
-    { title: "Defective Product", url: "bulryangpum.html", keywords: "defective product defective goods faulty product" },
-    { title: "Finished Product", url: "wanseongpum.html", keywords: "finished product completed product final product" },
-    { title: "Delivery", url: "napgi.html", keywords: "delivery delivering goods delivery date" },
-    { title: "Warehouse", url: "changgo.html", keywords: "warehouse storage warehouse goods" },
-    { title: "Shipping Out", url: "chulha.html", keywords: "shipping out shipment dispatch goods" },
-    { title: "Receiving Goods", url: "ipgo.html", keywords: "receiving goods receiving stock goods received" },
-    { title: "Replacement", url: "gyoche.html", keywords: "replacement replace exchange change" },
-    { title: "Checking / Inspection", url: "jeomgeom.html", keywords: "checking inspection checking condition examination" },
-    { title: "Repair", url: "suri.html", keywords: "repair fixing maintenance repair work" },
-    { title: "Washing / Cleaning", url: "secheok.html", keywords: "washing cleaning wash clean" },
-    { title: "Drying", url: "geonjo.html", keywords: "drying dry drying process" },
-    { title: "Polishing", url: "yeonma.html", keywords: "polishing grinding polishing work" },
-    { title: "Plating", url: "dogeum.html", keywords: "plating metal plating coating" },
-    { title: "Casting", url: "jujo.html", keywords: "casting metal casting molding" },
-    { title: "Injection Molding", url: "sachul.html", keywords: "injection molding plastic molding molding process" },
-    { title: "Pressing", url: "peureseu.html", keywords: "pressing press press work pressing process" },
-    { title: "Cutting", url: "jaedan.html", keywords: "cutting cutting work cut material" },
-    { title: "Sewing", url: "bongje.html", keywords: "sewing sewing work stitching" },
-    { title: "Embroidery", url: "jasu.html", keywords: "embroidery embroidery work stitching" },
-    { title: "Dyeing", url: "yeomsaek.html", keywords: "dyeing dye coloring textile dyeing" },
-    { title: "Sorting", url: "seonbyeol.html", keywords: "sorting selection classification separate" },
-    { title: "Measurement", url: "cheukjeong.html", keywords: "measurement measuring measure size" },
-    { title: "Adjustment", url: "jojeol.html", keywords: "adjustment adjust control setting" },
-    { title: "Fastening", url: "gojeong.html", keywords: "fastening fixing securing fasten" },
-    { title: "Disassembly", url: "bunhae.html", keywords: "disassembly dismantling taking apart" },
-    { title: "Joining", url: "gyeolhap.html", keywords: "joining connection connecting combine" },
-    { title: "Unloading", url: "hayeok.html", keywords: "unloading unloading goods cargo" },
-    { title: "Loading onto Vehicle", url: "sangcha.html", keywords: "loading onto vehicle loading cargo vehicle" },
-    { title: "Unloading from Vehicle", url: "hacha.html", keywords: "unloading from vehicle unloading cargo vehicle" },
-    { title: "Inventory / Stock", url: "jaego.html", keywords: "inventory stock goods in stock warehouse stock" },
-    { title: "Shortage of Quantity", url: "suryangbujok.html", keywords: "shortage quantity shortage insufficient amount" },
-    { title: "Damage / Breakage", url: "pason.html", keywords: "damage breakage damaged broken goods" },
-    { title: "Standard / Specification", url: "gyugyeok.html", keywords: "standard specification requirements size specifications" },
-    { title: "Dimensions / Size", url: "chisu.html", keywords: "dimensions size measurement length width height" },
-    { title: "Weight", url: "muge.html", keywords: "weight heavy light kilograms weight measurement" },
-    { title: "Capacity", url: "yongryang.html", keywords: "capacity volume maximum capacity amount" },
-    { title: "Sample / Prototype", url: "sample_sijepum.html", keywords: "sample prototype test product model" },
-    { title: "Production Volume", url: "saengsallyang.html", keywords: "production volume production quantity output" },
-    { title: "Target Quantity", url: "mokpyoryang.html", keywords: "target quantity target amount production target" },
-    { title: "Efficiency", url: "neungnyul.html", keywords: "efficiency productivity work efficiency" },
-    { title: "Calibration", url: "gyojeong.html", keywords: "calibration adjustment measurement calibration" },
-    { title: "Setting / Configuration", url: "seoljeong.html", keywords: "setting configuration setup machine setting" },
-    { title: "Operation", url: "jakdong.html", keywords: "operation operating machine operation" },
-    { title: "Stop / Halt", url: "jeongji.html", keywords: "stop halt shutdown machine stop" },
-    { title: "Operation / Running", url: "gadong.html", keywords: "operation running machine running operating" },
-    { title: "Overload", url: "gwabuhwa.html", keywords: "overload excessive load machine overload" },
-    { title: "Malfunction", url: "ojakdong.html", keywords: "malfunction faulty operation abnormal operation" },
-    { title: "Breakdown", url: "gojang.html", keywords: "breakdown machine failure equipment failure" },
-    { title: "Neglect", url: "bangchi.html", keywords: "neglect leave unattended ignore" },
-    { title: "Management / Care", url: "gwalli.html", keywords: "management care handling maintenance" },
-    { title: "Maintenance", url: "yujibosu.html", keywords: "maintenance repair upkeep equipment maintenance" },
-    { title: "Test Run", url: "siunjeon.html", keywords: "test run trial operation testing" },
-    { title: "Waste Material", url: "pyegimul.html", keywords: "waste material waste scrap discarded material" },
-    { title: "Residue", url: "janjaemul.html", keywords: "residue leftover material remaining material" },
-    { title: "Recycling", url: "jaehwalyong.html", keywords: "recycling reuse recyclable material" },
-    { title: "Collection", url: "sugeo.html", keywords: "collection gathering collecting waste" },
-    { title: "Compression", url: "apchuk.html", keywords: "compression compress pressing" },
-    { title: "Bundle", url: "mukkeum.html", keywords: "bundle bundling tie together package" },
-    { title: "Labeling", url: "rabelling.html", keywords: "labeling label marking product label" },
-    { title: "Barcode", url: "bakodeu.html", keywords: "barcode barcode scanner product code" },
-    { title: "Serial Number", url: "ilryeonbeonho.html", keywords: "serial number identification number product number" },
-    { title: "Quality Control", url: "pumjilgwanri.html", keywords: "quality control quality management inspection QC" },
-    { title: "Improvement", url: "gongjeonggaeseon.html", keywords: "improvement process improvement production improvement" },
-    { title: "Safety Helmet", url: "anjeonmo.html", keywords: "safety helmet hard hat protective helmet" },
-    { title: "Safety Shoes", url: "anjeonhwa.html", keywords: "safety shoes protective footwear work shoes" },
-    { title: "Safety Gloves", url: "anjeonjanggap.html", keywords: "safety gloves protective gloves work gloves" },
-    { title: "Safety Goggles", url: "boangyeong.html", keywords: "safety goggles protective glasses eye protection" },
-    { title: "Dust Mask", url: "bangjinmaseukeu.html", keywords: "dust mask protective mask respirator" },
-    { title: "Earplug", url: "gwimagae.html", keywords: "earplug ear protection hearing protection" },
-    { title: "Safety Harness", url: "anjeondae.html", keywords: "safety harness fall protection harness" },
-    { title: "Emergency Exit", url: "bisanggu.html", keywords: "emergency exit escape exit evacuation" },
-    { title: "Gas Mask", url: "bangdokmaseukeu.html", keywords: "gas mask respirator protective mask" },
-    { title: "Fire Extinguisher", url: "sohwagi.html", keywords: "fire extinguisher fire safety extinguisher" },
-    { title: "Alarm", url: "gyeongbogi.html", keywords: "alarm warning alarm safety alarm" },
-    { title: "First Aid Kit", url: "gugeupham.html", keywords: "first aid kit emergency medical kit" },
-    { title: "Electric Shock", url: "gamjeon.html", keywords: "electric shock electrical accident shock" },
-    { title: "Fall from Height", url: "churak.html", keywords: "fall from height falling accident fall" },
-    { title: "Slip / Trip", url: "jeondo.html", keywords: "slip trip falling accident slippery" },
-    { title: "Jamming / Pinched", url: "hyeopchak.html", keywords: "jamming pinched caught accident machine" },
-    { title: "Collision", url: "chungdol.html", keywords: "collision impact crash accident" },
-    { title: "Fire", url: "hwajae.html", keywords: "fire workplace fire fire accident" },
-    { title: "Explosion", url: "pokbal.html", keywords: "explosion explosive accident blast" },
-    { title: "Burn", url: "hwasang.html", keywords: "burn burn injury heat injury" },
-    { title: "Suffocation", url: "jilsik.html", keywords: "suffocation choking lack of oxygen" },
-    { title: "Danger", url: "wiheom.html", keywords: "danger hazard risk dangerous" },
-    { title: "Warning", url: "gyeonggo.html", keywords: "warning caution alert" },
-    { title: "Prohibition", url: "geumji.html", keywords: "prohibition prohibited forbidden" },
-    { title: "Caution", url: "juui.html", keywords: "caution care attention warning" },
-    { title: "Maintenance", url: "jeongbi.html", keywords: "maintenance repair equipment servicing" },
-    { title: "Cleaning", url: "cheongso.html", keywords: "cleaning clean workplace cleaning" },
-    { title: "Tidying Up", url: "jeongrijeongdon.html", keywords: "tidying up organizing cleaning arrange" },
-    { title: "Ventilation", url: "hwangi.html", keywords: "ventilation ventilation system air circulation" },
-    { title: "Disinfection", url: "sodok.html", keywords: "disinfection disinfect sterilization" },
-    { title: "Protective Gear", url: "bohogu.html", keywords: "protective gear safety equipment PPE" },
-    { title: "Electricity Leakage", url: "nujeon.html", keywords: "electricity leakage electrical leakage power leakage" },
-    { title: "Short Circuit", url: "hapseon.html", keywords: "short circuit electrical short circuit" },
-    { title: "Gas Leak", url: "gaseunuchul.html", keywords: "gas leak gas leakage leaking gas" },
-    { title: "Hazardous Material", url: "yuhaemuljil.html", keywords: "hazardous material dangerous substance toxic material" },
-    { title: "Flammability", url: "inhwasung.html", keywords: "flammability flammable fire risk" },
-    { title: "Corrosiveness", url: "busiksung.html", keywords: "corrosiveness corrosive material corrosion" },
-    { title: "Emergency Bell", url: "bisangbel.html", keywords: "emergency bell alarm safety bell" },
-    { title: "Evacuation", url: "daepi.html", keywords: "evacuation escape emergency evacuation" },
-    { title: "Report / Notification", url: "singo.html", keywords: "report notification report an accident notify" },
-    { title: "First Aid", url: "eunggeupcheochi.html", keywords: "first aid emergency treatment immediate treatment" },
-    { title: "Wound", url: "sangcheo.html", keywords: "wound cut injury wound care" },
-    { title: "Injury", url: "busang.html", keywords: "injury accident injury hurt" },
-    { title: "Fracture", url: "goljeol.html", keywords: "fracture broken bone bone fracture" },
-    { title: "Bleeding", url: "chulhyeol.html", keywords: "bleeding blood loss wound bleeding" },
-    { title: "Bandage", url: "bungdae.html", keywords: "bandage wound dressing medical bandage" },
-    { title: "Adhesive Plaster", url: "banchanggo.html", keywords: "adhesive plaster band aid wound plaster" },
-    { title: "Ointment", url: "yeongo.html", keywords: "ointment medicine cream wound ointment" },
-    { title: "Antiseptic", url: "sodongyak.html", keywords: "antiseptic disinfectant wound medicine" },
-    { title: "Pain Relief Patch", url: "paseu.html", keywords: "pain relief patch pain patch muscle pain patch" },
-    { title: "Abrasion / Scrape", url: "chalgwasang.html", keywords: "abrasion scrape scraped skin skin injury" },
-    { title: "Laceration / Cut", url: "yeolsang.html", keywords: "laceration cut wound deep cut injury" },
-    { title: "Poisoning / Intoxication", url: "jungdok.html", keywords: "poisoning intoxication poisoned toxic substance" },
-    { title: "Dizziness", url: "eojireumjeung.html", keywords: "dizziness dizzy lightheaded" },
-    { title: "Vomiting", url: "guto.html", keywords: "vomiting vomit throwing up" },
-    { title: "Fainting / Unconsciousness", url: "honsu_gijeol.html", keywords: "fainting unconsciousness faint unconscious" },
-    { title: "CPR", url: "simpyesosaengsul.html", keywords: "CPR cardiopulmonary resuscitation cardiac arrest" },
-    { title: "Emergency Contact", url: "bisang_yeollakcheo.html", keywords: "emergency contact emergency number contact information" },
-    { title: "Safety Rules", url: "anjeon_suchik.html", keywords: "safety rules safety regulations workplace safety" },
-    { title: "Safety Training", url: "anjeon_gyoyuk.html", keywords: "safety training safety education workplace training" },
-    { title: "Safety Passageway", url: "anjeon_tongro.html", keywords: "safety passageway safety route walkway passage" },
-    { title: "Circuit Breaker", url: "chadangi.html", keywords: "circuit breaker electrical breaker power breaker" },
-    { title: "Grounding / Earthing", url: "jeopji.html", keywords: "grounding earthing electrical grounding" },
-    { title: "Insulation", url: "jeoryeon.html", keywords: "insulation electrical insulation insulating" },
-    { title: "Fire Shutter", url: "banghwasyeoteo.html", keywords: "fire shutter fire door fire protection shutter" },
-    { title: "Escape Exit", url: "pinangu.html", keywords: "escape exit emergency exit escape route" },
-    { title: "Descent Device", url: "wanganggi.html", keywords: "descent device emergency descent escape device" },
-    { title: "Fire Hydrant", url: "sohwajeon.html", keywords: "fire hydrant fire hose hydrant" },
-    { title: "Smoking Area", url: "heupyeonguyeok.html", keywords: "smoking area smoking zone designated smoking area" },
-    { title: "Non-smoking Area", url: "geumyeonguyeok.html", keywords: "non-smoking area no smoking zone smoking prohibited" },
-    { title: "No Entry", url: "chulipgeumji.html", keywords: "no entry entry prohibited restricted area" },
-    { title: "No Pedestrians", url: "bohaenggeumji.html", keywords: "no pedestrians pedestrians prohibited walking prohibited" },
-    { title: "Do Not Use", url: "sayonggeumji.html", keywords: "do not use prohibited use not allowed" },
-    { title: "No Riding", url: "tapseunggeumji.html", keywords: "no riding riding prohibited" },
-    { title: "No Flammable Materials", url: "hwagi_eomgeum.html", keywords: "no flammable materials flammable prohibited fire safety" },
-    { title: "Keep Away from Water", url: "mulgi_eomgeum.html", keywords: "keep away from water keep dry water prohibited" },
-    { title: "Safety Sign", url: "anjeon_pyojipan.html", keywords: "safety sign safety symbol warning sign" },
-    { title: "Safety Inspection", url: "anjeon_jeomgeom.html", keywords: "safety inspection workplace safety check" },
-    { title: "Shelter", url: "daepiso.html", keywords: "shelter emergency shelter safe place" },
-    { title: "Cutter Knife", url: "kal.html", keywords: "cutter knife utility knife box cutter" },
-    { title: "Scissors", url: "gawi.html", keywords: "scissors cutting tool" },
-    { title: "Hammer", url: "mangchi.html", keywords: "hammer hand tool" },
-    { title: "Screwdriver", url: "deuraibeo.html", keywords: "screwdriver hand tool screw" },
-    { title: "Spanner / Wrench", url: "seupaeneo_renchi.html", keywords: "spanner wrench hand tool" },
-    { title: "Pliers", url: "penchi.html", keywords: "pliers hand tool gripping tool" },
-    { title: "Nippers", url: "nipeo.html", keywords: "nippers cutting pliers wire cutters" },
-    { title: "Tape Measure", url: "julja.html", keywords: "tape measure measuring tape length measurement" },
-    { title: "Spirit Level", url: "supyeongdae.html", keywords: "spirit level level tool horizontal measurement" },
-    { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
- ];    
+window.quizDB = window.quizDB || [];
 const quizDB = window.quizDB;
 
 // ==================== 번역 방지 헬퍼 (전역) ====================
@@ -1424,6 +966,73 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       + `</div>`;
   }
 
+  // ==================== 인터랙티브 퀴즈 (문제→선택지→채점→설명→다음문제) ====================
+  // AI에게 고정 형식(QUESTION/OPTION1~4/CORRECT/EXPLAIN)으로 답하게 요청한 뒤,
+  // 그 텍스트를 파싱해서 실제 클릭 가능한 퀴즈 UI를 만든다.
+  // 정답 확인은 AI를 다시 호출하지 않고, 이미 받아둔 CORRECT 값으로 그 자리에서 바로 판정한다.
+  function parseQuizResponse(text){
+    if(!text) return null;
+    const qMatch = text.match(/QUESTION:\s*([\s\S]*?)(?:\n\s*OPTION1:|$)/i);
+    const o1 = text.match(/OPTION1:\s*(.*)/i);
+    const o2 = text.match(/OPTION2:\s*(.*)/i);
+    const o3 = text.match(/OPTION3:\s*(.*)/i);
+    const o4 = text.match(/OPTION4:\s*(.*)/i);
+    const correctMatch = text.match(/CORRECT:\s*(\d)/i);
+    const explainMatch = text.match(/EXPLAIN:\s*([\s\S]*)/i);
+    if(!qMatch || !o1 || !o2 || !o3 || !o4 || !correctMatch) return null;
+    const correctNum = parseInt(correctMatch[1], 10);
+    if(![1,2,3,4].includes(correctNum)) return null;
+    return {
+      question: qMatch[1].trim(),
+      options: [o1[1].trim(), o2[1].trim(), o3[1].trim(), o4[1].trim()],
+      correct: correctNum,
+      explain: explainMatch ? explainMatch[1].trim() : ''
+    };
+  }
+
+  function renderInteractiveQuiz(parsed, container){
+    const optionsHtml = parsed.options.map((opt, idx) => {
+      const num = idx + 1;
+      return `<button class="quiz-opt-btn" data-qidx="${num}" style="display:block;width:100%;text-align:left;margin-bottom:6px;padding:9px 12px;border-radius:10px;border:2px solid #e2e8f0;background:white;cursor:pointer;font-size:0.88rem;font-weight:700;">${num}. ${protectKoreanNoTranslate(escapeHtml(opt))}</button>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div style="font-weight:800;margin-bottom:10px;font-size:0.92rem;">🎯 ${protectKoreanNoTranslate(escapeHtml(parsed.question))}</div>
+      <div class="quiz-options">${optionsHtml}</div>
+      <div class="quiz-feedback" style="margin-top:8px;font-weight:800;font-size:0.88rem;"></div>
+      <div class="quiz-next-slot"></div>
+    `;
+
+    container.querySelectorAll('.quiz-opt-btn').forEach(btn=>{
+      btn.onclick = ()=>{
+        const chosen = parseInt(btn.getAttribute('data-qidx'), 10);
+        const feedbackEl = container.querySelector('.quiz-feedback');
+        container.querySelectorAll('.quiz-opt-btn').forEach(b=>{ b.disabled = true; b.style.cursor = 'default'; });
+
+        if(chosen === parsed.correct){
+          btn.style.background = '#dcfce7';
+          btn.style.borderColor = '#22c55e';
+          feedbackEl.style.color = '#166534';
+          feedbackEl.innerHTML = `✅ Correct!<br>${protectKoreanNoTranslate(escapeHtml(parsed.explain))}`;
+        } else {
+          btn.style.background = '#fee2e2';
+          btn.style.borderColor = '#ef4444';
+          const correctBtn = container.querySelector(`.quiz-opt-btn[data-qidx="${parsed.correct}"]`);
+          if(correctBtn){ correctBtn.style.background = '#dcfce7'; correctBtn.style.borderColor = '#22c55e'; }
+          feedbackEl.style.color = '#991b1b';
+          feedbackEl.innerHTML = `❌ Not quite. The correct answer is ${parsed.correct}.<br>${protectKoreanNoTranslate(escapeHtml(parsed.explain))}`;
+        }
+
+        const nextSlot = container.querySelector('.quiz-next-slot');
+        if(nextSlot){
+          nextSlot.innerHTML = `<button class="ai-action-btn" style="margin-top:10px;">🎯 Next Quiz</button>`;
+          nextSlot.querySelector('.ai-action-btn').onclick = () => window.__aiTutorMode('quiz');
+        }
+        log.scrollTop = log.scrollHeight;
+      };
+    });
+  }
+
   function getDetectedGrammars(){
     try{
       const quiz = (typeof currentCategoryData !== 'undefined' && Array.isArray(currentCategoryData) && typeof currentIdx !== 'undefined')
@@ -1476,11 +1085,18 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     const lessonLabel = ctx.kr ? `"${ctx.kr}"` : "this lesson";
     const presetQuestions = {
       epstopik: `Please explain ${lessonLabel} in EPS-TOPIK exam style. Cover the key vocabulary and grammar I need to know for the exam, using the current lesson as the main material.`,
-      quiz: `Please give me a short EPS-TOPIK-style quiz question based on ${lessonLabel}. Wait for my answer, then explain why it is correct or incorrect.`,
+      quiz: `Please create ONE short EPS-TOPIK-style multiple choice quiz question based on ${lessonLabel}. Respond ONLY in this exact format, with no extra text before or after:
+QUESTION: <question text>
+OPTION1: <choice 1>
+OPTION2: <choice 2>
+OPTION3: <choice 3>
+OPTION4: <choice 4>
+CORRECT: <the number 1, 2, 3, or 4>
+EXPLAIN: <one or two sentence explanation of why the correct answer is right>`,
       example: `Please give me 2-3 additional natural example sentences using the vocabulary or grammar from ${lessonLabel}, each with Korean, romanization, and English meaning.`
     };
     const q = presetQuestions[mode] || presetQuestions.epstopik;
-    handleQuestion(q, null, true);
+    handleQuestion(q, null, true, mode === 'quiz');
   };
 
   const ASK_TUTOR_ENDPOINT = "https://kwfiidykbaargsxuuvvy.supabase.co/functions/v1/ask-tutor";
@@ -2291,39 +1907,9 @@ function getPageSentences(){
     });
   }
 
- // [수정된 부분] 1. AI 퀴즈 정답을 저장할 전역 상태 추가
-let currentGeneratedQuiz = {
-  correctAnswerIndex: null,
-  options: []
-};
-
-// [수정된 부분] 2. 1~4번 보기 클릭 시 JS가 직접 채점하고 AI에게 해설만 요청하는 함수 추가
-window.handleOptionClick = function(userSelectedIndex) {
-  const correctIndex = currentGeneratedQuiz.correctAnswerIndex;
-  const isCorrect = (userSelectedIndex === correctIndex);
-
-  // 기존 필수 UI 기능 유지 (함수가 존재할 경우 안전하게 호출)
-  if(typeof showCorrectIncorrectDisplay === 'function') showCorrectIncorrectDisplay(isCorrect);
-  if(typeof playResultAudio === 'function') playResultAudio(isCorrect);
-  if(typeof enableListenAgainButton === 'function') enableListenAgainButton();
-  if(typeof enableMicrophoneButton === 'function') enableMicrophoneButton();
-  if(typeof displayHandEmoji === 'function') displayHandEmoji();
-
-  // 채팅창에 사용자의 선택과 채점 결과 표시
-  const resultMark = isCorrect ? "✅ Correct!" : "❌ Incorrect!";
-  const bgColor = isCorrect ? "#10b981" : "#ef4444";
-  log.innerHTML += `<div style="align-self:flex-end;background:${bgColor};color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;margin-top:10px;">Selected: Option ${userSelectedIndex} (${resultMark})</div>`;
-  log.scrollTop = log.scrollHeight;
-
-  // AI에게 정답 추론을 맡기지 않고, '이미 확정된 결과'를 주입하여 해설만 요청
-  const explanationPrompt = `The user selected option ${userSelectedIndex}, but the correct answer is option ${correctIndex}. Result: ${isCorrect ? 'Correct' : 'Incorrect'}. Please explain briefly why option ${correctIndex} is the correct answer and why the other options are wrong, based solely on the current lesson context.`;
-  
-  // 강제 AI 모드로 해설 요청 (문법 DB 매칭 스킵)
-  handleQuestion(explanationPrompt, null, true);
-};
-
-  function handleSentenceClick(s){
-    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${escapeHtml(s.kr)}${s.rom?` (${escapeHtml(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
+ 
+    function handleSentenceClick(s){
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${krSafe(s.kr)}${s.rom?` (${krSafe(s.rom)})`:''}${s.en?` - ${escapeHtml(s.en)}`:''}</div>`;
     
     log.scrollTop = log.scrollHeight;
  
@@ -2338,7 +1924,7 @@ window.handleOptionClick = function(userSelectedIndex) {
   + `</div>`;
       matches.forEach(g=>{
         block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
-          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
+          + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${krSafe(g.grammar)} (${escapeHtml(g.id)})</div>`
           + renderFromDB(g, {kr:s.kr, rom:s.rom, en:s.en})
           + `</div>`;
       });
@@ -2352,21 +1938,15 @@ window.handleOptionClick = function(userSelectedIndex) {
     }
   }
  
-  // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
-  async function handleQuestion(q, gramForced, forceAiMode){
-    // forceAiMode=true면 로컬 DB 스킵하고 무조건 AI
+  async function handleQuestion(q, gramForced, forceAiMode, quizMode){
     var ctx=getCtx();
     var grams = [];
     if(!forceAiMode){
       grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
     }
  
-    // 사용자 입력을 화면에 넣기 전 이스케이프 처리 (XSS 방지)
-    // [수정된 부분] AI 해설 요청(내부 프롬프트)일 때는 사용자 화면에 프롬프트를 숨기거나 다르게 표시
-    const safeQ = escapeHtml(q);
-    if (!forceAiMode) {
-      log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
-    }
+    const safeQ = protectKoreanNoTranslate(escapeHtml(q));
+    log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
     
  
     if(grams.length > 0){
@@ -2392,7 +1972,7 @@ window.handleOptionClick = function(userSelectedIndex) {
         const g = grams[idx];
         const headerDiv = document.createElement('div');
         headerDiv.style.cssText = `font-size:0.85rem;color:#6366f1;font-weight:800;margin:${idx>0 ? '14px 0 6px;padding-top:10px;border-top:1px dashed #e2e8f0;' : '6px 0;'}`;
-        headerDiv.textContent = `🤖 ${g.grammar} (${g.id})`;
+        headerDiv.innerHTML = `🤖 ${krSafe(g.grammar)} (${escapeHtml(g.id)})`;
         container.appendChild(headerDiv);
         const bodyDiv = document.createElement('div');
         container.appendChild(bodyDiv);
@@ -2404,12 +1984,12 @@ window.handleOptionClick = function(userSelectedIndex) {
       return;
     }
  
-    log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;animation:aiThinkingBlink 1.2s ease-in-out infinite;">👩‍🏫 Your teacher is preparing your answer...</div>`;
+    log.innerHTML+=`<div id="ai-thinking" style="background:#f8fafc;border:2px solid #e2e8f0;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#64748b;animation:aiThinkingBlink 1.2s ease-in-out infinite;">${quizMode ? '🎯 Preparing your quiz question...' : '👩‍🏫 Your teacher is preparing your answer...'}</div>`;
     log.scrollTop=log.scrollHeight;
  
     if(!USE_GEMINI){
       const th0=document.getElementById('ai-thinking'); if(th0) th0.remove();
-      const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
+      const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Have more questions? Feel free to ask in the search bar below</b>`;
       log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">${fallback}</div>`;
       log.scrollTop=log.scrollHeight;
       return;
@@ -2435,43 +2015,31 @@ window.handleOptionClick = function(userSelectedIndex) {
       (accumulatedText)=>{
         ensureWrapper();
         rawFullText = accumulatedText;
+        if(quizMode) return;
         const el = document.getElementById(cid2);
-        // [수정된 부분] JSON 스트리밍 중에는 임시로 텍스트 렌더링 생략 (깜빡임 방지)
-        if(el && !accumulatedText.includes('correctAnswerIndex')){ 
-           el.innerHTML = escapeAndBr(accumulatedText); 
-           log.scrollTop = log.scrollHeight; 
-        }
+        if(el){ el.innerHTML = protectKoreanNoTranslate(escapeAndBr(accumulatedText)); log.scrollTop = log.scrollHeight; }
       },
       (finalText)=>{
         ensureWrapper();
-        let rawText = finalText || rawFullText || '';
-        let finalAnswerHtml = '';
+        const rawText = finalText || rawFullText || '';
+        const el = document.getElementById(cid2);
 
-        // [수정된 부분] 3. AI 응답이 퀴즈 JSON 구조인지 파싱하여 버튼 렌더링
-        try {
-          const cleanText = rawText.replace(/```json|```/g, '').trim();
-          if(cleanText.startsWith('{') && cleanText.includes('correctAnswerIndex')) {
-            const quizData = JSON.parse(cleanText);
-            currentGeneratedQuiz.correctAnswerIndex = quizData.correctAnswerIndex;
-            currentGeneratedQuiz.options = quizData.options;
-
-            finalAnswerHtml = `<div style="font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;">${escapeHtml(quizData.question)}</div>`;
-            quizData.options.forEach((opt, idx) => {
-              const optNum = idx + 1;
-              finalAnswerHtml += `<button onclick="handleOptionClick(${optNum})" style="display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;transition:all 0.2s;">${optNum}. ${escapeHtml(opt)}</button>`;
-            });
-          } else {
-            finalAnswerHtml = escapeAndBr(rawText);
+        if(quizMode){
+          const parsed = parseQuizResponse(rawText);
+          if(parsed && el){
+            renderInteractiveQuiz(parsed, el);
+            const actionsEl2q = document.getElementById(cid2+'-actions');
+            if(actionsEl2q) actionsEl2q.innerHTML = '';
+            log.scrollTop = log.scrollHeight;
+            return;
           }
-        } catch(e) {
-          finalAnswerHtml = escapeAndBr(rawText);
         }
 
-        const el = document.getElementById(cid2);
-        if(el) el.innerHTML = finalAnswerHtml;
+        const finalAnswer = protectKoreanNoTranslate(escapeAndBr(rawText));
+        if(el) el.innerHTML = finalAnswer;
         const actionsEl2 = document.getElementById(cid2+'-actions');
         if(actionsEl2){
-          actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
+          actionsEl2.innerHTML = makeActions(rawText.slice(0,200))
             + renderStudyModeButtons();
         }
         log.scrollTop = log.scrollHeight;
@@ -2494,8 +2062,8 @@ window.handleOptionClick = function(userSelectedIndex) {
           <div style="font-size:0.75rem;color:#94a3b8;margin-top:3px;">Less than a coffee ☕ · 20 questions every day</div>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <button onclick="window.payWithPayMongo ? window.payWithPayMongo() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
-          <button onclick="window.payWithLemonSqueezy ? window.payWithLemonSqueezy() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
+          <button onclick="window.location.href='index.html?returnTo='+encodeURIComponent(window.location.pathname)+'&openPro=1&method=gcash'" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
+          <button onclick="window.location.href='index.html?returnTo='+encodeURIComponent(window.location.pathname)+'&openPro=1&method=card'" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
         </div>
       </div>
 
@@ -2521,52 +2089,61 @@ window.handleOptionClick = function(userSelectedIndex) {
         console.error('[AI Tutor] Stream error:', errMsg);
         const th = document.getElementById('ai-thinking');
         if(th) th.remove();
-        const fallback = `<b>Short Answer</b><br>${ctx.kr} (${ctx.rom}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
+        const fallback = `<b>Short Answer</b><br>${krSafe(ctx.kr)} (${krSafe(ctx.rom)}) ${ctx.en}<br><br><b>Excellent! Keep practicing. You are improving every day.</b>`;
         log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-          + `<div id="ai-error-box">⚠️ 서버 연결 실패, 기본 답변으로 대체했어요.<br>에러: ${escapeHtml(errMsg)}</div>`
+          + `<div id="ai-error-box">⚠️ Server connection failed, showing a fallback answer.<br>Error: ${escapeHtml(errMsg)}</div>`
           + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>${fallback}</div>`;
         log.scrollTop = log.scrollHeight;
       }
     );
   }
  
-window.openShare=openShare;
-btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; }};
-wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
+  window.openShare=openShare;
+  btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); setTimeout(()=>{ const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; },100); }};
+  wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
+  input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; handleQuestion(q);}});
+  wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ input.value=''; handleQuestion(q); } };
 
-// 검색창 클릭 / 포커스 하면 설명 사라짐
-input.addEventListener('focus', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
-input.addEventListener('click', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
+  // 안내 배너: faq(칩 영역) 바로 위에 배치. 검색창/버튼 클릭 시 숨기고, AI 튜터 재오픈 시 다시 보임(btn.onclick에서 처리)
+  (function addUsageGuide(){
+    if(document.getElementById('usageGuide')) return;
+    const guide = document.createElement('div');
+    guide.id = 'usageGuide';
+    guide.innerHTML = `
+      <div style="font-weight:800;color:#6366f1;margin-bottom:4px;font-size:0.8rem;">💡 How to use: Select and tap!</div>
+      📚 Top → Free grammar (unlimited)<br>
+      💬 Middle → Ask AI<br>
+      ✨ Bottom → EPSTOPIK · More Quiz · More Explain
+    `;
+    guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin-bottom:10px;color:#94a3b8;font-size:0.73rem;line-height:1.5;width:100%;box-sizing:border-box;";
 
-input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; document.getElementById('usageGuide')?.style.setProperty('display','none'); handleQuestion(q);}});
-wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ document.getElementById('usageGuide')?.style.setProperty('display','none'); input.value=''; handleQuestion(q); } };
-
-// 설명은 검색창 위 빈 여백에만 고정
-(function addUsageGuide(){
-  if(document.getElementById('usageGuide')) return;
-  const guide = document.createElement('div');
-  guide.id = 'usageGuide';
-  guide.innerHTML = `
-    <div style="font-weight:800;color:#6366f1;margin-bottom:6px;font-size:0.9rem;">💡 How to use: Select and tap!</div>
-    <span style="font-size:0.82rem;">📚 Tap top grammar → Free grammar (unlimited)<br>
-    💬 Tap middle sentence → Ask AI<br>
-    ✨ Bottom buttons → EPSTOPIK · More Quiz · More Explain</span>
-      
-  `;
-  guide.style.cssText = "display:block;background:#f8fafc;border:1px dashed #e2e8f0;padding:10px 12px;border-radius:10px;margin:-12px 12px 8px 12px;transform:translateY(-18px);position:relative;z-index:2;color:#94a3b8;font-size:0.72rem;line-height:1.5;box-sizing:border-box;flex-shrink:0;";
-  const searchRow = input.parentElement;
-  searchRow.insertAdjacentElement('beforebegin', guide);
-
-  document.addEventListener('click', (e)=>{
-    if(e.target.closest('.faq-chip')){
-      guide.style.display='none';
+    // 위치: 입력창 위가 아니라 채팅 상단(칩 영역) 바로 위로 이동
+    if (faq && faq.parentElement) {
+      faq.insertAdjacentElement('beforebegin', guide);
+    } else {
+      const searchRow = input.parentElement;
+      searchRow.insertAdjacentElement('beforebegin', guide);
     }
-  });
-})();
 
-window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
-window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
-var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
+    const hide = () => guide.style.display = 'none';
+    const show = () => guide.style.display = 'block';
+
+    // 칩, 액션 버튼, 전송 버튼 클릭 시 모두 숨김
+    document.addEventListener('click', (e)=>{
+      if(
+        e.target.closest('.faq-chip') ||
+        e.target.closest('.ai-action-btn') ||
+        e.target === wrap.querySelector('#ai-send-btn')
+      ) hide();
+    });
+
+    // 검색창을 탭(포커스)하면 즉시 숨김 (이전 버전은 반대로 되어 있던 버그)
+    input.addEventListener('focus', hide);
+  })();
+ 
+  window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.style.display!=='none'&&d.innerText.includes('Correct')){btn.style.display='flex';}};
+  window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
+  var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
  
   console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions (with pageContext)':'⚠️ Gemini disabled');
