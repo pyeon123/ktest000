@@ -2291,34 +2291,34 @@ function getPageSentences(){
     });
   }
 
- // [수정된 부분] 1. AI 퀴즈 정답을 저장할 전역 상태 추가
-let currentGeneratedQuiz = {
-  correctAnswerIndex: null,
-  options: []
-};
+const quizStore = new Map();
+function isValidQuiz(data){
+  return data && typeof data.question === 'string' && data.question.trim().length > 0
+    && Array.isArray(data.options) && data.options.length === 4
+    && data.options.every(o => typeof o === 'string' && o.trim().length > 0)
+    && typeof data.correctAnswerIndex === 'number'
+    && data.correctAnswerIndex >= 1 && data.correctAnswerIndex <= 4;
+}
 
-// [수정된 부분] 2. 1~4번 보기 클릭 시 JS가 직접 채점하고 AI에게 해설만 요청하는 함수 추가
-window.handleOptionClick = function(userSelectedIndex) {
-  const correctIndex = currentGeneratedQuiz.correctAnswerIndex;
+window.handleOptionClick = function(quizId, userSelectedIndex) {
+  const quizData = quizStore.get(quizId);
+  if(!quizData) return;
+  const correctIndex = quizData.correctAnswerIndex;
   const isCorrect = (userSelectedIndex === correctIndex);
 
-  // 기존 필수 UI 기능 유지 (함수가 존재할 경우 안전하게 호출)
   if(typeof showCorrectIncorrectDisplay === 'function') showCorrectIncorrectDisplay(isCorrect);
   if(typeof playResultAudio === 'function') playResultAudio(isCorrect);
   if(typeof enableListenAgainButton === 'function') enableListenAgainButton();
   if(typeof enableMicrophoneButton === 'function') enableMicrophoneButton();
   if(typeof displayHandEmoji === 'function') displayHandEmoji();
 
-  // 채팅창에 사용자의 선택과 채점 결과 표시
-  const resultMark = isCorrect ? "✅ Correct!" : "❌ Incorrect!";
-  const bgColor = isCorrect ? "#10b981" : "#ef4444";
-  log.innerHTML += `<div style="align-self:flex-end;background:${bgColor};color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;margin-top:10px;">Selected: Option ${userSelectedIndex} (${resultMark})</div>`;
+  const resultDiv = document.createElement('div');
+  resultDiv.style.cssText = `align-self:flex-end;background:${isCorrect? '#10b981' : '#ef4444'};color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;margin-top:10px;`;
+  resultDiv.textContent = `Selected: Option ${userSelectedIndex} (${isCorrect? '✅ Correct!' : '❌ Incorrect!'})`;
+  log.appendChild(resultDiv);
   log.scrollTop = log.scrollHeight;
 
-  // AI에게 정답 추론을 맡기지 않고, '이미 확정된 결과'를 주입하여 해설만 요청
-  const explanationPrompt = `The user selected option ${userSelectedIndex}, but the correct answer is option ${correctIndex}. Result: ${isCorrect ? 'Correct' : 'Incorrect'}. Please explain briefly why option ${correctIndex} is the correct answer and why the other options are wrong, based solely on the current lesson context.`;
-  
-  // 강제 AI 모드로 해설 요청 (문법 DB 매칭 스킵)
+  const explanationPrompt = `The user selected option ${userSelectedIndex}, but the correct answer is option ${correctIndex}. Result: ${isCorrect? 'Correct' : 'Incorrect'}. Please explain briefly why option ${correctIndex} is correct. Quiz: "${quizData.question}"`;
   handleQuestion(explanationPrompt, null, true);
 };
 
@@ -2447,28 +2447,40 @@ window.handleOptionClick = function(userSelectedIndex) {
         let rawText = finalText || rawFullText || '';
         let finalAnswerHtml = '';
 
-        // [수정된 부분] 3. AI 응답이 퀴즈 JSON 구조인지 파싱하여 버튼 렌더링
-        try {
-          const cleanText = rawText.replace(/```json|```/g, '').trim();
-          if(cleanText.startsWith('{') && cleanText.includes('correctAnswerIndex')) {
-            const quizData = JSON.parse(cleanText);
-            currentGeneratedQuiz.correctAnswerIndex = quizData.correctAnswerIndex;
-            currentGeneratedQuiz.options = quizData.options;
-
-            finalAnswerHtml = `<div style="font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;">${escapeHtml(quizData.question)}</div>`;
-            quizData.options.forEach((opt, idx) => {
-              const optNum = idx + 1;
-              finalAnswerHtml += `<button onclick="handleOptionClick(${optNum})" style="display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;transition:all 0.2s;">${optNum}. ${escapeHtml(opt)}</button>`;
-            });
-          } else {
-            finalAnswerHtml = escapeAndBr(rawText);
-          }
-        } catch(e) {
-          finalAnswerHtml = escapeAndBr(rawText);
-        }
-
-        const el = document.getElementById(cid2);
-        if(el) el.innerHTML = finalAnswerHtml;
+let isQuizRendered = false;
+try {
+  const cleanText = rawText.replace(/```json|```/g, '').trim();
+  if(cleanText.startsWith('{')) {
+    const parsed = JSON.parse(cleanText);
+    if(!isValidQuiz(parsed)) throw new Error('Invalid quiz schema');
+    const quizData = parsed;
+    const quizId = 'q_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+    quizStore.set(quizId, { correctAnswerIndex: quizData.correctAnswerIndex, options: quizData.options, question: quizData.question });
+    const el = document.getElementById(cid2);
+    if(el) {
+      el.innerHTML = '';
+      const qTitle = document.createElement('div');
+      qTitle.style.cssText = 'font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;';
+      qTitle.textContent = quizData.question;
+      el.appendChild(qTitle);
+      quizData.options.forEach((opt, idx) => {
+        const optNum = idx + 1;
+        const btn = document.createElement('button');
+        btn.textContent = `${optNum}. ${opt}`;
+        btn.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;';
+        btn.addEventListener('click', () => window.handleOptionClick(quizId, optNum));
+        el.appendChild(btn);
+      });
+      isQuizRendered = true;
+    }
+  }
+} catch(e) {
+  console.warn('[Quiz] parse failed:', e.message);
+}
+if(!isQuizRendered){
+  const el = document.getElementById(cid2);
+  if(el) el.innerHTML = escapeAndBr(rawText);
+}
         const actionsEl2 = document.getElementById(cid2+'-actions');
         if(actionsEl2){
           actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
