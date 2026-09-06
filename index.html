@@ -489,15 +489,15 @@ function handleSubscribeSubmit(event) {
 .word-update { animation: rankBounce 0.5s ease-in-out; }
 @keyframes rankBounce { 0% { transform: translateY(3px); opacity: 0.7; } 100% { transform: translateY(0); opacity: 1; } }
 
-/* 수정된 부분: 알파벳 인덱스 제목 */
+/* 수정된 부분: 알파벳 인덱스 제목 (강제 적용) */
 .alphabet-index-title { 
-    padding: 16px 20px 10px; 
-    font-size: 2.2rem; /* 1.7rem에서 2.2rem으로 대폭 확대 */ 
-    font-weight: 900; /* 가장 굵은 폰트 유지 */ 
-    color: #0f172a; /* 기존보다 더 어둡고 뚜렷한 블랙/네이비 색상 적용 */ 
-    letter-spacing: 0.5px; 
-    text-align: center; 
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* 선명도를 높이는 미세한 텍스트 그림자 추가 */
+    padding: 16px 20px 10px !important; 
+    font-size: 1.9rem !important; /* 무조건 1.9rem으로 강제 적용 */ 
+    font-weight: 900 !important; /* 무조건 가장 굵게 강제 적용 */ 
+    color: #0f172a !important; /* 색상 강제 적용 */
+    letter-spacing: 0.5px !important; 
+    text-align: center !important; 
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) !important; 
 }
 
 .alphabet-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 10px 16px 16px; }
