@@ -413,12 +413,12 @@ function handleSubscribeSubmit(event) {
         </div>
         <div class="trending-logo">Chosen by our 150,000 Facebook Followers</div>
     </div>
-    <div id="trending-grid" class="trending-grid"></div>
-    <div class="alphabet-index-title" style="opacity: 0.6;"> 📚 EPS-TOPIK Essential Words & Sentences ⭐ (A-Z)</div>
+<div id="trending-grid" class="trending-grid"></div>
+    <!-- 기존 style="opacity: 0.6;" 제거 -->
+    <div class="alphabet-index-title"> 📚 EPS-TOPIK Essential Words & Sentences ⭐ (A-Z)</div>
     <div id="alphabet-tabs" class="alphabet-tabs"></div>
     <div id="alphabet-word-list" class="alphabet-word-list"></div>
 </div>
-
 
 <style>
 /* Trending - Fixed Pretty Version */
@@ -488,15 +488,35 @@ function handleSubscribeSubmit(event) {
 .status-same { color: #cbd5e1; }
 .word-update { animation: rankBounce 0.5s ease-in-out; }
 @keyframes rankBounce { 0% { transform: translateY(3px); opacity: 0.7; } 100% { transform: translateY(0); opacity: 1; } }
-.alphabet-index-title { padding: 16px 20px 6px; font-size: 0.7rem; font-weight: 700; color: #94a3b8; letter-spacing: 1.2px; text-align: center; }
-.alphabet-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 10px 16px 16px; }
-.tab-btn { 
-    min-width: 32px; height: 32px;
-    background: #f8fafc; border: 1px solid #e2e8f0; 
-    border-radius: 8px; font-size: 0.8rem; font-weight: 600; color: #64748b; 
-    cursor: pointer; 
+
+/* 수정된 부분: 알파벳 인덱스 제목 */
+.alphabet-index-title { 
+    padding: 16px 20px 6px; 
+    font-size: 1.1rem; /* 기존 0.7rem에서 확대 */ 
+    font-weight: 800; /* 폰트 두께 강화 */ 
+    color: #1e293b; /* 더 어둡고 선명한 색상으로 변경 */ 
+    letter-spacing: 0.5px; 
+    text-align: center; 
 }
+
+.alphabet-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 10px 16px 16px; }
+
+/* 수정된 부분: 알파벳 탭 버튼 */
+.tab-btn { 
+    min-width: 36px; /* 버튼 크기 약간 확대 */
+    height: 36px;
+    background: #ffffff; /* 배경을 흰색으로 변경해 대비 증가 */
+    border: 1px solid #cbd5e1; /* 테두리를 조금 더 진하게 변경 */
+    border-radius: 8px; 
+    font-size: 1rem; /* 알파벳 글자 크기 확대 */ 
+    font-weight: 700; /* 알파벳 글자 두껍게 변경 */ 
+    color: #1e293b; /* 알파벳 텍스트를 진한 색으로 변경 */ 
+    cursor: pointer; 
+    transition: all 0.2s ease;
+}
+.tab-btn:hover { background: #f1f5f9; border-color: #4f46e5; color: #4f46e5; }
 .tab-btn.active { background: #4f46e5; color: white; border-color: #4f46e5; }
+
 .alphabet-word-list { 
     display: none; 
     grid-template-columns: 1fr 1fr;
