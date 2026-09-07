@@ -1900,7 +1900,7 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
     en: ctx.en,
 
     q: q,
-    body: JSON.stringify({
+    
 
   kr: ctx.kr,
   rom: ctx.rom,
