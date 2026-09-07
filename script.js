@@ -1860,13 +1860,67 @@ function buildPageContext(){
       .replace(/\n{2,}/g,'<br><br>')
       .replace(/\n/g,'<br>');
   }
-
+    
   function escapeHtml(text){
     return String(text || '')
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
- 
+  // ======================================================
+// AI TUTOR CONVERSATION MEMORY
+// 페이지별로 최근 10회 대화 기억
+// ======================================================
+
+const AI_HISTORY_KEY = `aiTutorHistory:${location.pathname}`;
+const AI_HISTORY_MAX = 20; // user 10 + assistant 10
+
+let aiConversationHistory = [];
+
+function loadAiHistory() {
+  try {
+    const saved = sessionStorage.getItem(AI_HISTORY_KEY);
+    aiConversationHistory = saved ? JSON.parse(saved) : [];
+
+    if (!Array.isArray(aiConversationHistory)) {
+      aiConversationHistory = [];
+    }
+  } catch (e) {
+    aiConversationHistory = [];
+  }
+}
+
+function saveAiHistory() {
+  try {
+    aiConversationHistory =
+      aiConversationHistory.slice(-AI_HISTORY_MAX);
+
+    sessionStorage.setItem(
+      AI_HISTORY_KEY,
+      JSON.stringify(aiConversationHistory)
+    );
+  } catch (e) {}
+}
+
+function addAiHistory(role, text) {
+  if (!text) return;
+
+  aiConversationHistory.push({
+    role: role,
+    text: String(text).slice(0, 4000)
+  });
+
+  aiConversationHistory =
+    aiConversationHistory.slice(-AI_HISTORY_MAX);
+
+  saveAiHistory();
+}
+
+function getAiHistory() {
+  return aiConversationHistory.slice(-AI_HISTORY_MAX);
+}
+
+loadAiHistory();
+    
   async function askTutorStream(ctx, q, onChunk, onDone, onQuotaExceeded, onError){
     try{
       const user = window.getKoreanAuthUser ? await window.getKoreanAuthUser() : null;
@@ -2433,60 +2487,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
         + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
       log.scrollTop = log.scrollHeight;
     }
-    // ======================================================
-// AI TUTOR CONVERSATION MEMORY
-// 페이지별로 최근 10회 대화 기억
-// ======================================================
 
-const AI_HISTORY_KEY = `aiTutorHistory:${location.pathname}`;
-const AI_HISTORY_MAX = 20; // user 10 + assistant 10
-
-let aiConversationHistory = [];
-
-function loadAiHistory() {
-  try {
-    const saved = sessionStorage.getItem(AI_HISTORY_KEY);
-    aiConversationHistory = saved ? JSON.parse(saved) : [];
-
-    if (!Array.isArray(aiConversationHistory)) {
-      aiConversationHistory = [];
-    }
-  } catch (e) {
-    aiConversationHistory = [];
-  }
-}
-
-function saveAiHistory() {
-  try {
-    aiConversationHistory =
-      aiConversationHistory.slice(-AI_HISTORY_MAX);
-
-    sessionStorage.setItem(
-      AI_HISTORY_KEY,
-      JSON.stringify(aiConversationHistory)
-    );
-  } catch (e) {}
-}
-
-function addAiHistory(role, text) {
-  if (!text) return;
-
-  aiConversationHistory.push({
-    role: role,
-    text: String(text).slice(0, 4000)
-  });
-
-  aiConversationHistory =
-    aiConversationHistory.slice(-AI_HISTORY_MAX);
-
-  saveAiHistory();
-}
-
-function getAiHistory() {
-  return aiConversationHistory.slice(-AI_HISTORY_MAX);
-}
-
-loadAiHistory();
       
     askTutorStream(
       ctx, q,
