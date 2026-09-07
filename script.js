@@ -1900,8 +1900,7 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
 
   q: q,
 
-  // ⭐ 이전 AI 대화 전달
-  conversationHistory: getAiHistory(),
+ conversationHistory: getAiHistory(),
 
   pageContext: pageContext,
 
@@ -1913,18 +1912,6 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
   epsTopik: pageContext.epsTopik,
 
   ...bodyExtra
-
-})
-    pageContext: pageContext,
-
-    currentPage: pageContext.page,
-    currentCategory: pageContext.category,
-    currentLesson: pageContext.lesson,
-    currentQuiz: pageContext.quiz,
-    quizProgress: pageContext.quizProgress,
-    epsTopik: pageContext.epsTopik,
-
-    ...bodyExtra
 
   })
 });
