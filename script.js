@@ -1900,7 +1900,29 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
     en: ctx.en,
 
     q: q,
+    body: JSON.stringify({
 
+  kr: ctx.kr,
+  rom: ctx.rom,
+  en: ctx.en,
+
+  q: q,
+
+  // ⭐ 이전 AI 대화 전달
+  conversationHistory: getAiHistory(),
+
+  pageContext: pageContext,
+
+  currentPage: pageContext.page,
+  currentCategory: pageContext.category,
+  currentLesson: pageContext.lesson,
+  currentQuiz: pageContext.quiz,
+  quizProgress: pageContext.quizProgress,
+  epsTopik: pageContext.epsTopik,
+
+  ...bodyExtra
+
+})
     pageContext: pageContext,
 
     currentPage: pageContext.page,
@@ -2356,6 +2378,9 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
   async function handleQuestion(q, gramForced, forceAiMode){
     // forceAiMode=true면 로컬 DB 스킵하고 무조건 AI
     var ctx=getCtx();
+      
+    addAiHistory('user', q);
+      
     var grams = [];
     if(!forceAiMode){
       grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
@@ -2419,9 +2444,21 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
     let wrapperInserted = false;
     let rawFullText = '';
  
- // ======================================================
-// AI TUTOR CONVERSATION MEMORY (파일 최상단 또는 전역에 배치)
+    function ensureWrapper(){
+      if(wrapperInserted) return;
+      wrapperInserted = true;
+      const th=document.getElementById('ai-thinking'); if(th) th.remove();
+      log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
+        + `<span class="ai-source-tag ai-source-api">>👩‍🏫 Teacher Response</span><br>`
+        + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>`
+        + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
+      log.scrollTop = log.scrollHeight;
+    }
+    // ======================================================
+// AI TUTOR CONVERSATION MEMORY
+// 페이지별로 최근 10회 대화 기억
 // ======================================================
+
 const AI_HISTORY_KEY = `aiTutorHistory:${location.pathname}`;
 const AI_HISTORY_MAX = 20; // user 10 + assistant 10
 
@@ -2471,101 +2508,78 @@ function getAiHistory() {
 }
 
 loadAiHistory();
-
-
-// ======================================================
-// 질문 전송 및 스트리밍 처리 (기존 코드 대체 영역)
-// ======================================================
-
-// 1. 사용자 질문을 메모리에 먼저 기록
-addAiHistory('user', q);
-
-function ensureWrapper(){
-  if(wrapperInserted) return;
-  wrapperInserted = true;
-  const th=document.getElementById('ai-thinking'); if(th) th.remove();
-  log.innerHTML+=`<div style="background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;">`
-    + `<span class="ai-source-tag ai-source-api">>👩‍🏫 Teacher Response</span><br>`
-    + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin:6px 0;">👩‍🏫 Teacher Response</div>`
-    + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
-  log.scrollTop = log.scrollHeight;
-}
-
-askTutorStream(
-  ctx, q,
-  (accumulatedText)=>{
-    ensureWrapper();
-    rawFullText = accumulatedText;
-    const el = document.getElementById(cid2);
-    // [수정된 부분] JSON 스트리밍 중에는 임시로 텍스트 렌더링 생략 (깜빡임 방지)
-    if(el && !accumulatedText.includes('correctAnswerIndex')){ 
-       el.innerHTML = escapeAndBr(accumulatedText); 
-       log.scrollTop = log.scrollHeight; 
-    }
-  },
-  (finalText)=>{
-    ensureWrapper();
-    let rawText = finalText || rawFullText || '';
-    let finalAnswerHtml = '';
-
-    let isQuizRendered = false;
-    try {
-      const cleanText = rawText.replace(/```json|```/g, '').trim();
-      if(cleanText.startsWith('{')) {
-        const parsed = JSON.parse(cleanText);
-        if(!isValidQuiz(parsed)) throw new Error('Invalid quiz schema');
-        const quizData = parsed;
-        const quizId = 'q_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
-        quizStore.set(quizId, { correctAnswerIndex: quizData.correctAnswerIndex, options: quizData.options, question: quizData.question });
+      
+    askTutorStream(
+      ctx, q,
+      (accumulatedText)=>{
+        ensureWrapper();
+        rawFullText = accumulatedText;
         const el = document.getElementById(cid2);
-        if(el) {
-          el.innerHTML = '';
-          const qTitle = document.createElement('div');
-          qTitle.style.cssText = 'font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;';
-          qTitle.textContent = quizData.question;
-          el.appendChild(qTitle);
-          quizData.options.forEach((opt, idx) => {
-            const optNum = idx + 1;
-            const btn = document.createElement('button');
-            btn.textContent = `${optNum}. ${opt}`;
-            btn.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;';
-            btn.addEventListener('click', () => window.handleOptionClick(quizId, optNum));
-            el.appendChild(btn);
-          });
-          isQuizRendered = true;
+        // [수정된 부분] JSON 스트리밍 중에는 임시로 텍스트 렌더링 생략 (깜빡임 방지)
+        if(el && !accumulatedText.includes('correctAnswerIndex')){ 
+           el.innerHTML = escapeAndBr(accumulatedText); 
+           log.scrollTop = log.scrollHeight; 
         }
-      }
-    } catch(e) {
-      console.warn('[Quiz] parse failed:', e.message);
-    }
-    
-    if(!isQuizRendered){
-      const el = document.getElementById(cid2);
-      if(el) el.innerHTML = escapeAndBr(rawText);
-    }
+      },
+      (finalText)=>{
+        ensureWrapper();
+        let rawText = finalText || rawFullText || '';
+  
+        addAiHistory('assistant', rawText);
+          
+        let finalAnswerHtml = '';
 
-    // 2. AI 답변이 완료된 시점에 어시스턴트 답변 기록 저장
-    addAiHistory('assistant', rawText);
-
-    const actionsEl2 = document.getElementById(cid2+'-actions');
-    if(actionsEl2){
-      actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
-        + renderStudyModeButtons();
+let isQuizRendered = false;
+try {
+  const cleanText = rawText.replace(/```json|```/g, '').trim();
+  if(cleanText.startsWith('{')) {
+    const parsed = JSON.parse(cleanText);
+    if(!isValidQuiz(parsed)) throw new Error('Invalid quiz schema');
+    const quizData = parsed;
+    const quizId = 'q_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+    quizStore.set(quizId, { correctAnswerIndex: quizData.correctAnswerIndex, options: quizData.options, question: quizData.question });
+    const el = document.getElementById(cid2);
+    if(el) {
+      el.innerHTML = '';
+      const qTitle = document.createElement('div');
+      qTitle.style.cssText = 'font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;';
+      qTitle.textContent = quizData.question;
+      el.appendChild(qTitle);
+      quizData.options.forEach((opt, idx) => {
+        const optNum = idx + 1;
+        const btn = document.createElement('button');
+        btn.textContent = `${optNum}. ${opt}`;
+        btn.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;';
+        btn.addEventListener('click', () => window.handleOptionClick(quizId, optNum));
+        el.appendChild(btn);
+      });
+      isQuizRendered = true;
     }
-    log.scrollTop = log.scrollHeight;
-  },
-  (message, plan, isAnonymous)=>{
-    const th = document.getElementById('ai-thinking');
-    if(th) th.remove();
-
-    const limitMessage = `
-      <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
-        <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
-          ${escapeHtml(message)}
-        </div>
-      </div>`;
   }
-);
+} catch(e) {
+  console.warn('[Quiz] parse failed:', e.message);
+}
+if(!isQuizRendered){
+  const el = document.getElementById(cid2);
+  if(el) el.innerHTML = escapeAndBr(rawText);
+}
+        const actionsEl2 = document.getElementById(cid2+'-actions');
+        if(actionsEl2){
+          actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
+            + renderStudyModeButtons();
+        }
+        log.scrollTop = log.scrollHeight;
+      },
+
+(message, plan, isAnonymous)=>{
+  const th = document.getElementById('ai-thinking');
+  if(th) th.remove();
+
+  const limitMessage = `
+    <div style="background:#f8fafc;border:2px solid #e2e8f0;padding:14px;border-radius:14px;line-height:1.55;">
+      <div style="font-size:0.9rem;font-weight:800;color:#475569;margin-bottom:12px;">
+        ${escapeHtml(message)}
+      </div>
 
       <div style="position: relative; z-index: 9999; pointer-events: auto; margin-bottom: 14px; background: white; border: 1px solid #e0e7ff; padding: 12px; border-radius: 12px;">
   <div style="font-weight: 800; color: #6366f1; margin-bottom: 10px;">🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)</div>
