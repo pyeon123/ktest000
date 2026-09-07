@@ -2500,16 +2500,16 @@ if(!isQuizRendered){
       </div>
 
       <div style="margin-bottom:14px;background:white;border:1px solid #e0e7ff;padding:12px;border-radius:12px;">
-  <div style="font-weight:800;color:#6366f1;margin-bottom:10px;">🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)</div>
-  <div style="text-align:center;line-height:1.5;margin-bottom:12px;background:#f8fafc;padding:10px 12px;border-radius:10px;">
-    <div style="font-size:0.9rem;font-weight:900;color:#1e293b;">20/day = <span style="color:#6366f1;">600/month</span> for just <b>$3.99</b> <span style="color:#94a3b8;font-weight:600;">(₱199)</span></div>
-    <div style="font-size:0.75rem;color:#94a3b8;margin-top:3px;">Less than a coffee ☕ · 20 questions every day</div>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:8px;">
-    <button type="button" class="js-open-pay" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
-    <button type="button" class="js-open-pay" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
-  </div>
-</div>
+        <div style="font-weight:800;color:#6366f1;margin-bottom:10px;">🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)</div>
+        <div style="text-align:center;line-height:1.5;margin-bottom:12px;background:#f8fafc;padding:10px 12px;border-radius:10px;">
+          <div style="font-size:0.9rem;font-weight:900;color:#1e293b;">20/day = <span style="color:#6366f1;">600/month</span> for just <b>$3.99</b> <span style="color:#94a3b8;font-weight:600;">(₱199)</span></div>
+          <div style="font-size:0.75rem;color:#94a3b8;margin-top:3px;">Less than a coffee ☕ · 20 questions every day</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <button onclick="window.payWithPayMongo ? window.payWithPayMongo() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
+          <button onclick="window.payWithLemonSqueezy ? window.payWithLemonSqueezy() : window.openAuthModal && window.openAuthModal()" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
+        </div>
+      </div>
 
       <div style="background:#f0fdf4;border:1px solid #bbf7d0;padding:12px;border-radius:12px;margin-top:12px;">
         <div style="display:flex;align-items:center;justify-content:space-between;">
@@ -2667,8 +2667,3 @@ var oldR=window.renderLearningProgress; window.renderLearningProgress=function()
   window.addEventListener('load', moveFaq);
  
 })();
-document.addEventListener('click', function(e){
-  if(e.target.closest('.js-open-pay')){
-    window.openAuthModal && window.openAuthModal();
-  }
-});
