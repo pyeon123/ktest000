@@ -2499,17 +2499,16 @@ if(!isQuizRendered){
         ${escapeHtml(message)}
       </div>
 
-      <!-- 제일 겉면 div에 position, z-index, pointer-events 속성을 추가했습니다 -->
-<div style="position: relative; z-index: 9999; pointer-events: auto; margin-bottom: 14px; background: white; border: 1px solid #e0e7ff; padding: 12px; border-radius: 12px;">
+      <div style="position: relative; z-index: 9999; pointer-events: auto; margin-bottom: 14px; background: white; border: 1px solid #e0e7ff; padding: 12px; border-radius: 12px;">
   <div style="font-weight: 800; color: #6366f1; margin-bottom: 10px;">🤖 AI Learning Assistant — Unlimited Questions (Pro Mode)</div>
   <div style="text-align: center; line-height: 1.5; margin-bottom: 12px; background: #f8fafc; padding: 10px 12px; border-radius: 10px;">
     <div style="font-size: 0.9rem; font-weight: 900; color: #1e293b;">20/day = <span style="color: #6366f1;">600/month</span> for just <b>$3.99</b> <span style="color: #94a3b8; font-weight: 600;">(₱199)</span></div>
     <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 3px;">Less than a coffee ☕ · 20 questions every day</div>
   </div>
   <div style="display: flex; flex-direction: column; gap: 8px;">
-    <!-- 버튼에도 z-index와 relative 추가 -->
-    <button onclick="openAuthModal()" style="position: relative; z-index: 10000; width: 100%; padding: 11px 14px; background: #0070ba; color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
-    <button onclick="openAuthModal()" style="position: relative; z-index: 10000; width: 100%; padding: 11px 14px; background: #111827; color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer;">🌍 Pay with Card — $3.99/mo</button>
+    <!-- 버튼 클릭 시 메인 창(index.html)으로 이동 -->
+    <button onclick="window.location.href='index.html'" style="position: relative; z-index: 10000; width: 100%; padding: 11px 14px; background: #0070ba; color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
+    <button onclick="window.location.href='index.html'" style="position: relative; z-index: 10000; width: 100%; padding: 11px 14px; background: #111827; color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer;">🌍 Pay with Card — $3.99/mo</button>
   </div>
 </div>
 
