@@ -1894,14 +1894,6 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
   headers,
 
   body: JSON.stringify({
-
-    kr: ctx.kr,
-    rom: ctx.rom,
-    en: ctx.en,
-
-    q: q,
-    
-
   kr: ctx.kr,
   rom: ctx.rom,
   en: ctx.en,
