@@ -1900,29 +1900,7 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
     en: ctx.en,
 
     q: q,
-    body: JSON.stringify({
 
-  kr: ctx.kr,
-  rom: ctx.rom,
-  en: ctx.en,
-
-  q: q,
-
-  // ⭐ 이전 AI 대화 전달
-  conversationHistory: getAiHistory(),
-
-  pageContext: pageContext,
-
-  currentPage: pageContext.page,
-  currentCategory: pageContext.category,
-  currentLesson: pageContext.lesson,
-  currentQuiz: pageContext.quiz,
-  quizProgress: pageContext.quizProgress,
-  epsTopik: pageContext.epsTopik,
-
-  ...bodyExtra
-
-})
     pageContext: pageContext,
 
     currentPage: pageContext.page,
@@ -2378,9 +2356,6 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
   async function handleQuestion(q, gramForced, forceAiMode){
     // forceAiMode=true면 로컬 DB 스킵하고 무조건 AI
     var ctx=getCtx();
-      
-    addAiHistory('user', q);
-      
     var grams = [];
     if(!forceAiMode){
       grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
@@ -2454,61 +2429,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
         + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
       log.scrollTop = log.scrollHeight;
     }
-    // ======================================================
-// AI TUTOR CONVERSATION MEMORY
-// 페이지별로 최근 10회 대화 기억
-// ======================================================
-
-const AI_HISTORY_KEY = `aiTutorHistory:${location.pathname}`;
-const AI_HISTORY_MAX = 20; // user 10 + assistant 10
-
-let aiConversationHistory = [];
-
-function loadAiHistory() {
-  try {
-    const saved = sessionStorage.getItem(AI_HISTORY_KEY);
-    aiConversationHistory = saved ? JSON.parse(saved) : [];
-
-    if (!Array.isArray(aiConversationHistory)) {
-      aiConversationHistory = [];
-    }
-  } catch (e) {
-    aiConversationHistory = [];
-  }
-}
-
-function saveAiHistory() {
-  try {
-    aiConversationHistory =
-      aiConversationHistory.slice(-AI_HISTORY_MAX);
-
-    sessionStorage.setItem(
-      AI_HISTORY_KEY,
-      JSON.stringify(aiConversationHistory)
-    );
-  } catch (e) {}
-}
-
-function addAiHistory(role, text) {
-  if (!text) return;
-
-  aiConversationHistory.push({
-    role: role,
-    text: String(text).slice(0, 4000)
-  });
-
-  aiConversationHistory =
-    aiConversationHistory.slice(-AI_HISTORY_MAX);
-
-  saveAiHistory();
-}
-
-function getAiHistory() {
-  return aiConversationHistory.slice(-AI_HISTORY_MAX);
-}
-
-loadAiHistory();
-      
+ 
     askTutorStream(
       ctx, q,
       (accumulatedText)=>{
@@ -2524,9 +2445,6 @@ loadAiHistory();
       (finalText)=>{
         ensureWrapper();
         let rawText = finalText || rawFullText || '';
-  
-        addAiHistory('assistant', rawText);
-          
         let finalAnswerHtml = '';
 
 let isQuizRendered = false;
