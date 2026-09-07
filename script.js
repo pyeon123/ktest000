@@ -2506,8 +2506,8 @@ if(!isQuizRendered){
     <div style="font-size:0.75rem;color:#94a3b8;margin-top:3px;">Less than a coffee ☕ · 20 questions every day</div>
   </div>
   <div style="display:flex;flex-direction:column;gap:8px;">
-    <button type="button" onclick="openAuthModal()" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
-    <button type="button" onclick="openAuthModal()" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;font-size:0.88rem;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
+    <button type="button" class="js-open-pay" style="width:100%;padding:11px 14px;background:#0070ba;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
+    <button type="button" class="js-open-pay" style="width:100%;padding:11px 14px;background:#111827;color:#fff;border:none;border-radius:10px;font-weight:800;cursor:pointer;">🌍 Pay with Card — $3.99/mo</button>
   </div>
 </div>
 
@@ -2667,3 +2667,8 @@ var oldR=window.renderLearningProgress; window.renderLearningProgress=function()
   window.addEventListener('load', moveFaq);
  
 })();
+document.addEventListener('click', function(e){
+  if(e.target.closest('.js-open-pay')){
+    window.openAuthModal && window.openAuthModal();
+  }
+});
