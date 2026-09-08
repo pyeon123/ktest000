@@ -1475,7 +1475,11 @@ Return ONLY valid JSON (no markdown fences, no text outside the JSON) in this ex
 {
   "questionType": "${chosenType.label}",
   "question": "the question text in Korean, following the instruction above",
-  "options": ["option1", "option2", "option3", "option4"],
+  "questionRomanization": "romanization of the Korean question",
+  "questionEnglish": "English meaning of the question",
+  "options": ["option1 in Korean", "option2 in Korean", "option3 in Korean", "option4 in Korean"],
+  "optionRomanizations": ["romanization 1", "romanization 2", "romanization 3", "romanization 4"],
+  "optionEnglish": ["English meaning 1", "English meaning 2", "English meaning 3", "English meaning 4"],
   "correctAnswerIndex": 1,
   "explanations": [
     "one short English sentence: why option 1 is correct or incorrect",
@@ -2359,8 +2363,14 @@ const quizStore = new Map();
 // ✅ 수정: explanations(4개 선택지 전체 설명)까지 스키마에 포함되어야 유효한 퀴즈로 인정
 function isValidQuiz(data){
   return data && typeof data.question === 'string' && data.question.trim().length > 0
+    && typeof data.questionRomanization === 'string' && data.questionRomanization.trim().length > 0
+    && typeof data.questionEnglish === 'string' && data.questionEnglish.trim().length > 0
     && Array.isArray(data.options) && data.options.length === 4
     && data.options.every(o => typeof o === 'string' && o.trim().length > 0)
+    && Array.isArray(data.optionRomanizations) && data.optionRomanizations.length === 4
+    && data.optionRomanizations.every(o => typeof o === 'string' && o.trim().length > 0)
+    && Array.isArray(data.optionEnglish) && data.optionEnglish.length === 4
+    && data.optionEnglish.every(o => typeof o === 'string' && o.trim().length > 0)
     && typeof data.correctAnswerIndex === 'number'
     && data.correctAnswerIndex >= 1 && data.correctAnswerIndex <= 4
     && Array.isArray(data.explanations) && data.explanations.length === 4
@@ -2607,11 +2617,19 @@ try {
       correctAnswerIndex: quizData.correctAnswerIndex,
       options: quizData.options,
       question: quizData.question,
+      questionRomanization: quizData.questionRomanization,
+      questionEnglish: quizData.questionEnglish,
+      optionRomanizations: quizData.optionRomanizations,
+      optionEnglish: quizData.optionEnglish,
       explanations: quizData.explanations
     });
     window.currentAITutorQuiz = {
   question: quizData.question,
+  questionRomanization: quizData.questionRomanization,
+  questionEnglish: quizData.questionEnglish,
   options: quizData.options,
+  optionRomanizations: quizData.optionRomanizations,
+  optionEnglish: quizData.optionEnglish,
   correctAnswerIndex: quizData.correctAnswerIndex,
   explanations: quizData.explanations
 };  
@@ -2625,13 +2643,17 @@ try {
         el.appendChild(typeTag);
       }
       const qTitle = document.createElement('div');
-      qTitle.style.cssText = 'font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;';
-      qTitle.textContent = quizData.question;
+      qTitle.style.cssText = 'font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;line-height:1.55;';
+      qTitle.innerHTML = `<div style="font-weight:800;color:#1e293b;">${krSafe(quizData.question)}</div>`
+        + `<div style="font-size:.82rem;color:#64748b;font-style:italic;margin-top:2px;">${escapeHtml(quizData.questionRomanization)}</div>`
+        + `<div style="font-size:.84rem;color:#475569;margin-top:2px;">${escapeHtml(quizData.questionEnglish)}</div>`;
       el.appendChild(qTitle);
       quizData.options.forEach((opt, idx) => {
         const optNum = idx + 1;
         const btn = document.createElement('button');
-        btn.textContent = `${optNum}. ${opt}`;
+        btn.innerHTML = `<div style="font-weight:800;">${optNum}. ${krSafe(opt)}</div>`
+          + `<div style="font-size:.78rem;color:#64748b;font-style:italic;margin-top:2px;">${escapeHtml(quizData.optionRomanizations[idx])}</div>`
+          + `<div style="font-size:.8rem;color:#475569;margin-top:2px;">${escapeHtml(quizData.optionEnglish[idx])}</div>`;
         btn.dataset.quizId = quizId; // ✅ 재채점/중복클릭 방지용 식별자
         btn.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;';
         btn.addEventListener('click', () => window.handleOptionClick(quizId, optNum));
