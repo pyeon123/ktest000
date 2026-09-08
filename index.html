@@ -221,7 +221,7 @@ function handleSubscribeSubmit(event) {
     
     <!-- 👇 여기에 영어 안내 문구를 추가했습니다 👇 -->
     <div style="text-align: center; margin-bottom: 12px; font-size: 1rem; font-weight: bold; color: #4b5563;">
-        🔎 Search → Examples → Quiz → Listening & Speaking → AI Tutor
+        Type any word or sentence to learn
     </div>
     
     <input type="text" id="searchInputTop" oninput="autoSearchTop()" placeholder="🔍 search:( I like you , sky, family )" 
@@ -968,18 +968,18 @@ function toggleKFreeInfo(e, section) {
     showPayStatus('Complete your payment in the new tab. Your plan will update automatically once payment is confirmed.', 'info');
   }
 
-  // 수정
-window.addEventListener('DOMContentLoaded', () => {
-  checkUserStatus();
+  // ✅ 수정: 레슨 페이지의 AI 튜터 "결제하기" 버튼에서 ?openPay=true 로 넘어온 경우
+  // 페이지 로드 즉시 이 모달을 자동으로 연다 (로그인 안 됐으면 로그인 폼, 로그인 됐으면 결제 버튼이 바로 보임).
+  window.addEventListener('DOMContentLoaded', () => {
+    checkUserStatus();
 
-  // ✅ 추가: 레슨 페이지의 "결제하기" 버튼에서 ?openPay=true 로 넘어온 경우 자동으로 모달 오픈
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('openPay') === 'true') {
-    openAuthModal();
-    // 주소창에 파라미터가 남아있지 않도록 정리 (선택사항)
-    window.history.replaceState({}, '', window.location.pathname);
-  }
-});
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('openPay') === 'true') {
+      openAuthModal();
+      // 주소창에 파라미터가 남지 않도록 정리
+      window.history.replaceState({}, '', window.location.pathname);
+    }
+  });
 </script>
 </body>
 </html>
