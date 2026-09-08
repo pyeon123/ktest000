@@ -968,7 +968,18 @@ function toggleKFreeInfo(e, section) {
     showPayStatus('Complete your payment in the new tab. Your plan will update automatically once payment is confirmed.', 'info');
   }
 
-  window.addEventListener('DOMContentLoaded', checkUserStatus);
+  // 수정
+window.addEventListener('DOMContentLoaded', () => {
+  checkUserStatus();
+
+  // ✅ 추가: 레슨 페이지의 "결제하기" 버튼에서 ?openPay=true 로 넘어온 경우 자동으로 모달 오픈
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('openPay') === 'true') {
+    openAuthModal();
+    // 주소창에 파라미터가 남아있지 않도록 정리 (선택사항)
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+});
 </script>
 </body>
 </html>
