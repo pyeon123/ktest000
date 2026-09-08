@@ -2687,9 +2687,8 @@ if(!isQuizRendered){
     <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 3px;">Less than a coffee ☕ · 20 questions every day</div>
   </div>
   <div style="display: flex; flex-direction: column; gap: 8px;">
-    <!-- 버튼 클릭 시 메인 창(index.html)으로 이동 -->
-    <button onclick="window.location.href='index.html'" style="position: relative; z-index: 10000; width: 100%; padding: 11px 14px; background: #0070ba; color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
-    <button onclick="window.location.href='index.html'" style="position: relative; z-index: 10000; width: 100%; padding: 11px 14px; background: #111827; color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer;">🌍 Pay with Card — $3.99/mo</button>
+  <button onclick="window.location.href='index.html?openPay=true'">🇵🇭 Pay with GCash / Maya — ₱199</button>
+  <button onclick="window.location.href='index.html?openPay=true'">🌍 Pay with Card — $3.99/mo</button>
   </div>
 </div>
 
