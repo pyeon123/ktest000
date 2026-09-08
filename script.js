@@ -470,94 +470,11 @@ window.quizDB = window.quizDB || [
     { title: "Nippers", url: "nipeo.html", keywords: "nippers cutting pliers wire cutters" },
     { title: "Tape Measure", url: "julja.html", keywords: "tape measure measuring tape length measurement" },
     { title: "Spirit Level", url: "supyeongdae.html", keywords: "spirit level level tool horizontal measurement" },
-    { title: "Filter", url: "pilteo.html", keywords: "filter filtering filter device" },
-    { title: "Valve", url: "baelbeu.html", keywords: "valve control valve open close valve" },
-    { title: "Nozzle", url: "nojeul.html", keywords: "nozzle spray nozzle machine nozzle" },
-    { title: "Scale", url: "jeoul.html", keywords: "scale weighing scale weight measurement" },
-    { title: "Vise", url: "baiseu.html", keywords: "vise clamp holding tool" },
-    { title: "File Tool", url: "jul.html", keywords: "file tool metal file filing tool" },
-    { title: "Sandpaper", url: "sapo.html", keywords: "sandpaper abrasive paper sanding" },
-    { title: "Lubricant / Oil", url: "yunhwaryu.html", keywords: "lubricant oil machine oil lubrication" },
-    { title: "Air Compressor", url: "keompeureseo.html", keywords: "air compressor compressed air machine" },
-    { title: "Generator", url: "baljeongi.html", keywords: "generator electric generator power generator" },
-    { title: "Vernier Calipers", url: "beonieokaellipeoseu.html", keywords: "vernier calipers caliper measuring tool precision measurement" },
-    { title: "Motor", url: "moteo.html", keywords: "motor electric motor machine motor" },
-    { title: "Switch", url: "seuwichi.html", keywords: "switch electrical switch power switch" },
-    { title: "Electrical Outlet", url: "konsenteu.html", keywords: "electrical outlet power outlet socket" },
-    { title: "Plug", url: "peulleogeu.html", keywords: "plug electrical plug power plug" },
-    { title: "Electric Wire", url: "jeonseon.html", keywords: "electric wire electrical wire cable" },
-    { title: "Pipe", url: "paipeu.html", keywords: "pipe tube piping" },
-    { title: "Hose", url: "hoseu.html", keywords: "hose water hose air hose flexible hose" },
-    { title: "Scaffolding", url: "bigye.html", keywords: "scaffolding scaffold construction platform" },
-    { title: "Ladder", url: "sadari.html", keywords: "ladder step ladder climbing ladder" },
-    { title: "Rope / String", url: "kkeun.html", keywords: "rope string cord tying rope" },
-    { title: "Tape", url: "teipeu.html", keywords: "tape adhesive tape packing tape" },
-    { title: "Adhesive / Glue", url: "jeopchakje.html", keywords: "adhesive glue bonding agent" },
-    { title: "Screw", url: "nasamot.html", keywords: "screw bolt screw fastener" },
-    { title: "Nut", url: "neoteu.html", keywords: "nut screw nut fastener" },
-    { title: "Bolt", url: "bolteu.html", keywords: "bolt fastener metal bolt" },
-    { title: "Pallet", url: "palleteu.html", keywords: "pallet loading pallet goods pallet" },
-    { title: "Trolley", url: "daecha.html", keywords: "trolley cart transport cart" },
-    { title: "Handcart", url: "sonsure.html", keywords: "handcart hand cart push cart" },
-    { title: "Nail", url: "mot.html", keywords: "nail metal nail fastening nail" },
-    { title: "Conveyor Belt", url: "keonbeieo.html", keywords: "conveyor belt conveyor production line" },
-    { title: "Forklift", url: "jigecha.html", keywords: "forklift forklift truck material handling" },
-    { title: "Milling Machine", url: "milling.html", keywords: "milling machine milling machining" },
-    { title: "Lathe Machine", url: "seonban.html", keywords: "lathe machine lathe turning machine" },
-    { title: "Press Machine", url: "peureseu.html", keywords: "press machine pressing machine metal press" },
-    { title: "Cutting Machine", url: "jeoldangi.html", keywords: "cutting machine cutting equipment machine" },
-    { title: "Welding Machine", url: "yongjeopgi.html", keywords: "welding machine welding equipment welder" },
-    { title: "Drill", url: "deuril.html", keywords: "drill drilling machine power drill" },
-    { title: "Electric Saw", url: "jeongitop.html", keywords: "electric saw power saw cutting saw" },
-    { title: "Crane", url: "gijunggi.html", keywords: "crane lifting machine overhead crane" },
-    { title: "Adjustable Wrench", url: "mongkiseupaeneo.html", keywords: "adjustable wrench adjustable spanner wrench" },
-    { title: "Long Nose Pliers", url: "rongnooujeu.html", keywords: "long nose pliers needle nose pliers" },
-    { title: "Socket Wrench", url: "sokesrenchi.html", keywords: "socket wrench socket tool" },
-    { title: "Glue Gun", url: "geullugeon.html", keywords: "glue gun hot glue gun adhesive" },
-    { title: "Hand Truck", url: "haendeuka.html", keywords: "hand truck dolly cart material handling" },
-    { title: "Lift", url: "ripeuteu.html", keywords: "lift lifting equipment hydraulic lift" },
-    { title: "Air Gun", url: "eeogeon.html", keywords: "air gun compressed air blow gun" },
-    { title: "Winch / Hoist", url: "winchihoiseuteu.html", keywords: "winch hoist lifting equipment lifting device" },
-    { title: "Sprayer", url: "bunmugi.html", keywords: "sprayer spray machine spraying equipment" },
-    { title: "Vacuum Cleaner", url: "cheongsogi.html", keywords: "vacuum cleaner cleaning machine" },
-    { title: "Whetstone", url: "sutdol.html", keywords: "whetstone sharpening stone sharpening tool" },
-    { title: "Chisel", url: "jeong.html", keywords: "chisel cutting tool metalworking tool" },
-    { title: "Plane", url: "daepae.html", keywords: "plane hand plane woodworking tool" },
-    { title: "Awl", url: "songgot.html", keywords: "awl pointed tool piercing tool" },
-    { title: "Tweezers", url: "pinset.html", keywords: "tweezers precision tool" },
-    { title: "Clamp", url: "keullaempeu.html", keywords: "clamp holding tool fastening clamp" },
-    { title: "Wire", url: "waieo.html", keywords: "wire metal wire electrical wire" },
-    { title: "Soldering Iron", url: "napttaemgi.html", keywords: "soldering iron soldering tool" },
-    { title: "Oxygen Tank", url: "sansotong.html", keywords: "oxygen tank oxygen cylinder gas tank" },
-    { title: "Blowtorch", url: "tochi.html", keywords: "blowtorch torch heating tool gas torch" },
-    { title: "Gas Cylinder", url: "gaseutong.html", keywords: "gas cylinder gas tank LPG cylinder" },
-    { title: "Chain", url: "chein.html", keywords: "chain metal chain lifting chain" },
-    { title: "Belt", url: "belteu.html", keywords: "belt machine belt drive belt" },
-    { title: "Gear", url: "topnibakwi.html", keywords: "gear machine gear wheel cogwheel" },
-    { title: "Fuse", url: "pyujeu.html", keywords: "fuse electrical fuse safety fuse" },
-    { title: "Power Strip", url: "meoltitaep.html", keywords: "power strip extension outlet electrical strip" },
-    { title: "Switchboard", url: "baejeonban.html", keywords: "switchboard electrical panel distribution board" },
-    { title: "Transformer", url: "byeonapgi.html", keywords: "transformer electrical transformer voltage" },
-    { title: "High Pressure Washer", url: "goapsecheokgi.html", keywords: "high pressure washer pressure washer cleaning machine" },
-    { title: "Bearing", url: "be-eo-ring.html", keywords: "bearing machine bearing ball bearing" },
-    { title: "Manufacturing", url: "jejo-eob.html", keywords: "manufacturing manufacturing industry production" },
-    { title: "Agriculture", url: "nong-eob.html", keywords: "agriculture farming agricultural work" },
-    { title: "Construction", url: "geonseol-eob.html", keywords: "construction construction work building industry" },
-    { title: "Fishery", url: "eo-eob.html", keywords: "fishery fishing industry fishing work" },
-    { title: "Service Industry", url: "seobiseu-eob.html", keywords: "service industry service sector jobs" },
-    { title: "Greenhouse", url: "binil-hauseu.html", keywords: "greenhouse plastic greenhouse farming" },
-    { title: "Livestock Shed", url: "chuksa.html", keywords: "livestock shed barn animal shelter" },
-    { title: "Poultry Farm", url: "yanggyejang.html", keywords: "poultry farm chicken farm poultry" },
-    { title: "Pig Farm", url: "yangdonjang.html", keywords: "pig farm piggery swine farm" },
-    { title: "Livestock Industry", url: "chuksan-eob.html", keywords: "livestock industry animal farming livestock work" },
     { title: "Friend sentence ", url: "sentencefriend1.html", keywords: "sentence friend study korean conversation" }
  ];    
 const quizDB = window.quizDB;
 
 // ==================== 번역 방지 헬퍼 (전역) ====================
-// 한글 문장/단어와 그 로마자 표기는 사용자 자국어로 자동번역되면 안 되므로,
-// notranslate 클래스 + translate="no" 속성으로 감싼다.
-// 1) krSafe: 필드 하나(예: quiz.kr, 로마자 표기)를 통째로 감쌀 때 사용
 function krSafe(text){
   const raw = String(text == null ? '' : text);
   if(!raw) return '';
@@ -566,8 +483,6 @@ function krSafe(text){
     .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   return `<span class="notranslate" translate="no">${escaped}</span>`;
 }
-// 2) protectKoreanNoTranslate: AI가 자유 형식으로 생성한 텍스트(영어+한글 혼합)에서
-//    한글 구간(및 바로 뒤에 오는 로마자 괄호)만 찾아서 감쌈. 영어 설명 부분은 그대로 번역 가능하게 둠.
 function protectKoreanNoTranslate(html){
   if(!html) return html;
   return String(html).replace(
@@ -576,11 +491,6 @@ function protectKoreanNoTranslate(html){
   );
 }
 
-// ==================== 전체 사이트 자동 번역 방지 스캐너 ====================
-// script.js는 index.html과 모든 개별 레슨 페이지(250개+)에 공통으로 로드되므로,
-// 이 함수 하나로 사이트 전체(FAQ 섹션, EPS-TOPIK 설명, 퀴즈 정답 화면, AI 튜터 채팅 등
-// 어디에 있든)의 한글 텍스트를 자동으로 찾아서 notranslate 처리한다.
-// 각 페이지 HTML을 일일이 수정할 필요가 없다.
 (function setupGlobalKoreanTranslateGuard(){
   const KOREAN_RUN_REGEX = /[가-힣][가-힣\s.,!?~"'“”‘’、，。！？]*(?:[^가-힣(]{0,10}\([^)가-힣]{0,80}\))?/gu;
 
@@ -589,11 +499,6 @@ function protectKoreanNoTranslate(html){
     return !!el.closest('.notranslate, script, style, textarea, input, [translate="no"]');
   }
 
-  // "보고 싶어요 (bo-go sip-eo-yo)"처럼 한글 옆에 로마자가 붙어있는 경우는 KOREAN_RUN_REGEX가 잡지만,
-  // "Real-Life Examples"의 <strong>한글</strong><span>로마자만</span> 처럼 로마자가
-  // 한글 없이 완전히 별도 태그로 떨어져 있으면 한글 감지로는 못 잡는다.
-  // 이런 경우를 위해 "하이픈으로 음절이 이어진 로마자 표기" 패턴을 별도로 감지한다.
-  // (예: "bo-go sip-eo-yo. man-hi bo-go sip-eo-yo." → 각 단어가 자음-모음 하이픈으로 연결됨)
   function looksLikeRomanization(text){
     const words = text.trim().split(/\s+/).filter(Boolean);
     if(words.length === 0) return false;
@@ -615,7 +520,6 @@ function protectKoreanNoTranslate(html){
     const hasHangul = /[가-힣]/.test(text);
 
     if(!hasHangul){
-      // 한글은 없지만 하이픈 로마자 패턴으로 보이면 통째로 보호 (Real-Life Examples 등)
       if(looksLikeRomanization(text)){
         const span = document.createElement('span');
         span.className = 'notranslate';
@@ -644,8 +548,6 @@ function protectKoreanNoTranslate(html){
     parent.replaceChild(frag, node);
   }
 
-  // 사이트 전반에서 로마자 전용으로 쓰이는 걸로 알려진 클래스/ID는
-  // 하이픈 유무와 상관없이 무조건 보호 (짧은 로마자, 하이픈 없는 경우의 백업)
   function protectKnownRomanizationContainers(root){
     const selector = '.seo-example span, .rom-text, #romanization, #today-rom';
     let nodes = [];
@@ -677,7 +579,6 @@ function protectKoreanNoTranslate(html){
     runInitialScan();
   }
 
-  // 퀴즈 정답 화면, AI 튜터 채팅, FAQ 펼치기 등으로 새로 추가되는 콘텐츠도 계속 감시해서 보호
   let pending = [];
   let scheduled = false;
   function flush(){
@@ -1551,12 +1452,42 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     handleQuestion(q, null, true);
   };
 
+  // ✅ 추가: EPS-TOPIK 실전 유형 목록. 퀴즈 생성 시 이 중 하나를 랜덤으로 강제 지정한다.
+  const epsQuizTypes = [
+    { id: 'blank', label: '빈칸에 알맞은 표현 고르기', instruction: 'Write a Korean sentence with a blank (___) in the middle, then give 4 options to fill the blank correctly based on context and grammar.' },
+    { id: 'situation', label: '상황 설명에 맞는 표현 고르기', instruction: 'Describe a short real workplace or daily-life situation in 1-2 sentences, then give 4 Korean expression options and ask which one fits that situation.' },
+    { id: 'dialogue', label: '대화 완성하기', instruction: 'Write a short two-line Korean dialogue where the second line is missing, then give 4 options for what the second line should be.' },
+    { id: 'synonym', label: '밑줄 친 표현과 의미가 같은 것 고르기', instruction: 'Write a Korean sentence with one expression wrapped in **double asterisks**, then give 4 options and ask which one has the closest meaning to the marked expression.' }
+  ];
+
   window.__aiTutorMode = function(mode){
     const ctx = getCtx();
     const lessonLabel = ctx.kr ? `"${ctx.kr}"` : "this lesson";
+
+    // ✅ 수정: quiz 모드는 유형을 랜덤 강제 지정하고, 4개 선택지 전체에 대한 설명(explanations)을
+    // JSON 스키마로 명시 요청한다. 정답 클릭 시 AI를 다시 부르지 않고 이 설명을 바로 보여준다.
+    const chosenType = epsQuizTypes[Math.floor(Math.random() * epsQuizTypes.length)];
+    const quizPrompt = `Create ONE EPS-TOPIK style Korean quiz question using this lesson as material: ${lessonLabel}.
+Question type (MUST follow exactly): ${chosenType.label}
+Instruction: ${chosenType.instruction}
+
+Return ONLY valid JSON (no markdown fences, no text outside the JSON) in this exact schema:
+{
+  "questionType": "${chosenType.label}",
+  "question": "the question text in Korean, following the instruction above",
+  "options": ["option1", "option2", "option3", "option4"],
+  "correctAnswerIndex": 1,
+  "explanations": [
+    "one short English sentence: why option 1 is correct or incorrect",
+    "one short English sentence: why option 2 is correct or incorrect",
+    "one short English sentence: why option 3 is correct or incorrect",
+    "one short English sentence: why option 4 is correct or incorrect"
+  ]
+}`;
+
     const presetQuestions = {
       epstopik: `Please explain ${lessonLabel} in EPS-TOPIK exam style. Cover the key vocabulary and grammar I need to know for the exam, using the current lesson as the main material.`,
-      quiz: `Please give me a short EPS-TOPIK-style quiz question based on ${lessonLabel}. Wait for my answer, then explain why it is correct or incorrect.`,
+      quiz: quizPrompt,
       example: `Please give me 2-3 additional natural example sentences using the vocabulary or grammar from ${lessonLabel}, each with Korean, romanization, and English meaning.`
     };
     const q = presetQuestions[mode] || presetQuestions.epstopik;
@@ -1946,11 +1877,6 @@ function buildPageContext(){
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
-
-  // ======================================================
-// AI TUTOR CONVERSATION MEMORY
-// 페이지별 최근 10회 대화 기억
-// ======================================================
 
 const AI_HISTORY_KEY = `aiTutorHistory:${location.pathname}`;
 const AI_HISTORY_MAX = 20; // user 10 + assistant 10
@@ -2429,14 +2355,19 @@ function getPageSentences(){
   }
 
 const quizStore = new Map();
+
+// ✅ 수정: explanations(4개 선택지 전체 설명)까지 스키마에 포함되어야 유효한 퀴즈로 인정
 function isValidQuiz(data){
   return data && typeof data.question === 'string' && data.question.trim().length > 0
     && Array.isArray(data.options) && data.options.length === 4
     && data.options.every(o => typeof o === 'string' && o.trim().length > 0)
     && typeof data.correctAnswerIndex === 'number'
-    && data.correctAnswerIndex >= 1 && data.correctAnswerIndex <= 4;
+    && data.correctAnswerIndex >= 1 && data.correctAnswerIndex <= 4
+    && Array.isArray(data.explanations) && data.explanations.length === 4
+    && data.explanations.every(e => typeof e === 'string' && e.trim().length > 0);
 }
 
+// ✅ 수정: 클릭 즉시 4개 선택지 전체 설명을 렌더링 (AI 재호출 없음), 버튼 비활성화, 재채점 방지용 상태 초기화
 window.handleOptionClick = function(quizId, userSelectedIndex) {
   const quizData = quizStore.get(quizId);
   if(!quizData) return;
@@ -2449,13 +2380,51 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
   if(typeof enableMicrophoneButton === 'function') enableMicrophoneButton();
   if(typeof displayHandEmoji === 'function') displayHandEmoji();
 
+  // 이미 답한 퀴즈의 선택지 버튼은 전부 비활성화 (중복 클릭 방지)
+  document.querySelectorAll(`button[data-quiz-id="${quizId}"]`).forEach(b => { b.disabled = true; b.style.opacity = '0.7'; b.style.cursor = 'default'; });
+
   const resultDiv = document.createElement('div');
   resultDiv.style.cssText = `align-self:flex-end;background:${isCorrect? '#10b981' : '#ef4444'};color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;margin-top:10px;`;
   resultDiv.textContent = `Selected: Option ${userSelectedIndex} (${isCorrect? '✅ Correct!' : '❌ Incorrect!'})`;
   log.appendChild(resultDiv);
-  log.scrollTop = log.scrollHeight;
 
+  // AI 재호출 없이 저장해둔 explanations로 4개 선택지 전부 즉시 설명
+  if(Array.isArray(quizData.explanations) && quizData.explanations.length === 4){
+    const explainDiv = document.createElement('div');
+    explainDiv.style.cssText = 'background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;margin-top:8px;';
+    let html = `<div style="font-weight:800;color:#1e293b;margin-bottom:8px;">📝 Explanation</div>`;
+    quizData.options.forEach((opt, idx) => {
+      const optNum = idx + 1;
+      const isThisCorrect = optNum === correctIndex;
+      const isUserPick = optNum === userSelectedIndex;
+      html += `<div style="padding:8px 10px;margin-bottom:6px;border-radius:8px;
+          background:${isThisCorrect ? '#f0fdf4' : (isUserPick ? '#fef2f2' : '#ffffff')};
+          border-left:4px solid ${isThisCorrect ? '#22c55e' : (isUserPick ? '#ef4444' : '#e2e8f0')};">
+        <b>${optNum}. ${escapeHtml(opt)}</b> ${isThisCorrect ? '✅' : (isUserPick ? '👈 your pick' : '')}
+        <div style="font-size:0.85rem;color:#64748b;margin-top:3px;">${escapeHtml(quizData.explanations[idx])}</div>
+      </div>`;
+    });
+    explainDiv.innerHTML = html;
+    explainDiv.innerHTML += makeActions(`${quizData.question} - Answer: ${quizData.options[correctIndex-1]}`.slice(0,200));
+    log.appendChild(explainDiv);
+    log.scrollTop = log.scrollHeight;
+
+    // ✅ 재채점 버그 방지: 답변 완료 즉시 현재 퀴즈 상태 초기화 + 저장소 정리
+    if (window.currentAITutorQuiz && quizData.question === window.currentAITutorQuiz.question) {
+      window.currentAITutorQuiz = null;
+    }
+    quizStore.delete(quizId);
+    return;
+  }
+
+  // (구버전 폴백) explanations가 없는 예전 퀴즈 데이터인 경우에만 AI에게 정답 이유를 재요청
   const explanationPrompt = `The user selected option ${userSelectedIndex}, but the correct answer is option ${correctIndex}. Result: ${isCorrect? 'Correct' : 'Incorrect'}. Please explain briefly why option ${correctIndex} is correct. Quiz: "${quizData.question}"`;
+
+  if (window.currentAITutorQuiz && quizData.question === window.currentAITutorQuiz.question) {
+    window.currentAITutorQuiz = null;
+  }
+  quizStore.delete(quizId);
+
   handleQuestion(explanationPrompt, null, true);
 };
 
@@ -2529,6 +2498,8 @@ If incorrect: say incorrect + show correct number + explain difference.
 Do NOT create a new quiz yet.`;
     forceAiMode = true;
     gramForced = null;
+    // ✅ 답변 처리 후 즉시 초기화 (같은 퀴즈가 재채점되는 것 방지)
+    window.currentAITutorQuiz = null;
   }
 
   var grams = [];
@@ -2611,7 +2582,7 @@ Do NOT create a new quiz yet.`;
         ensureWrapper();
         rawFullText = accumulatedText;
         const el = document.getElementById(cid2);
-        // [수정된 부분] JSON 스트리밍 중에는 임시로 텍스트 렌더링 생략 (깜빡임 방지)
+        // JSON 스트리밍 중에는 임시로 텍스트 렌더링 생략 (깜빡임 방지)
         if(el && !accumulatedText.includes('correctAnswerIndex')){ 
            el.innerHTML = escapeAndBr(accumulatedText); 
            log.scrollTop = log.scrollHeight; 
@@ -2631,15 +2602,28 @@ try {
     if(!isValidQuiz(parsed)) throw new Error('Invalid quiz schema');
     const quizData = parsed;
     const quizId = 'q_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
-    quizStore.set(quizId, { correctAnswerIndex: quizData.correctAnswerIndex, options: quizData.options, question: quizData.question });
+    // ✅ explanations까지 함께 저장 → 클릭 시 AI 재호출 없이 즉시 4개 선택지 설명 표시 가능
+    quizStore.set(quizId, {
+      correctAnswerIndex: quizData.correctAnswerIndex,
+      options: quizData.options,
+      question: quizData.question,
+      explanations: quizData.explanations
+    });
     window.currentAITutorQuiz = {
   question: quizData.question,
   options: quizData.options,
-  correctAnswerIndex: quizData.correctAnswerIndex
+  correctAnswerIndex: quizData.correctAnswerIndex,
+  explanations: quizData.explanations
 };  
     const el = document.getElementById(cid2);
     if(el) {
       el.innerHTML = '';
+      if(quizData.questionType){
+        const typeTag = document.createElement('div');
+        typeTag.style.cssText = 'display:inline-block;font-size:.68rem;font-weight:800;padding:3px 8px;border-radius:20px;margin-bottom:8px;background:#ede9fe;color:#5b21b6;';
+        typeTag.textContent = `🇰🇷 ${quizData.questionType}`;
+        el.appendChild(typeTag);
+      }
       const qTitle = document.createElement('div');
       qTitle.style.cssText = 'font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;';
       qTitle.textContent = quizData.question;
@@ -2648,6 +2632,7 @@ try {
         const optNum = idx + 1;
         const btn = document.createElement('button');
         btn.textContent = `${optNum}. ${opt}`;
+        btn.dataset.quizId = quizId; // ✅ 재채점/중복클릭 방지용 식별자
         btn.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;';
         btn.addEventListener('click', () => window.handleOptionClick(quizId, optNum));
         el.appendChild(btn);
@@ -2663,9 +2648,11 @@ if(!isQuizRendered){
   if(el) el.innerHTML = escapeAndBr(rawText);
 }
         const actionsEl2 = document.getElementById(cid2+'-actions');
-        if(actionsEl2){
+        if(actionsEl2 && !isQuizRendered){
           actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
             + renderStudyModeButtons();
+        } else if(actionsEl2 && isQuizRendered){
+          actionsEl2.innerHTML = ''; // 퀴즈는 정답 클릭 후 handleOptionClick에서 자체적으로 액션 버튼을 붙임
         }
         log.scrollTop = log.scrollHeight;
       },
@@ -2687,8 +2674,9 @@ if(!isQuizRendered){
     <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 3px;">Less than a coffee ☕ · 20 questions every day</div>
   </div>
   <div style="display: flex; flex-direction: column; gap: 8px;">
-  <button onclick="window.location.href='index.html?openPay=true'">🇵🇭 Pay with GCash / Maya — ₱199</button>
-  <button onclick="window.location.href='index.html?openPay=true'">🌍 Pay with Card — $3.99/mo</button>
+    <!-- ✅ 수정: index.html의 회원가입/결제 모달을 URL 파라미터로 자동 오픈시킴 -->
+    <button onclick="window.location.href='index.html?openPay=true'" style="position: relative; z-index: 10000; width: 100%; padding: 11px 14px; background: #0070ba; color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer;">🇵🇭 Pay with GCash / Maya — ₱199</button>
+    <button onclick="window.location.href='index.html?openPay=true'" style="position: relative; z-index: 10000; width: 100%; padding: 11px 14px; background: #111827; color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 0.88rem; cursor: pointer;">🌍 Pay with Card — $3.99/mo</button>
   </div>
 </div>
 
@@ -2727,14 +2715,12 @@ window.openShare=openShare;
 btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; }};
 wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
 
-// 검색창 클릭 / 포커스 하면 설명 사라짐
 input.addEventListener('focus', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
 input.addEventListener('click', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
 
 input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; document.getElementById('usageGuide')?.style.setProperty('display','none'); handleQuestion(q);}});
 wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ document.getElementById('usageGuide')?.style.setProperty('display','none'); input.value=''; handleQuestion(q); } };
 
-// 설명은 검색창 위 빈 여백에만 고정
 (function addUsageGuide(){
   if(document.getElementById('usageGuide')) return;
   const guide = document.createElement('div');
