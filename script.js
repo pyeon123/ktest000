@@ -1860,15 +1860,16 @@ function buildPageContext(){
       .replace(/\n{2,}/g,'<br><br>')
       .replace(/\n/g,'<br>');
   }
-    
+
   function escapeHtml(text){
     return String(text || '')
       .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
+
   // ======================================================
 // AI TUTOR CONVERSATION MEMORY
-// 페이지별로 최근 10회 대화 기억
+// 페이지별 최근 10회 대화 기억
 // ======================================================
 
 const AI_HISTORY_KEY = `aiTutorHistory:${location.pathname}`;
@@ -1948,24 +1949,25 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
   headers,
 
   body: JSON.stringify({
-  kr: ctx.kr,
-  rom: ctx.rom,
-  en: ctx.en,
 
-  q: q,
+    kr: ctx.kr,
+    rom: ctx.rom,
+    en: ctx.en,
 
- conversationHistory: getAiHistory(),
+    q: q,
 
-  pageContext: pageContext,
+   conversationHistory: getAiHistory().slice(0, -1),
 
-  currentPage: pageContext.page,
-  currentCategory: pageContext.category,
-  currentLesson: pageContext.lesson,
-  currentQuiz: pageContext.quiz,
-  quizProgress: pageContext.quizProgress,
-  epsTopik: pageContext.epsTopik,
+    pageContext: pageContext,
 
-  ...bodyExtra
+    currentPage: pageContext.page,
+    currentCategory: pageContext.category,
+    currentLesson: pageContext.lesson,
+    currentQuiz: pageContext.quiz,
+    quizProgress: pageContext.quizProgress,
+    epsTopik: pageContext.epsTopik,
+
+    ...bodyExtra
 
   })
 });
@@ -2407,24 +2409,59 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
     }
   }
  
-  // gramForced: FAQ 칩 클릭 시 확정된 grammarData 항목(있으면 매칭 스킵하고 바로 사용)
-  async function handleQuestion(q, gramForced, forceAiMode){
-    // forceAiMode=true면 로컬 DB 스킵하고 무조건 AI
-    var ctx=getCtx();
-      
-    addAiHistory('user', q);
-      
-    var grams = [];
-    if(!forceAiMode){
-      grams = gramForced ? [gramForced] : findAllGrammarMatches(q);
-    }
- 
-    // 사용자 입력을 화면에 넣기 전 이스케이프 처리 (XSS 방지)
-    // [수정된 부분] AI 해설 요청(내부 프롬프트)일 때는 사용자 화면에 프롬프트를 숨기거나 다르게 표시
-    const safeQ = escapeHtml(q);
-    if (!forceAiMode) {
-      log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
-    }
+async function handleQuestion(q, gramForced, forceAiMode){
+  var ctx=getCtx();
+  addAiHistory('user', q);
+
+  const originalQ = q;
+
+  function getAITutorQuizAnswer(input) {
+    if (!window.currentAITutorQuiz) return null;
+    const m = String(input||'').trim().match(/^([1-4])$/);
+    if (!m) return null;
+    const selectedNum = Number(m[1]);
+    const selectedIdx = selectedNum - 1;
+    const quiz = window.currentAITutorQuiz;
+    if (!quiz.options ||!quiz.options[selectedIdx]) return null;
+    const correctNum = Number(quiz.correctAnswerIndex);
+    const correctIdx = correctNum - 1;
+    return {
+      number: selectedNum,
+      selected: quiz.options[selectedIdx],
+      correct: selectedNum === correctNum,
+      correctAnswer: quiz.options[correctIdx],
+      correctNum: correctNum,
+      question: quiz.question,
+      options: quiz.options
+    };
+  }
+
+  const quizAnswer = getAITutorQuizAnswer(q);
+  if (quizAnswer) {
+    q = `The learner is answering your previous quiz.
+Question: ${quizAnswer.question}
+Options: ${quizAnswer.options.map((o,i)=>`${i+1}. ${o}`).join('\n')}
+Learner selected: ${quizAnswer.number}. ${quizAnswer.selected}
+Correct answer: ${quizAnswer.correctNum}. ${quizAnswer.correctAnswer}
+Correct? ${quizAnswer.correct? 'YES' : 'NO'}
+If correct: say correct + brief explanation.
+If incorrect: say incorrect + show correct number + explain difference.
+Do NOT create a new quiz yet.`;
+    forceAiMode = true;
+    gramForced = null;
+  }
+
+  var grams = [];
+  if(!forceAiMode){
+    grams = gramForced? [gramForced] : findAllGrammarMatches(q);
+  }
+
+  const safeQ = escapeHtml(originalQ);
+  if (!forceAiMode) {
+    log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
+  } else if (quizAnswer) {
+    log.innerHTML+=`<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${safeQ}</div>`;
+  }
     
  
     if(grams.length > 0){
@@ -2487,8 +2524,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
         + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
       log.scrollTop = log.scrollHeight;
     }
-
-      
+ 
     askTutorStream(
       ctx, q,
       (accumulatedText)=>{
@@ -2504,9 +2540,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
       (finalText)=>{
         ensureWrapper();
         let rawText = finalText || rawFullText || '';
-  
-        addAiHistory('assistant', rawText);
-          
+        addAiHistory('assistant', rawText);  
         let finalAnswerHtml = '';
 
 let isQuizRendered = false;
@@ -2518,6 +2552,11 @@ try {
     const quizData = parsed;
     const quizId = 'q_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
     quizStore.set(quizId, { correctAnswerIndex: quizData.correctAnswerIndex, options: quizData.options, question: quizData.question });
+    window.currentAITutorQuiz = {
+  question: quizData.question,
+  options: quizData.options,
+  correctAnswerIndex: quizData.correctAnswerIndex
+};  
     const el = document.getElementById(cid2);
     if(el) {
       el.innerHTML = '';
