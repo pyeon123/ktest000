@@ -3,6 +3,89 @@ window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-LVXKNBELZQ');
+
+/* =========================================================
+   ✅ 공용 로그인 상태 확인 헬퍼 (모든 페이지 공통)
+   -----------------------------------------------------------
+   기존 문제: getKoreanAuthUser / getKoreanAuthToken 같은 함수가
+   index.html 안에만 정의돼 있어서, 개별 레슨 페이지(kimchi1.html 등)
+   에서 AI 튜터가 이 함수를 호출하면 항상 undefined라 "비로그인"으로
+   오인됨 → 로그인/관리자 계정이어도 매번 익명 취급되어 deviceId 기준
+   하루 3회 제한에 걸림.
+
+   해결: script.js는 모든 페이지(레슨 페이지 + index.html)에 공통으로
+   로드되므로, 여기서 Supabase 클라이언트를 만들고 로그인 상태를 확인하는
+   함수를 전역으로 정의한다. index.html이 자체적으로 이미 이 함수들을
+   정의해두면(더 나중에 로드되어 덮어씀) 그쪽이 우선 적용되고, 레슨
+   페이지처럼 정의가 없는 곳에서는 여기서 만든 걸 그대로 쓴다.
+   ========================================================= */
+(function setupSharedSupabaseAuth(){
+  const SHARED_SUPABASE_URL = 'https://kwfiidykbaargsxuuvvy.supabase.co';
+  const SHARED_SUPABASE_ANON_KEY = 'sb_publishable_VThH1zOjeve9iqeBqPWbTQ_1vB5CS_X';
+
+  let readyResolve;
+  const readyPromise = new Promise((res) => { readyResolve = res; });
+
+  function initClient(){
+    try{
+      if(!window.__koreanSupabaseClient && window.supabase && window.supabase.createClient){
+        window.__koreanSupabaseClient = window.supabase.createClient(SHARED_SUPABASE_URL, SHARED_SUPABASE_ANON_KEY);
+      }
+    }catch(e){
+      console.error('[Auth] Supabase client 생성 실패:', e);
+    }
+    readyResolve();
+  }
+
+  if(window.supabase && window.supabase.createClient){
+    // 이미 SDK가 로드되어 있는 페이지 (예: index.html에서 script.js보다 SDK가 먼저 로드된 경우)
+    initClient();
+  } else {
+    // SDK가 아직 없는 페이지 (대부분의 레슨 페이지) → 동적으로 로드
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    s.onload = initClient;
+    s.onerror = () => { console.error('[Auth] Supabase SDK 로드 실패'); readyResolve(); };
+    document.head.appendChild(s);
+  }
+
+  // index.html이 자체적으로 나중에 이 함수들을 다시 정의하면 그쪽이 우선 적용됨 (덮어씀).
+  // 레슨 페이지처럼 별도 정의가 없는 곳에서는 여기서 만든 버전이 그대로 쓰인다.
+  if(!window.getKoreanAuthUser){
+    window.getKoreanAuthUser = async function(){
+      await readyPromise;
+      if(!window.__koreanSupabaseClient) return null;
+      const { data: { session } } = await window.__koreanSupabaseClient.auth.getSession();
+      return session ? session.user : null;
+    };
+  }
+  if(!window.getKoreanAuthToken){
+    window.getKoreanAuthToken = async function(){
+      await readyPromise;
+      if(!window.__koreanSupabaseClient) return null;
+      const { data: { session } } = await window.__koreanSupabaseClient.auth.getSession();
+      return session ? session.access_token : null;
+    };
+  }
+  if(!window.getKoreanAuthProfile){
+    window.getKoreanAuthProfile = async function(){
+      const user = await window.getKoreanAuthUser();
+      if(!user || !window.__koreanSupabaseClient) return null;
+      const { data } = await window.__koreanSupabaseClient
+        .from('profiles')
+        .select('plan, paid_until, is_admin')
+        .eq('id', user.id)
+        .single();
+      return data;
+    };
+  }
+  if(!window.requireKoreanAuth){
+    window.requireKoreanAuth = function(){
+      window.location.href = 'index.html?openPay=true';
+    };
+  }
+})();
+
 let currentIdx = 0;
 let activeCatId = "";
 let activeCategoryName = ""; 
@@ -1398,10 +1481,12 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   }
 
   function renderStudyModeButtons(){
-  return `<div class="ai-actions" style="margin-top:10px;">`
-    + `<button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 EPS-TOPIK Quiz  (Click Here) 🎯</button>`
-    + `</div>`;
-}
+    return `<div class="ai-actions" style="margin-top:10px;">`
+      + `<button class="ai-action-btn" onclick="window.__aiTutorMode('epstopik')">📘 EPS-TOPIK</button>`
+      + `<button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 Quiz</button>`
+      + `<button class="ai-action-btn" onclick="window.__aiTutorMode('example')">💬 Example</button>`
+      + `</div>`;
+  }
 
   function getDetectedGrammars(){
     try{
