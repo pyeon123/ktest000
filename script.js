@@ -702,9 +702,9 @@ function shareApp() {
 function visitFacebook() { window.open("https://www.facebook.com/profile.php?id=100091484077264", "_blank"); }
 function updateSEOData(catId) {
     if (!catId) {
-        document.getElementById('seo-title').innerText = "Learn Korean Free  3000  Word Quiz (FREE)";
+        document.getElementById('seo-title').innerText = "EPS-TOPIK Free Quiz 3000 with AI Tutor";
         document.getElementById('seo-desc').setAttribute("content", "Master Korean through fun interactive games! Challenge yourself with over 1,000 Korean Word quizzes. Perfect for K-Drama fans and learners worldwide.");
-        document.getElementById('main-header').innerText = "Learn Korean Free  3000  Word Quiz";
+        document.getElementById('main-header').innerText = "EPS-TOPIK Free Quiz 3000 with AI Tutor";
         injectSafeSEOData(null);
         return;
         
