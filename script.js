@@ -1399,7 +1399,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 
   function renderStudyModeButtons(){
   return `<div class="ai-actions" style="margin-top:10px;">`
-    + `<button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 EPS-TOPIK Quiz</button>`
+    + `<button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 EPS-TOPIK Quiz  (Click Here) 🎯</button>`
     + `</div>`;
 }
 
