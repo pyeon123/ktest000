@@ -1471,15 +1471,18 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 Question type (MUST follow exactly): ${chosenType.label}
 Instruction: ${chosenType.instruction}
 
+IMPORTANT: Every piece of Korean text (the question and every option) MUST be given as an object with THREE fields together — kr (Korean), rom (romanization), en (English meaning). Never give Korean text alone without its romanization and English meaning right next to it.
+
 Return ONLY valid JSON (no markdown fences, no text outside the JSON) in this exact schema:
 {
   "questionType": "${chosenType.label}",
-  "question": "the question text in Korean, following the instruction above",
-  "questionRomanization": "romanization of the Korean question",
-  "questionEnglish": "English meaning of the question",
-  "options": ["option1 in Korean", "option2 in Korean", "option3 in Korean", "option4 in Korean"],
-  "optionRomanizations": ["romanization 1", "romanization 2", "romanization 3", "romanization 4"],
-  "optionEnglish": ["English meaning 1", "English meaning 2", "English meaning 3", "English meaning 4"],
+  "question": { "kr": "the question text in Korean, following the instruction above", "rom": "romanization of the Korean question text", "en": "English translation/meaning of the question" },
+  "options": [
+    { "kr": "option1 in Korean", "rom": "romanization of option1", "en": "English meaning of option1" },
+    { "kr": "option2 in Korean", "rom": "romanization of option2", "en": "English meaning of option2" },
+    { "kr": "option3 in Korean", "rom": "romanization of option3", "en": "English meaning of option3" },
+    { "kr": "option4 in Korean", "rom": "romanization of option4", "en": "English meaning of option4" }
+  ],
   "correctAnswerIndex": 1,
   "explanations": [
     "one short English sentence: why option 1 is correct or incorrect",
@@ -1490,9 +1493,9 @@ Return ONLY valid JSON (no markdown fences, no text outside the JSON) in this ex
 }`;
 
     const presetQuestions = {
-      epstopik: `Please explain ${lessonLabel} in EPS-TOPIK exam style. Cover the key vocabulary and grammar I need to know for the exam, using the current lesson as the main material.`,
+      epstopik: `Please explain ${lessonLabel} in EPS-TOPIK exam style. Cover the key vocabulary and grammar I need to know for the exam, using the current lesson as the main material. Every Korean word or sentence you mention MUST be shown together with its romanization and English meaning (never Korean alone).`,
       quiz: quizPrompt,
-      example: `Please give me 2-3 additional natural example sentences using the vocabulary or grammar from ${lessonLabel}, each with Korean, romanization, and English meaning.`
+      example: `Please give me 2-3 additional natural example sentences using the vocabulary or grammar from ${lessonLabel}, each with Korean, romanization, and English meaning — all three always shown together.`
     };
     const q = presetQuestions[mode] || presetQuestions.epstopik;
     handleQuestion(q, null, true);
@@ -2360,17 +2363,18 @@ function getPageSentences(){
 
 const quizStore = new Map();
 
-// ✅ 수정: explanations(4개 선택지 전체 설명)까지 스키마에 포함되어야 유효한 퀴즈로 인정
+// ✅ 수정: 질문/선택지 모두 {kr, rom, en} 3종 세트가 전부 채워져 있어야 유효한 퀴즈로 인정.
+// 한글만 있고 로마자나 영어가 빠진 경우 invalid 처리되어 원문 텍스트로 fallback된다.
+function isKrTriplet(obj){
+  return obj && typeof obj === 'object'
+    && typeof obj.kr === 'string' && obj.kr.trim().length > 0
+    && typeof obj.rom === 'string' && obj.rom.trim().length > 0
+    && typeof obj.en === 'string' && obj.en.trim().length > 0;
+}
 function isValidQuiz(data){
-  return data && typeof data.question === 'string' && data.question.trim().length > 0
-    && typeof data.questionRomanization === 'string' && data.questionRomanization.trim().length > 0
-    && typeof data.questionEnglish === 'string' && data.questionEnglish.trim().length > 0
+  return data && isKrTriplet(data.question)
     && Array.isArray(data.options) && data.options.length === 4
-    && data.options.every(o => typeof o === 'string' && o.trim().length > 0)
-    && Array.isArray(data.optionRomanizations) && data.optionRomanizations.length === 4
-    && data.optionRomanizations.every(o => typeof o === 'string' && o.trim().length > 0)
-    && Array.isArray(data.optionEnglish) && data.optionEnglish.length === 4
-    && data.optionEnglish.every(o => typeof o === 'string' && o.trim().length > 0)
+    && data.options.every(o => isKrTriplet(o))
     && typeof data.correctAnswerIndex === 'number'
     && data.correctAnswerIndex >= 1 && data.correctAnswerIndex <= 4
     && Array.isArray(data.explanations) && data.explanations.length === 4
@@ -2399,6 +2403,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
   log.appendChild(resultDiv);
 
   // AI 재호출 없이 저장해둔 explanations로 4개 선택지 전부 즉시 설명
+  // ✅ 한글이 나오는 모든 자리(질문/선택지)는 반드시 한글+로마자+영어 3종 세트로 표시
   if(Array.isArray(quizData.explanations) && quizData.explanations.length === 4){
     const explainDiv = document.createElement('div');
     explainDiv.style.cssText = 'background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;margin-top:8px;';
@@ -2407,20 +2412,46 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
       const optNum = idx + 1;
       const isThisCorrect = optNum === correctIndex;
       const isUserPick = optNum === userSelectedIndex;
+      const optKr = (opt && typeof opt === 'object') ? opt.kr : opt;
+      const optRom = (opt && typeof opt === 'object') ? opt.rom : '';
+      const optEn = (opt && typeof opt === 'object') ? opt.en : '';
       html += `<div style="padding:8px 10px;margin-bottom:6px;border-radius:8px;
           background:${isThisCorrect ? '#f0fdf4' : (isUserPick ? '#fef2f2' : '#ffffff')};
           border-left:4px solid ${isThisCorrect ? '#22c55e' : (isUserPick ? '#ef4444' : '#e2e8f0')};">
-        <b>${optNum}. ${escapeHtml(opt)}</b> ${isThisCorrect ? '✅' : (isUserPick ? '👈 your pick' : '')}
+        <b>${optNum}. ${krSafe(optKr)}${optRom ? ` <span style="font-weight:600;color:#64748b;">(${krSafe(optRom)})</span>` : ''}${optEn ? ` — ${escapeHtml(optEn)}` : ''}</b> ${isThisCorrect ? '✅' : (isUserPick ? '👈 your pick' : '')}
         <div style="font-size:0.85rem;color:#64748b;margin-top:3px;">${escapeHtml(quizData.explanations[idx])}</div>
       </div>`;
     });
     explainDiv.innerHTML = html;
-    explainDiv.innerHTML += makeActions(`${quizData.question} - Answer: ${quizData.options[correctIndex-1]}`.slice(0,200));
+    const correctOpt = quizData.options[correctIndex-1];
+    const correctOptKr = (correctOpt && typeof correctOpt === 'object') ? correctOpt.kr : correctOpt;
+    const questionKr = (quizData.question && typeof quizData.question === 'object') ? quizData.question.kr : quizData.question;
+    explainDiv.innerHTML += makeActions(`${questionKr} - Answer: ${correctOptKr}`.slice(0,200));
     log.appendChild(explainDiv);
+
+    // ✅ 진짜 튜터처럼: 설명 끝에 "다음 퀴즈" / "자세한 설명"을 바로 누를 수 있게 제안
+    const nextStepDiv = document.createElement('div');
+    nextStepDiv.style.cssText = 'display:flex;gap:8px;margin-top:10px;';
+    const nextQuizBtn = document.createElement('button');
+    nextQuizBtn.innerHTML = '🔜 Next Quiz';
+    nextQuizBtn.style.cssText = 'flex:1;padding:10px;border-radius:20px;border:2px solid #6366f1;background:#eef2ff;color:#4338ca;font-weight:800;font-size:0.85rem;cursor:pointer;';
+    nextQuizBtn.onclick = () => { nextStepDiv.remove(); window.__aiTutorMode('quiz'); };
+    const moreExplainBtn = document.createElement('button');
+    moreExplainBtn.innerHTML = '📖 More Detailed Explanation';
+    moreExplainBtn.style.cssText = 'flex:1;padding:10px;border-radius:20px;border:2px solid #e2e8f0;background:white;color:#475569;font-weight:800;font-size:0.85rem;cursor:pointer;';
+    moreExplainBtn.onclick = () => {
+      nextStepDiv.remove();
+      const deeperPrompt = `Please give a deeper, more detailed explanation of this EPS-TOPIK quiz question and why "${correctOptKr}" is the correct answer. Question: "${questionKr}". Cover the underlying grammar or vocabulary point so the learner really understands it.`;
+      handleQuestion(deeperPrompt, null, true);
+    };
+    nextStepDiv.appendChild(nextQuizBtn);
+    nextStepDiv.appendChild(moreExplainBtn);
+    log.appendChild(nextStepDiv);
+
     log.scrollTop = log.scrollHeight;
 
-    // ✅ 재채점 버그 방지: 답변 완료 즉시 현재 퀴즈 상태 초기화 + 저장소 정리
-    if (window.currentAITutorQuiz && quizData.question === window.currentAITutorQuiz.question) {
+    // ✅ 재채점 버그 방지: quizId 기준으로 비교해서 답변 완료 즉시 현재 퀴즈 상태 초기화 + 저장소 정리
+    if (window.currentAITutorQuiz && window.currentAITutorQuiz.quizId === quizId) {
       window.currentAITutorQuiz = null;
     }
     quizStore.delete(quizId);
@@ -2428,9 +2459,10 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
   }
 
   // (구버전 폴백) explanations가 없는 예전 퀴즈 데이터인 경우에만 AI에게 정답 이유를 재요청
-  const explanationPrompt = `The user selected option ${userSelectedIndex}, but the correct answer is option ${correctIndex}. Result: ${isCorrect? 'Correct' : 'Incorrect'}. Please explain briefly why option ${correctIndex} is correct. Quiz: "${quizData.question}"`;
+  const fallbackQuestionKr = (quizData.question && typeof quizData.question === 'object') ? quizData.question.kr : quizData.question;
+  const explanationPrompt = `The user selected option ${userSelectedIndex}, but the correct answer is option ${correctIndex}. Result: ${isCorrect? 'Correct' : 'Incorrect'}. Please explain briefly why option ${correctIndex} is correct. Quiz: "${fallbackQuestionKr}"`;
 
-  if (window.currentAITutorQuiz && quizData.question === window.currentAITutorQuiz.question) {
+  if (window.currentAITutorQuiz && window.currentAITutorQuiz.quizId === quizId) {
     window.currentAITutorQuiz = null;
   }
   quizStore.delete(quizId);
@@ -2497,14 +2529,18 @@ async function handleQuestion(q, gramForced, forceAiMode){
 
   const quizAnswer = getAITutorQuizAnswer(q);
   if (quizAnswer) {
+    // ✅ 옵션이 {kr, rom, en} 객체이므로, 프롬프트에도 3종 세트를 그대로 풀어서 전달
+    const fmt = (o) => (o && typeof o === 'object') ? `${o.kr} (${o.rom}) - ${o.en}` : String(o);
+    const qKr = (quizAnswer.question && typeof quizAnswer.question === 'object') ? quizAnswer.question.kr : quizAnswer.question;
     q = `The learner is answering your previous quiz.
-Question: ${quizAnswer.question}
-Options: ${quizAnswer.options.map((o,i)=>`${i+1}. ${o}`).join('\n')}
-Learner selected: ${quizAnswer.number}. ${quizAnswer.selected}
-Correct answer: ${quizAnswer.correctNum}. ${quizAnswer.correctAnswer}
+Question: ${qKr}
+Options: ${quizAnswer.options.map((o,i)=>`${i+1}. ${fmt(o)}`).join('\n')}
+Learner selected: ${quizAnswer.number}. ${fmt(quizAnswer.selected)}
+Correct answer: ${quizAnswer.correctNum}. ${fmt(quizAnswer.correctAnswer)}
 Correct? ${quizAnswer.correct? 'YES' : 'NO'}
 If correct: say correct + brief explanation.
 If incorrect: say incorrect + show correct number + explain difference.
+IMPORTANT: In your explanation, always show Korean text together with its romanization and English meaning (kr / rom / en), never Korean alone.
 Do NOT create a new quiz yet.`;
     forceAiMode = true;
     gramForced = null;
@@ -2585,9 +2621,16 @@ Do NOT create a new quiz yet.`;
         + `<div id="${cid2}"></div><div id="${cid2}-actions"></div></div>`;
       log.scrollTop = log.scrollHeight;
     }
+
+    // ✅ 일반 자유 질문(검색창 직접 입력, 문장 클릭 등)에도 "한글+로마자+영어 3종 세트" 규칙을 강제.
+    // 퀴즈 JSON 생성 프롬프트(순수 JSON만 반환해야 함)나 이미 이 규칙을 명시한 퀴즈-답변 프롬프트는 건드리지 않는다.
+    let qForApi = q;
+    if(qForApi.indexOf('Return ONLY valid JSON') === -1 && qForApi.indexOf('always show Korean text together') === -1){
+      qForApi += `\n\n(Formatting rule: whenever you write any Korean word or sentence in your answer, always show it together with its romanization and English meaning — e.g. 한글 (romanization) - English meaning. Never show Korean text alone.)`;
+    }
  
     askTutorStream(
-      ctx, q,
+      ctx, qForApi,
       (accumulatedText)=>{
         ensureWrapper();
         rawFullText = accumulatedText;
@@ -2617,19 +2660,13 @@ try {
       correctAnswerIndex: quizData.correctAnswerIndex,
       options: quizData.options,
       question: quizData.question,
-      questionRomanization: quizData.questionRomanization,
-      questionEnglish: quizData.questionEnglish,
-      optionRomanizations: quizData.optionRomanizations,
-      optionEnglish: quizData.optionEnglish,
       explanations: quizData.explanations
     });
+    // ✅ quizId를 함께 저장해서, 채팅창에 숫자만 타이핑해 답할 때도 정확히 "이 퀴즈"인지 식별 가능
     window.currentAITutorQuiz = {
+  quizId: quizId,
   question: quizData.question,
-  questionRomanization: quizData.questionRomanization,
-  questionEnglish: quizData.questionEnglish,
   options: quizData.options,
-  optionRomanizations: quizData.optionRomanizations,
-  optionEnglish: quizData.optionEnglish,
   correctAnswerIndex: quizData.correctAnswerIndex,
   explanations: quizData.explanations
 };  
@@ -2642,20 +2679,26 @@ try {
         typeTag.textContent = `🇰🇷 ${quizData.questionType}`;
         el.appendChild(typeTag);
       }
+      // ✅ 질문도 한글 + 로마자 + 영어 3종 세트로 표시 (한글만 단독으로 나오지 않도록)
       const qTitle = document.createElement('div');
-      qTitle.style.cssText = 'font-weight:800;color:#1e293b;margin-bottom:12px;font-size:0.95rem;line-height:1.55;';
-      qTitle.innerHTML = `<div style="font-weight:800;color:#1e293b;">${krSafe(quizData.question)}</div>`
-        + `<div style="font-size:.82rem;color:#64748b;font-style:italic;margin-top:2px;">${escapeHtml(quizData.questionRomanization)}</div>`
-        + `<div style="font-size:.84rem;color:#475569;margin-top:2px;">${escapeHtml(quizData.questionEnglish)}</div>`;
+      qTitle.style.cssText = 'font-weight:800;color:#1e293b;margin-bottom:4px;font-size:1rem;';
+      qTitle.innerHTML = krSafe(quizData.question.kr);
       el.appendChild(qTitle);
+      const qRom = document.createElement('div');
+      qRom.style.cssText = 'font-weight:600;color:#8b5cf6;margin-bottom:2px;font-size:0.85rem;';
+      qRom.innerHTML = krSafe(quizData.question.rom);
+      el.appendChild(qRom);
+      const qEn = document.createElement('div');
+      qEn.style.cssText = 'color:#64748b;margin-bottom:12px;font-size:0.85rem;';
+      qEn.textContent = quizData.question.en;
+      el.appendChild(qEn);
       quizData.options.forEach((opt, idx) => {
         const optNum = idx + 1;
         const btn = document.createElement('button');
-        btn.innerHTML = `<div style="font-weight:800;">${optNum}. ${krSafe(opt)}</div>`
-          + `<div style="font-size:.78rem;color:#64748b;font-style:italic;margin-top:2px;">${escapeHtml(quizData.optionRomanizations[idx])}</div>`
-          + `<div style="font-size:.8rem;color:#475569;margin-top:2px;">${escapeHtml(quizData.optionEnglish[idx])}</div>`;
+        // ✅ 선택지도 한글 + 로마자 + 영어를 한 버튼 안에 전부 표시
+        btn.innerHTML = `<b>${optNum}.</b> ${krSafe(opt.kr)} <span style="color:#8b5cf6;font-weight:600;">(${krSafe(opt.rom)})</span><br><span style="font-size:0.82rem;color:#64748b;font-weight:500;">${escapeHtml(opt.en)}</span>`;
         btn.dataset.quizId = quizId; // ✅ 재채점/중복클릭 방지용 식별자
-        btn.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;';
+        btn.style.cssText = 'display:block;width:100%;text-align:left;margin:6px 0;padding:12px;border:2px solid #e2e8f0;border-radius:10px;background:white;cursor:pointer;font-size:0.9rem;font-weight:600;color:#475569;line-height:1.5;';
         btn.addEventListener('click', () => window.handleOptionClick(quizId, optNum));
         el.appendChild(btn);
       });
