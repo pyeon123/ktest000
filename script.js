@@ -1473,6 +1473,8 @@ Instruction: ${chosenType.instruction}
 
 IMPORTANT: Every piece of Korean text (the question and every option) MUST be given as an object with THREE fields together — kr (Korean), rom (romanization), en (English meaning). Never give Korean text alone without its romanization and English meaning right next to it.
 
+CRITICAL - determining the correct answer: There is NO separate "correctAnswerIndex" field. Instead, for EACH of the 4 options, write an explanation object with a "correct" boolean flag. Set "correct": true for exactly ONE option (the one that is actually, factually correct given the question) and "correct": false for the other three. Double-check your own explanation text agrees with the flag you set — if your explanation text says an option is right, its flag must be true; if the text says it's wrong, its flag must be false. Exactly one option must have "correct": true.
+
 Return ONLY valid JSON (no markdown fences, no text outside the JSON) in this exact schema:
 {
   "questionType": "${chosenType.label}",
@@ -1483,14 +1485,14 @@ Return ONLY valid JSON (no markdown fences, no text outside the JSON) in this ex
     { "kr": "option3 in Korean", "rom": "romanization of option3", "en": "English meaning of option3" },
     { "kr": "option4 in Korean", "rom": "romanization of option4", "en": "English meaning of option4" }
   ],
-  "correctAnswerIndex": 1,
   "explanations": [
-    "one short English sentence: why option 1 is correct or incorrect",
-    "one short English sentence: why option 2 is correct or incorrect",
-    "one short English sentence: why option 3 is correct or incorrect",
-    "one short English sentence: why option 4 is correct or incorrect"
+    { "correct": false, "text": "one short English sentence: why option 1 is correct or incorrect" },
+    { "correct": false, "text": "one short English sentence: why option 2 is correct or incorrect" },
+    { "correct": false, "text": "one short English sentence: why option 3 is correct or incorrect" },
+    { "correct": false, "text": "one short English sentence: why option 4 is correct or incorrect" }
   ]
-}`;
+}
+(Remember: exactly one of the four "correct" values above must actually be true — set it on whichever option is truly correct, not always the first one.)`;
 
     const presetQuestions = {
       epstopik: `Please explain ${lessonLabel} in EPS-TOPIK exam style. Cover the key vocabulary and grammar I need to know for the exam, using the current lesson as the main material. Every Korean word or sentence you mention MUST be shown together with its romanization and English meaning (never Korean alone).`,
@@ -2375,17 +2377,25 @@ function isValidQuiz(data){
   return data && isKrTriplet(data.question)
     && Array.isArray(data.options) && data.options.length === 4
     && data.options.every(o => isKrTriplet(o))
-    && typeof data.correctAnswerIndex === 'number'
-    && data.correctAnswerIndex >= 1 && data.correctAnswerIndex <= 4
     && Array.isArray(data.explanations) && data.explanations.length === 4
-    && data.explanations.every(e => typeof e === 'string' && e.trim().length > 0);
+    && data.explanations.every(e => e && typeof e === 'object' && typeof e.correct === 'boolean' && typeof e.text === 'string' && e.text.trim().length > 0)
+    && data.explanations.filter(e => e.correct === true).length === 1; // 정답은 정확히 하나여야 함
+}
+// explanations 배열에서 correct:true인 항목의 위치(1~4)를 찾아 정답 인덱스로 사용.
+// 별도 숫자 필드 없이, 설명과 정답 여부가 항상 같은 자리에 붙어있어서 서로 어긋날 수 없다.
+function getCorrectIndexFromExplanations(explanations){
+  const idx = explanations.findIndex(e => e && e.correct === true);
+  return idx === -1 ? 1 : idx + 1;
 }
 
 // ✅ 수정: 클릭 즉시 4개 선택지 전체 설명을 렌더링 (AI 재호출 없음), 버튼 비활성화, 재채점 방지용 상태 초기화
 window.handleOptionClick = function(quizId, userSelectedIndex) {
   const quizData = quizStore.get(quizId);
   if(!quizData) return;
-  const correctIndex = quizData.correctAnswerIndex;
+  const hasStructuredExplanations = Array.isArray(quizData.explanations) && quizData.explanations.length === 4 && quizData.explanations.every(e => e && typeof e === 'object');
+  // ✅ 정답 인덱스는 별도 숫자 필드가 아니라, 각 선택지 설명에 붙은 correct:true 위치로 계산.
+  // 설명 텍스트와 정답 표시가 항상 같은 자리에서 나오므로 서로 어긋날 수 없다.
+  const correctIndex = hasStructuredExplanations ? getCorrectIndexFromExplanations(quizData.explanations) : quizData.correctAnswerIndex;
   const isCorrect = (userSelectedIndex === correctIndex);
 
   if(typeof showCorrectIncorrectDisplay === 'function') showCorrectIncorrectDisplay(isCorrect);
@@ -2404,13 +2414,14 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
 
   // AI 재호출 없이 저장해둔 explanations로 4개 선택지 전부 즉시 설명
   // ✅ 한글이 나오는 모든 자리(질문/선택지)는 반드시 한글+로마자+영어 3종 세트로 표시
-  if(Array.isArray(quizData.explanations) && quizData.explanations.length === 4){
+  if(hasStructuredExplanations){
     const explainDiv = document.createElement('div');
     explainDiv.style.cssText = 'background:#f8fafc;border:2px solid #e2e8f0;padding:12px 14px;border-radius:14px;margin-top:8px;';
     let html = `<div style="font-weight:800;color:#1e293b;margin-bottom:8px;">📝 Explanation</div>`;
     quizData.options.forEach((opt, idx) => {
       const optNum = idx + 1;
-      const isThisCorrect = optNum === correctIndex;
+      // ✅ 정답 여부는 각 선택지 옆에 붙은 explanations[idx].correct를 그대로 사용 (숫자 인덱스 재계산 없이 1:1 대응)
+      const isThisCorrect = quizData.explanations[idx].correct === true;
       const isUserPick = optNum === userSelectedIndex;
       const optKr = (opt && typeof opt === 'object') ? opt.kr : opt;
       const optRom = (opt && typeof opt === 'object') ? opt.rom : '';
@@ -2419,7 +2430,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
           background:${isThisCorrect ? '#f0fdf4' : (isUserPick ? '#fef2f2' : '#ffffff')};
           border-left:4px solid ${isThisCorrect ? '#22c55e' : (isUserPick ? '#ef4444' : '#e2e8f0')};">
         <b>${optNum}. ${krSafe(optKr)}${optRom ? ` <span style="font-weight:600;color:#64748b;">(${krSafe(optRom)})</span>` : ''}${optEn ? ` — ${escapeHtml(optEn)}` : ''}</b> ${isThisCorrect ? '✅' : (isUserPick ? '👈 your pick' : '')}
-        <div style="font-size:0.85rem;color:#64748b;margin-top:3px;">${escapeHtml(quizData.explanations[idx])}</div>
+        <div style="font-size:0.85rem;color:#64748b;margin-top:3px;">${escapeHtml(quizData.explanations[idx].text)}</div>
       </div>`;
     });
     explainDiv.innerHTML = html;
@@ -2514,7 +2525,8 @@ async function handleQuestion(q, gramForced, forceAiMode){
     const selectedIdx = selectedNum - 1;
     const quiz = window.currentAITutorQuiz;
     if (!quiz.options ||!quiz.options[selectedIdx]) return null;
-    const correctNum = Number(quiz.correctAnswerIndex);
+    // ✅ 정답 인덱스도 별도 필드 대신 explanations의 correct:true 위치에서 계산 (일관성 유지)
+    const correctNum = Array.isArray(quiz.explanations) ? getCorrectIndexFromExplanations(quiz.explanations) : Number(quiz.correctAnswerIndex);
     const correctIdx = correctNum - 1;
     return {
       number: selectedNum,
@@ -2636,7 +2648,7 @@ Do NOT create a new quiz yet.`;
         rawFullText = accumulatedText;
         const el = document.getElementById(cid2);
         // JSON 스트리밍 중에는 임시로 텍스트 렌더링 생략 (깜빡임 방지)
-        if(el && !accumulatedText.includes('correctAnswerIndex')){ 
+        if(el && !accumulatedText.includes('"explanations"')){ 
            el.innerHTML = escapeAndBr(accumulatedText); 
            log.scrollTop = log.scrollHeight; 
         }
@@ -2656,8 +2668,8 @@ try {
     const quizData = parsed;
     const quizId = 'q_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
     // ✅ explanations까지 함께 저장 → 클릭 시 AI 재호출 없이 즉시 4개 선택지 설명 표시 가능
+    // (정답 인덱스는 별도 필드로 저장하지 않음 — explanations[i].correct가 유일한 정답 소스)
     quizStore.set(quizId, {
-      correctAnswerIndex: quizData.correctAnswerIndex,
       options: quizData.options,
       question: quizData.question,
       explanations: quizData.explanations
@@ -2667,7 +2679,6 @@ try {
   quizId: quizId,
   question: quizData.question,
   options: quizData.options,
-  correctAnswerIndex: quizData.correctAnswerIndex,
   explanations: quizData.explanations
 };  
     const el = document.getElementById(cid2);
