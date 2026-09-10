@@ -752,10 +752,15 @@ function toggleKFreeInfo(e, section) {
     </button>
   </form>
    <div id="auth-status" style="display:none; margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 12.5px; line-height: 1.5; text-align: left;"></div> 
-</div>
-    <button type="button" onclick="resendConfirmationEmail()" style="width:100%; margin-top:8px; padding:8px; background:none; border:none; color:#4F46E5; font-size:12.5px; text-decoration:underline; cursor:pointer;">
-  Didn’t receive the confirmation email? Resend it
+    
+    <button
+  type="button"
+  onclick="resendConfirmationEmail()"
+  style="width:100%; margin-top:8px; padding:8px; background:none; border:none; color:#4F46E5; font-size:12.5px; text-decoration:underline; cursor:pointer;">
+  Didn’t receive the confirmation email? Resend
 </button>
+
+</div>
       
     <!-- STEP 2: 로그인 성공 후 표시될 결제 영역 -->
     <div id="modal-pay-section" style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
