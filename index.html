@@ -751,8 +751,12 @@ function toggleKFreeInfo(e, section) {
       Login / Sign Up
     </button>
   </form>
+   <div id="auth-status" style="display:none; margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 12.5px; line-height: 1.5; text-align: left;"></div> 
 </div>
-
+    <button type="button" onclick="resendConfirmationEmail()" style="width:100%; margin-top:8px; padding:8px; background:none; border:none; color:#4F46E5; font-size:12.5px; text-decoration:underline; cursor:pointer;">
+  Didn’t receive the confirmation email? Resend it
+</button>
+      
     <!-- STEP 2: 로그인 성공 후 표시될 결제 영역 -->
     <div id="modal-pay-section" style="display: none; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;">
       <p style="color: #059669; font-weight: bold; margin-bottom: 4px;">You have been logged in!</p>
@@ -826,35 +830,145 @@ function toggleKFreeInfo(e, section) {
     if (error) alert('로그인 오류: ' + error.message);
   }
 
-  // 이메일 로그인 / 미가입 시 자동 회원가입
-  async function loginWithEmail() {
-    const email = document.getElementById('auth-email').value;
-    const password = document.getElementById('auth-password').value;
-
-    if (!email || !password) {
-      alert('이메일과 비밀번호를 입력해주세요.');
-      return;
-    }
-
-    let { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-
-    if (error && error.message.includes('Invalid login credentials')) {
-      const signUpResult = await supabaseClient.auth.signUp({ email, password });
-      if (signUpResult.error) {
-        alert('회원가입 실패: ' + signUpResult.error.message);
-        return;
-      }
-      alert('회원가입이 완료되었습니다!');
-      checkUserStatus();
-      return;
-    }
-
-    if (error) {
-      alert('로그인 오류: ' + error.message);
-    } else {
-      checkUserStatus();
-    }
+  function showAuthStatus(text, type) {
+  const box = document.getElementById('auth-status');
+  if (!box) {
+    alert(text);
+    return;
   }
+
+  box.textContent = text;
+  box.style.display = 'block';
+  box.style.background =
+    type === 'error'
+      ? '#fef2f2'
+      : (type === 'success' ? '#f0fdf4' : '#eef2ff');
+
+  box.style.color =
+    type === 'error'
+      ? '#dc2626'
+      : (type === 'success' ? '#166534' : '#4338ca');
+}
+
+
+// Email login / automatically sign up if not registered
+// Email confirmation required
+async function loginWithEmail() {
+  const email = document.getElementById('auth-email').value;
+  const password = document.getElementById('auth-password').value;
+
+  if (!email || !password) {
+    showAuthStatus('Please enter your email and password.', 'error');
+    return;
+  }
+
+  let { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  // Case 1: Password is correct, but email has not been confirmed yet
+  if (error && error.message.toLowerCase().includes('email not confirmed')) {
+    showAuthStatus(
+      '📩 Email confirmation is required. Please click the confirmation link in the email you received when you signed up. If you cannot find it, please check your spam folder.',
+      'info'
+    );
+    return;
+  }
+
+  // Case 2: Account does not exist → attempt to create a new account
+  if (error && error.message.includes('Invalid login credentials')) {
+    const signUpResult = await supabaseClient.auth.signUp({
+      email,
+      password
+    });
+
+    if (signUpResult.error) {
+      showAuthStatus(
+        'Sign-up failed: ' + signUpResult.error.message,
+        'error'
+      );
+      return;
+    }
+
+    // Supabase special case:
+    // If the email is already registered but not confirmed,
+    // signUp may appear successful while returning an empty identities array.
+    const identities = signUpResult.data?.user?.identities;
+
+    if (Array.isArray(identities) && identities.length === 0) {
+      showAuthStatus(
+        'This email is already registered. Please click "Resend Confirmation Email" below to receive the confirmation email again.',
+        'info'
+      );
+      return;
+    }
+
+    // New registration:
+    // If a session is created immediately (= email confirmation is disabled),
+    // log the user in.
+    // If there is no session (= email confirmation is enabled),
+    // show the confirmation message without logging in.
+    if (signUpResult.data?.session) {
+      showAuthStatus(
+        'Your account has been created successfully!',
+        'success'
+      );
+      checkUserStatus();
+    } else {
+      showAuthStatus(
+        '📩 A confirmation email has been sent! Please click the confirmation link in your email to complete your registration. (Please also check your spam folder.)',
+        'success'
+      );
+    }
+
+    return;
+  }
+
+  if (error) {
+    showAuthStatus(
+      'Login error: ' + error.message,
+      'error'
+    );
+  } else {
+    showAuthStatus(
+      'Login successful!',
+      'success'
+    );
+    checkUserStatus();
+  }
+}
+
+
+// Resend confirmation email
+async function resendConfirmationEmail() {
+  const email = document.getElementById('auth-email').value;
+
+  if (!email) {
+    showAuthStatus(
+      'Please enter your email address first.',
+      'error'
+    );
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.resend({
+    type: 'signup',
+    email
+  });
+
+  if (error) {
+    showAuthStatus(
+      'Failed to resend the confirmation email: ' + error.message,
+      'error'
+    );
+  } else {
+    showAuthStatus(
+      '📩 The confirmation email has been sent again. Please check your inbox, including your spam folder.',
+      'success'
+    );
+  }
+}
 
   async function logout() {
     await supabaseClient.auth.signOut();
