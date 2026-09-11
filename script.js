@@ -1482,7 +1482,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 
   function renderStudyModeButtons(){
   return `<div class="ai-actions" style="margin-top:14px; display:flex; gap:10px; flex-wrap:nowrap;">
-    <button class="ai-action-btn" style="padding:11px 18px; font-size:14.5px; min-width:120px; min-height:44px; border-radius:11px; font-weight:600; white-space:nowrap;" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>
+    <button class="ai-action-btn" style="padding:12px 20px; font-size:15.5px; min-width:120px; min-height:44px; border-radius:11px; font-weight:600; white-space:nowrap;" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>
     <button class="ai-action-btn" style="padding:11px 18px; font-size:14.5px; min-width:120px; min-height:44px; border-radius:11px; font-weight:600; white-space:nowrap;" onclick="window.__aiTutorMode('example')">💬 More Example</button>
     </div>`;
 }
