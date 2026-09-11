@@ -2549,7 +2549,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
     const correctOpt = quizData.options[correctIndex-1];
     const correctOptKr = (correctOpt && typeof correctOpt === 'object') ? correctOpt.kr : correctOpt;
     const questionKr = (quizData.question && typeof quizData.question === 'object') ? quizData.question.kr : quizData.question;
-    explainDiv.innerHTML += makeActions(`${questionKr} - Answer: ${correctOptKr}`.slice(0,200));
+    explainDiv.innerHTML += makeActions(`${questionKr} - Answer: ${correctOptKr}`);
     log.appendChild(explainDiv);
 
     // ✅ 진짜 튜터처럼: 설명 끝에 "다음 퀴즈" / "자세한 설명"을 바로 누를 수 있게 제안
