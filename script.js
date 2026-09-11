@@ -2700,7 +2700,7 @@ Do NOT create a new quiz yet.`;
         if(idx >= grams.length){
           const actionsEl = document.getElementById(cid+'-actions');
           if(actionsEl){
-            actionsEl.innerHTML = makeActions(combinedPlain.slice(0,200))
+            actionsEl.innerHTML = makeActions(combinedPlain)
               + renderStudyModeButtons();
           }
           return;
