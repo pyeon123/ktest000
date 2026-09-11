@@ -2837,7 +2837,7 @@ if(!isQuizRendered){
 }
         const actionsEl2 = document.getElementById(cid2+'-actions');
         if(actionsEl2 && !isQuizRendered){
-          actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
+         actionsEl2.innerHTML = makeActions(finalText||'')
             + renderStudyModeButtons();
         } else if(actionsEl2 && isQuizRendered){
           actionsEl2.innerHTML = ''; // 퀴즈는 정답 클릭 후 handleOptionClick에서 자체적으로 액션 버튼을 붙임
