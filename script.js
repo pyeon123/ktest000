@@ -1520,7 +1520,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
         + renderFromDB(g, ctx)
         + `</div>`;
     });
-    block += makeActions(grams.map(g=>g.grammar).join(' / ').slice(0,200)) + renderStudyModeButtons() + `</div>`;
+    block += makeActions(grams.map(g=>g.grammar).join(' / ')) + renderStudyModeButtons() + `</div>`;
     log.innerHTML += block;
     log.scrollTop = log.scrollHeight;
   }
