@@ -2316,7 +2316,37 @@ function getPageSentences(){
 
 }
  
-  function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
+  window.__aiActionTextStore = window.__aiActionTextStore || {};
+let __aiActionIdSeq = 0;
+
+window.__aiActionCopy = function(id, btn){
+  const text = window.__aiActionTextStore[id] || '';
+  navigator.clipboard.writeText(text);
+  if(btn) btn.innerText = '✅ Copied!';
+};
+
+window.__aiActionShare = function(){
+  // 지금 배우고 있는 한국어 문장 + 페이지를 공유
+  const kr = document.getElementById('korean-sentence')?.innerText?.trim();
+  const shareText = kr && kr !== '---'
+    ? `Learning "${kr}" on K-Free Korean! 🇰🇷`
+    : (document.title || 'K-Free Korean');
+  openShare(shareText);
+};
+
+window.__aiActionSave = function(id, btn){
+  const text = window.__aiActionTextStore[id] || '';
+  let s = JSON.parse(localStorage.getItem('aiSaved')||'[]');
+  s.push({ txt: text, date: new Date().toLocaleDateString() });
+  localStorage.setItem('aiSaved', JSON.stringify(s));
+  if(btn) btn.innerText = '❤ Saved!';
+};
+
+function makeActions(txt){
+  const id = 'act_' + (++__aiActionIdSeq);
+  window.__aiActionTextStore[id] = txt;
+  return `<div class="ai-actions"><button class="ai-action-btn" onclick="window.__aiActionCopy('${id}', this)">📋 Copy</button><button class="ai-action-btn" onclick="window.__aiActionShare()">📤 Share</button><button class="ai-action-btn" onclick="window.__aiActionSave('${id}', this)">💾 Save</button></div>`;
+}
  
 
 
