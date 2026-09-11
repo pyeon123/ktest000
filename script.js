@@ -1481,9 +1481,9 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   }
 
   function renderStudyModeButtons(){
-  return `<div class="ai-actions" style="margin-top:10px;">`
-    + `<button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>`
-    + `<button class="ai-action-btn" onclick="window.__aiTutorMode('example')">💬 More Example</button>`
+  return `<div class="ai-actions" style="margin-top:10px;display:flex;gap:8px;">`
+    + `<button class="ai-action-btn" style="padding:11px 16px;font-size:0.9rem;border-radius:14px;flex:1;" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>`
+    + `<button class="ai-action-btn" style="padding:11px 16px;font-size:0.9rem;border-radius:14px;flex:1;" onclick="window.__aiTutorMode('example')">💬 More Example</button>`
     + `</div>`;
 }
 
