@@ -1479,13 +1479,29 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
       + `<b>Excellent! Keep practicing. You are improving every day.</b>`; 
      
   }
+  
+   function makeActions(txt){
+  return `<div class="ai-actions ai-actions-tools"><button class="ai-action-btn" onclick="window.copyFullAiContent(this)">📋 Copy</button><button class="ai-action-btn" onclick="window.shareFullAiContent(this)">📤 Share</button><button class="ai-action-btn" onclick="window.saveFullAiContent(this)">💾 Save</button></div>`;
+}
 
 function renderStudyModeButtons(){
-  return `<div class="ai-actions" style="margin-top:12px; display:flex; gap:8px; flex-wrap:nowrap;">
-    <button class="ai-action-btn" style="padding:12px 20px !important; font-size:14px !important; min-height:42px !important; border-radius:10px !important; white-space:nowrap;" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>
-    <button class="ai-action-btn" style="padding:12px 20px !important; font-size:14px !important; min-height:42px !important; border-radius:10px !important; white-space:nowrap;" onclick="window.__aiTutorMode('example')">💬 More Example</button>
+  return `<div class="ai-actions ai-actions-modes" style="margin-top:12px; display:flex; gap:8px; flex-wrap:nowrap;">
+    <button class="ai-mode-btn" style="padding:12px 20px !important; font-size:14px !important; min-height:42px !important; border-radius:10px !important; white-space:nowrap;" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>
+    <button class="ai-mode-btn" style="padding:12px 20px !important; font-size:14px !important; min-height:42px !important; border-radius:10px !important; white-space:nowrap;" onclick="window.__aiTutorMode('example')">💬 More Example</button>
     </div>`;
 }
+
+// 간섭 제거용 강제 스타일
+(function(){
+  const s = document.createElement('style');
+  s.textContent = `
+    #ai-chat-log .ai-actions-modes{flex-wrap:nowrap !important;}
+    #ai-chat-log .ai-mode-btn{padding:12px 20px !important; font-size:14px !important; min-height:42px !important; white-space:nowrap !important; display:inline-flex !important; align-items:center; justify-content:center;}
+  `;
+  document.head.appendChild(s);
+})();
+
+
 
   function getDetectedGrammars(){
     try{
