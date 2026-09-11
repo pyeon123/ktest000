@@ -2316,7 +2316,45 @@ function getPageSentences(){
 
 }
  
-  function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
+  function copyFullAiContent(btn){
+  const block = btn.closest('div[style*="border:2px solid"]');
+  if(!block) return;
+  const clone = block.cloneNode(true);
+  clone.querySelectorAll('.ai-actions, button').forEach(el => el.remove());
+  const text = clone.innerText.trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    const old = btn.innerText;
+    btn.innerText = '✅ Copied!';
+    setTimeout(()=> btn.innerText = old, 1200);
+  });
+}
+function shareFullAiContent(btn){
+  const url = location.href;
+  const title = document.title;
+  if(navigator.share){
+    navigator.share({ title: title, text: title, url: url }).catch(()=>{});
+  } else {
+    openShare(title + "\n\n" + url);
+  }
+}
+function saveFullAiContent(btn){
+  const block = btn.closest('div[style*="border:2px solid"]');
+  if(!block) return;
+  const clone = block.cloneNode(true);
+  clone.querySelectorAll('.ai-actions, button').forEach(el => el.remove());
+  const text = clone.innerText.trim();
+  let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');
+  s.push({txt:text, date:new Date().toLocaleDateString()});
+  localStorage.setItem('aiSaved', JSON.stringify(s));
+  btn.innerText='❤ Saved!';
+}
+function makeActions(txt){
+  return `<div class="ai-actions" style="margin-top:12px; display:flex; gap:8px;">
+    <button class="ai-action-btn" style="padding:10px 16px; font-size:14px; min-height:40px; border-radius:10px;" onclick="copyFullAiContent(this)">📋 Copy</button>
+    <button class="ai-action-btn" style="padding:10px 16px; font-size:14px; min-height:40px; border-radius:10px;" onclick="shareFullAiContent(this)">📤 Share</button>
+    <button class="ai-action-btn" style="padding:10px 16px; font-size:14px; min-height:40px; border-radius:10px;" onclick="saveFullAiContent(this)">💾 Save</button>
+    </div>`;
+}
  
 
 
