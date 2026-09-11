@@ -703,7 +703,7 @@ function visitFacebook() { window.open("https://www.facebook.com/profile.php?id=
 function updateSEOData(catId) {
     if (!catId) {
         document.getElementById('seo-title').innerText = "EPS-TOPIK Free Quiz 3000 with AI Tutor";
-        document.getElementById('seo-desc').setAttribute("content", "Master Korean through fun interactive games! Challenge yourself with over 1,000 Korean Word quizzes. Perfect for K-Drama fans and learners worldwide.");
+        document.getElementById('seo-desc').setAttribute("content", "Master Korean through fun interactive games! Challenge yourself with over 1,000 Korean Word quizzes for EPS-TOPIK. Perfect for K-Drama fans and learners worldwide.");
         document.getElementById('main-header').innerText = "EPS-TOPIK Free Quiz 3000 with AI Tutor";
         injectSafeSEOData(null);
         return;
@@ -2316,7 +2316,7 @@ function getPageSentences(){
 
 }
  
-  function copyFullAiContent(btn){
+  window.copyFullAiContent = function(btn){
   const block = btn.closest('div[style*="border:2px solid"]');
   if(!block) return;
   const clone = block.cloneNode(true);
@@ -2328,7 +2328,7 @@ function getPageSentences(){
     setTimeout(()=> btn.innerText = old, 1200);
   });
 }
-function shareFullAiContent(btn){
+window.shareFullAiContent = function(btn){
   const url = location.href;
   const title = document.title;
   if(navigator.share){
@@ -2337,7 +2337,7 @@ function shareFullAiContent(btn){
     openShare(title + "\n\n" + url);
   }
 }
-function saveFullAiContent(btn){
+window.saveFullAiContent = function(btn){
   const block = btn.closest('div[style*="border:2px solid"]');
   if(!block) return;
   const clone = block.cloneNode(true);
@@ -2349,11 +2349,11 @@ function saveFullAiContent(btn){
   btn.innerText='❤ Saved!';
 }
 function makeActions(txt){
-  return `<div class="ai-actions" style="margin-top:12px; display:flex; gap:8px;">
-    <button class="ai-action-btn" style="padding:10px 16px; font-size:14px; min-height:40px; border-radius:10px;" onclick="copyFullAiContent(this)">📋 Copy</button>
-    <button class="ai-action-btn" style="padding:10px 16px; font-size:14px; min-height:40px; border-radius:10px;" onclick="shareFullAiContent(this)">📤 Share</button>
-    <button class="ai-action-btn" style="padding:10px 16px; font-size:14px; min-height:40px; border-radius:10px;" onclick="saveFullAiContent(this)">💾 Save</button>
-    </div>`;
+  return `<div class="ai-actions"><button class="ai-action-btn" onclick="window.copyFullAiContent(this)">📋 Copy</button><button class="ai-action-btn" onclick="window.shareFullAiContent(this)">📤 Share</button><button class="ai-action-btn" onclick="window.saveFullAiContent(this)">💾 Save</button></div>`;
+}
+
+function renderStudyModeButtons(){
+  return `<div class="ai-actions" style="margin-top:10px;"><button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button><button class="ai-action-btn" onclick="window.__aiTutorMode('example')">💬 More Example</button></div>`;
 }
  
 
