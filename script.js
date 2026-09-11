@@ -1481,12 +1481,11 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   }
 
   function renderStudyModeButtons(){
-    return `<div class="ai-actions" style="margin-top:10px;">`
-      + `<button class="ai-action-btn" onclick="window.__aiTutorMode('epstopik')">📘 EPS-TOPIK</button>`
-      + `<button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 Quiz</button>`
-      + `<button class="ai-action-btn" onclick="window.__aiTutorMode('example')">💬 Example</button>`
-      + `</div>`;
-  }
+  return `<div class="ai-actions" style="margin-top:16px; display:flex; gap:12px; padding:4px;">
+    <button class="ai-action-btn" style="padding:14px 24px; font-size:16px; min-width:135px; min-height:52px; border-radius:12px; font-weight:600;" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>
+    <button class="ai-action-btn" style="padding:14px 24px; font-size:16px; min-width:135px; min-height:52px; border-radius:12px; font-weight:600;" onclick="window.__aiTutorMode('example')">💬 More Example</button>
+    </div>`;
+}
 
   function getDetectedGrammars(){
     try{
