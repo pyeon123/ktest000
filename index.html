@@ -1394,6 +1394,10 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   var file = (location.pathname.split('/').pop()||'').toLowerCase();
   if(file===''||file==='index.html'||file==='/'||file==='index') return;
 
+  // ✅ 수정: 검색창 상단에 보여줄 "문장/문법 칩" 개수. 기존 3개 → 2개로 변경.
+  // 이 숫자 하나만 바꾸면 getPageSentences()와 renderFaq() 양쪽에 다 반영됨.
+  const MAX_SENTENCES = 2;
+
   const GRAMMAR_DB = {};
   // ✅ 수정: grammarData가 혹시라도 정의되지 않은 페이지에서도 안전하게 통과하도록 가드 추가
   if (typeof grammarData !== 'undefined' && Array.isArray(grammarData)) {
@@ -2256,7 +2260,7 @@ function getPageSentences(){
 
   function addSentence(item){
 
-    if(list.length >= 3) return;
+    if(list.length >= MAX_SENTENCES) return;
 
     if(!isSentence(item)) return;
 
@@ -2296,7 +2300,7 @@ function getPageSentences(){
 
         for(const e of quiz.examples){
 
-          if(list.length >= 3) break;
+          if(list.length >= MAX_SENTENCES) break;
 
           addSentence(e);
 
@@ -2308,7 +2312,7 @@ function getPageSentences(){
 
         for(const o of quiz.options){
 
-          if(list.length >= 3) break;
+          if(list.length >= MAX_SENTENCES) break;
 
           addSentence(o);
 
@@ -2327,7 +2331,7 @@ function getPageSentences(){
 
   }
 
-  return list.slice(0, 3);
+  return list.slice(0, MAX_SENTENCES);
 
 }
  
@@ -2403,11 +2407,13 @@ function makeActions(txt){
           }
         }
       }
-      for(let i=0;i<3;i++){
+      // ✅ 수정: 하드코딩된 3 → MAX_SENTENCES(2). 문장-문법 1:1 매칭이 안 된 슬롯만
+      // fallbackPool(레슨과 무관해도 되는 예비 문법)에서 채워 넣는 기존 로직은 그대로 유지.
+      for(let i=0;i<MAX_SENTENCES;i++){
         if(i>=grammarsPerSentence.length) grammarsPerSentence[i]=null;
       }
-      if(grammarsPerSentence.filter(Boolean).length < 3){
-        for(let i=0;i<3;i++){
+      if(grammarsPerSentence.filter(Boolean).length < MAX_SENTENCES){
+        for(let i=0;i<MAX_SENTENCES;i++){
           if(!grammarsPerSentence[i]){
             const next = fallbackPool.find(g=>!grammarsPerSentence.some(x=>x && x.id===g.id));
             if(next) grammarsPerSentence[i]=next;
@@ -2418,8 +2424,9 @@ function makeActions(txt){
 
     let modeButtonsHtml = '';
     if(sentences.length>0){
+      // ✅ 수정: [0,1,2] 하드코딩 → MAX_SENTENCES 개수만큼 동적으로 생성
       modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
-        + [0,1,2].map(i=>{
+        + Array.from({length: MAX_SENTENCES}, (_, i) => i).map(i=>{
           const g = grammarsPerSentence[i];
           const sentence = sentences[i];
           if(g){
@@ -2437,9 +2444,9 @@ function makeActions(txt){
         }).join('') + `</div>`;
     } else {
       modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
-        + (fallbackPool.slice(0,3).map((g,i)=>
+        + (fallbackPool.slice(0,MAX_SENTENCES).map((g,i)=>
           `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${krSafe(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${krSafe(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
-        ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(3))
+        ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(MAX_SENTENCES))
         + `</div>`;
     }
 
