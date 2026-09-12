@@ -1388,19 +1388,34 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
 })();
 
 (function(){
+  // ✅ 수정: index.html 등 AI 튜터가 필요 없는 페이지에서 grammarData가 아직 정의되지 않았을 때
+  // 아래쪽의 grammarData.forEach(...)가 즉시 ReferenceError를 던져서 이 블록 전체가 죽는 것을 방지하기 위해,
+  // 페이지 판별(return) 로직을 맨 위로 끌어올렸다. (원래는 이 체크가 파일 훨씬 아래쪽에 있었음)
+  var file = (location.pathname.split('/').pop()||'').toLowerCase();
+  if(file===''||file==='index.html'||file==='/'||file==='index') return;
+
+  // ✅ 수정: 검색창 상단에 보여줄 "문장/문법 칩" 개수. 기존 3개 → 2개로 변경.
+  // 이 숫자 하나만 바꾸면 getPageSentences()와 renderFaq() 양쪽에 다 반영됨.
+  const MAX_SENTENCES = 2;
+
   const GRAMMAR_DB = {};
-  grammarData.forEach(item => {
-    GRAMMAR_DB[item.id] = {
-      ...item,
-      k: item.grammar,
-      rom: item.romanization,
-      mean: item.title,
-      rule: item.basicRule,
-      ex: item.examples ? item.examples.map(e => `${e.kr} (${e.rom}) ${e.en}`).join(' / ') : '',
-      tip: item.nativeTip,
-      mistake: item.commonMistakes ? item.commonMistakes.map(m => `❌ ${m.wrong} → ✅ ${m.correct}`).join(' / ') : ''
-    };
-  });
+  // ✅ 수정: grammarData가 혹시라도 정의되지 않은 페이지에서도 안전하게 통과하도록 가드 추가
+  if (typeof grammarData !== 'undefined' && Array.isArray(grammarData)) {
+    grammarData.forEach(item => {
+      GRAMMAR_DB[item.id] = {
+        ...item,
+        k: item.grammar,
+        rom: item.romanization,
+        mean: item.title,
+        rule: item.basicRule,
+        ex: item.examples ? item.examples.map(e => `${e.kr} (${e.rom}) ${e.en}`).join(' / ') : '',
+        tip: item.nativeTip,
+        mistake: item.commonMistakes ? item.commonMistakes.map(m => `❌ ${m.wrong} → ✅ ${m.correct}`).join(' / ') : ''
+      };
+    });
+  } else {
+    console.warn('[AI Tutor] grammarData가 정의되지 않았습니다. 문법 DB 기능이 비활성화됩니다.');
+  }
  
   function hasWordBoundary(text, token){
     const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -1481,9 +1496,9 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   }
 
   function renderStudyModeButtons(){
-  return `<div class="ai-actions" style="margin-top:10px;">`
-    + `<button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>`
-    + `<button class="ai-action-btn" onclick="window.__aiTutorMode('example')">💬 More Example</button>`
+  return `<div class="ai-actions" style="margin-top:10px;display:flex;gap:8px;">`
+    + `<button class="ai-action-btn" style="padding:10px 14px;font-size:0.8rem;border-radius:14px;flex:1;" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>`
+    + `<button class="ai-action-btn" style="padding:10px 14px;font-size:0.8rem;border-radius:14px;flex:1;" onclick="window.__aiTutorMode('example')">💬 More Example</button>`
     + `</div>`;
 }
 
@@ -1514,13 +1529,20 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
     log.innerHTML += `<div style="align-self:flex-end;background:#16a34a;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">📚 ${grams.length===1?krSafe(grams[0].grammar)+' View grammar':'View Grammar DB'}</div>`;
     let block = `<div style="background:#f0fdf4;border:2px solid #bbf7d0;padding:12px 14px;border-radius:14px;">`
       + `<span class="ai-source-tag ai-source-db">📚 ${grams.length} Grammar - Free Unlimited Grammar </span>`;
+    // ✅ 수정: Copy 버튼에 "문법 이름만"이 아니라 화면에 실제로 보여지는 설명 전체를 담기 위해 누적
+    let fullPlainText = '';
     grams.forEach(g=>{
+      const rendered = renderFromDB(g, ctx);
+      fullPlainText += (fullPlainText ? '\n\n' : '')
+        + `${g.grammar} (${g.id})\n`
+        + rendered.replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]*>/g,'');
       block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #bbf7d0;">`
         + `<div style="font-size:0.85rem;color:#166534;font-weight:800;margin-bottom:6px;">📚 ${krSafe(g.grammar)} (${escapeHtml(g.id)})</div>`
-        + renderFromDB(g, ctx)
+        + rendered
         + `</div>`;
     });
-    block += makeActions(grams.map(g=>g.grammar).join(' / ').slice(0,200)) + renderStudyModeButtons() + `</div>`;
+    // ✅ 수정: grams.map(g=>g.grammar).join(' / ') 대신 fullPlainText(전체 설명)를 Copy 버튼에 전달
+    block += makeActions(fullPlainText) + renderStudyModeButtons() + `</div>`;
     log.innerHTML += block;
     log.scrollTop = log.scrollHeight;
   }
@@ -1596,9 +1618,6 @@ Return ONLY valid JSON (no markdown fences, no text outside the JSON) in this ex
     }
     return id;
   }
- 
-  var file = (location.pathname.split('/').pop()||'').toLowerCase();
-  if(file===''||file==='index.html'||file==='/'||file==='index') return;
  
   var oldBtn=document.getElementById('ai-tutor-btn'); if(oldBtn) oldBtn.parentElement.remove();
   var oldStyle=document.getElementById('ai-tutor-style'); if(oldStyle) oldStyle.remove();
@@ -2241,7 +2260,7 @@ function getPageSentences(){
 
   function addSentence(item){
 
-    if(list.length >= 3) return;
+    if(list.length >= MAX_SENTENCES) return;
 
     if(!isSentence(item)) return;
 
@@ -2281,7 +2300,7 @@ function getPageSentences(){
 
         for(const e of quiz.examples){
 
-          if(list.length >= 3) break;
+          if(list.length >= MAX_SENTENCES) break;
 
           addSentence(e);
 
@@ -2293,7 +2312,7 @@ function getPageSentences(){
 
         for(const o of quiz.options){
 
-          if(list.length >= 3) break;
+          if(list.length >= MAX_SENTENCES) break;
 
           addSentence(o);
 
@@ -2312,11 +2331,41 @@ function getPageSentences(){
 
   }
 
-  return list.slice(0, 3);
+  return list.slice(0, MAX_SENTENCES);
 
 }
  
-  function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
+  window.__aiActionTextStore = window.__aiActionTextStore || {};
+let __aiActionIdSeq = 0;
+
+window.__aiActionCopy = function(id, btn){
+  const text = window.__aiActionTextStore[id] || '';
+  navigator.clipboard.writeText(text);
+  if(btn) btn.innerText = '✅ Copied!';
+};
+
+window.__aiActionShare = function(){
+  // 지금 배우고 있는 한국어 문장 + 페이지를 공유
+  const kr = document.getElementById('korean-sentence')?.innerText?.trim();
+  const shareText = kr && kr !== '---'
+    ? `Learning "${kr}" on K-Free Korean! 🇰🇷`
+    : (document.title || 'K-Free Korean');
+  openShare(shareText);
+};
+
+window.__aiActionSave = function(id, btn){
+  const text = window.__aiActionTextStore[id] || '';
+  let s = JSON.parse(localStorage.getItem('aiSaved')||'[]');
+  s.push({ txt: text, date: new Date().toLocaleDateString() });
+  localStorage.setItem('aiSaved', JSON.stringify(s));
+  if(btn) btn.innerText = '❤ Saved!';
+};
+
+function makeActions(txt){
+  const id = 'act_' + (++__aiActionIdSeq);
+  window.__aiActionTextStore[id] = txt;
+  return `<div class="ai-actions"><button class="ai-action-btn" onclick="window.__aiActionCopy('${id}', this)">📋 Copy</button><button class="ai-action-btn" onclick="window.__aiActionShare()">📤 Share</button><button class="ai-action-btn" onclick="window.__aiActionSave('${id}', this)">💾 Save</button></div>`;
+}
  
 
 
@@ -2358,11 +2407,13 @@ function getPageSentences(){
           }
         }
       }
-      for(let i=0;i<3;i++){
+      // ✅ 수정: 하드코딩된 3 → MAX_SENTENCES(2). 문장-문법 1:1 매칭이 안 된 슬롯만
+      // fallbackPool(레슨과 무관해도 되는 예비 문법)에서 채워 넣는 기존 로직은 그대로 유지.
+      for(let i=0;i<MAX_SENTENCES;i++){
         if(i>=grammarsPerSentence.length) grammarsPerSentence[i]=null;
       }
-      if(grammarsPerSentence.filter(Boolean).length < 3){
-        for(let i=0;i<3;i++){
+      if(grammarsPerSentence.filter(Boolean).length < MAX_SENTENCES){
+        for(let i=0;i<MAX_SENTENCES;i++){
           if(!grammarsPerSentence[i]){
             const next = fallbackPool.find(g=>!grammarsPerSentence.some(x=>x && x.id===g.id));
             if(next) grammarsPerSentence[i]=next;
@@ -2373,8 +2424,9 @@ function getPageSentences(){
 
     let modeButtonsHtml = '';
     if(sentences.length>0){
+      // ✅ 수정: [0,1,2] 하드코딩 → MAX_SENTENCES 개수만큼 동적으로 생성
       modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
-        + [0,1,2].map(i=>{
+        + Array.from({length: MAX_SENTENCES}, (_, i) => i).map(i=>{
           const g = grammarsPerSentence[i];
           const sentence = sentences[i];
           if(g){
@@ -2392,9 +2444,9 @@ function getPageSentences(){
         }).join('') + `</div>`;
     } else {
       modeButtonsHtml = `<div style="width:100%;display:flex;gap:5px;">`
-        + (fallbackPool.slice(0,3).map((g,i)=>
+        + (fallbackPool.slice(0,MAX_SENTENCES).map((g,i)=>
           `<button class="faq-chip" data-gram-idx="${i}" style="flex:1;text-align:center;background:#f0fdf4;border-color:#bbf7d0;padding:5px 6px;line-height:1.2;min-height:auto;"><div style="font-size:.82rem;font-weight:900;color:#166534;">${krSafe(g.grammar)}</div><div style="font-size:.62rem;color:#64748b;">${krSafe(g.romanization||'')}</div><div style="font-size:.6rem;color:#475569;">${escapeHtml(g.title||'').slice(0,22)}</div></button>`
-        ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(3))
+        ).join('') || `<button class="faq-chip" style="flex:1;padding:5px;">📚 Grammar DB</button>`.repeat(MAX_SENTENCES))
         + `</div>`;
     }
 
@@ -2519,7 +2571,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
     const correctOpt = quizData.options[correctIndex-1];
     const correctOptKr = (correctOpt && typeof correctOpt === 'object') ? correctOpt.kr : correctOpt;
     const questionKr = (quizData.question && typeof quizData.question === 'object') ? quizData.question.kr : quizData.question;
-    explainDiv.innerHTML += makeActions(`${questionKr} - Answer: ${correctOptKr}`.slice(0,200));
+    explainDiv.innerHTML += makeActions(`${questionKr} - Answer: ${correctOptKr}`);
     log.appendChild(explainDiv);
 
     // ✅ 진짜 튜터처럼: 설명 끝에 "다음 퀴즈" / "자세한 설명"을 바로 누를 수 있게 제안
@@ -2577,14 +2629,20 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
   + `📚 Grammar Database Answer — Unlimited use, no AI usage<br>`
   + `💡 Want a deeper explanation? Ask the AI teacher below.`
   + `</div>`;
+      // ✅ 수정: Copy 버튼에 "문법 이름 요약"이 아니라 화면에 실제로 보여지는 설명 전체를 담기 위해 누적
+      let fullPlainText = '';
       matches.forEach(g=>{
+        const rendered = renderFromDB(g, {kr:s.kr, rom:s.rom, en:s.en});
+        fullPlainText += (fullPlainText ? '\n\n' : '')
+          + `${g.grammar} (${g.romanization}) ${g.title}\n`
+          + rendered.replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]*>/g,'');
         block += `<div style="margin-top:10px;padding-top:10px;border-top:1px dashed #e2e8f0;">`
           + `<div style="font-size:0.85rem;color:#6366f1;font-weight:800;margin-bottom:6px;">🤖 ${escapeHtml(g.grammar)} (${escapeHtml(g.id)})</div>`
-          + renderFromDB(g, {kr:s.kr, rom:s.rom, en:s.en})
+          + rendered
           + `</div>`;
       });
-      const plainForCopy = matches.map(g=>`${g.grammar} (${g.romanization}) ${g.title}`).join(' / ');
-      block += makeActions(plainForCopy)
+      // ✅ 수정: matches.map(g=>...).join(' / ') 대신 fullPlainText(전체 설명)를 Copy 버튼에 전달
+      block += makeActions(fullPlainText)
         + renderStudyModeButtons() + `</div>`;
       log.innerHTML += block;
       log.scrollTop = log.scrollHeight;
@@ -2670,7 +2728,7 @@ Do NOT create a new quiz yet.`;
         if(idx >= grams.length){
           const actionsEl = document.getElementById(cid+'-actions');
           if(actionsEl){
-            actionsEl.innerHTML = makeActions(combinedPlain.slice(0,200))
+            actionsEl.innerHTML = makeActions(combinedPlain)
               + renderStudyModeButtons();
           }
           return;
@@ -2683,7 +2741,9 @@ Do NOT create a new quiz yet.`;
         const bodyDiv = document.createElement('div');
         container.appendChild(bodyDiv);
         const finalAnswer = renderFromDB(g, ctx);
-        combinedPlain += (idx>0?' / ':'') + finalAnswer.replace(/<[^>]*>/g,'').slice(0,150);
+        // ✅ 수정: .slice(0,150)으로 앞부분만 자르던 것을 제거 — 화면에 보여주는 설명 전체를
+        // Copy 버튼에도 그대로 담는다. <br>은 줄바꿈(\n)으로 바꿔서 복사했을 때도 읽기 좋게 유지.
+        combinedPlain += (idx>0?'\n\n':'') + finalAnswer.replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]*>/g,'');
         typeWriterHTML(bodyDiv, finalAnswer, 6, ()=>{ typeNext(idx+1); });
       }
       typeNext(0);
@@ -2807,7 +2867,7 @@ if(!isQuizRendered){
 }
         const actionsEl2 = document.getElementById(cid2+'-actions');
         if(actionsEl2 && !isQuizRendered){
-          actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
+         actionsEl2.innerHTML = makeActions(finalText||'')
             + renderStudyModeButtons();
         } else if(actionsEl2 && isQuizRendered){
           actionsEl2.innerHTML = ''; // 퀴즈는 정답 클릭 후 handleOptionClick에서 자체적으로 액션 버튼을 붙임
@@ -2905,7 +2965,7 @@ window.showAiTutor=()=>{var d=document.getElementById('detail-area'); if(d&&d.st
 window.hideAiTutor=()=>{btn.style.display='none'; modal.style.display='none'; open=false;};
 var oldR=window.renderLearningProgress; window.renderLearningProgress=function(){if(oldR) oldR(); setTimeout(window.showAiTutor,300);};
  
-  console.log('✅ AI Tutor loaded! Grammar DB entries:', grammarData.length, '(local render, no API for matched grammar)');
+  console.log('✅ AI Tutor loaded! Grammar DB entries:', (typeof grammarData !== 'undefined' ? grammarData.length : 0), '(local render, no API for matched grammar)');
   console.log(USE_GEMINI?'✅ Gemini fallback ready for general questions (with pageContext)':'⚠️ Gemini disabled');
 })();
 (function autoHideFaqOnCorrectPage(){
