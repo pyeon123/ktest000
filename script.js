@@ -1481,9 +1481,9 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   }
 
   function renderStudyModeButtons(){
-  return `<div class="ai-actions" style="margin-top:10px;display:flex;gap:8px;">`
-    + `<button class="ai-action-btn" style="padding:10px 14px;font-size:0.8rem;border-radius:14px;flex:1;" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>`
-    + `<button class="ai-action-btn" style="padding:10px 14px;font-size:0.8rem;border-radius:14px;flex:1;" onclick="window.__aiTutorMode('example')">💬 More Example</button>`
+  return `<div class="ai-actions" style="margin-top:10px;">`
+    + `<button class="ai-action-btn" onclick="window.__aiTutorMode('quiz')">🎯 More Quiz</button>`
+    + `<button class="ai-action-btn" onclick="window.__aiTutorMode('example')">💬 More Example</button>`
     + `</div>`;
 }
 
@@ -1520,7 +1520,7 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
         + renderFromDB(g, ctx)
         + `</div>`;
     });
-    block += makeActions(grams.map(g=>g.grammar).join(' / ')) + renderStudyModeButtons() + `</div>`;
+    block += makeActions(grams.map(g=>g.grammar).join(' / ').slice(0,200)) + renderStudyModeButtons() + `</div>`;
     log.innerHTML += block;
     log.scrollTop = log.scrollHeight;
   }
@@ -2316,37 +2316,7 @@ function getPageSentences(){
 
 }
  
-  window.__aiActionTextStore = window.__aiActionTextStore || {};
-let __aiActionIdSeq = 0;
-
-window.__aiActionCopy = function(id, btn){
-  const text = window.__aiActionTextStore[id] || '';
-  navigator.clipboard.writeText(text);
-  if(btn) btn.innerText = '✅ Copied!';
-};
-
-window.__aiActionShare = function(){
-  // 지금 배우고 있는 한국어 문장 + 페이지를 공유
-  const kr = document.getElementById('korean-sentence')?.innerText?.trim();
-  const shareText = kr && kr !== '---'
-    ? `Learning "${kr}" on K-Free Korean! 🇰🇷`
-    : (document.title || 'K-Free Korean');
-  openShare(shareText);
-};
-
-window.__aiActionSave = function(id, btn){
-  const text = window.__aiActionTextStore[id] || '';
-  let s = JSON.parse(localStorage.getItem('aiSaved')||'[]');
-  s.push({ txt: text, date: new Date().toLocaleDateString() });
-  localStorage.setItem('aiSaved', JSON.stringify(s));
-  if(btn) btn.innerText = '❤ Saved!';
-};
-
-function makeActions(txt){
-  const id = 'act_' + (++__aiActionIdSeq);
-  window.__aiActionTextStore[id] = txt;
-  return `<div class="ai-actions"><button class="ai-action-btn" onclick="window.__aiActionCopy('${id}', this)">📋 Copy</button><button class="ai-action-btn" onclick="window.__aiActionShare()">📤 Share</button><button class="ai-action-btn" onclick="window.__aiActionSave('${id}', this)">💾 Save</button></div>`;
-}
+  function makeActions(txt){var safe=txt.replace(/'/g,"").replace(/"/g,'').slice(0,400); return `<div class="ai-actions"><button class="ai-action-btn" onclick="navigator.clipboard.writeText('${safe}');this.innerText='✅ Copied!'">📋 Copy</button><button class="ai-action-btn" onclick="openShare('${safe}')">📤 Share</button><button class="ai-action-btn" onclick="let s=JSON.parse(localStorage.getItem('aiSaved')||'[]');s.push({txt:'${safe}',date:new Date().toLocaleDateString()});localStorage.setItem('aiSaved',JSON.stringify(s));this.innerText='❤ Saved!'">💾 Save</button></div>`;}
  
 
 
@@ -2549,7 +2519,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
     const correctOpt = quizData.options[correctIndex-1];
     const correctOptKr = (correctOpt && typeof correctOpt === 'object') ? correctOpt.kr : correctOpt;
     const questionKr = (quizData.question && typeof quizData.question === 'object') ? quizData.question.kr : quizData.question;
-    explainDiv.innerHTML += makeActions(`${questionKr} - Answer: ${correctOptKr}`);
+    explainDiv.innerHTML += makeActions(`${questionKr} - Answer: ${correctOptKr}`.slice(0,200));
     log.appendChild(explainDiv);
 
     // ✅ 진짜 튜터처럼: 설명 끝에 "다음 퀴즈" / "자세한 설명"을 바로 누를 수 있게 제안
@@ -2700,7 +2670,7 @@ Do NOT create a new quiz yet.`;
         if(idx >= grams.length){
           const actionsEl = document.getElementById(cid+'-actions');
           if(actionsEl){
-            actionsEl.innerHTML = makeActions(combinedPlain)
+            actionsEl.innerHTML = makeActions(combinedPlain.slice(0,200))
               + renderStudyModeButtons();
           }
           return;
@@ -2837,7 +2807,7 @@ if(!isQuizRendered){
 }
         const actionsEl2 = document.getElementById(cid2+'-actions');
         if(actionsEl2 && !isQuizRendered){
-         actionsEl2.innerHTML = makeActions(finalText||'')
+          actionsEl2.innerHTML = makeActions((finalText||'').slice(0,200))
             + renderStudyModeButtons();
         } else if(actionsEl2 && isQuizRendered){
           actionsEl2.innerHTML = ''; // 퀴즈는 정답 클릭 후 handleOptionClick에서 자체적으로 액션 버튼을 붙임
