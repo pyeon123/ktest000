@@ -11,8 +11,8 @@
     </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>오늘의 모의고사 & EPS-TOPIK Mock Tests | K-Free</title>
-    <meta name="description" content="매일 새로운 무료 연습 문제부터 실제 시험 형식(듣기 20+읽기 20, 50분)의 회원 전용 정식 모의고사까지, 한 페이지에서.">
+    <title>Today's Quiz & EPS-TOPIK Mock Tests | K-Free</title>
+    <meta name="description" content="A new free practice question every day, plus a members-only official mock test matching the real EPS-TOPIK format (Listening 20 + Reading 20, 50 min).">
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -108,8 +108,13 @@
         .dq-progress-bar { display: flex; justify-content: center; margin: 16px 0 18px; }
         .dq-progress-bar .pill { background: #fff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 6px 16px; font-weight: 800; font-size: 0.82rem; color: #475569; }
         .dq-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 22px; box-shadow: 0 4px 14px rgba(0,0,0,.05); }
-        .dq-q { font-size: 1.05rem; font-weight: 700; line-height: 1.7; white-space: pre-line; margin-bottom: 18px; }
-        .dq-opt { display: block; width: 100%; text-align: left; padding: 14px 16px; margin-bottom: 10px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; font-size: 0.95rem; font-weight: 700; color: #334155; cursor: pointer; transition: all .12s; }
+        .dq-q-kr { font-size: 1.05rem; font-weight: 800; line-height: 1.6; white-space: pre-line; }
+        .dq-q-rom { font-size: 0.88rem; font-weight: 600; color: #8b5cf6; margin-top: 4px; }
+        .dq-q-en { font-size: 0.9rem; color: #64748b; margin-top: 4px; margin-bottom: 18px; }
+        .dq-opt { display: block; width: 100%; text-align: left; padding: 12px 16px; margin-bottom: 10px; background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; cursor: pointer; transition: all .12s; }
+        .dq-opt-kr { font-size: 0.98rem; font-weight: 800; color: #334155; }
+        .dq-opt-rom { font-size: 0.78rem; font-weight: 600; color: #8b5cf6; margin-top: 2px; }
+        .dq-opt-en { font-size: 0.82rem; color: #64748b; margin-top: 2px; }
         .dq-opt:not(:disabled):hover { border-color: var(--exam-primary); }
         .dq-opt:disabled { cursor: default; }
         .dq-opt.correct { border-color: #22c55e; background: #f0fdf4; color: #15803d; }
@@ -138,15 +143,15 @@
 <div class="exam-app">
 
     <div class="exam-topbar">
-        <a href="index.html">🏠 처음으로</a>
-        <span class="badge">EPS-TOPIK 정식 형식 기준</span>
+        <a href="index.html">🏠 Home</a>
+        <span class="badge">Official EPS-TOPIK Format</span>
     </div>
 
     <!-- ===================== 상단: 오늘의 모의고사 (무료) ===================== -->
     <div class="dq-section">
         <div class="dq-hero">
-            <h1>📝 오늘의 모의고사 <span style="color:#22c55e;font-size:0.85rem;">— 무료</span></h1>
-            <div class="dq-countdown" id="dq-countdown">⏰ 계산 중...</div>
+            <h1>📝 Today's Quiz <span style="color:#22c55e;font-size:0.85rem;">— FREE</span></h1>
+            <div class="dq-countdown" id="dq-countdown">⏰ Calculating...</div>
         </div>
 
         <div class="dq-progress-bar">
@@ -154,7 +159,9 @@
         </div>
 
         <div class="dq-card">
-            <div class="dq-q" id="dq-question"></div>
+            <div class="dq-q-kr" id="dq-question-kr"></div>
+            <div class="dq-q-rom" id="dq-question-rom"></div>
+            <div class="dq-q-en" id="dq-question-en"></div>
             <div id="dq-options"></div>
             <div class="dq-feedback" id="dq-feedback"></div>
             <div class="dq-actions" id="dq-actions"></div>
@@ -165,23 +172,24 @@
 
     <!-- ===================== 하단: EPS-TOPIK Mock Tests (회원 전용) ===================== -->
     <div class="mocktest-header">
-        <div class="badge2">🔒 회원 전용 · 실제 시험 형식</div>
+        <div class="badge2">🔒 Members Only · Official Exam Format</div>
         <h2>🎯 EPS-TOPIK Mock Tests</h2>
-        <p style="color:#64748b;font-size:0.85rem;margin-top:4px;">실제 시험과 같은 문항 수·시간으로 연습하고,<br>틀린 문제는 AI 튜터에게 바로 물어보세요.</p>
+        <p style="color:#64748b;font-size:0.85rem;margin-top:4px;">Practice with the same number of questions and time as the real exam.<br>Ask the AI Tutor about any question you got wrong.</p>
+        <div class="dq-countdown" id="mocktest-countdown" style="margin-top:10px;">⏰ Calculating...</div>
     </div>
 
     <!-- ===================== 화면 1: 세트 선택 ===================== -->
     <div id="screen-list">
         <div class="info-card">
-            <div class="info-title">📋 시험 형식 (HRD Korea 공식 기준)</div>
+            <div class="info-title">📋 Exam Format (Based on official HRD Korea EPS-TOPIK)</div>
             <div class="info-grid">
-                <div class="info-box"><div class="num">40문항</div><div class="label">듣기 20 + 읽기 20</div></div>
-                <div class="info-box"><div class="num">50분</div><div class="label">쉬는 시간 없음</div></div>
-                <div class="info-box"><div class="num">100점</div><div class="label">문항당 2.5점</div></div>
-                <div class="info-box"><div class="num">4지선다</div><div class="label">전 문항 객관식</div></div>
+                <div class="info-box"><div class="num">40 Q</div><div class="label">Listening 20 + Reading 20</div></div>
+                <div class="info-box"><div class="num">50 min</div><div class="label">No break</div></div>
+                <div class="info-box"><div class="num">100 pts</div><div class="label">2.5 pts / question</div></div>
+                <div class="info-box"><div class="num">4 choices</div><div class="label">Multiple choice only</div></div>
             </div>
             <div class="info-note">
-                ※ 합격 기준은 업종마다 다릅니다 (제조업 60점 / 그 외 업종 45점 / 어업 특례 30점, 상대평가). 이 모의고사는 실전 형식에 맞춘 연습용이며, 실제 기출문제가 아닙니다. 듣기 음성은 음성합성(TTS)으로 재생되어 실제 시험 성우 음성과 다를 수 있습니다.
+                ※ The passing score varies by industry sector (Manufacturing 60 / Other sectors 45 / Fishing special 30, relative grading). This mock test follows the real exam format for practice purposes and is not an actual past exam. Listening audio is generated with text-to-speech and may sound different from the real exam's voice actors.
             </div>
         </div>
 
@@ -191,23 +199,23 @@
     <!-- ===================== 화면 2: 응시 화면 ===================== -->
     <div id="screen-exam">
         <div class="exam-header">
-            <span class="sec-label" id="exam-section-label">👂 듣기 영역</span>
+            <span class="sec-label" id="exam-section-label">👂 Listening</span>
             <span class="timer" id="exam-timer">25:00</span>
         </div>
 
         <div id="exam-navigator"></div>
 
         <div class="question-card">
-            <div class="q-num" id="exam-question-num">문제 1</div>
+            <div class="q-num" id="exam-question-num">Question 1</div>
             <div class="q-text" id="exam-question-text"></div>
-            <button id="exam-audio-btn">🔊 다시 듣기</button>
+            <button id="exam-audio-btn">🔊 Listen again</button>
         </div>
 
         <div id="exam-options"></div>
 
         <div class="exam-nav-btns">
-            <button id="exam-prev-btn">← 이전</button>
-            <button id="exam-next-btn">다음 →</button>
+            <button id="exam-prev-btn">← Prev</button>
+            <button id="exam-next-btn">Next →</button>
         </div>
     </div>
 
@@ -215,24 +223,24 @@
     <div id="screen-result">
         <div class="result-score-card">
             <div class="total" id="result-total">0 / 100</div>
-            <div class="sub">EPS-TOPIK 모의고사 결과</div>
+            <div class="sub">EPS-TOPIK Mock Test Results</div>
             <div class="result-breakdown">
-                <div class="box"><div class="n" id="result-listening">0 / 50</div><div class="l">듣기</div></div>
-                <div class="box"><div class="n" id="result-reading">0 / 50</div><div class="l">읽기</div></div>
+                <div class="box"><div class="n" id="result-listening">0 / 50</div><div class="l">Listening</div></div>
+                <div class="box"><div class="n" id="result-reading">0 / 50</div><div class="l">Reading</div></div>
             </div>
         </div>
 
         <div class="pass-ref">
-            📌 참고 합격 기준 (실제 채점은 상대평가로 진행되며 매 회차 달라질 수 있습니다)<br>
-            제조업 60점 이상 · 그 외 업종 45점 이상 · 어업 특례 30점 이상
+            📌 Reference passing scores (actual grading is relative and may vary by session)<br>
+            Manufacturing 60+ · Other sectors 45+ · Fishing special 30+
         </div>
 
-        <div class="result-section-title">📝 오답 노트</div>
+        <div class="result-section-title">📝 Review Mistakes</div>
         <div id="result-wrong-list"></div>
 
         <div class="result-actions">
-            <button id="retry-btn">🔄 다시 풀기</button>
-            <button id="back-list-btn">📋 목록으로</button>
+            <button id="retry-btn">🔄 Retry</button>
+            <button id="back-list-btn">📋 Back to list</button>
         </div>
     </div>
 
@@ -265,8 +273,8 @@
         listEl.innerHTML = sets.map(s => {
             const locked = !isPaid;
             const disabled = !!s.comingSoon;
-            let sub = '🔒 유료 회원 전용';
-            if (s.comingSoon) sub = '⏳ 준비 중입니다';
+            let sub = '🔒 Members only';
+            if (s.comingSoon) sub = '⏳ Coming soon';
             return `<button class="set-card ${locked && !disabled ? 'locked' : ''}" ${disabled ? 'disabled' : ''} data-set-id="${s.id}">
                 <div class="set-card-title">${s.title}</div>
                 <div class="set-card-sub">${sub}</div>
@@ -360,9 +368,9 @@
         const answers = examState.answers[examState.section];
 
         document.getElementById('exam-section-label').textContent =
-            examState.section === 'listening' ? '👂 듣기 영역' : '📖 읽기 영역';
+            examState.section === 'listening' ? '👂 Listening' : '📖 Reading';
         document.getElementById('exam-question-num').textContent =
-            `문제 ${examState.idx + 1} / ${qs.length}`;
+            `Question ${examState.idx + 1} / ${qs.length}`;
         document.getElementById('exam-question-text').textContent = q.question;
 
         const audioBtn = document.getElementById('exam-audio-btn');
@@ -387,8 +395,8 @@
         document.getElementById('exam-prev-btn').disabled = examState.idx === 0;
         const isLast = examState.idx === qs.length - 1;
         document.getElementById('exam-next-btn').textContent = isLast
-            ? (examState.section === 'listening' ? '읽기 영역으로 →' : '제출하기 ✅')
-            : '다음 →';
+            ? (examState.section === 'listening' ? 'Go to Reading →' : 'Submit ✅')
+            : 'Next →';
 
         if (examState.section === 'listening' && examState.idx === 0 && answers.every(a => a === null)) {
             setTimeout(() => speakExamText(q.audioText), 500);
@@ -450,18 +458,18 @@
 
         const wrongWrap = document.getElementById('result-wrong-list');
         if (wrongList.length === 0) {
-            wrongWrap.innerHTML = `<div class="result-empty">🎉 전부 정답입니다! 다음 세트에 도전해보세요.</div>`;
+            wrongWrap.innerHTML = `<div class="result-empty">🎉 All correct! Try the next set.</div>`;
             return;
         }
 
         wrongWrap.innerHTML = wrongList.map((w, idx) => {
             const correctText = w.q.options[w.q.answer];
-            const userText = w.userAnswer != null ? w.q.options[w.userAnswer] : '(선택 안 함)';
+            const userText = w.userAnswer != null ? w.q.options[w.userAnswer] : '(not selected)';
             return `<div class="wrong-card">
                 <div class="wrong-q">${escapeExamHtml(w.q.question)}</div>
-                <div class="wrong-answer">내 답: <span class="wrong-user">${escapeExamHtml(userText)}</span></div>
-                <div class="wrong-answer">정답: <span class="wrong-correct">${escapeExamHtml(correctText)}</span></div>
-                <button class="wrong-ai-btn" data-idx="${idx}">🤖 AI 튜터에게 설명 요청</button>
+                <div class="wrong-answer">Your answer: <span class="wrong-user">${escapeExamHtml(userText)}</span></div>
+                <div class="wrong-answer">Correct answer: <span class="wrong-correct">${escapeExamHtml(correctText)}</span></div>
+                <button class="wrong-ai-btn" data-idx="${idx}">🤖 Ask AI Tutor to explain</button>
             </div>`;
         }).join('');
 
@@ -558,7 +566,9 @@
         const h = Math.floor(diffMs / 3600000);
         const m = Math.floor((diffMs % 3600000) / 60000);
         const el = document.getElementById('dq-countdown');
-        if (el) el.textContent = `⏰ ${h}시간 ${m}분 후 새 문제`;
+        if (el) el.textContent = `⏰ New question in ${h}h ${m}m`;
+        const mtEl = document.getElementById('mocktest-countdown');
+        if (mtEl) mtEl.textContent = `⏰ New daily content in ${h}h ${m}m`;
     }
 
     function renderDaily(){
@@ -571,14 +581,18 @@
         const answered = dqState.answers[dqState.index];
 
         document.getElementById('dq-progress').textContent = `${dqState.index + 1} / ${dqState.queue.length}`;
-        document.getElementById('dq-question').textContent = q.question;
+        document.getElementById('dq-question-kr').textContent = q.question;
+        document.getElementById('dq-question-rom').textContent = q.questionRom || '';
+        document.getElementById('dq-question-en').textContent = q.questionEn || '';
 
         const optWrap = document.getElementById('dq-options');
         optWrap.innerHTML = '';
         q.options.forEach((opt, i) => {
             const btn = document.createElement('button');
             btn.className = 'dq-opt';
-            btn.textContent = `${i + 1}. ${opt}`;
+            btn.innerHTML = `<div class="dq-opt-kr">${i + 1}. ${escapeDaily(opt.kr)}</div>`
+                + `<div class="dq-opt-rom">${escapeDaily(opt.rom)}</div>`
+                + `<div class="dq-opt-en">${escapeDaily(opt.en)}</div>`;
             if (answered != null) {
                 btn.disabled = true;
                 if (i === q.answer) btn.classList.add('correct');
@@ -594,14 +608,15 @@
 
         if (answered != null) {
             const isCorrect = answered.selected === q.answer;
+            const correctOpt = q.options[q.answer];
             feedbackWrap.innerHTML = isCorrect
-                ? `<div class="dq-fb correct">⭕ 정답입니다!</div>`
-                : `<div class="dq-fb wrong">❌ 오답입니다. 정답은 "${escapeDaily(q.options[q.answer])}" 입니다.</div>`;
+                ? `<div class="dq-fb correct">⭕ Correct!</div>`
+                : `<div class="dq-fb wrong">❌ Incorrect. The correct answer is "${escapeDaily(correctOpt.kr)} (${escapeDaily(correctOpt.rom)}) - ${escapeDaily(correctOpt.en)}".</div>`;
 
             const isLast = dqState.index + 1 >= dqState.queue.length;
             actionsWrap.innerHTML = `
-                ${q.sourceUrl ? `<a class="dq-study-btn" href="${q.sourceUrl}">📚 ${escapeDaily(q.sourceTitle)} 공부하러 가기</a>` : ''}
-                <button class="dq-next-btn" id="dq-next-btn">${isLast ? '결과 보기 →' : '다음 문제 →'}</button>
+                ${q.sourceUrl ? `<a class="dq-study-btn" href="${q.sourceUrl}">📚 Study "${escapeDaily(q.sourceTitle)}" →</a>` : ''}
+                <button class="dq-next-btn" id="dq-next-btn">${isLast ? 'See results →' : 'Next question →'}</button>
             `;
             document.getElementById('dq-next-btn').onclick = () => {
                 dqState.index++;
@@ -622,8 +637,10 @@
     }
 
     function renderDailyDone(){
-        document.getElementById('dq-progress').textContent = '완료';
-        document.getElementById('dq-question').textContent = '';
+        document.getElementById('dq-progress').textContent = 'Done';
+        document.getElementById('dq-question-kr').textContent = '';
+        document.getElementById('dq-question-rom').textContent = '';
+        document.getElementById('dq-question-en').textContent = '';
         document.getElementById('dq-options').innerHTML = '';
 
         const total = dqState.queue.length;
@@ -632,9 +649,9 @@
         document.getElementById('dq-feedback').innerHTML = `
             <div class="dq-done-card">
                 <div class="emoji">🎉</div>
-                <div class="title">오늘의 문제를 모두 풀었어요!</div>
-                <div class="score">${correctCount} / ${total} 정답</div>
-                <div class="note">내일 새로운 문제로 다시 만나요.</div>
+                <div class="title">You've finished today's questions!</div>
+                <div class="score">${correctCount} / ${total} correct</div>
+                <div class="note">New questions again tomorrow.</div>
             </div>
         `;
         document.getElementById('dq-actions').innerHTML = '';
