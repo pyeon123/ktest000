@@ -11,8 +11,8 @@
     </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>오늘의 모의고사 | K-Free</title>
-    <meta name="description" content="매일 새로운 EPS-TOPIK 연습 문제. 틀리면 바로 관련 레슨으로 이동해서 공부하고 다시 도전하세요.">
+    <title>Today’s Mock Test | K-Free</title>
+    <meta name="description" content="New EPS-TOPIK practice questions every day. If you get one wrong, go straight to the related lesson, study it, and try again.">
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -66,13 +66,13 @@
 <div class="dq-app">
 
     <div class="dq-topbar">
-        <a href="index.html">🏠 처음으로</a>
+        <a href="index.html">🏠 Home</a>
         <span id="dq-header-empty"></span>
     </div>
 
     <div class="dq-hero">
-        <h1>📝 오늘의 모의고사 <span style="color:#22c55e;font-size:0.85rem;">— 무료</span></h1>
-        <div class="dq-countdown" id="dq-countdown">⏰ 계산 중...</div>
+        <h1>📝 Today’s Mock Test <span style="color:#22c55e;font-size:0.85rem;">FREE</span></h1>
+        <div class="dq-countdown" id="dq-countdown">⏰ New questions in...</div>
     </div>
 
     <div class="dq-progress-bar">
@@ -86,11 +86,11 @@
         <div class="dq-actions" id="dq-actions"></div>
     </div>
 
-    <a href="test.html" class="dq-mocktest-promo">
-        <div class="badge">🔒 회원 전용</div>
-        <div class="title">🎯 EPS-TOPIK Mock Tests</div>
-        <div class="sub">실제 시험 형식(듣기 20+읽기 20, 50분)으로 진짜처럼 연습하기</div>
-    </a>
+   <a href="test.html" class="dq-mocktest-promo">
+    <div class="badge">🔒 Members Only</div>
+    <div class="title">🎯 EPS-TOPIK Mock Tests</div>
+    <div class="sub">Practice like the real test with 20 Listening + 20 Reading questions in 50 minutes.</div>
+</a>
 
 </div>
 
@@ -137,7 +137,7 @@
         const h = Math.floor(diffMs / 3600000);
         const m = Math.floor((diffMs % 3600000) / 60000);
         const el = document.getElementById('dq-countdown');
-        if (el) el.textContent = `⏰ ${h}시간 ${m}분 후 새 문제`;
+        if (el) el.textContent = `⏰ New questions in ${h}h ${m}m`;
     }
 
     function render(){
@@ -172,21 +172,25 @@
         const actionsWrap = document.getElementById('dq-actions');
 
         if (answered != null) {
-            const isCorrect = answered.selected === q.answer;
-            feedbackWrap.innerHTML = isCorrect
-                ? `<div class="dq-fb correct">⭕ 정답입니다!</div>`
-                : `<div class="dq-fb wrong">❌ 오답입니다. 정답은 "${escapeDaily(q.options[q.answer])}" 입니다.</div>`;
+    const isCorrect = answered.selected === q.answer;
 
-            const isLast = dqState.index + 1 >= dqState.queue.length;
-            actionsWrap.innerHTML = `
-                ${q.sourceUrl ? `<a class="dq-study-btn" href="${q.sourceUrl}">📚 ${escapeDaily(q.sourceTitle)} 공부하러 가기</a>` : ''}
-                <button class="dq-next-btn" id="dq-next-btn">${isLast ? '결과 보기 →' : '다음 문제 →'}</button>
-            `;
-            document.getElementById('dq-next-btn').onclick = () => {
-                dqState.index++;
-                saveProgress();
-                render();
-            };
+    feedbackWrap.innerHTML = isCorrect
+        ? `<div class="dq-fb correct">⭕ Correct!</div>`
+        : `<div class="dq-fb wrong">❌ Incorrect. The correct answer is "${escapeDaily(q.options[q.answer])}".</div>`;
+
+    const isLast = dqState.index + 1 >= dqState.queue.length;
+
+    actionsWrap.innerHTML = `
+        ${q.sourceUrl ? `<a class="dq-study-btn" href="${q.sourceUrl}">📚 Study this lesson</a>` : ''}
+        <button class="dq-next-btn" id="dq-next-btn">${isLast ? 'See Results →' : 'Next Question →'}</button>
+    `;
+
+    document.getElementById('dq-next-btn').onclick = () => {
+        dqState.index++;
+        saveProgress();
+        render();
+    };
+}
         } else {
             feedbackWrap.innerHTML = '';
             actionsWrap.innerHTML = '';
@@ -208,16 +212,15 @@
         const total = dqState.queue.length;
         const correctCount = Object.values(dqState.answers).filter(a => a.correct).length;
 
-        document.getElementById('dq-feedback').innerHTML = `
-            <div class="dq-done-card">
-                <div class="emoji">🎉</div>
-                <div class="title">오늘의 문제를 모두 풀었어요!</div>
-                <div class="score">${correctCount} / ${total} 정답</div>
-                <div class="note">내일 새로운 문제로 다시 만나요.</div>
-            </div>
-        `;
-        document.getElementById('dq-actions').innerHTML = '';
-    }
+       document.getElementById('dq-feedback').innerHTML = `
+    <div class="dq-done-card">
+        <div class="emoji">🎉</div>
+        <div class="title">You completed today’s test!</div>
+        <div class="score">${correctCount} / ${total} correct</div>
+        <div class="note">Come back tomorrow for new questions.</div>
+    </div>
+`;
+document.getElementById('dq-actions').innerHTML = '';
 
     function init(){
         // 날짜가 바뀌면(자정 이후) 큐도 자동으로 새로 생성되고,
