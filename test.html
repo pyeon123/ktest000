@@ -12,7 +12,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>EPS-TOPIK 정식 모의고사 | K-Free</title>
-    <meta name="description" content="실제 EPS-TOPIK 시험 형식(듣기 20문항+읽기 20문항, 50분)에 맞춘 무료 모의고사. AI 튜터가 오답을 바로 설명해줍니다.">
+    <meta name="description" content="실제 EPS-TOPIK 시험 형식(듣기 20문항+읽기 20문항, 50분)에 맞춘 회원 전용 정식 모의고사. AI 튜터가 오답을 바로 설명해줍니다.">
     <link rel="stylesheet" href="style.css">
 
     <style>
@@ -207,11 +207,10 @@
         const sets = window.mockExamSets || [];
 
         listEl.innerHTML = sets.map(s => {
-            const locked = !s.free && !isPaid;
+            const locked = !isPaid;
             const disabled = !!s.comingSoon;
-            let sub = '✅ 무료 응시 가능';
+            let sub = '🔒 유료 회원 전용';
             if (s.comingSoon) sub = '⏳ 준비 중입니다';
-            else if (locked) sub = '🔒 유료 회원 전용';
             return `<button class="set-card ${locked && !disabled ? 'locked' : ''}" ${disabled ? 'disabled' : ''} data-set-id="${s.id}">
                 <div class="set-card-title">${s.title}</div>
                 <div class="set-card-sub">${sub}</div>
@@ -226,7 +225,7 @@
     function onSelectSet(setId, isPaid){
         const set = (window.mockExamSets || []).find(s => s.id === setId);
         if (!set || set.comingSoon) return;
-        if (!set.free && !isPaid) {
+        if (!isPaid) {
             if (window.requireKoreanAuth) window.requireKoreanAuth();
             else window.location.href = 'index.html?openPay=true';
             return;
@@ -423,8 +422,19 @@
         if (btn) btn.click();
         setTimeout(() => {
             if (window.__aiSentenceMode) {
-                const questionText = String(w.q.question || '').replace(/\n/g, ' ');
-                window.__aiSentenceMode(questionText, w.q.options[w.q.answer], '');
+                const qText = String(w.q.question || '').replace(/\n/g, ' ');
+                const correctText = w.q.options[w.q.answer];
+                const userText = w.userAnswer != null ? w.q.options[w.userAnswer] : '(선택하지 않음)';
+                const optionsText = w.q.options.map((o, i) => `${i + 1}. ${o}`).join(' / ');
+                // ✅ 수정: 문제+정답만 넘기던 것에서, 선택지 전체 + 내가 고른 오답 + 정답을 다 포함한
+                // 프롬프트로 바꿔서, AI가 "왜 내 답이 틀렸는지"까지 정확히 짚어줄 수 있게 함.
+                const prompt = `다음은 EPS-TOPIK 읽기 문제입니다.\n`
+                    + `문제: ${qText}\n`
+                    + `선택지: ${optionsText}\n`
+                    + `제가 고른 답: ${userText}\n`
+                    + `정답: ${correctText}\n\n`
+                    + `제가 왜 틀렸는지, 그리고 정답이 왜 맞는지 쉽게 설명해 주세요.`;
+                window.__aiSentenceMode(prompt, '', '');
             }
         }, 350);
     }
