@@ -114,21 +114,5 @@ window.mockExamSets = window.mockExamSets || [
       { id: "R20", question: "다음을 읽고 내용과 같은 것을 고르세요.\n\n\"한국에서 일하는 외국인 근로자는 4대 사회보험 혜택을 받습니다. 이 중 산재보험은 사업주만 가입하면 되지만, 국민연금·건강보험·고용보험은 사업주와 근로자 모두 반드시 가입해야 합니다.\"",
         options: ["산재보험은 사업주만 가입하면 됩니다.", "산재보험은 근로자와 사업주가 모두 가입해야 합니다.", "국민연금은 사업주만 가입하면 됩니다.", "근로자는 원하는 보험만 선택해서 가입할 수 있습니다."], answer: 0 }
     ]
-  },
-  {
-    id: "set_02",
-    title: "EPS-TOPIK 모의고사 2회",
-    free: false,
-    listening: [],
-    reading: [],
-    comingSoon: true
-  },
-  {
-    id: "set_03",
-    title: "EPS-TOPIK 모의고사 3회",
-    free: false,
-    listening: [],
-    reading: [],
-    comingSoon: true
   }
 ];
