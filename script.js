@@ -982,6 +982,13 @@ function speak() {
 }
 function goHome() {
     resetRecognitionState();
+    // ✅ 추가: 어느 페이지에서 홈을 누르든(개별 레슨 페이지 포함) 공통으로
+    // "오늘은 퀴즈 그만둠" 표시를 남김 → "← Today's Quiz" 플로팅 버튼이
+    // 이후 다른 페이지에서 다시 뜨지 않도록 함.
+    try{
+        const todayStr = new Date().toISOString().slice(0,10);
+        sessionStorage.setItem(`dailyQuizDismissed:${todayStr}`, '1');
+    }catch(e){}
     if (typeof CURRENT_CAT !== 'undefined') { window.location.href = 'index.html'; return; }
     document.getElementById('menu-screen').classList.add('active');
     document.getElementById('quiz-screen').classList.remove('active');
