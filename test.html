@@ -615,7 +615,7 @@
 
             const isLast = dqState.index + 1 >= dqState.queue.length;
             actionsWrap.innerHTML = `
-                ${q.sourceUrl ? `<a class="dq-study-btn" href="${q.sourceUrl}">📚 Study "${escapeDaily(q.sourceTitle)}" →</a>` : ''}
+                ${q.sourceUrl ? `<a class="dq-study-btn" href="${q.sourceUrl}">📚 Let's study "${escapeDaily(q.sourceTitle)}" →</a>` : ''}
                 <button class="dq-next-btn" id="dq-next-btn">${isLast ? 'See results →' : 'Next question →'}</button>
             `;
             document.getElementById('dq-next-btn').onclick = () => {
