@@ -3093,3 +3093,79 @@ var oldR=window.renderLearningProgress; window.renderLearningProgress=function()
   btn.style.cssText = 'position:fixed;bottom:70px;right:12px;z-index:99998;background:#a5b4fc;color:#312e81;padding:6px 12px;border-radius:18px;font-weight:700;font-size:0.7rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.12);opacity:0.85;';
   document.body.appendChild(btn);
 })();
+/* =========================================================================
+   📌 적용 방법 (script.js)
+   -------------------------------------------------------------------------
+   1) 기존 showBackToQuizButton() IIFE 바로 아래에 이 코드 블록 전체를 붙여넣는다.
+      (파일 맨 끝, 현재 마지막 IIFE 다음)
+   ========================================================================= */
+
+/* =========================================================
+   ✅ 추가: "모의고사(Mock Test)" 결과 화면에서 개별 레슨 페이지로
+   공부하러 갔다가 "← Mock Test Results" 플로팅 버튼으로 돌아오기
+   -----------------------------------------------------------
+   오늘의 퀴즈(showBackToQuizButton)와 완전히 같은 패턴이며,
+   차이는 딱 하나 — 세션 키가 "날짜 기준"이 아니라 "모의고사 세트(setId) 기준"이라는 것.
+
+   흐름:
+   1) test.html 결과 화면에서 "📚 Study [제목] →" 링크를 클릭하면
+      mockTestReview:{setId} = '1' 이 세팅됨 (renderResults 쪽 patch에서 처리)
+   2) 그 상태로 어느 레슨 페이지에 가 있든, 이 IIFE가 우측 하단에
+      "← Mock Test Results" 버튼을 띄움
+   3) 누르면 test.html로 이동 → test.html의 초기 진입 로직(patch ⑤)이
+      mockTestReview 플래그를 보고 저장해둔 결과 화면을 그대로 복원
+   4) test.html에서 "🏠 Home"을 누르거나 "📋 Back to list"를 누르면
+      mockTestDismissed / mockTestReview 플래그가 해제되어 버튼이 사라짐
+   ========================================================= */
+(function showBackToMockTestButton(){
+  const file = (location.pathname.split('/').pop() || '').toLowerCase();
+  const isHome = (file === '' || file === 'index.html' || file === '/' || file === 'index');
+  const isTestPage = (file === 'test.html'); // 모의고사 앱 자체 페이지에서는 필요 없음
+
+  if (isHome || isTestPage) return;
+
+  let lastSetId = null, hasReview = false, dismissed = false;
+  try {
+    lastSetId = sessionStorage.getItem('mockTestLastSetId');
+    if (lastSetId) {
+      hasReview = !!sessionStorage.getItem(`mockTestReview:${lastSetId}`);
+      dismissed = !!sessionStorage.getItem(`mockTestDismissed:${lastSetId}`);
+    }
+  } catch(e) {}
+
+  if (!lastSetId || !hasReview || dismissed) return;
+
+  const btn = document.createElement('a');
+  btn.href = 'test.html';
+  btn.textContent = "← Mock Test Results";
+  // ✅ bottom:118px — 오늘의 퀴즈 버튼(bottom:70px)과 겹치지 않도록 위쪽에 배치
+  btn.style.cssText = 'position:fixed;bottom:118px;right:12px;z-index:99998;background:#c7d2fe;color:#312e81;padding:6px 12px;border-radius:18px;font-weight:700;font-size:0.7rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.12);opacity:0.85;';
+  document.body.appendChild(btn);
+})();
+
+
+/* =========================================================================
+   📌 추가로 수정 필요: test.html의 homeLink 클릭 핸들러
+   -------------------------------------------------------------------------
+   test.html <script> 안에 이미 있는 아래 코드 블록을:
+
+     const homeLink = document.getElementById('home-link-topbar');
+     if (homeLink) {
+         homeLink.addEventListener('click', function(){
+             try{ sessionStorage.setItem(`dailyQuizDismissed:${window.getTodayDateStr()}`, '1'); }catch(e){}
+         });
+     }
+
+   아래 코드로 교체해서, Home을 누르면 모의고사 복귀 버튼도 같이 꺼지게 한다:
+
+     const homeLink = document.getElementById('home-link-topbar');
+     if (homeLink) {
+         homeLink.addEventListener('click', function(){
+             try{
+                 sessionStorage.setItem(`dailyQuizDismissed:${window.getTodayDateStr()}`, '1');
+                 const lastSetId = sessionStorage.getItem('mockTestLastSetId');
+                 if (lastSetId) sessionStorage.setItem(`mockTestDismissed:${lastSetId}`, '1');
+             }catch(e){}
+         });
+     }
+   ========================================================================= */
