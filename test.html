@@ -95,6 +95,15 @@
         .wrong-correct { color: #16a34a; font-weight: 700; }
         .wrong-ai-btn { margin-top: 8px; width: 100%; padding: 10px; border-radius: 20px; border: 2px solid #6366f1; background: #eef2ff; color: #4338ca; font-weight: 800; font-size: 0.82rem; cursor: pointer; }
 
+        /* ✅ 추가: 정답+오답 40문항 전체를 보여주는 결과 리뷰 카드 스타일 */
+        .review-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+        .review-card.wrong { border-color: #fecaca; border-left: 4px solid #ef4444; }
+        .review-card.correct { border-color: #bbf7d0; border-left: 4px solid #22c55e; }
+        .review-card .review-badge { font-size: 0.75rem; font-weight: 800; margin-bottom: 6px; }
+        .review-card.wrong .review-badge { color: #ef4444; }
+        .review-card.correct .review-badge { color: #16a34a; }
+        .study-link-btn { display: block; margin-top: 8px; width: 100%; padding: 10px; border-radius: 20px; border: 2px solid #6366f1; background: #eef2ff; color: #4338ca; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center; text-decoration: none; box-sizing: border-box; }
+
         .result-actions { display: flex; gap: 10px; margin-top: 20px; }
         .result-actions button { flex: 1; padding: 14px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; }
         #retry-btn { background: linear-gradient(135deg, var(--exam-primary), var(--exam-secondary)); color: #fff; }
@@ -174,7 +183,7 @@
     <div class="mocktest-header">
         <div class="badge2">🔒 Members Only · Official Exam Format</div>
         <h2>🎯 EPS-TOPIK Mock Tests</h2>
-        <p style="color:#64748b;font-size:0.85rem;margin-top:4px;">Practice with the same number of questions and time as the real exam.<br>Ask the AI Tutor about any question you got wrong.</p>
+        <p style="color:#64748b;font-size:0.85rem;margin-top:4px;">Practice with the same number of questions and time as the real exam.<br>After you finish, study the pages linked to any question — right or wrong.</p>
         <div class="dq-countdown" id="mocktest-countdown" style="margin-top:10px;">⏰ Calculating...</div>
     </div>
 
@@ -235,7 +244,7 @@
             Manufacturing 60+ · Other sectors 45+ · Fishing special 30+
         </div>
 
-        <div class="result-section-title">📝 Review Mistakes</div>
+        <div class="result-section-title">📝 Review All Questions</div>
         <div id="result-wrong-list"></div>
 
         <div class="result-actions">
@@ -422,27 +431,45 @@
         renderQuestion();
     }
 
+    // ✅ 수정: 오답만 모으던 wrongList → 정답/오답 전체를 담는 allList로 변경.
+    // 채점 끝나면 결과를 sessionStorage에 저장해서, 레슨 페이지 갔다가
+    // "← Mock Test Results" 버튼으로 돌아왔을 때 같은 결과 화면을 복원할 수 있게 함.
     function finishExam(){
         clearInterval(examState.timerHandle);
         const set = examState.set;
         let listeningScore = 0, readingScore = 0;
-        const wrongList = [];
+        const allList = [];
 
         set.listening.forEach((q, i) => {
-            const isCorrect = examState.answers.listening[i] === q.answer;
+            const userIdx = examState.answers.listening[i];
+            const isCorrect = userIdx === q.answer;
             if (isCorrect) listeningScore += 2.5;
-            else wrongList.push({ q, userAnswer: examState.answers.listening[i] });
+            allList.push({ q, userAnswer: userIdx, isCorrect });
         });
         set.reading.forEach((q, i) => {
-            const isCorrect = examState.answers.reading[i] === q.answer;
+            const userIdx = examState.answers.reading[i];
+            const isCorrect = userIdx === q.answer;
             if (isCorrect) readingScore += 2.5;
-            else wrongList.push({ q, userAnswer: examState.answers.reading[i] });
+            allList.push({ q, userAnswer: userIdx, isCorrect });
         });
 
         sessionStorage.removeItem(`examTimerEnd:${set.id}:listening`);
         sessionStorage.removeItem(`examTimerEnd:${set.id}:reading`);
 
-        renderResults({ listeningScore, readingScore, total: listeningScore + readingScore, wrongList });
+        const resultPayload = {
+            setId: set.id,
+            listeningScore,
+            readingScore,
+            total: listeningScore + readingScore,
+            allList
+        };
+
+        try {
+            sessionStorage.setItem(`mockTestResult:${set.id}`, JSON.stringify(resultPayload));
+            sessionStorage.setItem('mockTestLastSetId', set.id);
+        } catch(e) {}
+
+        renderResults(resultPayload);
     }
 
     function escapeExamHtml(t){
@@ -450,57 +477,48 @@
             .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    function renderResults({ listeningScore, readingScore, total, wrongList }){
+    // ✅ 수정: 오답만 보여주던 것 → 정답+오답 40문항 전체를 보여줌.
+    // 각 문항마다 AI 튜터 즉석 설명 버튼 대신, 관련 레슨 페이지로 가는 "📚 Study" 링크를 표시.
+    function renderResults({ setId, listeningScore, readingScore, total, allList }){
         setScreen('screen-result');
         document.getElementById('result-total').textContent = `${total} / 100`;
         document.getElementById('result-listening').textContent = `${listeningScore} / 50`;
         document.getElementById('result-reading').textContent = `${readingScore} / 50`;
 
         const wrongWrap = document.getElementById('result-wrong-list');
-        if (wrongList.length === 0) {
-            wrongWrap.innerHTML = `<div class="result-empty">🎉 All correct! Try the next set.</div>`;
-            return;
-        }
 
-        wrongWrap.innerHTML = wrongList.map((w, idx) => {
+        wrongWrap.innerHTML = allList.map((w) => {
             const correctText = w.q.options[w.q.answer];
             const userText = w.userAnswer != null ? w.q.options[w.userAnswer] : '(not selected)';
-            return `<div class="wrong-card">
+            const cardClass = w.isCorrect ? 'review-card correct' : 'review-card wrong';
+            const badgeText = w.isCorrect ? '⭕ Correct' : '❌ Incorrect';
+
+            const answerLine = w.isCorrect
+                ? `<div class="wrong-answer">Answer: <span class="wrong-correct">${escapeExamHtml(correctText)}</span></div>`
+                : `<div class="wrong-answer">Your answer: <span class="wrong-user">${escapeExamHtml(userText)}</span></div>
+                   <div class="wrong-answer">Correct answer: <span class="wrong-correct">${escapeExamHtml(correctText)}</span></div>`;
+
+            const studyBtn = w.q.sourceUrl
+                ? `<a class="study-link-btn" href="${escapeExamHtml(w.q.sourceUrl)}" data-set-id="${escapeExamHtml(setId)}" data-study-link="1">📚 Study "${escapeExamHtml(w.q.sourceTitle || '')}" →</a>`
+                : '';
+
+            return `<div class="${cardClass}">
+                <div class="review-badge">${badgeText}</div>
                 <div class="wrong-q">${escapeExamHtml(w.q.question)}</div>
-                <div class="wrong-answer">Your answer: <span class="wrong-user">${escapeExamHtml(userText)}</span></div>
-                <div class="wrong-answer">Correct answer: <span class="wrong-correct">${escapeExamHtml(correctText)}</span></div>
-                <button class="wrong-ai-btn" data-idx="${idx}">🤖 Ask AI Tutor to explain</button>
+                ${answerLine}
+                ${studyBtn}
             </div>`;
         }).join('');
 
-        wrongWrap.querySelectorAll('.wrong-ai-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const w = wrongList[Number(btn.dataset.idx)];
-                askAiAboutWrongAnswer(w);
+        // ✅ Study 링크를 실제로 클릭했을 때만 "← Mock Test Results" 복귀 표시를 세팅
+        wrongWrap.querySelectorAll('[data-study-link]').forEach(a => {
+            a.addEventListener('click', () => {
+                try {
+                    sessionStorage.setItem(`mockTestReview:${a.dataset.setId}`, '1');
+                    sessionStorage.removeItem(`mockTestDismissed:${a.dataset.setId}`);
+                } catch(e) {}
             });
         });
-    }
-
-    function askAiAboutWrongAnswer(w){
-        const btn = document.getElementById('ai-tutor-btn');
-        if (btn) btn.click();
-        setTimeout(() => {
-            if (window.__aiSentenceMode) {
-                const qText = String(w.q.question || '').replace(/\n/g, ' ');
-                const correctText = w.q.options[w.q.answer];
-                const userText = w.userAnswer != null ? w.q.options[w.userAnswer] : '(선택하지 않음)';
-                const optionsText = w.q.options.map((o, i) => `${i + 1}. ${o}`).join(' / ');
-                // ✅ 수정: 문제+정답만 넘기던 것에서, 선택지 전체 + 내가 고른 오답 + 정답을 다 포함한
-                // 프롬프트로 바꿔서, AI가 "왜 내 답이 틀렸는지"까지 정확히 짚어줄 수 있게 함.
-                const prompt = `다음은 EPS-TOPIK 읽기 문제입니다.\n`
-                    + `문제: ${qText}\n`
-                    + `선택지: ${optionsText}\n`
-                    + `제가 고른 답: ${userText}\n`
-                    + `정답: ${correctText}\n\n`
-                    + `제가 왜 틀렸는지, 그리고 정답이 왜 맞는지 쉽게 설명해 주세요.`;
-                window.__aiSentenceMode(prompt, '', '');
-            }
-        }, 350);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -519,10 +537,35 @@
             }
         };
         document.getElementById('retry-btn').onclick = () => startExam(examState.set);
-        document.getElementById('back-list-btn').onclick = () => { setScreen('screen-list'); renderSetList(); };
 
-        setScreen('screen-list');
-        renderSetList();
+        // ✅ 수정: "명시적으로" 목록으로 돌아간 것이므로, 복귀 버튼 표시를 지워줌
+        document.getElementById('back-list-btn').onclick = () => {
+            try {
+                const lastSetId = sessionStorage.getItem('mockTestLastSetId');
+                if (lastSetId) sessionStorage.removeItem(`mockTestReview:${lastSetId}`);
+            } catch(e) {}
+            setScreen('screen-list');
+            renderSetList();
+        };
+
+        // ✅ 수정: 레슨 페이지에서 "← Mock Test Results" 버튼으로 돌아온 경우,
+        // 저장해둔 결과 화면으로 바로 복귀. 그렇지 않으면 기존처럼 세트 목록부터 시작.
+        let resumed = false;
+        try {
+            const lastSetId = sessionStorage.getItem('mockTestLastSetId');
+            if (lastSetId && sessionStorage.getItem(`mockTestReview:${lastSetId}`)) {
+                const saved = sessionStorage.getItem(`mockTestResult:${lastSetId}`);
+                if (saved) {
+                    renderResults(JSON.parse(saved));
+                    resumed = true;
+                }
+            }
+        } catch(e) {}
+
+        if (!resumed) {
+            setScreen('screen-list');
+            renderSetList();
+        }
     });
 })();
 
@@ -615,7 +658,7 @@
 
             const isLast = dqState.index + 1 >= dqState.queue.length;
             actionsWrap.innerHTML = `
-                ${q.sourceUrl ? `<a class="dq-study-btn" href="${q.sourceUrl}">📚 Let's study "${escapeDaily(q.sourceTitle)}" →</a>` : ''}
+                ${q.sourceUrl ? `<a class="dq-study-btn" href="${q.sourceUrl}">📚 Study "${escapeDaily(q.sourceTitle)}" →</a>` : ''}
                 <button class="dq-next-btn" id="dq-next-btn">${isLast ? 'See results →' : 'Next question →'}</button>
             `;
             document.getElementById('dq-next-btn').onclick = () => {
@@ -676,12 +719,17 @@
     window.addEventListener('pageshow', initDaily);
     setInterval(updateDailyCountdown, 30000);
 
-    // ✅ 추가: "🏠 Home" 버튼을 눌러서 의도적으로 나가는 경우,
-    // 오늘 하루는 "← Back to Today's Quiz" 플로팅 버튼이 다른 페이지에서 안 뜨도록 표시 남김.
+    // ✅ 수정: "🏠 Home" 버튼을 눌러서 의도적으로 나가는 경우,
+    // 오늘의 퀴즈뿐 아니라 모의고사 복귀 버튼도 같이 표시를 지워서
+    // 다른 페이지에서 두 플로팅 버튼이 계속 뜨지 않도록 함.
     const homeLink = document.getElementById('home-link-topbar');
     if (homeLink) {
         homeLink.addEventListener('click', function(){
-            try{ sessionStorage.setItem(`dailyQuizDismissed:${window.getTodayDateStr()}`, '1'); }catch(e){}
+            try{
+                sessionStorage.setItem(`dailyQuizDismissed:${window.getTodayDateStr()}`, '1');
+                const lastSetId = sessionStorage.getItem('mockTestLastSetId');
+                if (lastSetId) sessionStorage.setItem(`mockTestDismissed:${lastSetId}`, '1');
+            }catch(e){}
         });
     }
 })();
