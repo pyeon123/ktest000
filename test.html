@@ -22,6 +22,13 @@
             --exam-bg: #f8fafc;
         }
         * { box-sizing: border-box; }
+        html, body { overflow-x: hidden; width: 100%; }
+        .exam-app { width: 100%; overflow-x: hidden; }
+
+.exam-topbar { flex-wrap: wrap; gap: 6px; }
+.exam-topbar .badge { white-space: normal; text-align: right; }
+
+#exam-navigator { grid-template-columns: repeat(auto-fit, minmax(26px, 1fr)); }
         body { background: var(--exam-bg); font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif; margin: 0; color: #1e293b; }
 
         .exam-app { max-width: 560px; margin: 0 auto; padding: 16px; padding-bottom: 60px; }
