@@ -22,12 +22,11 @@
             --exam-bg: #f8fafc;
         }
         * { box-sizing: border-box; }
-        html, body { overflow-x: hidden; width: 100%; }
+        html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }
         .exam-app { width: 100%; }
 
         .exam-topbar { flex-wrap: wrap; gap: 6px; }
         .exam-topbar .badge { white-space: normal; text-align: right; }
-
 
         body { background: var(--exam-bg); font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif; margin: 0; color: #1e293b; }
 
@@ -44,8 +43,8 @@
 
         .info-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 18px; margin-bottom: 18px; box-shadow: 0 3px 10px rgba(0,0,0,.04); }
         .info-card .info-title { font-weight: 800; font-size: 0.95rem; margin-bottom: 10px; color: #1e293b; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .info-grid .info-box { background: #f8fafc; border-radius: 10px; padding: 10px; text-align: center; }
+        .info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .info-grid .info-box { background: #f8fafc; border-radius: 10px; padding: 10px; text-align: center; min-width: 0; }
         .info-grid .info-box .num { font-weight: 900; font-size: 1.15rem; color: var(--exam-primary); }
         .info-grid .info-box .label { font-size: 0.72rem; color: #64748b; margin-top: 2px; }
         .info-note { font-size: 0.75rem; color: #94a3b8; margin-top: 12px; line-height: 1.5; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
@@ -60,12 +59,12 @@
 
         #screen-exam, #screen-result { display: none; }
 
-        .exam-header { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, var(--exam-primary), var(--exam-secondary)); color: #fff; border-radius: 14px; padding: 14px 16px; margin-bottom: 16px; }
-        .exam-header .sec-label { font-weight: 800; font-size: 0.95rem; }
-        .exam-header .timer { font-variant-numeric: tabular-nums; font-weight: 900; font-size: 1.2rem; background: rgba(255,255,255,.2); padding: 4px 12px; border-radius: 10px; }
+        .exam-header { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, var(--exam-primary), var(--exam-secondary)); color: #fff; border-radius: 14px; padding: 14px 16px; margin-bottom: 16px; gap: 8px; }
+        .exam-header .sec-label { font-weight: 800; font-size: 0.95rem; min-width: 0; }
+        .exam-header .timer { font-variant-numeric: tabular-nums; font-weight: 900; font-size: 1.2rem; background: rgba(255,255,255,.2); padding: 4px 12px; border-radius: 10px; flex-shrink: 0; }
 
         #exam-navigator { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 6px; margin-bottom: 16px; }
-        .nav-dot { aspect-ratio: 1; border-radius: 8px; border: 2px solid #e2e8f0; background: #fff; font-size: 0.72rem; font-weight: 800; color: #94a3b8; cursor: pointer; }
+        .nav-dot { aspect-ratio: 1; border-radius: 8px; border: 2px solid #e2e8f0; background: #fff; font-size: 0.72rem; font-weight: 800; color: #94a3b8; cursor: pointer; min-width: 0; padding: 0; }
         .nav-dot.answered { background: #eef2ff; border-color: #c7d2fe; color: var(--exam-primary); }
         .nav-dot.active { border-color: var(--exam-primary); background: var(--exam-primary); color: #fff; }
 
@@ -78,7 +77,7 @@
         .exam-opt.selected { border-color: var(--exam-primary); background: #eef2ff; color: var(--exam-primary); font-weight: 800; }
 
         .exam-nav-btns { display: flex; gap: 10px; }
-        .exam-nav-btns button { flex: 1; padding: 14px; border-radius: 12px; border: none; font-weight: 800; font-size: 0.95rem; cursor: pointer; }
+        .exam-nav-btns button { flex: 1; min-width: 0; padding: 14px; border-radius: 12px; border: none; font-weight: 800; font-size: 0.95rem; cursor: pointer; }
         #exam-prev-btn { background: #f1f5f9; color: #64748b; }
         #exam-prev-btn:disabled { opacity: .5; cursor: not-allowed; }
         #exam-next-btn { background: linear-gradient(135deg, var(--exam-primary), var(--exam-secondary)); color: #fff; }
@@ -87,7 +86,7 @@
         .result-score-card .total { font-size: 2.4rem; font-weight: 900; }
         .result-score-card .sub { font-size: 0.85rem; opacity: .9; margin-top: 4px; }
         .result-breakdown { display: flex; gap: 10px; margin-top: 16px; }
-        .result-breakdown .box { flex: 1; background: rgba(255,255,255,.15); border-radius: 10px; padding: 10px; }
+        .result-breakdown .box { flex: 1; min-width: 0; background: rgba(255,255,255,.15); border-radius: 10px; padding: 10px; }
         .result-breakdown .box .n { font-weight: 900; font-size: 1.1rem; }
         .result-breakdown .box .l { font-size: 0.72rem; opacity: .85; }
 
@@ -102,7 +101,6 @@
         .wrong-correct { color: #16a34a; font-weight: 700; }
         .wrong-ai-btn { margin-top: 8px; width: 100%; padding: 10px; border-radius: 20px; border: 2px solid #6366f1; background: #eef2ff; color: #4338ca; font-weight: 800; font-size: 0.82rem; cursor: pointer; }
 
-        /* ✅ 추가: 정답+오답 40문항 전체를 보여주는 결과 리뷰 카드 스타일 */
         .review-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
         .review-card.wrong { border-color: #fecaca; border-left: 4px solid #ef4444; }
         .review-card.correct { border-color: #bbf7d0; border-left: 4px solid #22c55e; }
@@ -112,11 +110,10 @@
         .study-link-btn { display: block; margin-top: 8px; width: 100%; padding: 10px; border-radius: 20px; border: 2px solid #6366f1; background: #eef2ff; color: #4338ca; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center; text-decoration: none; box-sizing: border-box; }
 
         .result-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .result-actions button { flex: 1; padding: 14px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; }
+        .result-actions button { flex: 1; min-width: 0; padding: 14px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; }
         #retry-btn { background: linear-gradient(135deg, var(--exam-primary), var(--exam-secondary)); color: #fff; }
         #back-list-btn { background: #f1f5f9; color: #64748b; }
 
-        /* ===================== 오늘의 모의고사 (상단 섹션) ===================== */
         .dq-section { margin-bottom: 30px; }
         .dq-hero { text-align: center; margin-bottom: 14px; }
         .dq-hero h1 { font-size: 1.3rem; margin: 4px 0 8px; }
@@ -148,7 +145,6 @@
         .dq-done-card .score { font-weight: 900; font-size: 1.6rem; color: var(--exam-primary); margin: 6px 0; }
         .dq-done-card .note { color: #64748b; font-size: 0.85rem; }
 
-        /* ===================== 섹션 구분선 + Mock Test 헤더 ===================== */
         .section-divider { border: none; border-top: 2px dashed #e2e8f0; margin: 34px 0 26px; }
         .mocktest-header { text-align: center; margin-bottom: 18px; }
         .mocktest-header .badge2 { display: inline-block; background: #ede9fe; color: #5b21b6; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
@@ -163,7 +159,6 @@
         <span class="badge">Official EPS-TOPIK Format</span>
     </div>
 
-    <!-- ===================== 상단: 오늘의 모의고사 (무료) ===================== -->
     <div class="dq-section">
         <div class="dq-hero">
             <h1>📝 Today's Quiz <span style="color:#22c55e;font-size:0.85rem;">— FREE</span></h1>
@@ -186,7 +181,6 @@
 
     <hr class="section-divider">
 
-    <!-- ===================== 하단: EPS-TOPIK Mock Tests (회원 전용) ===================== -->
     <div class="mocktest-header">
         <div class="badge2">🔒 Members Only · Official Exam Format</div>
         <h2>🎯 EPS-TOPIK Mock Tests</h2>
@@ -194,7 +188,6 @@
         <div class="dq-countdown" id="mocktest-countdown" style="margin-top:10px;">⏰ Calculating...</div>
     </div>
 
-    <!-- ===================== 화면 1: 세트 선택 ===================== -->
     <div id="screen-list">
         <div class="info-card">
             <div class="info-title">📋 Exam Format (Based on official HRD Korea EPS-TOPIK)</div>
@@ -212,7 +205,6 @@
         <div id="set-list"></div>
     </div>
 
-    <!-- ===================== 화면 2: 응시 화면 ===================== -->
     <div id="screen-exam">
         <div class="exam-header">
             <span class="sec-label" id="exam-section-label">👂 Listening</span>
@@ -235,7 +227,6 @@
         </div>
     </div>
 
-    <!-- ===================== 화면 3: 결과 화면 ===================== -->
     <div id="screen-result">
         <div class="result-score-card">
             <div class="total" id="result-total">0 / 100</div>
@@ -438,9 +429,6 @@
         renderQuestion();
     }
 
-    // ✅ 수정: 오답만 모으던 wrongList → 정답/오답 전체를 담는 allList로 변경.
-    // 채점 끝나면 결과를 sessionStorage에 저장해서, 레슨 페이지 갔다가
-    // "← Mock Test Results" 버튼으로 돌아왔을 때 같은 결과 화면을 복원할 수 있게 함.
     function finishExam(){
         clearInterval(examState.timerHandle);
         const set = examState.set;
@@ -484,8 +472,6 @@
             .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    // ✅ 수정: 오답만 보여주던 것 → 정답+오답 40문항 전체를 보여줌.
-    // 각 문항마다 AI 튜터 즉석 설명 버튼 대신, 관련 레슨 페이지로 가는 "📚 Study" 링크를 표시.
     function renderResults({ setId, listeningScore, readingScore, total, allList }){
         setScreen('screen-result');
         document.getElementById('result-total').textContent = `${total} / 100`;
@@ -517,7 +503,6 @@
             </div>`;
         }).join('');
 
-        // ✅ Study 링크를 실제로 클릭했을 때만 "← Mock Test Results" 복귀 표시를 세팅
         wrongWrap.querySelectorAll('[data-study-link]').forEach(a => {
             a.addEventListener('click', () => {
                 try {
@@ -545,7 +530,6 @@
         };
         document.getElementById('retry-btn').onclick = () => startExam(examState.set);
 
-        // ✅ 수정: "명시적으로" 목록으로 돌아간 것이므로, 복귀 버튼 표시를 지워줌
         document.getElementById('back-list-btn').onclick = () => {
             try {
                 const lastSetId = sessionStorage.getItem('mockTestLastSetId');
@@ -555,8 +539,6 @@
             renderSetList();
         };
 
-        // ✅ 수정: 레슨 페이지에서 "← Mock Test Results" 버튼으로 돌아온 경우,
-        // 저장해둔 결과 화면으로 바로 복귀. 그렇지 않으면 기존처럼 세트 목록부터 시작.
         let resumed = false;
         try {
             const lastSetId = sessionStorage.getItem('mockTestLastSetId');
@@ -576,7 +558,6 @@
     });
 })();
 
-/* ===================== 오늘의 모의고사 (독립된 별도 IIFE) ===================== */
 (function(){
     let dqState = { queue: [], index: 0, answers: {} };
 
@@ -683,8 +664,6 @@
         const q = dqState.queue[dqState.index];
         dqState.answers[dqState.index] = { selected: i, correct: i === q.answer };
         saveProgress();
-        // ✅ 추가: 다시 문제를 풀기 시작했으니, 이전에 "홈 눌러서 그만둠" 표시가 있었다면 해제.
-        // 이래야 이번 Study 링크 클릭부터 다시 복귀 버튼이 정상적으로 뜸.
         try{ sessionStorage.removeItem(`dailyQuizDismissed:${window.getTodayDateStr()}`); }catch(e){}
         renderDaily();
     }
@@ -711,8 +690,6 @@
     }
 
     function initDaily(){
-        // 날짜가 바뀌면(자정 이후) 큐도 자동으로 새로 생성되고,
-        // progressKey도 날짜별로 다르므로 진행 상태도 자연스럽게 초기화됨.
         dqState.queue = window.buildDailyQuizQueue(10);
         const saved = loadProgress();
         dqState.index = Math.min(saved.index || 0, dqState.queue.length);
@@ -721,14 +698,9 @@
         renderDaily();
     }
 
-    // pageshow: 개별 레슨 페이지에서 "뒤로가기"로 돌아왔을 때(bfcache 포함)도
-    // 항상 같은 지점부터 다시 보여주기 위해 사용.
     window.addEventListener('pageshow', initDaily);
     setInterval(updateDailyCountdown, 30000);
 
-    // ✅ 수정: "🏠 Home" 버튼을 눌러서 의도적으로 나가는 경우,
-    // 오늘의 퀴즈뿐 아니라 모의고사 복귀 버튼도 같이 표시를 지워서
-    // 다른 페이지에서 두 플로팅 버튼이 계속 뜨지 않도록 함.
     const homeLink = document.getElementById('home-link-topbar');
     if (homeLink) {
         homeLink.addEventListener('click', function(){
