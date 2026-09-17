@@ -153,9 +153,15 @@
 /* ===== Mock Test 화면 오른쪽 잘림 방지 ===== */
 
 #screen-exam,
-#screen-result,
-#screen-list {
+#screen-result {
     display: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+#screen-list {
     width: 100%;
     max-width: 100%;
     min-width: 0;
