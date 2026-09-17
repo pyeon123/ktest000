@@ -149,6 +149,163 @@
         .mocktest-header { text-align: center; margin-bottom: 18px; }
         .mocktest-header .badge2 { display: inline-block; background: #ede9fe; color: #5b21b6; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
         .mocktest-header h2 { font-size: 1.25rem; margin: 4px 0; }
+        ```css
+/* ===== Mock Test 화면 오른쪽 잘림 방지 ===== */
+
+#screen-exam,
+#screen-result,
+#screen-list {
+    display: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+#screen-exam *,
+#screen-result *,
+#screen-list * {
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+}
+
+/* 시험 상단 */
+.exam-header {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.exam-header .sec-label {
+    min-width: 0;
+    max-width: calc(100% - 90px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.exam-header .timer {
+    flex-shrink: 0;
+}
+
+/* 문제 영역 */
+.question-card {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.q-text {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: pre-line;
+}
+
+/* 선택지 */
+#exam-options {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.exam-opt {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: normal;
+}
+
+/* 문제 번호 네비게이션 */
+#exam-navigator {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Prev / Next */
+.exam-nav-btns {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.exam-nav-btns button {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+/* 결과 화면 */
+.result-score-card,
+.result-breakdown,
+.result-breakdown .box,
+.review-card,
+.wrong-q,
+.result-actions {
+    max-width: 100%;
+    min-width: 0;
+}
+
+.wrong-q {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    white-space: pre-line;
+}
+
+/* 긴 URL, 문자열, 텍스트가 화면 밖으로 나가지 않도록 */
+#screen-exam img,
+#screen-result img,
+#screen-exam video,
+#screen-result video,
+#screen-exam iframe,
+#screen-result iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 휴대폰 화면 */
+@media (max-width: 600px) {
+    .exam-app {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .exam-header {
+        padding: 12px;
+    }
+
+    .question-card {
+        padding: 16px;
+    }
+
+    .exam-opt {
+        padding: 12px;
+        font-size: 0.92rem;
+    }
+
+    #exam-navigator {
+        gap: 4px;
+    }
+
+    .nav-dot {
+        font-size: 0.68rem;
+    }
+}
+```
+
     </style>
 </head>
 <body>
