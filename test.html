@@ -137,6 +137,58 @@
         .mocktest-header { text-align: center; margin-bottom: 18px; }
         .mocktest-header .badge2 { display: inline-block; background: #ede9fe; color: #5b21b6; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
         .mocktest-header h2 { font-size: 1.25rem; margin: 4px 0; }
+        /* 화면 오른쪽 잘림 방지 */
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden !important;
+}
+
+body {
+    display: block !important;
+    min-height: 100vh;
+}
+
+.exam-app {
+    width: 100% !important;
+    max-width: 560px !important;
+    min-width: 0 !important;
+    margin: 0 auto !important;
+    padding: 16px !important;
+    padding-bottom: 60px !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+}
+
+.exam-app *,
+.exam-app *::before,
+.exam-app *::after {
+    box-sizing: border-box !important;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.exam-app button,
+.exam-app a {
+    max-width: 100% !important;
+}
+
+.dq-card,
+.info-card,
+.set-card,
+.question-card,
+.exam-header,
+.result-score-card,
+.pass-ref,
+.wrong-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+}
+        
     </style>
 </head>
 <body>
