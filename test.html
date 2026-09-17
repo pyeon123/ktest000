@@ -712,26 +712,6 @@
         });
     }
 })();
-</script>
- <div id="debug-overflow" style="position:fixed;bottom:0;left:0;right:0;background:#000;color:#0f0;font-size:11px;padding:6px;z-index:999999;max-height:150px;overflow:auto;font-family:monospace;"></div>
-<script>
-function findOverflowElements(){
-  const vw = window.innerWidth;
-  const all = document.querySelectorAll('body *');
-  let out = [];
-  all.forEach(el=>{
-    const r = el.getBoundingClientRect();
-    if(r.right > vw + 2){
-      const cls = el.className && typeof el.className === 'string' ? '.' + el.className.trim().replace(/\s+/g,'.') : '';
-      const id = el.id ? '#' + el.id : '';
-      out.push(`${el.tagName}${id}${cls} → right:${Math.round(r.right)} (화면폭:${vw})`);
-    }
-  });
-  const box = document.getElementById('debug-overflow');
-  box.textContent = out.length ? out.slice(0,8).join('\n') : '넘치는 요소 없음';
-}
-window.addEventListener('load', ()=> setTimeout(findOverflowElements, 1000));
-setInterval(findOverflowElements, 2000);
-</script>   
+<script>  
 </body>
 </html>
