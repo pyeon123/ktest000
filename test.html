@@ -137,72 +137,11 @@
         .mocktest-header { text-align: center; margin-bottom: 18px; }
         .mocktest-header .badge2 { display: inline-block; background: #ede9fe; color: #5b21b6; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
         .mocktest-header h2 { font-size: 1.25rem; margin: 4px 0; }
-        /* 화면 오른쪽 잘림 방지 */
-html,
-body {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden !important;
-}
-
-body {
-    display: block !important;
-    min-height: 100vh;
-}
-
-.exam-app {
-    width: 100% !important;
-    max-width: 560px !important;
-    min-width: 0 !important;
-    margin: 0 auto !important;
-    padding: 16px !important;
-    padding-bottom: 60px !important;
-    box-sizing: border-box !important;
-    overflow-x: hidden !important;
-}
-
-.exam-app *,
-.exam-app *::before,
-.exam-app *::after {
-    box-sizing: border-box !important;
-    max-width: 100%;
-    min-width: 0;
-}
-
-.exam-app button,
-.exam-app a {
-    max-width: 100% !important;
-}
-
-.dq-card,
-.info-card,
-.set-card,
-.question-card,
-.exam-header,
-.result-score-card,
-.pass-ref,
-.wrong-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-}
- .exam-app {
-    outline: 3px solid red !important;
-}
-
-.exam-app * {
-    outline: 1px solid rgba(255,0,0,0.2) !important;
-}       
     </style>
 </head>
 <body>
 <div class="exam-app">
-    
-<div style="background:red; color:white; padding:20px; font-size:20px; width:100%; box-sizing:border-box;">
-TEST
-</div>
+
     <div class="exam-topbar">
         <a href="index.html" id="home-link-topbar">🏠 Home</a>
         <span class="badge">Official EPS-TOPIK Format</span>
@@ -747,5 +686,25 @@ TEST
     }
 })();
 </script>
+ <div id="debug-overflow" style="position:fixed;bottom:0;left:0;right:0;background:#000;color:#0f0;font-size:11px;padding:6px;z-index:999999;max-height:150px;overflow:auto;font-family:monospace;"></div>
+<script>
+function findOverflowElements(){
+  const vw = window.innerWidth;
+  const all = document.querySelectorAll('body *');
+  let out = [];
+  all.forEach(el=>{
+    const r = el.getBoundingClientRect();
+    if(r.right > vw + 2){
+      const cls = el.className && typeof el.className === 'string' ? '.' + el.className.trim().replace(/\s+/g,'.') : '';
+      const id = el.id ? '#' + el.id : '';
+      out.push(`${el.tagName}${id}${cls} → right:${Math.round(r.right)} (화면폭:${vw})`);
+    }
+  });
+  const box = document.getElementById('debug-overflow');
+  box.textContent = out.length ? out.slice(0,8).join('\n') : '넘치는 요소 없음';
+}
+window.addEventListener('load', ()=> setTimeout(findOverflowElements, 1000));
+setInterval(findOverflowElements, 2000);
+</script>   
 </body>
 </html>
