@@ -22,6 +22,12 @@
             --exam-bg: #f8fafc;
         }
         * { box-sizing: border-box; }
+        html, body { overflow-x: hidden; width: 100%; max-width: 100vw; }
+        .exam-app { width: 100%; }
+
+        .exam-topbar { flex-wrap: wrap; gap: 6px; }
+        .exam-topbar .badge { white-space: normal; text-align: right; }
+
         body { background: var(--exam-bg); font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif; margin: 0; color: #1e293b; }
 
         .exam-app { max-width: 560px; margin: 0 auto; padding: 16px; padding-bottom: 60px; }
@@ -37,8 +43,8 @@
 
         .info-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 18px; margin-bottom: 18px; box-shadow: 0 3px 10px rgba(0,0,0,.04); }
         .info-card .info-title { font-weight: 800; font-size: 0.95rem; margin-bottom: 10px; color: #1e293b; }
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .info-grid .info-box { background: #f8fafc; border-radius: 10px; padding: 10px; text-align: center; }
+        .info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .info-grid .info-box { background: #f8fafc; border-radius: 10px; padding: 10px; text-align: center; min-width: 0; }
         .info-grid .info-box .num { font-weight: 900; font-size: 1.15rem; color: var(--exam-primary); }
         .info-grid .info-box .label { font-size: 0.72rem; color: #64748b; margin-top: 2px; }
         .info-note { font-size: 0.75rem; color: #94a3b8; margin-top: 12px; line-height: 1.5; border-top: 1px dashed #e2e8f0; padding-top: 10px; }
@@ -53,12 +59,12 @@
 
         #screen-exam, #screen-result { display: none; }
 
-        .exam-header { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, var(--exam-primary), var(--exam-secondary)); color: #fff; border-radius: 14px; padding: 14px 16px; margin-bottom: 16px; }
-        .exam-header .sec-label { font-weight: 800; font-size: 0.95rem; }
-        .exam-header .timer { font-variant-numeric: tabular-nums; font-weight: 900; font-size: 1.2rem; background: rgba(255,255,255,.2); padding: 4px 12px; border-radius: 10px; }
+        .exam-header { display: flex; align-items: center; justify-content: space-between; background: linear-gradient(135deg, var(--exam-primary), var(--exam-secondary)); color: #fff; border-radius: 14px; padding: 14px 16px; margin-bottom: 16px; gap: 8px; }
+        .exam-header .sec-label { font-weight: 800; font-size: 0.95rem; min-width: 0; }
+        .exam-header .timer { font-variant-numeric: tabular-nums; font-weight: 900; font-size: 1.2rem; background: rgba(255,255,255,.2); padding: 4px 12px; border-radius: 10px; flex-shrink: 0; }
 
-        #exam-navigator { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-bottom: 16px; }
-        .nav-dot { aspect-ratio: 1; border-radius: 8px; border: 2px solid #e2e8f0; background: #fff; font-size: 0.72rem; font-weight: 800; color: #94a3b8; cursor: pointer; }
+        #exam-navigator { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 6px; margin-bottom: 16px; }
+        .nav-dot { aspect-ratio: 1; border-radius: 8px; border: 2px solid #e2e8f0; background: #fff; font-size: 0.72rem; font-weight: 800; color: #94a3b8; cursor: pointer; min-width: 0; padding: 0; }
         .nav-dot.answered { background: #eef2ff; border-color: #c7d2fe; color: var(--exam-primary); }
         .nav-dot.active { border-color: var(--exam-primary); background: var(--exam-primary); color: #fff; }
 
@@ -71,7 +77,7 @@
         .exam-opt.selected { border-color: var(--exam-primary); background: #eef2ff; color: var(--exam-primary); font-weight: 800; }
 
         .exam-nav-btns { display: flex; gap: 10px; }
-        .exam-nav-btns button { flex: 1; padding: 14px; border-radius: 12px; border: none; font-weight: 800; font-size: 0.95rem; cursor: pointer; }
+        .exam-nav-btns button { flex: 1; min-width: 0; padding: 14px; border-radius: 12px; border: none; font-weight: 800; font-size: 0.95rem; cursor: pointer; }
         #exam-prev-btn { background: #f1f5f9; color: #64748b; }
         #exam-prev-btn:disabled { opacity: .5; cursor: not-allowed; }
         #exam-next-btn { background: linear-gradient(135deg, var(--exam-primary), var(--exam-secondary)); color: #fff; }
@@ -80,7 +86,7 @@
         .result-score-card .total { font-size: 2.4rem; font-weight: 900; }
         .result-score-card .sub { font-size: 0.85rem; opacity: .9; margin-top: 4px; }
         .result-breakdown { display: flex; gap: 10px; margin-top: 16px; }
-        .result-breakdown .box { flex: 1; background: rgba(255,255,255,.15); border-radius: 10px; padding: 10px; }
+        .result-breakdown .box { flex: 1; min-width: 0; background: rgba(255,255,255,.15); border-radius: 10px; padding: 10px; }
         .result-breakdown .box .n { font-weight: 900; font-size: 1.1rem; }
         .result-breakdown .box .l { font-size: 0.72rem; opacity: .85; }
 
@@ -95,12 +101,19 @@
         .wrong-correct { color: #16a34a; font-weight: 700; }
         .wrong-ai-btn { margin-top: 8px; width: 100%; padding: 10px; border-radius: 20px; border: 2px solid #6366f1; background: #eef2ff; color: #4338ca; font-weight: 800; font-size: 0.82rem; cursor: pointer; }
 
+        .review-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+        .review-card.wrong { border-color: #fecaca; border-left: 4px solid #ef4444; }
+        .review-card.correct { border-color: #bbf7d0; border-left: 4px solid #22c55e; }
+        .review-card .review-badge { font-size: 0.75rem; font-weight: 800; margin-bottom: 6px; }
+        .review-card.wrong .review-badge { color: #ef4444; }
+        .review-card.correct .review-badge { color: #16a34a; }
+        .study-link-btn { display: block; margin-top: 8px; width: 100%; padding: 10px; border-radius: 20px; border: 2px solid #6366f1; background: #eef2ff; color: #4338ca; font-weight: 800; font-size: 0.82rem; cursor: pointer; text-align: center; text-decoration: none; box-sizing: border-box; }
+
         .result-actions { display: flex; gap: 10px; margin-top: 20px; }
-        .result-actions button { flex: 1; padding: 14px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; }
+        .result-actions button { flex: 1; min-width: 0; padding: 14px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; }
         #retry-btn { background: linear-gradient(135deg, var(--exam-primary), var(--exam-secondary)); color: #fff; }
         #back-list-btn { background: #f1f5f9; color: #64748b; }
 
-        /* ===================== 오늘의 모의고사 (상단 섹션) ===================== */
         .dq-section { margin-bottom: 30px; }
         .dq-hero { text-align: center; margin-bottom: 14px; }
         .dq-hero h1 { font-size: 1.3rem; margin: 4px 0 8px; }
@@ -132,7 +145,6 @@
         .dq-done-card .score { font-weight: 900; font-size: 1.6rem; color: var(--exam-primary); margin: 6px 0; }
         .dq-done-card .note { color: #64748b; font-size: 0.85rem; }
 
-        /* ===================== 섹션 구분선 + Mock Test 헤더 ===================== */
         .section-divider { border: none; border-top: 2px dashed #e2e8f0; margin: 34px 0 26px; }
         .mocktest-header { text-align: center; margin-bottom: 18px; }
         .mocktest-header .badge2 { display: inline-block; background: #ede9fe; color: #5b21b6; font-size: 0.72rem; font-weight: 800; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; }
@@ -147,7 +159,6 @@
         <span class="badge">Official EPS-TOPIK Format</span>
     </div>
 
-    <!-- ===================== 상단: 오늘의 모의고사 (무료) ===================== -->
     <div class="dq-section">
         <div class="dq-hero">
             <h1>📝 Today's Quiz <span style="color:#22c55e;font-size:0.85rem;">— FREE</span></h1>
@@ -170,15 +181,13 @@
 
     <hr class="section-divider">
 
-    <!-- ===================== 하단: EPS-TOPIK Mock Tests (회원 전용) ===================== -->
     <div class="mocktest-header">
         <div class="badge2">🔒 Members Only · Official Exam Format</div>
         <h2>🎯 EPS-TOPIK Mock Tests</h2>
-        <p style="color:#64748b;font-size:0.85rem;margin-top:4px;">Practice with the same number of questions and time as the real exam.<br>Ask the AI Tutor about any question you got wrong.</p>
+        <p style="color:#64748b;font-size:0.85rem;margin-top:4px;">Practice with the same number of questions and time as the real exam.<br>After you finish, study the pages linked to any question — right or wrong.</p>
         <div class="dq-countdown" id="mocktest-countdown" style="margin-top:10px;">⏰ Calculating...</div>
     </div>
 
-    <!-- ===================== 화면 1: 세트 선택 ===================== -->
     <div id="screen-list">
         <div class="info-card">
             <div class="info-title">📋 Exam Format (Based on official HRD Korea EPS-TOPIK)</div>
@@ -196,7 +205,6 @@
         <div id="set-list"></div>
     </div>
 
-    <!-- ===================== 화면 2: 응시 화면 ===================== -->
     <div id="screen-exam">
         <div class="exam-header">
             <span class="sec-label" id="exam-section-label">👂 Listening</span>
@@ -219,7 +227,6 @@
         </div>
     </div>
 
-    <!-- ===================== 화면 3: 결과 화면 ===================== -->
     <div id="screen-result">
         <div class="result-score-card">
             <div class="total" id="result-total">0 / 100</div>
@@ -235,7 +242,7 @@
             Manufacturing 60+ · Other sectors 45+ · Fishing special 30+
         </div>
 
-        <div class="result-section-title">📝 Review Mistakes</div>
+        <div class="result-section-title">📝 Review All Questions</div>
         <div id="result-wrong-list"></div>
 
         <div class="result-actions">
@@ -258,7 +265,12 @@
         ['screen-list','screen-exam','screen-result'].forEach(s => {
             document.getElementById(s).style.display = (s===id) ? 'block' : 'none';
         });
-        window.scrollTo(0,0);
+        // ✅ 수정: 예전엔 window.scrollTo(0,0)으로 페이지 맨 위(오늘의 퀴즈)로 가버려서,
+        // 모의고사 1회 눌러도 시험 화면이 바로 안 보이고 유저가 직접 스크롤해야 했음.
+        // 이제 모의고사 영역 시작 지점(mocktest-header)으로 자동 스크롤해서 바로 보이게 함.
+        const anchor = document.querySelector('.mocktest-header');
+        if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        else window.scrollTo(0,0);
     }
 
     async function renderSetList(){
@@ -271,9 +283,12 @@
         const sets = window.mockExamSets || [];
 
         listEl.innerHTML = sets.map(s => {
-            const locked = !isPaid;
+            // ✅ s.free가 명시적으로 false가 아니면 무료로 취급 (필드 생략해도 기본 무료 → set_02, set_03...
+            //    계속 추가할 때 free 안 써도 자동으로 무료로 풀림)
+            const isFree = s.free !== false;
+            const locked = !isFree && !isPaid;
             const disabled = !!s.comingSoon;
-            let sub = '🔒 Members only';
+            let sub = isFree ? '🆓 Free' : '🔒 Members only';
             if (s.comingSoon) sub = '⏳ Coming soon';
             return `<button class="set-card ${locked && !disabled ? 'locked' : ''}" ${disabled ? 'disabled' : ''} data-set-id="${s.id}">
                 <div class="set-card-title">${s.title}</div>
@@ -289,7 +304,8 @@
     function onSelectSet(setId, isPaid){
         const set = (window.mockExamSets || []).find(s => s.id === setId);
         if (!set || set.comingSoon) return;
-        if (!isPaid) {
+        const isFree = set.free !== false;
+        if (!isFree && !isPaid) {
             if (window.requireKoreanAuth) window.requireKoreanAuth();
             else window.location.href = 'index.html?openPay=true';
             return;
@@ -426,23 +442,38 @@
         clearInterval(examState.timerHandle);
         const set = examState.set;
         let listeningScore = 0, readingScore = 0;
-        const wrongList = [];
+        const allList = [];
 
         set.listening.forEach((q, i) => {
-            const isCorrect = examState.answers.listening[i] === q.answer;
+            const userIdx = examState.answers.listening[i];
+            const isCorrect = userIdx === q.answer;
             if (isCorrect) listeningScore += 2.5;
-            else wrongList.push({ q, userAnswer: examState.answers.listening[i] });
+            allList.push({ q, userAnswer: userIdx, isCorrect });
         });
         set.reading.forEach((q, i) => {
-            const isCorrect = examState.answers.reading[i] === q.answer;
+            const userIdx = examState.answers.reading[i];
+            const isCorrect = userIdx === q.answer;
             if (isCorrect) readingScore += 2.5;
-            else wrongList.push({ q, userAnswer: examState.answers.reading[i] });
+            allList.push({ q, userAnswer: userIdx, isCorrect });
         });
 
         sessionStorage.removeItem(`examTimerEnd:${set.id}:listening`);
         sessionStorage.removeItem(`examTimerEnd:${set.id}:reading`);
 
-        renderResults({ listeningScore, readingScore, total: listeningScore + readingScore, wrongList });
+        const resultPayload = {
+            setId: set.id,
+            listeningScore,
+            readingScore,
+            total: listeningScore + readingScore,
+            allList
+        };
+
+        try {
+            sessionStorage.setItem(`mockTestResult:${set.id}`, JSON.stringify(resultPayload));
+            sessionStorage.setItem('mockTestLastSetId', set.id);
+        } catch(e) {}
+
+        renderResults(resultPayload);
     }
 
     function escapeExamHtml(t){
@@ -450,57 +481,45 @@
             .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     }
 
-    function renderResults({ listeningScore, readingScore, total, wrongList }){
+    function renderResults({ setId, listeningScore, readingScore, total, allList }){
         setScreen('screen-result');
         document.getElementById('result-total').textContent = `${total} / 100`;
         document.getElementById('result-listening').textContent = `${listeningScore} / 50`;
         document.getElementById('result-reading').textContent = `${readingScore} / 50`;
 
         const wrongWrap = document.getElementById('result-wrong-list');
-        if (wrongList.length === 0) {
-            wrongWrap.innerHTML = `<div class="result-empty">🎉 All correct! Try the next set.</div>`;
-            return;
-        }
 
-        wrongWrap.innerHTML = wrongList.map((w, idx) => {
+        wrongWrap.innerHTML = allList.map((w) => {
             const correctText = w.q.options[w.q.answer];
             const userText = w.userAnswer != null ? w.q.options[w.userAnswer] : '(not selected)';
-            return `<div class="wrong-card">
+            const cardClass = w.isCorrect ? 'review-card correct' : 'review-card wrong';
+            const badgeText = w.isCorrect ? '⭕ Correct' : '❌ Incorrect';
+
+            const answerLine = w.isCorrect
+                ? `<div class="wrong-answer">Answer: <span class="wrong-correct">${escapeExamHtml(correctText)}</span></div>`
+                : `<div class="wrong-answer">Your answer: <span class="wrong-user">${escapeExamHtml(userText)}</span></div>
+                   <div class="wrong-answer">Correct answer: <span class="wrong-correct">${escapeExamHtml(correctText)}</span></div>`;
+
+            const studyBtn = w.q.sourceUrl
+                ? `<a class="study-link-btn" href="${escapeExamHtml(w.q.sourceUrl)}" data-set-id="${escapeExamHtml(setId)}" data-study-link="1">📚 Study "${escapeExamHtml(w.q.sourceTitle || '')}" →</a>`
+                : '';
+
+            return `<div class="${cardClass}">
+                <div class="review-badge">${badgeText}</div>
                 <div class="wrong-q">${escapeExamHtml(w.q.question)}</div>
-                <div class="wrong-answer">Your answer: <span class="wrong-user">${escapeExamHtml(userText)}</span></div>
-                <div class="wrong-answer">Correct answer: <span class="wrong-correct">${escapeExamHtml(correctText)}</span></div>
-                <button class="wrong-ai-btn" data-idx="${idx}">🤖 Ask AI Tutor to explain</button>
+                ${answerLine}
+                ${studyBtn}
             </div>`;
         }).join('');
 
-        wrongWrap.querySelectorAll('.wrong-ai-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const w = wrongList[Number(btn.dataset.idx)];
-                askAiAboutWrongAnswer(w);
+        wrongWrap.querySelectorAll('[data-study-link]').forEach(a => {
+            a.addEventListener('click', () => {
+                try {
+                    sessionStorage.setItem(`mockTestReview:${a.dataset.setId}`, '1');
+                    sessionStorage.removeItem(`mockTestDismissed:${a.dataset.setId}`);
+                } catch(e) {}
             });
         });
-    }
-
-    function askAiAboutWrongAnswer(w){
-        const btn = document.getElementById('ai-tutor-btn');
-        if (btn) btn.click();
-        setTimeout(() => {
-            if (window.__aiSentenceMode) {
-                const qText = String(w.q.question || '').replace(/\n/g, ' ');
-                const correctText = w.q.options[w.q.answer];
-                const userText = w.userAnswer != null ? w.q.options[w.userAnswer] : '(선택하지 않음)';
-                const optionsText = w.q.options.map((o, i) => `${i + 1}. ${o}`).join(' / ');
-                // ✅ 수정: 문제+정답만 넘기던 것에서, 선택지 전체 + 내가 고른 오답 + 정답을 다 포함한
-                // 프롬프트로 바꿔서, AI가 "왜 내 답이 틀렸는지"까지 정확히 짚어줄 수 있게 함.
-                const prompt = `다음은 EPS-TOPIK 읽기 문제입니다.\n`
-                    + `문제: ${qText}\n`
-                    + `선택지: ${optionsText}\n`
-                    + `제가 고른 답: ${userText}\n`
-                    + `정답: ${correctText}\n\n`
-                    + `제가 왜 틀렸는지, 그리고 정답이 왜 맞는지 쉽게 설명해 주세요.`;
-                window.__aiSentenceMode(prompt, '', '');
-            }
-        }, 350);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -519,14 +538,35 @@
             }
         };
         document.getElementById('retry-btn').onclick = () => startExam(examState.set);
-        document.getElementById('back-list-btn').onclick = () => { setScreen('screen-list'); renderSetList(); };
 
-        setScreen('screen-list');
-        renderSetList();
+        document.getElementById('back-list-btn').onclick = () => {
+            try {
+                const lastSetId = sessionStorage.getItem('mockTestLastSetId');
+                if (lastSetId) sessionStorage.removeItem(`mockTestReview:${lastSetId}`);
+            } catch(e) {}
+            setScreen('screen-list');
+            renderSetList();
+        };
+
+        let resumed = false;
+        try {
+            const lastSetId = sessionStorage.getItem('mockTestLastSetId');
+            if (lastSetId && sessionStorage.getItem(`mockTestReview:${lastSetId}`)) {
+                const saved = sessionStorage.getItem(`mockTestResult:${lastSetId}`);
+                if (saved) {
+                    renderResults(JSON.parse(saved));
+                    resumed = true;
+                }
+            }
+        } catch(e) {}
+
+        if (!resumed) {
+            setScreen('screen-list');
+            renderSetList();
+        }
     });
 })();
 
-/* ===================== 오늘의 모의고사 (독립된 별도 IIFE) ===================== */
 (function(){
     let dqState = { queue: [], index: 0, answers: {} };
 
@@ -633,8 +673,6 @@
         const q = dqState.queue[dqState.index];
         dqState.answers[dqState.index] = { selected: i, correct: i === q.answer };
         saveProgress();
-        // ✅ 추가: 다시 문제를 풀기 시작했으니, 이전에 "홈 눌러서 그만둠" 표시가 있었다면 해제.
-        // 이래야 이번 Study 링크 클릭부터 다시 복귀 버튼이 정상적으로 뜸.
         try{ sessionStorage.removeItem(`dailyQuizDismissed:${window.getTodayDateStr()}`); }catch(e){}
         renderDaily();
     }
@@ -661,8 +699,6 @@
     }
 
     function initDaily(){
-        // 날짜가 바뀌면(자정 이후) 큐도 자동으로 새로 생성되고,
-        // progressKey도 날짜별로 다르므로 진행 상태도 자연스럽게 초기화됨.
         dqState.queue = window.buildDailyQuizQueue(10);
         const saved = loadProgress();
         dqState.index = Math.min(saved.index || 0, dqState.queue.length);
@@ -671,17 +707,17 @@
         renderDaily();
     }
 
-    // pageshow: 개별 레슨 페이지에서 "뒤로가기"로 돌아왔을 때(bfcache 포함)도
-    // 항상 같은 지점부터 다시 보여주기 위해 사용.
     window.addEventListener('pageshow', initDaily);
     setInterval(updateDailyCountdown, 30000);
 
-    // ✅ 추가: "🏠 Home" 버튼을 눌러서 의도적으로 나가는 경우,
-    // 오늘 하루는 "← Back to Today's Quiz" 플로팅 버튼이 다른 페이지에서 안 뜨도록 표시 남김.
     const homeLink = document.getElementById('home-link-topbar');
     if (homeLink) {
         homeLink.addEventListener('click', function(){
-            try{ sessionStorage.setItem(`dailyQuizDismissed:${window.getTodayDateStr()}`, '1'); }catch(e){}
+            try{
+                sessionStorage.setItem(`dailyQuizDismissed:${window.getTodayDateStr()}`, '1');
+                const lastSetId = sessionStorage.getItem('mockTestLastSetId');
+                if (lastSetId) sessionStorage.setItem(`mockTestDismissed:${lastSetId}`, '1');
+            }catch(e){}
         });
     }
 })();
