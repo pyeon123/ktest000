@@ -162,6 +162,7 @@
     <div class="dq-section">
         <div class="dq-hero">
             <h1>📝 Today's Quiz <span style="color:#22c55e;font-size:0.85rem;">— FREE</span></h1>
+            <p style="color:#94a3b8;font-size:0.8rem;margin:4px 0 8px;">Updated daily</p>
             <div class="dq-countdown" id="dq-countdown">⏰ Calculating...</div>
         </div>
 
@@ -182,7 +183,6 @@
     <hr class="section-divider">
 
     <div class="mocktest-header">
-        <div class="badge2">🔒 Members Only · Official Exam Format</div>
         <h2>🎯 EPS-TOPIK Mock Tests</h2>
         <p style="color:#64748b;font-size:0.85rem;margin-top:4px;">Practice with the same number of questions and time as the real exam.<br>After you finish, study the pages linked to any question — right or wrong.</p>
         <div class="dq-countdown" id="mocktest-countdown" style="margin-top:10px;">⏰ Calculating...</div>
@@ -265,12 +265,6 @@
         ['screen-list','screen-exam','screen-result'].forEach(s => {
             document.getElementById(s).style.display = (s===id) ? 'block' : 'none';
         });
-        // ✅ 수정: 예전엔 window.scrollTo(0,0)으로 페이지 맨 위(오늘의 퀴즈)로 가버려서,
-        // 모의고사 1회 눌러도 시험 화면이 바로 안 보이고 유저가 직접 스크롤해야 했음.
-        // 이제 모의고사 영역 시작 지점(mocktest-header)으로 자동 스크롤해서 바로 보이게 함.
-        const anchor = document.querySelector('.mocktest-header');
-        if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        else window.scrollTo(0,0);
     }
 
     async function renderSetList(){
@@ -326,6 +320,9 @@
             timerEndAt: 0
         };
         setScreen('screen-exam');
+        // ✅ 추가: "EPS-TOPIK 모의고사 1회" 버튼 눌렀을 때만, 시험 화면이 바로 보이게 스크롤
+        const anchor = document.querySelector('.mocktest-header');
+        if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
         startSectionTimer(25 * 60);
         renderQuestion();
     }
