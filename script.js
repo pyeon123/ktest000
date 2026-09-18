@@ -3069,9 +3069,18 @@ var oldR=window.renderLearningProgress; window.renderLearningProgress=function()
    ========================================================= */
 (function showBackToQuizButton(){
   const file = (location.pathname.split('/').pop() || '').toLowerCase();
-  // ✅ 수정: test.html뿐 아니라 홈(index.html/빈 경로)에서도 버튼 숨김.
-  // 홈은 "레슨 학습 중"이 아니라 메인 화면이라 복귀 버튼이 뜰 이유가 없음.
-  if(file === 'test.html' || file === '' || file === 'index.html' || file === '/' || file === 'index') return;
+  const isHome = (file === '' || file === 'index.html' || file === '/' || file === 'index');
+
+  // ✅ 수정: "어떤 버튼을 눌렀는지" 추적하는 대신, index.html에 도착한 사실 자체를 감지.
+  // 어떤 경로(홈 버튼, 뒤로가기, 북마크 등)로 오든 무조건 여기서 그만둔 표시를 남기므로
+  // 개별 레슨 페이지의 HOME 버튼이 정확히 어떻게 구현됐는지 몰라도 항상 정확하게 동작함.
+  if(isHome){
+    try{
+      const todayStr = new Date().toISOString().slice(0,10);
+      sessionStorage.setItem(`dailyQuizDismissed:${todayStr}`, '1');
+    }catch(e){}
+    return;
+  }
 
   const todayStr = new Date().toISOString().slice(0,10);
   const todayKey = `dailyQuizProgress:${todayStr}`;
@@ -3082,14 +3091,11 @@ var oldR=window.renderLearningProgress; window.renderLearningProgress=function()
     hasActiveQuiz = !!sessionStorage.getItem(todayKey);
     dismissed = !!sessionStorage.getItem(dismissKey);
   }catch(e){}
-  // ✅ 추가: "🏠 Home"을 눌러서 의도적으로 나간 경우엔, 다시 test.html에서
-  // 문제를 풀기 전까지는 다른 페이지에서 이 버튼이 안 뜨도록 함.
   if(!hasActiveQuiz || dismissed) return;
 
   const btn = document.createElement('a');
   btn.href = 'test.html';
   btn.textContent = "← Today's Quiz";
-  // ✅ 수정: 크기 줄이고, 색상도 더 연하게(방해 안 되도록)
   btn.style.cssText = 'position:fixed;bottom:70px;right:12px;z-index:99998;background:#a5b4fc;color:#312e81;padding:6px 12px;border-radius:18px;font-weight:700;font-size:0.7rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.12);opacity:0.85;';
   document.body.appendChild(btn);
 })();
