@@ -31,7 +31,7 @@ window.mockExamSets = window.mockExamSets || [
   {
     id: "set_01",
     title: "EPS-TOPIK 모의고사 1회",
-    free: false,
+    free: true,
     listening: [
       { id: "L01", audioText: "안녕하세요. 처음 뵙겠습니다.", question: "다음을 듣고 알맞은 대답을 고르세요.",
         options: ["네, 반갑습니다.", "네, 맛있어요.", "네, 비싸요.", "네, 늦었어요."], answer: 0,
