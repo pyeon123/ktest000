@@ -1779,7 +1779,19 @@ Return ONLY valid JSON (no markdown fences, no text outside the JSON) in this ex
   });
  
   var btn=wrap.querySelector('#ai-tutor-btn'), modal=wrap.querySelector('#ai-tutor-modal'), log=wrap.querySelector('#ai-chat-log'), faq=wrap.querySelector('#ai-faq-chips'), input=wrap.querySelector('#ai-in'), open=false;
- 
+  const M = () => window.AI_STUDY_MODES[window.getEffectiveStudyMode()];
+function updateModeChip(){
+  const c = wrap.querySelector('#ai-mode-chip');
+  if(c) c.textContent = `${M().emoji} Mode: ${M().label} ▾`;
+}
+wrap.querySelector('#ai-mode-chip').onclick = () => window.showStudyModePopup();
+window.addEventListener('aiStudyModeChanged', () => {
+  loadAiHistory();
+  window.currentAITutorQuiz = null;
+  updateModeChip();
+  if(open) renderFaq();
+});
+updateModeChip();
  function getCurrentQuizData(){
   try{
     if(
