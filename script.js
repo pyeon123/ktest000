@@ -2658,12 +2658,31 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
     }
   }
  
-async function handleQuestion(q, gramForced, forceAiMode){
+async function handleQuestion(q, gramForced, forceAiMode, skipLocalGrammar){
   var ctx=getCtx();
   addAiHistory('user', q);
 
   const originalQ = q;
+  // ✅ 추가: 채팅창에 숫자 1~4를 입력하면, AI에게 다시 묻지 않고
+  // "박스"(버튼 클릭)와 완전히 동일한 채점 로직(window.handleOptionClick)을 그대로 재사용.
+  if (/^[1-4]$/.test(String(q).trim())) {
+    const num = parseInt(String(q).trim(), 10);
 
+    // 사용자가 입력한 숫자를 채팅 말풍선으로 표시
+    log.innerHTML += `<div style="align-self:flex-end;background:#6366f1;color:white;padding:8px 12px;border-radius:16px;max-width:82%;font-weight:700;font-size:0.9rem;">${escapeHtml(q)}</div>`;
+    log.scrollTop = log.scrollHeight;
+
+    const quizId = window.currentAITutorQuiz && window.currentAITutorQuiz.quizId;
+
+    if (quizId && quizStore.has(quizId)) {
+      // ✅ 버튼 클릭과 100% 동일한 함수 호출 — AI 재호출 없음, 채점 오류 불가능
+      window.handleOptionClick(quizId, num);
+    } else {
+      log.innerHTML += `<div style="background:#fefce8;border:2px solid #fde68a;padding:10px 12px;border-radius:14px;font-size:0.85rem;color:#854d0e;">⚠️ 현재 진행 중인 퀴즈가 없어요. "🎯 More Quiz" 버튼으로 새 퀴즈를 받아보세요.</div>`;
+    }
+    log.scrollTop = log.scrollHeight;
+    return;
+  }
   function getAITutorQuizAnswer(input) {
     if (!window.currentAITutorQuiz) return null;
     const m = String(input||'').trim().match(/^([1-4])$/);
@@ -2686,19 +2705,28 @@ async function handleQuestion(q, gramForced, forceAiMode){
     };
   }
 
-  const quizAnswer = getAITutorQuizAnswer(q);
+    const quizAnswer = getAITutorQuizAnswer(q);
   if (quizAnswer) {
     // ✅ 옵션이 {kr, rom, en} 객체이므로, 프롬프트에도 3종 세트를 그대로 풀어서 전달
     const fmt = (o) => (o && typeof o === 'object') ? `${o.kr} (${o.rom}) - ${o.en}` : String(o);
     const qKr = (quizAnswer.question && typeof quizAnswer.question === 'object') ? quizAnswer.question.kr : quizAnswer.question;
-    q = `The learner is answering your previous quiz.
-Question: ${qKr}
-Options: ${quizAnswer.options.map((o,i)=>`${i+1}. ${fmt(o)}`).join('\n')}
-Learner selected: ${quizAnswer.number}. ${fmt(quizAnswer.selected)}
-Correct answer: ${quizAnswer.correctNum}. ${fmt(quizAnswer.correctAnswer)}
-Correct? ${quizAnswer.correct? 'YES' : 'NO'}
-If correct: say correct + brief explanation.
-If incorrect: say incorrect + show correct number + explain difference.
+
+    // ✅ 수정: 정답/오답 판정과 칭찬 문구는 AI에게 맡기지 않고 JS가 직접 화면에 고정 출력.
+    // (AI가 정오답 판정 멘트를 잘못 재사용하는 문제를 원천 차단)
+    const resultBannerHtml = quizAnswer.correct
+      ? `<div style="align-self:flex-start;background:#10b981;color:white;padding:10px 14px;border-radius:14px;max-width:90%;font-weight:800;font-size:0.9rem;">✅ 정답입니다! (${quizAnswer.correctNum}번) 잘했어요! 🎉</div>`
+      : `<div style="align-self:flex-start;background:#ef4444;color:white;padding:10px 14px;border-radius:14px;max-width:90%;font-weight:800;font-size:0.9rem;">❌ 오답이에요. 정답은 ${quizAnswer.correctNum}번입니다.</div>`;
+    log.innerHTML += resultBannerHtml;
+    log.scrollTop = log.scrollHeight;
+
+    // ✅ 수정: AI에게는 "설명만" 요청하고, 정답/오답 판정이나 칭찬/격려 문구는 절대 쓰지 말라고 명시.
+    // (정오답 표시는 위에서 이미 JS가 고정 출력했으므로 AI가 다시 언급하면 중복/오염 위험)
+    q = `The learner just answered a quiz question. Write ONLY a brief explanation of why option ${quizAnswer.correctNum} (${fmt(quizAnswer.correctAnswer)}) is the correct answer for this question: "${qKr}".
+The learner picked option ${quizAnswer.number} (${fmt(quizAnswer.selected)}).
+STRICT RULES:
+- Do NOT say whether the answer was correct or incorrect (that has already been shown to the learner separately).
+- Do NOT use any praise or encouragement words such as "잘했어요", "Excellent", "Great job", "훌륭해요", "Good job" or similar, regardless of whether the learner was right or wrong.
+- Just explain the grammar/vocabulary reasoning behind the correct answer, and if the learner's pick was wrong, briefly explain how it differs from the correct answer — in a neutral, factual tone only.
 IMPORTANT: In your explanation, always show Korean text together with its romanization and English meaning (kr / rom / en), never Korean alone.
 Do NOT create a new quiz yet.`;
     forceAiMode = true;
@@ -2707,8 +2735,11 @@ Do NOT create a new quiz yet.`;
     window.currentAITutorQuiz = null;
   }
 
-  var grams = [];
-  if(!forceAiMode){
+    var grams = [];
+  // ✅ 수정: 검색창(채팅 입력)에서 직접 타이핑한 질문은 skipLocalGrammar=true로 넘어오므로
+  // 로컬 문법 DB 매칭을 건너뛰고 무조건 AI에게 물어보게 함.
+  // (상단 문법 칩/문장 칩은 이 경로를 안 타므로 기존처럼 로컬 DB 그대로 사용됨)
+  if(!forceAiMode && !skipLocalGrammar){
     grams = gramForced? [gramForced] : findAllGrammarMatches(q);
   }
 
@@ -2943,8 +2974,9 @@ wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';
 input.addEventListener('focus', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
 input.addEventListener('click', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
 
-input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; document.getElementById('usageGuide')?.style.setProperty('display','none'); handleQuestion(q);}});
-wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ document.getElementById('usageGuide')?.style.setProperty('display','none'); input.value=''; handleQuestion(q); } };
+// ✅ 수정: 검색창 입력은 skipLocalGrammar=true로 호출 → 로컬 문법 DB 건너뛰고 항상 AI 응답
+input.addEventListener('keypress',e=>{if(e.key==='Enter'&&e.target.value.trim()){var q=e.target.value.trim(); e.target.value=''; document.getElementById('usageGuide')?.style.setProperty('display','none'); handleQuestion(q, null, false, true);}});
+wrap.querySelector('#ai-send-btn').onclick=()=>{ var q=input.value.trim(); if(q){ document.getElementById('usageGuide')?.style.setProperty('display','none'); input.value=''; handleQuestion(q, null, false, true); } };
 
 (function addUsageGuide(){
   if(document.getElementById('usageGuide')) return;
