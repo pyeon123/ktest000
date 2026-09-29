@@ -1646,13 +1646,14 @@ body,main,.wrapper,.container,.main-container,.app-container{overflow-x:hidden!i
   ];
 
   window.__aiTutorMode = function(mode){
+    const modeInfo = M(); 
     const ctx = getCtx();
     const lessonLabel = ctx.kr ? `"${ctx.kr}"` : "this lesson";
 
     // ✅ 수정: quiz 모드는 유형을 랜덤 강제 지정하고, 4개 선택지 전체에 대한 설명(explanations)을
     // JSON 스키마로 명시 요청한다. 정답 클릭 시 AI를 다시 부르지 않고 이 설명을 바로 보여준다.
     const chosenType = epsQuizTypes[Math.floor(Math.random() * epsQuizTypes.length)];
-    const quizPrompt = `Create ONE EPS-TOPIK style Korean quiz question using this lesson as material: ${lessonLabel}.
+    const quizPrompt = `Create ONE ${modeInfo.quizStyle} Korean quiz question using this lesson as material: ${lessonLabel}.${modeInfo.id === 'eps' ? '' : `\nPerspective: ${modeInfo.perspective}`}
 Question type (MUST follow exactly): ${chosenType.label}
 Instruction: ${chosenType.instruction}
 
@@ -1680,7 +1681,9 @@ Return ONLY valid JSON (no markdown fences, no text outside the JSON) in this ex
 (Remember: exactly one of the four "correct" values above must actually be true — set it on whichever option is truly correct, not always the first one.)`;
 
     const presetQuestions = {
-      epstopik: `Please explain ${lessonLabel} in EPS-TOPIK exam style. Cover the key vocabulary and grammar I need to know for the exam, using the current lesson as the main material. Every Korean word or sentence you mention MUST be shown together with its romanization and English meaning (never Korean alone).`,
+      epstopik: modeInfo.id === 'eps'
+  ? `Please explain ${lessonLabel} in EPS-TOPIK exam style. Cover the key vocabulary and grammar I need to know for the exam, using the current lesson as the main material. Every Korean word or sentence you mention MUST be shown together with its romanization and English meaning (never Korean alone).`
+  : `Please explain ${lessonLabel} from a ${modeInfo.name} perspective. ${modeInfo.explainFocus} Every Korean word or sentence you mention MUST be shown together with its romanization and English meaning (never Korean alone).`,
       quiz: quizPrompt,
       example: `Please give me 2-3 additional natural example sentences using the vocabulary or grammar from ${lessonLabel}, each with Korean, romanization, and English meaning — all three always shown together.`
     };
