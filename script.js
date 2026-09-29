@@ -1993,7 +1993,7 @@ function buildPageContext(){
       enabled: true,
 
       target:
-        'EPS-TOPIK Korean learner',
+        M().target,
 
       lessonTitle:
         pageTitle,
