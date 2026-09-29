@@ -42,6 +42,33 @@
             </div>
 
             <div id="category-screen" style="margin-bottom: 20px;">
+                <style>
+.study-mode-title{text-align:center;font-size:.95rem;font-weight:800;color:#334155;margin:0 0 8px;}
+.study-mode-row{display:flex;gap:8px;max-width:92%;margin:0 auto 6px;}
+.study-mode-box{flex:1;background:#fff;border:2px solid #cbd5e1;border-radius:12px;padding:10px 4px;cursor:pointer;text-align:center;font-family:inherit;transition:all .2s;}
+.study-mode-box .sm-emoji{font-size:1.5rem;display:block;}
+.study-mode-box .sm-label{font-size:.85rem;font-weight:800;color:#1e293b;display:block;margin-top:2px;}
+.study-mode-box .sm-desc{font-size:.66rem;color:#64748b;display:block;margin-top:2px;}
+.study-mode-box.active{border-color:#4f46e5;background:#eef2ff;box-shadow:0 3px 8px rgba(79,70,229,.25);}
+.study-mode-box.active .sm-label{color:#4f46e5;}
+.study-mode-hint{text-align:center;font-size:.72rem;color:#94a3b8;margin:0 0 12px;}
+</style>
+
+<div id="study-mode-section">
+  <div class="study-mode-title">🤖 Choose your study mode</div>
+  <div class="study-mode-row">
+    <button type="button" class="study-mode-box" data-mode="study" onclick="selectStudyMode('study')">
+      <span class="sm-emoji">📖</span><span class="sm-label">Study Korean</span><span class="sm-desc">Everyday Korean</span>
+    </button>
+    <button type="button" class="study-mode-box" data-mode="topik" onclick="selectStudyMode('topik')">
+      <span class="sm-emoji">🎓</span><span class="sm-label">TOPIK I</span><span class="sm-desc">Beginner exam</span>
+    </button>
+    <button type="button" class="study-mode-box" data-mode="eps" onclick="selectStudyMode('eps')">
+      <span class="sm-emoji">👷</span><span class="sm-label">EPS-TOPIK</span><span class="sm-desc">Work & exam</span>
+    </button>
+  </div>
+  <div class="study-mode-hint" id="study-mode-hint">Tap a mode. Only the AI Tutor's style changes.</div>
+</div>
                 <div id="guide-box" onclick="showGuide()" style="cursor:pointer; background:#ffffff; border:2px solid #4285f4; border-radius:10px; padding:10px 15px; margin:5px auto; max-width:92%; text-align:center; box-shadow: 0 3px 6px rgba(0,0,0,0.1);">
                     <div style="font-weight:bold; color:#4285f4; font-size:1.1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
                         <span>🌐</span> Translation Guide <span style="font-size:0.8rem; color:#999; font-weight:normal;">(Click)</span>
@@ -794,7 +821,7 @@ function toggleKFreeInfo(e, section) {
   // ⚠️ 아래 두 값은 각 서비스 가입 후 실제 값으로 교체하세요.
   const PAYMONGO_PUBLIC_KEY = 'pk_test_XXXXXXXXXXXXXXXX'; // PayMongo 대시보드 > API Keys
   const PAYMONGO_PRICE_PHP = 199; // GCash 결제 금액 (페소, 소수점 없이 정수)
-  const LEMONSQUEEZY_CHECKOUT_URL = 'https://k-free.lemonsqueezy.com/checkout/buy/8ac10442-4401-4d5e-9f9d-6cdefa908bea'; // Lemon Squeezy 상품 체크아웃 링크
+  const LEMONSQUEEZY_CHECKOUT_URL = 'https://k-free.lemonsqueezy.com/checkout/buy/d77cdb00-37d9-4ea9-9cd7-4db0e7c9c3f6'; // Lemon Squeezy 상품 체크아웃 링크
 
   // 팝업 모달 열기 / 닫기
   function openAuthModal() {
