@@ -2682,7 +2682,7 @@ window.handleOptionClick = function(quizId, userSelectedIndex) {
     moreExplainBtn.style.cssText = 'flex:1;padding:10px;border-radius:20px;border:2px solid #e2e8f0;background:white;color:#475569;font-weight:800;font-size:0.85rem;cursor:pointer;';
     moreExplainBtn.onclick = () => {
       nextStepDiv.remove();
-      const deeperPrompt = `Please give a deeper, more detailed explanation of this EPS-TOPIK quiz question and why "${correctOptKr}" is the correct answer. Question: "${questionKr}". Cover the underlying grammar or vocabulary point so the learner really understands it.`;
+      const deeperPrompt = `Please give a deeper, more detailed explanation of this ${M().name} quiz question and why "${correctOptKr}" is the correct answer. Question: "${questionKr}". Cover the underlying grammar or vocabulary point so the learner really understands it.`;
       handleQuestion(deeperPrompt, null, true);
     };
     nextStepDiv.appendChild(nextQuizBtn);
