@@ -85,7 +85,81 @@ gtag('config', 'G-LVXKNBELZQ');
     };
   }
 })();
+/* ===== AI Study Mode (index와 모든 레슨 페이지 공통) ===== */
+window.AI_STUDY_MODES = {
+  study: {
+    id:'study', emoji:'📖', label:'Study Korean', desc:'Everyday Korean',
+    name:'Korean study',
+    quizStyle:'everyday Korean study (practical conversation)',
+    target:'General Korean learner',
+    perspective:'General Korean learning: natural everyday conversation, real-life expressions, and practical usage. Do not frame things as exam preparation.',
+    explainFocus:'Focus on natural everyday usage and how native speakers really say it.'
+  },
+  topik: {
+    id:'topik', emoji:'🎓', label:'TOPIK I', desc:'Beginner exam',
+    name:'TOPIK I',
+    quizStyle:'TOPIK I style (beginner level 1-2 vocabulary and grammar ONLY)',
+    target:'TOPIK I (Level 1-2) learner',
+    perspective:'TOPIK I exam perspective: Level 1-2 vocabulary and grammar, reading and listening question types. Do not go beyond TOPIK I level.',
+    explainFocus:'Focus on the TOPIK I level vocabulary and grammar the learner needs for the exam.'
+  },
+  eps: {
+    id:'eps', emoji:'👷', label:'EPS-TOPIK', desc:'Work & exam',
+    name:'EPS-TOPIK',
+    quizStyle:'EPS-TOPIK style',
+    target:'EPS-TOPIK Korean learner',
+    perspective:'EPS-TOPIK exam perspective: workplace, industrial safety, and daily life Korean for foreign workers in Korea.',
+    explainFocus:'Focus on the key vocabulary and grammar needed for the exam and for workplace/daily life.'
+  }
+};
+// 저장된 모드 (없으면 null → 검색으로 들어온 사용자에게 팝업을 띄우는 기준)
+window.getAiStudyMode = function(){
+  try{ const m = localStorage.getItem('aiStudyMode'); return window.AI_STUDY_MODES[m] ? m : null; }catch(e){ return null; }
+};
+// 실제 사용할 모드 (선택 안 했으면 기존 그대로 eps)
+window.getEffectiveStudyMode = function(){ return window.getAiStudyMode() || 'eps'; };
+window.setAiStudyMode = function(mode){
+  if(!window.AI_STUDY_MODES[mode]) return;
+  try{ localStorage.setItem('aiStudyMode', mode); }catch(e){}
+  try{ if(typeof gtag === 'function') gtag('event','select_study_mode',{ mode: mode }); }catch(e){}
+  window.renderStudyModeBoxes();
+  window.dispatchEvent(new CustomEvent('aiStudyModeChanged', { detail: mode }));
+};
+// index.html의 박스 3개 강조 표시
+window.renderStudyModeBoxes = function(){
+  const cur = window.getAiStudyMode();
+  document.querySelectorAll('.study-mode-box').forEach(b=>{
+    b.classList.toggle('active', b.dataset.mode === cur);
+  });
+  const hint = document.getElementById('study-mode-hint');
+  if(hint && cur) hint.textContent = `Selected: ${window.AI_STUDY_MODES[cur].label} — AI Tutor will explain in this style.`;
+};
+window.selectStudyMode = function(mode){ window.setAiStudyMode(mode); };
+document.addEventListener('DOMContentLoaded', window.renderStudyModeBoxes);
 
+// 모드 선택 팝업 (레슨 페이지에서 AI Tutor를 처음 누를 때 / 헤더의 모드 표시를 누를 때)
+window.showStudyModePopup = function(onPick){
+  const old = document.getElementById('study-mode-popup'); if(old) old.remove();
+  const cur = window.getAiStudyMode();
+  const ov = document.createElement('div');
+  ov.id = 'study-mode-popup';
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100001;display:flex;align-items:center;justify-content:center;padding:16px;';
+  ov.innerHTML = `<div style="background:#fff;border-radius:18px;padding:20px;max-width:360px;width:100%;box-shadow:0 15px 40px rgba(0,0,0,.25);">
+    <div style="font-weight:900;font-size:1.05rem;color:#1e293b;text-align:center;">How do you want to study?</div>
+    <div style="font-size:.78rem;color:#64748b;text-align:center;margin:4px 0 14px;">The AI Tutor will explain this lesson in your chosen style.</div>
+    ${Object.values(window.AI_STUDY_MODES).map(m=>`
+      <button data-mode="${m.id}" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin-bottom:8px;padding:12px 14px;border-radius:12px;cursor:pointer;font-family:inherit;border:2px solid ${cur===m.id?'#4f46e5':'#e2e8f0'};background:${cur===m.id?'#eef2ff':'#fff'};">
+        <span style="font-size:1.6rem;">${m.emoji}</span>
+        <span><b style="font-size:.95rem;color:#1e293b;">${m.label}</b><br><span style="font-size:.75rem;color:#64748b;">${m.desc}</span></span>
+      </button>`).join('')}
+  </div>`;
+  ov.addEventListener('click', e=>{
+    const b = e.target.closest('[data-mode]');
+    if(b){ const mode = b.dataset.mode; ov.remove(); window.setAiStudyMode(mode); if(onPick) onPick(mode); }
+    else if(e.target === ov){ ov.remove(); }
+  });
+  document.body.appendChild(ov);
+};
 let currentIdx = 0;
 let activeCatId = "";
 let activeCategoryName = ""; 
