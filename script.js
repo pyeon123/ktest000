@@ -3054,7 +3054,14 @@ if(!isQuizRendered){
   }
  
 window.openShare=openShare;
-btn.onclick=()=>{open=!open; modal.style.display=open?'flex':'none'; if(open){ renderFaq(); const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; }};
+function toggleTutor(){
+  open=!open; modal.style.display=open?'flex':'none';
+  if(open){ updateModeChip(); renderFaq(); const g=document.getElementById('usageGuide'); if(g) g.style.display='block'; }
+}
+btn.onclick=()=>{
+  if(!open && !window.getAiStudyMode()){ window.showStudyModePopup(()=>toggleTutor()); return; }
+  toggleTutor();
+};
 wrap.querySelector('#ai-x').onclick=()=>{open=false; modal.style.display='none';};
 
 input.addEventListener('focus', ()=>{ document.getElementById('usageGuide')?.style.setProperty('display','none'); });
