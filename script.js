@@ -2178,7 +2178,7 @@ const res = await fetch(ASK_TUTOR_ENDPOINT, {
     currentQuiz: pageContext.quiz,
     quizProgress: pageContext.quizProgress,
     epsTopik: pageContext.epsTopik,
-
+    studyMode: window.getEffectiveStudyMode(),
     ...bodyExtra
 
   })
