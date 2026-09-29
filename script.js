@@ -2069,14 +2069,14 @@ function buildPageContext(){
       .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
-const AI_HISTORY_KEY = `aiTutorHistory:${location.pathname}`;
+const aiHistoryKey = () => `aiTutorHistory:${location.pathname}:${window.getEffectiveStudyMode()}`;
 const AI_HISTORY_MAX = 20; // user 10 + assistant 10
 
 let aiConversationHistory = [];
 
 function loadAiHistory() {
   try {
-    const saved = sessionStorage.getItem(AI_HISTORY_KEY);
+    const saved = sessionStorage.getItem(aiHistoryKey());
     aiConversationHistory = saved ? JSON.parse(saved) : [];
 
     if (!Array.isArray(aiConversationHistory)) {
@@ -2093,9 +2093,9 @@ function saveAiHistory() {
       aiConversationHistory.slice(-AI_HISTORY_MAX);
 
     sessionStorage.setItem(
-      AI_HISTORY_KEY,
-      JSON.stringify(aiConversationHistory)
-    );
+  aiHistoryKey(),
+  JSON.stringify(aiConversationHistory)
+);
   } catch (e) {}
 }
 
