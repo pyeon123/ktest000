@@ -296,151 +296,27 @@ function handleSubscribeSubmit(event) {
             <div style="text-align: center; font-size: 0.9rem; font-weight: bold; color: #64748b;">
                 1,000+ Essential Korean sentences / free
             </div>
-           <!-- ================= 📚 K-Free 자료실 (SEO + 유저 탐색용) =================
-     삽입 위치: 기존 TOPIK 배너(topik-banner) 자리를 이걸로 통째로 교체하거나,
-     그 바로 아래에 추가하세요.
-     - <details>/<summary> 태그를 써서, 사람 눈엔 '닫힌 상태'로 보이지만
-       코드(DOM) 안에는 항상 링크가 다 존재해서 구글이 다 읽어갑니다.
-       (display:none으로 숨기는 것보다 안전한 방식입니다)
-     - 클릭하면 펼쳐지고, 다시 클릭하면 닫힙니다. 자바스크립트 없이 브라우저 기본 기능으로 동작해서
-       사이트가 깨질 위험이 없습니다.
-     - 새 페이지 추가 시: 해당 카테고리의 <div class="kf-links"> 안에 <a> 한 줄만 추가하면 됩니다.
+           <!-- ================= 📚 자료실 바로가기 3버튼 =================
+     기존 <a href="https://k-sentence.netlify.app/" ... class="wide-slim-banner"></a> 자리를 통째로 교체하세요.
+     (메뉴 화면 / 퀴즈 화면 2곳 다 있으면, 2곳 다 이걸로 교체)
 ============================================================================= -->
-<div style="width:100%; max-width:700px; margin:0 auto 30px auto; padding:0 15px; box-sizing:border-box;">
-
-    <div style="text-align:center; margin-bottom:16px;">
-        <div style="font-size:1.3rem; font-weight:900; color:#4f46e5;">📚 K-Free 자료실</div>
-        <div style="font-size:0.8rem; color:#94a3b8; margin-top:4px;">매달 업데이트됩니다</div>
+<div style="width:100%; max-width:550px; margin:0 auto 20px auto; padding:0 15px; box-sizing:border-box;">
+    <div style="text-align:center; font-size:0.75rem; font-weight:800; color:#94a3b8; margin-bottom:8px; letter-spacing:0.5px;">
+        📚 Resource Library · Updated monthly
     </div>
-
-    <style>
-        .kf-archive details { background:#ffffff; border:2px solid #e2e8f0; border-radius:14px; margin-bottom:10px; overflow:hidden; }
-        .kf-archive summary { cursor:pointer; padding:16px 18px; font-weight:800; color:#1e293b; list-style:none; display:flex; justify-content:space-between; align-items:center; }
-        .kf-archive summary::-webkit-details-marker { display:none; }
-        .kf-archive summary::after { content:"▼"; font-size:0.7rem; color:#94a3b8; transition:transform 0.2s; }
-        .kf-archive details[open] summary::after { transform:rotate(180deg); }
-        .kf-archive .kf-sub { margin:0 16px 14px 16px; background:#fafbff; border:1px solid #eef0f6; border-radius:10px; }
-        .kf-archive .kf-sub summary { padding:10px 14px; font-size:0.85rem; font-weight:700; color:#4f46e5; }
-        .kf-archive .kf-links { display:flex; flex-wrap:wrap; gap:5px 12px; padding:0 14px 12px 14px; font-size:12px; line-height:1.8; }
-        .kf-archive .kf-links a { color:#64748b; text-decoration:none; }
-        .kf-archive .kf-links a:hover { color:#4f46e5; text-decoration:underline; }
-        .kf-archive .kf-note { font-size:11px; color:#94a3b8; padding:0 16px 12px 16px; }
-    </style>
-
-    <div class="kf-archive">
-
-        <!-- ============ 1. Study Korean ============ -->
-        <details>
-            <summary>🇰🇷 Study Korean <span style="font-weight:600; color:#94a3b8; font-size:0.78rem;">(221)</span></summary>
-
-            <details class="kf-sub">
-                <summary>일반 단어 · 생활 (106)</summary>
-                <div class="kf-links">
-                    <a href="academy.html">Academy</a><a href="airplane.html">Airplane</a><a href="airport.html">Airport</a><a href="animals.html">Animals</a><a href="apartment.html">Apartment</a><a href="apple.html">Apple</a><a href="autumn.html">Autumn</a><a href="baby.html">Baby</a><a href="bed.html">Bed</a><a href="bibimbap.html">Bibimbap</a><a href="bird.html">Bird</a><a href="body.html">Body</a><a href="book.html">Book</a><a href="bread.html">Bread</a><a href="brother.html">Brother</a><a href="buildings.html">Buildings</a><a href="bulgogi.html">Bulgogi</a><a href="bus.html">Bus</a><a href="cash.html">Cash</a><a href="cat.html">Cat</a><a href="chair.html">Chair</a><a href="city.html">City</a><a href="class.html">Class</a><a href="clothes.html">Clothes</a><a href="colors.html">Colors</a><a href="commute.html">Commute</a><a href="company.html">Company</a><a href="cooking.html">Cooking</a><a href="dad.html">Dad</a><a href="dawn.html">Dawn</a><a href="desk.html">Desk</a><a href="dog.html">Dog</a><a href="door.html">Door</a><a href="economy.html">Economy</a><a href="electronics.html">Electronics</a><a href="emotions.html">Emotions</a><a href="evening.html">Evening</a><a href="exam.html">Exam</a><a href="family.html">Family</a><a href="feelings.html">Feelings</a><a href="fish.html">Fish</a><a href="flower.html">Flower</a><a href="food.html">Food</a><a href="friend.html">Friend</a><a href="fruit.html">Fruit</a><a href="furniture.html">Furniture</a><a href="gift.html">Gift</a><a href="gimbap.html">Gimbap</a><a href="happiness.html">Happiness</a><a href="health.html">Health</a><a href="hobbies.html">Hobbies</a><a href="homework.html">Homework</a><a href="house.html">House</a><a href="jobs.html">Jobs</a><a href="joy.html">Joy</a><a href="kimchi1.html">Kimchi</a><a href="kitchen.html">Kitchen</a><a href="landscapes.html">Landscapes</a><a href="lion.html">Lion</a><a href="livingRoom.html">Living Room</a><a href="love.html">Love</a><a href="lunch.html">Lunch</a><a href="market.html">Market</a><a href="meat.html">Meat</a><a href="money.html">Money</a><a href="mood.html">Mood</a><a href="morning.html">Morning</a><a href="mother.html">Mother</a><a href="mountain.html">Mountain</a><a href="nature.html">Nature</a><a href="parents.html">Parents</a><a href="pencil.html">Pencil</a><a href="places.html">Places</a><a href="purchase.html">Purchase</a><a href="rain.html">Rain</a><a href="ramen.html">Ramen</a><a href="restroom.html">Restroom</a><a href="sadness.html">Sadness</a><a href="samgyeopsal.html">Samgyeopsal</a><a href="school.html">School</a><a href="sea.html">Sea</a><a href="sister.html">Sister</a><a href="sky.html">Sky</a><a href="snow.html">Snow</a><a href="soup.html">Soup</a><a href="sports.html">Sports</a><a href="spring.html">Spring</a><a href="store.html">Store</a><a href="student.html">Student</a><a href="study.html">Study</a><a href="summer.html">Summer</a><a href="taxi.html">Taxi</a><a href="teacher.html">Teacher</a><a href="textbook.html">Textbook</a><a href="time.html">Time</a><a href="today.html">Today</a><a href="tomorrow.html">Tomorrow</a><a href="tourism.html">Tourism</a><a href="train.html">Train</a><a href="transport.html">Transport</a><a href="travel.html">Travel</a><a href="tteokbokki.html">Tteokbokki</a><a href="vocabulary.html">Vocabulary</a><a href="water.html">Water</a><a href="weather.html">Weather</a><a href="window.html">Window</a><a href="word.html">Word</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>기본 회화 (115)</summary>
-                <div class="kf-links">
-                    <a href="sentencelover1.html">Lover Sentence</a><a href="annyeonghaseyo1.html">Hello</a><a href="gamsahamnida1.html">Thank You</a><a href="jaemiisseoyo1.html">It's Fun</a><a href="jaljayo1.html">Good Night</a><a href="irum1.html">What's Your Name</a><a href="bangawoyo1.html">Nice to Meet You</a><a href="jaljinaesseoyo1.html">How Have You Been</a><a href="gwaenchanayo1.html">It's Okay</a><a href="mianhaeyo1.html">I'm Sorry</a><a href="saranghaeyo1.html">I Love You</a><a href="cheoncheonhi1.html">Please Speak Slowly</a><a href="hangukeo1.html">I'm Learning Korean</a><a href="dowajuseyo1.html">Help Me</a><a href="hwajangsil1.html">Where Is the Restroom</a><a href="eolmayeyo1.html">How Much Is It</a><a href="eodi1.html">Where Is It</a><a href="haengbok1.html">I'm Happy</a><a href="jollyeo1.html">I'm Sleepy</a><a href="pigon1.html">I'm Tired</a><a href="mongmalla1.html">I'm Thirsty</a><a href="baegopa1.html">I'm Hungry</a><a href="ihaemot1.html">I Don't Understand</a><a href="ihae1.html">I Understand</a><a href="seulpeo1.html">I'm Sad</a><a href="hwana1.html">I'm Angry</a><a href="museowo1.html">I'm Scared</a><a href="bogosipeo1.html">I Miss You</a><a href="apayo1.html">I'm Sick</a><a href="ginjang1.html">I'm Nervous</a><a href="gibun1.html">I Feel Good</a><a href="bappa1.html">I'm Busy</a><a href="sigan1.html">I'm Free</a><a href="geokjeong1.html">Don't Worry</a><a href="joayo1.html">I Like It</a><a href="anjoa1.html">I Don't Like It</a><a href="jeongmal1.html">I Love It</a><a href="sireo1.html">I Hate It</a><a href="junbi1.html">I'm Ready</a><a href="ajig1.html">Not Yet</a><a href="gidaryeo1.html">Please Wait</a><a href="ppalli1.html">Hurry Up</a><a href="meogeo1.html">Let's Eat</a><a href="masyeo1.html">Let's Drink</a><a href="gongbu1.html">Let's Study</a><a href="joheun1.html">Good Morning</a><a href="najunge1.html">See You Later</a><a href="naeil1.html">See You Tomorrow</a><a href="cheonman1.html">You're Welcome</a><a href="sillye1.html">Excuse Me</a><a href="munje1.html">No Problem</a><a href="ige1.html">What Does This Mean</a><a href="bissayo1.html">It's Too Expensive</a><a href="ssayo1.html">It's Cheap</a><a href="muljuseyo1.html">Water Please</a><a href="chagawo1.html">It's Cold</a><a href="tteugeo1.html">It's Hot</a><a href="jjayo1.html">It's Salty</a><a href="dalayo1.html">It's Sweet</a><a href="maewoyo1.html">It's Spicy</a><a href="masisseo1.html">It's Delicious</a><a href="gayo1.html">Let's Go</a><a href="jamsiman1.html">Wait a Moment</a><a href="keopijuseyo1.html">Coffee Please</a><a href="museunirieyo1.html">What Happened</a><a href="waeyo1.html">Why</a><a href="jeongmalyo1.html">Really</a><a href="saengilchukha1.html">Happy Birthday</a><a href="haenguneulbireoyo1.html">Good Luck</a><a href="jalhaesseoyo1.html">Good Job</a><a href="josimhaseyo1.html">Be Careful</a><a href="ireonaseyo1.html">Stand Up</a><a href="aneuseyo1.html">Sit Down</a><a href="baebulleoyo1.html">I'm Full</a><a href="ttaobwayo1.html">See You Soon</a><a href="joeunharubonaeseyo1.html">Have a Nice Day</a><a href="deureooseyo1.html">Come In</a><a href="gidaryeojuseyo1.html">Please Wait</a><a href="moreugesseoyo1.html">I Don't Know</a><a href="majayo1.html">That's Right</a><a href="meotjyeoyo1.html">That's Cool</a><a href="gwiyeowoyo1.html">That's Cute</a><a href="areumdawoyo1.html">That's Beautiful</a><a href="nollawoyo1.html">That's Amazing</a><a href="heungmirowoyo1.html">That's Interesting</a><a href="jeongmalmeotjyeoyo1.html">That's Awesome</a><a href="bye2.html">Good Bye</a><a href="jeongmaljoayo1.html">That's Great</a><a href="donguihaeyo1.html">I Agree</a><a href="teullyeosseoyo1.html">That's Wrong</a><a href="igaapayo1.html">My Tooth Hurts</a><a href="meorigaapayo1.html">My Head Hurts</a><a href="yeorinayo1.html">I Have a Fever</a><a href="gyeongchalbulleojuseyo1.html">Call the Police</a><a href="doumipilyohaeyo1.html">I Need Help</a><a href="ttaraoseyo1.html">Follow Me</a><a href="eoneujjokieyo1.html">Which Way</a><a href="gakkawoyo1.html">Is It Close</a><a href="meoreoyo1.html">Is It Far</a><a href="yeogiseosewojuseyo1.html">Stop Here</a><a href="jikjinhaseyo1.html">Go Straight</a><a href="oreunjjogeurodoseyo1.html">Turn Right</a><a href="oenjjogeurodoseyo1.html">Turn Left</a><a href="gireulireosseoyo1.html">I'm Lost</a><a href="iljjikwasseoyo1.html">I'm Early</a><a href="neujeosseoyo1.html">I'm Late</a><a href="jigeummyeotsiyeyo1.html">What Time Is It</a><a href="jilmunisseoyo1.html">I Have a Question</a><a href="jegajogieyo1.html">This Is My Family</a><a href="jechinguyeoyo1.html">This Is My Friend</a><a href="wanbyeokhaeyo1.html">That's Perfect</a><a href="chungbunhaeyo1.html">That's Enough</a><a href="sentencefriend1.html">Friend Sentence</a>
-                </div>
-            </details>
-        </details>
-
-        <!-- ============ 2. TOPIK I ============ -->
-        <details>
-            <summary>📝 TOPIK I <span style="font-weight:600; color:#94a3b8; font-size:0.78rem;">(221)</span></summary>
-            <div class="kf-note">Study Korean과 같은 레슨을 TOPIK I 학습 모드로 활용합니다.</div>
-
-            <details class="kf-sub">
-                <summary>학업 · 생활 어휘</summary>
-                <div class="kf-links">
-                    <a href="academy.html">Academy</a><a href="class.html">Class</a><a href="school.html">School</a><a href="student.html">Student</a><a href="teacher.html">Teacher</a><a href="textbook.html">Textbook</a><a href="homework.html">Homework</a><a href="study.html">Study</a><a href="exam.html">Exam</a><a href="vocabulary.html">Vocabulary</a><a href="word.html">Word</a><a href="company.html">Company</a><a href="jobs.html">Jobs</a><a href="economy.html">Economy</a><a href="money.html">Money</a><a href="cash.html">Cash</a><a href="purchase.html">Purchase</a><a href="market.html">Market</a><a href="store.html">Store</a><a href="transport.html">Transport</a><a href="commute.html">Commute</a><a href="tourism.html">Tourism</a><a href="travel.html">Travel</a><a href="places.html">Places</a><a href="time.html">Time</a><a href="today.html">Today</a><a href="tomorrow.html">Tomorrow</a><a href="family.html">Family</a><a href="friend.html">Friend</a><a href="health.html">Health</a><a href="emotions.html">Emotions</a><a href="feelings.html">Feelings</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>기본 회화 (Study Korean과 동일, 115)</summary>
-                <div class="kf-links">
-                    <a href="annyeonghaseyo1.html">Hello</a><a href="gamsahamnida1.html">Thank You</a><a href="saranghaeyo1.html">I Love You</a><a href="mianhaeyo1.html">I'm Sorry</a><a href="eolmayeyo1.html">How Much Is It</a><a href="eodi1.html">Where Is It</a><a href="ihaemot1.html">I Don't Understand</a><a href="ihae1.html">I Understand</a><a href="meogeo1.html">Let's Eat</a><a href="gayo1.html">Let's Go</a>
-                    <span style="color:#cbd5e1;">… 외 105개는 위 Study Korean 섹션과 동일</span>
-                </div>
-            </details>
-        </details>
-
-        <!-- ============ 3. EPS-TOPIK ============ -->
-        <details>
-            <summary>💼 EPS-TOPIK <span style="font-weight:600; color:#94a3b8; font-size:0.78rem;">(314)</span></summary>
-
-            <details class="kf-sub">
-                <summary>근무 · 고용 (39)</summary>
-                <div class="kf-links">
-                    <a href="byeongga.html">Sick Leave</a><a href="hyuga.html">Vacation</a><a href="jigak.html">Lateness</a><a href="jotoe.html">Leaving Early</a><a href="gyeolgeun.html">Absence</a><a href="teukgeun.html">Special Shift Work</a><a href="yageun.html">Night Overtime</a><a href="toegeun.html">Leave Work</a><a href="chulgeun.html">Go to Work</a><a href="janeop.html">Remaining Work</a><a href="banjang.html">Foreman</a><a href="saeopju.html">Employer</a><a href="geunmuji.html">Workplace</a><a href="gyeyak-gigan.html">Contract Period</a><a href="geunro-gyeyakseo.html">Labor Contract</a><a href="geupyeo-myeongseoseo.html">Payslip</a><a href="sudang.html">Allowance</a><a href="sigeup.html">Hourly Wage</a><a href="wolgeup.html">Monthly Salary</a><a href="geunroja.html">Worker</a><a href="timjang.html">Team Leader</a><a href="sajang.html">President</a><a href="dongryo.html">Co-worker</a><a href="gyodae-geunmu.html">Shift Work</a><a href="gibongeup.html">Base Pay</a><a href="sangyeogeum.html">Bonus</a><a href="gongje.html">Deduction</a><a href="segeum.html">Tax</a><a href="silsuryeongae.html">Net Pay</a><a href="toejikgeum.html">Severance Pay</a><a href="haego.html">Dismissal</a><a href="sajik.html">Resignation</a><a href="jaegyeyak.html">Re-contract</a><a href="suseupgigan.html">Probationary Period</a><a href="chwieopgyuchik.html">Employment Rules</a><a href="choejeoimgeum.html">Minimum Wage</a><a href="geunrosigan.html">Working Hours</a><a href="yeonchahyuga.html">Annual Leave</a><a href="wolcha.html">Monthly Leave</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>출입국 · 행정 · 보험 (31)</summary>
-                <div class="kf-links">
-                    <a href="oegugindeungrokjeung.html">Alien Registration Card</a><a href="yeogwon.html">Passport</a><a href="bija.html">Visa</a><a href="cheryugigan.html">Period of Stay</a><a href="cheryuyeonjang.html">Extension of Stay</a><a href="jaeipguk.html">Re-entry</a><a href="goyongnodongbu.html">Ministry of Employment and Labor</a><a href="goyongcenter.html">Employment Center</a><a href="saneupjaehae.html">Industrial Accident</a><a href="sanjaeboheom.html">Industrial Accident Insurance</a><a href="gukmingeongangboheom.html">National Health Insurance</a><a href="sincheongseo.html">Application Form</a><a href="dojang.html">Stamp / Seal</a><a href="seomyeong.html">Signature</a><a href="sinbunjeung.html">ID Card</a><a href="hwanyul.html">Exchange Rate</a><a href="songgeum.html">Money Transfer</a><a href="gyejwabeonho.html">Account Number</a><a href="goyongboheom.html">Employment Insurance</a><a href="gukminyeongeum.html">National Pension</a><a href="tongjang.html">Bank Account</a><a href="susuryo.html">Fee</a><a href="jeungmyeongseo.html">Certificate</a><a href="jeopsu.html">Reception / Filing</a><a href="seungin.html">Approval</a><a href="geojeol.html">Rejection</a><a href="dongui.html">Consent / Agreement</a><a href="eoryu.html">Documents</a><a href="sinwon_hwagin.html">Identity Verification</a><a href="sikdae.html">Meal Allowance</a><a href="gisuksa.html">Dormitory</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>작업 · 생산 (76)</summary>
-                <div class="kf-links">
-                    <a href="jakeop.html">Work</a><a href="gongjeong.html">Process</a><a href="jepum.html">Product</a><a href="bupum.html">Parts</a><a href="wonjajae.html">Raw Materials</a><a href="pojang.html">Packaging</a><a href="jorip.html">Assembly</a><a href="unban.html">Transport</a><a href="jeokjae.html">Loading</a><a href="geomsa.html">Inspection</a><a href="bunryu.html">Sorting</a><a href="gagong.html">Processing</a><a href="yongjeop.html">Welding</a><a href="jeoldan.html">Cutting</a><a href="suryang.html">Quantity</a><a href="bulryangpum.html">Defective Product</a><a href="wanseongpum.html">Finished Product</a><a href="napgi.html">Delivery</a><a href="changgo.html">Warehouse</a><a href="chulha.html">Shipping Out</a><a href="ipgo.html">Receiving Goods</a><a href="gyoche.html">Replacement</a><a href="jeomgeom.html">Checking</a><a href="suri.html">Repair</a><a href="secheok.html">Washing</a><a href="geonjo.html">Drying</a><a href="yeonma.html">Polishing</a><a href="dogeum.html">Plating</a><a href="jujo.html">Casting</a><a href="sachul.html">Injection Molding</a><a href="peureseu.html">Pressing</a><a href="jaedan.html">Cutting (Material)</a><a href="bongje.html">Sewing</a><a href="jasu.html">Embroidery</a><a href="yeomsaek.html">Dyeing</a><a href="seonbyeol.html">Sorting (Selection)</a><a href="cheukjeong.html">Measurement</a><a href="jojeol.html">Adjustment</a><a href="gojeong.html">Fastening</a><a href="bunhae.html">Disassembly</a><a href="gyeolhap.html">Joining</a><a href="hayeok.html">Unloading</a><a href="sangcha.html">Loading onto Vehicle</a><a href="hacha.html">Unloading from Vehicle</a><a href="jaego.html">Inventory</a><a href="suryangbujok.html">Shortage of Quantity</a><a href="pason.html">Damage</a><a href="gyugyeok.html">Standard</a><a href="chisu.html">Dimensions</a><a href="muge.html">Weight</a><a href="yongryang.html">Capacity</a><a href="sample_sijepum.html">Sample</a><a href="saengsallyang.html">Production Volume</a><a href="mokpyoryang.html">Target Quantity</a><a href="neungnyul.html">Efficiency</a><a href="gyojeong.html">Calibration</a><a href="seoljeong.html">Setting</a><a href="jakdong.html">Operation</a><a href="jeongji.html">Stop</a><a href="gadong.html">Running</a><a href="gwabuhwa.html">Overload</a><a href="ojakdong.html">Malfunction</a><a href="gojang.html">Breakdown</a><a href="bangchi.html">Neglect</a><a href="gwalli.html">Management</a><a href="yujibosu.html">Maintenance</a><a href="siunjeon.html">Test Run</a><a href="pyegimul.html">Waste Material</a><a href="janjaemul.html">Residue</a><a href="jaehwalyong.html">Recycling</a><a href="sugeo.html">Collection</a><a href="apchuk.html">Compression</a><a href="mukkeum.html">Bundle</a><a href="rabelling.html">Labeling</a><a href="bakodeu.html">Barcode</a><a href="ilryeonbeonho.html">Serial Number</a><a href="pumjilgwanri.html">Quality Control</a><a href="gongjeonggaeseon.html">Improvement</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>안전 · 사고 (40)</summary>
-                <div class="kf-links">
-                    <a href="anjeonmo.html">Safety Helmet</a><a href="anjeonhwa.html">Safety Shoes</a><a href="anjeonjanggap.html">Safety Gloves</a><a href="boangyeong.html">Safety Goggles</a><a href="bangjinmaseukeu.html">Dust Mask</a><a href="gwimagae.html">Earplug</a><a href="anjeondae.html">Safety Harness</a><a href="bisanggu.html">Emergency Exit</a><a href="bangdokmaseukeu.html">Gas Mask</a><a href="sohwagi.html">Fire Extinguisher</a><a href="gyeongbogi.html">Alarm</a><a href="gugeupham.html">First Aid Kit</a><a href="gamjeon.html">Electric Shock</a><a href="churak.html">Fall from Height</a><a href="jeondo.html">Slip / Trip</a><a href="hyeopchak.html">Jamming</a><a href="chungdol.html">Collision</a><a href="hwajae.html">Fire</a><a href="pokbal.html">Explosion</a><a href="hwasang.html">Burn</a><a href="jilsik.html">Suffocation</a><a href="wiheom.html">Danger</a><a href="gyeonggo.html">Warning</a><a href="geumji.html">Prohibition</a><a href="juui.html">Caution</a><a href="jeongbi.html">Maintenance</a><a href="cheongso.html">Cleaning</a><a href="jeongrijeongdon.html">Tidying Up</a><a href="hwangi.html">Ventilation</a><a href="sodok.html">Disinfection</a><a href="bohogu.html">Protective Gear</a><a href="nujeon.html">Electricity Leakage</a><a href="hapseon.html">Short Circuit</a><a href="gaseunuchul.html">Gas Leak</a><a href="yuhaemuljil.html">Hazardous Material</a><a href="inhwasung.html">Flammability</a><a href="busiksung.html">Corrosiveness</a><a href="bisangbel.html">Emergency Bell</a><a href="daepi.html">Evacuation</a><a href="singo.html">Report</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>응급 · 부상 (17)</summary>
-                <div class="kf-links">
-                    <a href="eunggeupcheochi.html">First Aid</a><a href="sangcheo.html">Wound</a><a href="busang.html">Injury</a><a href="goljeol.html">Fracture</a><a href="chulhyeol.html">Bleeding</a><a href="bungdae.html">Bandage</a><a href="banchanggo.html">Adhesive Plaster</a><a href="yeongo.html">Ointment</a><a href="sodongyak.html">Antiseptic</a><a href="paseu.html">Pain Relief Patch</a><a href="chalgwasang.html">Abrasion</a><a href="yeolsang.html">Laceration</a><a href="jungdok.html">Poisoning</a><a href="eojireumjeung.html">Dizziness</a><a href="guto.html">Vomiting</a><a href="honsu_gijeol.html">Fainting</a><a href="simpyesosaengsul.html">CPR</a><a href="bisang_yeollakcheo.html">Emergency Contact</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>안전 규정 · 표지 (21)</summary>
-                <div class="kf-links">
-                    <a href="anjeon_suchik.html">Safety Rules</a><a href="anjeon_gyoyuk.html">Safety Training</a><a href="anjeon_tongro.html">Safety Passageway</a><a href="chadangi.html">Circuit Breaker</a><a href="jeopji.html">Grounding</a><a href="jeoryeon.html">Insulation</a><a href="banghwasyeoteo.html">Fire Shutter</a><a href="pinangu.html">Escape Exit</a><a href="wanganggi.html">Descent Device</a><a href="sohwajeon.html">Fire Hydrant</a><a href="heupyeonguyeok.html">Smoking Area</a><a href="geumyeonguyeok.html">Non-smoking Area</a><a href="chulipgeumji.html">No Entry</a><a href="bohaenggeumji.html">No Pedestrians</a><a href="sayonggeumji.html">Do Not Use</a><a href="tapseunggeumji.html">No Riding</a><a href="hwagi_eomgeum.html">No Flammable Materials</a><a href="mulgi_eomgeum.html">Keep Away from Water</a><a href="anjeon_pyojipan.html">Safety Sign</a><a href="anjeon_jeomgeom.html">Safety Inspection</a><a href="daepiso.html">Shelter</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>공구 · 장비 (41)</summary>
-                <div class="kf-links">
-                    <a href="kal.html">Cutter Knife</a><a href="gawi.html">Scissors</a><a href="mangchi.html">Hammer</a><a href="deuraibeo.html">Screwdriver</a><a href="seupaeneo_renchi.html">Wrench</a><a href="penchi.html">Pliers</a><a href="nipeo.html">Nippers</a><a href="julja.html">Tape Measure</a><a href="supyeongdae.html">Spirit Level</a><a href="pilteo.html">Filter</a><a href="baelbeu.html">Valve</a><a href="nojeul.html">Nozzle</a><a href="jeoul.html">Scale</a><a href="baiseu.html">Vise</a><a href="jul.html">File Tool</a><a href="sapo.html">Sandpaper</a><a href="yunhwaryu.html">Lubricant</a><a href="keompeureseo.html">Air Compressor</a><a href="baljeongi.html">Generator</a><a href="beonieokaellipeoseu.html">Vernier Calipers</a><a href="moteo.html">Motor</a><a href="seuwichi.html">Switch</a><a href="konsenteu.html">Electrical Outlet</a><a href="peulleogeu.html">Plug</a><a href="jeonseon.html">Electric Wire</a><a href="paipeu.html">Pipe</a><a href="hoseu.html">Hose</a><a href="bigye.html">Scaffolding</a><a href="sadari.html">Ladder</a><a href="kkeun.html">Rope / String</a><a href="teipeu.html">Tape</a><a href="jeopchakje.html">Adhesive / Glue</a><a href="nasamot.html">Screw</a><a href="neoteu.html">Nut</a><a href="bolteu.html">Bolt</a><a href="palleteu.html">Pallet</a><a href="daecha.html">Trolley</a><a href="sonsure.html">Handcart</a><a href="mot.html">Nail</a><a href="keonbeieo.html">Conveyor Belt</a><a href="jigecha.html">Forklift</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>기계 (38)</summary>
-                <div class="kf-links">
-                    <a href="milling.html">Milling Machine</a><a href="seonban.html">Lathe Machine</a><a href="jeoldangi.html">Cutting Machine</a><a href="yongjeopgi.html">Welding Machine</a><a href="deuril.html">Drill</a><a href="jeongitop.html">Electric Saw</a><a href="gijunggi.html">Crane</a><a href="mongkiseupaeneo.html">Adjustable Wrench</a><a href="rongnooujeu.html">Long Nose Pliers</a><a href="sokesrenchi.html">Socket Wrench</a><a href="geullugeon.html">Glue Gun</a><a href="haendeuka.html">Hand Truck</a><a href="ripeuteu.html">Lift</a><a href="eeogeon.html">Air Gun</a><a href="winchihoiseuteu.html">Winch / Hoist</a><a href="bunmugi.html">Sprayer</a><a href="cheongsogi.html">Vacuum Cleaner</a><a href="sutdol.html">Whetstone</a><a href="jeong.html">Chisel</a><a href="daepae.html">Plane</a><a href="songgot.html">Awl</a><a href="pinset.html">Tweezers</a><a href="keullaempeu.html">Clamp</a><a href="waieo.html">Wire</a><a href="napttaemgi.html">Soldering Iron</a><a href="sansotong.html">Oxygen Tank</a><a href="tochi.html">Blowtorch</a><a href="gaseutong.html">Gas Cylinder</a><a href="chein.html">Chain</a><a href="belteu.html">Belt</a><a href="topnibakwi.html">Gear</a><a href="pyujeu.html">Fuse</a><a href="meoltitaep.html">Power Strip</a><a href="baejeonban.html">Switchboard</a><a href="byeonapgi.html">Transformer</a><a href="goapsecheokgi.html">High Pressure Washer</a><a href="be-eo-ring.html">Bearing</a>
-                </div>
-            </details>
-
-            <details class="kf-sub">
-                <summary>산업 (10)</summary>
-                <div class="kf-links">
-                    <a href="jejo-eob.html">Manufacturing</a><a href="nong-eob.html">Agriculture</a><a href="geonseol-eob.html">Construction</a><a href="eo-eob.html">Fishery</a><a href="seobiseu-eob.html">Service Industry</a><a href="binil-hauseu.html">Greenhouse</a><a href="chuksa.html">Livestock Shed</a><a href="yanggyejang.html">Poultry Farm</a><a href="yangdonjang.html">Pig Farm</a><a href="chuksan-eob.html">Livestock Industry</a>
-                </div>
-            </details>
-
-        </details>
-
+    <div style="display:flex; gap:8px;">
+        <a href="study-korean.html" style="flex:1; text-align:center; text-decoration:none; background:#eef2ff; color:#4338ca; font-weight:800; font-size:0.82rem; padding:12px 6px; border-radius:10px; border:1px solid #e0e7ff;">
+            🇰🇷 Study Korean
+        </a>
+        <a href="topik1.html" style="flex:1; text-align:center; text-decoration:none; background:#f5f3ff; color:#6d28d9; font-weight:800; font-size:0.82rem; padding:12px 6px; border-radius:10px; border:1px solid #ede9fe;">
+            📝 TOPIK I
+        </a>
+        <a href="eps-topik.html" style="flex:1; text-align:center; text-decoration:none; background:#fff7ed; color:#c2410c; font-weight:800; font-size:0.82rem; padding:12px 6px; border-radius:10px; border:1px solid #ffedd5;">
+            💼 EPS-TOPIK
+        </a>
     </div>
 </div>
-<!-- ================= K-Free 자료실 끝 ================= -->
+<!-- ================= 3버튼 끝 ================= -->
 
         <div id="quiz-screen" class="quiz-screen">
             <div class="situation-tag" id="situation">---</div>
