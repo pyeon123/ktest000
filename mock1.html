@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EPS-TOPIK 모의고사 1회 무료 | EPS-TOPIK Mock Test #1 (40 Questions)</title>
-<meta name="description" content="EPS-TOPIK 모의고사 1회. 듣기 20문항 + 읽기 20문항, 문제마다 바로 정답 확인. Free EPS-TOPIK practice test with instant answers and lesson links.">
+<title>Free EPS-TOPIK Mock Test #1 | 40 Questions with English &amp; Pronunciation</title>
+<meta name="description" content="Free EPS-TOPIK practice test for beginners. 20 listening + 20 reading questions, each shown in Korean, romanized pronunciation and English. See the answer after every question.">
 <meta name="theme-color" content="#2347B5">
-<!-- 배포 후 실제 주소로 바꾸세요 / Replace with your real URL -->
+<!-- Replace with your real URL after uploading -->
 <link rel="canonical" href="https://pyeon123.github.io/ktest000/mock1.html">
 
-<!-- Open Graph (SNS 미리보기) -->
+<!-- Open Graph (social previews) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="EPS-TOPIK 모의고사 1회 (무료)">
-<meta property="og:description" content="40문항 · 50분 · 문제마다 바로 정답 확인 + 관련 레슨 연결">
-<meta property="og:url" content="https://YOUR-DOMAIN.com/mock1.html">
-<meta property="og:image" content="https://YOUR-DOMAIN.com/og-mock1.jpg">
+<meta property="og:title" content="Free EPS-TOPIK Mock Test #1">
+<meta property="og:description" content="40 questions in Korean + pronunciation + English. Instant answers and lesson links.">
+<meta property="og:url" content="https://k-free.netlify.app/mock1.html">
+<meta property="og:image" content="https://k-free.netlify.app/og-mock1.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
-<!-- 분석 / 광고 픽셀 삽입 자리 (Google Analytics, Meta Pixel 등) -->
-<!-- PASTE TRACKING CODE HERE -->
+<!-- PASTE TRACKING CODE HERE (Google Analytics, Meta Pixel, TikTok Pixel, etc.) -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,28 +32,58 @@
   --line:#d6deec;
   --blue:#2347b5;
   --blue-dark:#183489;
+  --rom:#2a5cc9;
   --ok:#0e8a5f;
   --ok-bg:#e4f5ee;
   --bad:#c93c3c;
   --bad-bg:#fbe9e9;
   --study:#f6c445;
   --study-dark:#e0ab20;
+  --warn-bg:#fff4d6;
+  --warn-line:#e8b923;
   --radius:14px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0;
-  font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   color:var(--ink);
   background:var(--mist);
-  line-height:1.6;
+  line-height:1.55;
   min-height:100vh;
 }
 .wrap{max-width:640px;margin:0 auto;padding:16px 16px 56px}
 button{font-family:inherit;cursor:pointer}
 :focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .hidden{display:none!important}
+
+/* ---------- 3-line text: Korean / pronunciation / English ---------- */
+.tri{display:block}
+.tri .ko{
+  display:block;
+  font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-weight:700;font-size:1.05em;line-height:1.45;
+}
+.tri .rom{display:block;font-style:italic;color:var(--rom);font-size:.86em;line-height:1.4;margin-top:1px}
+.tri .en{display:block;color:var(--muted);font-size:.86em;line-height:1.4;margin-top:1px}
+
+/* ---------- In-app browser / no-audio banner ---------- */
+.banner{
+  background:var(--warn-bg);
+  border:2px solid var(--warn-line);
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:12px;
+  font-size:14.5px;
+}
+.banner strong{display:block;margin-bottom:4px;font-size:15px}
+.b-actions{display:flex;gap:8px;margin-top:10px}
+.b-actions button{
+  border:0;border-radius:8px;padding:9px 14px;font-size:14px;font-weight:700;
+  background:var(--ink);color:#fff;
+}
+.b-actions button.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
 
 /* ---------- Start screen ---------- */
 .hero{
@@ -71,7 +100,7 @@ button{font-family:inherit;cursor:pointer}
   font-weight:900;
   letter-spacing:-.02em;
 }
-.hero .sub{margin:0 0 24px;font-size:16px;opacity:.9}
+.hero .sub{margin:0 0 24px;font-size:16px;opacity:.92}
 .facts{
   display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 24px;padding:0;list-style:none;
 }
@@ -83,7 +112,7 @@ button{font-family:inherit;cursor:pointer}
   font-size:13px;
   line-height:1.3;
 }
-.facts b{display:block;font-size:24px;font-weight:900}
+.facts b{display:block;font-size:26px;font-weight:900}
 .btn-main{
   display:block;width:100%;
   border:0;border-radius:12px;
@@ -100,7 +129,11 @@ button{font-family:inherit;cursor:pointer}
 }
 .howto h2{margin:0 0 10px;font-size:17px}
 .howto ul{margin:0;padding-left:20px;color:var(--muted);font-size:15px}
-.howto li{margin:4px 0}
+.howto li{margin:6px 0}
+.sample{
+  margin:12px 0 4px;padding:12px 14px;border-radius:10px;background:var(--mist);
+}
+.sample .tri .ko{font-size:17px}
 .note{font-size:12.5px;color:var(--muted);margin:14px 4px 0}
 
 /* ---------- Exam header ---------- */
@@ -128,8 +161,15 @@ button{font-family:inherit;cursor:pointer}
   padding:22px 18px;
   margin-top:10px;
 }
-.qnum{font-size:13px;color:var(--muted);margin:0 0 6px}
-.qtext{font-size:18px;font-weight:700;line-height:1.55;margin:0 0 16px;white-space:pre-line}
+.qnum{font-size:13px;color:var(--muted);margin:0 0 8px}
+.qblocks{margin:0 0 16px}
+.blk{margin-bottom:12px}
+.blk.i .tri .ko{font-size:16px}
+.blk.q .tri .ko{font-size:18px}
+.blk.p{background:var(--mist);border-radius:10px;padding:12px 14px}
+.blk.p .tri .ko{font-weight:500;font-size:16.5px}
+.blk.w{text-align:center;background:var(--mist);border-radius:10px;padding:14px}
+.blk.w .tri .ko{font-size:26px;font-weight:900}
 .listen-box{
   display:flex;align-items:center;gap:12px;
   background:var(--mist);
@@ -141,8 +181,11 @@ button{font-family:inherit;cursor:pointer}
   border:0;background:var(--blue);color:#fff;font-size:20px;
 }
 .play:hover{background:var(--blue-dark)}
-.listen-box p{margin:0;font-size:14px;color:var(--muted)}
-.novoice{font-size:13px;color:var(--bad);margin:0 0 12px}
+.listen-box p{margin:0;font-size:13.5px;color:var(--muted)}
+.novoice{
+  font-size:13.5px;margin:0 0 14px;padding:10px 12px;border-radius:10px;
+  background:var(--warn-bg);border:1px solid var(--warn-line);
+}
 
 .options{display:grid;gap:10px;margin:0;padding:0;list-style:none}
 .opt{
@@ -152,20 +195,21 @@ button{font-family:inherit;cursor:pointer}
   background:var(--paper);
   color:var(--ink);
   border-radius:12px;
-  padding:14px;
-  font-size:17px;line-height:1.45;
+  padding:12px 14px;
+  font-size:16px;line-height:1.4;
 }
 .opt .no{
   flex:0 0 auto;width:28px;height:28px;border-radius:50%;
-  background:var(--mist);display:grid;place-items:center;font-size:14px;font-weight:700;
+  background:var(--mist);display:grid;place-items:center;font-size:14px;font-weight:700;margin-top:2px;
 }
+.opt .body{flex:1 1 auto;min-width:0}
 .opt:hover:not(:disabled){border-color:var(--blue)}
 .opt:disabled{cursor:default}
 .opt.correct{border-color:var(--ok);background:var(--ok-bg)}
 .opt.correct .no{background:var(--ok);color:#fff}
 .opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
 .opt.wrong .no{background:var(--bad);color:#fff}
-.opt .mark{margin-left:auto;font-size:18px}
+.opt .mark{flex:0 0 auto;margin-left:auto;font-size:18px}
 
 /* ---------- Feedback ---------- */
 .feedback{
@@ -175,11 +219,10 @@ button{font-family:inherit;cursor:pointer}
 }
 .feedback.ok{background:var(--ok-bg);border:2px solid var(--ok)}
 .feedback.bad{background:var(--bad-bg);border:2px solid var(--bad)}
-.feedback h3{margin:0 0 4px;font-size:18px}
+.feedback h3{margin:0 0 6px;font-size:18px}
 .feedback.ok h3{color:var(--ok)}
 .feedback.bad h3{color:var(--bad)}
-.feedback p{margin:4px 0;font-size:15px}
-.script{color:var(--muted)}
+.feedback .lbl{margin:10px 0 4px;font-size:13px;font-weight:700;color:var(--muted)}
 .actions{display:grid;gap:10px;margin-top:14px}
 .study{
   display:block;text-align:center;text-decoration:none;
@@ -202,7 +245,7 @@ button{font-family:inherit;cursor:pointer}
 }
 .score-card .big{font-size:72px;font-weight:900;line-height:1;letter-spacing:-.03em}
 .score-card .big small{font-size:24px;font-weight:500;opacity:.8;margin-left:4px}
-.score-card p{margin:10px 0 0;font-size:15px;opacity:.92}
+.score-card p{margin:10px 0 0;font-size:15px;opacity:.95}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
 .split div{background:rgba(255,255,255,.14);border-radius:12px;padding:10px;font-size:13px}
 .split b{display:block;font-size:22px}
@@ -219,13 +262,16 @@ button{font-family:inherit;cursor:pointer}
 }
 .rev.ok{border-left-color:var(--ok)}
 .rev.bad{border-left-color:var(--bad)}
-.rev .qh{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:14px;margin-bottom:6px}
+.rev .qh{display:flex;justify-content:space-between;gap:8px;font-weight:700;font-size:14px;margin-bottom:8px}
 .rev .qh span:last-child{white-space:nowrap}
-.rev .qt{margin:0 0 8px;font-size:15.5px;white-space:pre-line}
-.rev .ans{margin:2px 0;font-size:14.5px}
-.rev .ans.good{color:var(--ok);font-weight:500}
-.rev .ans.miss{color:var(--bad);font-weight:500}
-.rev .study{margin-top:10px;font-size:14.5px;padding:10px 12px}
+.rev .blk{margin-bottom:8px}
+.rev .blk.q .tri .ko,.rev .blk.i .tri .ko{font-size:15.5px}
+.rev .blk.w .tri .ko{font-size:20px}
+.rev .lbl{margin:8px 0 3px;font-size:12.5px;font-weight:700}
+.rev .lbl.good{color:var(--ok)}
+.rev .lbl.miss{color:var(--bad)}
+.rev .lbl.gray{color:var(--muted)}
+.rev .study{margin-top:12px;font-size:14.5px;padding:10px 12px}
 
 @media (prefers-reduced-motion:no-preference){
   .feedback{animation:pop .18s ease-out}
@@ -240,28 +286,48 @@ button{font-family:inherit;cursor:pointer}
 <body>
 <div class="wrap">
 
+  <!-- In-app browser / no-audio warning -->
+  <div id="appBanner" class="banner hidden" role="alert">
+    <strong id="bannerTitle"></strong>
+    <span id="bannerBody"></span>
+    <div class="b-actions">
+      <button type="button" id="copyBtn">Copy link</button>
+      <button type="button" id="closeBanner" class="ghost">Close</button>
+    </div>
+  </div>
+
   <!-- ===== START ===== -->
   <section id="start">
     <div class="hero">
-      <h1>EPS-TOPIK<br>모의고사 1회</h1>
-      <p class="sub">Mock Test #1 · 문제 하나 풀 때마다 바로 정답 확인</p>
+      <h1>EPS-TOPIK<br>Mock Test #1</h1>
+      <p class="sub">Free practice test for beginners. See the answer after every question.</p>
       <ul class="facts">
-        <li><b>40</b>문항<br>Questions</li>
-        <li><b>50</b>분<br>Minutes</li>
-        <li><b>100</b>점 만점<br>Points</li>
+        <li><b>40</b>Questions</li>
+        <li><b>50</b>Minutes</li>
+        <li><b>100</b>Points</li>
       </ul>
-      <button class="btn-main" id="startBtn">시험 시작 · Start Test</button>
+      <button class="btn-main" id="startBtn" type="button">Start Test</button>
     </div>
     <div class="howto">
-      <h2>이렇게 진행돼요 · How it works</h2>
+      <h2>How it works</h2>
       <ul>
-        <li>듣기 20문항 → 읽기 20문항 순서로 풉니다. Listening 20, then Reading 20.</li>
-        <li>보기를 고르면 바로 정답을 알려줍니다. You see the answer right away.</li>
-        <li>📚 Study 버튼을 누르면 그 문제와 관련된 레슨이 새 탭으로 열립니다. The lesson opens in a new tab.</li>
-        <li>듣기는 소리가 나옵니다. 소리를 켜 주세요. Turn your sound on.</li>
+        <li>Part 1: 20 listening questions. Part 2: 20 reading questions.</li>
+        <li>Every question is shown in 3 lines: Korean, pronunciation, and English.</li>
+        <li>Tap an answer to see right away if it is correct.</li>
+        <li>After each answer, tap the yellow <b>Study</b> button to open a lesson about that topic in a new tab.</li>
+        <li>Listening questions play sound. Turn your volume on.</li>
+        <li><b>No sound?</b> TikTok and KakaoTalk in-app browsers do not play audio. Tap the <b>⋯</b> (three dots) menu and choose <b>Open in browser</b> (Chrome or Safari).</li>
+        <li>Need another language? Use your browser's Translate feature. The English will be translated; the Korean and pronunciation will stay the same.</li>
       </ul>
+      <div class="sample">
+        <div class="tri">
+          <span class="ko" lang="ko" translate="no">안녕하세요.</span>
+          <span class="rom notranslate" translate="no">annyeonghaseyo.</span>
+          <span class="en">Hello.</span>
+        </div>
+      </div>
     </div>
-    <p class="note">연습용 모의고사입니다. 실제 합격 기준은 업종마다 다르므로 HRD Korea 공식 안내를 확인하세요. This is practice only; check HRD Korea for official pass scores.</p>
+    <p class="note">This is a practice test only. Pass scores are different for each industry. Please check the official HRD Korea guide for real exam rules.</p>
   </section>
 
   <!-- ===== EXAM ===== -->
@@ -272,17 +338,17 @@ button{font-family:inherit;cursor:pointer}
         <div class="timer" id="timer">50:00</div>
       </div>
       <div class="ticks" id="ticks" aria-hidden="true"></div>
-      <div class="ticks-label"><span id="progressText"></span><span>맞음 <span id="okCount">0</span> · 틀림 <span id="badCount">0</span></span></div>
+      <div class="ticks-label"><span id="progressText"></span><span>Correct <span id="okCount">0</span> · Wrong <span id="badCount">0</span></span></div>
     </div>
 
     <div class="card">
       <p class="qnum" id="qnum"></p>
       <div id="listenBox" class="listen-box hidden">
-        <button class="play" id="playBtn" aria-label="듣기 · Play audio">▶</button>
-        <p>버튼을 눌러 다시 들을 수 있어요.<br>Tap to listen again.</p>
+        <button class="play" id="playBtn" type="button" aria-label="Play audio">▶</button>
+        <p>Tap to listen again.<br>No sound? Tap ⋯ then “Open in browser” (Chrome / Safari).</p>
       </div>
-      <p class="novoice hidden" id="noVoice">이 브라우저는 음성 재생을 지원하지 않습니다. 정답 확인 후 스크립트가 표시됩니다. (Audio not supported here.)</p>
-      <p class="qtext" id="qtext"></p>
+      <p class="novoice hidden" id="noVoice">Audio is not supported in this browser. Tap ⋯ (three dots) and choose “Open in browser” (Chrome / Safari). You can still read the script after you answer.</p>
+      <div class="qblocks" id="qblocks"></div>
       <ul class="options" id="options"></ul>
       <div id="feedback"></div>
     </div>
@@ -294,170 +360,475 @@ button{font-family:inherit;cursor:pointer}
       <div class="big"><span id="scoreNum">0</span><small>/ 100</small></div>
       <p id="scoreMsg"></p>
       <div class="split">
-        <div><b id="lisScore">0 / 20</b>듣기 Listening</div>
-        <div><b id="reaScore">0 / 20</b>읽기 Reading</div>
+        <div><b id="lisScore">0 / 20</b>Listening</div>
+        <div><b id="reaScore">0 / 20</b>Reading</div>
       </div>
     </div>
     <div class="res-actions">
-      <button class="btn-sub" id="retryBtn">다시 풀기 · Try again</button>
+      <button class="btn-sub" id="retryBtn" type="button">Try again</button>
     </div>
     <div class="review">
-      <h2>정답 확인 · Review (40)</h2>
+      <h2>Review all 40 questions</h2>
       <div id="reviewList"></div>
     </div>
-    <p class="note">연습용 점수입니다 (문항당 2.5점). 실제 시험의 합격 기준은 HRD Korea 공식 안내를 따르세요.</p>
+    <p class="note">Practice score only (2.5 points per question). Please follow the official HRD Korea guide for real pass scores.</p>
   </section>
 
 </div>
 
 <script>
 /* =========================================================
-   설정 / Settings
-   STUDY_BASE_URL: 레슨 페이지가 있는 주소. 같은 폴더면 빈 문자열("") 그대로 두세요.
-   예) "https://내도메인.com/lessons/"  (끝에 / 포함)
+   SETTINGS
+   STUDY_BASE_URL: where your lesson pages are hosted.
+   Leave "" if mock1.html is in the same folder as the lessons.
+   Example: "https://yourdomain.com/lessons/"  (end with /)
    ========================================================= */
-var STUDY_BASE_URL = "";
+var STUDY_BASE_URL = "https://k-free.netlify.app/";
 var EXAM_SECONDS = 50 * 60;
 
 /* =========================================================
-   Set #1 데이터 (내장)
+   DATA — Set #1
+   Text format: [Korean, romanization (Revised Romanization), English]
+   Block kinds: i = instruction, q = question, p = passage/notice, w = single word
    ========================================================= */
-var SET = {
-  id: "set_01",
-  title: "EPS-TOPIK Mock Test #1",
-  listening: [
-    { id: "L01", audioText: "안녕하세요. 처음 뵙겠습니다.", question: "다음을 듣고 알맞은 대답을 고르세요.",
-      options: ["네, 비싸요.", "네, 반갑습니다.", "네, 늦었어요.", "네, 맛있어요."], answer: 1,
-      sourceUrl: "annyeonghaseyo1.html", sourceTitle: "Hello" },
-    { id: "L02", audioText: "지금 몇 시예요?", question: "다음을 듣고 알맞은 대답을 고르세요.",
-      options: ["9시예요.", "3만원이에요.", "월요일이에요.", "회사예요."], answer: 0,
-      sourceUrl: "jigeummyeotsiyeyo1.html", sourceTitle: "What Time Is It?" },
-    { id: "L03", audioText: "오늘 날씨가 어때요?", question: "다음을 듣고 알맞은 대답을 고르세요.",
-      options: ["일요일이에요.", "추워요.", "먹어요.", "친구예요."], answer: 1,
-      sourceUrl: "weather.html", sourceTitle: "Weather" },
-    { id: "L04", audioText: "이거 얼마예요?", question: "다음을 듣고 알맞은 대답을 고르세요.",
-      options: ["5층이에요.", "5시예요.", "5천원이에요.", "5개예요."], answer: 2,
-      sourceUrl: "eolmayeyo1.html", sourceTitle: "How Much Is It" },
-    { id: "L05", audioText: "화장실이 어디에 있어요?", question: "다음을 듣고 알맞은 대답을 고르세요.",
-      options: ["많이 있어요.", "친구가 있어요.", "저기 있어요.", "내일 있어요."], answer: 2,
-      sourceUrl: "hwajangsil1.html", sourceTitle: "Where Is the Restroom?" },
-    { id: "L06", audioText: "남자: 오늘 회사에 몇 시까지 가요? 여자: 8시까지 가요.", question: "여자는 몇 시까지 회사에 갑니까?",
-      options: ["6시", "7시", "8시", "9시"], answer: 2,
-      sourceUrl: "chulgeun.html", sourceTitle: "Go to Work" },
-    { id: "L07", audioText: "남자: 안전모를 써 주세요. 여자: 네, 알겠습니다.", question: "남자가 여자에게 부탁한 것은 무엇입니까?",
-      options: ["장갑 착용", "안전모 착용", "마스크 착용", "안전화 착용"], answer: 1,
-      sourceUrl: "anjeonmo.html", sourceTitle: "Safety Helmet" },
-    { id: "L08", audioText: "여자: 오늘 몸이 아파서 병원에 가야 해요. 남자: 그럼 오늘 회사를 쉬세요.", question: "여자는 오늘 무엇을 합니까?",
-      options: ["병원에 간다", "학교에 간다", "여행을 간다", "회사에 간다"], answer: 0,
-      sourceUrl: "apayo1.html", sourceTitle: "Im Sick" },
-    { id: "L09", audioText: "남자: 이 서류에 사인해 주세요. 여자: 네, 여기 사인할게요.", question: "여자가 하는 행동은 무엇입니까?",
-      options: ["서류를 읽는다", "서류를 버린다", "서류를 복사한다", "서류에 사인한다"], answer: 3,
-      sourceUrl: "seomyeong.html", sourceTitle: "Signature" },
-    { id: "L10", audioText: "남자: 다음 주에 휴가를 가고 싶어요. 여자: 언제부터 언제까지예요?", question: "여자가 남자에게 물어본 것은 무엇입니까?",
-      options: ["휴가 비용", "휴가 장소", "휴가 이유", "휴가 기간"], answer: 3,
-      sourceUrl: "hyuga.html", sourceTitle: "Vacation" },
-    { id: "L11", audioText: "공장 안에서는 뛰지 마세요. 위험합니다.", question: "이 방송의 목적은 무엇입니까?",
-      options: ["식사를 안내한다", "안전 주의를 준다", "퇴근을 알린다", "휴식을 알린다"], answer: 1,
-      sourceUrl: "wiheom.html", sourceTitle: "Danger" },
-    { id: "L12", audioText: "오늘 야근이 있습니다. 저녁 8시까지 근무합니다.", question: "오늘 근무는 몇 시까지입니까?",
-      options: ["저녁 8시", "밤 10시", "낮 12시", "저녁 6시"], answer: 0,
-      sourceUrl: "yageun.html", sourceTitle: "Night Overtime" },
-    { id: "L13", audioText: "이번 달 월급은 25일에 나옵니다.", question: "월급은 언제 나옵니까?",
-      options: ["1일", "25일", "30일", "15일"], answer: 1,
-      sourceUrl: "wolgeup.html", sourceTitle: "Monthly Salary" },
-    { id: "L14", audioText: "남자: 이 기계가 고장 났어요. 여자: 반장님께 말씀드릴게요.", question: "여자는 무엇을 할 것입니까?",
-      options: ["기계를 고친다", "집에 간다", "반장에게 알린다", "기계를 버린다"], answer: 2,
-      sourceUrl: "banjang.html", sourceTitle: "Foreman" },
-    { id: "L15", audioText: "다음 버스는 10분 후에 도착합니다.", question: "버스는 언제 도착합니까?",
-      options: ["10시간 후", "10분 후", "내일", "지금"], answer: 1,
-      sourceUrl: "bus.html", sourceTitle: "Bus" },
-    { id: "L16", audioText: "남자: 실례합니다. 은행이 어디예요? 여자: 이 길로 쭉 가세요. 왼쪽에 있어요.", question: "은행은 어느 쪽에 있습니까?",
-      options: ["오른쪽", "왼쪽", "위쪽", "뒤쪽"], answer: 1,
-      sourceUrl: "oenjjogeurodoseyo1.html", sourceTitle: "Turn Left" },
-    { id: "L17", audioText: "물건을 받으면 바로 검사해 주세요.", question: "물건을 받은 후에 해야 할 일은 무엇입니까?",
-      options: ["버린다", "포장한다", "검사한다", "판매한다"], answer: 2,
-      sourceUrl: "geomsa.html", sourceTitle: "Inspection" },
-    { id: "L18", audioText: "남자: 오늘 왜 늦었어요? 여자: 죄송합니다. 버스를 놓쳤어요.", question: "여자가 늦은 이유는 무엇입니까?",
-      options: ["몸이 아팠다", "잠을 잤다", "버스를 놓쳤다", "길을 잃었다"], answer: 2,
-      sourceUrl: "jigak.html", sourceTitle: "Lateness" },
-    { id: "L19", audioText: "이 작업은 장갑을 끼고 하세요.", question: "이 작업을 할 때 착용해야 하는 것은 무엇입니까?",
-      options: ["모자", "안경", "신발", "장갑"], answer: 3,
-      sourceUrl: "anjeonjanggap.html", sourceTitle: "Safety Gloves" },
-    { id: "L20", audioText: "남자: 내일부터 3일 동안 휴가입니다. 여자: 네, 잘 다녀오세요.", question: "남자는 며칠 동안 휴가입니까?",
-      options: ["1일", "5일", "3일", "일주일"], answer: 2,
-      sourceUrl: "yeonchahyuga.html", sourceTitle: "Annual Leave" }
-  ],
-  reading: [
-    { id: "R01", question: "다음 설명에 알맞은 단어를 고르세요.\n\n손으로 종이나 천을 자를 때 쓰는 도구입니다.",
-      options: ["안경", "볼펜", "가위", "가방"], answer: 2,
-      sourceUrl: "gawi.html", sourceTitle: "Scissors" },
-    { id: "R02", question: "다음 설명에 알맞은 단어를 고르세요.\n\n공사장에서 땅을 파는 데 쓰는 큰 기계입니다.",
-      options: ["굴착기", "자전거", "트랙터", "지게차"], answer: 0,
-      sourceUrl: "jakeop.html", sourceTitle: "Work" },
-    { id: "R03", question: "다음 상황 설명에 알맞은 문장을 고르세요.\n\n한 사람이 의자에 앉아서 종이책을 펴고 들여다보고 있습니다.",
-      options: ["피아노를 치고 있습니다.", "친구를 만나고 있습니다.", "책을 읽고 있습니다.", "밥을 먹고 있습니다."], answer: 2,
-      sourceUrl: "book.html", sourceTitle: "Book" },
-    { id: "R04", question: "다음 표지판 설명에 어울리는 문장을 고르세요.\n\n노란 바탕에 번개 모양이 그려진 경고 표지판입니다.",
-      options: ["불이 붙을 수 있으니까 조심하세요.", "떨어질 수 있으니까 조심하세요.", "바닥이 미끄러우니까 조심하세요.", "전기가 흐르니까 조심하세요."], answer: 3,
-      sourceUrl: "gyeonggo.html", sourceTitle: "Warning" },
-    { id: "R05", question: "다음 중 밑줄 친 조사가 맞는 것을 고르세요.",
-      options: ["공장이 일해요.", "공장에서 일해요.", "공장을 일해요.", "공장에게 일해요."], answer: 1,
-      sourceUrl: "geunroja.html", sourceTitle: "Worker" },
-    { id: "R06", question: "다음 중 밑줄 친 부분이 맞는 것을 고르세요.",
-      options: ["친구한테서 선물을 받었어요.", "퇴근할 때 문을 닫라요.", "심심하면 한국 노래를 듣어요.", "오늘 시내에서 많이 걸었어요."], answer: 3,
-      sourceUrl: "city.html", sourceTitle: "City" },
-    { id: "R07", question: "다음 안내문을 읽고 물음에 답하세요.\n\n\"튼튼치과 진료 시간: 오전 9시 ~ 오후 6시 (일요일 휴무)\"\n\n이 병원이 문을 여는 시간은 언제입니까?",
-      options: ["오전 9시", "오전 6시", "오후 9시", "휴무일 없음"], answer: 0,
-      sourceUrl: "byeongga.html", sourceTitle: "Sick Leave" },
-    { id: "R08", question: "다음 단어와 관계있는 것을 고르세요.\n\n복장",
-      options: ["비빔밥", "작업복", "기차표", "컴퓨터"], answer: 1,
-      sourceUrl: "bohogu.html", sourceTitle: "Protective Gear" },
-    { id: "R09", question: "다음 단어와 관계있는 것을 고르세요.\n\n작업장",
-      options: ["근로자가 상담하는 곳입니다.", "근로자가 일하는 곳입니다.", "근로자가 운동하는 곳입니다.", "근로자가 거주하는 곳입니다."], answer: 1,
-      sourceUrl: "geunmuji.html", sourceTitle: "Workplace" },
-    { id: "R10", question: "다음 안내문을 읽고 물음에 답하세요.\n\n\"이번 주 급여는 통장으로 입금됩니다. 급여 명세서는 이메일로 발송됩니다.\"\n\n급여 명세서는 어떻게 받습니까?",
-      options: ["이메일로 받습니다.", "문자로 받습니다.", "우편으로 받습니다.", "직접 받으러 갑니다."], answer: 0,
-      sourceUrl: "geupyeo-myeongseoseo.html", sourceTitle: "Payslip" },
-    { id: "R11", question: "빈칸에 들어갈 가장 알맞은 것을 고르세요.\n\n지급 방법: _____________",
-      options: ["출근 시간", "통장 입금", "생일 선물", "가족 모임"], answer: 1,
-      sourceUrl: "tongjang.html", sourceTitle: "Bank Account" },
-    { id: "R12", question: "빈칸에 들어갈 가장 알맞은 것을 고르세요.\n\n한국어를 배우고 싶지만 학원에 갈 시간이 없습니다. 그래서 퇴근 후에 인터넷 강의를 ______ 한국어를 공부하고 있습니다.",
-      options: ["듣자마자", "들으려고", "들으면서", "듣느라고"], answer: 2,
-      sourceUrl: "gongbu1.html", sourceTitle: "Let's Study" },
-    { id: "R13", question: "빈칸에 들어갈 가장 알맞은 것을 고르세요.\n\n오늘은 다른 날보다 길이 많이 막힙니다. ______ 가지 않으면 회사에 늦을 것 같습니다.",
-      options: ["조심하게", "서둘러서", "서두르게", "조심해서"], answer: 1,
-      sourceUrl: "ppalli1.html", sourceTitle: "Hurry Up" },
-    { id: "R14", question: "빈칸에 들어갈 가장 알맞은 것을 고르세요.\n\n오늘은 날씨가 너무 덥습니다. 집에 오자마자 선풍기를 ______ 시원한 물을 마셨습니다.",
-      options: ["틀면", "틀고", "틀려면", "틀려고"], answer: 1,
-      sourceUrl: "water.html", sourceTitle: "Water" },
-    { id: "R15", question: "빈칸에 들어갈 가장 알맞은 것을 고르세요.\n\n작업 중 손을 다쳤을 때는 상처가 가벼워도 바로 소독을 해야 합니다. 그리고 병원에 가서 진료를 받고 필요하면 주사를 ______",
-      options: ["맞는 것이 좋습니다.", "놓는 것이 좋습니다.", "놓지 않도록 합니다.", "맞지 않도록 합니다."], answer: 0,
-      sourceUrl: "eunggeupcheochi.html", sourceTitle: "First Aid" },
-    { id: "R16", question: "빈칸에 들어갈 가장 알맞은 것을 고르세요.\n\n어두운 곳에서 작업할 때는 가시성이 높은 ______ 이것을 입으면 멀리서도 잘 보여서 사고를 막을 수 있습니다.",
-      options: ["반사 조끼를 착용해야 합니다.", "보호 장갑을 구매해야 합니다.", "환기 장치를 작동해야 합니다.", "비상 계단을 이용해야 합니다."], answer: 0,
-      sourceUrl: "anjeon_suchik.html", sourceTitle: "Safety Rules" },
-    { id: "R17", question: "다음 설명에 알맞은 어휘를 고르세요.\n\n손에 쥐고 철사를 끊거나 구부릴 때 쓰는 도구입니다. 전선이나 작은 부품을 잡을 때도 사용합니다.",
-      options: ["망치", "펜치", "쇠톱", "토치"], answer: 1,
-      sourceUrl: "penchi.html", sourceTitle: "Pliers" },
-    { id: "R18", question: "다음 글을 읽고 무엇에 대한 글인지 고르세요.\n\n한국 사람들은 계절마다 즐겨 먹는 음식이 있습니다. 여름에는 차갑고 시원한 냉면, 콩국수, 팥빙수 등을 많이 먹습니다. 겨울에는 뜨거운 국이나 따뜻한 팥죽, 군고구마, 호떡 등을 자주 먹습니다.",
-      options: ["음식 재료", "조리 방법", "조리 시기", "계절 음식"], answer: 3,
-      sourceUrl: "food.html", sourceTitle: "Food" },
-    { id: "R19", question: "다음을 읽고 내용과 같은 것을 고르세요.\n\n\"사내 휴게실 이용 안내: 출입문 비밀번호는 게시판에서 확인하세요. 회사 직원이면 누구나 이용할 수 있습니다. 이용 후에는 문을 꼭 닫고 나가야 합니다.\"",
-      options: ["휴게실 출입문에는 비밀번호가 없습니다.", "이용 후에는 문을 열어 두고 나가야 합니다.", "다른 회사 직원도 이용할 수 있습니다.", "회사 직원은 누구나 휴게실을 이용할 수 있습니다."], answer: 3,
-      sourceUrl: "chwieopgyuchik.html", sourceTitle: "Employment Rules" },
-    { id: "R20", question: "다음을 읽고 내용과 같은 것을 고르세요.\n\n\"한국에서 일하는 외국인 근로자는 4대 사회보험 혜택을 받습니다. 이 중 산재보험은 사업주만 가입하면 되지만, 국민연금·건강보험·고용보험은 사업주와 근로자 모두 반드시 가입해야 합니다.\"",
-      options: ["근로자는 원하는 보험만 선택해서 가입할 수 있습니다.", "산재보험은 사업주만 가입하면 됩니다.", "국민연금은 사업주만 가입하면 됩니다.", "산재보험은 근로자와 사업주가 모두 가입해야 합니다."], answer: 1,
-      sourceUrl: "sanjaeboheom.html", sourceTitle: "Industrial Accident Insurance" }
-  ]
+var INS = {
+  listen:   ["다음을 듣고 알맞은 대답을 고르세요.", "daeumeul deutgo almajeun daedabeul goreuseyo.", "Listen and choose the correct reply."],
+  word:     ["다음 설명에 알맞은 단어를 고르세요.", "daeum seolmyeonge almajeun daneoreul goreuseyo.", "Choose the word that fits the description."],
+  situ:     ["다음 상황 설명에 알맞은 문장을 고르세요.", "daeum sanghwang seolmyeonge almajeun munjangeul goreuseyo.", "Choose the sentence that fits the situation."],
+  sign:     ["다음 표지판 설명에 어울리는 문장을 고르세요.", "daeum pyojipan seolmyeonge eoullineun munjangeul goreuseyo.", "Choose the sentence that matches the sign."],
+  particle: ["다음 중 밑줄 친 조사가 맞는 것을 고르세요.", "daeum jung mitjul chin josaga manneun geoseul goreuseyo.", "Choose the one with the correct particle (the underlined part)."],
+  under:    ["다음 중 밑줄 친 부분이 맞는 것을 고르세요.", "daeum jung mitjul chin bubuni manneun geoseul goreuseyo.", "Choose the one where the underlined part is correct."],
+  notice:   ["다음 안내문을 읽고 물음에 답하세요.", "daeum annaemuneul ilgo mureume dapaseyo.", "Read the notice and answer the question."],
+  rel:      ["다음 단어와 관계있는 것을 고르세요.", "daeum daneowa gwangyein-neun geoseul goreuseyo.", "Choose what is related to this word."],
+  blank:    ["빈칸에 들어갈 가장 알맞은 것을 고르세요.", "binkane deureogal gajang almajeun geoseul goreuseyo.", "Choose the best answer for the blank."],
+  vocab:    ["다음 설명에 알맞은 어휘를 고르세요.", "daeum seolmyeonge almajeun eohwireul goreuseyo.", "Choose the vocabulary word that fits the description."],
+  topic:    ["다음 글을 읽고 무엇에 대한 글인지 고르세요.", "daeum geureul ilgo mueose daehan geurinji goreuseyo.", "Read the text and choose what it is about."],
+  same:     ["다음을 읽고 내용과 같은 것을 고르세요.", "daeumeul ilgo naeyonggwa gateun geoseul goreuseyo.", "Read and choose the one that matches the content."]
 };
+function I(a){ return ["i"].concat(a); }
+function Qn(k, r, e){ return ["q", k, r, e]; }
+function P(k, r, e){ return ["p", k, r, e]; }
+function W(k, r, e){ return ["w", k, r, e]; }
+
+var DATA = [
+  /* ---------------- LISTENING ---------------- */
+  { id:"L01", part:"listening",
+    audio:["안녕하세요. 처음 뵙겠습니다.", "annyeonghaseyo. cheoeum boepgetseumnida.", "Hello. Nice to meet you (for the first time)."],
+    blocks:[I(INS.listen)],
+    opts:[
+      ["네, 비싸요.", "ne, bissayo.", "Yes, it's expensive."],
+      ["네, 반갑습니다.", "ne, bangapseumnida.", "Yes, nice to meet you."],
+      ["네, 늦었어요.", "ne, neujeosseoyo.", "Yes, I'm late."],
+      ["네, 맛있어요.", "ne, masisseoyo.", "Yes, it's delicious."]],
+    ans:1, url:"annyeonghaseyo1.html", title:"Hello" },
+
+  { id:"L02", part:"listening",
+    audio:["지금 몇 시예요?", "jigeum myeot siyeyo?", "What time is it now?"],
+    blocks:[I(INS.listen)],
+    opts:[
+      ["9시예요.", "ahopsiyeyo.", "It's 9 o'clock."],
+      ["3만원이에요.", "samman-wonieyo.", "It's 30,000 won."],
+      ["월요일이에요.", "woryoirieyo.", "It's Monday."],
+      ["회사예요.", "hoesayeyo.", "It's a company."]],
+    ans:0, url:"jigeummyeotsiyeyo1.html", title:"What Time Is It?" },
+
+  { id:"L03", part:"listening",
+    audio:["오늘 날씨가 어때요?", "oneul nalssiga eottaeyo?", "How's the weather today?"],
+    blocks:[I(INS.listen)],
+    opts:[
+      ["일요일이에요.", "iryoirieyo.", "It's Sunday."],
+      ["추워요.", "chuwoyo.", "It's cold."],
+      ["먹어요.", "meogeoyo.", "I eat."],
+      ["친구예요.", "chinguyeyo.", "It's a friend."]],
+    ans:1, url:"weather.html", title:"Weather" },
+
+  { id:"L04", part:"listening",
+    audio:["이거 얼마예요?", "igeo eolmayeyo?", "How much is this?"],
+    blocks:[I(INS.listen)],
+    opts:[
+      ["5층이에요.", "ocheung-ieyo.", "It's the 5th floor."],
+      ["5시예요.", "osiyeyo.", "It's 5 o'clock."],
+      ["5천원이에요.", "ocheonwonieyo.", "It's 5,000 won."],
+      ["5개예요.", "ogaeyeyo.", "It's 5 pieces."]],
+    ans:2, url:"eolmayeyo1.html", title:"How Much Is It" },
+
+  { id:"L05", part:"listening",
+    audio:["화장실이 어디에 있어요?", "hwajangsiri eodie isseoyo?", "Where is the restroom?"],
+    blocks:[I(INS.listen)],
+    opts:[
+      ["많이 있어요.", "mani isseoyo.", "There are many."],
+      ["친구가 있어요.", "chinguga isseoyo.", "I have a friend."],
+      ["저기 있어요.", "jeogi isseoyo.", "It's over there."],
+      ["내일 있어요.", "naeil isseoyo.", "It's happening tomorrow."]],
+    ans:2, url:"hwajangsil1.html", title:"Where Is the Restroom?" },
+
+  { id:"L06", part:"listening",
+    audio:["남자: 오늘 회사에 몇 시까지 가요? 여자: 8시까지 가요.", "namja: oneul hoesae myeot sikkaji gayo? yeoja: yeodeolsikkaji gayo.", "Man: By what time do you go to work today? Woman: I go by 8 o'clock."],
+    blocks:[Qn("여자는 몇 시까지 회사에 갑니까?", "yeojaneun myeot sikkaji hoesae gamnikka?", "By what time does the woman go to work?")],
+    opts:[
+      ["6시", "yeoseotsi", "6 o'clock"],
+      ["7시", "ilgopsi", "7 o'clock"],
+      ["8시", "yeodeolsi", "8 o'clock"],
+      ["9시", "ahopsi", "9 o'clock"]],
+    ans:2, url:"chulgeun.html", title:"Go to Work" },
+
+  { id:"L07", part:"listening",
+    audio:["남자: 안전모를 써 주세요. 여자: 네, 알겠습니다.", "namja: anjeonmoreul sseo juseyo. yeoja: ne, algetseumnida.", "Man: Please wear a safety helmet. Woman: Yes, understood."],
+    blocks:[Qn("남자가 여자에게 부탁한 것은 무엇입니까?", "namjaga yeojaege butakan geoseun mueosimnikka?", "What did the man ask the woman to do?")],
+    opts:[
+      ["장갑 착용", "janggap chagyong", "Wear gloves"],
+      ["안전모 착용", "anjeonmo chagyong", "Wear a safety helmet"],
+      ["마스크 착용", "maseukeu chagyong", "Wear a mask"],
+      ["안전화 착용", "anjeonhwa chagyong", "Wear safety shoes"]],
+    ans:1, url:"anjeonmo.html", title:"Safety Helmet" },
+
+  { id:"L08", part:"listening",
+    audio:["여자: 오늘 몸이 아파서 병원에 가야 해요. 남자: 그럼 오늘 회사를 쉬세요.", "yeoja: oneul momi apaseo byeongwone gaya haeyo. namja: geureom oneul hoesareul swiseyo.", "Woman: I'm sick today, so I have to go to the hospital. Man: Then take today off from work."],
+    blocks:[Qn("여자는 오늘 무엇을 합니까?", "yeojaneun oneul mueoseul hamnikka?", "What will the woman do today?")],
+    opts:[
+      ["병원에 간다", "byeongwone ganda", "Goes to the hospital"],
+      ["학교에 간다", "hakgyoe ganda", "Goes to school"],
+      ["여행을 간다", "yeohaengeul ganda", "Goes on a trip"],
+      ["회사에 간다", "hoesae ganda", "Goes to work"]],
+    ans:0, url:"apayo1.html", title:"I'm Sick" },
+
+  { id:"L09", part:"listening",
+    audio:["남자: 이 서류에 사인해 주세요. 여자: 네, 여기 사인할게요.", "namja: i seoryue sainhae juseyo. yeoja: ne, yeogi sainhalgeyo.", "Man: Please sign this document. Woman: Yes, I'll sign here."],
+    blocks:[Qn("여자가 하는 행동은 무엇입니까?", "yeojaga haneun haengdongeun mueosimnikka?", "What is the woman doing?")],
+    opts:[
+      ["서류를 읽는다", "seoryureul ingneunda", "Reads the document"],
+      ["서류를 버린다", "seoryureul beorinda", "Throws away the document"],
+      ["서류를 복사한다", "seoryureul boksahanda", "Copies the document"],
+      ["서류에 사인한다", "seoryue sainhanda", "Signs the document"]],
+    ans:3, url:"seomyeong.html", title:"Signature" },
+
+  { id:"L10", part:"listening",
+    audio:["남자: 다음 주에 휴가를 가고 싶어요. 여자: 언제부터 언제까지예요?", "namja: daeum jue hyugareul gago sipeoyo. yeoja: eonjebuteo eonjekkajiyeyo?", "Man: I want to take a vacation next week. Woman: From when to when?"],
+    blocks:[Qn("여자가 남자에게 물어본 것은 무엇입니까?", "yeojaga namjaege mureobon geoseun mueosimnikka?", "What did the woman ask the man?")],
+    opts:[
+      ["휴가 비용", "hyuga biyong", "Vacation cost"],
+      ["휴가 장소", "hyuga jangso", "Vacation place"],
+      ["휴가 이유", "hyuga iyu", "Vacation reason"],
+      ["휴가 기간", "hyuga gigan", "Vacation period"]],
+    ans:3, url:"hyuga.html", title:"Vacation" },
+
+  { id:"L11", part:"listening",
+    audio:["공장 안에서는 뛰지 마세요. 위험합니다.", "gongjang aneseoneun ttwiji maseyo. wiheomhamnida.", "Don't run inside the factory. It is dangerous."],
+    blocks:[Qn("이 방송의 목적은 무엇입니까?", "i bangsongui mokjeogeun mueosimnikka?", "What is the purpose of this announcement?")],
+    opts:[
+      ["식사를 안내한다", "siksareul annaehanda", "Announces mealtime"],
+      ["안전 주의를 준다", "anjeon juuireul junda", "Gives a safety warning"],
+      ["퇴근을 알린다", "toegeuneul allinda", "Announces the end of work"],
+      ["휴식을 알린다", "hyusigeul allinda", "Announces a break"]],
+    ans:1, url:"wiheom.html", title:"Danger" },
+
+  { id:"L12", part:"listening",
+    audio:["오늘 야근이 있습니다. 저녁 8시까지 근무합니다.", "oneul yageuni itseumnida. jeonyeok yeodeolsikkaji geunmuhamnida.", "There is overtime tonight. We work until 8 p.m."],
+    blocks:[Qn("오늘 근무는 몇 시까지입니까?", "oneul geunmuneun myeot sikkajiimnikka?", "Until what time is work today?")],
+    opts:[
+      ["저녁 8시", "jeonyeok yeodeolsi", "8 p.m."],
+      ["밤 10시", "bam yeolsi", "10 p.m."],
+      ["낮 12시", "nat yeoldusi", "12 noon"],
+      ["저녁 6시", "jeonyeok yeoseotsi", "6 p.m."]],
+    ans:0, url:"yageun.html", title:"Night Overtime" },
+
+  { id:"L13", part:"listening",
+    audio:["이번 달 월급은 25일에 나옵니다.", "ibeon dal wolgeubeun isiboire naomnida.", "This month's salary is paid on the 25th."],
+    blocks:[Qn("월급은 언제 나옵니까?", "wolgeubeun eonje naomnikka?", "When is the salary paid?")],
+    opts:[
+      ["1일", "iril", "The 1st"],
+      ["25일", "isiboil", "The 25th"],
+      ["30일", "samsibil", "The 30th"],
+      ["15일", "siboil", "The 15th"]],
+    ans:1, url:"wolgeup.html", title:"Monthly Salary" },
+
+  { id:"L14", part:"listening",
+    audio:["남자: 이 기계가 고장 났어요. 여자: 반장님께 말씀드릴게요.", "namja: i gigyega gojang nasseoyo. yeoja: banjangnimkke malsseumdeurilgeyo.", "Man: This machine is broken. Woman: I'll tell the foreman."],
+    blocks:[Qn("여자는 무엇을 할 것입니까?", "yeojaneun mueoseul hal geosimnikka?", "What will the woman do?")],
+    opts:[
+      ["기계를 고친다", "gigyereul gochinda", "Fixes the machine"],
+      ["집에 간다", "jibe ganda", "Goes home"],
+      ["반장에게 알린다", "banjangege allinda", "Tells the foreman"],
+      ["기계를 버린다", "gigyereul beorinda", "Throws away the machine"]],
+    ans:2, url:"banjang.html", title:"Foreman" },
+
+  { id:"L15", part:"listening",
+    audio:["다음 버스는 10분 후에 도착합니다.", "daeum beoseuneun sipbun hue dochakamnida.", "The next bus will arrive in 10 minutes."],
+    blocks:[Qn("버스는 언제 도착합니까?", "beoseuneun eonje dochakamnikka?", "When will the bus arrive?")],
+    opts:[
+      ["10시간 후", "yeolsigan hu", "In 10 hours"],
+      ["10분 후", "sipbun hu", "In 10 minutes"],
+      ["내일", "naeil", "Tomorrow"],
+      ["지금", "jigeum", "Now"]],
+    ans:1, url:"bus.html", title:"Bus" },
+
+  { id:"L16", part:"listening",
+    audio:["남자: 실례합니다. 은행이 어디예요? 여자: 이 길로 쭉 가세요. 왼쪽에 있어요.", "namja: sillyehamnida. eunhaengi eodiyeyo? yeoja: i gillo jjuk gaseyo. oenjjoge isseoyo.", "Man: Excuse me. Where is the bank? Woman: Go straight along this road. It's on the left."],
+    blocks:[Qn("은행은 어느 쪽에 있습니까?", "eunhaengeun eoneu jjoge itseumnikka?", "Which side is the bank on?")],
+    opts:[
+      ["오른쪽", "oreunjjok", "Right side"],
+      ["왼쪽", "oenjjok", "Left side"],
+      ["위쪽", "wijjok", "Upper side"],
+      ["뒤쪽", "dwijjok", "Back side"]],
+    ans:1, url:"oenjjogeurodoseyo1.html", title:"Turn Left" },
+
+  { id:"L17", part:"listening",
+    audio:["물건을 받으면 바로 검사해 주세요.", "mulgeoneul badeumyeon baro geomsahae juseyo.", "When you receive the goods, please inspect them right away."],
+    blocks:[Qn("물건을 받은 후에 해야 할 일은 무엇입니까?", "mulgeoneul badeun hue haeya hal ireun mueosimnikka?", "What should you do after receiving the goods?")],
+    opts:[
+      ["버린다", "beorinda", "Throw them away"],
+      ["포장한다", "pojanghanda", "Pack them"],
+      ["검사한다", "geomsahanda", "Inspect them"],
+      ["판매한다", "panmaehanda", "Sell them"]],
+    ans:2, url:"geomsa.html", title:"Inspection" },
+
+  { id:"L18", part:"listening",
+    audio:["남자: 오늘 왜 늦었어요? 여자: 죄송합니다. 버스를 놓쳤어요.", "namja: oneul wae neujeosseoyo? yeoja: joesonghamnida. beoseureul nochyeosseoyo.", "Man: Why were you late today? Woman: I'm sorry. I missed the bus."],
+    blocks:[Qn("여자가 늦은 이유는 무엇입니까?", "yeojaga neujeun iyuneun mueosimnikka?", "Why was the woman late?")],
+    opts:[
+      ["몸이 아팠다", "momi apatda", "She was sick"],
+      ["잠을 잤다", "jameul jatda", "She slept in"],
+      ["버스를 놓쳤다", "beoseureul nochyeotda", "She missed the bus"],
+      ["길을 잃었다", "gireul ireotda", "She got lost"]],
+    ans:2, url:"jigak.html", title:"Lateness" },
+
+  { id:"L19", part:"listening",
+    audio:["이 작업은 장갑을 끼고 하세요.", "i jageobeun janggabeul kkigo haseyo.", "Please do this work wearing gloves."],
+    blocks:[Qn("이 작업을 할 때 착용해야 하는 것은 무엇입니까?", "i jageobeul hal ttae chagyonghaeya haneun geoseun mueosimnikka?", "What must you wear when doing this work?")],
+    opts:[
+      ["모자", "moja", "Hat"],
+      ["안경", "angyeong", "Glasses"],
+      ["신발", "sinbal", "Shoes"],
+      ["장갑", "janggap", "Gloves"]],
+    ans:3, url:"anjeonjanggap.html", title:"Safety Gloves" },
+
+  { id:"L20", part:"listening",
+    audio:["남자: 내일부터 3일 동안 휴가입니다. 여자: 네, 잘 다녀오세요.", "namja: naeilbuteo samil dongan hyuga-imnida. yeoja: ne, jal danyeooseyo.", "Man: I'm on vacation for 3 days starting tomorrow. Woman: Yes, have a good trip."],
+    blocks:[Qn("남자는 며칠 동안 휴가입니까?", "namjaneun myeochil dongan hyuga-imnikka?", "How many days is the man on vacation?")],
+    opts:[
+      ["1일", "iril", "1 day"],
+      ["5일", "oil", "5 days"],
+      ["3일", "samil", "3 days"],
+      ["일주일", "iljuil", "One week"]],
+    ans:2, url:"yeonchahyuga.html", title:"Annual Leave" },
+
+  /* ---------------- READING ---------------- */
+  { id:"R01", part:"reading",
+    blocks:[I(INS.word), P("손으로 종이나 천을 자를 때 쓰는 도구입니다.", "soneuro jongina cheoneul jareul ttae sseuneun doguimnida.", "It is a tool used to cut paper or cloth by hand.")],
+    opts:[
+      ["안경", "angyeong", "Glasses"],
+      ["볼펜", "bolpen", "Ballpoint pen"],
+      ["가위", "gawi", "Scissors"],
+      ["가방", "gabang", "Bag"]],
+    ans:2, url:"gawi.html", title:"Scissors" },
+
+  { id:"R02", part:"reading",
+    blocks:[I(INS.word), P("공사장에서 땅을 파는 데 쓰는 큰 기계입니다.", "gongsajangeseo ttangeul paneun de sseuneun keun gigyeimnida.", "It is a large machine used to dig the ground at a construction site.")],
+    opts:[
+      ["굴착기", "gulchakgi", "Excavator"],
+      ["자전거", "jajeongeo", "Bicycle"],
+      ["트랙터", "teuraekteo", "Tractor"],
+      ["지게차", "jigecha", "Forklift"]],
+    ans:0, url:"jakeop.html", title:"Work" },
+
+  { id:"R03", part:"reading",
+    blocks:[I(INS.situ), P("한 사람이 의자에 앉아서 종이책을 펴고 들여다보고 있습니다.", "han sarami uija-e anjaseo jongichaegeul pyeogo deulyeodabogo itseumnida.", "A person is sitting on a chair, with a paper book open, looking into it.")],
+    opts:[
+      ["피아노를 치고 있습니다.", "pianoreul chigo itseumnida.", "(The person) is playing the piano."],
+      ["친구를 만나고 있습니다.", "chingureul mannago itseumnida.", "(The person) is meeting a friend."],
+      ["책을 읽고 있습니다.", "chaegeul ilgo itseumnida.", "(The person) is reading a book."],
+      ["밥을 먹고 있습니다.", "babeul meokgo itseumnida.", "(The person) is eating a meal."]],
+    ans:2, url:"book.html", title:"Book" },
+
+  { id:"R04", part:"reading",
+    blocks:[I(INS.sign), P("노란 바탕에 번개 모양이 그려진 경고 표지판입니다.", "noran batange beongae moyangi geuryeojin gyeonggo pyojipanimnida.", "It is a warning sign with a lightning bolt drawn on a yellow background.")],
+    opts:[
+      ["불이 붙을 수 있으니까 조심하세요.", "buri buteul su isseunikka josimhaseyo.", "It can catch fire, so be careful."],
+      ["떨어질 수 있으니까 조심하세요.", "tteoreojil su isseunikka josimhaseyo.", "Things can fall, so be careful."],
+      ["바닥이 미끄러우니까 조심하세요.", "badagi mikkeureounikka josimhaseyo.", "The floor is slippery, so be careful."],
+      ["전기가 흐르니까 조심하세요.", "jeongiga heureunikka josimhaseyo.", "Electricity is flowing, so be careful."]],
+    ans:3, url:"gyeonggo.html", title:"Warning" },
+
+  { id:"R05", part:"reading",
+    blocks:[I(INS.particle)],
+    opts:[
+      ["공장이 일해요.", "gongjangi ilhaeyo.", "The factory works."],
+      ["공장에서 일해요.", "gongjangeseo ilhaeyo.", "I work at the factory."],
+      ["공장을 일해요.", "gongjangeul ilhaeyo.", "(Works the factory.)"],
+      ["공장에게 일해요.", "gongjangege ilhaeyo.", "(Works to the factory.)"]],
+    ans:1, url:"geunroja.html", title:"Worker" },
+
+  { id:"R06", part:"reading",
+    blocks:[I(INS.under)],
+    opts:[
+      ["친구한테서 선물을 받었어요.", "chinguhanteseo seonmureul badeosseoyo.", "I received a gift from my friend."],
+      ["퇴근할 때 문을 닫라요.", "toegeunhal ttae muneul dallayo.", "I close the door when I leave work."],
+      ["심심하면 한국 노래를 듣어요.", "simsimhamyeon hanguk noraereul deudeoyo.", "When I'm bored, I listen to Korean songs."],
+      ["오늘 시내에서 많이 걸었어요.", "oneul sinaeeseo mani georeosseoyo.", "I walked a lot downtown today."]],
+    ans:3, url:"city.html", title:"City" },
+
+  { id:"R07", part:"reading",
+    blocks:[I(INS.notice),
+      P("“튼튼치과 진료 시간: 오전 9시 ~ 오후 6시 (일요일 휴무)”", "“teunteunchigwa jillyo sigan: ojeon ahopsi ~ ohu yeoseotsi (iryoil hyumu)”", "“Teunteun Dental Clinic hours: 9 a.m. – 6 p.m. (closed on Sundays)”"),
+      Qn("이 병원이 문을 여는 시간은 언제입니까?", "i byeongwoni muneul yeoneun siganeun eonjeimnikka?", "What time does this clinic open?")],
+    opts:[
+      ["오전 9시", "ojeon ahopsi", "9 a.m."],
+      ["오전 6시", "ojeon yeoseotsi", "6 a.m."],
+      ["오후 9시", "ohu ahopsi", "9 p.m."],
+      ["휴무일 없음", "hyumuil eopseum", "No days off"]],
+    ans:0, url:"byeongga.html", title:"Sick Leave" },
+
+  { id:"R08", part:"reading",
+    blocks:[I(INS.rel), W("복장", "bokjang", "Clothing / attire")],
+    opts:[
+      ["비빔밥", "bibimbap", "Bibimbap (mixed rice dish)"],
+      ["작업복", "jageopbok", "Work clothes"],
+      ["기차표", "gichapyo", "Train ticket"],
+      ["컴퓨터", "keompyuteo", "Computer"]],
+    ans:1, url:"bohogu.html", title:"Protective Gear" },
+
+  { id:"R09", part:"reading",
+    blocks:[I(INS.rel), W("작업장", "jageopjang", "Workplace")],
+    opts:[
+      ["근로자가 상담하는 곳입니다.", "geunrojaga sangdamhaneun gosimnida.", "A place where workers get counseling."],
+      ["근로자가 일하는 곳입니다.", "geunrojaga ilhaneun gosimnida.", "A place where workers work."],
+      ["근로자가 운동하는 곳입니다.", "geunrojaga undonghaneun gosimnida.", "A place where workers exercise."],
+      ["근로자가 거주하는 곳입니다.", "geunrojaga geojuhaneun gosimnida.", "A place where workers live."]],
+    ans:1, url:"geunmuji.html", title:"Workplace" },
+
+  { id:"R10", part:"reading",
+    blocks:[I(INS.notice),
+      P("“이번 주 급여는 통장으로 입금됩니다. 급여 명세서는 이메일로 발송됩니다.”", "“ibeon ju geubyeoneun tongjangeuro ipgeumdoemnida. geubyeo myeongseseoneun imeillo balsongdoemnida.”", "“This week's pay will be deposited into your bank account. The payslip will be sent by email.”"),
+      Qn("급여 명세서는 어떻게 받습니까?", "geubyeo myeongseseoneun eotteoke batseumnikka?", "How do you receive the payslip?")],
+    opts:[
+      ["이메일로 받습니다.", "imeillo batseumnida.", "You receive it by email."],
+      ["문자로 받습니다.", "munjaro batseumnida.", "You receive it by text message."],
+      ["우편으로 받습니다.", "upyeoneuro batseumnida.", "You receive it by mail."],
+      ["직접 받으러 갑니다.", "jikjeop badeureo gamnida.", "You go and pick it up in person."]],
+    ans:0, url:"geupyeo-myeongseoseo.html", title:"Payslip" },
+
+  { id:"R11", part:"reading",
+    blocks:[I(INS.blank), P("지급 방법: _____________", "jigeup bangbeop: _____________", "Payment method: _____________")],
+    opts:[
+      ["출근 시간", "chulgeun sigan", "Time to start work"],
+      ["통장 입금", "tongjang ipgeum", "Bank account deposit"],
+      ["생일 선물", "saengil seonmul", "Birthday gift"],
+      ["가족 모임", "gajok moim", "Family gathering"]],
+    ans:1, url:"tongjang.html", title:"Bank Account" },
+
+  { id:"R12", part:"reading",
+    blocks:[I(INS.blank),
+      P("한국어를 배우고 싶지만 학원에 갈 시간이 없습니다. 그래서 퇴근 후에 인터넷 강의를 ______ 한국어를 공부하고 있습니다.",
+        "hangugeoreul baeugo sipjiman hagwone gal sigani eopseumnida. geuraeseo toegeun hue inteonet gangyireul ______ hangugeoreul gongbuhago itseumnida.",
+        "I want to learn Korean, but I have no time to go to an academy. So after work, I am studying Korean ______ online lectures.")],
+    opts:[
+      ["듣자마자", "deutjamaja", "as soon as (I) listen"],
+      ["들으려고", "deureuryeogo", "in order to listen"],
+      ["들으면서", "deureumyeonseo", "while listening"],
+      ["듣느라고", "deunneurago", "because (I) was busy listening"]],
+    ans:2, url:"gongbu1.html", title:"Let's Study" },
+
+  { id:"R13", part:"reading",
+    blocks:[I(INS.blank),
+      P("오늘은 다른 날보다 길이 많이 막힙니다. ______ 가지 않으면 회사에 늦을 것 같습니다.",
+        "oneureun dareun nalboda giri mani makimnida. ______ gaji anheumyeon hoesae neujeul geot gatseumnida.",
+        "The traffic is heavier today than on other days. If I don't go ______, I will probably be late for work.")],
+    opts:[
+      ["조심하게", "josimhage", "carefully (so that one is careful)"],
+      ["서둘러서", "seodulleoseo", "hurrying"],
+      ["서두르게", "seodureuge", "(so as to) hurry"],
+      ["조심해서", "josimhaeseo", "being careful"]],
+    ans:1, url:"ppalli1.html", title:"Hurry Up" },
+
+  { id:"R14", part:"reading",
+    blocks:[I(INS.blank),
+      P("오늘은 날씨가 너무 덥습니다. 집에 오자마자 선풍기를 ______ 시원한 물을 마셨습니다.",
+        "oneureun nalssiga neomu deopseumnida. jibe ojamaja seonpunggireul ______ siwonhan mureul masyeotseumnida.",
+        "The weather is too hot today. As soon as I got home, I ______ the fan and drank cold water.")],
+    opts:[
+      ["틀면", "teulmyeon", "if (I) turn on"],
+      ["틀고", "teulgo", "turned on, and"],
+      ["틀려면", "teullyeomyeon", "if (I) want to turn on"],
+      ["틀려고", "teullyeogo", "in order to turn on"]],
+    ans:1, url:"water.html", title:"Water" },
+
+  { id:"R15", part:"reading",
+    blocks:[I(INS.blank),
+      P("작업 중 손을 다쳤을 때는 상처가 가벼워도 바로 소독을 해야 합니다. 그리고 병원에 가서 진료를 받고 필요하면 주사를 ______",
+        "jageop jung soneul dachyeosseul ttaeneun sangcheoga gabyeowodo baro sodogeul haeya hamnida. geurigo byeongwone gaseo jillyoreul batgo piryohamyeon jusareul ______",
+        "If you hurt your hand while working, you must disinfect it right away, even if the wound is minor. Then go to the hospital, get treated, and if necessary, ______ an injection.")],
+    opts:[
+      ["맞는 것이 좋습니다.", "manneun geosi joseumnida.", "It is good to receive (an injection)."],
+      ["놓는 것이 좋습니다.", "nonneun geosi joseumnida.", "It is good to give (an injection)."],
+      ["놓지 않도록 합니다.", "nochi andorok hamnida.", "Make sure not to give (an injection)."],
+      ["맞지 않도록 합니다.", "matji andorok hamnida.", "Make sure not to receive (an injection)."]],
+    ans:0, url:"eunggeupcheochi.html", title:"First Aid" },
+
+  { id:"R16", part:"reading",
+    blocks:[I(INS.blank),
+      P("어두운 곳에서 작업할 때는 가시성이 높은 ______ 이것을 입으면 멀리서도 잘 보여서 사고를 막을 수 있습니다.",
+        "eoduun goseseo jageopal ttaeneun gasiseongi nopeun ______ igeoseul ibeumyeon meollisedo jal boyeoseo sagoreul mageul su itseumnida.",
+        "When working in dark places, ______ highly visible. If you wear this, people can see you well even from far away, and accidents can be prevented.")],
+    opts:[
+      ["반사 조끼를 착용해야 합니다.", "bansa jokkireul chagyonghaeya hamnida.", "You must wear a reflective vest."],
+      ["보호 장갑을 구매해야 합니다.", "boho janggabeul gumaehaeya hamnida.", "You must buy protective gloves."],
+      ["환기 장치를 작동해야 합니다.", "hwangi jangchireul jakdonghaeya hamnida.", "You must run the ventilation system."],
+      ["비상 계단을 이용해야 합니다.", "bisang gyedaneul iyonghaeya hamnida.", "You must use the emergency stairs."]],
+    ans:0, url:"anjeon_suchik.html", title:"Safety Rules" },
+
+  { id:"R17", part:"reading",
+    blocks:[I(INS.vocab),
+      P("손에 쥐고 철사를 끊거나 구부릴 때 쓰는 도구입니다. 전선이나 작은 부품을 잡을 때도 사용합니다.",
+        "sone jwigo cheolsareul kkeunkeona guburil ttae sseuneun doguimnida. jeonseonina jageun bupumeul jabeul ttaedo sayonghamnida.",
+        "It is a tool held in the hand to cut or bend wire. It is also used to hold electric wires or small parts.")],
+    opts:[
+      ["망치", "mangchi", "Hammer"],
+      ["펜치", "penchi", "Pliers"],
+      ["쇠톱", "soetop", "Hacksaw"],
+      ["토치", "tochi", "Torch"]],
+    ans:1, url:"penchi.html", title:"Pliers" },
+
+  { id:"R18", part:"reading",
+    blocks:[I(INS.topic),
+      P("한국 사람들은 계절마다 즐겨 먹는 음식이 있습니다. 여름에는 차갑고 시원한 냉면, 콩국수, 팥빙수 등을 많이 먹습니다. 겨울에는 뜨거운 국이나 따뜻한 팥죽, 군고구마, 호떡 등을 자주 먹습니다.",
+        "hanguk saramdeureun gyejeolmada jeulgyeo meongneun eumsigi itseumnida. yeoreumeneun chagapgo siwonhan naengmyeon, kongguksu, patbingsu deungeul mani meokseumnida. gyeoureneun tteugeoun gugina ttatteutan patjuk, gun-goguma, hotteok deungeul jaju meokseumnida.",
+        "Koreans have foods they like to eat in each season. In summer, they eat a lot of cold, refreshing foods such as naengmyeon, kongguksu, and patbingsu. In winter, they often eat hot soup, warm red bean porridge, roasted sweet potatoes, and hotteok.")],
+    opts:[
+      ["음식 재료", "eumsik jaeryo", "Food ingredients"],
+      ["조리 방법", "jori bangbeop", "Cooking methods"],
+      ["조리 시기", "jori sigi", "Cooking time"],
+      ["계절 음식", "gyejeol eumsik", "Seasonal food"]],
+    ans:3, url:"food.html", title:"Food" },
+
+  { id:"R19", part:"reading",
+    blocks:[I(INS.same),
+      P("“사내 휴게실 이용 안내: 출입문 비밀번호는 게시판에서 확인하세요. 회사 직원이면 누구나 이용할 수 있습니다. 이용 후에는 문을 꼭 닫고 나가야 합니다.”",
+        "“sanae hyugesil iyong annae: churimmun bimilbeonhoneun gesipaneseo hwaginhaseyo. hoesa jigwonimyeon nuguna iyonghal su itseumnida. iyong hueneun muneul kkok datgo nagaya hamnida.”",
+        "“Staff lounge guide: Check the door password on the notice board. Any company employee can use it. After use, you must close the door and leave.”")],
+    opts:[
+      ["휴게실 출입문에는 비밀번호가 없습니다.", "hyugesil churimmuneneun bimilbeonhoga eopseumnida.", "The lounge door has no password."],
+      ["이용 후에는 문을 열어 두고 나가야 합니다.", "iyong hueneun muneul yeoreo dugo nagaya hamnida.", "After use, you must leave the door open."],
+      ["다른 회사 직원도 이용할 수 있습니다.", "dareun hoesa jigwondo iyonghal su itseumnida.", "Employees of other companies can also use it."],
+      ["회사 직원은 누구나 휴게실을 이용할 수 있습니다.", "hoesa jigwoneun nuguna hyugesireul iyonghal su itseumnida.", "Any company employee can use the lounge."]],
+    ans:3, url:"chwieopgyuchik.html", title:"Employment Rules" },
+
+  { id:"R20", part:"reading",
+    blocks:[I(INS.same),
+      P("“한국에서 일하는 외국인 근로자는 4대 사회보험 혜택을 받습니다. 이 중 산재보험은 사업주만 가입하면 되지만, 국민연금·건강보험·고용보험은 사업주와 근로자 모두 반드시 가입해야 합니다.”",
+        "“hangugeseo ilhaneun oegugin geunrojaneun sa-dae sahoeboheom hyetaegeul batseumnida. i jung sanjaeboheomeun saeopjuman gaipamyeon doejiman, gungmin-yeongeum·geongangboheom·goyongboheomeun saeopjuwa geunroja modu bandeusi gaipaeya hamnida.”",
+        "“Foreign workers in Korea receive the benefits of the 4 major social insurances. Among these, only the employer needs to join industrial accident insurance, but both the employer and the worker must join the national pension, health insurance, and employment insurance.”")],
+    opts:[
+      ["근로자는 원하는 보험만 선택해서 가입할 수 있습니다.", "geunrojaneun wonhaneun boheomman seontaekaeseo gaipal su itseumnida.", "Workers can choose to join only the insurance they want."],
+      ["산재보험은 사업주만 가입하면 됩니다.", "sanjaeboheomeun saeopjuman gaipamyeon doemnida.", "Only the employer needs to join industrial accident insurance."],
+      ["국민연금은 사업주만 가입하면 됩니다.", "gungmin-yeongeumeun saeopjuman gaipamyeon doemnida.", "Only the employer needs to join the national pension."],
+      ["산재보험은 근로자와 사업주가 모두 가입해야 합니다.", "sanjaeboheomeun geunrojawa saeopjuga modu gaipaeya hamnida.", "Both the worker and the employer must join industrial accident insurance."]],
+    ans:1, url:"sanjaeboheom.html", title:"Industrial Accident Insurance" }
+];
 
 /* =========================================================
-   앱 로직
+   APP LOGIC
    ========================================================= */
-var Q = [];
-SET.listening.forEach(function (q) { Q.push(Object.assign({ part: "listening" }, q)); });
-SET.reading.forEach(function (q) { Q.push(Object.assign({ part: "reading" }, q)); });
-
+var Q = DATA;
 var state = { idx: 0, picks: [], remaining: EXAM_SECONDS, timerId: null, answered: false };
 var CIRCLED = ["①", "②", "③", "④"];
 
@@ -468,29 +839,76 @@ function el(tag, cls, text) {
   if (text !== undefined) n.textContent = text;
   return n;
 }
+/* Korean + romanization are marked translate="no" so browser translators leave them alone.
+   Only the English line is translated. */
+function tri(t) {
+  var box = el("span", "tri");
+  var ko = el("span", "ko", t[0]);
+  ko.setAttribute("lang", "ko");
+  ko.setAttribute("translate", "no");
+  ko.classList.add("notranslate");
+  var rom = el("span", "rom notranslate", t[1]);
+  rom.setAttribute("translate", "no");
+  var en = el("span", "en", t[2]);
+  box.appendChild(ko); box.appendChild(rom); box.appendChild(en);
+  return box;
+}
+function blocksEl(q) {
+  var wrap = el("div");
+  q.blocks.forEach(function (b) {
+    var d = el("div", "blk " + b[0]);
+    d.appendChild(tri([b[1], b[2], b[3]]));
+    wrap.appendChild(d);
+  });
+  return wrap;
+}
 function show(id) {
   ["start", "exam", "result"].forEach(function (s) { $(s).classList.toggle("hidden", s !== id); });
   window.scrollTo(0, 0);
 }
 function studyHref(q) {
-  var u = q.sourceUrl || "";
+  var u = q.url || "";
   if (/^https?:\/\//i.test(u)) return u;
   return STUDY_BASE_URL + u;
 }
 function makeStudyLink(q) {
-  var a = el("a", "study", "📚 Study " + q.sourceTitle + " →");
+  var a = el("a", "study", "📚 Study " + q.title + " →");
   a.href = studyHref(q);
   a.target = "_blank";
   a.rel = "noopener";
   return a;
 }
 function track(name, data) {
-  /* 광고/분석 이벤트 연결 자리. 예: gtag('event', name, data); fbq('trackCustom', name, data); */
+  /* Hook for ads / analytics. Example: gtag('event', name, data); fbq('trackCustom', name, data); ttq.track(name, data); */
   try { if (window.gtag) window.gtag("event", name, data || {}); } catch (e) {}
 }
 
-/* ---------- Audio (browser TTS) ---------- */
-var tts = ("speechSynthesis" in window) ? window.speechSynthesis : null;
+/* ---------- In-app browser detection + banner ---------- */
+var ua = navigator.userAgent || "";
+var IN_APP = /(TikTok|musical_ly|BytedanceWebview|Bytedance|KAKAOTALK|Instagram|FBAN|FBAV|FB_IAB|Line\/|NAVER\(inapp|Snapchat|Twitter|MicroMessenger)/i.test(ua);
+
+function showBanner(title, body) {
+  $("bannerTitle").textContent = title;
+  $("bannerBody").textContent = body;
+  $("appBanner").classList.remove("hidden");
+}
+$("closeBanner").addEventListener("click", function () { $("appBanner").classList.add("hidden"); });
+$("copyBtn").addEventListener("click", function () {
+  var btn = $("copyBtn");
+  function done() { btn.textContent = "Copied!"; setTimeout(function () { btn.textContent = "Copy link"; }, 2000); }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(location.href).then(done, fallback);
+  } else { fallback(); }
+  function fallback() {
+    var t = document.createElement("textarea");
+    t.value = location.href; document.body.appendChild(t); t.select();
+    try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = "Copy failed"; }
+    document.body.removeChild(t);
+  }
+});
+
+/* ---------- Audio (browser text-to-speech) ---------- */
+var tts = ("speechSynthesis" in window && "SpeechSynthesisUtterance" in window) ? window.speechSynthesis : null;
 var koVoice = null;
 function pickVoice() {
   if (!tts) return;
@@ -499,13 +917,20 @@ function pickVoice() {
 }
 if (tts) { pickVoice(); tts.onvoiceschanged = pickVoice; }
 
+if (IN_APP) {
+  showBanner("No sound in TikTok / KakaoTalk?",
+    "In-app browsers like TikTok and KakaoTalk cannot play the listening audio. Tap the ⋯ (three dots) menu and choose “Open in browser” (Chrome or Safari), then take the test there.");
+} else if (!tts) {
+  showBanner("Audio is not supported in this browser",
+    "Please open this page in Chrome or Safari to hear the listening questions. Tap ⋯ (three dots) and choose “Open in browser”.");
+}
+
 function stopSpeak() { if (tts) tts.cancel(); }
 function speak(text) {
   if (!tts) return;
   tts.cancel();
   var parts = [];
-  var re = /(남자|여자)\s*:\s*/g;
-  if (re.test(text)) {
+  if (/(남자|여자)\s*:/.test(text)) {
     text.split(/(?=남자\s*:|여자\s*:)/).forEach(function (seg) {
       var m = seg.match(/^(남자|여자)\s*:\s*([\s\S]*)$/);
       if (m && m[2].trim()) parts.push({ who: m[1], t: m[2].trim() });
@@ -540,7 +965,7 @@ function startTimer() {
   }, 1000);
 }
 
-/* ---------- Ticks (진행 + 정오답 표시) ---------- */
+/* ---------- Progress ticks ---------- */
 function buildTicks() {
   var box = $("ticks");
   box.innerHTML = "";
@@ -551,7 +976,7 @@ function paintTicks() {
   for (var i = 0; i < Q.length; i++) {
     var cls = "tick";
     if (state.picks[i] !== undefined) {
-      if (state.picks[i] === Q[i].answer) { cls += " ok"; ok++; } else { cls += " bad"; bad++; }
+      if (state.picks[i] === Q[i].ans) { cls += " ok"; ok++; } else { cls += " bad"; bad++; }
     }
     if (i === state.idx) cls += " now";
     ticks[i].className = cls;
@@ -566,35 +991,38 @@ function renderQuestion() {
   state.answered = false;
   stopSpeak();
 
-  var isListening = q.part === "listening";
-  var inPart = isListening ? state.idx + 1 : state.idx - 19;
-  var partLabel = $("partLabel");
-  partLabel.textContent = isListening ? "듣기" : "읽기";
-  var small = el("small", null, (isListening ? "Listening " : "Reading ") + inPart + "/20");
-  partLabel.appendChild(small);
+  var isL = q.part === "listening";
+  var inPart = isL ? state.idx + 1 : state.idx - 19;
+  var pl = $("partLabel");
+  pl.textContent = isL ? "Listening" : "Reading";
+  pl.appendChild(el("small", null, "Question " + inPart + " of 20"));
   $("progressText").textContent = (state.idx + 1) + " / " + Q.length;
-  $("qnum").textContent = "문제 " + (state.idx + 1);
-  $("qtext").textContent = q.question;
-  $("listenBox").classList.toggle("hidden", !isListening);
-  $("noVoice").classList.toggle("hidden", !(isListening && !tts));
+  $("qnum").textContent = "Question " + (state.idx + 1);
+  $("listenBox").classList.toggle("hidden", !(isL && tts));
+  $("noVoice").classList.toggle("hidden", !(isL && !tts));
   $("feedback").innerHTML = "";
+
+  var qb = $("qblocks");
+  qb.innerHTML = "";
+  qb.appendChild(blocksEl(q));
 
   var list = $("options");
   list.innerHTML = "";
-  q.options.forEach(function (text, i) {
+  q.opts.forEach(function (o, i) {
     var li = el("li");
     var b = el("button", "opt");
     b.type = "button";
-    b.setAttribute("data-i", i);
     b.appendChild(el("span", "no", String(i + 1)));
-    b.appendChild(el("span", "txt", text));
+    var body = el("span", "body");
+    body.appendChild(tri(o));
+    b.appendChild(body);
     b.addEventListener("click", function () { choose(i); });
     li.appendChild(b);
     list.appendChild(li);
   });
 
   paintTicks();
-  if (isListening && tts) setTimeout(function () { speak(q.audioText); }, 250);
+  if (isL && tts) setTimeout(function () { speak(q.audio[0]); }, 250);
 }
 
 function choose(i) {
@@ -603,30 +1031,30 @@ function choose(i) {
   stopSpeak();
   var q = Q[state.idx];
   state.picks[state.idx] = i;
-  var correct = i === q.answer;
+  var correct = i === q.ans;
 
-  var btns = $("options").querySelectorAll(".opt");
-  btns.forEach(function (b, k) {
+  $("options").querySelectorAll(".opt").forEach(function (b, k) {
     b.disabled = true;
-    if (k === q.answer) {
-      b.classList.add("correct");
-      b.appendChild(el("span", "mark", "✅"));
-    } else if (k === i) {
-      b.classList.add("wrong");
-      b.appendChild(el("span", "mark", "❌"));
-    }
+    if (k === q.ans) { b.classList.add("correct"); b.appendChild(el("span", "mark", "✅")); }
+    else if (k === i) { b.classList.add("wrong"); b.appendChild(el("span", "mark", "❌")); }
   });
 
   var fb = el("div", "feedback " + (correct ? "ok" : "bad"));
   fb.setAttribute("role", "status");
-  fb.appendChild(el("h3", null, correct ? "✅ 정답입니다! Correct" : "❌ 오답입니다. Wrong"));
-  if (!correct) fb.appendChild(el("p", null, "정답: " + CIRCLED[q.answer] + " " + q.options[q.answer]));
-  if (q.part === "listening") fb.appendChild(el("p", "script", "🎧 " + q.audioText));
+  fb.appendChild(el("h3", null, correct ? "✅ Correct!" : "❌ Not correct"));
+  if (!correct) {
+    fb.appendChild(el("p", "lbl", "Correct answer: " + CIRCLED[q.ans]));
+    fb.appendChild(tri(q.opts[q.ans]));
+  }
+  if (q.part === "listening") {
+    fb.appendChild(el("p", "lbl", "🎧 What you heard:"));
+    fb.appendChild(tri(q.audio));
+  }
 
   var actions = el("div", "actions");
   actions.appendChild(makeStudyLink(q));
   var last = state.idx === Q.length - 1;
-  var next = el("button", "next", last ? "결과 보기 · See result" : "다음 문제 · Next →");
+  var next = el("button", "next", last ? "See result" : "Next →");
   next.type = "button";
   next.id = "nextBtn";
   next.addEventListener("click", goNext);
@@ -655,33 +1083,40 @@ function finish() {
   stopSpeak();
   var lis = 0, rea = 0;
   Q.forEach(function (q, i) {
-    if (state.picks[i] === q.answer) { if (q.part === "listening") lis++; else rea++; }
+    if (state.picks[i] === q.ans) { if (q.part === "listening") lis++; else rea++; }
   });
   var score = (lis + rea) * 2.5;
-  $("scoreNum").textContent = String(score).replace(/\.0$/, "");
+  $("scoreNum").textContent = String(score);
   $("lisScore").textContent = lis + " / 20";
   $("reaScore").textContent = rea + " / 20";
-  var msg = score >= 80 ? "아주 잘했어요! Excellent!" :
-            score >= 60 ? "좋아요! 조금만 더 연습하면 돼요. Good job!" :
-            "틀린 문제의 📚 Study 버튼으로 복습해 보세요. Review the lessons below.";
-  $("scoreMsg").textContent = msg;
+  $("scoreMsg").textContent =
+    score >= 80 ? "Excellent work!" :
+    score >= 60 ? "Good job! A little more practice and you will be ready." :
+    "Keep going! Use the yellow Study buttons below to review each topic.";
 
   var list = $("reviewList");
   list.innerHTML = "";
   Q.forEach(function (q, i) {
     var pick = state.picks[i];
-    var ok = pick === q.answer;
+    var ok = pick === q.ans;
     var card = el("div", "rev " + (ok ? "ok" : "bad"));
     var head = el("div", "qh");
-    head.appendChild(el("span", null, "문제 " + (i + 1) + (q.part === "listening" ? " · 듣기" : " · 읽기")));
-    head.appendChild(el("span", null, ok ? "✅ 정답" : "❌ 오답"));
+    head.appendChild(el("span", null, "Question " + (i + 1) + " · " + (q.part === "listening" ? "Listening" : "Reading")));
+    head.appendChild(el("span", null, ok ? "✅ Correct" : "❌ Wrong"));
     card.appendChild(head);
-    card.appendChild(el("p", "qt", q.part === "listening" ? "🎧 " + q.audioText + "\n" + q.question : q.question));
-    if (!ok) {
-      var mine = pick === undefined ? "선택 안 함" : CIRCLED[pick] + " " + q.options[pick];
-      card.appendChild(el("p", "ans miss", "내 답: " + mine));
+
+    if (q.part === "listening") {
+      card.appendChild(el("p", "lbl gray", "🎧 Audio script:"));
+      card.appendChild(tri(q.audio));
     }
-    card.appendChild(el("p", "ans good", "정답: " + CIRCLED[q.answer] + " " + q.options[q.answer]));
+    card.appendChild(blocksEl(q));
+
+    if (!ok) {
+      card.appendChild(el("p", "lbl miss", pick === undefined ? "You skipped this question." : "Your answer: " + CIRCLED[pick]));
+      if (pick !== undefined) card.appendChild(tri(q.opts[pick]));
+    }
+    card.appendChild(el("p", "lbl good", "Correct answer: " + CIRCLED[q.ans]));
+    card.appendChild(tri(q.opts[q.ans]));
     card.appendChild(makeStudyLink(q));
     list.appendChild(card);
   });
@@ -702,14 +1137,14 @@ function startExam() {
 }
 $("startBtn").addEventListener("click", startExam);
 $("retryBtn").addEventListener("click", function () { show("start"); });
-$("playBtn").addEventListener("click", function () { speak(Q[state.idx].audioText); });
+$("playBtn").addEventListener("click", function () { speak(Q[state.idx].audio[0]); });
 
-/* 키보드: 1~4 보기 선택, Enter 다음 문제 */
+/* Keyboard: 1–4 choose an answer, Enter = next */
 document.addEventListener("keydown", function (e) {
   if ($("exam").classList.contains("hidden")) return;
   if (e.key >= "1" && e.key <= "4") {
     var n = parseInt(e.key, 10) - 1;
-    if (n < Q[state.idx].options.length) choose(n);
+    if (n < Q[state.idx].opts.length) choose(n);
   } else if (e.key === "Enter" && state.answered && document.activeElement && document.activeElement.id !== "nextBtn") {
     goNext();
   }
