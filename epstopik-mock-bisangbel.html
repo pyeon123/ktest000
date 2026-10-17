@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EPS-TOPIK 모의고사 | 비상벨 안전 어휘 연습 (EPS-TOPIK Mock Test)</title>
-<meta name="description" content="EPS-TOPIK 모의고사 연습. 듣기·읽기 형식으로 비상벨 등 현장 안전 어휘를 무료로 연습하세요. Free EPS-TOPIK mock test with listening and reading questions.">
+<meta name="description" content="EPS-TOPIK 모의고사 연습. 듣기·읽기 형식으로 비상벨 등 현장 안전 어휘를 무료로 연습하세요. 문제마다 정답을 바로 확인하고 공부 페이지로 이동할 수 있습니다. Free EPS-TOPIK mock test with listening and reading questions.">
 <meta name="keywords" content="EPS-TOPIK 모의고사, EPS-TOPIK mock test, EPS-TOPIK 듣기 읽기, 비상벨, 한국어능력시험 연습, EPS-TOPIK 기출 형식, 비상벨 어휘">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pyeon123.github.io/ktest000/epstopik-mock-bisangbel.html">
@@ -13,7 +13,7 @@
 <meta property="og:description" content="듣기·읽기 형식의 무료 EPS-TOPIK 연습 문제 (Free EPS-TOPIK mock test).">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://pyeon123.github.io/ktest000/epstopik-mock-bisangbel.html">
-<!-- og:image: 1200x630 이미지 주소를 준비하면 아래 줄의 주석을 풀고 주소를 넣으세요 -->
+<!-- og:image: 1200x630 이미지 주소가 있으면 아래 주석을 풀고 주소를 넣으세요 -->
 <!-- <meta property="og:image" content="https://pyeon123.github.io/ktest000/share.jpg"> -->
 <script type="application/ld+json">
 {
@@ -61,14 +61,21 @@
   .play{background:#4285f4;color:#fff;border:none;border-radius:10px;padding:10px 16px;font-weight:700;font-size:.98rem;cursor:pointer;margin-bottom:10px}
   .opts label{display:block;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;margin:6px 0;cursor:pointer}
   .opts label:hover{background:#eef2ff}
+  .opts label.correct{background:#dcfce7;border-color:#22c55e}
+  .opts label.wrong{background:#fee2e2;border-color:#ef4444}
   .script{margin-top:10px;color:#475569;font-size:.92rem}
   .exp{display:none;margin-top:10px;padding:12px;border-radius:10px;font-size:.93rem}
   .exp.ok{display:block;background:#ecfdf5;border:1px solid #6ee7b7}
   .exp.ng{display:block;background:#fef2f2;border:1px solid #fca5a5}
+  .study{display:none;margin-top:10px;background:#1d4ed8;color:#fff;text-decoration:none;padding:10px 16px;border-radius:10px;font-weight:700;font-size:.95rem}
+  .study.show{display:inline-block}
   .btn{display:block;width:100%;max-width:340px;margin:24px auto;background:#1d4ed8;color:#fff;border:none;border-radius:12px;padding:14px;font-size:1.05rem;font-weight:800;cursor:pointer}
+  .btn:disabled{background:#94a3b8}
   .btn.gray{background:#64748b}
   #result{text-align:center;background:#fff;border-radius:14px;padding:20px;border:2px solid #1d4ed8;display:none}
   #result .score{font-size:2rem;font-weight:900;color:#1d4ed8}
+  #result .review{text-align:left;margin-top:14px}
+  #result .review a{display:block;margin:6px 0;color:#1d4ed8;font-weight:700}
   .guide{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px;margin-top:28px}
   .guide h2{border:none;margin-top:0}
   .guide details{border-top:1px solid #e2e8f0;padding:10px 0}
@@ -93,7 +100,7 @@
     <h2>제1부 듣기 (Listening)</h2>
     <p style="font-size:.9rem;color:#64748b">🔊 버튼을 누르면 대화가 두 번 재생됩니다. 기기에 한국어 음성이 없으면 스크립트를 읽어 보세요. (Each dialogue plays twice.)</p>
 
-    <div class="card" data-ans="0" data-exp="">
+    <div class="card" data-ans="0" data-exp="비상벨은 계단 옆에 있다고 했습니다." data-word="비상벨" data-url="https://k-free.netlify.app/bisangbel.html">
       <div class="qno">1번 (Q1)</div>
       <button type="button" class="play" onclick="playAudio(this)">🔊 듣기 (Play)</button>
       <div class="question">비상벨은 어디에 있습니까?</div>
@@ -105,9 +112,10 @@
       </div>
       <details class="script"><summary>스크립트 보기 (Script)</summary><p class="line">여자: 비상벨이 어디에 있어요? 남자: 계단 옆에 있어요.</p></details>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/bisangbel.html" target="_blank" rel="noopener">📚 공부 하러 가기: 비상벨</a>
     </div>
 
-    <div class="card" data-ans="1" data-exp="">
+    <div class="card" data-ans="1" data-exp="빨간 버튼을 세게 누르면 작동합니다. 비상벨 버튼을 누르는 것이 핵심입니다." data-word="비상벨 버튼" data-url="https://k-free.netlify.app/bisangbel.html">
       <div class="qno">2번 (Q2)</div>
       <button type="button" class="play" onclick="playAudio(this)">🔊 듣기 (Play)</button>
       <div class="question">비상벨은 어떻게 작동합니까?</div>
@@ -119,9 +127,10 @@
       </div>
       <details class="script"><summary>스크립트 보기 (Script)</summary><p class="line">남자: 비상벨은 어떻게 작동해요? 여자: 빨간 버튼을 세게 누르면 돼요.</p></details>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/bisangbel.html" target="_blank" rel="noopener">📚 공부 하러 가기: 비상벨 버튼</a>
     </div>
 
-    <div class="card" data-ans="1" data-exp="">
+    <div class="card" data-ans="1" data-exp="소방 점검은 내일 오전 10시입니다." data-word="안전 점검" data-url="https://k-free.netlify.app/anjeon_jeomgeom.html">
       <div class="qno">3번 (Q3)</div>
       <button type="button" class="play" onclick="playAudio(this)">🔊 듣기 (Play)</button>
       <div class="question">소방 점검은 몇 시입니까?</div>
@@ -133,9 +142,10 @@
       </div>
       <details class="script"><summary>스크립트 보기 (Script)</summary><p class="line">여자: 소방 점검은 언제예요? 남자: 내일 오전 열 시예요.</p></details>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/anjeon_jeomgeom.html" target="_blank" rel="noopener">📚 공부 하러 가기: 안전 점검</a>
     </div>
 
-    <div class="card" data-ans="0" data-exp="">
+    <div class="card" data-ans="0" data-exp="먼저 전원이 켜져 있는지 확인하라고 했습니다." data-word="전원 (스위치)" data-url="https://k-free.netlify.app/seuwichi.html">
       <div class="qno">4번 (Q4)</div>
       <button type="button" class="play" onclick="playAudio(this)">🔊 듣기 (Play)</button>
       <div class="question">여자가 먼저 확인하라고 한 것은 무엇입니까?</div>
@@ -147,9 +157,10 @@
       </div>
       <details class="script"><summary>스크립트 보기 (Script)</summary><p class="line">남자: 기계에서 소리가 안 나요. 여자: 먼저 전원이 켜져 있는지 확인해 보세요.</p></details>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/seuwichi.html" target="_blank" rel="noopener">📚 공부 하러 가기: 스위치</a>
     </div>
 
-    <div class="card" data-ans="1" data-exp="">
+    <div class="card" data-ans="1" data-exp="화재가 나면 비상벨을 누르고 빨리 밖으로 대피해야 합니다." data-word="대피" data-url="https://k-free.netlify.app/daepi.html">
       <div class="qno">5번 (Q5)</div>
       <button type="button" class="play" onclick="playAudio(this)">🔊 듣기 (Play)</button>
       <div class="question">화재가 났을 때 해야 할 행동으로 맞는 것은?</div>
@@ -161,9 +172,10 @@
       </div>
       <details class="script"><summary>스크립트 보기 (Script)</summary><p class="line">남자: 화재가 나면 어떻게 해요? 여자: 비상벨을 누르고 빨리 밖으로 대피하세요.</p></details>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/daepi.html" target="_blank" rel="noopener">📚 공부 하러 가기: 대피</a>
     </div>
 
-    <div class="card" data-ans="0" data-exp="">
+    <div class="card" data-ans="0" data-exp="안전모는 창고 안 선반 위에 있습니다." data-word="안전모" data-url="https://k-free.netlify.app/anjeonmo.html">
       <div class="qno">6번 (Q6)</div>
       <button type="button" class="play" onclick="playAudio(this)">🔊 듣기 (Play)</button>
       <div class="question">안전모는 어디에 있습니까?</div>
@@ -175,13 +187,14 @@
       </div>
       <details class="script"><summary>스크립트 보기 (Script)</summary><p class="line">여자: 안전모는 어디에 있어요? 남자: 창고 안 선반 위에 있어요.</p></details>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/anjeonmo.html" target="_blank" rel="noopener">📚 공부 하러 가기: 안전모</a>
     </div>
   </section>
 
   <section>
     <h2>제2부 읽기 (Reading)</h2>
 
-    <div class="card" data-ans="0" data-exp="화재 발생 시 주변에 알리려면 비상벨을 누릅니다.">
+    <div class="card" data-ans="0" data-exp="화재 발생 시 주변에 알리려면 비상벨을 누릅니다." data-word="비상벨" data-url="https://k-free.netlify.app/bisangbel.html">
       <div class="qno">7번 (Q7)</div>
       <div class="passage">화재가 발생하면 ( ① )을/를 눌러 주변 사람들에게 알리세요.</div>
       <div class="question">①에 들어갈 말로 알맞은 것은?</div>
@@ -192,9 +205,10 @@
         <label><input type="radio" name="q7" value="3"> 4. 계산기</label>
       </div>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/bisangbel.html" target="_blank" rel="noopener">📚 공부 하러 가기: 비상벨</a>
     </div>
 
-    <div class="card" data-ans="0" data-exp="작동 여부를 확인하는 것은 점검입니다.">
+    <div class="card" data-ans="0" data-exp="작동 여부를 확인하는 것은 점검입니다." data-word="점검" data-url="https://k-free.netlify.app/jeomgeom.html">
       <div class="qno">8번 (Q8)</div>
       <div class="passage">비상벨은 매달 한 번씩 ( ① )해야 합니다. 작동이 잘 되는지 확인하기 위해서입니다.</div>
       <div class="question">①에 들어갈 말로 알맞은 것은?</div>
@@ -205,9 +219,10 @@
         <label><input type="radio" name="q8" value="3"> 4. 세탁</label>
       </div>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/jeomgeom.html" target="_blank" rel="noopener">📚 공부 하러 가기: 점검</a>
     </div>
 
-    <div class="card" data-ans="0" data-exp="본문에서 비상벨은 비상구 바로 옆에 있다고 했습니다.">
+    <div class="card" data-ans="0" data-exp="본문에서 비상벨은 비상구 바로 옆에 있다고 했습니다." data-word="비상구" data-url="https://k-free.netlify.app/bisanggu.html">
       <div class="qno">9번 (Q9)</div>
       <div class="passage">공장 복도 끝에 비상구가 있습니다. 비상벨은 비상구 바로 옆에 설치되어 있습니다.</div>
       <div class="question">비상벨은 어디에 있습니까?</div>
@@ -218,9 +233,10 @@
         <label><input type="radio" name="q9" value="3"> 4. 옥상 계단</label>
       </div>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/bisanggu.html" target="_blank" rel="noopener">📚 공부 하러 가기: 비상구</a>
     </div>
 
-    <div class="card" data-ans="1" data-exp="안전 교육은 2층 회의실에서 진행됩니다.">
+    <div class="card" data-ans="1" data-exp="안전 교육은 2층 회의실에서 진행됩니다." data-word="안전 교육" data-url="https://k-free.netlify.app/anjeon_gyoyuk.html">
       <div class="qno">10번 (Q10)</div>
       <div class="passage">[안전 교육] 오늘 오후 2시, 2층 회의실에서 안전 교육이 있습니다. 모두 참석하세요.</div>
       <div class="question">안전 교육 장소는 어디입니까?</div>
@@ -231,9 +247,10 @@
         <label><input type="radio" name="q10" value="3"> 4. 지하 창고</label>
       </div>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/anjeon_gyoyuk.html" target="_blank" rel="noopener">📚 공부 하러 가기: 안전 교육</a>
     </div>
 
-    <div class="card" data-ans="2" data-exp="본문은 불을 켜거나 전기 기구를 쓰면 안 된다고 말합니다.">
+    <div class="card" data-ans="2" data-exp="본문은 불을 켜거나 전기 기구를 쓰면 안 된다고 말합니다." data-word="가스 누출" data-url="https://k-free.netlify.app/gaseunuchul.html">
       <div class="qno">11번 (Q11)</div>
       <div class="passage">기숙사에서 가스 냄새가 나면 먼저 창문을 열고 즉시 관리자에게 알려야 합니다. 불을 켜거나 전기 기구를 사용하면 안 됩니다.</div>
       <div class="question">가스 냄새가 날 때 해서는 안 되는 행동은?</div>
@@ -244,9 +261,10 @@
         <label><input type="radio" name="q11" value="3"> 4. 밖으로 나가기</label>
       </div>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/gaseunuchul.html" target="_blank" rel="noopener">📚 공부 하러 가기: 가스 누출</a>
     </div>
 
-    <div class="card" data-ans="1" data-exp="혼자 참지 말고 바로 관리자에게 알리는 것이 먼저입니다.">
+    <div class="card" data-ans="1" data-exp="혼자 참지 말고 바로 관리자에게 알리는 것이 먼저입니다." data-word="신고" data-url="https://k-free.netlify.app/singo.html">
       <div class="qno">12번 (Q12)</div>
       <div class="passage">작업 중 다쳤을 때는 혼자 참지 말고 바로 관리자에게 알리세요. 응급 상황이면 119에 전화하세요.</div>
       <div class="question">다쳤을 때 가장 먼저 해야 할 일은?</div>
@@ -257,6 +275,7 @@
         <label><input type="radio" name="q12" value="3"> 4. 친구에게만 말한다</label>
       </div>
       <div class="exp"></div>
+      <a class="study" href="https://k-free.netlify.app/singo.html" target="_blank" rel="noopener">📚 공부 하러 가기: 신고</a>
     </div>
   </section>
 
@@ -278,6 +297,7 @@
       <summary>듣기와 읽기 준비 (Listening and reading tips)</summary>
       <p>듣기는 대화의 장소, 시간, 방법을 묻는 질문이 많습니다. 읽기는 빈칸 앞뒤 문장의 연결을 보면 답을 찾기 쉽습니다. 틀린 문제는 스크립트와 해설을 함께 확인하세요.</p>
     </details>
+    <p style="margin-top:12px"><a href="https://k-free.netlify.app/" target="_blank" rel="noopener" style="color:#1d4ed8;font-weight:700">📚 K-Free 한국어 학습 홈으로 가기</a></p>
   </section>
 </div>
 
@@ -295,6 +315,32 @@ function playAudio(btn){
     speechSynthesis.speak(u);
   }
 }
+
+// ---------- Immediate feedback after each answer ----------
+function lockCard(card, picked){
+  if (card.dataset.done) return;
+  card.dataset.done = '1';
+  card.dataset.picked = picked === null ? '' : String(picked);
+
+  const ans = Number(card.dataset.ans);
+  const radios = card.querySelectorAll('input[type="radio"]');
+  radios.forEach(r => r.disabled = true);
+  radios[ans].parentElement.classList.add('correct');
+  if (picked !== null && picked !== ans) radios[picked].parentElement.classList.add('wrong');
+
+  const ok = picked === ans;
+  const label = picked === null ? '미응답 (No answer)' : (ok ? '정답 ✅ (Correct)' : '오답 ❌ (Wrong)');
+  const exp = card.querySelector('.exp');
+  exp.className = 'exp ' + (ok ? 'ok' : 'ng');
+  exp.innerHTML = `<b>${label}</b> — 정답: ${radios[ans].parentElement.textContent.trim()}<div>${card.dataset.exp}</div>`;
+
+  card.querySelector('.study').classList.add('show');
+}
+
+document.getElementById('testForm').addEventListener('change', e => {
+  if (!e.target.matches('input[type="radio"]')) return;
+  lockCard(e.target.closest('.card'), Number(e.target.value));
+});
 
 // ---------- Timer ----------
 let remaining = 15 * 60;
@@ -315,35 +361,29 @@ function submitTest(){
   clearInterval(tick);
   if ('speechSynthesis' in window) speechSynthesis.cancel();
 
-  let correct = 0;
   const cards = document.querySelectorAll('.card');
-  cards.forEach((card) => {
-    const ans = Number(card.dataset.ans);
-    const name = card.querySelector('input[type="radio"]').name;
-    const checked = document.querySelector(`input[name="${name}"]:checked`);
-    const picked = checked ? Number(checked.value) : -1;
-    const isOk = picked === ans;
-    if (isOk) correct++;
+  cards.forEach(card => lockCard(card, null)); // 아직 답하지 않은 문제는 미응답으로 처리
 
-    card.querySelectorAll(`input[name="${name}"]`).forEach(r => r.disabled = true);
-    card.querySelectorAll(`input[name="${name}"]`)[ans].parentElement.style.background = '#dcfce7';
-
-    const expEl = card.querySelector('.exp');
-    const correctText = card.querySelectorAll('.opts label')[ans].textContent.trim();
-    const explain = card.dataset.exp ? `<div>${card.dataset.exp}</div>` : '';
-    const label = isOk ? '정답 ✅ (Correct)' : (picked === -1 ? '미응답 (No answer)' : '오답 ❌ (Wrong)');
-    expEl.className = 'exp ' + (isOk ? 'ok' : 'ng');
-    expEl.innerHTML = `<b>${label}</b> — 정답: ${correctText}${explain}`;
+  let correct = 0;
+  const wrongLinks = [];
+  cards.forEach(card => {
+    if (Number(card.dataset.picked) === Number(card.dataset.ans) && card.dataset.picked !== '') {
+      correct++;
+    } else {
+      wrongLinks.push(`<a href="${card.dataset.url}" target="_blank" rel="noopener">📚 ${card.dataset.word} 공부 하러 가기</a>`);
+    }
   });
 
   const total = cards.length;
   const pct = Math.round(correct / total * 100);
+  const uniqueLinks = [...new Set(wrongLinks)];
   const res = document.getElementById('result');
   res.style.display = 'block';
   res.innerHTML = `
     <div>총점 (Score)</div>
     <div class="score">${correct} / ${total} (${pct}점 환산 100점 만점)</div>
     <p>${pct >= 80 ? '아주 잘했어요! 🎉 (Excellent!)' : pct >= 60 ? '괜찮아요. 틀린 문제를 다시 확인해 보세요. (Good, review the wrong ones.)' : '조금 더 연습이 필요해요. 💪 (Keep practicing!)'}</p>
+    ${uniqueLinks.length ? `<div class="review"><b>틀린 문제 다시 공부하기 (Review)</b>${uniqueLinks.join('')}</div>` : ''}
     <button type="button" class="btn gray" onclick="location.reload()">다시 풀기 (Retry)</button>`;
   document.getElementById('submitBtn').disabled = true;
   res.scrollIntoView({ behavior: 'smooth' });
