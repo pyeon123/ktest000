@@ -776,9 +776,9 @@ function shareApp() {
 function visitFacebook() { window.open("https://www.facebook.com/profile.php?id=100091484077264", "_blank"); }
 function updateSEOData(catId) {
     if (!catId) {
-        document.getElementById('seo-title').innerText = "Free Korean Self Study with AI";
+        document.getElementById('seo-title').innerText = "Learn Korean by Yourself with AI";
         document.getElementById('seo-desc').setAttribute("content", "Master Korean through fun interactive games! Challenge yourself with over 3,000 Korean Word quizzes for EPS-TOPIK. Perfect for K-Drama fans and learners worldwide.");
-        document.getElementById('main-header').innerText = "Free Korean Self Study with AI";
+        document.getElementById('main-header').innerText = "Learn Korean by Yourself with AI";
         injectSafeSEOData(null);
         return;
         
